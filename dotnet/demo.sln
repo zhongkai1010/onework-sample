@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "net_web_ioc", "net_web_ioc\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "net_database_schema", "net_database_schema\net_database_schema.csproj", "{DF677A63-AD8D-41FD-B175-252124CF25DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asp_net_stackexchange_exceptional_sample", "asp_net_stackexchange_exceptional_sample\asp_net_stackexchange_exceptional_sample.csproj", "{F8ED658C-BE2A-48CB-8022-1ABBA5467753}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "net_email", "net_email\net_email.csproj", "{D5C17038-4DBF-4FCB-979C-24DDA688E51B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{DF677A63-AD8D-41FD-B175-252124CF25DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF677A63-AD8D-41FD-B175-252124CF25DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF677A63-AD8D-41FD-B175-252124CF25DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8ED658C-BE2A-48CB-8022-1ABBA5467753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8ED658C-BE2A-48CB-8022-1ABBA5467753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8ED658C-BE2A-48CB-8022-1ABBA5467753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8ED658C-BE2A-48CB-8022-1ABBA5467753}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5C17038-4DBF-4FCB-979C-24DDA688E51B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5C17038-4DBF-4FCB-979C-24DDA688E51B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5C17038-4DBF-4FCB-979C-24DDA688E51B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5C17038-4DBF-4FCB-979C-24DDA688E51B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
