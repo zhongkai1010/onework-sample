@@ -14,16 +14,8 @@ import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import './assets/css/base.css';
 import App from './App.vue';
-import Index from './views/Index.vue';
-import Login from './views/Login.vue';
-
-// 2. 定义一些路由
-// 每个路由都需要映射到一个组件。
-// 我们后面再讨论嵌套路由。
-const routes = [
-    { path: '/', component: Index },
-    { path: '/login', component: Login },
-];
+import routes from './routes/index';
+import userStore from './store/userStore';
 
 // 3. 创建路由实例并传递 `routes` 配置
 // 你可以在这里输入更多的配置，但我们在这里
@@ -33,19 +25,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes, // `routes: routes` 的缩写
 });
+ 
 
-const store = createStore({
-    state() {
-        return {
-            count: 0,
-        };
-    },
-    mutations: {
-        increment(state) {
-            state.count++;
-        },
-    },
-});
-
-createApp(App).use(store).use(router).use(ElementPlus)
+createApp(App).use(userStore).use(router).use(ElementPlus)
     .mount('#app');

@@ -30,24 +30,24 @@
 </template>
 
 <script>
-import { ElNotification } from 'element-plus';
-import { defineComponent } from 'vue';
+import { ElNotification } from "element-plus";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   data() {
     return {
       loginData: {
-        username: '',
-        password: '',
+        username: "",
+        password: "",
       },
       formRules: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { required: true, message: "请输入用户名", trigger: "blur" },
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { message: '密码长度必须大于6位', min: 6, trigger: 'blur' },
+          { required: true, message: "请输入密码", trigger: "blur" },
+          { message: "密码长度必须大于6位", min: 6, trigger: "blur" },
         ],
       },
     };
@@ -56,10 +56,8 @@ export default defineComponent({
     login() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          ElNotification({
-            title: 'Success',
-            message: 'This is a success message',
-            type: 'success',
+          this.$store.dispatch("login", {
+            username: this.$data.loginData.username,
           });
         }
       });
