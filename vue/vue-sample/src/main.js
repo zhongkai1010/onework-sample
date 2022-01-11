@@ -7,9 +7,9 @@
  * @FilePath: \vue-sample\src\main.js
  * 可以输入预定的版权声明、个性签名、空行等
  */
+import devtools from '@vue/devtools'
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { createStore } from 'vuex';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import './assets/css/base.css';
@@ -25,7 +25,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes, // `routes: routes` 的缩写
 });
- 
 
+ 
 createApp(App).use(userStore).use(router).use(ElementPlus)
     .mount('#app');

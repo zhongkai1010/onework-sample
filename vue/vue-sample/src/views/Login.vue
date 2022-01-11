@@ -56,7 +56,7 @@ export default defineComponent({
     login() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.$store.dispatch("login", {
+          this.$store.commit("setUserName", {
             username: this.$data.loginData.username,
           });
         }
