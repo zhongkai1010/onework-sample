@@ -1,25 +1,31 @@
 export default [
     {
         path: '/',
-        component: import('../views/Layout.vue'),
+        component: import('../views/layout.vue'),
+
         children: [
             {
+                path: '',
+                component: import('../views/main.vue'),
+            },
+            {
                 path: 'user',
-                component: import('../views/Index/User.vue'),
+                component: import('../views/user/index.vue'),
             },
             {
                 path: 'role',
-                component: import('../views/Index/Role.vue'),
-            }
+                component: import('../views/role/index.vue'),
+            },
+
         ]
     },
     {
         path: '/login',
-        component: import('../views/Login.vue'),
+        component: import('../views/login.vue'),
     },
     {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
-        component: import('../views/NotFound.vue'),
+        component: import('../views/not-found.vue'),
     },
 ]
