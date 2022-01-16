@@ -1,9 +1,11 @@
 package com.onework.springbootmvcsample.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author : zhongkai1010@163.com
@@ -13,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description: 描述
  * @date Date : 2022年01月14日 16:09
  */
+@Controller
 @RequestMapping("/home")
-@RestController
 public class HomeController {
+
     @GetMapping("index")
-    public String Index() {
-        return "Hello Word122123123";
+    public String Index(Model model, HttpServletRequest request) {
+        model.addAttribute("name", "test");
+        return "index";
     }
 }
