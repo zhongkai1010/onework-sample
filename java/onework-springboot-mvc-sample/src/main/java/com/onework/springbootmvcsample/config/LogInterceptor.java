@@ -1,4 +1,4 @@
-package com.onework.springbootmvcsample.config.interceptor;
+package com.onework.springbootmvcsample.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,16 +19,18 @@ import org.springframework.web.context.request.WebRequestInterceptor;
 @Component
 public class LogInterceptor implements WebRequestInterceptor {
 
-    @Override public void preHandle(WebRequest request) throws Exception {
-        log.info("---------------preHandle-----------------");
+    @Override
+    public void preHandle(WebRequest request) {
+        log.info("----LogInterceptor-preHandle----");
     }
 
-    @Override public void postHandle(WebRequest request, ModelMap model) throws Exception {
-        log.info("---------------postHandle-----------------");
-
+    @Override
+    public void postHandle(WebRequest request, ModelMap model) {
+        log.info("----LogInterceptor-postHandle----");
     }
 
-    @Override public void afterCompletion(WebRequest request, Exception ex) throws Exception {
-        log.info("---------------afterCompletion-----------------");
+    @Override
+    public void afterCompletion(WebRequest request, Exception ex) {
+        log.info("----LogInterceptor-afterCompletion----");
     }
 }

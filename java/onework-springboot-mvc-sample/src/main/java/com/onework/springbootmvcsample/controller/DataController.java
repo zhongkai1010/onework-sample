@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.bind.ValidationException;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -22,8 +23,8 @@ import java.util.Date;
 @RestController
 @RequestMapping("/api/data")
 public class DataController {
-    @GetMapping("index")
-    @ResponseBody
+
+    @GetMapping("test0")
     public TestData test0() {
         TestData data = new TestData();
         data.setData1("test");
@@ -44,5 +45,26 @@ public class DataController {
     @GetMapping("test2")
     public LocalDateTime Test2() {
         return LocalDateTime.now();
+    }
+
+    @GetMapping("test3")
+    public LocalDateTime Test3() throws Exception {
+        throw new Exception("测试异常");
+    }
+
+    @GetMapping("test4")
+    public LocalDateTime Test4() throws ValidationException {
+        throw new ValidationException("验证异常");
+    }
+
+    @GetMapping("test5")
+    public Integer Test5() {
+        return 0;
+    }
+
+    @ResponseBody
+    @GetMapping("test6")
+    public String Test6() {
+        return "测试文本";
     }
 }
