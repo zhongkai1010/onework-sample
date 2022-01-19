@@ -19,15 +19,21 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/user")
 public class UserController {
 
-    @GetMapping("login")
-    public static String Login(HttpServletRequest request) {
+    @GetMapping("test1")
+    public static String Test1(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("username", "zhongkai");
         return "login";
     }
 
-    @GetMapping("test01")
-    public static String Test01(HttpServletRequest request) {
+    @GetMapping("test2")
+    public static String Test2(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return session.getAttribute("username").toString();
+    }
+
+    @GetMapping("test3")
+    public static String Test3(HttpServletRequest request) {
         HttpSession session = request.getSession();
         return session.getAttribute("username").toString();
     }
