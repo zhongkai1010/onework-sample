@@ -13,7 +13,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @version: 1.0
  */
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = "onework/springframework/sample") public class SpringFrameworkApplicationBoot {
+@ComponentScan(basePackages = "onework/springframework/sample")
+public class SpringFrameworkApplicationBoot {
     public static void main(String[] args) {
 
     }
