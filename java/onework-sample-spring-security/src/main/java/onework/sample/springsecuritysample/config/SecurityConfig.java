@@ -22,9 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // @formatter:off
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests((requests) -> requests.anyRequest().authenticated());
-        http.formLogin();
-        http.httpBasic();
+      super.configure(http);
     }
     // @formatter:on
 }
