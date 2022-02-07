@@ -1,7 +1,9 @@
 package com.onework.samplespringdata.repositories;
 
 import com.onework.samplespringdata.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * @author : zhongkai1010@163.com
@@ -12,6 +14,6 @@ import org.springframework.data.repository.CrudRepository;
  * @date Date : 2022年01月27日 11:40
  */
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }

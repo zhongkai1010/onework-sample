@@ -1,10 +1,16 @@
 package com.onework.samplespringdata.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author : zhongkai1010@163.com
@@ -15,15 +21,29 @@ import java.io.Serializable;
  * @date Date : 2022年01月27日 10:56
  */
 @Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User implements Serializable {
-    @Id @Column(name = "id", nullable = false) private Long id;
+    @Id
+    @GeneratedValue
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "created", updatable = false, nullable = false)
+    @CreatedDate
+    private LocalDateTime created;
+
+    @Column(name = "updated", insertable = false)
+    @LastModifiedDate
+    private LocalDateTime updated;
+
+    @Column(name = "deleted")
+    private LocalDateTime deleted;
 }
