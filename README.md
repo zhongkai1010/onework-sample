@@ -1,27 +1,37 @@
 # Onework-Sample 档案记录
 # 一、简要说明
-本仓库主要存放项目开发或者学习新技术过程中所涉及到的相关组件使用或者关键技术点的示例程序，便于加深对组件或技术的理解，同时便于后续项目开发过程中进行快速介入。
+本仓库主要存放各类开源组件或新技术点运用相关示例程序，便于后续实际开发过程中如何更好搭建项目组件方面提供参考依据。
+
+开始搭建过程中对示例程序命名进行规范，命名规范：
+
+* 类库名或工程名统一采用小写字母加下划线命名法
+* 命名中需要区分出是console、web、app示例等，如引用第三方组件需要包含其中，如是特定功能需要涵盖英文描述
+**.NET 规范**
+* 以*net、aspnet、netcore、aspnetcore*开头命名，分别区分framework与core
+* 下划线需要表明功能或第三方组件名称，例如：邮件示例（net\_email）、autofac示例(*netcore\_autofac*)
+**Java 规范**
+* 以*maven、spring、springboot、console、web、app*开头命名
 
 # 二、文件目录
 ```Plain Text
 |-- onework-sample
     |-- README.md
     |-- dotnet
-    |   |-- asp_net_core_autofac
-    |   |-- asp_net_docker
-    |   |-- asp_net_stackexchange_exceptional_sample
-    |   |-- dynamic_asp_net_core
-    |   |-- net_core_ef
-    |   |-- net_core_rabbitmq
-    |   |-- net_core_rabbitmq_consumer
-    |   |-- net_database_schema
+    |   |-- aspnetcore_autofac
+    |   |-- aspnetcore_docker
+    |   |-- aspnet_stackexchange_exceptional
+    |   |-- aspnetcore_dynamic_web
+    |   |-- netcore_ef
+    |   |-- netcore_rabbitmq
+    |   |-- netcore_rabbitmq_consumer
+    |   |-- netcore_schema
     |   |-- net_email
     |   |-- net_module
-    |   |-- net_web_ioc
-    |   |-- dotnet6_automapper_sample --基于.NET 6 下使用AutoMapper进行数据映射
+    |   |-- aspnetcore_ioc
+    |   |-- netcore6_automapper --基于.NET 6 下使用AutoMapper进行数据映射
     |-- java
     |   |-- onework-database-generator
-    |   |-- onework-maven-sample
+    |   |-- onework-maven-sample --验证maven的POM文件，子模块相关配置
     |   |-- onework-mybatis-plus-sample
     |   |-- onework-mybatis-sample
     |   |-- onework-springframework.sample 
@@ -37,23 +47,22 @@
         |-- vue-ts-sample
 ```
 # 三、.NET示例
-## （1）asp\_net\_core\_autofac
-## （2）asp\_net\_docker
-## （3）asp\_net\_stackexchange\_exceptional\_sampledynamic\_asp\_net\_core
-## （4）net\_core\_ef
-## （5）net\_core\_rabbitmq
-## （6）net\_core\_rabbitmq\_consumer
-## （7）net\_database\_schema
-## （8）net\_database\_schema
-## （9）net\_email
-## （10）net\_module
-## （11）net\_web\_ioc
-## （12）dotnet6\_automapper\_sample
+## （1）aspnetcore\_autofac
+## （2）aspnetcore\_docker
+## （3）aspnetcore\_ioc
+## （4）aspnet\_stackexchange\_exceptional
+## （5）aspnetcore\_dynamic\_web
+## （6）netcore\_ef
+## （7）netcore\_rabbitmq
+## （8）netcore\_rabbitmq\_consumer
+## （9）netcore\_schema
+## （10）netcore6\_automapper 
 
 * 如何初始化配置AutoMapper配置
 * 如何通过配置扫描Profile文件、标记AutoMap类，简化配置。
 * AutoMap映射规则
-
+## （11）net\_email
+## （12）net\_module
 # 四、Java示例
 ## （1）onework-database-generator
 
@@ -62,6 +71,7 @@
 
 * maven目录结构
 * POM文件配置
+* 子模块POM配置继承关系
 ## （3）onework-mybatis-plus-sample
 * mybatisplus的代码生成器
 * 代码生成器中swagger运用
@@ -87,13 +97,14 @@
 * 会话的写入和读取
 * 会话数据存储
 
-# 四、Node示例
+# 五、NodeJs示例
 * node-grpc
 * node-sequelize-sqlite
 
-# 四、react示例
+# 六、React示例
 * hook-demo
 
-# 四、vue示例
+# 七、vue示例
 * vue-sample
 * vue-ts-sample
+# 八、其他

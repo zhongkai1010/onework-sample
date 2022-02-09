@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D5C17038-4DBF-4FCB-979C-24DDA688E51B}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>net_email</RootNamespace>
+    <RootNamespace>OneWork</RootNamespace>
     <AssemblyName>net_email</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
