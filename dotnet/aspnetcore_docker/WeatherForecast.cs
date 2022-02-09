@@ -1,6 +1,6 @@
 using System;
 
-namespace asp_net_docker
+namespace OneWork
 {
     public class WeatherForecast
     {

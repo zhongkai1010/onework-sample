@@ -1,10 +1,6 @@
-﻿using System;
-using System.Data.SqlClient;
-
-
-namespace net_database_schema
+﻿namespace OneWork
 {
-    class Program
+    internal class Program
     {
        static void Main(string[]rgs)
         {
