@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore_rabbitmq_consumer",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore_codesmith", "netcore_codesmith\netcore_codesmith.csproj", "{8F0670AE-3C3A-4AC3-9F81-120313A41534}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore_sample", "aspnetcore_sample\aspnetcore_sample.csproj", "{C35C9625-C239-48D7-BBC6-B19FE354BEB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore_sample", "aspnetcore_sample\aspnetcore_sample.csproj", "{C35C9625-C239-48D7-BBC6-B19FE354BEB8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore_sample", "netcore_sample\netcore_sample.csproj", "{3AA31DA2-37C6-454C-9237-B41B1E6DBF29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{C35C9625-C239-48D7-BBC6-B19FE354BEB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C35C9625-C239-48D7-BBC6-B19FE354BEB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C35C9625-C239-48D7-BBC6-B19FE354BEB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AA31DA2-37C6-454C-9237-B41B1E6DBF29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA31DA2-37C6-454C-9237-B41B1E6DBF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AA31DA2-37C6-454C-9237-B41B1E6DBF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AA31DA2-37C6-454C-9237-B41B1E6DBF29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

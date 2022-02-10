@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,18 +12,16 @@ namespace aspnetcore_sample
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args)
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            IHostBuilder hostBuilder = Host.CreateDefaultBuilder(args);
-            hostBuilder.ConfigureServices((hostContext, services) =>
-            {
-                services.AddHostedService<CustomHostedService>();
-            });
-            hostBuilder.ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
-            return hostBuilder;
+            IWebHostBuilder webHostBuilder = WebHost.CreateDefaultBuilder(args);
+
+            webHostBuilder.UseStartup<Startup>();
+
+            return webHostBuilder;
         }
     }
 

@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "netcore_sample": {
+      "commandName": "Project"
+    }
+  }
+}
