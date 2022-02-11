@@ -1,7 +1,10 @@
 {
   "profiles": {
     "netcore_sample": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "environmentVariables": {
+        "SecretKey": "abv"
+      }
     }
   }
 }
