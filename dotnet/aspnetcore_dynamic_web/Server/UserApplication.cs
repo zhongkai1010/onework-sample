@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace dynamic_asp_net_core.Server
+namespace OneWork.Server
 {
     public class UserApplication
     {

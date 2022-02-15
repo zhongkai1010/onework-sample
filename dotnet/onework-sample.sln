@@ -29,6 +29,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore_sample", "aspnet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore_sample", "netcore_sample\netcore_sample.csproj", "{3AA31DA2-37C6-454C-9237-B41B1E6DBF29}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore_api_sample", "aspnetcore_api_sample\aspnetcore_api_sample.csproj", "{05DBE1C4-FED1-4975-9DBA-1A81A72E84C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore_configuration_sample", "aspnetcore_configuration_sample\aspnetcore_configuration_sample.csproj", "{D6B0D0E4-2F96-420D-A118-8A36CEC2E91B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +91,14 @@ Global
 		{3AA31DA2-37C6-454C-9237-B41B1E6DBF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AA31DA2-37C6-454C-9237-B41B1E6DBF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AA31DA2-37C6-454C-9237-B41B1E6DBF29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05DBE1C4-FED1-4975-9DBA-1A81A72E84C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05DBE1C4-FED1-4975-9DBA-1A81A72E84C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05DBE1C4-FED1-4975-9DBA-1A81A72E84C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05DBE1C4-FED1-4975-9DBA-1A81A72E84C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6B0D0E4-2F96-420D-A118-8A36CEC2E91B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6B0D0E4-2F96-420D-A118-8A36CEC2E91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6B0D0E4-2F96-420D-A118-8A36CEC2E91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6B0D0E4-2F96-420D-A118-8A36CEC2E91B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

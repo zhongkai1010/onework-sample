@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using dynamic_asp_net_core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace dynamic_asp_net_core.Controllers
+namespace OneWork.Controllers
 {
     [ApiController]
     [Route("[controller]")]

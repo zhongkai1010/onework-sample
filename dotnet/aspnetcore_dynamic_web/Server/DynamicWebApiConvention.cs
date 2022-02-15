@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace dynamic_asp_net_core.Server
+namespace OneWork.Server
 {
     public class DynamicWebApiConvention : IApplicationModelConvention
     {

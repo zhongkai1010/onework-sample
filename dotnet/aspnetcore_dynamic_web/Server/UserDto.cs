@@ -1,4 +1,4 @@
-﻿namespace dynamic_asp_net_core.Server
+﻿namespace OneWork.Server
 {
     public class UserDto
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace net_module
+namespace OneWork
 {
     class Program
     {
@@ -14,8 +14,6 @@ namespace net_module
             {
                 Console.WriteLine(type.FullName);
             }
-
-          
 
             Console.Read();
         }
