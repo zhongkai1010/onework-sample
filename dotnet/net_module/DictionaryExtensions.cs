@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OneWork.Extensions
+namespace OneWork
 {
     public static class DictionaryExtensions
     {

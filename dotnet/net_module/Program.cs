@@ -1,21 +1,46 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace OneWork
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] rgs)
+        static Task Main(string[] args) =>
+            CreateHostBuilder(args).Build().RunAsync();
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureHostConfiguration(builder =>
+                {
+                    Console.WriteLine("ConfigureHostConfiguration");
+                })
+                .ConfigureAppConfiguration(builder =>
+                {
+                    Console.WriteLine("ConfigureAppConfiguration");
+                })
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddApplication<ApplicationBootModule>();
+                    services.AddHostedService<AppHostedService>();
+                });
+    }
+
+    public class AppHostedService : IHostedService
+    {
+        public Task StartAsync(CancellationToken cancellationToken)
         {
-            Assembly assembly  = Assembly.GetAssembly(typeof(Program));
+            Console.WriteLine("AppHostedService-StartAsync");
+            return Task.CompletedTask;
+        }
 
-
-            foreach (Type type in assembly.GetTypes())
-            {
-                Console.WriteLine(type.FullName);
-            }
-
-            Console.Read();
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            Console.WriteLine("AppHostedService-StartAsync");
+            return Task.CompletedTask;
         }
     }
 }

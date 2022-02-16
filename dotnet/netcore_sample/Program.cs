@@ -17,6 +17,7 @@ namespace OneWork
             Host.CreateDefaultBuilder(args)
                 .ConfigureHostConfiguration(builder =>
                 {
+                     
                     Console.WriteLine("ConfigureHostConfiguration");
                 })
                 .ConfigureAppConfiguration(builder =>
