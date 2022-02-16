@@ -1,4 +1,4 @@
-﻿namespace OneWork
+﻿namespace OneWork.Core
 {
     public interface IAppModule
     {

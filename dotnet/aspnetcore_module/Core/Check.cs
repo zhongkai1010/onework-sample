@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using JetBrains.Annotations;
 
-namespace OneWork
+namespace OneWork.Core
 {
     [DebuggerStepThrough]
     public static class Check

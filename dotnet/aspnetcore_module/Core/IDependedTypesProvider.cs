@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 
-namespace OneWork
+namespace OneWork.Core
 {
     public interface IDependedTypesProvider
     {
