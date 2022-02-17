@@ -1,7 +1,8 @@
 ﻿using System;
-using OneWork.Core;
+using OneWork;
+using OneWork.Modularity;
 
-namespace OneWork.Tests
+namespace Tests
 {
     [DependsOn(typeof(Module4))]
     public class Module3 : AppModule

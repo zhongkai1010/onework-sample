@@ -1,7 +1,9 @@
 ﻿using System;
-using OneWork.Core;
+using Microsoft.Extensions.DependencyInjection;
+using OneWork;
+using OneWork.Modularity;
 
-namespace OneWork.Tests
+namespace Tests
 {
     [DependsOn(typeof(Module3))]
     public class Module2 : AppModule
@@ -10,6 +12,8 @@ namespace OneWork.Tests
         {
             Console.WriteLine("Module2-ConfigureServices");
 
+            var config = context.Services.GetConfiguration();
+            Configure<TransientFaultHandlingOptions>(config.GetSection("TransientFaultHandlingOptions"));
         }
     }
 }

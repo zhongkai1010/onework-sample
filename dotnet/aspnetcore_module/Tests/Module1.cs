@@ -1,25 +1,26 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using OneWork.Core;
+﻿using System;
+using OneWork;
+using OneWork.Modularity;
 
-namespace OneWork.Tests
+namespace Tests
 {
     [DependsOn(typeof(Module2))]
     public class Module1 : AppModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            var configuration = context.Services.GetConfiguration();
+            Console.WriteLine("Module1-ConfigureServices");
+        }
 
-            Configure<Module1Options>(configuration.GetSection(Module1Options.Module1));
+        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+        {
+            base.OnApplicationInitialization(context);
+
+        }
+
+        public override void PostConfigureServices(ServiceConfigurationContext context)
+        {
+            base.PostConfigureServices(context);
         }
     }
-
-
-    public class Module1Options
-    {
-        public const string Module1 = "Module1";
-
-        public string Name { get; set; }
-    }
-
 }

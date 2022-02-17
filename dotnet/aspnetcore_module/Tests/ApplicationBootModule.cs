@@ -1,8 +1,10 @@
 ﻿using System;
-using Microsoft.Extensions.Options;
-using OneWork.Core;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using OneWork;
+using OneWork.Modularity;
 
-namespace OneWork.Tests
+namespace Tests
 {
     [DependsOn(typeof(Module1))]
     public class ApplicationBootModule : AppModule
@@ -11,10 +13,18 @@ namespace OneWork.Tests
         {
             Console.WriteLine("ApplicationBootModule-ConfigureServices");
 
+            IConfiguration config = context.Services.GetConfiguration();
 
-            IOptions<Module1Options> options = context.Services.GetSingletonInstance<IOptions<Module1Options>>();
+            Settings settings = config.GetRequiredSection("Settings").Get<Settings>();
 
-            Console.WriteLine($"ApplicationBootModule-ConfigureServices-Config:{options.Value.Name}");
+            TransientFaultHandlingOptions options = new TransientFaultHandlingOptions();
+
+            config.GetSection(nameof(TransientFaultHandlingOptions)) .Bind(options);
+ 
+            // Write the values to the console.
+            Console.WriteLine($"KeyOne = {settings.KeyOne}");
+            Console.WriteLine($"KeyTwo = {settings.KeyTwo}");
+            Console.WriteLine($"KeyThree:Message = {settings.KeyThree.Message}");
         }
     }
 }
