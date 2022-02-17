@@ -21,10 +21,14 @@ namespace Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
+        private IUserRepository _userRepository;
+
         public WeatherForecastController(ILogger<WeatherForecastController> logger,
-            IOptions<TransientFaultHandlingOptions> options)
+            IOptions<TransientFaultHandlingOptions> options, IUserRepository userRepository)
         {
             _logger = logger;
+
+            _userRepository = userRepository;
 
             transientFaultHandlingOptions = options.Value;
         }
@@ -32,6 +36,8 @@ namespace Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            _userRepository.Add();
+            
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {
