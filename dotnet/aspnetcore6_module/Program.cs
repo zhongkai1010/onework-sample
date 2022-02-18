@@ -1,11 +1,12 @@
+using Tests;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-
+builder.Services.AddApplication<ApplicationBootModule>();
 
 var app = builder.Build();
+
+builder.WebHost.Configure(applicationBuilder => applicationBuilder.InitializeApplication());
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

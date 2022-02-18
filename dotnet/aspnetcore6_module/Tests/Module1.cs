@@ -11,8 +11,6 @@ namespace Tests
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             Console.WriteLine("Module1-ConfigureServices");
-
-            Configure<TransientFaultHandlingOptions>(context.Services.GetConfiguration().GetSection("TransientFaultHandlingOptions"));
         }
     }
 }
