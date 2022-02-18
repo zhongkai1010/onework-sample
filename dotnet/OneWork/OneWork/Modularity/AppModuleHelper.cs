@@ -16,7 +16,7 @@ namespace OneWork.Modularity
 
         public static List<Type> FindDependedModuleTypes(Type moduleType)
         {
-            AppModule.CheckAbpModuleType(moduleType);
+            AppModule.CheckAppModuleType(moduleType);
 
             var dependencies = new List<Type>();
 
@@ -37,7 +37,7 @@ namespace OneWork.Modularity
 
         private static void AddModuleAndDependenciesResursively(List<Type> moduleTypes, Type moduleType)
         {
-            AppModule.CheckAbpModuleType(moduleType);
+            AppModule.CheckAppModuleType(moduleType);
 
             if (moduleTypes.Contains(moduleType))
             {

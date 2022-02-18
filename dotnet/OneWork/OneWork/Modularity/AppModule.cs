@@ -37,7 +37,7 @@ namespace OneWork.Modularity
 
         }
 
-        public static bool IsAbpModule(Type type)
+        public static bool IsAppModule(Type type)
         {
             var typeInfo = type.GetTypeInfo();
 
@@ -48,9 +48,9 @@ namespace OneWork.Modularity
                 typeof(IAppModule).GetTypeInfo().IsAssignableFrom(type);
         }
 
-        internal static void CheckAbpModuleType(Type moduleType)
+        internal static void CheckAppModuleType(Type moduleType)
         {
-            if (!IsAbpModule(moduleType))
+            if (!IsAppModule(moduleType))
             {
                 throw new ArgumentException("Given type is not an app module: " + moduleType.AssemblyQualifiedName);
             }

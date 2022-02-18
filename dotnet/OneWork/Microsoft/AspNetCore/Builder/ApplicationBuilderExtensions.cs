@@ -1,6 +1,4 @@
 using JetBrains.Annotations;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using OneWork;
 using OneWork.DependencyInjection;
 

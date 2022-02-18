@@ -10,6 +10,12 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public  static class ServiceCollectionConventionalRegistrationExtensions
     {
+        public static IServiceCollection AddConventionalRegistrar(this IServiceCollection services, IConventionalRegistrar registrar)
+        {
+            GetOrCreateRegistrarList(services).Add(registrar);
+            return services;
+        }
+
         public static List<IConventionalRegistrar> GetConventionalRegistrars(this IServiceCollection services)
         {
             return GetOrCreateRegistrarList(services);

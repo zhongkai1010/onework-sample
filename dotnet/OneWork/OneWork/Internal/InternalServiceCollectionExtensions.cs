@@ -31,7 +31,7 @@ namespace OneWork.Internal
 
             services.AddAssemblyOf<IApplication>();
 
-            services.Configure<AppModuleLifecycleOptions>(options =>
+            services.Configure<ModuleLifecycleOptions>(options =>
             {
                 options.Contributors.Add<OnPreApplicationInitializationModuleLifecycleContributor>();
                 options.Contributors.Add<OnApplicationInitializationModuleLifecycleContributor>();

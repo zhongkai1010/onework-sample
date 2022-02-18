@@ -49,12 +49,12 @@ namespace OneWork.Modularity
                 }
             }
 
-            _logger.LogInformation("Initialized all ABP modules.");
+            _logger.LogInformation("Initialized all App modules.");
         }
 
         private void LogListOfModules()
         {
-            _logger.LogInformation("Loaded ABP modules:");
+            _logger.LogInformation("Loaded App modules:");
 
             foreach (var module in _moduleContainer.Modules)
             {

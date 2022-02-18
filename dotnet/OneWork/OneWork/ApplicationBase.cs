@@ -97,9 +97,9 @@ namespace OneWork
 
             foreach (var module in Modules)
             {
-                if (module.Instance is AppModule abpModule)
+                if (module.Instance is AppModule appModule)
                 {
-                    abpModule.ServiceConfigurationContext = context;
+                    appModule.ServiceConfigurationContext = context;
                 }
             }
 
@@ -119,9 +119,9 @@ namespace OneWork
             //ConfigureServices
             foreach (var module in Modules)
             {
-                if (module.Instance is AppModule abpModule)
+                if (module.Instance is AppModule appModule)
                 {
-                    if (!abpModule.SkipAutoServiceRegistration)
+                    if (!appModule.SkipAutoServiceRegistration)
                     {
                         Services.AddAssembly(module.Type.Assembly);
                     }
@@ -152,9 +152,9 @@ namespace OneWork
 
             foreach (var module in Modules)
             {
-                if (module.Instance is AppModule abpModule)
+                if (module.Instance is AppModule appModule)
                 {
-                    abpModule.ServiceConfigurationContext = null;
+                    appModule.ServiceConfigurationContext = null;
                 }
             }
         }
