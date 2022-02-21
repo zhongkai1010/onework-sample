@@ -1,12 +1,14 @@
 using Tests;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication<ApplicationBootModule>();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
-builder.WebHost.Configure(applicationBuilder => applicationBuilder.InitializeApplication());
+ 
+
+app.InitializeApplication();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

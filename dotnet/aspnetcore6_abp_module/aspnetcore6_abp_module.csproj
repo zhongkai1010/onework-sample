@@ -8,7 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OneWork\OneWork.csproj" />
+    <None Include="OneWork.csproj" />
+    <None Include="OneWork.csproj.user" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
   </ItemGroup>
 
 </Project>
