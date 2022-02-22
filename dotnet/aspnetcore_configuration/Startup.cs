@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Modularity;
 using OneWork.Tests;
 
 namespace OneWork
@@ -23,13 +24,9 @@ namespace OneWork
             services.Configure<PositionOptions>(Configuration.GetSection(
                 PositionOptions.Position));
 
-            
+            services.ReplaceConfiguration(Configuration);
 
-            services.AddConfiguration(Configuration, typeof(Startup).Assembly);
-
-     
-
-            // services.AddSingleton<AliyunOSSConfig>(provider => new AliyunOSSConfig().Load(Configuration));
+            services.AddModules(typeof(ConfigurationModule));
 
             services.AddControllersWithViews();
         }

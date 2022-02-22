@@ -1,19 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Configuration;
+﻿using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace OneWork.Tests
+namespace Configuration
 {
     public static class ConfigurationServiceCollectionExtensions
     {
-        public static void AddConfiguration(this IServiceCollection services, IConfiguration configuration,
-            Assembly assembly)
+
+        public static IServiceCollection ReplaceConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            return services.Replace(ServiceDescriptor.Singleton(configuration));
+        }
+
+        public static void AddConfiguration(this IServiceCollection services, Assembly assembly)
         {
             List<Type> types = new List<Type>();
+
+            IConfiguration configuration = services.GetSingletonInstanceOrNull<IConfiguration>();
 
             GetBaseConfigTypes(types, assembly.GetExportedTypes());
 
@@ -25,13 +29,9 @@ namespace OneWork.Tests
 
         public static T GetSingletonInstanceOrNull<T>(this IServiceCollection services)
         {
-#pragma warning disable CS8600
-#pragma warning disable CS8603
             return (T) services
                 .FirstOrDefault(d => d.ServiceType == typeof(T))
                 ?.ImplementationInstance;
-#pragma warning restore CS8603
-#pragma warning restore CS8600
         }
 
 

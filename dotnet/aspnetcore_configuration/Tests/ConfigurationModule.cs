@@ -1,5 +1,4 @@
 ﻿using Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Modularity;
 
 namespace OneWork.Tests
@@ -8,7 +7,7 @@ namespace OneWork.Tests
     {
         public void ConfigureServices(ServiceConfigurationContext context)
         {
-         
+            context.Services.AddConfiguration(typeof(Startup).Assembly);
         }
     }
 }
