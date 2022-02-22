@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfCrypt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Crypt Table="cts_SubjectInfo" Column="IdentityCard"></Crypt>
+  <Crypt Table="cts_SubjectInfo" Column="SubjectName"></Crypt>
+  <Crypt Table="cts_SubjectInfo" Column="Mobile"></Crypt>
+  <Crypt Table="cts_SubjectInfo" Column="Email"></Crypt>
+  <Crypt Table="cts_SubjectInfo" Column="OtherPhone"></Crypt>
+  <Crypt Table="cts_User" Column="IdentityCard"></Crypt>
+  <Crypt Table="cts_User" Column="Email"></Crypt>
+  <Crypt Table="cts_User" Column="PhoneNumber"></Crypt>
+  <Crypt Table="cts_UserInfo" Column="Telephone"></Crypt>
+  <Crypt Table="cts_UserInfo" Column="Email"></Crypt>
+  <Crypt Table="cts_UserThird" Column="PhoneNumber"></Crypt>
+  <Crypt Table="cts_UserThird" Column="Email"></Crypt>
+  <Crypt Table="BE_SubjectProject" Column="SubjectName"></Crypt>
+  <Crypt Table="BE_SubjectProject" Column="IdentityCard"></Crypt>
+  <Crypt Table="cts_EmailHistory" Column="MailTo"></Crypt>
+  <Crypt Table="cts_EmailHistory" Column="MailCc"></Crypt>
+  <Crypt Table="cts_EmailHistory" Column="MailBcc"></Crypt>
+  <Crypt Table="cts_UserExt" Column="Telephone"></Crypt>
+  <Crypt Table="cts_DrugSubjectInfo" Column="IdentityCard"></Crypt>
+  <Crypt Table="cts_DrugSubjectInfo" Column="SubjectName"></Crypt>
+  <Crypt Table="cts_MedicationExitDestruction" Column="Telephone"></Crypt>
+</ArrayOfCrypt>

@@ -20,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\onework\onework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Config\Crypt.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

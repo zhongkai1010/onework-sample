@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Modularity
@@ -17,7 +16,7 @@ namespace Modularity
             ConfigureServices(services, descriptors);
         }
 
-        private static void ConfigureServices(IServiceCollection services, IReadOnlyList<IModuleDescriptor> modules)
+        private static void ConfigureServices(IServiceCollection services,IReadOnlyList<IModuleDescriptor> modules)
         {
             var context = new ServiceConfigurationContext(services);
 
@@ -62,7 +61,7 @@ namespace Modularity
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        private static bool IsAppModule([NotNull] Type type)
+        private static bool IsAppModule(Type type)
         {
             var typeInfo = type.GetTypeInfo();
 
