@@ -25,6 +25,7 @@ builder.Services.AddSingleton<ICache>(provider =>
     return provider.GetRequiredService<DefaultCache>();
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

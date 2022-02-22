@@ -35,7 +35,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore6_webapi", "aspne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore6_abp_module", "aspnetcore6_abp_module\aspnetcore6_abp_module.csproj", "{C466402B-78B6-47B0-9A88-757754B886DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore6_ioc", "aspnetcore6_ioc\aspnetcore6_ioc.csproj", "{7EEFB2AE-9EC5-4358-BD22-CB7589162CB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore6_ioc", "aspnetcore6_ioc\aspnetcore6_ioc.csproj", "{7EEFB2AE-9EC5-4358-BD22-CB7589162CB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetcore6_module", "aspnetcore6_module\aspnetcore6_module.csproj", "{1F968650-67B2-4CD1-BA86-DEE9AB96A698}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5EF56266-1C2B-433F-B4E1-6279B0BF612F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{AB8BFB14-A583-47E3-AB70-5790689CE83B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "onework", "onework\onework.csproj", "{30566F20-B9C6-4A72-B461-33400261A112}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +118,14 @@ Global
 		{7EEFB2AE-9EC5-4358-BD22-CB7589162CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EEFB2AE-9EC5-4358-BD22-CB7589162CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EEFB2AE-9EC5-4358-BD22-CB7589162CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F968650-67B2-4CD1-BA86-DEE9AB96A698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F968650-67B2-4CD1-BA86-DEE9AB96A698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F968650-67B2-4CD1-BA86-DEE9AB96A698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F968650-67B2-4CD1-BA86-DEE9AB96A698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30566F20-B9C6-4A72-B461-33400261A112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30566F20-B9C6-4A72-B461-33400261A112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30566F20-B9C6-4A72-B461-33400261A112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30566F20-B9C6-4A72-B461-33400261A112}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +147,8 @@ Global
 		{C1F52B2E-C369-4731-A71B-2EAE5137E3A9} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 		{C466402B-78B6-47B0-9A88-757754B886DE} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 		{7EEFB2AE-9EC5-4358-BD22-CB7589162CB1} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
+		{1F968650-67B2-4CD1-BA86-DEE9AB96A698} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
+		{30566F20-B9C6-4A72-B461-33400261A112} = {AB8BFB14-A583-47E3-AB70-5790689CE83B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89F8EEE9-BDA3-47AD-8F8B-05446B2DA32E}

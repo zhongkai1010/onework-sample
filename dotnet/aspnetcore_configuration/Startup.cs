@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OneWork.Tests;
 
 namespace OneWork
 {
@@ -18,9 +19,12 @@ namespace OneWork
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<PositionOptions>(Configuration.GetSection(
                 PositionOptions.Position));
 
+            services.AddSingleton<AliyunOSSConfig>();
+ 
             services.AddControllersWithViews();
         }
 
