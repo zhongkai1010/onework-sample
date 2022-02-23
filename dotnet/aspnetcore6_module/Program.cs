@@ -1,3 +1,4 @@
+using Modularity;
 using Tests;
 
 var builder = WebApplication.CreateBuilder(args);

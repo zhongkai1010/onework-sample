@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace asp_net_stackexchange_exceptional_sample
+namespace OneWork
 {
     public class FilterConfig
     {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
-namespace asp_net_stackexchange_exceptional_sample
+namespace OneWork
 {
     public static class WebApiConfig
     {

@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace asp_net_stackexchange_exceptional_sample
+namespace OneWork
 {
     public class MvcApplication : System.Web.HttpApplication
     {

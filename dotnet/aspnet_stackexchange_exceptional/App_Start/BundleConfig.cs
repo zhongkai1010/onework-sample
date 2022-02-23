@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace asp_net_stackexchange_exceptional_sample
+namespace OneWork
 {
     public class BundleConfig
     {
