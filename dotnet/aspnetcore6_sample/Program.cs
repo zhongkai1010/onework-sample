@@ -2,18 +2,13 @@ using Configuration;
 using Microsoft.Extensions.Options;
 using Modularity;
 using Tests;
+using Tests.Configuration;
+using Tests.Dependency;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.Configure<PositionOptions>(builder.Configuration.GetSection(
-    PositionOptions.Position));
-
-builder.Services.ReplaceConfiguration(builder.Configuration);
-
-builder.Services.AddModules(typeof(ConfigurationModule));
-
-builder.Services.AddControllersWithViews();
+#region Dependency
 
 builder.Services.AddSingleton<DefaultCache>();
 
@@ -34,6 +29,28 @@ builder.Services.AddSingleton<ICache>(provider =>
     return provider.GetRequiredService<DefaultCache>();
 });
 
+
+#endregion
+
+#region Configuration
+
+builder.Services.Configure<PositionOptions>(builder.Configuration.GetSection(
+    PositionOptions.Position));
+
+builder.Services.ReplaceConfiguration(builder.Configuration);
+
+
+builder.Services.AddModules(typeof(ConfigurationModule));
+
+
+builder.Services.AddHostedService<VideosWatcher>();
+
+#endregion
+
+
+builder.Services.AddControllersWithViews();
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -44,6 +61,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -55,3 +74,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+ 

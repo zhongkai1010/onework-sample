@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tests;
+using Tests.Dependency;
 
 namespace Controllers
 {
+    /// <summary>
+    ///  验证依赖注入功能
+    /// </summary>
     public class Test3Controller : Controller
     {
-        private readonly AliyunOSSConfig _aliyunOssConfig;
+        private readonly ICache _cache;
 
-        public Test3Controller(AliyunOSSConfig aliyunOssConfig)
+        public Test3Controller(ICache cache)
         {
-            _aliyunOssConfig = aliyunOssConfig;
-
+            _cache = cache;
         }
 
-        public string A()
+        public string Index()
         {
-            return _aliyunOssConfig.Instance.AccessKeyId;
+            return _cache.Get("123");
         }
     }
 }

@@ -1,27 +1,38 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Primitives;
 
 namespace Configuration
 {
-    public abstract class BaseConfig<T>
+    public abstract class BaseConfig<T> where T : new()
     {
-        private const string ConfigPath = "ConfigPath";
+        public abstract string FileName { get; }
 
-        protected abstract string FileName { get; }
+        protected T _t = default!;
 
-        public void Load(IConfiguration configuration)
+        public void Load(AppSettings appSettings)
         {
-            var configPath = configuration[ConfigPath];
-
-            var path = Path.Combine(Directory.GetCurrentDirectory(), configPath, FileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), appSettings.ConfigPath, FileName);
 
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException($"not find {FileName} file init config error");
             }
 
-            Instance = Serializer.FromXmlFile<T>(path);
+            _t = Serializer.FromXmlFile<T>(path);
+
         }
 
-        public T Instance { get;  set; }
+        public T Instance
+        {
+            get
+            {
+                if (_t == null)
+                {
+                    throw new Exception($"load {FileName} error");
+                }
+
+                return _t;
+            }
+        }
     }
 }

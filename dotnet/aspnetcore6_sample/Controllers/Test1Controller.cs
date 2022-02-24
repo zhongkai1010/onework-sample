@@ -1,25 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Tests;
+using Tests.Configuration;
 
 namespace Controllers
 {
+    /// <summary>
+    /// 验证获取appsettings.json文件配置信息
+    /// </summary>
     public class Test1Controller : Controller
     {
         private readonly IConfiguration Configuration;
 
-        public PositionOptions positionOptions { get; private set; }
+        public PositionOptions PositionOptions { get; }
 
-        public Test1Controller(IConfiguration configuration, IOptions<PositionOptions> positionOptions)
+        public Test1Controller(IConfiguration configuration, IOptions<PositionOptions> options)
         {
             Configuration = configuration;
+
+            PositionOptions = options.Value;
         }
 
         /// <summary>
-        ///  默认配置
+        ///  获取根节点配置
+        ///  获取层级节点配置
         /// </summary>
         /// <returns></returns>
-        public ContentResult GetDefault()
+        public ContentResult A()
         {
             var myKeyValue = Configuration["MyKey"];
             var title = Configuration["Position:Title"];
@@ -34,38 +40,33 @@ namespace Controllers
         }
 
         /// <summary>
-        /// 选项模式
+        /// 选择模式 - 通过构造函数注入对象，获取绑定对象的配置
         /// </summary>
         /// <returns></returns>
-        public ContentResult GetOptions()
+        public ContentResult B()
         {
-            var positionOptions = new PositionOptions();
-            Configuration.GetSection(PositionOptions.Position).Bind(positionOptions);
-
-            return Content($"Title: {positionOptions.Title} \n" +
-                           $"Name: {positionOptions.Name}");
+            return Content($"Title: {PositionOptions.Title} \n" + $"Name: {PositionOptions.Name}");
         }
 
 
         /// <summary>
-        /// 选项模式 - ConfigurationBinder.Get<T> 
+        /// 选项模式 - 直接通过Configuration的Get获取对象配置
         /// </summary>
         /// <returns></returns>
-        public ContentResult GetOptionByGets()
+        public ContentResult C()
         {
-            positionOptions = Configuration.GetSection(PositionOptions.Position)
+            PositionOptions temPositionOptions = Configuration.GetSection(PositionOptions.Position)
                 .Get<PositionOptions>();
 
-            return Content($"Title: {positionOptions.Title} \n" +
-                           $"Name: {positionOptions.Name}");
+            return Content($"Title: {temPositionOptions.Title} \n" +
+                           $"Name: {temPositionOptions.Name}");
         }
 
         /// <summary>
         /// 获取连接字符串
         /// </summary>
         /// <returns></returns>
-
-        public ContentResult GetConnectionString()
+        public ContentResult D()
         {
             string value = Configuration.GetConnectionString("Default");
 

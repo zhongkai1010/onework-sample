@@ -1,13 +1,10 @@
-﻿using System;
-
-namespace Tests
+﻿namespace Tests.Dependency
 {
-    public class AppTransient
+    public class AppSingleton
     {
-
         public string Version { get;set; }
 
-        public AppTransient()
+        public AppSingleton()
         {
             Version = DateTime.Now.ToLongTimeString();
         }

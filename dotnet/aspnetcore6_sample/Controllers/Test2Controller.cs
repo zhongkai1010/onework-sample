@@ -1,22 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.FileProviders;
 using Tests;
+using Tests.Configuration;
 
 namespace Controllers
 {
+    /// <summary>
+    /// 自定义配置文件目录，验证目录配置文件
+    /// </summary>
     public class Test2Controller : Controller
     {
-        private readonly PositionOptions _options;
+        private readonly AliyunOSSConfig _aliyunOssConfig;
 
-        public Test2Controller(IOptions<PositionOptions> options)
+        public Test2Controller(AliyunOSSConfig aliyunOssConfig)
         {
-            _options = options.Value;
+            _aliyunOssConfig = aliyunOssConfig;
+
         }
 
-        public IActionResult Index()
+        /// <summary>
+        /// 验证文件配置是否加载成功
+        /// </summary>
+        /// <returns></returns>
+        public string A()
         {
-            return Content($"Title: {_options.Title} \n" +
-                           $"Name: {_options.Name}");
+            return _aliyunOssConfig.Instance.AccessKeyId;
         }
     }
 }

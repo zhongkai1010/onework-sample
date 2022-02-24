@@ -1,6 +1,6 @@
 ﻿using Configuration;
 
-namespace Tests
+namespace Tests.Configuration
 {
     public class AliyunOSSConfig : BaseConfig<AliyunOSSConfig>
     {
@@ -13,7 +13,7 @@ namespace Tests
         public string AccessKeySecret { get; set; }
 
         public string RemovedFilesBucketName { get; set; }
- 
-        protected override string FileName => "AliyunOSS.xml";
+
+        public override string FileName => "AliyunOSS.xml";
     }
 }

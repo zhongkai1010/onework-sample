@@ -1,4 +1,4 @@
-﻿namespace Tests
+﻿namespace Tests.Dependency
 {
     public interface IRedisOperate
     {

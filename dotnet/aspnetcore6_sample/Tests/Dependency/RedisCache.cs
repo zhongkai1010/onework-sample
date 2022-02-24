@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Tests
+﻿namespace Tests.Dependency
 {
     public class RedisCache : ICache
     {
-        private IRedisOperate _redisOperate;
+        private readonly IRedisOperate _redisOperate;
 
         public RedisCache(IRedisOperate redisOperate)
         {

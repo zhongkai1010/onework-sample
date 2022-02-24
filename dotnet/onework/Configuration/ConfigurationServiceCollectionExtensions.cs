@@ -34,12 +34,13 @@ namespace Configuration
                 ?.ImplementationInstance;
         }
 
-
         private static object CreateConfig(Type type, IConfiguration configuration)
         {
             var obj = Activator.CreateInstance(type);
 
-            type.InvokeMember("Load", BindingFlags.InvokeMethod, null, obj, new[] {configuration});
+            AppSettings appSettings = configuration.GetSection("AppSettings").Get<AppSettings>();
+
+            type.InvokeMember("Load", BindingFlags.InvokeMethod, null, obj, new[] { appSettings });
 
             return obj;
         }

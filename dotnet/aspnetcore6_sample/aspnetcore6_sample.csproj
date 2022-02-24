@@ -16,4 +16,10 @@
     <ProjectReference Include="..\onework\onework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Config\AliyunOSS.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
