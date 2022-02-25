@@ -29,7 +29,6 @@ builder.Services.AddSingleton<ICache>(provider =>
     return provider.GetRequiredService<DefaultCache>();
 });
 
-
 #endregion
 
 #region Configuration
@@ -39,9 +38,7 @@ builder.Services.Configure<PositionOptions>(builder.Configuration.GetSection(
 
 builder.Services.ReplaceConfiguration(builder.Configuration);
 
-builder.Services.AddModules(typeof(ConfigurationModule));
-
-builder.Services.AddConfigurationWatcher();
+builder.Services.AddModules(typeof(BaseModule), typeof(ConfigurationModule));
 
 #endregion
 
@@ -67,5 +64,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
- 

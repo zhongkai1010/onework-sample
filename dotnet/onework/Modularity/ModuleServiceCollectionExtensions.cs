@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Reflection;
 using System.Reflection;
 
 namespace Modularity
@@ -11,7 +12,13 @@ namespace Modularity
 
             ModuleContainer moduleContainer = new ModuleContainer(descriptors);
 
+            AssemblyFinder assemblyFinder = new AssemblyFinder(moduleContainer);
+
             services.AddSingleton<IModuleContainer>(moduleContainer);
+
+            services.AddSingleton<IAssemblyFinder>(assemblyFinder);
+
+            services.AddSingleton<ITypeFinder>(new TypeFinder(assemblyFinder));
 
             ConfigureServices(services, descriptors);
         }

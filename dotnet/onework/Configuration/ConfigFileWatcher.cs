@@ -1,10 +1,10 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using Modularity;
+using Reflection;
+using System.Reflection;
 
 namespace Configuration
 {
@@ -12,31 +12,29 @@ namespace Configuration
     {
         private readonly IFileProvider _fileProvider;
 
-        private readonly IModuleContainer _moduleContainer;
-
         private readonly AppSettings _appSettings;
 
         private readonly IServiceProvider _serviceProvider;
 
-        public ConfigFileWatcher(IModuleContainer moduleContainer, IOptions<AppSettings> options,
-            IServiceProvider serviceProvider)
+        private readonly ITypeFinder _typeFinder;
+
+        public ConfigFileWatcher(IOptions<AppSettings> options,
+            IServiceProvider serviceProvider, ITypeFinder typeFinder)
         {
-            _moduleContainer = moduleContainer;
             _serviceProvider = serviceProvider;
+            _typeFinder = typeFinder;
             _appSettings = options.Value;
             _fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            List<Type> types = new List<Type>();
+            LoadTypes(type =>
+           {
+               var config = _serviceProvider.GetRequiredService(type);
 
-            LoadTypes(types, type =>
-            {
-                var config = _serviceProvider.GetRequiredService(type);
-
-                CreateChangeToken(type, config);
-            });
+               CreateChangeToken(type, config);
+           });
 
             return Task.CompletedTask;
         }
@@ -46,14 +44,11 @@ namespace Configuration
             return Task.CompletedTask;
         }
 
-        private void LoadTypes(List<Type> types, Action<Type> action)
+        private void LoadTypes(Action<Type> action)
         {
-            IReadOnlyList<IModuleDescriptor> modules = _moduleContainer.Modules;
+            List<Type> types = new();
 
-            foreach (IModuleDescriptor module in modules)
-            {
-                ConfigurationServiceCollectionExtensions.GetBaseConfigTypes(types, module.Assembly.GetExportedTypes());
-            }
+            ConfigurationServiceCollectionExtensions.GetBaseConfigTypes(types, _typeFinder.Types.ToArray());
 
             foreach (Type type in types)
             {
@@ -63,7 +58,7 @@ namespace Configuration
 
         private string GetFilePath(Type type, object config)
         {
-            var fileName = (string) type.InvokeMember("FileName", BindingFlags.GetProperty, null, config, null);
+            var fileName = (string)type.InvokeMember("FileName", BindingFlags.GetProperty, null, config, null);
 
             string fileFilter = Path.Combine(_appSettings.ConfigPath, fileName);
 
@@ -81,7 +76,7 @@ namespace Configuration
                 },
                 () =>
                 {
-                    type.InvokeMember("Load", BindingFlags.InvokeMethod, null, config, new object[] {_appSettings});
+                    type.InvokeMember("Load", BindingFlags.InvokeMethod, null, config, new object[] { _appSettings });
                 });
         }
     }

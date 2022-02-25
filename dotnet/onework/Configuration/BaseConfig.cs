@@ -1,9 +1,12 @@
-﻿namespace Configuration
+﻿using JetBrains.Annotations;
+
+namespace Configuration
 {
     public abstract class BaseConfig<T> where T : new()
     {
         public abstract string FileName { get; }
 
+        [NotNull]
         protected T _t = default!;
 
         public void Load(AppSettings appSettings)

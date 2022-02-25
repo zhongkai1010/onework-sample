@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Reflection;
 using System.Reflection;
 
 namespace Configuration
@@ -13,36 +14,22 @@ namespace Configuration
             return services.Replace(ServiceDescriptor.Singleton(configuration));
         }
 
-        public static void AddConfiguration(this IServiceCollection services, Assembly assembly)
+        public static void AddConfiguration(this IServiceCollection services)
         {
-            IConfiguration configuration = services.GetSingletonInstanceOrNull<IConfiguration>();
-
-            services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
+            ITypeFinder typeFinder = services.GetSingletonInstanceOrNull<ITypeFinder>();
 
             List<Type> types = new List<Type>();
 
-            GetBaseConfigTypes(types, assembly.GetExportedTypes());
+            GetBaseConfigTypes(types, typeFinder.Types.ToArray());
+
+            IConfiguration configuration = services.GetSingletonInstanceOrNull<IConfiguration>();
+
+            services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
 
             foreach (Type type in types)
             {
                 services.AddSingleton(type, _ => CreateConfig(type, configuration));
             }
-        }
-
-        public static void AddConfigurationWatcher(this IServiceCollection services)
-        {
-            services.AddHostedService<ConfigFileWatcher>();
-        }
-
-        private static object CreateConfig(Type type, IConfiguration configuration)
-        {
-            var obj = Activator.CreateInstance(type);
-
-            AppSettings appSettings = configuration.GetSection("AppSettings").Get<AppSettings>();
-
-            type.InvokeMember("Load", BindingFlags.InvokeMethod, null, obj, new object[] {appSettings});
-
-            return obj;
         }
 
         public static void GetBaseConfigTypes(List<Type> configsTypes, Type[] types)
@@ -57,6 +44,22 @@ namespace Configuration
                         configsTypes.Add(type);
                 }
             }
+        }
+
+        public static void AddConfigurationWatcher(this IServiceCollection services)
+        {
+            services.AddHostedService<ConfigFileWatcher>();
+        }
+
+        private static object CreateConfig(Type type, IConfiguration configuration)
+        {
+            var obj = Activator.CreateInstance(type);
+
+            AppSettings appSettings = configuration.GetSection("AppSettings").Get<AppSettings>();
+
+            type.InvokeMember("Load", BindingFlags.InvokeMethod, null, obj, new object[] { appSettings });
+
+            return obj;
         }
     }
 }
