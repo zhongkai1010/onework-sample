@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Primitives;
-
-namespace Configuration
+﻿namespace Configuration
 {
     public abstract class BaseConfig<T> where T : new()
     {
@@ -19,7 +16,6 @@ namespace Configuration
             }
 
             _t = Serializer.FromXmlFile<T>(path);
-
         }
 
         public T Instance

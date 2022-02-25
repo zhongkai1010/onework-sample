@@ -39,19 +39,12 @@ builder.Services.Configure<PositionOptions>(builder.Configuration.GetSection(
 
 builder.Services.ReplaceConfiguration(builder.Configuration);
 
-
 builder.Services.AddModules(typeof(ConfigurationModule));
 
-
-builder.Services.AddHostedService<VideosWatcher>();
+builder.Services.AddConfigurationWatcher();
 
 #endregion
 
-
-builder.Services.AddControllersWithViews();
-
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

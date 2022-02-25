@@ -1,6 +1,6 @@
 ﻿namespace Modularity
 {
-    public class ModuleContainer: IModuleContainer
+    public class ModuleContainer : IModuleContainer
     {
         public ModuleContainer(IReadOnlyList<IModuleDescriptor> modules)
         {

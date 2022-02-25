@@ -1,37 +1,37 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Reflection;
 
 namespace Configuration
 {
     public static class ConfigurationServiceCollectionExtensions
     {
-
-        public static IServiceCollection ReplaceConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ReplaceConfiguration(this IServiceCollection services,
+            IConfiguration configuration)
         {
             return services.Replace(ServiceDescriptor.Singleton(configuration));
         }
 
         public static void AddConfiguration(this IServiceCollection services, Assembly assembly)
         {
-            List<Type> types = new List<Type>();
-
             IConfiguration configuration = services.GetSingletonInstanceOrNull<IConfiguration>();
+
+            services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
+
+            List<Type> types = new List<Type>();
 
             GetBaseConfigTypes(types, assembly.GetExportedTypes());
 
             foreach (Type type in types)
             {
-                services.AddSingleton(type, provider => CreateConfig(type, configuration));
+                services.AddSingleton(type, _ => CreateConfig(type, configuration));
             }
         }
 
-        public static T GetSingletonInstanceOrNull<T>(this IServiceCollection services)
+        public static void AddConfigurationWatcher(this IServiceCollection services)
         {
-            return (T) services
-                .FirstOrDefault(d => d.ServiceType == typeof(T))
-                ?.ImplementationInstance;
+            services.AddHostedService<ConfigFileWatcher>();
         }
 
         private static object CreateConfig(Type type, IConfiguration configuration)
@@ -40,12 +40,12 @@ namespace Configuration
 
             AppSettings appSettings = configuration.GetSection("AppSettings").Get<AppSettings>();
 
-            type.InvokeMember("Load", BindingFlags.InvokeMethod, null, obj, new[] { appSettings });
+            type.InvokeMember("Load", BindingFlags.InvokeMethod, null, obj, new object[] {appSettings});
 
             return obj;
         }
 
-        private static void GetBaseConfigTypes(List<Type> configsTypes, Type[] types)
+        public static void GetBaseConfigTypes(List<Type> configsTypes, Type[] types)
         {
             foreach (var type in types)
             {

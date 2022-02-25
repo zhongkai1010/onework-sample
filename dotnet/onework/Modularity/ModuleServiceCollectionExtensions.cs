@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Modularity
 {
@@ -16,7 +16,7 @@ namespace Modularity
             ConfigureServices(services, descriptors);
         }
 
-        private static void ConfigureServices(IServiceCollection services,IReadOnlyList<IModuleDescriptor> modules)
+        private static void ConfigureServices(IServiceCollection services, IReadOnlyList<IModuleDescriptor> modules)
         {
             var context = new ServiceConfigurationContext(services);
 
@@ -51,7 +51,7 @@ namespace Modularity
 
         private static IModule CreateModule(IServiceCollection services, Type moduleType)
         {
-            IModule module = (IModule) Activator.CreateInstance(moduleType);
+            IModule module = (IModule)Activator.CreateInstance(moduleType);
             services.AddSingleton(moduleType, module);
             return module;
         }
