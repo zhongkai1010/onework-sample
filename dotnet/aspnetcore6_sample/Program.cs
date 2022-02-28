@@ -42,6 +42,8 @@ builder.Services.AddModules(typeof(BaseModule), typeof(ConfigurationModule));
 
 #endregion
 
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

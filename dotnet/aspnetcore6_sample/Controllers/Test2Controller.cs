@@ -26,5 +26,11 @@ namespace Controllers
         {
             return _aliyunOssConfig.Instance.AccessKeyId;
         }
+
+        public  string B()
+        {
+            return "B";
+        }
+            
     }
 }
