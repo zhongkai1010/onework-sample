@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Models;
-using Tests;
 
 namespace Controllers
 {
@@ -9,17 +8,13 @@ namespace Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly TransientSample _transientSample;
-
-        public HomeController(ILogger<HomeController> logger, TransientSample transientSample)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _transientSample = transientSample;
         }
 
         public IActionResult Index()
         {
-            _transientSample.Output();
             return View();
         }
 

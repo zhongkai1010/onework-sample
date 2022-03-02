@@ -48,7 +48,7 @@ namespace Configuration
         {
             List<Type> types = new();
 
-            ConfigurationServiceCollectionExtensions.GetBaseConfigTypes(types, _typeFinder.Types.ToArray());
+            ServiceCollectionConfigurationExtensions.GetBaseConfigTypes(types, _typeFinder.Types.ToArray());
 
             foreach (Type type in types)
             {

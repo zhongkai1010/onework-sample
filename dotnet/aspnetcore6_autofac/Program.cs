@@ -1,14 +1,7 @@
-using Modularity;
-using Tests;
-
 var builder = WebApplication.CreateBuilder(args);
-
-
-builder.Services.AddModules(typeof(Module1));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
 
 var app = builder.Build();
 
