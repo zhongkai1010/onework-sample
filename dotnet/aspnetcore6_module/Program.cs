@@ -1,14 +1,8 @@
-using Modularity;
 using Tests;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddModules(typeof(Module1));
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
+builder.Services.AddApplication<Module1>(builder.Configuration);
 
 var app = builder.Build();
 
@@ -17,6 +11,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseStaticFiles();
 
 app.UseRouting();

@@ -20,7 +20,9 @@ namespace Modularity
         /// <summary>
         /// 模块实例化对象
         /// </summary>
-        IModule Instance { get; }
+        IAppModule Instance { get; }
 
+
+        IReadOnlyList<IModuleDescriptor> Dependencies { get; }
     }
 }

@@ -40,7 +40,7 @@ namespace DependencyInjection
         }
 
         public static T GetObjectOrNull<T>(this IServiceCollection services)
-            where T : class 
+            where T : class
         {
             return services.GetSingletonInstanceOrNull<IObjectAccessor<T>>()?.Value;
         }

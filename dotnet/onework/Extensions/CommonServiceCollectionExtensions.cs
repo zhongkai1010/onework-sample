@@ -4,6 +4,14 @@ namespace Extensions;
 
 public static class CommonServiceCollectionExtensions
 {
+    public static bool IsAdded<T>(this IServiceCollection services)
+    {
+        return services.IsAdded(typeof(T));
+    }
+    public static bool IsAdded(this IServiceCollection services, Type type)
+    {
+        return services.Any(d => d.ServiceType == type);
+    }
 
     public static T GetSingletonInstanceOrNull<T>(this IServiceCollection services)
     {

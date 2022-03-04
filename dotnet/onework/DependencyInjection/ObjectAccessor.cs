@@ -8,7 +8,7 @@ namespace DependencyInjection
 
         public ObjectAccessor()
         {
-            
+
         }
 
         public ObjectAccessor([CanBeNull] T obj)

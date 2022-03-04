@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using Extensions;
+﻿using Extensions;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace DependencyInjection
 {
@@ -19,6 +19,11 @@ namespace DependencyInjection
         public static List<IConventionalRegistrar> GetConventionalRegistrars(this IServiceCollection services)
         {
             return GetOrCreateRegistrarList(services);
+        }
+
+        public static IServiceCollection AddAssemblyOf<T>(this IServiceCollection services)
+        {
+            return services.AddAssembly(typeof(T).GetTypeInfo().Assembly);
         }
 
         private static ConventionalRegistrarList GetOrCreateRegistrarList(IServiceCollection services)

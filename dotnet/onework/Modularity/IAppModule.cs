@@ -1,6 +1,6 @@
 ﻿namespace Modularity;
 
-public interface IModule
+public interface IAppModule
 {
     void PreConfigureServices(ServiceConfigurationContext context);
 
