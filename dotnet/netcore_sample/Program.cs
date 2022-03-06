@@ -1,6 +1,10 @@
 ﻿#nullable enable
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace OneWork
 {
@@ -9,49 +13,46 @@ namespace OneWork
 
         static void Main(string[] args)
         {
+            //  string context = "<?xml version=\"1.0\"?><AliyunOSSConfig xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Endpoint>http://oss-cn-shanghai.aliyuncs.com</Endpoint><AccessKeyId>AccessKeyId</AccessKeyId><AccessKeySecret>AccessKeySecret</AccessKeySecret><BucketName>BucketName</BucketName><RemovedFilesBucketName>RemovedFilesBucketName</RemovedFilesBucketName></AliyunOSSConfig>";
+            string xml = File.ReadAllText("Crypt.xml");
+       
+            StringReader stringReader = new StringReader(xml);
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(RunThread),11);
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(A));
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(RunThread), 7);
+            A aliyunOssConfig =  xmlSerializer.Deserialize(stringReader) as A;
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(RunThread), 13);
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(RunThread), 17);
+            stringReader.Close();
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(RunThread), 26);
-
-            ThreadPool.QueueUserWorkItem(new WaitCallback(RunThread), 32);
-
-            ThreadPool.QueueUserWorkItem(new WaitCallback(RunThread), 46);
-
-            ThreadPool.QueueUserWorkItem(new WaitCallback(RunThread), 57);
-
-            Console.Read();
+            Console.WriteLine(aliyunOssConfig.Crypts.Count);
         }
 
-        private static void RunThread(object? state)
+       
+        public class A
         {
-            if (state == null) return;
-            int second = (int) state;
-
-            Console.WriteLine($"RunThread:{second}");
-
-            while (true)
-            {
-                DateTime dateTime = DateTime.Now;
-
-                if (dateTime.Second % second == 0)
-                {
-                    Console.WriteLine($" End RunThread:{second}");
-                    break;
-                }
-
-                Console.WriteLine($"RunThread:{second}，{dateTime:yyyy-MM-dd HH:mm:ss}");
-
-                Thread.Sleep(1000);
-            }
+            [XmlElement("Crypt", IsNullable = false)]
+            public List<Crypt> Crypts { get; set; }
         }
 
- 
+        public class Crypt
+        {
+            public string Table { get; set; }
+
+            public string Column { get; set; }
+        }
+
+        public class AliyunOSSConfig 
+        {
+            public string BucketName { get; set; }
+
+            public string Endpoint { get; set; }
+
+            public string AccessKeyId { get; set; }
+
+            public string AccessKeySecret { get; set; }
+
+            public string RemovedFilesBucketName { get; set; }
+        }
     }
 }
