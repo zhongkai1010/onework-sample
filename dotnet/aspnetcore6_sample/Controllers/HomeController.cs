@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Tests;
 
 namespace Controllers
 {
@@ -13,9 +14,22 @@ namespace Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            if (WebRequstContext.Current != null)
+            {
+                await TestPut();
+            }
+
             return View();
+        }
+
+        private Task TestPut()
+        {
+            Console.WriteLine($"Controller Thread:{Thread.GetCurrentProcessorId()}");
+            Console.WriteLine($"     {WebRequstContext.Current.Request.Path}");
+
+            return Task.CompletedTask;
         }
 
         public IActionResult Privacy()
@@ -26,7 +40,7 @@ namespace Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }

@@ -18,6 +18,8 @@ namespace Controllers
             Configuration = configuration;
 
             PositionOptions = options.Value;
+
+         
         }
 
         /// <summary>

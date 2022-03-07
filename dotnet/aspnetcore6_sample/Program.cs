@@ -1,8 +1,4 @@
-using Configuration;
-using Microsoft.Extensions.Options;
 using Tests;
-using Tests.Configuration;
-using Tests.Dependency;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +11,15 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"Use Thread:{Thread.GetCurrentProcessorId()}");
+
+    WebRequstContext.Current = context;
+
+    await next(context);
+});
 
 app.UseStaticFiles();
 
