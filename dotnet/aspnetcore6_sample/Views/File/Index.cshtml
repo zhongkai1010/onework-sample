@@ -12,3 +12,10 @@
     <input type="file" name="formFiles" multiple/>
     <button type="submit">上传</button>
 </form>
+
+<hr/>
+
+<form action="@Url.Action("UploadLargeFile")" enctype="multipart/form-data" method="post" >
+    <input type="file" name="formFiles" multiple/>
+    <button type="submit">上传大文件</button>
+</form>

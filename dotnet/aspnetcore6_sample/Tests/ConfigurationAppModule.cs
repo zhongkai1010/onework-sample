@@ -1,5 +1,6 @@
 ﻿using Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
 using Modularity;
@@ -35,10 +36,13 @@ namespace Tests
 
             context.Services.Configure<PositionOptions>(configuration.GetSection(PositionOptions.Position));
 
+           
+
             context.Services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.RequireAuthenticatedSignIn = true;
+                 
                 })
                 .AddJwtBearer(options =>
                 {
@@ -46,6 +50,7 @@ namespace Tests
                 })
                 .AddCookie(options =>
                 {
+                    options.Cookie.Name = "Auth";
                     options.LoginPath = "/Login/A";
                     options.LogoutPath = "/Login/C";
                 });
