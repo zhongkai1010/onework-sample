@@ -12,6 +12,8 @@ namespace Controllers
         [AllowAnonymous]
         public async Task<string> A()
         {
+            var connection = HttpContext.Connection;
+
             AuthenticateResult authenticateResult = await HttpContext.AuthenticateAsync();
 
             if (!authenticateResult.Succeeded)
@@ -25,6 +27,8 @@ namespace Controllers
             {
                 return "无登录信息";
             }
+
+            
 
             return $"{claim.Value}，已登录";
         }
