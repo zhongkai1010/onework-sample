@@ -1,8 +1,12 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Tests;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication<ConfigurationAppModule>(builder.Configuration);
+
+
 
 var app = builder.Build();
 
@@ -18,12 +22,20 @@ app.Use(async (context, next) =>
 
     WebRequstContext.Current = context;
 
+    //if (context.Request.Path == "/")
+    //{
+    //    context.Response.Redirect("http://www.baidu.com");
+    //}
+
     await next(context);
 });
 
+ 
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

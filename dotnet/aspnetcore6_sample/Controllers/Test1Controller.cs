@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Tests.Configuration;
 
@@ -7,6 +8,8 @@ namespace Controllers
     /// <summary>
     /// 验证获取appsettings.json文件配置信息
     /// </summary>
+
+
     public class Test1Controller : Controller
     {
         private readonly IConfiguration Configuration;
@@ -19,7 +22,6 @@ namespace Controllers
 
             PositionOptions = options.Value;
 
-         
         }
 
         /// <summary>
