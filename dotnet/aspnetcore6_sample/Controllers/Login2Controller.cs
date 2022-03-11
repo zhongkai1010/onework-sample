@@ -1,13 +1,11 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers
 {
-    public class LoginController : Controller
+    public class Login2Controller : Controller
     {
         [AllowAnonymous]
         public async Task<string> A()
@@ -28,7 +26,7 @@ namespace Controllers
                 return "无登录信息";
             }
 
-            
+
 
             return $"{claim.Value}，已登录";
         }
@@ -38,31 +36,25 @@ namespace Controllers
         {
             List<Claim> claims = new List<Claim>
             {
-                new("user", "test")
+                new("user", "test1")
             };
-            
 
-            ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Login2");
 
 
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+            await HttpContext.SignInAsync(claimsPrincipal);
 
 
-            HttpContext.Response.Cookies.Append("key1","123", new CookieOptions
-            {
-
-            });
-
-           
 
             return "登录成功";
         }
 
         public async Task<string> C()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync("Login2");
 
             return "退出";
         }

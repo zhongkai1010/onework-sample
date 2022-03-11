@@ -40,21 +40,27 @@ namespace Tests
 
             context.Services.AddAuthentication(options =>
                 {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultScheme = "Login1";
                     options.RequireAuthenticatedSignIn = true;
-                 
                 })
-                .AddJwtBearer(options =>
+                .AddPolicyScheme("Login1", "Login1", options =>
                 {
-                
+                     
                 })
-                .AddCookie(options =>
+                .AddCookie("Login1",options =>
                 {
-                    options.Cookie.Name = "Auth";
-                    options.LoginPath = "/Login/A";
-                    options.LogoutPath = "/Login/C";
+                    options.Cookie.Name = "Auth1";
+                    options.LoginPath = "/Login1/A";
+                    options.LogoutPath = "/Login1/C";
+                })
+                .AddCookie("Login2", options =>
+                {
+                    options.Cookie.Name = "Auth2";
+                    options.LoginPath = "/Login2/A";
+                    options.LogoutPath = "/Login2/C";
                 });
 
+             
 
             context.Services.AddControllersWithViews(options => { options.Filters.Add(new AuthorizeFilter()); });
 

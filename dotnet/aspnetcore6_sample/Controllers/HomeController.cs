@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Tests;
@@ -20,6 +21,11 @@ namespace Controllers
             {
                 await TestPut();
             }
+
+            object appSettings = System.Configuration.ConfigurationManager.GetSection("AppSettings");
+
+
+
 
             return View();
         }
