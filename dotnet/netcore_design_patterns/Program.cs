@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-
 #region Adapter Pattern
 
 //AudioPlayer audioPlayer = new AudioPlayer();
@@ -14,14 +13,144 @@
 
 #region Bridge Pattern
 
-using netcore_design_patterns.BridgePattern;
+//using netcore_design_patterns.BridgePattern;
 
-Shape redCircle = new Circle(100, 100, 10, new RedCircle());
+//Shape redCircle = new Circle(100, 100, 10, new RedCircle());
 
-Shape greenCircle = new Circle(100, 100, 10, new GreenCircle());
+//Shape greenCircle = new Circle(100, 100, 10, new GreenCircle());
 
-redCircle.draw();
+//redCircle.draw();
 
-greenCircle.draw();
+//greenCircle.draw();
+
+#endregion
+
+#region Observer Pattern
+
+//using netcore_design_patterns.ObserverPattern;
+
+//Subject subject = new Subject();
+
+//new HexaObserver(subject);
+//new OctalObserver(subject);
+//new BinaryObserver(subject);
+//Console.WriteLine("First state change: 15");
+//subject.setState(15);
+//Console.WriteLine("Second state change: 10");
+//subject.setState(10);
+
+#endregion
+
+#region Template Pattern
+
+//using netcore_design_patterns.TemplatePattern;
+
+//Game game = new Cricket();
+//game.Play();
+
+//Console.WriteLine();
+
+//game = new Football();
+//game.Play();
+
+#endregion
+
+#region Composite Pattern
+
+//using netcore_design_patterns.CompositePattern;
+
+//Employee CEO = new Employee("John", "CEO", 30000);
+
+//Employee headSales = new Employee("Robert", "Head Sales", 20000);
+
+//Employee headMarketing = new Employee("Michel", "Head Marketing", 20000);
+
+//Employee clerk1 = new Employee("Laura", "Marketing", 10000);
+//Employee clerk2 = new Employee("Bob", "Marketing", 10000);
+
+//Employee salesExecutive1 = new Employee("Richard", "Sales", 10000);
+//Employee salesExecutive2 = new Employee("Rob", "Sales", 10000);
+
+//CEO.add(headSales);
+//CEO.add(headMarketing);
+
+//headSales.add(salesExecutive1);
+//headSales.add(salesExecutive2);
+
+//headMarketing.add(clerk1);
+//headMarketing.add(clerk2);
+
+////打印该组织的所有员工
+//Console.WriteLine(CEO);
+//foreach (Employee headEmployee in CEO.getSubordinates())
+//{
+//    Console.WriteLine(headEmployee);
+
+//    foreach (Employee employee in headEmployee.getSubordinates())
+//    {
+//        Console.WriteLine(employee);
+//    }
+//}
+
+#endregion
+
+#region Builder Pattern
+
+//using netcore_design_patterns.BuilderPattern;
+
+//MealBuilder mealBuilder = new MealBuilder();
+
+//Meal vegMeal = mealBuilder.prepareVegMeal();
+
+//Console.WriteLine("Veg Meal");
+//vegMeal.showItems();
+//Console.WriteLine("Total Cost: " + vegMeal.getCost());
+
+//Meal nonVegMeal = mealBuilder.prepareNonVegMeal();
+//Console.WriteLine("\n\nNon-Veg Meal");
+//nonVegMeal.showItems();
+//Console.WriteLine("Total Cost: " + nonVegMeal.getCost());
+
+#endregion
+
+#region Decorator Pattern
+
+//using netcore_design_patterns.DecoratorPattern;
+
+//Shape circle = new Circle();
+//ShapeDecorator redCircle = new RedShapeDecorator(new Circle());
+//ShapeDecorator redRectangle = new RedShapeDecorator(new Rectangle());
+////Shape redCircle = new RedShapeDecorator(new Circle());
+////Shape redRectangle = new RedShapeDecorator(new Rectangle());
+//Console.WriteLine("Circle with normal border");
+//circle.draw();
+
+//Console.WriteLine("\nCircle of red border");
+//redCircle.draw();
+
+//Console.WriteLine("\nRectangle of red border");
+//redRectangle.draw();
+
+#endregion
+
+#region Strategy Pattern
+
+//using netcore_design_patterns.StrategyPattern;
+
+//Context context = new Context(new OperationAdd());
+//Console.WriteLine("10 + 5 = " + context.executeStrategy(10, 5));
+
+//context = new Context(new OperationSubtract());
+//Console.WriteLine("10 - 5 = " + context.executeStrategy(10, 5));
+
+//context = new Context(new OperationMultiply());
+//Console.WriteLine("10 * 5 = " + context.executeStrategy(10, 5));
+
+
+#endregion
+
+#region Abstract Factory Pattern
+
+
 
 #endregion
