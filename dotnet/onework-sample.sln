@@ -40,7 +40,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore6_autofac", "aspn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore6_autofac", "netcore6_autofac\netcore6_autofac.csproj", "{0D5863ED-CB80-4191-B91A-CF7188C07213}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netcore_design_patterns", "netcore_design_patterns\netcore_design_patterns.csproj", "{8A408E47-8C7C-47F9-B80F-4FD003CB1413}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore_design_patterns", "netcore_design_patterns\netcore_design_patterns.csproj", "{8A408E47-8C7C-47F9-B80F-4FD003CB1413}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET Core - HostBuilder", ".NET Core - HostBuilder", "{F79ADF18-4EED-4E17-99ED-EA60C321A13B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET Core - Configuration", ".NET Core - Configuration", "{4EF0A5F7-9A94-4DD1-81B6-1FDC3E912FA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP.NET Core - Routing", "ASP.NET Core - Routing", "{8F895E16-09F3-475E-B7B8-C765D3524B6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

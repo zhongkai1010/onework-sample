@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="AbstractFactoryPattern\" />
+    <Folder Include="PrototypePattern\" />
   </ItemGroup>
 
 </Project>
