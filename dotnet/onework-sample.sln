@@ -42,11 +42,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore6_autofac", "netcore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore_design_patterns", "netcore_design_patterns\netcore_design_patterns.csproj", "{8A408E47-8C7C-47F9-B80F-4FD003CB1413}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET Core - HostBuilder", ".NET Core - HostBuilder", "{F79ADF18-4EED-4E17-99ED-EA60C321A13B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore6_process", "netcore6_process\netcore6_process.csproj", "{92A3503B-2903-4D57-88D0-9BE0FD8DF176}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET Core - Configuration", ".NET Core - Configuration", "{4EF0A5F7-9A94-4DD1-81B6-1FDC3E912FA2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP.NET Core - Routing", "ASP.NET Core - Routing", "{8F895E16-09F3-475E-B7B8-C765D3524B6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore6_automapper", "netcore6_automapper\netcore6_automapper.csproj", "{509D9A79-F772-4413-872B-9BC73E133AB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -114,6 +112,14 @@ Global
 		{8A408E47-8C7C-47F9-B80F-4FD003CB1413}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A408E47-8C7C-47F9-B80F-4FD003CB1413}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A408E47-8C7C-47F9-B80F-4FD003CB1413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92A3503B-2903-4D57-88D0-9BE0FD8DF176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92A3503B-2903-4D57-88D0-9BE0FD8DF176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92A3503B-2903-4D57-88D0-9BE0FD8DF176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92A3503B-2903-4D57-88D0-9BE0FD8DF176}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509D9A79-F772-4413-872B-9BC73E133AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509D9A79-F772-4413-872B-9BC73E133AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509D9A79-F772-4413-872B-9BC73E133AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509D9A79-F772-4413-872B-9BC73E133AB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +140,8 @@ Global
 		{1BF6165E-0EAF-4FB1-B928-0D5BAC8202D2} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 		{0D5863ED-CB80-4191-B91A-CF7188C07213} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 		{8A408E47-8C7C-47F9-B80F-4FD003CB1413} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
+		{92A3503B-2903-4D57-88D0-9BE0FD8DF176} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
+		{509D9A79-F772-4413-872B-9BC73E133AB3} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89F8EEE9-BDA3-47AD-8F8B-05446B2DA32E}

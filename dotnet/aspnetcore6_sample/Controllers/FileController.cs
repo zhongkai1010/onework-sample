@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IO.Pipelines;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.WebUtilities;
@@ -15,7 +16,6 @@ namespace Controllers
 
         public async Task<string> UploadFile(List<IFormFile> formFiles)
         {
-
             foreach (IFormFile formFile in formFiles)
             {
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload", formFile.FileName);
@@ -23,6 +23,7 @@ namespace Controllers
                 await using var stream = System.IO.File.Create(path);
                 await formFile.CopyToAsync(stream);
             }
+
             return "上传文件";
         }
 
@@ -76,8 +77,16 @@ namespace Controllers
             }
 
             // If the code runs to this location, it means that no files have been saved
-        
+
             return "上传大文件";
+        }
+
+        public FileResult DownloadFile()
+        {
+
+             Stream stream = new MemoryStream(System.IO.File.ReadAllBytes("Dockerfile"));
+
+            return File(stream, "text/plain", "Dockerfile");
         }
     }
 
@@ -129,18 +138,18 @@ namespace Controllers
         {
             // Content-Disposition: form-data; name="key";
             return contentDisposition != null
-                && contentDisposition.DispositionType.Equals("form-data")
-                && string.IsNullOrEmpty(contentDisposition.FileName.Value)
-                && string.IsNullOrEmpty(contentDisposition.FileNameStar.Value);
+                   && contentDisposition.DispositionType.Equals("form-data")
+                   && string.IsNullOrEmpty(contentDisposition.FileName.Value)
+                   && string.IsNullOrEmpty(contentDisposition.FileNameStar.Value);
         }
 
         public static bool HasFileContentDisposition(ContentDispositionHeaderValue contentDisposition)
         {
             // Content-Disposition: form-data; name="myfile1"; filename="Misc 002.jpg"
             return contentDisposition != null
-                && contentDisposition.DispositionType.Equals("form-data")
-                && (!string.IsNullOrEmpty(contentDisposition.FileName.Value)
-                    || !string.IsNullOrEmpty(contentDisposition.FileNameStar.Value));
+                   && contentDisposition.DispositionType.Equals("form-data")
+                   && (!string.IsNullOrEmpty(contentDisposition.FileName.Value)
+                       || !string.IsNullOrEmpty(contentDisposition.FileNameStar.Value));
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Controllers
     public class Test5Controller : ControllerBase
     {
         [SampleActionFilterA]
-        public CacheOptions Get()
+        public CacheOptions Get(int? id)
         {
             CacheOptions cacheOptions = new CacheOptions();
             return cacheOptions;

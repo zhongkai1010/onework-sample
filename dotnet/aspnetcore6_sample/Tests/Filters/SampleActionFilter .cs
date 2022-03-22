@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
+﻿using System.ComponentModel;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Tests.Filters
@@ -7,6 +8,8 @@ namespace Tests.Filters
     {
         public override void OnActionExecuted(ActionExecutedContext context)
         {
+            var attrs = context.ActionDescriptor.EndpointMetadata.OfType<DisplayNameAttribute>(); 
+
             string url = context.HttpContext.Request.GetDisplayUrl();
             Console.WriteLine("SampleActionFilterAAttribute-OnActionExecuted");
         }
