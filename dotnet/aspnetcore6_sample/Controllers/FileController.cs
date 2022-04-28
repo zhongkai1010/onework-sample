@@ -83,10 +83,15 @@ namespace Controllers
 
         public FileResult DownloadFile()
         {
-
-             Stream stream = new MemoryStream(System.IO.File.ReadAllBytes("Dockerfile"));
+            Stream stream = new MemoryStream(System.IO.File.ReadAllBytes("Dockerfile"));
 
             return File(stream, "text/plain", "Dockerfile");
+        }
+
+        public IActionResult DownloadFileBity()
+        {
+            Byte[] bytes = System.IO.File.ReadAllBytes("Dockerfile");
+            return File(bytes,"text/plain","Dockerfile");
         }
     }
 
