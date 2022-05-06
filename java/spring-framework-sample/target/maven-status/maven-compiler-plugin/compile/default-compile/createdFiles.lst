@@ -1,0 +1,11 @@
+com\onework\sample\common\DefaultTransactionManager.class
+com\onework\sample\common\TransactionManager.class
+com\onework\sample\common\DefaultCacheManager.class
+com\onework\sample\SpringFrameworkApplicationBoot.class
+com\onework\sample\common\CacheManager.class
+com\onework\sample\common\CacheConfig.class
+com\onework\sample\mapper\UserMapper.class
+com\onework\sample\common\TestAspects.class
+com\onework\sample\mapper\BaseMapper.class
+com\onework\sample\entity\User.class
+com\onework\sample\mapper\impl\UserMapperImpl.class

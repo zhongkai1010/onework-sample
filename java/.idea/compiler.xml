@@ -16,6 +16,7 @@
         <module name="mybatis-sample" />
         <module name="spring-data-sample" />
         <module name="spring-security-sample" />
+        <module name="shiro-sample" />
         <module name="mybaits-plus-generator-sample" />
         <module name="maven-sample" />
         <module name="jsoup-sample" />
@@ -28,6 +29,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="mybatis-plus-sample" options="" />
+      <module name="shiro-sample" options="" />
       <module name="spring-data-sample" options="" />
       <module name="spring-security-sample" options="" />
       <module name="springboot-mvc-sample" options="" />
