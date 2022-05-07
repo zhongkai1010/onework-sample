@@ -19,7 +19,8 @@
         <module>springboot-mvc-sample</module>
         <module>spring-data-sample</module>
         <module>spring-framework-sample</module>
-        <module>spring-security-sample</module>
+        <module>sample-spring-security</module>
+        <module>sample-common</module>
 
     </modules>
 
@@ -28,7 +29,7 @@
     <url>https://www.one-work.net/</url>
 
     <properties>
-        <onework-tools.version>0.0.1-SNAPSHOT</onework-tools.version>
+        <version>0.0.1-SNAPSHOT</version>
         <!-- Maven 相关 -->
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -86,15 +87,11 @@
             </dependency>
             <!-- 业务组件 -->
             <dependency>
-                <groupId>com.onework.tools</groupId>
-                <artifactId>onework-tools-core</artifactId>
-                <version>${onework-tools.version}</version>
+                <groupId>com.sample</groupId>
+                <artifactId>sample-common</artifactId>
+                <version>${version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.onework.tools</groupId>
-                <artifactId>onework-tools-service</artifactId>
-                <version>${onework-tools.version}</version>
-            </dependency>
+
             <!-- Spring 核心 -->
             <!-- Web 相关 -->
             <dependency>

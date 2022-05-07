@@ -14,12 +14,13 @@
           <entry name="$PROJECT_DIR$/../../../dev_tools/java/maven-repository/org/springframework/boot/spring-boot-configuration-processor/2.6.4/spring-boot-configuration-processor-2.6.4.jar" />
         </processorPath>
         <module name="mybatis-sample" />
+        <module name="sample-common" />
         <module name="spring-data-sample" />
-        <module name="spring-security-sample" />
         <module name="shiro-sample" />
         <module name="mybaits-plus-generator-sample" />
         <module name="maven-sample" />
         <module name="jsoup-sample" />
+        <module name="sample-spring-security-default" />
         <module name="springboot-mvc-sample" />
         <module name="mybatis-plus-sample" />
         <module name="spring-framework-sample" />
@@ -29,9 +30,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="mybatis-plus-sample" options="" />
+      <module name="sample-spring-security" options="" />
+      <module name="sample-spring-security-default" options="" />
       <module name="shiro-sample" options="" />
       <module name="spring-data-sample" options="" />
-      <module name="spring-security-sample" options="" />
       <module name="springboot-mvc-sample" options="" />
     </option>
   </component>
