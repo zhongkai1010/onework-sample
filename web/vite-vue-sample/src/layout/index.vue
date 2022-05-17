@@ -5,7 +5,7 @@
         <login />
       </el-header>
       <el-container>
-        <el-aside width="200px">
+        <el-aside>
           <sidebar :menus="menus" />
         </el-aside>
         <el-main>
@@ -16,13 +16,21 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { onMounted } from "@vue/runtime-dom";
 import login from "/@/layout/components/logo/index.vue";
 import sidebar from "/@/layout/components/sidebar/index.vue";
+
+onMounted(() => {
+  console.log("layout init");
+});
 
 const menus = [
   { text: "配置管理" },
   { text: "菜单管理" },
-  { text: "辅助工具", children: [{ text: "翻译工具" }, { text: "代码生成器" }] },
+  {
+    text: "辅助工具",
+    children: [{ text: "翻译工具" }, { text: "代码生成器" }],
+  },
 ];
 </script>
 <style lang="scss" scoped>

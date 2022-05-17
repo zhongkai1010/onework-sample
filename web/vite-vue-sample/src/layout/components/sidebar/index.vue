@@ -1,5 +1,5 @@
 <template>
-  <el-menu>
+  <el-menu class="sidebar-wrapper">
     <template v-for="(item, index) in props.menus">
       <template v-if="item.children != null">
         <el-sub-menu :key="index" :index="index.toString">
@@ -37,3 +37,10 @@ const props = defineProps<{
 
 console.log(props);
 </script>
+
+<style lang="scss" scoped>
+.sidebar-wrapper {
+  width: 210px;
+  height: calc(100vh - 50px);
+}
+</style>

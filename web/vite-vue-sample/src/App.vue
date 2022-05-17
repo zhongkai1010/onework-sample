@@ -1,9 +1,14 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-
-</script>
-
 <template>
-    <router-view/>
+  <router-view />
 </template>
+<script lang="ts">
+import { defineComponent, onMounted } from "vue";
+export default defineComponent({
+  name: "app",
+  setup() {
+    onMounted(() => {
+      console.log("组件挂载");
+    });
+  },
+});
+</script>
