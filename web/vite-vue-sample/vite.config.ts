@@ -16,19 +16,13 @@ const alias: Record<string, string> = {
 };
 
 export default ({ command }: ConfigEnv): UserConfigExport => {
-  const prodMock = true
   return {
     plugins: [
       vue(),
       eslintPlugin({}),
       viteMockServe({
         mockPath: "mock",
-        localEnabled: command === "serve",
-        prodEnabled: command !== "serve" && prodMock,
-        injectCode: `
-      import { setupProdMockServer } from './mockProdServer';
-      setupProdMockServer();
-    `,
+        prodEnabled: command !== "serve",
         logger: true,
       }),
     ],
