@@ -2,11 +2,11 @@
   <div class="app-wrapper">
     <el-container>
       <el-header>
-        <login />
+        <Login />
       </el-header>
       <el-container>
         <el-aside>
-          <sidebar :menus="menus" />
+          <Sidebar :menus="menus" />
         </el-aside>
         <el-main>
           <router-view />
@@ -17,8 +17,8 @@
 </template>
 <script lang="ts" setup>
 import { onMounted } from "@vue/runtime-dom";
-import login from "/@/layout/components/logo/index.vue";
-import sidebar from "/@/layout/components/sidebar/index.vue";
+import Login from "/@/layout/components/logo/index.vue";
+import Sidebar from "/@/layout/components/sidebar/index.vue";
 
 onMounted(() => {
   console.log("layout init");
