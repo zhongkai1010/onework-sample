@@ -1,94 +1,40 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>起步</title>
-    <style>
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      .header {
-        display: flex;
-        width: 100%;
-        margin: 0 auto;
+<html lang="en">
 
-        background: #fff;
-      }
-      .header .logo {
-        position: relative;
-        display: flex;
-        align-items: center;
-        height: 60px;
-        padding-right: 15px;
-        margin-right: 15px;
-      }
-      .header .nav {
-        display: flex;
-        align-items: center;
-      }
-      .header .nav a {
-        position: relative;
-        height: 60px;
-        line-height: 60px;
-        font-size: 15px;
-        padding: 0 8px;
-        margin-right: 15px;
-        transition: color 0.35s;
-        white-space: nowrap;
-      }
-      .tag {
-        position: relative;
-        border-top: 1px solid #ebeef5;
-        height: 45px;
-      }
-      .main {
-        border-top: 1px solid #ebeef5;
-      }
-    </style>
-  </head>
-  <body>
-    <header class="header">
-      <div
-        style="max-width: 1190px; margin: 0 auto; display: flex; width: 100%"
-      >
-        <a class="logo">
-          <img src="./src/logo.png" style="max-height: 34px" />
-        </a>
-        <nav class="nav">
-          <a>首页</a>
-          <a>统计</a>
-          <a>微语</a>
-          <a>留言</a>
-          <a>邻居</a>
-          <a>壁纸</a>
-          <div>推荐</div>
-        </nav>
-        <div>
-          <input type="text" placeholder="请输入关键字..." />
-          <button>Search</button>
-        </div>
-      </div>
-    </header>
-    <div class="tag">
-      <div
-        style="max-width: 1190px; margin: 0 auto; display: flex; width: 100%"
-      >
-        <div>link</div>
-        <div>button</div>
-      </div>
-    </div>
-    <div class="main">
-      <div
-        style="max-width: 1190px; margin: 0 auto; display: flex; width: 100%"
-      >
-        <div class="body">body</div>
-        <div class="introduction">introduction</div>
-        <div class="time">time</div>
-        <div class="hot">hot</div>
-        <div class="reply">reply</div>
-        <div class="tags">tags</div>
-      </div>
-    </div>
-  </body>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+</head>
+
+<body>
+	<div style="background-color: beige">
+		<header class="header">
+			<div class="above">
+				<div class="container">
+					<a class="logo">
+						<img src="./src/assets/logo.png">
+					</a>
+					<nav class="nav">
+						<a class="item">首页1</a>
+						<a class="item">统计</a>
+						<a class="item">微语</a>
+						<a class="item">留言</a>
+						<a class="item">邻居</a>
+						<a class="item">壁纸</a>
+						<div>推荐</div>
+					</nav>
+				</div>
+			</div>
+			<div class="below">
+				<div class="container">2</div>
+			</div>
+		</header>
+		<div class="container">
+			3
+		</div>
+	</div>
+</body>
+
 </html>

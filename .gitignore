@@ -17,3 +17,5 @@
 /java/spring-framework-sample/target
 /java/spring-security-sample/target
 /java/.idea
+/web/onework-site/node_modules
+/web/onework-site/dist
