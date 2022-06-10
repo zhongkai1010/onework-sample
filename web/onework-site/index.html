@@ -9,30 +9,49 @@
 </head>
 
 <body>
-	<div style="background-color: beige">
+	<div style="background-color: var(--background)">
 		<header class="header">
 			<div class="above">
 				<div class="container">
 					<a class="logo">
-						<img src="./src/assets/logo.png">
+						<img src="./src/assets/logo.png" />
 					</a>
 					<nav class="nav">
 						<a class="item">首页1</a>
-						<a class="item">统计</a>
+						<a class="item">统计2</a>
 						<a class="item">微语</a>
 						<a class="item">留言</a>
 						<a class="item">邻居</a>
 						<a class="item">壁纸</a>
 						<div>推荐</div>
 					</nav>
+					<form class="search">
+						<input type="text" placeholder="请输入关键字" />
+						<button>搜索</button>
+					</form>
 				</div>
 			</div>
 			<div class="below">
-				<div class="container">2</div>
+				<div class="container">
+					<nav>
+						<a>软件开发</a>
+						<a>异常记录</a>
+						<a>Linux学习</a>
+						<a>日常杂记</a>
+						<a>开源</a>
+					</nav>
+				</div>
 			</div>
 		</header>
-		<div class="container">
-			3
+		<div class="container body">
+
+			<div class="box context"></div>
+			<div style="position:relative;display:flex;flex-direction: column;">
+				<div class="box">1</div>
+				<div class="box"></div>
+				<div class="box"></div>
+			</div>
+
 		</div>
 	</div>
 </body>
