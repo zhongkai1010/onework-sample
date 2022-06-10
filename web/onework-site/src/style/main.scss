@@ -35,9 +35,10 @@ html {
       position: relative;
       display: flex;
       align-items: center;
-      height: 60px;
+      height: 20px;
       padding-right: 15px;
       margin-right: 15px;
+      border-right: 1px solid #ccc;
     }
     img {
       max-height: 34px;
