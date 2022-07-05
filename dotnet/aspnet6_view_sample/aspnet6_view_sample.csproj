@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Shared\Components\PriorityList\Default.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\Components\PriorityList\Test.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Views\Home1\Index.cshtml" />
+      <AdditionalFiles Include="Views\Home1\Privacy.cshtml" />
+      <AdditionalFiles Include="Views\Shared\Components\PriorityList\Default.cshtml" />
+      <AdditionalFiles Include="Views\Shared\Components\PriorityList\Test.cshtml" />
+      <AdditionalFiles Include="Views\Shared\Error.cshtml" />
+      <AdditionalFiles Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\aspnet6_view_razor_sample\aspnet6_view_razor_sample.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -46,6 +46,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore6_process", "netcore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore6_automapper", "netcore6_automapper\netcore6_automapper.csproj", "{509D9A79-F772-4413-872B-9BC73E133AB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnet6_view_sample", "aspnet6_view_sample\aspnet6_view_sample.csproj", "{A7F20DA2-BFAD-4D0A-8264-2DA3802C4D97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnet6_view_razor_sample", "aspnet6_view_razor_sample\aspnet6_view_razor_sample.csproj", "{D8733092-C53D-4E9A-A0F8-AB5B1C2E41EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +124,14 @@ Global
 		{509D9A79-F772-4413-872B-9BC73E133AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{509D9A79-F772-4413-872B-9BC73E133AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{509D9A79-F772-4413-872B-9BC73E133AB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7F20DA2-BFAD-4D0A-8264-2DA3802C4D97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7F20DA2-BFAD-4D0A-8264-2DA3802C4D97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7F20DA2-BFAD-4D0A-8264-2DA3802C4D97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7F20DA2-BFAD-4D0A-8264-2DA3802C4D97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8733092-C53D-4E9A-A0F8-AB5B1C2E41EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8733092-C53D-4E9A-A0F8-AB5B1C2E41EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8733092-C53D-4E9A-A0F8-AB5B1C2E41EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8733092-C53D-4E9A-A0F8-AB5B1C2E41EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +154,8 @@ Global
 		{8A408E47-8C7C-47F9-B80F-4FD003CB1413} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 		{92A3503B-2903-4D57-88D0-9BE0FD8DF176} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 		{509D9A79-F772-4413-872B-9BC73E133AB3} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
+		{A7F20DA2-BFAD-4D0A-8264-2DA3802C4D97} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
+		{D8733092-C53D-4E9A-A0F8-AB5B1C2E41EE} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89F8EEE9-BDA3-47AD-8F8B-05446B2DA32E}
