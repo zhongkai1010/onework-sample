@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnet6_view_razor_sample",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnet_sample", "aspnet_sample\aspnet_sample.csproj", "{9F63470E-A9D4-4C96-8676-AAFB4A277D95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netcore6_mongodb", "netcore6_mongodb\netcore6_mongodb.csproj", "{23EBB048-6DEE-489E-B898-35B981678510}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,6 +140,10 @@ Global
 		{9F63470E-A9D4-4C96-8676-AAFB4A277D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F63470E-A9D4-4C96-8676-AAFB4A277D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F63470E-A9D4-4C96-8676-AAFB4A277D95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23EBB048-6DEE-489E-B898-35B981678510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23EBB048-6DEE-489E-B898-35B981678510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23EBB048-6DEE-489E-B898-35B981678510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23EBB048-6DEE-489E-B898-35B981678510}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,6 +169,7 @@ Global
 		{A7F20DA2-BFAD-4D0A-8264-2DA3802C4D97} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 		{D8733092-C53D-4E9A-A0F8-AB5B1C2E41EE} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 		{9F63470E-A9D4-4C96-8676-AAFB4A277D95} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
+		{23EBB048-6DEE-489E-B898-35B981678510} = {04FCF641-D991-4182-8FFF-EAF7405451E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89F8EEE9-BDA3-47AD-8F8B-05446B2DA32E}
