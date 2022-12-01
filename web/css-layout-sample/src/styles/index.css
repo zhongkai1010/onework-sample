@@ -426,6 +426,15 @@ html {
 .container section {
   padding: 1.6rem;
 }
+.container section .list {
+  padding: 1.5rem;
+}
+.container section .list li {
+  line-height: 3rem;
+  font-size: 1.5rem;
+  text-decoration: underline;
+  list-style: decimal;
+}
 .container section .grid-wrapper {
   padding: 1.5rem;
   display: grid;

@@ -33,6 +33,15 @@ html {
   }
   section {
     padding: 1.6rem;
+    .list {
+      padding: 1.5rem;
+      li {
+        line-height: 3rem;
+        font-size: 1.5rem;
+        text-decoration: underline;
+        list-style: decimal;
+      }
+    }
 
     .grid-wrapper {
       padding: $padding-interval;
