@@ -1,0 +1,20 @@
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "/src/styles"
+    }
+  ],
+  "liveSassCompile.settings.generateMap": false,
+  "liveSassCompile.settings.compileOnWatch": true,
+  "liveSassCompile.settings.includeItems": ["/src/styles/index.scss"],
+  "liveSassCompile.settings.showOutputWindowOn": "None",
+
+  "stylelint.validate": ["css", "scss"],
+  "stylelint.enable": true,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "liveServer.settings.root": "/src"
+}

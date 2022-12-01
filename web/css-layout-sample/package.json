@@ -1,16 +1,14 @@
 {
-  "name": "rollup-sample",
+  "name": "css-layout-sample",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "build": "rollup --config",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "zhongkai1010@163.com",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
-    "rollup": "^3.4.0"
+    "sass": "^1.56.1"
   }
 }
