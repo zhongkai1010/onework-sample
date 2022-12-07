@@ -1,6 +1,7 @@
-@import url('./variable');
-@import url('./mixin');
-@import url('./transition');
+@import './reset.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import '../assets/main.css';
 
 * {
   touch-action: pan-y;
