@@ -415,7 +415,7 @@ html {
   border-bottom: 1px solid #ccc;
 }
 .container header h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 500;
 }
 .container header a {
@@ -423,29 +423,32 @@ html {
   font-weight: 300;
   text-decoration: underline;
 }
-.container section {
-  padding: 1.6rem;
+.container section .nav-wrapper {
+  padding: 20px;
 }
-.container section .list {
-  padding: 1.5rem;
+.container section .nav-wrapper .content {
+  margin-bottom: 1.5rem;
 }
-.container section .list li {
-  line-height: 3rem;
+.container section .nav-wrapper .content h2 {
   font-size: 1.5rem;
-  text-decoration: underline;
-  list-style: decimal;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
 }
-.container section .grid-wrapper {
+.container section .nav-wrapper .content ul {
+  margin: 20px;
+}
+.container section .nav-wrapper .content li {
+  line-height: 3rem;
+}
+.container section .context-wrapper {
+  margin: 5px;
   padding: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-auto-rows: minmax(100px, auto);
-  grid-gap: 1rem;
   overflow: hidden;
   resize: both;
   border: 1px solid darkblue;
 }
-.container section .grid-wrapper .box {
+.container section .context-wrapper .box {
+  margin: 5px;
   border-radius: 5px;
   padding: 10px;
   background-color: rgb(207, 232, 220);
@@ -454,4 +457,23 @@ html {
   font-weight: 500;
   text-align: center;
   line-height: 100px;
+  width: 200px;
+  height: 150px;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: minmax(100px, auto);
+  grid-gap: 1rem;
 }

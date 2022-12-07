@@ -22,7 +22,7 @@ html {
     border-bottom: 1px solid #ccc;
 
     h1 {
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: 500;
     }
     a {
@@ -32,28 +32,33 @@ html {
     }
   }
   section {
-    padding: 1.6rem;
-    .list {
-      padding: 1.5rem;
-      li {
-        line-height: 3rem;
-        font-size: 1.5rem;
-        text-decoration: underline;
-        list-style: decimal;
+    .nav-wrapper {
+      padding: 20px;
+      .content {
+        margin-bottom: 1.5rem;
+        h2 {
+          font-size: 1.5rem;
+          border-bottom: 1px solid #ccc;
+          padding-bottom: 10px;
+        }
+        ul {
+          margin: 20px;
+        }
+        li {
+          line-height: 3rem;
+        }
       }
     }
 
-    .grid-wrapper {
+    .context-wrapper {
+      margin: 5px;
       padding: $padding-interval;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      grid-auto-rows: minmax(100px, auto);
-      grid-gap: 1rem;
       overflow: hidden;
       resize: both;
       border: 1px solid darkblue;
 
       .box {
+        margin: 5px;
         border-radius: 5px;
         padding: 10px;
         background-color: rgb(207, 232, 220);
@@ -62,7 +67,26 @@ html {
         font-weight: 500;
         text-align: center;
         line-height: 100px;
+        width: 200px;
+        height: 150px;
       }
     }
   }
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: minmax(100px, auto);
+  grid-gap: 1rem;
 }
