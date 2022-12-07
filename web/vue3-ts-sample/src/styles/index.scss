@@ -1,6 +1,6 @@
-@import './variable.scss';
-@import './mixin.scss';
-@import './transition.scss';
+@import url('./variable');
+@import url('./mixin');
+@import url('./transition');
 
 * {
   touch-action: pan-y;
@@ -9,14 +9,15 @@
 html,
 body,
 #app {
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  color: #515a6e;
+  background-color: #f6f8f9;
   box-sizing: border-box;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizelegibility;
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-  background-color: #f6f8f9;
-  color: #515a6e;
+
   @include scrollBar;
 }
 

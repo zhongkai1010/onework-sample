@@ -41,8 +41,8 @@ body {
 */
 hr {
   height: 0; /* 1 */
-  border-top-width: 1px; /* 3 */
   color: inherit; /* 2 */
+  border-top-width: 1px; /* 3 */
 }
 
 /*
@@ -124,8 +124,8 @@ sup {
 3. Remove gaps between table borders by default.
 */
 table {
-  border-color: inherit; /* 2 */
   text-indent: 0; /* 1 */
+  border-color: inherit; /* 2 */
   border-collapse: collapse; /* 3 */
 }
 
@@ -139,8 +139,8 @@ input,
 optgroup,
 select,
 textarea {
-  margin: 0; /* 2 */
   padding: 0; /* 3 */
+  margin: 0; /* 2 */
   font-size: 100%; /* 1 */
   font-family: inherit; /* 1 */
   color: inherit; /* 1 */
@@ -248,8 +248,8 @@ pre {
   margin: 0;
 }
 fieldset {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 legend {
   padding: 0;
@@ -257,8 +257,8 @@ legend {
 ol,
 ul,
 menu {
-  margin: 0;
   padding: 0;
+  margin: 0;
   list-style: none;
 }
 
