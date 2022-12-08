@@ -5,7 +5,7 @@ module.exports = {
     'stylelint-config-standard-vue',
     'stylelint-config-prettier',
   ],
-  plugins: ['stylelint-order'],
+  plugins: ['stylelint-order', 'stylelint-scss'],
   // 不同格式的文件指定自定义语法
   overrides: [
     {
@@ -28,6 +28,7 @@ module.exports = {
   ],
   rules: {
     'string-quotes': 'single',
+    "import-notation":"string",
     // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器
     'no-descending-specificity': null,
     'selector-pseudo-element-no-unknown': [
@@ -36,6 +37,7 @@ module.exports = {
         ignorePseudoElements: ['v-deep'],
       },
     ],
+    
     'selector-pseudo-class-no-unknown': [
       true,
       {
