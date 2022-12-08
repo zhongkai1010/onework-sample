@@ -5,8 +5,6 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 <template>
   <el-config-provider :locale="zhCn">
-    <Suspense>
-      <router-view />
-    </Suspense>
+    <router-view />
   </el-config-provider>
 </template>
