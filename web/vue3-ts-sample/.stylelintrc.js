@@ -42,6 +42,8 @@ module.exports = {
         ignorePseudoClasses: ['deep'],
       },
     ],
+    'scss/operator-no-newline-after': null,
+    'selector-class-pattern': null,
     // 禁用每个选择器之前插入空行
     'rule-empty-line-before': null,
     // 禁止小于 1 的小数有一个前导零

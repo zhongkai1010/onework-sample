@@ -1,15 +1,15 @@
-@import './reset.scss';
-@import './mixin.scss';
-@import './transition.scss';
-@import './variable.scss';
+@import url('./reset');
+@import url('./mixin');
+@import url('./transition');
+@import url('./variable');
 
 img {
   object-fit: cover;
 }
 
 a {
-  color: $base-color-blue;
   text-decoration: none;
+  color: $base-color-blue;
   cursor: pointer;
 }
 
@@ -29,8 +29,8 @@ html {
     height: 100vh;
     padding: 0;
     margin: 0;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
     font-size: $base-font-size-default;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
     color: #2c3e50;
     background: #f6f8f9;
     -webkit-font-smoothing: antialiased;
@@ -65,7 +65,7 @@ html {
     }
 
     .el-divider--horizontal {
-      margin: 10px 0 25px 0;
+      margin: 10px 0 25px;
 
       .el-divider__text {
         display: -webkit-box;
@@ -92,6 +92,7 @@ html {
           * {
             transition: none;
           }
+
           padding: $base-padding;
           background: $base-color-white;
         }
@@ -143,10 +144,10 @@ html {
 
     .el-pagination {
       padding: 2px 5px;
-      margin: 15px 0 0 0;
-      font-weight: normal;
-      color: $base-color-black;
+      margin: 15px 0 0;
       text-align: center;
+      color: $base-color-black;
+      font-weight: normal;
     }
 
     .el-menu.el-menu--popup.el-menu--popup-right-start {
@@ -178,7 +179,7 @@ html {
       }
 
       &__content {
-        padding: 20px 20px 20px 20px;
+        padding: 20px;
       }
     }
 
@@ -194,10 +195,10 @@ html {
       .el-scrollbar {
         .el-scrollbar__view {
           .el-select-dropdown__item {
+            overflow-y: auto;
             height: auto;
             max-height: 274px;
             padding: 0;
-            overflow-y: auto;
             line-height: 26px;
           }
         }

@@ -1,8 +1,7 @@
-
 @mixin scrollbar {
+  overflow-y: auto;
   max-height: 88vh;
   margin-bottom: 0.5vh;
-  overflow-y: auto;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -11,12 +10,12 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(144, 147, 153, 0.3);
+    background-color: rgb(144 147 153 / 30%);
     border-radius: 10px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(144, 147, 153, 0.3);
+    background-color: rgb(144 147 153 / 30%);
   }
 }
 
@@ -27,14 +26,14 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgb(0 0 0 / 40%);
     background-clip: padding-box;
     border: 3px solid transparent;
     border-radius: 7px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(0 0 0 / 50%);
   }
 
   &::-webkit-scrollbar-track {
@@ -45,4 +44,3 @@
     background-color: #f8fafc;
   }
 }
-
