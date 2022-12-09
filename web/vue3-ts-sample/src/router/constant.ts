@@ -37,4 +37,4 @@ export const NOT_PAGE: RouteRecordRaw = {
 /**
  *  排除不需要权限验证路由清单
  */
-export const ROUTER_WHITE_LIST = ['/login', '/test'] as string[]
+export const WHITE_LIST = ['/login', '/test'] as string[]

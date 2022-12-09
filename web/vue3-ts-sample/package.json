@@ -16,6 +16,7 @@
     "@element-plus/icons-vue": "^2.0.10",
     "dayjs": "^1.11.7",
     "element-plus": "^2.2.26",
+    "nprogress": "^0.2.0",
     "pinia": "^2.0.26",
     "pinia-plugin-persistedstate": "^3.0.1",
     "vue": "^3.2.45",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
     "@types/node": "^18.11.9",
+    "@types/nprogress": "^0.2.0",
     "@vitejs/plugin-vue": "^3.2.0",
     "@vitejs/plugin-vue-jsx": "^2.1.1",
     "@vue/eslint-config-prettier": "^7.0.0",

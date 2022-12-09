@@ -1,11 +1,16 @@
 import { createApp } from 'vue'
-import { setupPinia } from '@/plugins/pinia/index'
+import { setupPinia } from '@/store'
+import { setupRouter } from '@/router'
 import { setupElementPlus } from '@/plugins/element-plus/index'
-import { setupRouter } from '@/plugins/vue-router/index'
 
 import App from './App.vue'
 
 import '@/styles/index.scss'
+
+/**
+ *  进度条样式
+ */
+import 'nprogress/nprogress.css'
 
 async function bootstrap() {
   const app = createApp(App)
