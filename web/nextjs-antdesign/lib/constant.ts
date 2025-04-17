@@ -1,4 +1,6 @@
-export const DEFAULT_THEME = '#1e80ff'
+export const DEFAULT_THEME_COLOR = '#1e80ff'
+
+export const DEFAULT_DARK_COLOR = '#141414'
 
 export const THEME_COLOR_STORE_KEY = 'use-local-storage-state-demo1'
 

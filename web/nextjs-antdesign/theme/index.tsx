@@ -1,3 +1,11 @@
+/*
+ * @Author: zhongkai zhongkai1010@163.com
+ * @Date: 2025-04-17 21:38:09
+ * @LastEditors: zhongkai zhongkai1010@163.com
+ * @LastEditTime: 2025-04-17 23:26:01
+ * @FilePath: \web\nextjs-antdesign\theme\index.tsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 'use client'
 
 import React, { createContext, JSX, useEffect, useState } from 'react'
@@ -6,41 +14,35 @@ import dayjs from 'dayjs'
 
 import 'dayjs/locale/zh-cn'
 import zhCN from 'antd/locale/zh_CN'
-import { DEFAULT_THEME, THEME_COLOR_STORE_KEY } from '@/lib/constant'
-import { generate } from '@ant-design/colors'
+import {
+  DEFAULT_DARK_COLOR,
+  DEFAULT_THEME_COLOR,
+  THEME_COLOR_STORE_KEY,
+} from '@/lib/constant'
+import { setDarkColor, setPrimaryColor } from '@/lib/utils'
 
 dayjs.locale('zh-cn')
 
 export const ThemeContext = createContext({
-  themeColor: DEFAULT_THEME,
+  themeColor: DEFAULT_THEME_COLOR,
   setThemeColor: (color: string) => {},
   dark: false,
   setDark: (dark: boolean) => {},
 })
 
 const withTheme = (node: JSX.Element) => {
-  const [themeColor, setThemeColor] = useState(DEFAULT_THEME)
+  const [themeColor, setThemeColor] = useState(DEFAULT_THEME_COLOR)
   const [dark, setDark] = useState(false)
 
   useEffect(() => {
     setThemeColor(themeColor)
-    // 设置全局 CSS 变量
-    document.documentElement.style.setProperty(
-      '--color-primary',
-      themeColor ?? DEFAULT_THEME
-    )
-    const colors = generate(themeColor)
-    for (let i = 0; i < colors.length; i++) {
-      document.documentElement.style.setProperty(
-        `--color-primary-${i == 0 ? 50 : i * 100}`,
-        colors[i]
-      )
-    }
+    setPrimaryColor(themeColor)
   }, [themeColor])
 
   useEffect(() => {
     if (dark) {
       document.documentElement.classList.add('dark')
+      setDarkColor(themeColor, DEFAULT_DARK_COLOR)
     } else {
       document.documentElement.classList.remove('dark')
     }
@@ -56,7 +58,7 @@ const withTheme = (node: JSX.Element) => {
   return (
     <ThemeContext.Provider
       value={{
-        themeColor: themeColor ?? DEFAULT_THEME,
+        themeColor: themeColor ?? DEFAULT_THEME_COLOR,
         setThemeColor,
         dark,
         setDark,

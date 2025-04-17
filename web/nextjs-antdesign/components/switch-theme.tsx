@@ -1,27 +1,34 @@
-import { DEFAULT_THEME, THEME_COLOR_STORE_KEY } from '@/lib/constant'
+import { DEFAULT_THEME_COLOR, THEME_COLOR_STORE_KEY } from '@/lib/constant'
 import { ThemeContext } from '@/theme'
 import { ColorPicker, ColorPickerProps } from 'antd'
 
-import { debounce } from 'lodash'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 const SwitchTheme = (props: ColorPickerProps) => {
   const { themeColor, setThemeColor } = useContext(ThemeContext)
+  const [defaultValue, setDefaultValue] = useState<string | undefined>()
 
-  // 防抖函数
-  const handleColorChange = debounce((color) => {
-    localStorage.setItem(THEME_COLOR_STORE_KEY, color)
-    setThemeColor(color)
-  }, 100) // 500ms 的延迟
+  useEffect(() => {
+    const cacheThemeColor = localStorage.getItem(THEME_COLOR_STORE_KEY)
+    if (cacheThemeColor) {
+      setDefaultValue(cacheThemeColor)
+    } else {
+      setDefaultValue(DEFAULT_THEME_COLOR)
+    }
+  }, [])
 
-  return (
+  return defaultValue ? (
     <ColorPicker
-      defaultValue={themeColor ?? DEFAULT_THEME}
+      defaultValue={themeColor}
       size="small"
       className="mr-3 ml-3 cursor-pointer text-xl"
-      onChange={(color) => handleColorChange(color.toHexString())}
-      
+      onChangeComplete={(color) => {
+        localStorage.setItem(THEME_COLOR_STORE_KEY, color.toHexString())
+        setThemeColor(color.toHexString())
+      }}
     />
+  ) : (
+    <></>
   )
 }
 

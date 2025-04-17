@@ -145,7 +145,7 @@ function Home() {
               onClick={() => {
                 setDark(false)
               }}
-              style={{ color: themeColor }}
+              style={{ color: dark ? 'rgba(255, 255, 255, 0.45)' : themeColor }}
             />
           ) : (
             <MoonFilled
@@ -153,7 +153,7 @@ function Home() {
               onClick={() => {
                 setDark(true)
               }}
-              style={{ color: themeColor }}
+              style={{ color: dark ? '#cad2d7' : themeColor }}
             />
           )}
           <LayoutFilled
@@ -177,7 +177,7 @@ function Home() {
           />
         </Space>
       </div>
-      <div className="bg-primary flex h-[132] flex-col items-center">
+      <div className="bg-primary dark:bg-dark flex h-[132] flex-col items-center">
         <Input
           className="mt-6 mb-4 rounded-xs border-0 p-1.5 text-stone-950"
           style={{ width: '40%' }}

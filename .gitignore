@@ -6,4 +6,4 @@
 /dotnet/aspnetcore6_sample/wwwroot/upload
  
 target
-/web/vue3-ts-sample/*.eslintcache
+pnpm-lock.yaml
