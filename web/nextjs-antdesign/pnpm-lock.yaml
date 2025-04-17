@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@ant-design/colors':
+    specifier: ^8.0.0
+    version: 8.0.0
   '@ant-design/cssinjs':
     specifier: ^1.23.0
     version: 1.23.0(react-dom@19.1.0)(react@19.1.0)

@@ -1,7 +1,22 @@
 'use client'
-import withTheme from '@/theme'
+import HoverIcon from '@/components/hover-icon'
+import LanguageSelect from '@/components/language-select'
+import SiteSelect from '@/components/site-select'
+import SwitchTheme from '@/components/switch-theme'
 import {
-  DislikeOutlined,
+  JOB_TYPE,
+  POST_CATEGORIES,
+  QUICK_NAVS,
+  SEARCH_SITE,
+} from '@/lib/constant'
+import {
+  getArticlePageData,
+  getGithubProjectPageData,
+  getPostPageData,
+} from '@/services'
+import withTheme, { ThemeContext } from '@/theme'
+import { ArticleType, GithubProjectType, PostType } from '@/types/api'
+import {
   DownOutlined,
   EllipsisOutlined,
   LayoutFilled,
@@ -9,15 +24,17 @@ import {
   MergeFilled,
   MessageOutlined,
   MoonFilled,
-  MoreOutlined,
   RedoOutlined,
   SettingFilled,
   StarFilled,
+  SunOutlined,
+  UserOutlined,
 } from '@ant-design/icons'
+import { useRequest } from 'ahooks'
 import {
   App,
+  Avatar,
   Button,
-  Card,
   Divider,
   Dropdown,
   Empty,
@@ -27,33 +44,19 @@ import {
   Skeleton,
   Space,
   Spin,
+  Typography,
 } from 'antd'
-import Image from 'next/image'
-import { useRequest } from 'ahooks'
-import {
-  getArticlePageData,
-  getGithubProjectPageData,
-  getPostPageData,
-} from '@/services'
-import { Fragment, useState } from 'react'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import { GithubProjectType, ArticleType, PostType } from '@/types/api'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import {
-  JOB_TYPE,
-  POST_CATEGORIES,
-  QUICK_NAVS,
-  SEARCH_SITE,
-} from '@/lib/constant'
-import SiteSelect from '@/components/site-select'
-import LanguageSelect from '@/components/language-select'
-import HoverIcon from '@/components/hover-icon'
+import Image from 'next/image'
+import { Fragment, useContext, useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 dayjs.extend(relativeTime)
 
 function Home() {
   const { message } = App.useApp()
+  const { themeColor, dark, setDark } = useContext(ThemeContext)
 
   const [articleData, setArticleData] = useState<Array<ArticleType>>([])
   const [articleTotal, setArticleTotal] = useState(0)
@@ -100,28 +103,27 @@ function Home() {
   })
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f4f5f5]">
-      <div className="flex h-[54] flex-row bg-[#ffffff] pr-[24] pl-[24]">
+    <div className="flex min-h-screen flex-col">
+      <div className="dark:bg-dark flex h-[54] flex-row bg-[#ffffff] pr-[24] pl-[24]">
         <Image
           src="/logo.svg"
           alt=""
-          className="mr-4"
+          className="mr-8"
           height={54}
           width={112}
         />
-
-        <div className="flex flex-row items-center justify-center">
-          <Button type="link" style={{ color: '#90a1b9' }}>
-            课程
+        <Space direction="horizontal" size="large">
+          <Button type="link">
+            <Typography.Text type="secondary">课程</Typography.Text>
           </Button>
-          <Button type="link" style={{ color: '#90a1b9' }}>
-            APP
+          <Button type="link">
+            <Typography.Text type="secondary">APP</Typography.Text>
           </Button>
-          <Button type="link" style={{ color: '#90a1b9' }}>
-            会员
+          <Button type="link">
+            <Typography.Text type="secondary">会员</Typography.Text>
           </Button>
-        </div>
-        <div className="ml-auto flex flex-row items-center justify-center">
+        </Space>
+        <Space className="ml-auto" direction="horizontal" size="middle">
           <Dropdown.Button
             type="primary"
             icon={<DownOutlined />}
@@ -134,31 +136,48 @@ function Home() {
               }),
               style: { padding: '4px' },
             }}
-            className="mr-3 ml-3"
           >
-            <span className="pr-2 pl-2">前端</span>
+            <span>前端</span>
           </Dropdown.Button>
-          <MoonFilled
-            className="mr-3 ml-3 cursor-pointer text-xl text-blue-400"
-            style={{ color: '#1e80ff' }}
-          />
+          {dark ? (
+            <SunOutlined
+              className="cursor-pointer text-xl"
+              onClick={() => {
+                setDark(false)
+              }}
+              style={{ color: themeColor }}
+            />
+          ) : (
+            <MoonFilled
+              className="cursor-pointer text-xl"
+              onClick={() => {
+                setDark(true)
+              }}
+              style={{ color: themeColor }}
+            />
+          )}
           <LayoutFilled
-            className="mr-3 ml-3 cursor-pointer text-xl"
-            style={{ color: '#1e80ff' }}
+            className="cursor-pointer text-xl"
+            style={{ color: themeColor }}
           />
           <SettingFilled
-            className="mr-3 ml-3 cursor-pointer text-xl"
-            style={{ color: '#1e80ff' }}
+            className="cursor-pointer text-xl"
+            style={{ color: themeColor }}
           />
+          <SwitchTheme />
           <Button
-            className="mr-3 ml-3 bg-white"
-            style={{ borderColor: '#1e80ff', color: '#1e80ff' }}
+            className="bg-white"
+            style={{ borderColor: themeColor, color: themeColor }}
           >
             登录领矿石
           </Button>
-        </div>
+          <Avatar
+            icon={<UserOutlined />}
+            style={{ backgroundColor: themeColor }}
+          />
+        </Space>
       </div>
-      <div className="flex h-[132] flex-col items-center bg-[#1e80ff]">
+      <div className="bg-primary flex h-[132] flex-col items-center">
         <Input
           className="mt-6 mb-4 rounded-xs border-0 p-1.5 text-stone-950"
           style={{ width: '40%' }}
@@ -398,7 +417,7 @@ function Home() {
                   dataSource={githubProjectData}
                   renderItem={(item) => (
                     <List.Item
-                      className="cursor-pointer bg-slate-50 hover:bg-sky-100"
+                      className="cursor-pointer bg-slate-50 hover:bg-sky-100 dark:bg-gray-800"
                       style={{ padding: '12px', marginBottom: '8px' }}
                     >
                       <a
@@ -515,7 +534,7 @@ function Home() {
                     renderItem={(item) => (
                       <List.Item
                         key={item.id}
-                        className="flex flex-col"
+                        className="flex cursor-pointer flex-col bg-slate-50 hover:bg-sky-100"
                         style={{
                           padding: '12px',
                           alignItems: 'stretch',
