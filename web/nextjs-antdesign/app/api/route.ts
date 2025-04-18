@@ -1,3 +1,11 @@
+/*
+ * @Author: zhongkai zhongkai1010@163.com
+ * @Date: 2025-04-14 10:12:29
+ * @LastEditors: zhongkai zhongkai1010@163.com
+ * @LastEditTime: 2025-04-18 15:23:47
+ * @FilePath: \onework-sample\web\nextjs-antdesign\app\api\route.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { DEVELOPMENT_LANGUAGE, POST_CATEGORIES } from '@/lib/constant'
 import { delay, failure, page, result } from '@/lib/mock'
 
@@ -5,7 +13,7 @@ import Mock from 'mockjs'
 
 export async function GET(request: Request) {
   // 使用延迟
-  await delay(2000) // 延迟2秒
+  await delay(1000) // 延迟2秒
 
   const url = new URL(request.url)
   const action = url.searchParams.get('action') // 获取查询参数 "action"

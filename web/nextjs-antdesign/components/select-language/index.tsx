@@ -1,10 +1,10 @@
 import { DEVELOPMENT_LANGUAGE } from '@/lib/constant'
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons'
-import { Input, Popover } from 'antd'
+import { Popover } from 'antd'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { debounce } from 'lodash'
 
-const LanguageSelect = () => {
+const SelectLanguage = () => {
   const [selectLanguage, setSelectLanguage] = useState(DEVELOPMENT_LANGUAGE[0])
   const [languages, setLanguages] = useState(DEVELOPMENT_LANGUAGE)
   const [open, setOpen] = useState(false)
@@ -93,4 +93,4 @@ const LanguageSelect = () => {
   )
 }
 
-export default LanguageSelect
+export default SelectLanguage

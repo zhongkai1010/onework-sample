@@ -11,7 +11,7 @@ type Props = {
   text: string
 }
 
-const HoverIcon = (props: Props) => {
+const IconHover = (props: Props) => {
   const [hoverState, setHoverState] = useState(false)
 
   const handleMouseEnter = () => {
@@ -41,4 +41,4 @@ const HoverIcon = (props: Props) => {
   )
 }
 
-export default HoverIcon
+export default IconHover

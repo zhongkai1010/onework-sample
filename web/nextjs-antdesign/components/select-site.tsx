@@ -8,7 +8,7 @@ export interface SiteSelectProps {
   onClick?: (key: string) => void
 }
 
-const SiteSelect = ({ onClick }: SiteSelectProps) => {
+const SelectSite = ({ onClick }: SiteSelectProps) => {
   const [selectKey, setSelectKey] = useState(SITE_TYPE[0].key)
   const [open, setOpen] = useState(false)
 
@@ -71,4 +71,4 @@ const SiteSelect = ({ onClick }: SiteSelectProps) => {
   )
 }
 
-export default SiteSelect
+export default SelectSite

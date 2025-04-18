@@ -1,10 +1,12 @@
 'use client'
-import HoverIcon from '@/components/hover-icon'
-import LanguageSelect from '@/components/language-select'
-import SiteSelect from '@/components/site-select'
+import CardInfiniteScroll from '@/components/card-infinite-scroll'
+import IconHover from '@/components/icon-hover'
+import SelectLanguage from '@/components/select-language'
+import SelectSite from '@/components/select-site'
+import SwitchMode from '@/components/switch-mode'
 import SwitchTheme from '@/components/switch-theme'
 import {
-  JOB_TYPE,
+  DEFAULT_DARK_COLOR,
   POST_CATEGORIES,
   QUICK_NAVS,
   SEARCH_SITE,
@@ -17,7 +19,6 @@ import {
 import withTheme, { ThemeContext } from '@/theme'
 import { ArticleType, GithubProjectType, PostType } from '@/types/api'
 import {
-  DownOutlined,
   EllipsisOutlined,
   LayoutFilled,
   LikeOutlined,
@@ -37,32 +38,29 @@ import {
   Button,
   Divider,
   Dropdown,
-  Empty,
   Input,
-  List,
   Select,
-  Skeleton,
   Space,
-  Spin,
   Typography,
 } from 'antd'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Image from 'next/image'
 import { Fragment, useContext, useState } from 'react'
-import InfiniteScroll from 'react-infinite-scroll-component'
 
 dayjs.extend(relativeTime)
 
 function Home() {
   const { message } = App.useApp()
-  const { themeColor, dark, setDark } = useContext(ThemeContext)
+  const { fontColor, dark, setDark, themeColor } = useContext(ThemeContext)
 
   const [articleData, setArticleData] = useState<Array<ArticleType>>([])
   const [articleTotal, setArticleTotal] = useState(0)
+
   const articleApi = useRequest(getArticlePageData, {
     onSuccess: (res) => {
       const result = res.data
+
       if (result.code === 200) {
         setArticleTotal(result.data.total)
         setArticleData(articleData.concat(result.data.data))
@@ -104,7 +102,7 @@ function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="dark:bg-dark flex h-[54] flex-row bg-[#ffffff] pr-[24] pl-[24]">
+      <div className="dark:bg-dark-400 flex h-[54] flex-row bg-[#ffffff] pr-[24] pl-[24]">
         <Image
           src="/logo.svg"
           alt=""
@@ -124,28 +122,14 @@ function Home() {
           </Button>
         </Space>
         <Space className="ml-auto" direction="horizontal" size="middle">
-          <Dropdown.Button
-            type="primary"
-            icon={<DownOutlined />}
-            menu={{
-              items: JOB_TYPE.map((item) => {
-                return {
-                  label: item.title,
-                  key: item.name,
-                }
-              }),
-              style: { padding: '4px' },
-            }}
-          >
-            <span>前端</span>
-          </Dropdown.Button>
+          <SwitchMode />
           {dark ? (
             <SunOutlined
               className="cursor-pointer text-xl"
               onClick={() => {
                 setDark(false)
               }}
-              style={{ color: dark ? 'rgba(255, 255, 255, 0.45)' : themeColor }}
+              style={{ color: fontColor }}
             />
           ) : (
             <MoonFilled
@@ -153,33 +137,38 @@ function Home() {
               onClick={() => {
                 setDark(true)
               }}
-              style={{ color: dark ? '#cad2d7' : themeColor }}
+              style={{ color: fontColor }}
             />
           )}
           <LayoutFilled
             className="cursor-pointer text-xl"
-            style={{ color: themeColor }}
+            style={{ color: fontColor }}
           />
           <SettingFilled
             className="cursor-pointer text-xl"
-            style={{ color: themeColor }}
+            style={{ color: fontColor }}
           />
           <SwitchTheme />
           <Button
             className="bg-white"
-            style={{ borderColor: themeColor, color: themeColor }}
+            style={{
+              borderColor: fontColor,
+              color: fontColor,
+            }}
           >
             登录领矿石
           </Button>
           <Avatar
             icon={<UserOutlined />}
-            style={{ backgroundColor: themeColor }}
+            style={{
+              backgroundColor: fontColor,
+            }}
           />
         </Space>
       </div>
       <div className="bg-primary dark:bg-dark flex h-[132] flex-col items-center">
         <Input
-          className="mt-6 mb-4 rounded-xs border-0 p-1.5 text-stone-950"
+          className="dark:text-dark-font dark:border-dark-400 mt-6 mb-4 rounded-xs border-0 p-1.5"
           style={{ width: '40%' }}
           prefix={
             <Dropdown
@@ -204,18 +193,15 @@ function Home() {
           placeholder="输入关键字搜索"
         />
         <ul className="flex w-2/5 list-none flex-row items-center justify-center text-white">
-          <li className="mr-4 text-sm whitespace-nowrap">快捷导航</li>
+          <li className="dark:text-dark-font mr-4 text-sm whitespace-nowrap">
+            快捷导航
+          </li>
           {QUICK_NAVS.map((item, index) => (
             <li
               key={index}
-              className="mr-4 cursor-pointer rounded-2xl bg-blue-400 pr-2 pl-1"
+              className="bg-primary-300 dark:bg-dark-400 mr-4 cursor-pointer rounded-2xl pr-2 pl-1"
             >
-              <a
-                href={item.link}
-                target="_blank"
-                className="flex flex-row"
-                style={{ color: '#ffff' }}
-              >
+              <a href={item.link} target="_blank" className="flex flex-row">
                 <Image
                   src={item.icon}
                   alt={item.text}
@@ -223,7 +209,7 @@ function Home() {
                   width={20}
                   className="rounded-[50%] object-contain"
                 />
-                <span className="p-1 text-xs whitespace-nowrap">
+                <span className="dark:text-dark-font p-1 text-xs whitespace-nowrap text-white">
                   {item.text}
                 </span>
               </a>
@@ -238,13 +224,30 @@ function Home() {
           </li>
         </ul>
       </div>
-      <div className="flex flex-1 flex-row overflow-hidden bg-[#f4f5f5] pt-4 pr-4 pl-4">
-        {/*
-          左侧
-         */}
-        <div className="w-[400] bg-[#ffff]">
-          <div className="mb-2 flex h-[44] flex-row items-center justify-between border-b-1 border-solid border-slate-200 px-4">
-            <div className="flex flex-row items-center">
+      <div className="dark:bg-dark flex flex-1 flex-row overflow-hidden bg-[#f4f5f5] pt-4 pr-4 pl-4">
+        <CardInfiniteScroll
+          id="articleScrollableDiv"
+          total={articleTotal}
+          data={articleData}
+          api={articleApi}
+          className="mr-[12] w-[400]"
+          classNames={{
+            body: 'scrollbar-thin scrollbar-thumb-[#e4e6eb] scrollbar-track-[#f4f5f5] dark:scrollbar-track-dark dark:scrollbar-thumb-dark-400',
+          }}
+          styles={{
+            body: {
+              height: 'calc(100vh - 54px - 132px - 44px - 8px - 16px)',
+              overflowY: 'auto',
+              width: '412px',
+            },
+            item: {
+              border: 0,
+              padding: 0,
+              alignItems: 'stretch',
+            },
+          }}
+          title={
+            <>
               <Image
                 src="/header-icon-juejin.svg"
                 alt=""
@@ -254,7 +257,10 @@ function Home() {
               />
               <Select
                 defaultValue={POST_CATEGORIES[0]}
-                style={{ width: 120, backgroundColor: '#1e80ff' }}
+                style={{
+                  width: 120,
+                  backgroundColor: dark ? DEFAULT_DARK_COLOR : themeColor,
+                }}
                 options={POST_CATEGORIES.map((item, index) => ({
                   value: index,
                   label: item,
@@ -264,11 +270,13 @@ function Home() {
                   articleApi.run()
                 }}
               />
-            </div>
-            <div className="flex flex-row items-center">
+            </>
+          }
+          extra={
+            <>
               <Button
-                type="link"
-                style={{ color: '#90a1b9', padding: '0 4px' }}
+                color="primary"
+                variant="link"
                 icon={<RedoOutlined />}
                 onClick={() => {
                   setArticleData([])
@@ -279,7 +287,8 @@ function Home() {
               </Button>
               <Divider type="vertical" style={{ height: '24px' }} />
               <Button
-                type="link"
+                color="default"
+                variant="link"
                 style={{ padding: '0 4px' }}
                 onClick={() => {
                   setArticleData([])
@@ -288,287 +297,205 @@ function Home() {
               >
                 最新
               </Button>
-            </div>
-          </div>
-          <div
-            id="articleScrollableDiv"
-            className="scrollbar-thin scrollbar-thumb-[#e4e6eb] scrollbar-track-[#f4f5f5]"
-            style={{
-              height: 'calc(100vh - 54px - 132px - 44px - 8px - 16px)',
-              overflowY: 'auto',
-              width: '412px',
-            }}
-          >
-            {articleData.length == 0 && articleApi.loading && (
-              <div className="flex h-full w-full flex-col items-center justify-center">
-                <Spin size="large" />
+            </>
+          }
+          renderItem={(item) => (
+            <div className="hover:bg-primary/10 dark:text-dark-font mb-2 flex h-full w-full cursor-pointer flex-col p-3">
+              <div title={item.title}>
+                {item.title.length > 25
+                  ? `${item.title.substring(0, 25)}...`
+                  : item.title}
               </div>
-            )}
-            {articleData.length == 0 && !articleApi.loading && (
-              <Empty className="mt-[50%]" />
-            )}
-            {articleData.length > 0 && (
-              <InfiniteScroll
-                dataLength={articleData.length}
-                next={articleApi.run}
-                hasMore={articleData.length < articleTotal}
-                loader={<Skeleton active style={{ padding: '12px' }} />}
-                endMessage={<Divider plain>已全部加载完成 🤐</Divider>}
-                scrollableTarget="articleScrollableDiv"
-              >
-                <List
-                  dataSource={articleData}
-                  renderItem={(item) => (
-                    <List.Item
-                      key={item.id}
-                      className="mb-2 flex cursor-pointer flex-col hover:bg-sky-100"
-                      style={{
-                        border: 0,
-                        padding: '12px',
-                        alignItems: 'stretch',
-                      }}
-                    >
-                      <div title={item.title} className="text-black">
-                        {item.title.length > 25
-                          ? `${item.title.substring(0, 25)}...`
-                          : item.title}
-                      </div>
-                      <div className="mt-1 flex flex-row items-center text-slate-400">
-                        {item.categories.map((category, index) => (
-                          <Fragment key={index}>
-                            <div className="text-xs">{category}</div>
-                            {index != item.categories.length - 1 ? (
-                              <div className="mx-1.5 size-[2] rounded-[50%] bg-gray-400"></div>
-                            ) : (
-                              <></>
-                            )}
-                          </Fragment>
-                        ))}
-                        <div className="ml-1.5 text-xs">
-                          {dayjs().to(dayjs(item.publishTime))}
-                        </div>
-                        <div className="ml-auto text-xs">
-                          赞 {item.likeCount}
-                        </div>
-                        <div className="mx-1.5 size-[2] rounded-[50%] bg-gray-400" />
-                        <div className="text-xs">评论 {item.commentCount}</div>
-                        <div className="ml-2 text-xs">
-                          <EllipsisOutlined />
-                        </div>
-                      </div>
-                    </List.Item>
-                  )}
-                />
-              </InfiniteScroll>
-            )}
-          </div>
-        </div>
-        {/*
-          中间
-         */}
-        <div className="mr-[12] ml-[12] min-w-[420] flex-1 bg-[#ffff]">
-          <div className="mb-2 flex h-[44] flex-row items-center justify-between border-b-1 border-solid border-slate-200 px-4">
-            <div className="flex w-full flex-row items-center justify-between">
-              <div>
-                <SiteSelect />
-              </div>
-              <div>
-                <LanguageSelect />
+              <div className="dark:text-dark-font/50 mt-1 flex flex-row items-center text-black/60">
+                {item.categories.map((category, index) => (
+                  <Fragment key={index}>
+                    <div className="text-xs">{category}</div>
+                    {index != item.categories.length - 1 ? (
+                      <div className="mx-1.5 size-[2] rounded-[50%] bg-black/60"></div>
+                    ) : (
+                      <></>
+                    )}
+                  </Fragment>
+                ))}
+                <div className="ml-4 text-xs">
+                  {dayjs().to(dayjs(item.publishTime))}
+                </div>
+                <div className="ml-auto text-xs">赞 {item.likeCount}</div>
+                <div className="mx-1.5 size-[2] rounded-[50%] bg-black/60" />
+                <div className="text-xs">评论 {item.commentCount}</div>
+                <div className="ml-2 text-xs">
+                  <EllipsisOutlined />
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            id="githubProjectScrollableDiv"
-            className="scrollbar-thin scrollbar-thumb-[#e4e6eb] scrollbar-track-[#fff] pr-2 pl-2"
-            style={{
+          )}
+        />
+        <CardInfiniteScroll
+          id="githubProjectScrollableDiv"
+          className="flex-1"
+          total={githubProjectTotal}
+          data={githubProjectData}
+          api={githubProjectApi}
+          classNames={{
+            body: 'scrollbar-thin scrollbar-thumb-[#e4e6eb] scrollbar-track-[#ffff] dark:scrollbar-track-dark/10 dark:scrollbar-thumb-dark pr-2 pl-2',
+          }}
+          styles={{
+            body: {
               height: 'calc(100vh - 54px - 132px - 44px - 8px - 16px)',
               overflowY: 'auto',
               overflowX: 'hidden',
-            }}
-          >
-            {githubProjectData.length == 0 && articleApi.loading && (
-              <div className="flex h-full w-full flex-col items-center justify-center">
-                <Spin size="large" />
+            },
+            item: {
+              marginBottom: '8px',
+            },
+          }}
+          title={<SelectSite />}
+          extra={<SelectLanguage />}
+          listProps={{
+            grid: {
+              gutter: 8,
+              xs: 1,
+              sm: 1,
+              md: 1,
+              lg: 2,
+              xl: 2,
+              xxl: 3,
+            },
+          }}
+          renderItem={(item) => (
+            <div className="bg-primary/5 hover:bg-primary/10 dark:bg-dark/10 dark:text-dark-font cursor-pointer p-2">
+              <a
+                href={item.url}
+                target="_blank"
+                className="mb-4 block text-lg font-semibold"
+                style={{ color: fontColor }}
+              >{`${item.author} / ${item.project}`}</a>
+              <div className="h-[80]" title={item.description}>
+                {item.description.length > 45
+                  ? `${item.description.substring(0, 45)}...`
+                  : item.description}
               </div>
-            )}
-            {githubProjectData.length == 0 && !articleApi.loading && (
-              <Empty className="mt-[50%]" />
-            )}
-            {githubProjectData.length > 0 && (
-              <InfiniteScroll
-                style={{ overflow: 'hidden' }}
-                dataLength={githubProjectData.length}
-                next={githubProjectApi.run}
-                hasMore={githubProjectData.length < githubProjectTotal}
-                loader={<Skeleton active style={{ padding: '12px' }} />}
-                endMessage={<Divider plain>已全部加载完成 🤐</Divider>}
-                scrollableTarget="githubProjectScrollableDiv"
-              >
-                <List
-                  grid={{
-                    gutter: 8,
-                    xs: 1,
-                    sm: 1,
-                    md: 1,
-                    lg: 2,
-                    xl: 2,
-                    xxl: 3,
-                  }}
-                  dataSource={githubProjectData}
-                  renderItem={(item) => (
-                    <List.Item
-                      className="cursor-pointer bg-slate-50 hover:bg-sky-100 dark:bg-gray-800"
-                      style={{ padding: '12px', marginBottom: '8px' }}
-                    >
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        className="mb-4 block text-lg font-semibold"
-                      >{`${item.author} / ${item.project}`}</a>
-                      <div className="h-[80]" title={item.description}>
-                        {item.description.length > 45
-                          ? `${item.description.substring(0, 45)}...`
-                          : item.description}
-                      </div>
-                      <Space direction="horizontal" size="large">
-                        <div className="flex flex-row items-center text-xs">
-                          <StarFilled className="mr-2" />
-                          <span> {item.star}</span>
-                        </div>
-                        <div className="flex flex-row items-center text-xs">
-                          <MergeFilled className="mr-2" />
-                          <span> {item.star}</span>
-                        </div>
-                        <div className="flex flex-row items-center text-xs">
-                          <div className="mr-2 size-2 rounded-full bg-amber-400"></div>
-                          {item.language}
-                        </div>
-                      </Space>
-                    </List.Item>
-                  )}
-                />
-              </InfiniteScroll>
-            )}
-          </div>
-        </div>
-        <div className="w-[321] bg-[#f4f5f5]">
-          <div className="mb-3 bg-[#ffff]">
-            <div className="mb-2 flex h-[44] flex-row items-center justify-between border-b-1 border-solid border-slate-200 px-4 text-base">
+              <Space direction="horizontal" size="large">
+                <div className="flex flex-row items-center text-xs">
+                  <StarFilled className="mr-2" />
+                  <span> {item.star}</span>
+                </div>
+                <div className="flex flex-row items-center text-xs">
+                  <MergeFilled className="mr-2" />
+                  <span> {item.star}</span>
+                </div>
+                <div className="flex flex-row items-center text-xs">
+                  <div className="bg-primary mr-2 size-2 rounded-full"></div>
+                  {item.language}
+                </div>
+              </Space>
+            </div>
+          )}
+        />
+        <div className="dark:bg-dark ml-2 w-[321] bg-[#f4f5f5]">
+          <div className="dark:bg-dark-400 mb-3 bg-[#ffff]">
+            <div className="dark:border-b-dark mb-2 flex h-[44] flex-row items-center justify-between border-b-1 border-solid border-slate-200 px-4">
               快捷工具
             </div>
             <div className="flex flex-row justify-around p-2">
-              <HoverIcon
+              <IconHover
                 src="/icon-ip-lookup-normal.svg"
                 hoverSrc="/icon-ip-lookup-hover.svg"
                 text="IP查询"
               />
-              <HoverIcon
+              <IconHover
                 src="/icon-timestamp-tool-normal.svg"
                 hoverSrc="/icon-timestamp-tool-hover.svg"
                 text="时间戳"
               />
-              <HoverIcon
+              <IconHover
                 src="/icon-translate-tool-normal.svg"
                 hoverSrc="/icon-translate-tool-hover.svg"
                 text="翻译"
               />
-              <HoverIcon
+              <IconHover
                 src="/icon-qrcode-tool-normal.svg"
                 hoverSrc="/icon-qrcode-tool-hover.svg"
                 text="二维码"
               />
-              <HoverIcon
+              <IconHover
                 src="/icon-note-tool-normal.svg"
                 hoverSrc="/icon-note-tool-hover.svg"
                 text="笔记"
               />
             </div>
           </div>
-          <div className="flex-1 bg-[#ffff]">
-            <div className="mb-2 flex h-[44] flex-row items-center justify-between border-b-1 border-solid border-slate-200 px-4">
-              <div className="text-base">沸点</div>
-              <div className="flex flex-row items-center">
+          <CardInfiniteScroll
+            id="postScrollableDiv"
+            total={postTotal}
+            data={postData}
+            api={postApi}
+            title={<>沸点</>}
+            extra={
+              <>
                 <Button
-                  type="link"
-                  style={{ color: '#90a1b9', padding: '0 4px' }}
+                  color="primary"
+                  variant="link"
+                  style={{ padding: '0 4px' }}
                 >
                   热度
                 </Button>
                 <Divider type="vertical" style={{ height: '24px' }} />
-                <Button type="link" style={{ padding: '0 4px' }}>
+                <Button
+                  color="default"
+                  variant="link"
+                  style={{ padding: '0 4px' }}
+                >
                   最新
                 </Button>
-              </div>
-            </div>
-            <div
-              id="postScrollableDiv"
-              style={{
+              </>
+            }
+            styles={{
+              item: {
+                border: 0,
+                padding: 0,
+                alignItems: 'stretch',
+              },
+              body: {
                 height:
                   'calc(100vh - 54px - 132px - 16px - 130px - 12px - 44px - 1px - 8px)',
                 width: '330px',
                 overflowY: 'auto',
                 overflowX: 'hidden',
-              }}
-              className="scrollbar-thin scrollbar-thumb-[#e4e6eb] scrollbar-track-[#f4f5f5]"
-            >
-              {postData.length == 0 && postApi.loading && (
-                <div className="flex h-full w-full flex-col items-center justify-center">
-                  <Spin size="large" />
-                </div>
-              )}
-              {postData.length == 0 && !postApi.loading && (
-                <Empty className="mt-[50%]" />
-              )}
-              {postData.length > 0 && (
-                <InfiniteScroll
-                  style={{ overflow: 'hidden' }}
-                  dataLength={postData.length}
-                  next={postApi.run}
-                  hasMore={postData.length < postTotal}
-                  loader={<Skeleton active style={{ padding: '12px' }} />}
-                  endMessage={<Divider plain>已全部加载完成 🤐</Divider>}
-                  scrollableTarget="postScrollableDiv"
+              },
+            }}
+            classNames={{
+              body: 'scrollbar-thin scrollbar-thumb-[#e4e6eb] scrollbar-track-[#f4f5f5] dark:scrollbar-track-dark/10 dark:scrollbar-thumb-dark',
+            }}
+            renderItem={(item) => (
+              <div className="hover:bg-primary/10 flex cursor-pointer flex-col p-3">
+                <div
+                  title={item.content}
+                  className="dark:text-dark-font mb-2 text-black"
                 >
-                  <List
-                    dataSource={postData}
-                    renderItem={(item) => (
-                      <List.Item
-                        key={item.id}
-                        className="flex cursor-pointer flex-col bg-slate-50 hover:bg-sky-100"
-                        style={{
-                          padding: '12px',
-                          alignItems: 'stretch',
-                          borderBottom: '0px',
-                        }}
-                      >
-                        <div title={item.content} className="mb-2 text-black">
-                          {item.content.length > 40
-                            ? `${item.content.substring(0, 40)}...`
-                            : item.content}
-                        </div>
-                        <div className="flex flex-row justify-between text-slate-400">
-                          <div>{item.userName}</div>
-                          <Space className="ml-auto flex flex-row items-center">
-                            <Space>
-                              <LikeOutlined />
-                              <span>{item.likeCount}</span>
-                            </Space>
-                            <Space>
-                              <MessageOutlined />
-                              <span>{item.replyCount}</span>
-                            </Space>
-                            <Space>
-                              <EllipsisOutlined />
-                            </Space>
-                          </Space>
-                        </div>
-                      </List.Item>
-                    )}
-                  />
-                </InfiniteScroll>
-              )}
-            </div>
-          </div>
+                  {item.content.length > 40
+                    ? `${item.content.substring(0, 40)}...`
+                    : item.content}
+                </div>
+                <div className="dark:text-dark-font flex flex-row justify-between text-black/60">
+                  <div>{item.userName}</div>
+                  <Space className="ml-auto flex flex-row items-center">
+                    <Space>
+                      <LikeOutlined />
+                      <span>{item.likeCount}</span>
+                    </Space>
+                    <Space>
+                      <MessageOutlined />
+                      <span>{item.replyCount}</span>
+                    </Space>
+                    <Space>
+                      <EllipsisOutlined />
+                    </Space>
+                  </Space>
+                </div>
+              </div>
+            )}
+          />
         </div>
       </div>
     </div>

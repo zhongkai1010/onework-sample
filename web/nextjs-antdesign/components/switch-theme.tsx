@@ -19,6 +19,7 @@ const SwitchTheme = (props: ColorPickerProps) => {
 
   return defaultValue ? (
     <ColorPicker
+      {...props}
       defaultValue={themeColor}
       size="small"
       className="mr-3 ml-3 cursor-pointer text-xl"

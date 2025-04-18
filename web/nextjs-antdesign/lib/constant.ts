@@ -2,6 +2,8 @@ export const DEFAULT_THEME_COLOR = '#1e80ff'
 
 export const DEFAULT_DARK_COLOR = '#141414'
 
+export const DEFAULT_DARK_FONT_COLOR = 'rgba(255, 255, 255, 0.45)'
+
 export const THEME_COLOR_STORE_KEY = 'use-local-storage-state-demo1'
 
 export const POST_CATEGORIES = [
