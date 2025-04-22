@@ -31,7 +31,11 @@ const SwitchMode = (props: Props) => {
       >
         <div className="dark:text-dark-font flex-1 text-center">前端</div>
         <div className="dark:text-dark-font dark:border-dark-font flex h-full w-[32] items-center justify-center border-l-1 border-white text-center text-xs">
-          {open ? <UpOutlined /> : <DownOutlined />}
+          <span
+            className={`transition-transform duration-300 ${open ? 'rotate-180' : 'rotate-0'}`}
+          >
+            <DownOutlined />
+          </span>
         </div>
       </div>
     </Dropdown>
