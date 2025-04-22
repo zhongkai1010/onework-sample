@@ -8,15 +8,18 @@ import { getArticlePageData } from '@/services'
 import { ArticleType } from '@/types/api'
 import { useRequest } from 'ahooks'
 import Image from 'next/image'
-import { ThemeContext } from '@/theme'
+
 import clsx from 'clsx'
+import { useDark } from '@/hooks/useDark'
+import { useTheme } from '@/hooks/useTheme'
 
 type Props = {
   className?: string
 }
 
 const LayoutLeft = (props: Props) => {
-  const { dark, themeColor } = useContext(ThemeContext)
+  const { dark } = useDark()
+  const { themeColor } = useTheme()
   const [articleData, setArticleData] = useState<Array<ArticleType>>([])
   const [articleTotal, setArticleTotal] = useState<number>(0)
 

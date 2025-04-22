@@ -1,11 +1,11 @@
+import { useTheme } from '@/hooks/useTheme'
 import { DEFAULT_THEME_COLOR, THEME_COLOR_STORE_KEY } from '@/lib/constant'
-import { ThemeContext } from '@/theme'
 import { ColorPicker, ColorPickerProps } from 'antd'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const SwitchTheme = (props: ColorPickerProps) => {
-  const { themeColor, setThemeColor } = useContext(ThemeContext)
+  const { themeColor, setThemeColor } = useTheme()
   const [defaultValue, setDefaultValue] = useState<string | undefined>()
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const SwitchTheme = (props: ColorPickerProps) => {
       {...props}
       defaultValue={themeColor}
       size="small"
-      className="mr-3 ml-3 cursor-pointer text-xl"
+      className="cursor-pointer text-xl"
       onChangeComplete={(color) => {
         localStorage.setItem(THEME_COLOR_STORE_KEY, color.toHexString())
         setThemeColor(color.toHexString())

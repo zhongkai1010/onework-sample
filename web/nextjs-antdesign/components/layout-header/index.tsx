@@ -1,24 +1,20 @@
-import {
-  LayoutFilled,
-  MoonFilled,
-  SettingFilled,
-  SunOutlined,
-  UserOutlined,
-} from '@ant-design/icons'
+import { SettingFilled, UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, Space, Typography } from 'antd'
-import React, { useContext } from 'react'
-import SwitchTheme from '@/components/switch-theme'
+import React from 'react'
+import SwitchTheme from '@/components/layout-header/switch-theme'
 import Image from 'next/image'
-import SwitchMode from '@/components/switch-mode'
-import { ThemeContext } from '@/theme'
+import SwitchMode from '@/components/layout-header/switch-mode'
+import SwitchLayout from '@/components/layout-header/switch-layout'
 import clsx from 'clsx'
+import { useTheme } from '@/hooks/useTheme'
+import SwitchDark from './switch-dark'
 
 type Props = {
   className?: string
 }
 
 const LayoutHeader = (props: Props) => {
-  const { fontColor, dark, setDark } = useContext(ThemeContext)
+  const { fontColor } = useTheme()
   return (
     <div
       className={clsx(
@@ -40,27 +36,8 @@ const LayoutHeader = (props: Props) => {
       </Space>
       <Space className="ml-auto" direction="horizontal" size="middle">
         <SwitchMode />
-        {dark ? (
-          <SunOutlined
-            className="cursor-pointer text-xl"
-            onClick={() => {
-              setDark(false)
-            }}
-            style={{ color: fontColor }}
-          />
-        ) : (
-          <MoonFilled
-            className="cursor-pointer text-xl"
-            onClick={() => {
-              setDark(true)
-            }}
-            style={{ color: fontColor }}
-          />
-        )}
-        <LayoutFilled
-          className="cursor-pointer text-xl"
-          style={{ color: fontColor }}
-        />
+        <SwitchDark />
+        <SwitchLayout />
         <SettingFilled
           className="cursor-pointer text-xl"
           style={{ color: fontColor }}

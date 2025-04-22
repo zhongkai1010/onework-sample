@@ -7,15 +7,15 @@ import React, { useContext, useState } from 'react'
 import CardInfiniteScroll from './card-infinite-scroll'
 import SelectLanguage from './select-language'
 import SelectSite from './select-site'
-import { ThemeContext } from '@/theme'
 import clsx from 'clsx'
+import { useTheme } from '@/hooks/useTheme'
 
 type Props = {
   className?: string
 }
 
 const LayoutMain = (props: Props) => {
-  const { fontColor } = useContext(ThemeContext)
+  const { fontColor } = useTheme()
   const [githubProjectData, setGithubProjectData] = useState<
     Array<GithubProjectType>
   >([])
@@ -40,13 +40,14 @@ const LayoutMain = (props: Props) => {
       data={githubProjectData}
       api={githubProjectApi}
       classNames={{
-        body: 'scrollbar-thin scrollbar-thumb-[#e4e6eb] scrollbar-track-[#ffff] dark:scrollbar-track-dark/10 dark:scrollbar-thumb-dark pr-2 pl-2',
+        body: 'scrollbar-thin scrollbar-thumb-[#e4e6eb] scrollbar-track-[#f4f5f5] dark:scrollbar-track-dark dark:scrollbar-thumb-dark-400 pr-2 pl-2',
       }}
       styles={{
         body: {
           height: 'calc(100vh - 54px - 132px - 44px - 8px - 16px)',
           overflowY: 'auto',
           overflowX: 'hidden',
+          width: 'calc(100% + 8px)',
         },
         item: {
           marginBottom: '8px',
