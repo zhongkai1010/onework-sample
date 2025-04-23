@@ -1,0 +1,7 @@
+<template>
+  <ele-page>藏品分类</ele-page>
+</template>
+
+<script setup lang="ts"></script>
+
+<style scoped></style>

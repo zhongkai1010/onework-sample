@@ -1,0 +1,1209 @@
+[
+  {
+    "pid": 0,
+    "menu_id": 1,
+    "title": "控制台",
+    "sortid": 1,
+    "icon": "el-icon-s-home",
+    "url": "\/admin\/Index\/main.html",
+    "access": "\/admin\/Index\/main.html",
+    "children": []
+  },
+  {
+    "pid": 0,
+    "menu_id": 20,
+    "title": "藏品编目",
+    "sortid": 19,
+    "icon": "fas fa-network-wired",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 20,
+        "menu_id": 34,
+        "title": "藏品编目",
+        "sortid": 34,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Catalog\/index.html",
+        "access": "admin\/Catalog",
+        "children": []
+      },
+      {
+        "pid": 20,
+        "menu_id": 127,
+        "title": "图书编目",
+        "sortid": 127,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Book\/index.html",
+        "access": "admin\/Book",
+        "children": []
+      },
+      {
+        "pid": 20,
+        "menu_id": 130,
+        "title": "藏品预备账",
+        "sortid": 130,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Cbybz\/index.html",
+        "access": "admin\/Cbybz",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 116,
+    "title": "藏品台账",
+    "sortid": 19,
+    "icon": "el-icon-success",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 116,
+        "menu_id": 117,
+        "title": "藏品总账",
+        "sortid": 117,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Cataloglist\/index.html",
+        "access": "admin\/Cataloglist",
+        "children": []
+      },
+      {
+        "pid": 116,
+        "menu_id": 128,
+        "title": "图书总帐",
+        "sortid": 128,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Booklist\/index.html",
+        "access": "admin\/Booklist",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 24,
+    "title": "入库管理",
+    "sortid": 20,
+    "icon": "el-icon-truck",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 24,
+        "menu_id": 129,
+        "title": "入库单管理",
+        "sortid": 129,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Rkd\/index.html",
+        "access": "admin\/Rkd",
+        "children": []
+      },
+      {
+        "pid": 24,
+        "menu_id": 131,
+        "title": "入库明细",
+        "sortid": 131,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Rkdmx\/index.html",
+        "access": "admin\/Rkdmx",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 26,
+    "title": "出库管理",
+    "sortid": 20,
+    "icon": "fas fa-truck-pickup",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 26,
+        "menu_id": 151,
+        "title": "出库登记",
+        "sortid": 100,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/cpxz\/index.html?type=ckd",
+        "access": "\/admin\/cpxz\/index?type=ckd",
+        "children": []
+      },
+      {
+        "pid": 26,
+        "menu_id": 101,
+        "title": "出库单管理",
+        "sortid": 101,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Ckd\/index.html",
+        "access": "admin\/Ckd",
+        "children": []
+      },
+      {
+        "pid": 26,
+        "menu_id": 123,
+        "title": "出库目录",
+        "sortid": 123,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Ckdmx\/index.html",
+        "access": "admin\/Ckdmx",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 27,
+    "title": "拨库管理",
+    "sortid": 20,
+    "icon": "fas fa-recycle",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 27,
+        "menu_id": 152,
+        "title": "拨库登记",
+        "sortid": 100,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/cpxz\/index.html?type=diaobo",
+        "access": "\/admin\/cpxz\/index?type=diaobo",
+        "children": []
+      },
+      {
+        "pid": 27,
+        "menu_id": 106,
+        "title": "拨库单管理",
+        "sortid": 106,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Diaobo\/index.html",
+        "access": "admin\/Diaobo",
+        "children": []
+      },
+      {
+        "pid": 27,
+        "menu_id": 126,
+        "title": "拨库目录",
+        "sortid": 126,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Dbdmx\/index.html",
+        "access": "admin\/Dbdmx",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 21,
+    "title": "藏品修复",
+    "sortid": 21,
+    "icon": "fas fa-tools",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 21,
+        "menu_id": 92,
+        "title": "修复管理",
+        "sortid": 92,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Repair\/index.html",
+        "access": "admin\/Repair",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 22,
+    "title": "库房管理",
+    "sortid": 22,
+    "icon": "fas fa-home",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 22,
+        "menu_id": 35,
+        "title": "库房信息",
+        "sortid": 35,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Kufang\/index.html",
+        "access": "admin\/Kufang",
+        "children": []
+      },
+      {
+        "pid": 22,
+        "menu_id": 38,
+        "title": "地址条码管理",
+        "sortid": 38,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Barcode\/index.html",
+        "access": "admin\/Barcode",
+        "children": []
+      },
+      {
+        "pid": 22,
+        "menu_id": 40,
+        "title": "藏品定位",
+        "sortid": 40,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Dingwei\/index.html",
+        "access": "admin\/Dingwei",
+        "children": []
+      },
+      {
+        "pid": 22,
+        "menu_id": 158,
+        "title": "库存藏品",
+        "sortid": 158,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Kucp\/index.html",
+        "access": "admin\/Kucp",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 23,
+    "title": "藏品组管理",
+    "sortid": 23,
+    "icon": "fas fa-th",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 23,
+        "menu_id": 42,
+        "title": "藏品组管理",
+        "sortid": 42,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Group\/index.html",
+        "access": "admin\/Group",
+        "children": []
+      },
+      {
+        "pid": 23,
+        "menu_id": 91,
+        "title": "藏品组目录",
+        "sortid": 91,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Cpzml\/index.html",
+        "access": "admin\/Cpzml",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 118,
+    "title": "展陈管理",
+    "sortid": 25,
+    "icon": "fas fa-ethernet",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 118,
+        "menu_id": 141,
+        "title": "展区信息",
+        "sortid": 0,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Zhanqu\/index.html",
+        "access": "admin\/Zhanqu",
+        "children": []
+      },
+      {
+        "pid": 118,
+        "menu_id": 204,
+        "title": "展区地址条码",
+        "sortid": 38,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/ZqBarcode\/index.html",
+        "access": "admin\/ZqBarcode",
+        "children": []
+      },
+      {
+        "pid": 118,
+        "menu_id": 133,
+        "title": "展区藏品",
+        "sortid": 133,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Zccp\/index.html",
+        "access": "admin\/Zccp",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 28,
+    "title": "注销管理",
+    "sortid": 28,
+    "icon": "fas fa-window-close",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 28,
+        "menu_id": 161,
+        "title": "注销登记",
+        "sortid": 1,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/cpxz\/index.html?type=zhuxiao",
+        "access": "\/admin\/cpxz\/index?type=zhuxiao",
+        "children": []
+      },
+      {
+        "pid": 28,
+        "menu_id": 115,
+        "title": "注销单管理",
+        "sortid": 2,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Zhuxiao\/index.html",
+        "access": "admin\/Zhuxiao",
+        "children": []
+      },
+      {
+        "pid": 28,
+        "menu_id": 162,
+        "title": "注销单明细",
+        "sortid": 3,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Zxdmx\/index.html",
+        "access": "admin\/Zxdmx",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 113,
+    "title": "事故管理",
+    "sortid": 28,
+    "icon": "fas fa-fire-extinguisher",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 113,
+        "menu_id": 114,
+        "title": "事故登记",
+        "sortid": 114,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Shigu\/index.html",
+        "access": "admin\/Shigu",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 29,
+    "title": "基础数据",
+    "sortid": 29,
+    "icon": "fas fa-list-ol",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 29,
+        "menu_id": 72,
+        "title": "藏品属性名称",
+        "sortid": 45,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Shuxingming\/index.html",
+        "access": "admin\/Shuxingming",
+        "children": []
+      },
+      {
+        "pid": 29,
+        "menu_id": 46,
+        "title": "藏品属性设置",
+        "sortid": 46,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Attribute\/index.html",
+        "access": "admin\/Attribute",
+        "children": []
+      },
+      {
+        "pid": 29,
+        "menu_id": 47,
+        "title": "存放位置设置",
+        "sortid": 47,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Position\/index.html",
+        "access": "admin\/Position",
+        "children": []
+      },
+      {
+        "pid": 29,
+        "menu_id": 76,
+        "title": "藏品分类",
+        "sortid": 48,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Fenlei\/index.html",
+        "access": "admin\/Fenlei",
+        "children": []
+      },
+      {
+        "pid": 29,
+        "menu_id": 49,
+        "title": "藏品等级管理",
+        "sortid": 49,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Level\/index.html",
+        "access": "admin\/Level",
+        "children": []
+      },
+      {
+        "pid": 29,
+        "menu_id": 50,
+        "title": "部门管理",
+        "sortid": 50,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Dept\/index.html",
+        "access": "admin\/Dept",
+        "children": []
+      },
+      {
+        "pid": 29,
+        "menu_id": 51,
+        "title": "人员管理",
+        "sortid": 51,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Staff\/index.html",
+        "access": "admin\/Staff",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 134,
+    "title": "影像管理",
+    "sortid": 29,
+    "icon": "el-icon-menu",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 134,
+        "menu_id": 135,
+        "title": "影像列表",
+        "sortid": 135,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Video\/index.html",
+        "access": "admin\/Video",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 30,
+    "title": "艺术家管理",
+    "sortid": 30,
+    "icon": "fas fa-id-badge",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 30,
+        "menu_id": 53,
+        "title": "艺术家列表",
+        "sortid": 53,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Artist\/index.html",
+        "access": "admin\/Artist",
+        "children": []
+      },
+      {
+        "pid": 30,
+        "menu_id": 54,
+        "title": "艺术家作品",
+        "sortid": 54,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Works\/index.html",
+        "access": "admin\/Works",
+        "children": []
+      },
+      {
+        "pid": 30,
+        "menu_id": 55,
+        "title": "艺术展览",
+        "sortid": 55,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Exhibit\/index.html",
+        "access": "admin\/Exhibit",
+        "children": []
+      },
+      {
+        "pid": 30,
+        "menu_id": 56,
+        "title": "出版著作",
+        "sortid": 56,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Published\/index.html",
+        "access": "admin\/Published",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 31,
+    "title": "藏品盘点",
+    "sortid": 31,
+    "icon": "fas fa-tasks",
+    "url": "http:\/\/49.235.119.40:8066\/index.php\/myadmin\/pandian_plan?ref=add",
+    "access": "http:\/\/49.235.119.40:8066\/index.php\/myadmin\/pandian_plan?ref=add",
+    "children": [
+      {
+        "pid": 31,
+        "menu_id": 142,
+        "title": "盘点计划",
+        "sortid": 142,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/link\/index.html?type=1",
+        "access": "\/admin\/link\/index?type=1",
+        "children": []
+      },
+      {
+        "pid": 31,
+        "menu_id": 143,
+        "title": "藏品盘点",
+        "sortid": 143,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/link\/index.html?type=2",
+        "access": "\/admin\/link\/index?type=2",
+        "children": []
+      },
+      {
+        "pid": 31,
+        "menu_id": 144,
+        "title": "盘点差异",
+        "sortid": 144,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/link\/index.html?type=3",
+        "access": "\/admin\/link\/index?type=3",
+        "children": []
+      },
+      {
+        "pid": 31,
+        "menu_id": 145,
+        "title": "部门管理",
+        "sortid": 145,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/link\/index.html?type=4",
+        "access": "\/admin\/link\/index?type=4",
+        "children": []
+      },
+      {
+        "pid": 31,
+        "menu_id": 146,
+        "title": "藏品类别",
+        "sortid": 146,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/link\/index.html?type=5",
+        "access": "\/admin\/link\/index?type=5",
+        "children": []
+      },
+      {
+        "pid": 31,
+        "menu_id": 147,
+        "title": "存放地点",
+        "sortid": 147,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/link\/index.html?type=6",
+        "access": "\/admin\/link\/index?type=6",
+        "children": []
+      },
+      {
+        "pid": 31,
+        "menu_id": 148,
+        "title": "藏品字段",
+        "sortid": 148,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/link\/index.html?type=7",
+        "access": "\/admin\/link\/index?type=7",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 33,
+    "title": "藏品报表",
+    "sortid": 33,
+    "icon": "el-icon-menu",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 33,
+        "menu_id": 121,
+        "title": "藏品信息报表",
+        "sortid": 121,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/report\/cangpin.html",
+        "access": "\/admin\/report\/cangpin.html",
+        "children": []
+      },
+      {
+        "pid": 33,
+        "menu_id": 149,
+        "title": "藏品分项报表",
+        "sortid": 149,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/report\/fenlei.html",
+        "access": "\/admin\/report\/fenlei.html",
+        "children": []
+      },
+      {
+        "pid": 33,
+        "menu_id": 160,
+        "title": "操作日志报表",
+        "sortid": 160,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/report\/log.html",
+        "access": "\/admin\/report\/log.html",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 163,
+    "title": "进销存管理",
+    "sortid": 163,
+    "icon": "el-icon-menu",
+    "url": "\/admin\/\/index.html",
+    "access": "admin\/",
+    "children": [
+      {
+        "pid": 163,
+        "menu_id": 164,
+        "title": "基础信息",
+        "sortid": 164,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/\/index.html",
+        "access": "admin\/",
+        "children": [
+          {
+            "pid": 164,
+            "menu_id": 165,
+            "title": "供应商管理",
+            "sortid": 165,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=21",
+            "access": "\/admin\/link\/index?type=21",
+            "children": []
+          },
+          {
+            "pid": 164,
+            "menu_id": 166,
+            "title": "仓库分区",
+            "sortid": 166,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=22",
+            "access": "\/admin\/link\/index?type=22",
+            "children": []
+          },
+          {
+            "pid": 164,
+            "menu_id": 167,
+            "title": "仓库信息",
+            "sortid": 167,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=23",
+            "access": "\/admin\/link\/index?type=23",
+            "children": []
+          },
+          {
+            "pid": 164,
+            "menu_id": 168,
+            "title": "领用人信息",
+            "sortid": 168,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=24",
+            "access": "\/admin\/link\/index?type=24",
+            "children": []
+          }
+        ]
+      },
+      {
+        "pid": 163,
+        "menu_id": 169,
+        "title": "采购管理",
+        "sortid": 169,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/\/index.html",
+        "access": "admin\/",
+        "children": [
+          {
+            "pid": 169,
+            "menu_id": 170,
+            "title": "采购订单",
+            "sortid": 170,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=31",
+            "access": "\/admin\/link\/index?type=31",
+            "children": []
+          },
+          {
+            "pid": 169,
+            "menu_id": 171,
+            "title": "采购录单",
+            "sortid": 171,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=32",
+            "access": "\/admin\/link\/index?type=32",
+            "children": []
+          },
+          {
+            "pid": 169,
+            "menu_id": 172,
+            "title": "采购审批",
+            "sortid": 172,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=33",
+            "access": "\/admin\/link\/index?type=33",
+            "children": []
+          },
+          {
+            "pid": 169,
+            "menu_id": 173,
+            "title": "入库单管理",
+            "sortid": 173,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=34",
+            "access": "\/admin\/link\/index?type=34",
+            "children": []
+          },
+          {
+            "pid": 169,
+            "menu_id": 174,
+            "title": "入库审核",
+            "sortid": 174,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=35",
+            "access": "\/admin\/link\/index?type=35",
+            "children": []
+          },
+          {
+            "pid": 169,
+            "menu_id": 175,
+            "title": "退货单管理",
+            "sortid": 175,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=36",
+            "access": "\/admin\/link\/index?type=36",
+            "children": []
+          },
+          {
+            "pid": 169,
+            "menu_id": 176,
+            "title": "退货审核管理",
+            "sortid": 176,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=37",
+            "access": "\/admin\/link\/index?type=37",
+            "children": []
+          }
+        ]
+      },
+      {
+        "pid": 163,
+        "menu_id": 177,
+        "title": "物品管理",
+        "sortid": 177,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/\/index.html",
+        "access": "admin\/",
+        "children": [
+          {
+            "pid": 177,
+            "menu_id": 178,
+            "title": "物品分类",
+            "sortid": 178,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=41",
+            "access": "\/admin\/link\/index?type=41",
+            "children": []
+          },
+          {
+            "pid": 177,
+            "menu_id": 179,
+            "title": "物品信息",
+            "sortid": 179,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=42",
+            "access": "\/admin\/link\/index?type=42",
+            "children": []
+          },
+          {
+            "pid": 177,
+            "menu_id": 180,
+            "title": "物品单位",
+            "sortid": 180,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=43",
+            "access": "\/admin\/link\/index?type=43",
+            "children": []
+          }
+        ]
+      },
+      {
+        "pid": 163,
+        "menu_id": 181,
+        "title": "库存管理",
+        "sortid": 181,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/\/index.html",
+        "access": "admin\/",
+        "children": [
+          {
+            "pid": 181,
+            "menu_id": 182,
+            "title": "物品库存",
+            "sortid": 182,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=51",
+            "access": "\/admin\/link\/index?type=51",
+            "children": []
+          },
+          {
+            "pid": 181,
+            "menu_id": 183,
+            "title": "库存流水",
+            "sortid": 183,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=52",
+            "access": "\/admin\/link\/index?type=52",
+            "children": []
+          },
+          {
+            "pid": 181,
+            "menu_id": 184,
+            "title": "盘点单",
+            "sortid": 184,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=53",
+            "access": "\/admin\/link\/index?type=53",
+            "children": []
+          }
+        ]
+      },
+      {
+        "pid": 163,
+        "menu_id": 185,
+        "title": "领用管理",
+        "sortid": 185,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/\/index.html",
+        "access": "admin\/",
+        "children": [
+          {
+            "pid": 185,
+            "menu_id": 186,
+            "title": "领用录单",
+            "sortid": 186,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=60",
+            "access": "\/admin\/link\/index?type=60",
+            "children": []
+          },
+          {
+            "pid": 185,
+            "menu_id": 187,
+            "title": "领用单",
+            "sortid": 187,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=61",
+            "access": "\/admin\/link\/index?type=61",
+            "children": []
+          },
+          {
+            "pid": 185,
+            "menu_id": 188,
+            "title": "领用审批",
+            "sortid": 188,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=62",
+            "access": "\/admin\/link\/index?type=62",
+            "children": []
+          },
+          {
+            "pid": 185,
+            "menu_id": 189,
+            "title": "领用财务审核",
+            "sortid": 189,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=63",
+            "access": "\/admin\/link\/index?type=63",
+            "children": []
+          },
+          {
+            "pid": 185,
+            "menu_id": 190,
+            "title": "领用出库单",
+            "sortid": 190,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=64",
+            "access": "\/admin\/link\/index?type=64",
+            "children": []
+          },
+          {
+            "pid": 185,
+            "menu_id": 191,
+            "title": "领用单出库审核",
+            "sortid": 191,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=65",
+            "access": "\/admin\/link\/index?type=65",
+            "children": []
+          },
+          {
+            "pid": 185,
+            "menu_id": 192,
+            "title": "领用出库单财务审核",
+            "sortid": 192,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=66",
+            "access": "\/admin\/link\/index?type=66",
+            "children": []
+          },
+          {
+            "pid": 185,
+            "menu_id": 193,
+            "title": "领用退货单",
+            "sortid": 193,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=67",
+            "access": "\/admin\/link\/index?type=67",
+            "children": []
+          },
+          {
+            "pid": 185,
+            "menu_id": 194,
+            "title": "领用退货单审核",
+            "sortid": 194,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=68",
+            "access": "\/admin\/link\/index?type=68",
+            "children": []
+          },
+          {
+            "pid": 185,
+            "menu_id": 195,
+            "title": "领用退货单财务审核",
+            "sortid": 195,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=69",
+            "access": "\/admin\/link\/index?type=69",
+            "children": []
+          }
+        ]
+      },
+      {
+        "pid": 163,
+        "menu_id": 196,
+        "title": "数据导出",
+        "sortid": 196,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/\/index.html",
+        "access": "admin\/",
+        "children": [
+          {
+            "pid": 196,
+            "menu_id": 197,
+            "title": "入库数据导出",
+            "sortid": 197,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=71",
+            "access": "\/admin\/link\/index?type=71",
+            "children": []
+          },
+          {
+            "pid": 196,
+            "menu_id": 198,
+            "title": "出库数据导出",
+            "sortid": 198,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=72",
+            "access": "\/admin\/link\/index?type=72",
+            "children": []
+          }
+        ]
+      },
+      {
+        "pid": 163,
+        "menu_id": 199,
+        "title": "数据汇总",
+        "sortid": 199,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/\/index.html",
+        "access": "admin\/",
+        "children": [
+          {
+            "pid": 199,
+            "menu_id": 200,
+            "title": "采购汇总",
+            "sortid": 200,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=81",
+            "access": "\/admin\/link\/index?type=81",
+            "children": []
+          },
+          {
+            "pid": 199,
+            "menu_id": 201,
+            "title": "采购退货汇总",
+            "sortid": 201,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=82",
+            "access": "\/admin\/link\/index?type=82",
+            "children": []
+          },
+          {
+            "pid": 199,
+            "menu_id": 202,
+            "title": "领用汇总",
+            "sortid": 202,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=83",
+            "access": "\/admin\/link\/index?type=83",
+            "children": []
+          },
+          {
+            "pid": 199,
+            "menu_id": 203,
+            "title": "领用退货汇总",
+            "sortid": 203,
+            "icon": "el-icon-menu",
+            "url": "\/admin\/link\/index.html?type=84",
+            "access": "\/admin\/link\/index?type=84",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 2,
+    "title": "配置管理",
+    "sortid": 1000,
+    "icon": "el-icon-s-data",
+    "url": "\/admin\/Config\/index.html",
+    "access": "admin\/Config",
+    "children": [
+      {
+        "pid": 2,
+        "menu_id": 3,
+        "title": "基本配置",
+        "sortid": 1,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Baseconfig\/index.html",
+        "access": "admin\/Baseconfig",
+        "children": []
+      },
+      {
+        "pid": 2,
+        "menu_id": 4,
+        "title": "缩略图配置",
+        "sortid": 2,
+        "icon": "el-icon-upload2",
+        "url": "\/admin\/Uploadconfig\/index.html",
+        "access": "admin\/Uploadconfig",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 5,
+    "title": "系统管理",
+    "sortid": 1001,
+    "icon": "el-icon-setting",
+    "url": "\/admin\/System\/index.html",
+    "access": "admin\/System",
+    "children": [
+      {
+        "pid": 5,
+        "menu_id": 6,
+        "title": "用户管理",
+        "sortid": 6,
+        "icon": "el-icon-user",
+        "url": "\/admin\/Adminuser\/index.html",
+        "access": "admin\/Adminuser",
+        "children": []
+      },
+      {
+        "pid": 5,
+        "menu_id": 7,
+        "title": "角色管理",
+        "sortid": 7,
+        "icon": "el-icon-s-check",
+        "url": "\/admin\/Role\/index.html",
+        "access": "admin\/Role",
+        "children": []
+      },
+      {
+        "pid": 5,
+        "menu_id": 8,
+        "title": "日志管理",
+        "sortid": 8,
+        "icon": "el-icon-s-promotion",
+        "url": "\/admin\/Log\/index.html",
+        "access": "admin\/Log",
+        "children": []
+      },
+      {
+        "pid": 5,
+        "menu_id": 57,
+        "title": "分馆管理",
+        "sortid": 57,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Fenguan\/index.html",
+        "access": "admin\/Fenguan",
+        "children": []
+      }
+    ]
+  },
+  {
+    "pid": 0,
+    "menu_id": 9,
+    "title": "工具管理",
+    "sortid": 1002,
+    "icon": "el-icon-help",
+    "url": "\/admin\/Tool\/index.html",
+    "access": "admin\/Tool",
+    "children": [
+      {
+        "pid": 9,
+        "menu_id": 10,
+        "title": "应用管理",
+        "sortid": 10,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Sys.Base\/applicationList.html",
+        "access": "\/admin\/Sys.Base\/applicationList",
+        "children": []
+      },
+      {
+        "pid": 9,
+        "menu_id": 11,
+        "title": "菜单管理",
+        "sortid": 11,
+        "icon": "el-icon-menu",
+        "url": "\/admin\/Sys.Base\/menu.html",
+        "access": "\/admin\/Sys.Base\/menu",
+        "children": []
+      }
+    ]
+  }
+]

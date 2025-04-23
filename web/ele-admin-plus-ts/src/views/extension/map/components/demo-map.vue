@@ -40,13 +40,13 @@
         const infoWindow = new AMap.InfoWindow({
           content: `
             <div style="color: #333;">
-              <div style="padding: 5px;font-size: 16px;">武汉易云智科技有限公司</div>
+              <div style="padding: 5px;font-size: 16px;">OneWork</div>
               <div style="padding: 0 5px;">地址: 湖北省武汉市洪山区雄楚大道222号</div>
               <div style="padding: 0 5px;">电话: 020-123456789</div>
             </div>
             <a
               style="padding: 8px 0 0 5px;text-decoration: none;display: inline-block;color: #1677ff;"
-              href="//uri.amap.com/marker?position=114.346084,30.511215&name=武汉易云智科技有限公司"
+              href="//uri.amap.com/marker?position=114.346084,30.511215&name=OneWork"
               target="_blank">到这里去→
             </a>
           `

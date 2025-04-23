@@ -3,8 +3,10 @@
     <div class="login-main">
       <ele-card shadow="always" class="login-card">
         <div class="login-cover">
-          <h1 class="login-title">EleAdmin Plus</h1>
-          <h4 class="login-subtitle">界面美观组件丰富的中后台前端解决方案</h4>
+          <h1 class="login-title">藏品管理系统</h1>
+          <h4 class="login-subtitle"
+            >智能化、便捷的藏品管理解决方案，助力精细化管理</h4
+          >
         </div>
         <div class="login-body">
           <ele-text type="heading" style="font-size: 24px; margin-bottom: 18px">

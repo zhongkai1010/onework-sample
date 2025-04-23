@@ -10,7 +10,7 @@ export const zh_CN = {
       website: '官网',
       document: '文档',
       authorization: '授权',
-      copyright: 'Copyright © 2025 武汉易云智科技有限公司'
+      copyright: 'Copyright © 2025 OneWork'
     },
     logout: {
       title: '系统提示',
