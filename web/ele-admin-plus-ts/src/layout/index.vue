@@ -85,9 +85,9 @@
         </el-icon>
       </layout-tool>
       <!-- 语言切换 -->
-      <layout-tool :class="{ 'hidden-sm-and-down': tabBar && tabInHeader }">
+      <!-- <layout-tool :class="{ 'hidden-sm-and-down': tabBar && tabInHeader }">
         <i18n-icon :icon-style="{ transform: 'scale(1.15)' }" />
-      </layout-tool>
+      </layout-tool> -->
       <!-- 消息通知 -->
       <layout-tool :class="{ 'hidden-sm-and-down': tabBar && tabInHeader }">
         <header-notice />

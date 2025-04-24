@@ -17,9 +17,10 @@ export function logout(route?: boolean, from?: string, push?: Router['push']) {
     return;
   }
   // 这样跳转避免再次登录重复注册动态路由, hash 路由模式使用 location.reload();
-  const BASE_URL = import.meta.env.BASE_URL;
-  const url = BASE_URL + 'login';
-  location.replace(from ? `${url}?from=${encodeURIComponent(from)}` : url);
+  // const BASE_URL = import.meta.env.BASE_URL;
+  // const url = BASE_URL + 'login';
+  // location.replace(from ? `${url}?from=${encodeURIComponent(from)}` : url);
+  location.reload();
 }
 
 /**
