@@ -7,7 +7,9 @@ import type { UpdatePasswordParam } from './model';
  * 获取当前登录用户的个人信息/菜单/权限/角色
  */
 export async function getUserInfo(): Promise<User> {
-  const res = await request.get<ApiResult<User>>('/auth/user');
+  const res = await request.get<ApiResult<User>>('/auth/user', {
+    baseURL: '/mock'
+  });
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
   }

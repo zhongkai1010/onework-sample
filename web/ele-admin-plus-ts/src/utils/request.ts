@@ -53,6 +53,7 @@ service.interceptors.response.use(
  */
 export function requestInterceptor(config: InternalAxiosRequestConfig<any>) {
   // 添加token到header
+
   const token = getToken();
   if (token && config.headers) {
     config.headers['Authorization'] = token;

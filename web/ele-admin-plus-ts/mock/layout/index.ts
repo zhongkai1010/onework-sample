@@ -2,7 +2,7 @@ import { MockMethod } from 'vite-plugin-mock';
 
 export default [
   {
-    url: '/api/auth/user',
+    url: '/mock/auth/user',
     method: 'get',
     response: () => {
       return {

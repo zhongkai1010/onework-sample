@@ -1,2 +1,3 @@
 import { MockMethod } from 'vite-plugin-mock';
-export default [] as MockMethod[];
+import layoutApi from './layout';
+export default [...layoutApi] as MockMethod[];
