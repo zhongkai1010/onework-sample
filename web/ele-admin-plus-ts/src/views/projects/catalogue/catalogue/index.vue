@@ -1,41 +1,93 @@
 <template>
-  <ele-page>
-    <ele-card>
-      <el-descriptions
-        title="页面内容"
-        :column="1"
-        size="large"
-        :border="true"
-        :label-width="200"
+  <ele-page
+    flex-table
+    :multi-card="false"
+    hide-footer
+    style="min-height: 420px"
+  >
+    <ele-card
+      flex-table
+      :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }"
+    >
+      <ele-split-panel
+        ref="splitRef"
+        flex-table
+        size="256px"
+        allow-collapse
+        :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }"
+        :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }"
+        :style="{ height: '100%', overflow: 'visible' }"
       >
-        <el-descriptions-item label="页面图片">
-          <img src="./page.png" style="width: 100%"
-        /></el-descriptions-item>
-        <el-descriptions-item label="搜索条件"
-          >藏品编号 请输入藏品编号 藏品名称 请输入藏品名称 藏品分类 地域类型
-          地域 请输入地域 藏品来源 入藏日期范围 类型</el-descriptions-item
+        <div style="padding: 0 16px 12px 0">
+          <el-input
+            clearable
+            :maxlength="20"
+            v-model="keywords"
+            placeholder="请输入搜索关键字"
+            :prefix-icon="SearchOutlined"
+          />
+        </div>
+        <ele-loading
+          :loading="treeLoading"
+          :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }"
         >
-        <el-descriptions-item label="操作栏"
-          >藏品登记 绑定 批量修改分类 审核通过 删除藏品 导入 导出
-          标签打印</el-descriptions-item
-        >
-        <el-descriptions-item label="表格字段" :span="24"
-          >藏品状态 图片信息 编号类别 藏品编号 藏品名称 藏品类别 编号 数量
-          数量单位 年代类型 年代 艺术家 地域类型 地域 质地类型 质地 通长 底径
-          通宽 口径 通高 具体尺寸 质量范围 具体质量 质量单位 文物级别 藏品来源
-          完残状况 保存状态 征集日期 入藏日期范围 入藏年度 类型 人文类型
-          藏品介绍 文本类型 声像载体类型 声像载体存放位置 计算机磁盘路径
-          颜色类别 颜色描述 存放位置 备注 入馆时间 入藏时间 登录时间 入柜时间
-          操作</el-descriptions-item
-        >
-        <el-descriptions-item label="表格操作">
-          编辑 绑定 查看详情 铭牌打印
-        </el-descriptions-item>
-      </el-descriptions>
+          <el-tree
+            ref="treeRef"
+            :data="treeData"
+            highlight-current
+            node-key="id"
+            :props="{ label: 'name' }"
+            :expand-on-click-node="false"
+            :default-expand-all="true"
+            :filter-node-method="filterNode"
+            :style="{ '--ele-tree-item-height': '34px' }"
+          >
+            <template #default="scope">
+              <el-icon
+                style="margin-right: 6px; color: #ffd659; font-size: 16px"
+              >
+                <FolderOutlined
+                  v-if="scope.data.children?.length"
+                  style="fill: currentColor"
+                />
+                <FileOutlined
+                  v-else
+                  style="transform: scale(0.9) translateY(1px); color: #faad14"
+                />
+              </el-icon>
+              <span class="el-tree-node__label" style="margin-top: 2px">
+                {{ scope.data.organizationName }}
+              </span>
+            </template>
+          </el-tree>
+        </ele-loading>
+        <template #body>
+          <data-table />
+        </template>
+      </ele-split-panel>
     </ele-card>
+    <ReferenceButton />
   </ele-page>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+  import { ref } from 'vue';
+  import ReferenceButton from './components/reference-button.vue';
+  import { SearchOutlined } from '@/components/icons';
+  import DataTable from './components/data-table.vue';
+  /** 加载状态 */
+  const treeLoading = ref(true);
+  /** 搜索关键字 */
+  const keywords = ref('');
+  /** 树形数据 */
+  const treeData = ref<any[]>([]);
+  /** 树过滤方法 */
+  const filterNode = (value: string, data: any) => {
+    if (value) {
+      return !!(data.name && data.name.includes(value));
+    }
+    return true;
+  };
+</script>
 
 <style lang="scss" scoped></style>
