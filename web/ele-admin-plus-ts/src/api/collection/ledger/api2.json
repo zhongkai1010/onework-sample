@@ -1,0 +1,1832 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "藏品管理系统",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/api/collection/ledger": {
+      "get": {
+        "summary": "查询藏品台账分页列表",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "collectionStatus",
+            "in": "query",
+            "description": "藏品状态   ",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionCode",
+            "in": "query",
+            "description": "藏品编号   ",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionName",
+            "in": "query",
+            "description": "藏品名称   ",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "warehouseId",
+            "in": "query",
+            "description": "存放位置   ",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "分页查询每页数量",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "排序方式",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页查询页码",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "title": "PageResult«Role»",
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "总数量",
+                          "format": "int64"
+                        },
+                        "list": {
+                          "type": "array",
+                          "description": "当前页数据",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "ID"
+                              },
+                              "collectionStatus": {
+                                "type": "string",
+                                "description": "藏品状态"
+                              },
+                              "imageInfo": {
+                                "type": "string",
+                                "description": "图片信息"
+                              },
+                              "numberCategory": {
+                                "type": "string",
+                                "description": "编号类别"
+                              },
+                              "collectionCode": {
+                                "type": "string",
+                                "description": "藏品编号"
+                              },
+                              "collectionName": {
+                                "type": "string",
+                                "description": "藏品名称"
+                              },
+                              "categoryName": {
+                                "type": "string",
+                                "description": "藏品类别"
+                              },
+                              "categoryId": {
+                                "type": "string",
+                                "description": "藏品类别ID"
+                              },
+                              "rfidCode": {
+                                "type": "string",
+                                "description": "RFID编号"
+                              },
+                              "quantity": {
+                                "type": "integer",
+                                "description": "数量"
+                              },
+                              "unit": {
+                                "type": "string",
+                                "description": "数量单位"
+                              },
+                              "eraType": {
+                                "type": "string",
+                                "description": "年代类型"
+                              },
+                              "era": {
+                                "type": "string",
+                                "description": "年代"
+                              },
+                              "artist": {
+                                "type": "string",
+                                "description": "艺术家"
+                              },
+                              "regionType": {
+                                "type": "string",
+                                "description": "地域类型"
+                              },
+                              "region": {
+                                "type": "string",
+                                "description": "地域"
+                              },
+                              "materialType": {
+                                "type": "string",
+                                "description": "质地类型"
+                              },
+                              "material": {
+                                "type": "string",
+                                "description": "质地"
+                              },
+                              "overallLength": {
+                                "type": "number",
+                                "description": "通长(底径cm)"
+                              },
+                              "overallWidth": {
+                                "type": "number",
+                                "description": "通宽(口径cm)"
+                              },
+                              "totalHeight": {
+                                "type": "number",
+                                "description": "通高(cm)"
+                              },
+                              "specificDimensions": {
+                                "type": "string",
+                                "description": "具体尺寸"
+                              },
+                              "weightRange": {
+                                "type": "string",
+                                "description": "质量范围"
+                              },
+                              "specificWeight": {
+                                "type": "number",
+                                "description": "具体质量"
+                              },
+                              "weightUnit": {
+                                "type": "string",
+                                "description": "质量单位"
+                              },
+                              "culturalLevel": {
+                                "type": "string",
+                                "description": "文物级别"
+                              },
+                              "collectionSource": {
+                                "type": "string",
+                                "description": "藏品来源"
+                              },
+                              "condition": {
+                                "type": "string",
+                                "description": "完残状况"
+                              },
+                              "preservationStatus": {
+                                "type": "string",
+                                "description": "保存状态"
+                              },
+                              "collectionDate": {
+                                "type": "string",
+                                "description": "征集日期"
+                              },
+                              "collectionDateRange": {
+                                "type": "string",
+                                "description": "入藏日期范围"
+                              },
+                              "collectionYear": {
+                                "type": "string",
+                                "description": "入藏年度"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "类型"
+                              },
+                              "culturalType": {
+                                "type": "string",
+                                "description": "人文类型"
+                              },
+                              "collectionIntroduction": {
+                                "type": "string",
+                                "description": "藏品介绍"
+                              },
+                              "textType": {
+                                "type": "string",
+                                "description": "文本类型"
+                              },
+                              "audioVisualCarrierType": {
+                                "type": "string",
+                                "description": "声像载体类型"
+                              },
+                              "audioVisualStorageLocation": {
+                                "type": "string",
+                                "description": "声像载体存放位置"
+                              },
+                              "diskPath": {
+                                "type": "string",
+                                "description": "计算机磁盘路径"
+                              },
+                              "colorCategory": {
+                                "type": "string",
+                                "description": "颜色类别"
+                              },
+                              "colorDescription": {
+                                "type": "string",
+                                "description": "颜色描述"
+                              },
+                              "warehouseName": {
+                                "type": "string",
+                                "description": "存放位置ID"
+                              },
+                              "warehouseId": {
+                                "type": "string",
+                                "description": "存放位置"
+                              },
+                              "notes": {
+                                "type": "string",
+                                "description": "备注"
+                              },
+                              "museumEntryTime": {
+                                "type": "string",
+                                "description": "入馆时间"
+                              },
+                              "collectionTime": {
+                                "type": "string",
+                                "description": "入藏时间"
+                              },
+                              "loginTime": {
+                                "type": "string",
+                                "description": "登录时间"
+                              },
+                              "cabinetEntryTime": {
+                                "type": "string",
+                                "description": "入柜时间"
+                              }
+                            },
+                            "required": [
+                              "categoryId",
+                              "material",
+                              "warehouseId"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/changeWarehouse": {
+      "put": {
+        "summary": "藏品位置变更",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "collectionIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
+                  },
+                  "warehouseId": {
+                    "type": "string",
+                    "description": "库存位置ID"
+                  }
+                },
+                "required": [
+                  "collectionIds",
+                  "warehouseId"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/changeClassification": {
+      "put": {
+        "summary": "编入藏品组",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "collectionIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
+                  },
+                  "classificationId": {
+                    "type": "string",
+                    "description": "藏品分组ID"
+                  }
+                },
+                "required": [
+                  "collectionIds",
+                  "classificationId"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/ledger/import": {
+      "post": {
+        "summary": "导入藏品台账",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "example": "",
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/ledger/repair": {
+      "get": {
+        "summary": "查询藏品修复记录分页列表",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "分页查询每页数量",
+            "required": true,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "排序方式",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页查询页码",
+            "required": true,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionId",
+            "in": "query",
+            "description": "藏品ID",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "title": "PageResult«Role»",
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "总数量",
+                          "format": "int64"
+                        },
+                        "list": {
+                          "type": "array",
+                          "description": "当前页数据",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "ID"
+                              },
+                              "collectionStatus": {
+                                "type": "string",
+                                "description": "藏品状态"
+                              },
+                              "imageInfo": {
+                                "type": "object",
+                                "description": "图片信息",
+                                "properties": {
+                                  "imageUrl": {
+                                    "type": "string",
+                                    "description": "图片链接"
+                                  },
+                                  "imageSize": {
+                                    "type": "string",
+                                    "description": "图片大小"
+                                  }
+                                }
+                              },
+                              "category": {
+                                "type": "string",
+                                "description": "编号类别"
+                              },
+                              "collectionId": {
+                                "type": "string",
+                                "description": "藏品编号"
+                              },
+                              "collectionName": {
+                                "type": "string",
+                                "description": "藏品名称"
+                              },
+                              "collectionCategory": {
+                                "type": "string",
+                                "description": "藏品类别"
+                              },
+                              "code": {
+                                "type": "string",
+                                "description": "编号"
+                              },
+                              "quantity": {
+                                "type": "integer",
+                                "description": "数量"
+                              },
+                              "unit": {
+                                "type": "string",
+                                "description": "数量单位"
+                              },
+                              "eraType": {
+                                "type": "string",
+                                "description": "年代类型"
+                              },
+                              "era": {
+                                "type": "string",
+                                "description": "年代"
+                              },
+                              "artist": {
+                                "type": "string",
+                                "description": "艺术家"
+                              },
+                              "regionType": {
+                                "type": "string",
+                                "description": "地域类型"
+                              },
+                              "region": {
+                                "type": "string",
+                                "description": "地域"
+                              },
+                              "materialType": {
+                                "type": "string",
+                                "description": "质地类型"
+                              },
+                              "material": {
+                                "type": "string",
+                                "description": "质地"
+                              },
+                              "length": {
+                                "type": "number",
+                                "description": "通长"
+                              },
+                              "diameter": {
+                                "type": "number",
+                                "description": "底径"
+                              },
+                              "width": {
+                                "type": "number",
+                                "description": "通宽"
+                              },
+                              "caliber": {
+                                "type": "number",
+                                "description": "口径"
+                              },
+                              "height": {
+                                "type": "number",
+                                "description": "通高"
+                              },
+                              "specificDimensions": {
+                                "type": "string",
+                                "description": "具体尺寸"
+                              },
+                              "weightRange": {
+                                "type": "string",
+                                "description": "质量范围"
+                              },
+                              "specificWeight": {
+                                "type": "number",
+                                "description": "具体质量"
+                              },
+                              "weightUnit": {
+                                "type": "string",
+                                "description": "质量单位"
+                              },
+                              "culturalLevel": {
+                                "type": "string",
+                                "description": "文物级别"
+                              },
+                              "collectionSource": {
+                                "type": "string",
+                                "description": "藏品来源"
+                              },
+                              "condition": {
+                                "type": "string",
+                                "description": "完残状况"
+                              },
+                              "preservationStatus": {
+                                "type": "string",
+                                "description": "保存状态"
+                              },
+                              "collectionDate": {
+                                "type": "string",
+                                "description": "征集日期"
+                              },
+                              "collectionDateRange": {
+                                "type": "string",
+                                "description": "入藏日期范围"
+                              },
+                              "collectionYear": {
+                                "type": "string",
+                                "description": "入藏年度"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "类型"
+                              },
+                              "culturalType": {
+                                "type": "string",
+                                "description": "人文类型"
+                              },
+                              "collectionIntroduction": {
+                                "type": "string",
+                                "description": "藏品介绍"
+                              },
+                              "textType": {
+                                "type": "string",
+                                "description": "文本类型"
+                              },
+                              "audioVisualCarrierType": {
+                                "type": "string",
+                                "description": "声像载体类型"
+                              },
+                              "audioVisualStorageLocation": {
+                                "type": "string",
+                                "description": "声像载体存放位置"
+                              },
+                              "diskPath": {
+                                "type": "string",
+                                "description": "计算机磁盘路径"
+                              },
+                              "colorCategory": {
+                                "type": "string",
+                                "description": "颜色类别"
+                              },
+                              "colorDescription": {
+                                "type": "string",
+                                "description": "颜色描述"
+                              },
+                              "storageLocation": {
+                                "type": "string",
+                                "description": "存放位置"
+                              },
+                              "notes": {
+                                "type": "string",
+                                "description": "备注"
+                              },
+                              "museumEntryTime": {
+                                "type": "string",
+                                "description": "入馆时间"
+                              },
+                              "collectionTime": {
+                                "type": "string",
+                                "description": "入藏时间"
+                              },
+                              "loginTime": {
+                                "type": "string",
+                                "description": "登录时间"
+                              },
+                              "cabinetEntryTime": {
+                                "type": "string",
+                                "description": "入柜时间"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/ledger/outbound": {
+      "get": {
+        "summary": "查询藏品出库记录分页列表",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "分页查询每页数量",
+            "required": true,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "排序方式",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页查询页码",
+            "required": true,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionId",
+            "in": "query",
+            "description": "藏品ID",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "title": "PageResult«Role»",
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "总数量",
+                          "format": "int64"
+                        },
+                        "list": {
+                          "type": "array",
+                          "description": "当前页数据",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "ID"
+                              },
+                              "collectionStatus": {
+                                "type": "string",
+                                "description": "藏品状态"
+                              },
+                              "imageInfo": {
+                                "type": "object",
+                                "description": "图片信息",
+                                "properties": {
+                                  "imageUrl": {
+                                    "type": "string",
+                                    "description": "图片链接"
+                                  },
+                                  "imageSize": {
+                                    "type": "string",
+                                    "description": "图片大小"
+                                  }
+                                }
+                              },
+                              "category": {
+                                "type": "string",
+                                "description": "编号类别"
+                              },
+                              "collectionId": {
+                                "type": "string",
+                                "description": "藏品编号"
+                              },
+                              "collectionName": {
+                                "type": "string",
+                                "description": "藏品名称"
+                              },
+                              "collectionCategory": {
+                                "type": "string",
+                                "description": "藏品类别"
+                              },
+                              "code": {
+                                "type": "string",
+                                "description": "编号"
+                              },
+                              "quantity": {
+                                "type": "integer",
+                                "description": "数量"
+                              },
+                              "unit": {
+                                "type": "string",
+                                "description": "数量单位"
+                              },
+                              "eraType": {
+                                "type": "string",
+                                "description": "年代类型"
+                              },
+                              "era": {
+                                "type": "string",
+                                "description": "年代"
+                              },
+                              "artist": {
+                                "type": "string",
+                                "description": "艺术家"
+                              },
+                              "regionType": {
+                                "type": "string",
+                                "description": "地域类型"
+                              },
+                              "region": {
+                                "type": "string",
+                                "description": "地域"
+                              },
+                              "materialType": {
+                                "type": "string",
+                                "description": "质地类型"
+                              },
+                              "material": {
+                                "type": "string",
+                                "description": "质地"
+                              },
+                              "length": {
+                                "type": "number",
+                                "description": "通长"
+                              },
+                              "diameter": {
+                                "type": "number",
+                                "description": "底径"
+                              },
+                              "width": {
+                                "type": "number",
+                                "description": "通宽"
+                              },
+                              "caliber": {
+                                "type": "number",
+                                "description": "口径"
+                              },
+                              "height": {
+                                "type": "number",
+                                "description": "通高"
+                              },
+                              "specificDimensions": {
+                                "type": "string",
+                                "description": "具体尺寸"
+                              },
+                              "weightRange": {
+                                "type": "string",
+                                "description": "质量范围"
+                              },
+                              "specificWeight": {
+                                "type": "number",
+                                "description": "具体质量"
+                              },
+                              "weightUnit": {
+                                "type": "string",
+                                "description": "质量单位"
+                              },
+                              "culturalLevel": {
+                                "type": "string",
+                                "description": "文物级别"
+                              },
+                              "collectionSource": {
+                                "type": "string",
+                                "description": "藏品来源"
+                              },
+                              "condition": {
+                                "type": "string",
+                                "description": "完残状况"
+                              },
+                              "preservationStatus": {
+                                "type": "string",
+                                "description": "保存状态"
+                              },
+                              "collectionDate": {
+                                "type": "string",
+                                "description": "征集日期"
+                              },
+                              "collectionDateRange": {
+                                "type": "string",
+                                "description": "入藏日期范围"
+                              },
+                              "collectionYear": {
+                                "type": "string",
+                                "description": "入藏年度"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "类型"
+                              },
+                              "culturalType": {
+                                "type": "string",
+                                "description": "人文类型"
+                              },
+                              "collectionIntroduction": {
+                                "type": "string",
+                                "description": "藏品介绍"
+                              },
+                              "textType": {
+                                "type": "string",
+                                "description": "文本类型"
+                              },
+                              "audioVisualCarrierType": {
+                                "type": "string",
+                                "description": "声像载体类型"
+                              },
+                              "audioVisualStorageLocation": {
+                                "type": "string",
+                                "description": "声像载体存放位置"
+                              },
+                              "diskPath": {
+                                "type": "string",
+                                "description": "计算机磁盘路径"
+                              },
+                              "colorCategory": {
+                                "type": "string",
+                                "description": "颜色类别"
+                              },
+                              "colorDescription": {
+                                "type": "string",
+                                "description": "颜色描述"
+                              },
+                              "storageLocation": {
+                                "type": "string",
+                                "description": "存放位置"
+                              },
+                              "notes": {
+                                "type": "string",
+                                "description": "备注"
+                              },
+                              "museumEntryTime": {
+                                "type": "string",
+                                "description": "入馆时间"
+                              },
+                              "collectionTime": {
+                                "type": "string",
+                                "description": "入藏时间"
+                              },
+                              "loginTime": {
+                                "type": "string",
+                                "description": "登录时间"
+                              },
+                              "cabinetEntryTime": {
+                                "type": "string",
+                                "description": "入柜时间"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/ledger/transfer": {
+      "get": {
+        "summary": "查询藏品调拨记录分页列表",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "分页查询每页数量",
+            "required": true,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "排序方式",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页查询页码",
+            "required": true,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionId",
+            "in": "query",
+            "description": "藏品ID",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "title": "PageResult«Role»",
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "总数量",
+                          "format": "int64"
+                        },
+                        "list": {
+                          "type": "array",
+                          "description": "当前页数据",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "ID"
+                              },
+                              "collectionStatus": {
+                                "type": "string",
+                                "description": "藏品状态"
+                              },
+                              "imageInfo": {
+                                "type": "object",
+                                "description": "图片信息",
+                                "properties": {
+                                  "imageUrl": {
+                                    "type": "string",
+                                    "description": "图片链接"
+                                  },
+                                  "imageSize": {
+                                    "type": "string",
+                                    "description": "图片大小"
+                                  }
+                                }
+                              },
+                              "category": {
+                                "type": "string",
+                                "description": "编号类别"
+                              },
+                              "collectionId": {
+                                "type": "string",
+                                "description": "藏品编号"
+                              },
+                              "collectionName": {
+                                "type": "string",
+                                "description": "藏品名称"
+                              },
+                              "collectionCategory": {
+                                "type": "string",
+                                "description": "藏品类别"
+                              },
+                              "code": {
+                                "type": "string",
+                                "description": "编号"
+                              },
+                              "quantity": {
+                                "type": "integer",
+                                "description": "数量"
+                              },
+                              "unit": {
+                                "type": "string",
+                                "description": "数量单位"
+                              },
+                              "eraType": {
+                                "type": "string",
+                                "description": "年代类型"
+                              },
+                              "era": {
+                                "type": "string",
+                                "description": "年代"
+                              },
+                              "artist": {
+                                "type": "string",
+                                "description": "艺术家"
+                              },
+                              "regionType": {
+                                "type": "string",
+                                "description": "地域类型"
+                              },
+                              "region": {
+                                "type": "string",
+                                "description": "地域"
+                              },
+                              "materialType": {
+                                "type": "string",
+                                "description": "质地类型"
+                              },
+                              "material": {
+                                "type": "string",
+                                "description": "质地"
+                              },
+                              "length": {
+                                "type": "number",
+                                "description": "通长"
+                              },
+                              "diameter": {
+                                "type": "number",
+                                "description": "底径"
+                              },
+                              "width": {
+                                "type": "number",
+                                "description": "通宽"
+                              },
+                              "caliber": {
+                                "type": "number",
+                                "description": "口径"
+                              },
+                              "height": {
+                                "type": "number",
+                                "description": "通高"
+                              },
+                              "specificDimensions": {
+                                "type": "string",
+                                "description": "具体尺寸"
+                              },
+                              "weightRange": {
+                                "type": "string",
+                                "description": "质量范围"
+                              },
+                              "specificWeight": {
+                                "type": "number",
+                                "description": "具体质量"
+                              },
+                              "weightUnit": {
+                                "type": "string",
+                                "description": "质量单位"
+                              },
+                              "culturalLevel": {
+                                "type": "string",
+                                "description": "文物级别"
+                              },
+                              "collectionSource": {
+                                "type": "string",
+                                "description": "藏品来源"
+                              },
+                              "condition": {
+                                "type": "string",
+                                "description": "完残状况"
+                              },
+                              "preservationStatus": {
+                                "type": "string",
+                                "description": "保存状态"
+                              },
+                              "collectionDate": {
+                                "type": "string",
+                                "description": "征集日期"
+                              },
+                              "collectionDateRange": {
+                                "type": "string",
+                                "description": "入藏日期范围"
+                              },
+                              "collectionYear": {
+                                "type": "string",
+                                "description": "入藏年度"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "类型"
+                              },
+                              "culturalType": {
+                                "type": "string",
+                                "description": "人文类型"
+                              },
+                              "collectionIntroduction": {
+                                "type": "string",
+                                "description": "藏品介绍"
+                              },
+                              "textType": {
+                                "type": "string",
+                                "description": "文本类型"
+                              },
+                              "audioVisualCarrierType": {
+                                "type": "string",
+                                "description": "声像载体类型"
+                              },
+                              "audioVisualStorageLocation": {
+                                "type": "string",
+                                "description": "声像载体存放位置"
+                              },
+                              "diskPath": {
+                                "type": "string",
+                                "description": "计算机磁盘路径"
+                              },
+                              "colorCategory": {
+                                "type": "string",
+                                "description": "颜色类别"
+                              },
+                              "colorDescription": {
+                                "type": "string",
+                                "description": "颜色描述"
+                              },
+                              "storageLocation": {
+                                "type": "string",
+                                "description": "存放位置"
+                              },
+                              "notes": {
+                                "type": "string",
+                                "description": "备注"
+                              },
+                              "museumEntryTime": {
+                                "type": "string",
+                                "description": "入馆时间"
+                              },
+                              "collectionTime": {
+                                "type": "string",
+                                "description": "入藏时间"
+                              },
+                              "loginTime": {
+                                "type": "string",
+                                "description": "登录时间"
+                              },
+                              "cabinetEntryTime": {
+                                "type": "string",
+                                "description": "入柜时间"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/books/ledger": {
+      "get": {
+        "summary": "查询图书总账分页列表",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "bookValue",
+            "in": "query",
+            "description": "图书价值",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "分页查询每页数量",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "排序方式",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页查询页码",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "title": "PageResult«Role»",
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "总数量",
+                          "format": "int64"
+                        },
+                        "list": {
+                          "type": "array",
+                          "description": "当前页数据",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "ID 编号"
+                              },
+                              "imageInfo": {
+                                "type": "string",
+                                "description": "图片信息"
+                              },
+                              "numberCategory": {
+                                "type": "string",
+                                "description": "编号类别"
+                              },
+                              "collectionName": {
+                                "type": "string",
+                                "description": "藏品名称"
+                              },
+                              "rfidCode": {
+                                "type": "string",
+                                "description": "RFID编号"
+                              },
+                              "categoryId": {
+                                "type": "string",
+                                "description": "藏品分类ID"
+                              },
+                              "categoryName": {
+                                "type": "string",
+                                "description": "藏品分类名称"
+                              },
+                              "isbn": {
+                                "type": "string",
+                                "description": "ISBN"
+                              },
+                              "author": {
+                                "type": "string",
+                                "description": "作者"
+                              },
+                              "warehouseId": {
+                                "type": "string",
+                                "description": "仓库ID"
+                              },
+                              "warehouseName": {
+                                "type": "string",
+                                "description": "仓库名称"
+                              },
+                              "collectionSource": {
+                                "type": "string",
+                                "description": "藏品来源"
+                              },
+                              "bookValue": {
+                                "type": "string",
+                                "description": "图书价值"
+                              },
+                              "preservationStatus": {
+                                "type": "string",
+                                "description": "保存状态"
+                              },
+                              "collectionDate": {
+                                "type": "string",
+                                "description": "征集日期"
+                              },
+                              "collectionYear": {
+                                "type": "string",
+                                "description": "入藏年度"
+                              },
+                              "notes": {
+                                "type": "string",
+                                "description": "备注"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "类型"
+                              }
+                            },
+                            "required": [
+                              "isbn",
+                              "id",
+                              "categoryName",
+                              "warehouseName"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/books/return": {
+      "post": {
+        "summary": "图书退回编目",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "collectionIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
+                  }
+                },
+                "required": [
+                  "collectionIds"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}
