@@ -1,7 +1,7 @@
 import { PageParam } from '@/api';
 
 /**
- * 注销单信息
+ * 注销记录信息
  */
 export interface Cancellation {
   /** ID编号 */
@@ -19,31 +19,33 @@ export interface Cancellation {
   /** 注销原因 */
   cancellationReason: string;
   /** 状态 */
-  status: string;
+  status: number;
 }
 
 /**
- * 添加注销单参数
+ * 添加注销记录参数
  */
 export type AddCancellationParams = Omit<Cancellation, 'id'>;
 
 /**
- * 注销单查询参数
+ * 注销记录查询参数
  */
 export interface CancellationQueryParams extends PageParam {
-  /** 注销单号 */
-  cancellationCode?: string;
+  /** 藏品ID */
+  collectionId?: string;
   /** 批准部门 */
   approvalDepartment?: string;
+  /** 注销原因 */
+  cancellationReason?: string;
   /** 状态 */
-  status?: string;
+  status?: number;
 }
 
 /**
- * 注销确认参数
+ * 确认注销参数
  */
-export interface CancellationConfirmParams {
-  /** 注销单ID集合 */
+export interface ConfirmCancellationParams {
+  /** 分类ID集合 */
   ids: number[];
 }
 

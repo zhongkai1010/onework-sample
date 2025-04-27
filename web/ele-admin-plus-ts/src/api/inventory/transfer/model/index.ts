@@ -1,37 +1,105 @@
-import { PageParam } from '@/api';
-
-// 调拨单基础信息接口
-export interface TransferBase {
-  /** 编号 */
-  code: string;
-  /** 藏品编号 */
-  collectionId: string;
-  /** 藏品名称 */
-  collectionName: string;
-  /** 库房 */
-  warehouse: string;
-  /** 年代 */
-  era: string;
-  /** 质地类型 */
-  materialType: string;
-  /** 质地 */
-  material: string;
-  /** 数量 */
-  quantity: number;
-  /** 单位 */
-  unit: string;
-  /** 具体尺寸 */
-  specificDimensions: string;
-  /** 完残程度 */
-  completenessDegree: string;
+/**
+ * 调拨单
+ */
+export interface TransferOrder {
+  /** ID */
+  id: string;
+  /** 单据图片 */
+  documentImage?: string;
+  /** 调拨单号 */
+  code?: string;
+  /** 单据状态 */
+  status?: string;
+  /** 调拨日期 */
+  transferDate?: string;
+  /** 调拨仓库ID */
+  warehouseId?: string;
+  /** 调拨仓库 */
+  warehouseName: string;
+  /** 接收人 */
+  receiver?: string;
+  /** 调拨原因 */
+  transferReason?: string;
+  /** 备注 */
+  remarks?: string;
 }
 
-// 调拨单查询参数接口
-export interface TransferQueryParams extends PageParam {
+/**
+ * 调拨明细
+ */
+export interface TransferDetail {
+  /** ID */
+  id: string;
+  /** 藏品状态 */
+  collectionStatus?: string;
+  /** 图片信息 */
+  imageInfo?: string;
+  /** 编号类别 */
+  numberCategory?: string;
+  /** 藏品编号 */
+  collectionCode?: string;
+  /** 藏品名称 */
+  collectionName?: string;
+  /** 藏品类别 */
+  categoryName?: string;
+  /** 藏品类别ID */
+  categoryId?: string;
+}
+
+/**
+ * 新增调拨单参数
+ */
+export interface AddTransferParams {
+  /** ID集合 */
+  ids: number[];
+}
+
+/**
+ * 调拨单审核参数
+ */
+export interface ApproveTransferParams {
+  /** ID集合 */
+  ids: number[];
+}
+
+/**
+ * 确认调拨参数
+ */
+export interface ConfirmTransferParams {
+  /** ID 编号 */
+  id: string;
+}
+
+/**
+ * 查询调拨单参数
+ */
+export interface TransferQueryParams {
   /** 单据状态 */
-  documentStatus?: string;
-  /** 请选择 */
-  inputStorageType?: string;
+  status?: string;
   /** 调拨仓库 */
-  transferWarehouse?: string;
+  warehouseId?: string;
+  /** 分页查询每页数量 */
+  limit?: number;
+  /** 分页查询页码 */
+  page?: number;
+  /** 排序方式 */
+  order?: string;
+  /** 排序字段 */
+  sort?: string;
+}
+
+/**
+ * 查询调拨明细参数
+ */
+export interface TransferDetailQueryParams {
+  /** 调拨单ID */
+  id?: string;
+  /** 分页查询每页数量 */
+  limit?: number;
+  /** 分页查询页码 */
+  page?: number;
+  /** 排序方式 */
+  order?: string;
+  /** 排序字段 */
+  sort?: string;
 }

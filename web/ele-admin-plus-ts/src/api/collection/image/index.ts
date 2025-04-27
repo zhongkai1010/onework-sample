@@ -1,14 +1,14 @@
 import request from '@/utils/request';
-import type { ApiResult } from '@/api';
-import type { Exhibition, AddExhibitionParams } from './model';
+import type { ApiResult, PageResult } from '@/api';
+import type { Image, AddImageParams, ImageQueryParams } from './model';
 
 /**
- * 添加艺术展览
- * @param data 展览信息
+ * 添加影像
+ * @param data 影像信息
  */
-export async function addExhibition(data: AddExhibitionParams) {
+export async function addImage(data: AddImageParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/artist/exhibition',
+    '/api/collection/image',
     data
   );
   if (res.data.code === 0) {
@@ -18,12 +18,15 @@ export async function addExhibition(data: AddExhibitionParams) {
 }
 
 /**
- * 查询艺术展览详情
- * @param id 展览ID
+ * 查询影像分页列表
+ * @param params 查询参数
  */
-export async function getExhibition(id: string) {
-  const res = await request.get<ApiResult<Exhibition>>(
-    `/api/artist/exhibition/${id}`
+export async function getImageList(params: ImageQueryParams) {
+  const res = await request.get<ApiResult<PageResult<Image>>>(
+    '/api/collection/image',
+    {
+      params
+    }
   );
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
@@ -32,12 +35,12 @@ export async function getExhibition(id: string) {
 }
 
 /**
- * 修改艺术展览
- * @param data 展览信息
+ * 修改影像
+ * @param data 影像信息
  */
-export async function updateExhibition(data: Exhibition) {
+export async function updateImage(data: Image) {
   const res = await request.put<ApiResult<unknown>>(
-    '/api/artist/exhibition',
+    '/api/collection/image',
     data
   );
   if (res.data.code === 0) {
@@ -47,12 +50,12 @@ export async function updateExhibition(data: Exhibition) {
 }
 
 /**
- * 删除艺术展览
- * @param id 展览ID
+ * 删除影像
+ * @param id 影像ID
  */
-export async function deleteExhibition(id: string) {
+export async function deleteImage(id: string) {
   const res = await request.delete<ApiResult<unknown>>(
-    `/api/artist/exhibition/${id}`
+    `/api/collection/image/${id}`
   );
   if (res.data.code === 0) {
     return res.data.message;

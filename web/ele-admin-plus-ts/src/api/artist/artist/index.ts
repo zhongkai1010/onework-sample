@@ -1,15 +1,18 @@
 import request from '@/utils/request';
-import { ApiResult, PageResult } from '@/api';
-import { Artist, ArtistQueryParams } from './model';
+import type { ApiResult, PageResult } from '@/api';
+import type { Artist, ArtistQueryParams } from './model';
 
 /**
- * 获取艺术家列表
+ * 查询艺术家分页列表
  * @param params 查询参数
  */
-async function getArtistList(params: ArtistQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Artist>>>('/artist/list', {
-    params
-  });
+export async function getArtistList(params: ArtistQueryParams) {
+  const res = await request.get<ApiResult<PageResult<Artist>>>(
+    '/api/artist/artist',
+    {
+      params
+    }
+  );
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
   }
@@ -17,11 +20,11 @@ async function getArtistList(params: ArtistQueryParams) {
 }
 
 /**
- * 获取艺术家详情
+ * 查询艺术家详情
  * @param id 艺术家ID
  */
-async function getArtistDetail(id: number) {
-  const res = await request.get<ApiResult<Artist>>(`/artist/${id}`);
+export async function getArtistDetail(id: string) {
+  const res = await request.get<ApiResult<Artist>>(`/api/artist/artist/${id}`);
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
   }
@@ -29,13 +32,14 @@ async function getArtistDetail(id: number) {
 }
 
 /**
- * 创建艺术家
+ * 添加艺术家
  * @param data 艺术家信息
  */
-async function createArtist(
-  data: Omit<Artist, 'id' | 'createTime' | 'updateTime'>
-) {
-  const res = await request.post<ApiResult<unknown>>('/artist', data);
+export async function createArtist(data: Omit<Artist, 'id'>) {
+  const res = await request.post<ApiResult<unknown>>(
+    '/api/artist/artist',
+    data
+  );
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -43,11 +47,11 @@ async function createArtist(
 }
 
 /**
- * 更新艺术家
+ * 修改艺术家
  * @param data 艺术家信息
  */
-async function updateArtist(data: Partial<Artist>) {
-  const res = await request.put<ApiResult<unknown>>('/artist', data);
+export async function updateArtist(data: Artist) {
+  const res = await request.put<ApiResult<unknown>>('/api/artist/artist', data);
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -58,18 +62,12 @@ async function updateArtist(data: Partial<Artist>) {
  * 删除艺术家
  * @param id 艺术家ID
  */
-async function deleteArtist(id: number) {
-  const res = await request.delete<ApiResult<unknown>>(`/artist/${id}`);
+export async function deleteArtist(id: string) {
+  const res = await request.delete<ApiResult<unknown>>(
+    `/api/artist/artist/${id}`
+  );
   if (res.data.code === 0) {
     return res.data.message;
   }
   return Promise.reject(new Error(res.data.message));
 }
-
-export default {
-  getArtistList,
-  getArtistDetail,
-  createArtist,
-  updateArtist,
-  deleteArtist
-};

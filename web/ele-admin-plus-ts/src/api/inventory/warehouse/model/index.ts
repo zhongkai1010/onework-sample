@@ -1,32 +1,87 @@
-// 仓库基础信息接口
-export interface WarehouseBase {
+/**
+ * 库房信息
+ */
+export interface Warehouse {
+  /** ID 编号 */
   id: string;
-  code: string;
+  /** 编号 */
+  code?: string;
+  /** 上级库房 */
   parentId: string;
-  name: string;
-  encoding: string;
-  level: string;
+  /** 名称 */
+  name?: string;
+  /** 级别,1:库，2:区 */
+  type?: string;
+  /** 备注 */
+  remark?: string;
+  /** 列数 */
+  columnCount: string;
+  /** 节数 */
+  sectionCount: string;
+  /** 层数 */
+  layerCount: string;
+  /** 固定列类型 */
+  fixedColumnType: string;
 }
 
-// 仓库查询参数接口
+/**
+ * 新增库房参数
+ */
+export interface AddWarehouseParams {
+  /** 编号 */
+  code?: string;
+  /** 上级库房 */
+  parentId: string;
+  /** 名称 */
+  name?: string;
+  /** 级别,1:库，2:区 */
+  type?: string;
+  /** 备注 */
+  remark?: string;
+  /** 列数 */
+  columnCount: string;
+  /** 节数 */
+  sectionCount: string;
+  /** 层数 */
+  layerCount: string;
+  /** 固定列类型 */
+  fixedColumnType: string;
+}
+
+/**
+ * 修改库房参数
+ */
+export interface UpdateWarehouseParams extends AddWarehouseParams {
+  /** ID 编号 */
+  id: string;
+}
+
+/**
+ * 删除库房参数
+ */
+export interface DeleteWarehouseParams {
+  /** ID 编号 */
+  id: string;
+}
+
+/**
+ * 查询库房参数
+ */
 export interface WarehouseQueryParams {
-  page?: number;
-  limit?: number;
-  sort?: string;
-  order?: 'asc' | 'desc';
+  /** 名称 */
+  name?: string;
 }
 
-// 藏品定位信息接口
-export interface CollectionLocation {
-  collectionId: string;
-  addressBarcode: string;
-  bindingTime: string;
-}
-
-// 藏品定位查询参数接口
-export interface CollectionLocationQueryParams {
-  page?: number;
-  limit?: number;
-  sort?: string;
-  order?: 'asc' | 'desc';
+/**
+ * API 响应结果
+ */
+export interface ApiResult<T> {
+  /** 状态码 */
+  code: number;
+  /** 返回数据 */
+  data?: T;
+  /** 错误信息 */
+  error?: string;
+  /** 状态信息 */
+  message?: string;
 }

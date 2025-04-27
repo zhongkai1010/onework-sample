@@ -2,18 +2,21 @@ import request from '@/utils/request';
 import type { ApiResult } from '@/api';
 import type {
   Category,
-  AddCategoryParam,
-  UpdateCategoryParam,
-  DeleteCategoryParam,
-  CategoryParam
-} from './category/model';
+  AddCategoryParams,
+  UpdateCategoryParams,
+  DeleteCategoryParams,
+  CategoryQueryParams
+} from './model';
 
 /**
  * 新增藏品分类
  * @param data 分类信息
  */
-async function addCategory(data: AddCategoryParam) {
-  const res = await request.post<ApiResult<unknown>>('/data/categories', data);
+export async function addCategory(data: AddCategoryParams) {
+  const res = await request.post<ApiResult<unknown>>(
+    '/api/data/categories',
+    data
+  );
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -24,8 +27,8 @@ async function addCategory(data: AddCategoryParam) {
  * 查询全部藏品分类
  * @param params 查询参数
  */
-async function listCategories(params?: CategoryParam) {
-  const res = await request.get<ApiResult<Category[]>>('/data/categories', {
+export async function listCategories(params?: CategoryQueryParams) {
+  const res = await request.get<ApiResult<Category[]>>('/api/data/categories', {
     params
   });
   if (res.data.code === 0 && res.data.data) {
@@ -38,8 +41,8 @@ async function listCategories(params?: CategoryParam) {
  * 删除藏品分类
  * @param data 分类ID集合
  */
-async function removeCategories(data: DeleteCategoryParam) {
-  const res = await request.delete<ApiResult<unknown>>('/data/categories', {
+export async function removeCategories(data: DeleteCategoryParams) {
+  const res = await request.delete<ApiResult<unknown>>('/api/data/categories', {
     data
   });
   if (res.data.code === 0) {
@@ -52,8 +55,11 @@ async function removeCategories(data: DeleteCategoryParam) {
  * 修改藏品分类
  * @param data 分类信息
  */
-async function updateCategory(data: UpdateCategoryParam) {
-  const res = await request.put<ApiResult<unknown>>('/data/categories', data);
+export async function updateCategory(data: UpdateCategoryParams) {
+  const res = await request.put<ApiResult<unknown>>(
+    '/api/data/categories',
+    data
+  );
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -64,11 +70,11 @@ async function updateCategory(data: UpdateCategoryParam) {
  * 导入藏品分类
  * @param file 文件对象
  */
-async function importCategories(file: File) {
+export async function importCategories(file: File) {
   const formData = new FormData();
   formData.append('file', file);
   const res = await request.post<ApiResult<unknown>>(
-    '/data/categories/import',
+    '/api/data/categories/import',
     formData,
     {
       headers: {
@@ -81,11 +87,3 @@ async function importCategories(file: File) {
   }
   return Promise.reject(new Error(res.data.message));
 }
-
-export default {
-  addCategory,
-  listCategories,
-  removeCategories,
-  updateCategory,
-  importCategories
-};

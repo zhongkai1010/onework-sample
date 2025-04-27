@@ -6,8 +6,6 @@ import { PageParam } from '@/api';
 export interface Publication {
   /** ID编号 */
   id: string;
-  /** 编号 */
-  code: string;
   /** 出版物题名 */
   bookTitle: string;
   /** 艺术家名称 */
@@ -37,6 +35,4 @@ export type AddPublicationParams = Omit<Publication, 'id'>;
 export interface PublicationQueryParams extends PageParam {
   /** 出版物题名 */
   bookTitle?: string;
-  /** 艺术家名称 */
-  artistName?: string;
 }

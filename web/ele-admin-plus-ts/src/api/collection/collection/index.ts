@@ -1,14 +1,18 @@
 import request from '@/utils/request';
-import { ApiResult, PageResult } from '@/api';
-import { CollectionBase, CollectionQueryParams } from './model';
+import type { ApiResult, PageResult } from '@/api';
+import type {
+  CollectionBase,
+  AddCollectionParams,
+  CollectionQueryParams
+} from './model';
 
 /**
  * 查询藏品台账分页列表
  * @param params 查询参数
  */
-async function getAccounts(params: CollectionQueryParams) {
+export async function getAccounts(params: CollectionQueryParams) {
   const res = await request.get<ApiResult<PageResult<CollectionBase>>>(
-    '/collections/accounts',
+    '/api/collection/collections/accounts',
     { params }
   );
   if (res.data.code === 0 && res.data.data) {
@@ -21,9 +25,9 @@ async function getAccounts(params: CollectionQueryParams) {
  * 查询藏品编目分页列表
  * @param params 查询参数
  */
-async function getCatalogs(params: CollectionQueryParams) {
+export async function getCatalogs(params: CollectionQueryParams) {
   const res = await request.get<ApiResult<PageResult<CollectionBase>>>(
-    '/collections/catalogs',
+    '/api/collection/catalog',
     { params }
   );
   if (res.data.code === 0 && res.data.data) {
@@ -36,9 +40,9 @@ async function getCatalogs(params: CollectionQueryParams) {
  * 查询藏品预备帐分页列表
  * @param params 查询参数
  */
-async function getPreparatory(params: CollectionQueryParams) {
+export async function getPreparatory(params: CollectionQueryParams) {
   const res = await request.get<ApiResult<PageResult<CollectionBase>>>(
-    '/collections/preparatory',
+    '/api/collection/collections/preparatory',
     { params }
   );
   if (res.data.code === 0 && res.data.data) {
@@ -51,9 +55,9 @@ async function getPreparatory(params: CollectionQueryParams) {
  * 藏品登记
  * @param data 藏品信息
  */
-async function register(data: CollectionBase) {
+export async function register(data: AddCollectionParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/collections/register',
+    '/api/collection/collections/register',
     data
   );
   if (res.data.code === 0) {
@@ -66,8 +70,11 @@ async function register(data: CollectionBase) {
  * 编辑藏品
  * @param data 藏品信息
  */
-async function update(data: CollectionBase) {
-  const res = await request.put<ApiResult<unknown>>('/collections', data);
+export async function update(data: CollectionBase) {
+  const res = await request.put<ApiResult<unknown>>(
+    '/api/collection/catalog',
+    data
+  );
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -78,10 +85,11 @@ async function update(data: CollectionBase) {
  * 删除藏品
  * @param ids 藏品ID集合
  */
-async function deleteCollections(ids: number[]) {
-  const res = await request.delete<ApiResult<unknown>>('/collections/batch', {
-    data: { ids }
-  });
+export async function deleteCollections(ids: number[]) {
+  const res = await request.delete<ApiResult<unknown>>(
+    '/api/collection/catalog',
+    { data: { ids } }
+  );
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -92,10 +100,11 @@ async function deleteCollections(ids: number[]) {
  * 审核通过藏品
  * @param ids 藏品ID集合
  */
-async function approve(ids: number[]) {
-  const res = await request.post<ApiResult<unknown>>('/collections/approve', {
-    ids
-  });
+export async function approve(ids: number[]) {
+  const res = await request.post<ApiResult<unknown>>(
+    '/api/collection/catalog/approve',
+    { ids }
+  );
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -106,11 +115,11 @@ async function approve(ids: number[]) {
  * 导入藏品
  * @param file 文件
  */
-async function importCollections(file: File) {
+export async function importCollections(file: File) {
   const formData = new FormData();
   formData.append('file', file);
   const res = await request.post<ApiResult<unknown>>(
-    '/collections/import',
+    '/api/collection/catalog/import',
     formData,
     {
       headers: {
@@ -128,27 +137,13 @@ async function importCollections(file: File) {
  * 查询藏品详情
  * @param id 藏品ID
  */
-async function getDetails(id: string) {
+export async function getDetails(id: string) {
   const res = await request.get<ApiResult<CollectionBase>>(
-    '/collections/details',
-    {
-      params: { id }
-    }
+    '/api/collection/catalog/details',
+    { params: { id } }
   );
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
   }
   return Promise.reject(new Error(res.data.message));
 }
-
-export default {
-  getAccounts,
-  getCatalogs,
-  getPreparatory,
-  register,
-  update,
-  deleteCollections,
-  approve,
-  importCollections,
-  getDetails
-};

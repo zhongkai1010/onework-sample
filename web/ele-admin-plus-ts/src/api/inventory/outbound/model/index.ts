@@ -1,114 +1,123 @@
-import { PageParam } from '@/api';
-
-// 图片信息接口
-export interface ImageInfo {
-  /** 图片链接 */
-  imageUrl: string;
-  /** 图片大小 */
-  imageSize: string;
+/**
+ * 出库单
+ */
+export interface OutboundOrder {
+  /** 单据图片 */
+  documentImage?: string;
+  /** 单据状态 */
+  status?: string;
+  /** 出库单号 */
+  code?: string;
+  /** 出库日期 */
+  outboundDate?: string;
+  /** 经办人 */
+  operator?: string;
+  /** 提借部门 */
+  borrowDepartment?: string;
+  /** 提借人 */
+  borrower?: string;
+  /** 提借类型 */
+  borrowType?: string;
+  /** 拟归日期 */
+  proposedReturnDate?: string;
+  /** 备注 */
+  remarks?: string;
 }
 
-// 出库单基础信息接口
-export interface OutboundBase {
+/**
+ * 出库明细
+ */
+export interface OutboundDetail {
   /** ID */
   id: string;
   /** 藏品状态 */
-  collectionStatus: string;
+  collectionStatus?: string;
   /** 图片信息 */
-  imageInfo: ImageInfo;
+  imageInfo?: string;
   /** 编号类别 */
-  category: string;
+  numberCategory?: string;
   /** 藏品编号 */
-  collectionId: string;
+  collectionCode?: string;
   /** 藏品名称 */
-  collectionName: string;
+  collectionName?: string;
   /** 藏品类别 */
-  collectionCategory: string;
-  /** 编号 */
-  code: string;
+  categoryName?: string;
+  /** 藏品类别ID */
+  categoryId?: string;
+  /** RFID编号 */
+  rfidCode?: string;
   /** 数量 */
-  quantity: number;
+  quantity?: number;
   /** 数量单位 */
-  unit: string;
+  unit?: string;
   /** 年代类型 */
-  eraType: string;
+  eraType?: string;
   /** 年代 */
-  era: string;
+  era?: string;
   /** 艺术家 */
-  artist: string;
+  artist?: string;
   /** 地域类型 */
-  regionType: string;
+  regionType?: string;
   /** 地域 */
-  region: string;
-  /** 质地类型 */
-  materialType: string;
-  /** 质地 */
-  material: string;
-  /** 通长 */
-  length: number;
-  /** 底径 */
-  diameter: number;
-  /** 通宽 */
-  width: number;
-  /** 口径 */
-  caliber: number;
-  /** 通高 */
-  height: number;
-  /** 具体尺寸 */
-  specificDimensions: string;
-  /** 质量范围 */
-  weightRange: string;
-  /** 具体质量 */
-  specificWeight: number;
-  /** 质量单位 */
-  weightUnit: string;
-  /** 文物级别 */
-  culturalLevel: string;
-  /** 藏品来源 */
-  collectionSource: string;
-  /** 完残状况 */
-  condition: string;
-  /** 保存状态 */
-  preservationStatus: string;
-  /** 征集日期 */
-  collectionDate: string;
-  /** 入藏日期范围 */
-  collectionDateRange: string;
-  /** 入藏年度 */
-  collectionYear: string;
-  /** 类型 */
-  type: string;
-  /** 人文类型 */
-  culturalType: string;
-  /** 藏品介绍 */
-  collectionIntroduction: string;
-  /** 文本类型 */
-  textType: string;
-  /** 声像载体类型 */
-  audioVisualCarrierType: string;
-  /** 声像载体存放位置 */
-  audioVisualStorageLocation: string;
-  /** 计算机磁盘路径 */
-  diskPath: string;
-  /** 颜色类别 */
-  colorCategory: string;
-  /** 颜色描述 */
-  colorDescription: string;
-  /** 存放位置 */
-  storageLocation: string;
-  /** 备注 */
-  notes: string;
-  /** 入馆时间 */
-  museumEntryTime: string;
-  /** 入藏时间 */
-  collectionTime: string;
-  /** 登录时间 */
-  loginTime: string;
-  /** 入柜时间 */
-  cabinetEntryTime: string;
+  region?: string;
 }
 
-// 出库单查询参数接口
-export interface OutboundQueryParams extends PageParam {
-  // 可以添加额外的查询参数
+/**
+ * 新增出库单参数
+ */
+export interface AddOutboundParams {
+  /** ID集合 */
+  ids: number[];
+}
+
+/**
+ * 出库单审核参数
+ */
+export interface ApproveOutboundParams {
+  /** ID集合 */
+  ids: number[];
+}
+
+/**
+ * 确认出库参数
+ */
+export interface ConfirmOutboundParams {
+  /** 出库单ID */
+  id: string;
+}
+
+/**
+ * 查询出库单参数
+ */
+export interface OutboundQueryParams {
+  /** 提借类型 */
+  borrowType?: string;
+  /** 单据状态 */
+  status?: string;
+  /** 出库单号 */
+  code?: string;
+  /** 分页查询每页数量 */
+  limit?: number;
+  /** 分页查询页码 */
+  page?: number;
+  /** 排序方式 */
+  order?: string;
+  /** 排序字段 */
+  sort?: string;
+}
+
+/**
+ * 查询出库明细参数
+ */
+export interface OutboundDetailQueryParams {
+  /** 出库单ID */
+  id?: string;
+  /** 分页查询每页数量 */
+  limit?: number;
+  /** 分页查询页码 */
+  page?: number;
+  /** 排序方式 */
+  order?: string;
+  /** 排序字段 */
+  sort?: string;
 }

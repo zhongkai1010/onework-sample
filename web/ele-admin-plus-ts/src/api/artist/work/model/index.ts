@@ -6,8 +6,6 @@ import { PageParam } from '@/api';
 export interface ArtistWork {
   /** ID编号 */
   id: string;
-  /** 编号 */
-  code: string;
   /** 作品名称 */
   workTitle: string;
   /** 创作年代 */
@@ -39,6 +37,4 @@ export type AddArtistWorkParams = Omit<ArtistWork, 'id'>;
 export interface ArtistWorkQueryParams extends PageParam {
   /** 作品名称 */
   workTitle?: string;
-  /** 艺术家名称 */
-  artistName?: string;
 }

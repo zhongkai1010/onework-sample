@@ -1,6 +1,8 @@
 import { PageParam } from '@/api';
 
-/** 图片信息 */
+/**
+ * 图片信息
+ */
 export interface ImageInfo {
   /** 图片链接 */
   imageUrl: string;
@@ -8,24 +10,128 @@ export interface ImageInfo {
   imageSize: string;
 }
 
-/** 藏品基础信息 */
+/**
+ * 藏品基础信息
+ */
 export interface CollectionBase {
   /** ID */
-  id?: string;
-  /** 编号 */
-  code?: string;
+  id: string;
+  /** 藏品状态 */
+  collectionStatus: string;
+  /** 图片信息 */
+  imageInfo: ImageInfo;
+  /** 编号类别 */
+  numberCategory: string;
+  /** 藏品编号 */
+  collectionCode: string;
+  /** 藏品名称 */
+  collectionName: string;
+  /** 藏品类别 */
+  categoryName: string;
+  /** 藏品类别ID */
+  categoryId: string;
+  /** RFID编号 */
+  rfidCode: string;
+  /** 数量 */
+  quantity: number;
+  /** 数量单位 */
+  unit: string;
+  /** 年代类型 */
+  eraType: string;
+  /** 年代 */
+  era: string;
+  /** 艺术家 */
+  artist: string;
+  /** 地域类型 */
+  regionType: string;
+  /** 地域 */
+  region: string;
+  /** 质地类型 */
+  materialType: string;
+  /** 质地 */
+  material: string;
+  /** 通长(底径cm) */
+  overallLength: number;
+  /** 通宽(口径cm) */
+  overallWidth: number;
+  /** 通高(cm) */
+  totalHeight: number;
+  /** 具体尺寸 */
+  specificDimensions: string;
+  /** 质量范围 */
+  weightRange: string;
+  /** 具体质量 */
+  specificWeight: number;
+  /** 质量单位 */
+  weightUnit: string;
+  /** 文物级别 */
+  culturalLevel: string;
+  /** 藏品来源 */
+  collectionSource: string;
+  /** 完残状况 */
+  condition: string;
+  /** 保存状态 */
+  preservationStatus: string;
+  /** 征集日期 */
+  collectionDate: string;
+  /** 入藏日期范围 */
+  collectionDateRange: string;
+  /** 入藏年度 */
+  collectionYear: string;
+  /** 类型 */
+  type: string;
+  /** 人文类型 */
+  culturalType: string;
+  /** 藏品介绍 */
+  collectionIntroduction: string;
+  /** 文本类型 */
+  textType: string;
+  /** 声像载体类型 */
+  audioVisualCarrierType: string;
+  /** 声像载体存放位置 */
+  audioVisualStorageLocation: string;
+  /** 计算机磁盘路径 */
+  diskPath: string;
+  /** 颜色类别 */
+  colorCategory: string;
+  /** 颜色描述 */
+  colorDescription: string;
+  /** 存放位置ID */
+  warehouseId: string;
+  /** 存放位置 */
+  warehouseName: string;
+  /** 备注 */
+  notes: string;
+  /** 入馆时间 */
+  museumEntryTime: string;
+  /** 入藏时间 */
+  collectionTime: string;
+  /** 登录时间 */
+  loginTime: string;
+  /** 入柜时间 */
+  cabinetEntryTime: string;
+}
+
+/**
+ * 添加藏品参数
+ */
+export interface AddCollectionParams {
+  /** 藏品状态 */
+  collectionStatus?: string;
   /** 图片信息 */
   imageInfo?: ImageInfo;
   /** 编号类别 */
-  category?: string;
+  numberCategory?: string;
   /** 藏品编号 */
-  collectionId?: string;
+  collectionCode?: string;
   /** 藏品名称 */
   collectionName?: string;
   /** 藏品类别 */
-  collectionCategory?: string;
-  /** REID编号 */
-  reIDCode?: string;
+  categoryName?: string;
+  /** 藏品类别ID */
+  categoryId: string;
+  /** RFID编号 */
+  rfidCode?: string;
   /** 数量 */
   quantity?: number;
   /** 数量单位 */
@@ -43,17 +149,13 @@ export interface CollectionBase {
   /** 质地类型 */
   materialType?: string;
   /** 质地 */
-  material?: string;
-  /** 通长 */
-  length?: number;
-  /** 底径 */
-  diameter?: number;
-  /** 通宽 */
-  width?: number;
-  /** 口径 */
-  caliber?: number;
-  /** 通高 */
-  height?: number;
+  material: string;
+  /** 通长(底径cm) */
+  overallLength?: number;
+  /** 通宽(口径cm) */
+  overallWidth?: number;
+  /** 通高(cm) */
+  totalHeight?: number;
   /** 具体尺寸 */
   specificDimensions?: string;
   /** 质量范围 */
@@ -62,72 +164,72 @@ export interface CollectionBase {
   specificWeight?: number;
   /** 质量单位 */
   weightUnit?: string;
-  /** 文化程度 */
+  /** 文物级别 */
   culturalLevel?: string;
   /** 藏品来源 */
   collectionSource?: string;
-  /** 保存状况 */
+  /** 完残状况 */
   condition?: string;
   /** 保存状态 */
   preservationStatus?: string;
-  /** 入藏日期 */
+  /** 征集日期 */
   collectionDate?: string;
   /** 入藏日期范围 */
   collectionDateRange?: string;
-  /** 入藏年份 */
+  /** 入藏年度 */
   collectionYear?: string;
   /** 类型 */
   type?: string;
-  /** 文化类型 */
+  /** 人文类型 */
   culturalType?: string;
-  /** 藏品简介 */
+  /** 藏品介绍 */
   collectionIntroduction?: string;
   /** 文本类型 */
   textType?: string;
-  /** 音像载体类型 */
+  /** 声像载体类型 */
   audioVisualCarrierType?: string;
-  /** 音像存放位置 */
+  /** 声像载体存放位置 */
   audioVisualStorageLocation?: string;
-  /** 磁盘路径 */
+  /** 计算机磁盘路径 */
   diskPath?: string;
   /** 颜色类别 */
   colorCategory?: string;
   /** 颜色描述 */
   colorDescription?: string;
+  /** 存放位置ID */
+  warehouseId: string;
   /** 存放位置 */
-  storageLocation?: string;
+  warehouseName?: string;
   /** 备注 */
   notes?: string;
-  /** 博物馆入藏时间 */
+  /** 入馆时间 */
   museumEntryTime?: string;
   /** 入藏时间 */
   collectionTime?: string;
   /** 登录时间 */
   loginTime?: string;
-  /** 柜子入藏时间 */
+  /** 入柜时间 */
   cabinetEntryTime?: string;
-  /** 藏品状态 */
-  collectionStatus?: string;
 }
 
-/** 藏品查询参数 */
+/**
+ * 藏品查询参数
+ */
 export interface CollectionQueryParams extends PageParam {
   /** 藏品编号 */
-  collectionNumber?: string;
+  collectionCode?: string;
   /** 藏品名称 */
   collectionName?: string;
-  /** 藏品分类 */
-  collectionCategory?: string;
+  /** 藏品类别ID */
+  categoryId?: string;
   /** 地域类型 */
   regionType?: string;
   /** 地域 */
   region?: string;
-  /** 请输入地域 */
-  inputRegion?: string;
   /** 藏品来源 */
   collectionSource?: string;
   /** 入藏日期范围 */
-  acquisitionDateRange?: string;
+  collectionTime?: string;
   /** 类型 */
   type?: string;
 }

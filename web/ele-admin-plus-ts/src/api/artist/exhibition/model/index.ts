@@ -39,4 +39,6 @@ export interface ExhibitionQueryParams extends PageParam {
   exhibitionTitle?: string;
   /** 艺术家名称 */
   artistName?: string;
+  /** ID */
+  id?: string;
 }

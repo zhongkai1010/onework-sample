@@ -1,38 +1,23 @@
+import type { ApiResult } from '@/api';
 import request from '@/utils/request';
-import { ApiResult, PageResult } from '@/api';
-import { OutboundBase, OutboundQueryParams } from './model';
-
-// 图片信息接口
-export interface ImageInfo {
-  imageUrl: string;
-  imageSize: string;
-}
-
-// 分页查询参数接口
-
-/**
- * 查询已入库藏品分页列表
- * @param params 查询参数
- */
-async function getReceivedCollections(params: OutboundQueryParams) {
-  const res = await request.get<ApiResult<PageResult<OutboundBase>>>(
-    '/api/inventory/collections/received',
-    { params }
-  );
-  if (res.data.code === 0 && res.data.data) {
-    return res.data.data;
-  }
-  return Promise.reject(new Error(res.data.message));
-}
+import type {
+  OutboundOrder,
+  OutboundDetail,
+  AddOutboundParams,
+  ApproveOutboundParams,
+  ConfirmOutboundParams,
+  OutboundQueryParams,
+  OutboundDetailQueryParams
+} from './model';
 
 /**
- * 确认藏品出库
- * @param ids 藏品ID集合
+ * 新增藏品出库单
+ * @param data 出库单信息
  */
-async function confirmOutbound(ids: number[]) {
+export async function addOutbound(data: AddOutboundParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/inventory/collections/confirm-out',
-    { ids }
+    '/api/inventory/outbound',
+    data
   );
   if (res.data.code === 0) {
     return res.data.message;
@@ -44,11 +29,13 @@ async function confirmOutbound(ids: number[]) {
  * 查询出库单分页列表
  * @param params 查询参数
  */
-async function getOutboundList(params: OutboundQueryParams) {
-  const res = await request.get<ApiResult<PageResult<OutboundBase>>>(
-    '/api/outbound',
-    { params }
-  );
+export async function listOutbounds(params?: OutboundQueryParams) {
+  const res = await request.get<
+    ApiResult<{
+      count: number;
+      list: OutboundOrder[];
+    }>
+  >('/api/inventory/outbound', { params });
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
   }
@@ -56,13 +43,15 @@ async function getOutboundList(params: OutboundQueryParams) {
 }
 
 /**
- * 审核出库单
+ * 删除出库单
  * @param ids 出库单ID集合
  */
-async function approveOutbound(ids: number[]) {
-  const res = await request.post<ApiResult<unknown>>(
-    '/api/outbound/entries/approve',
-    { ids }
+export async function removeOutbounds(ids: number[]) {
+  const res = await request.delete<ApiResult<unknown>>(
+    '/api/inventory/outbound',
+    {
+      data: { ids }
+    }
   );
   if (res.data.code === 0) {
     return res.data.message;
@@ -70,9 +59,49 @@ async function approveOutbound(ids: number[]) {
   return Promise.reject(new Error(res.data.message));
 }
 
-export default {
-  getReceivedCollections,
-  confirmOutbound,
-  getOutboundList,
-  approveOutbound
-};
+/**
+ * 确认出库单
+ * @param data 出库单ID
+ */
+export async function confirmOutbound(data: ConfirmOutboundParams) {
+  const res = await request.post<ApiResult<unknown>>(
+    '/api/inventory/outbound/confirm',
+    data
+  );
+  if (res.data.code === 0) {
+    return res.data.message;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
+
+/**
+ * 审核出库单
+ * @param data ID集合
+ */
+export async function approveOutbound(data: ApproveOutboundParams) {
+  const res = await request.post<ApiResult<unknown>>(
+    '/api/inventory/outbound/approve',
+    data
+  );
+  if (res.data.code === 0) {
+    return res.data.message;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
+
+/**
+ * 查询出库单详情
+ * @param params 查询参数
+ */
+export async function getOutboundDetails(params?: OutboundDetailQueryParams) {
+  const res = await request.get<
+    ApiResult<{
+      count: number;
+      list: OutboundDetail[];
+    }>
+  >('/api/inventory/outbound/details', { params });
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data;
+  }
+  return Promise.reject(new Error(res.data.message));
+}

@@ -1,33 +1,63 @@
-import { ApiResult, PageResult } from '@/api';
-import { Accident, AddAccidentParams, AccidentQueryParams } from './model';
 import request from '@/utils/request';
+import type { ApiResult, PageResult } from '@/api';
+import type { Accident, AddAccidentParams, AccidentQueryParams } from './model';
 
 /**
  * 添加事故记录
+ * @param data 事故记录信息
  */
-export const addAccident = (data: AddAccidentParams) => {
-  return request.post<ApiResult<void>>('/accident-records', data);
-};
+export async function addAccident(data: AddAccidentParams) {
+  const res = await request.post<ApiResult<unknown>>(
+    '/api/collection/accident',
+    data
+  );
+  if (res.data.code === 0) {
+    return res.data.message;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
 
 /**
- * 查询事故记录分页列表
+ * 查询事故登记分页列表
+ * @param params 查询参数
  */
-export const getAccidentList = (params: AccidentQueryParams) => {
-  return request.get<ApiResult<PageResult<Accident>>>('/accident-records', {
-    params
-  });
-};
+export async function getAccidentList(params: AccidentQueryParams) {
+  const res = await request.get<ApiResult<PageResult<Accident>>>(
+    '/api/collection/accident',
+    { params }
+  );
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
 
 /**
- * 修改事故记录
+ * 查看事故记录详情
+ * @param id 事故记录ID
  */
-export const updateAccident = (data: Accident) => {
-  return request.put<ApiResult<void>>('/accident-records', data);
-};
+export async function getAccidentDetails(id: string) {
+  const res = await request.get<ApiResult<Accident>>(
+    '/api/collection/accident/details',
+    { params: { id } }
+  );
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
 
 /**
  * 删除事故记录
+ * @param ids 事故记录ID集合
  */
-export const deleteAccident = (id: string) => {
-  return request.delete<ApiResult<void>>(`/accident-records/${id}`);
-};
+export async function deleteAccidents(ids: number[]) {
+  const res = await request.delete<ApiResult<unknown>>(
+    '/api/collection/accident',
+    { data: { ids } }
+  );
+  if (res.data.code === 0) {
+    return res.data.message;
+  }
+  return Promise.reject(new Error(res.data.message));
+}

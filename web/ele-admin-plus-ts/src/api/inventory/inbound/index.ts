@@ -1,30 +1,23 @@
+import type { ApiResult } from '@/api';
 import request from '@/utils/request';
-import { ApiResult, PageResult } from '@/api';
-import { InboundEntryBase, InboundEntryQueryParams } from './model';
+import type {
+  InboundOrder,
+  InboundCollection,
+  InboundRegisterParams,
+  InboundApproveParams,
+  InboundConfirmParams,
+  InboundQueryParams,
+  InboundDetailsQueryParams
+} from './model';
 
 /**
- * 查询入库单分页列表
- * @param params 查询参数
+ * 根据入库类型查询藏品列表
+ * @param type 入库类型,1:初次入库，2：归还入库
  */
-async function getEntries(params: InboundEntryQueryParams) {
-  const res = await request.get<ApiResult<PageResult<InboundEntryBase>>>(
-    '/inventory/entries',
-    { params }
-  );
-  if (res.data.code === 0 && res.data.data) {
-    return res.data.data;
-  }
-  return Promise.reject(new Error(res.data.message));
-}
-
-/**
- * 根据入库类型查询藏品分页列表
- * @param params 查询参数
- */
-async function getCollections(params: InboundEntryQueryParams) {
-  const res = await request.get<ApiResult<PageResult<InboundEntryBase>>>(
-    '/inventory/entries/collections',
-    { params }
+export async function listCollectionsByType(type: string) {
+  const res = await request.get<ApiResult<InboundCollection[]>>(
+    '/api/inventory/inbound/type/collection',
+    { params: { type } }
   );
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
@@ -36,9 +29,9 @@ async function getCollections(params: InboundEntryQueryParams) {
  * 入库登记
  * @param data 入库信息
  */
-async function register(data: InboundEntryBase) {
+export async function registerInbound(data: InboundRegisterParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/inventory/entries/register',
+    '/api/inventory/inbound/register',
     data
   );
   if (res.data.code === 0) {
@@ -48,13 +41,30 @@ async function register(data: InboundEntryBase) {
 }
 
 /**
- * 入库单审核
- * @param ids 入库单ID集合
+ * 查询入库单分页列表
+ * @param params 查询参数
  */
-async function approve(ids: number[]) {
+export async function listInbounds(params?: InboundQueryParams) {
+  const res = await request.get<
+    ApiResult<{
+      count: number;
+      list: InboundOrder[];
+    }>
+  >('/api/inventory/inbound', { params });
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
+
+/**
+ * 入库单审核
+ * @param data ID集合
+ */
+export async function approveInbound(data: InboundApproveParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/inventory/entries/approve',
-    { ids }
+    '/api/inventory/inbound/approve',
+    data
   );
   if (res.data.code === 0) {
     return res.data.message;
@@ -64,10 +74,12 @@ async function approve(ids: number[]) {
 
 /**
  * 确认入库
+ * @param data 入库单ID
  */
-async function confirm() {
+export async function confirmInbound(data: InboundConfirmParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/inventory/entries/confirm'
+    '/api/inventory/inbound/confirm',
+    data
   );
   if (res.data.code === 0) {
     return res.data.message;
@@ -77,26 +89,17 @@ async function confirm() {
 
 /**
  * 查询入库明细
- * @param id 入库单ID
+ * @param params 查询参数
  */
-async function getDetails(id: string) {
-  const res = await request.get<ApiResult<InboundEntryBase>>(
-    '/inventory/entries/details',
-    {
-      params: { id }
-    }
-  );
+export async function getInboundDetails(params?: InboundDetailsQueryParams) {
+  const res = await request.get<
+    ApiResult<{
+      count: number;
+      list: InboundOrder[];
+    }>
+  >('/api/inventory/inbound/details', { params });
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
   }
   return Promise.reject(new Error(res.data.message));
 }
-
-export default {
-  getEntries,
-  getCollections,
-  register,
-  approve,
-  confirm,
-  getDetails
-};

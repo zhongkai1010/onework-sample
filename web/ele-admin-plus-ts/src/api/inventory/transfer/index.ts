@@ -1,30 +1,23 @@
+import type { ApiResult } from '@/api';
 import request from '@/utils/request';
-import { ApiResult, PageResult } from '@/api';
-import { TransferBase, TransferQueryParams } from './model';
+import type {
+  TransferOrder,
+  TransferDetail,
+  AddTransferParams,
+  ApproveTransferParams,
+  ConfirmTransferParams,
+  TransferQueryParams,
+  TransferDetailQueryParams
+} from './model';
 
 /**
- * 查询待拨库藏品分页列表
- * @param params 查询参数
+ * 新增藏品拨库单
+ * @param data 拨库单信息
  */
-async function getPendingTransfers(params: TransferQueryParams) {
-  const res = await request.get<ApiResult<PageResult<TransferBase>>>(
-    '/api/inventory/transfer',
-    { params }
-  );
-  if (res.data.code === 0 && res.data.data) {
-    return res.data.data;
-  }
-  return Promise.reject(new Error(res.data.message));
-}
-
-/**
- * 确认藏品拨库
- * @param ids 藏品ID集合
- */
-async function confirmTransfer(ids: number[]) {
+export async function addTransfer(data: AddTransferParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/inventory/collections/confirm-transfer',
-    { ids }
+    '/api/inventory/transfer',
+    data
   );
   if (res.data.code === 0) {
     return res.data.message;
@@ -36,11 +29,13 @@ async function confirmTransfer(ids: number[]) {
  * 查询拨库单分页列表
  * @param params 查询参数
  */
-async function getTransferList(params: TransferQueryParams) {
-  const res = await request.get<ApiResult<PageResult<TransferBase>>>(
-    '/api/transfer/entries',
-    { params }
-  );
+export async function listTransfers(params?: TransferQueryParams) {
+  const res = await request.get<
+    ApiResult<{
+      count: number;
+      list: TransferOrder[];
+    }>
+  >('/api/inventory/transfer', { params });
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
   }
@@ -51,10 +46,12 @@ async function getTransferList(params: TransferQueryParams) {
  * 删除拨库单
  * @param ids 拨库单ID集合
  */
-async function deleteTransfers(ids: number[]) {
+export async function removeTransfers(ids: number[]) {
   const res = await request.delete<ApiResult<unknown>>(
-    '/api/transfer/entries',
-    { data: { ids } }
+    '/api/inventory/transfer',
+    {
+      data: { ids }
+    }
   );
   if (res.data.code === 0) {
     return res.data.message;
@@ -64,12 +61,12 @@ async function deleteTransfers(ids: number[]) {
 
 /**
  * 审核拨库单
- * @param ids 拨库单ID集合
+ * @param data ID集合
  */
-async function approveTransfer(ids: number[]) {
+export async function approveTransfer(data: ApproveTransferParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/transfer/entries/approve',
-    { ids }
+    '/api/inventory/transfer/approve',
+    data
   );
   if (res.data.code === 0) {
     return res.data.message;
@@ -79,12 +76,12 @@ async function approveTransfer(ids: number[]) {
 
 /**
  * 确认拨库单
- * @param id 拨库单ID
+ * @param data 拨库单ID
  */
-async function confirmTransferEntry(id: string) {
+export async function confirmTransfer(data: ConfirmTransferParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/transfer/entries/confirm',
-    { id }
+    '/api/inventory/transfer/confirm',
+    data
   );
   if (res.data.code === 0) {
     return res.data.message;
@@ -94,27 +91,17 @@ async function confirmTransferEntry(id: string) {
 
 /**
  * 查询拨库单详情
- * @param id 拨库单ID
+ * @param params 查询参数
  */
-async function getTransferDetails(id: string) {
-  const res = await request.get<ApiResult<TransferBase>>(
-    '/api/transfer/entries/details',
-    {
-      params: { id }
-    }
-  );
+export async function getTransferDetails(params?: TransferDetailQueryParams) {
+  const res = await request.get<
+    ApiResult<{
+      count: number;
+      list: TransferDetail[];
+    }>
+  >('/api/inventory/transfer/details', { params });
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
   }
   return Promise.reject(new Error(res.data.message));
 }
-
-export default {
-  getPendingTransfers,
-  confirmTransfer,
-  getTransferList,
-  deleteTransfers,
-  approveTransfer,
-  confirmTransferEntry,
-  getTransferDetails
-};

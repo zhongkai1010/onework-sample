@@ -1,29 +1,14 @@
 import request from '@/utils/request';
-import { ApiResult, PageResult } from '@/api';
-import { RepairBase, RepairQueryParams } from './model';
-
-/**
- * 查询藏品修复记录分页列表
- * @param params 查询参数
- */
-async function getRepairList(params: RepairQueryParams) {
-  const res = await request.get<ApiResult<PageResult<RepairBase>>>(
-    '/api/collections/repairs',
-    { params }
-  );
-  if (res.data.code === 0 && res.data.data) {
-    return res.data.data;
-  }
-  return Promise.reject(new Error(res.data.message));
-}
+import type { ApiResult, PageResult } from '@/api';
+import type { Repair, AddRepairParams, RepairQueryParams } from './model';
 
 /**
  * 修复登记
- * @param data 修复信息
+ * @param data 修复记录信息
  */
-async function registerRepair(data: RepairBase) {
+export async function addRepair(data: AddRepairParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/collections/repairs/register',
+    '/api/collection/repair',
     data
   );
   if (res.data.code === 0) {
@@ -33,14 +18,14 @@ async function registerRepair(data: RepairBase) {
 }
 
 /**
- * 查询藏品修复记录详情
- * @param id 修复记录ID
+ * 查询藏品修复记录分页列表
+ * @param params 查询参数
  */
-async function getRepairDetails(id: string) {
-  const res = await request.get<ApiResult<RepairBase>>(
-    '/api/collections/repairs/details',
+export async function getRepairList(params: RepairQueryParams) {
+  const res = await request.get<ApiResult<PageResult<Repair>>>(
+    '/api/collection/repair',
     {
-      params: { id }
+      params
     }
   );
   if (res.data.code === 0 && res.data.data) {
@@ -49,8 +34,46 @@ async function getRepairDetails(id: string) {
   return Promise.reject(new Error(res.data.message));
 }
 
-export default {
-  getRepairList,
-  registerRepair,
-  getRepairDetails
-};
+/**
+ * 修改修复记录
+ * @param data 修复记录信息
+ */
+export async function updateRepair(data: Repair) {
+  const res = await request.put<ApiResult<unknown>>(
+    '/api/collection/repair',
+    data
+  );
+  if (res.data.code === 0) {
+    return res.data.message;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
+
+/**
+ * 删除修复记录
+ * @param id 修复记录ID
+ */
+export async function deleteRepair(id: string) {
+  const res = await request.delete<ApiResult<unknown>>(
+    `/api/collection/repair/${id}`
+  );
+  if (res.data.code === 0) {
+    return res.data.message;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
+
+/**
+ * 修复完成
+ * @param data 修复记录信息
+ */
+export async function completeRepair(data: Repair) {
+  const res = await request.post<ApiResult<unknown>>(
+    '/api/collection/repair/complete',
+    data
+  );
+  if (res.data.code === 0) {
+    return res.data.message;
+  }
+  return Promise.reject(new Error(res.data.message));
+}

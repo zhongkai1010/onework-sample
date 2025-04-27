@@ -1,8 +1,10 @@
 import { PageParam } from '@/api';
 
-// 修复记录基础信息接口
-export interface RepairBase {
-  /** ID 编号 */
+/**
+ * 藏品修复记录信息
+ */
+export interface Repair {
+  /** ID编号 */
   id: string;
   /** 单据图片 */
   documentImage: string;
@@ -11,7 +13,7 @@ export interface RepairBase {
   /** 登记日期 */
   registrationDate: string;
   /** 藏品编码 */
-  collectionId: string;
+  collectionCode: string;
   /** 藏品名称 */
   collectionName: string;
   /** 藏品分类 */
@@ -27,7 +29,7 @@ export interface RepairBase {
   /** 送修日期 */
   sendRepairDate: string;
   /** 工单状态 */
-  workOrderStatus: string;
+  status: string;
   /** 承担机构 */
   undertakingOrganization: string;
   /** 修复人 */
@@ -44,7 +46,14 @@ export interface RepairBase {
   afterRepairImage: string;
 }
 
-// 修复记录查询参数接口
+/**
+ * 添加修复记录参数
+ */
+export type AddRepairParams = Omit<Repair, 'id'>;
+
+/**
+ * 修复记录查询参数
+ */
 export interface RepairQueryParams extends PageParam {
   /** 藏品选择 */
   collectionSelection?: string;
@@ -53,5 +62,5 @@ export interface RepairQueryParams extends PageParam {
   /** 藏品名称 */
   collectionName?: string;
   /** 工单状态 */
-  workOrderStatus?: string;
+  status?: number;
 }

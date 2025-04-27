@@ -6,7 +6,7 @@ import { LedgerBase, LedgerQueryParams } from './model';
  * 查询账本分页列表
  * @param params 查询参数
  */
-async function getLedgerList(params: LedgerQueryParams) {
+export async function getLedgerList(params: LedgerQueryParams) {
   const res = await request.get<ApiResult<PageResult<LedgerBase>>>(
     '/collections/ledger/list',
     { params }
@@ -21,7 +21,7 @@ async function getLedgerList(params: LedgerQueryParams) {
  * 查询账本详情
  * @param id 账本ID
  */
-async function getLedgerDetails(id: string) {
+export async function getLedgerDetails(id: string) {
   const res = await request.get<ApiResult<LedgerBase>>(
     '/collections/ledger/details',
     {
@@ -38,7 +38,7 @@ async function getLedgerDetails(id: string) {
  * 新增账本
  * @param data 账本信息
  */
-async function addLedger(data: LedgerBase) {
+export async function addLedger(data: LedgerBase) {
   const res = await request.post<ApiResult<unknown>>(
     '/collections/ledger',
     data
@@ -53,7 +53,7 @@ async function addLedger(data: LedgerBase) {
  * 修改账本
  * @param data 账本信息
  */
-async function updateLedger(data: LedgerBase) {
+export async function updateLedger(data: LedgerBase) {
   const res = await request.put<ApiResult<unknown>>(
     '/collections/ledger',
     data
@@ -68,7 +68,7 @@ async function updateLedger(data: LedgerBase) {
  * 删除账本
  * @param ids 账本ID集合
  */
-async function deleteLedgers(ids: number[]) {
+export async function deleteLedgers(ids: number[]) {
   const res = await request.delete<ApiResult<unknown>>('/collections/ledger', {
     data: { ids }
   });
@@ -82,7 +82,7 @@ async function deleteLedgers(ids: number[]) {
  * 导入账本
  * @param file 文件对象
  */
-async function importLedgers(file: File) {
+export async function importLedgers(file: File) {
   const formData = new FormData();
   formData.append('file', file);
   const res = await request.post<ApiResult<unknown>>(
@@ -99,12 +99,3 @@ async function importLedgers(file: File) {
   }
   return Promise.reject(new Error(res.data.message));
 }
-
-export default {
-  getLedgerList,
-  getLedgerDetails,
-  addLedger,
-  updateLedger,
-  deleteLedgers,
-  importLedgers
-};
