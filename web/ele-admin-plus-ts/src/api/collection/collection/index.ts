@@ -12,7 +12,7 @@ import type {
  */
 export async function getAccounts(params: CollectionQueryParams) {
   const res = await request.get<ApiResult<PageResult<CollectionBase>>>(
-    '/api/collection/collections/accounts',
+    '/collection/collections/accounts',
     { params }
   );
   if (res.data.code === 0 && res.data.data) {
@@ -27,7 +27,7 @@ export async function getAccounts(params: CollectionQueryParams) {
  */
 export async function getCatalogs(params: CollectionQueryParams) {
   const res = await request.get<ApiResult<PageResult<CollectionBase>>>(
-    '/api/collection/catalog',
+    '/collection/catalog',
     { params }
   );
   if (res.data.code === 0 && res.data.data) {
@@ -42,7 +42,7 @@ export async function getCatalogs(params: CollectionQueryParams) {
  */
 export async function getPreparatory(params: CollectionQueryParams) {
   const res = await request.get<ApiResult<PageResult<CollectionBase>>>(
-    '/api/collection/collections/preparatory',
+    '/collection/collections/preparatory',
     { params }
   );
   if (res.data.code === 0 && res.data.data) {
@@ -57,7 +57,7 @@ export async function getPreparatory(params: CollectionQueryParams) {
  */
 export async function register(data: AddCollectionParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/collection/collections/register',
+    '/collection/collections/register',
     data
   );
   if (res.data.code === 0) {
@@ -72,7 +72,7 @@ export async function register(data: AddCollectionParams) {
  */
 export async function update(data: CollectionBase) {
   const res = await request.put<ApiResult<unknown>>(
-    '/api/collection/catalog',
+    '/collection/catalog',
     data
   );
   if (res.data.code === 0) {
@@ -86,10 +86,9 @@ export async function update(data: CollectionBase) {
  * @param ids 藏品ID集合
  */
 export async function deleteCollections(ids: number[]) {
-  const res = await request.delete<ApiResult<unknown>>(
-    '/api/collection/catalog',
-    { data: { ids } }
-  );
+  const res = await request.delete<ApiResult<unknown>>('/collection/catalog', {
+    data: { ids }
+  });
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -102,7 +101,7 @@ export async function deleteCollections(ids: number[]) {
  */
 export async function approve(ids: number[]) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/collection/catalog/approve',
+    '/collection/catalog/approve',
     { ids }
   );
   if (res.data.code === 0) {
@@ -119,7 +118,7 @@ export async function importCollections(file: File) {
   const formData = new FormData();
   formData.append('file', file);
   const res = await request.post<ApiResult<unknown>>(
-    '/api/collection/catalog/import',
+    '/collection/catalog/import',
     formData,
     {
       headers: {
@@ -139,7 +138,7 @@ export async function importCollections(file: File) {
  */
 export async function getDetails(id: string) {
   const res = await request.get<ApiResult<CollectionBase>>(
-    '/api/collection/catalog/details',
+    '/collection/catalog/details',
     { params: { id } }
   );
   if (res.data.code === 0 && res.data.data) {

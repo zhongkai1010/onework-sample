@@ -12,7 +12,7 @@ import type {
  */
 export async function addPublication(data: AddPublicationParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/artist/published-work',
+    '/artist/published-work',
     data
   );
   if (res.data.code === 0) {
@@ -27,7 +27,7 @@ export async function addPublication(data: AddPublicationParams) {
  */
 export async function getPublicationList(params: PublicationQueryParams) {
   const res = await request.get<ApiResult<PageResult<Publication>>>(
-    '/api/artist/published-work',
+    '/artist/published-work',
     {
       params
     }
@@ -44,7 +44,7 @@ export async function getPublicationList(params: PublicationQueryParams) {
  */
 export async function updatePublication(data: Publication) {
   const res = await request.put<ApiResult<unknown>>(
-    `/api/artist/published-work/${data.id}`,
+    `/artist/published-work/${data.id}`,
     data
   );
   if (res.data.code === 0) {
@@ -59,7 +59,7 @@ export async function updatePublication(data: Publication) {
  */
 export async function deletePublication(id: string) {
   const res = await request.delete<ApiResult<unknown>>(
-    `/api/artist/published-work/${id}`
+    `/artist/published-work/${id}`
   );
   if (res.data.code === 0) {
     return res.data.message;

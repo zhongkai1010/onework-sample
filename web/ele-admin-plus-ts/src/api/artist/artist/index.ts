@@ -8,7 +8,7 @@ import type { Artist, ArtistQueryParams } from './model';
  */
 export async function getArtistList(params: ArtistQueryParams) {
   const res = await request.get<ApiResult<PageResult<Artist>>>(
-    '/api/artist/artist',
+    '/artist/artist',
     {
       params
     }
@@ -24,7 +24,7 @@ export async function getArtistList(params: ArtistQueryParams) {
  * @param id 艺术家ID
  */
 export async function getArtistDetail(id: string) {
-  const res = await request.get<ApiResult<Artist>>(`/api/artist/artist/${id}`);
+  const res = await request.get<ApiResult<Artist>>(`/artist/artist/${id}`);
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
   }
@@ -36,10 +36,7 @@ export async function getArtistDetail(id: string) {
  * @param data 艺术家信息
  */
 export async function createArtist(data: Omit<Artist, 'id'>) {
-  const res = await request.post<ApiResult<unknown>>(
-    '/api/artist/artist',
-    data
-  );
+  const res = await request.post<ApiResult<unknown>>('/artist/artist', data);
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -51,7 +48,7 @@ export async function createArtist(data: Omit<Artist, 'id'>) {
  * @param data 艺术家信息
  */
 export async function updateArtist(data: Artist) {
-  const res = await request.put<ApiResult<unknown>>('/api/artist/artist', data);
+  const res = await request.put<ApiResult<unknown>>('/artist/artist', data);
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -63,9 +60,7 @@ export async function updateArtist(data: Artist) {
  * @param id 艺术家ID
  */
 export async function deleteArtist(id: string) {
-  const res = await request.delete<ApiResult<unknown>>(
-    `/api/artist/artist/${id}`
-  );
+  const res = await request.delete<ApiResult<unknown>>(`/artist/artist/${id}`);
   if (res.data.code === 0) {
     return res.data.message;
   }

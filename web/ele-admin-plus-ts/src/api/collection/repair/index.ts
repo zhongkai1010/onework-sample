@@ -8,7 +8,7 @@ import type { Repair, AddRepairParams, RepairQueryParams } from './model';
  */
 export async function addRepair(data: AddRepairParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/collection/repair',
+    '/collection/repair',
     data
   );
   if (res.data.code === 0) {
@@ -23,7 +23,7 @@ export async function addRepair(data: AddRepairParams) {
  */
 export async function getRepairList(params: RepairQueryParams) {
   const res = await request.get<ApiResult<PageResult<Repair>>>(
-    '/api/collection/repair',
+    '/collection/repair',
     {
       params
     }
@@ -39,10 +39,7 @@ export async function getRepairList(params: RepairQueryParams) {
  * @param data 修复记录信息
  */
 export async function updateRepair(data: Repair) {
-  const res = await request.put<ApiResult<unknown>>(
-    '/api/collection/repair',
-    data
-  );
+  const res = await request.put<ApiResult<unknown>>('/collection/repair', data);
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -55,7 +52,7 @@ export async function updateRepair(data: Repair) {
  */
 export async function deleteRepair(id: string) {
   const res = await request.delete<ApiResult<unknown>>(
-    `/api/collection/repair/${id}`
+    `/collection/repair/${id}`
   );
   if (res.data.code === 0) {
     return res.data.message;
@@ -69,7 +66,7 @@ export async function deleteRepair(id: string) {
  */
 export async function completeRepair(data: Repair) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/collection/repair/complete',
+    '/collection/repair/complete',
     data
   );
   if (res.data.code === 0) {

@@ -7,10 +7,7 @@ import type { Image, AddImageParams, ImageQueryParams } from './model';
  * @param data 影像信息
  */
 export async function addImage(data: AddImageParams) {
-  const res = await request.post<ApiResult<unknown>>(
-    '/api/collection/image',
-    data
-  );
+  const res = await request.post<ApiResult<unknown>>('/collection/image', data);
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -23,7 +20,7 @@ export async function addImage(data: AddImageParams) {
  */
 export async function getImageList(params: ImageQueryParams) {
   const res = await request.get<ApiResult<PageResult<Image>>>(
-    '/api/collection/image',
+    '/collection/image',
     {
       params
     }
@@ -39,10 +36,7 @@ export async function getImageList(params: ImageQueryParams) {
  * @param data 影像信息
  */
 export async function updateImage(data: Image) {
-  const res = await request.put<ApiResult<unknown>>(
-    '/api/collection/image',
-    data
-  );
+  const res = await request.put<ApiResult<unknown>>('/collection/image', data);
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -55,7 +49,7 @@ export async function updateImage(data: Image) {
  */
 export async function deleteImage(id: string) {
   const res = await request.delete<ApiResult<unknown>>(
-    `/api/collection/image/${id}`
+    `/collection/image/${id}`
   );
   if (res.data.code === 0) {
     return res.data.message;

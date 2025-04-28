@@ -50,6 +50,7 @@
     "xgplayer-music": "3.0.20"
   },
   "devDependencies": {
+    "@types/mockjs": "^1.0.10",
     "@types/node": "22.10.5",
     "@types/nprogress": "0.2.3",
     "@types/sortablejs": "1.15.8",
@@ -74,4 +75,3 @@
     "vue-tsc": "2.2.0"
   }
 }
-

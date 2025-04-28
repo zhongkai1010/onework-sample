@@ -65,12 +65,7 @@
     ],
     "no-use-before-define": "off",
     "space-before-function-paren": "off",
-    "no-unused-vars": [
-      "error",
-      {
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_"
-      }
-    ]
+    "no-unused-vars": "off"
   }
 }
+

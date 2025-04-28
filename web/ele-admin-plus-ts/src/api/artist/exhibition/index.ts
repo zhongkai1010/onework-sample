@@ -8,7 +8,7 @@ import type { Exhibition, AddExhibitionParams } from './model';
  */
 export async function addExhibition(data: AddExhibitionParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/artist/exhibition',
+    '/artist/exhibition',
     data
   );
   if (res.data.code === 0) {
@@ -23,7 +23,7 @@ export async function addExhibition(data: AddExhibitionParams) {
  */
 export async function getExhibition(id: string) {
   const res = await request.get<ApiResult<Exhibition>>(
-    `/api/artist/exhibition/${id}`
+    `/artist/exhibition/${id}`
   );
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
@@ -36,10 +36,7 @@ export async function getExhibition(id: string) {
  * @param data 展览信息
  */
 export async function updateExhibition(data: Exhibition) {
-  const res = await request.put<ApiResult<unknown>>(
-    '/api/artist/exhibition',
-    data
-  );
+  const res = await request.put<ApiResult<unknown>>('/artist/exhibition', data);
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -52,7 +49,7 @@ export async function updateExhibition(data: Exhibition) {
  */
 export async function deleteExhibition(id: string) {
   const res = await request.delete<ApiResult<unknown>>(
-    `/api/artist/exhibition/${id}`
+    `/artist/exhibition/${id}`
   );
   if (res.data.code === 0) {
     return res.data.message;

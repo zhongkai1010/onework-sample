@@ -13,7 +13,7 @@ import type {
  */
 export async function addCancellation(data: AddCancellationParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/collection/cancellation',
+    '/collection/cancellation',
     data
   );
   if (res.data.code === 0) {
@@ -28,7 +28,7 @@ export async function addCancellation(data: AddCancellationParams) {
  */
 export async function getCancellationList(params: CancellationQueryParams) {
   const res = await request.get<ApiResult<PageResult<Cancellation>>>(
-    '/api/collection/cancellation',
+    '/collection/cancellation',
     {
       params
     }
@@ -45,7 +45,7 @@ export async function getCancellationList(params: CancellationQueryParams) {
  */
 export async function updateCancellation(data: Cancellation) {
   const res = await request.put<ApiResult<unknown>>(
-    '/api/collection/cancellation',
+    '/collection/cancellation',
     data
   );
   if (res.data.code === 0) {
@@ -60,7 +60,7 @@ export async function updateCancellation(data: Cancellation) {
  */
 export async function deleteCancellation(id: string) {
   const res = await request.delete<ApiResult<unknown>>(
-    `/api/collection/cancellation/${id}`
+    `/collection/cancellation/${id}`
   );
   if (res.data.code === 0) {
     return res.data.message;
@@ -74,7 +74,7 @@ export async function deleteCancellation(id: string) {
  */
 export async function confirmCancellation(data: ConfirmCancellationParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/collection/cancellation/confirm',
+    '/collection/cancellation/confirm',
     data
   );
   if (res.data.code === 0) {

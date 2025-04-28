@@ -8,7 +8,7 @@ import type { Accident, AddAccidentParams, AccidentQueryParams } from './model';
  */
 export async function addAccident(data: AddAccidentParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/collection/accident',
+    '/collection/accident',
     data
   );
   if (res.data.code === 0) {
@@ -23,7 +23,7 @@ export async function addAccident(data: AddAccidentParams) {
  */
 export async function getAccidentList(params: AccidentQueryParams) {
   const res = await request.get<ApiResult<PageResult<Accident>>>(
-    '/api/collection/accident',
+    '/collection/accident',
     { params }
   );
   if (res.data.code === 0 && res.data.data) {
@@ -38,7 +38,7 @@ export async function getAccidentList(params: AccidentQueryParams) {
  */
 export async function getAccidentDetails(id: string) {
   const res = await request.get<ApiResult<Accident>>(
-    '/api/collection/accident/details',
+    '/collection/accident/details',
     { params: { id } }
   );
   if (res.data.code === 0 && res.data.data) {
@@ -52,10 +52,9 @@ export async function getAccidentDetails(id: string) {
  * @param ids 事故记录ID集合
  */
 export async function deleteAccidents(ids: number[]) {
-  const res = await request.delete<ApiResult<unknown>>(
-    '/api/collection/accident',
-    { data: { ids } }
-  );
+  const res = await request.delete<ApiResult<unknown>>('/collection/accident', {
+    data: { ids }
+  });
   if (res.data.code === 0) {
     return res.data.message;
   }

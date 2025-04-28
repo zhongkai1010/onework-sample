@@ -54,6 +54,15 @@ service.interceptors.response.use(
 export function requestInterceptor(config: InternalAxiosRequestConfig<any>) {
   // 添加token到header
 
+  if (
+    config.url?.includes('/artist') ||
+    config.url?.includes('/data') ||
+    config.url?.includes('/collection') ||
+    config.url?.includes('/inventory')
+  ) {
+    config.baseURL = '/api';
+  }
+
   const token = getToken();
   if (token && config.headers) {
     config.headers['Authorization'] = token;
