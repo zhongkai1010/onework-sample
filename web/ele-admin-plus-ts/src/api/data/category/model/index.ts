@@ -7,29 +7,21 @@ export interface Category {
   /** 分类名称 */
   name: string;
   /** 上级分类 */
-  parentId: number;
+  parentId?: number;
+  /** 分类码 */
+  code: string;
+  /** 描述 */
+  description: string;
+  /** 子级 */
+  children?: Category[];
 }
 
 /**
- * 新增藏品分类参数
+ * 编辑藏品分类参数
  */
-export interface AddCategoryParams {
-  /** 名称 */
-  name: string;
-  /** 上级分类 */
-  parentId: number;
-}
-
-/**
- * 修改藏品分类参数
- */
-export interface UpdateCategoryParams {
+export interface CategoryEditParams extends Omit<Category, 'id' | 'children'> {
   /** 分类ID */
-  id: number;
-  /** 名称 */
-  name: string;
-  /** 上级分类 */
-  parentId: number;
+  id?: number;
 }
 
 /**
@@ -43,9 +35,5 @@ export interface DeleteCategoryParams {
 /**
  * 查询藏品分类参数
  */
-export interface CategoryQueryParams {
-  /** 分类名称 */
-  name?: string;
-  /** 上级分类 */
-  parentId?: string;
-}
+export interface CategoryQueryParams
+  extends Partial<Omit<Category, 'id' | 'children'>> {}

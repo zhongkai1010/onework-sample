@@ -2,7 +2,7 @@
   <user-search ref="searchRef" style="margin-bottom: -14px" @search="reload" />
   <ele-pro-table
     ref="tableRef"
-    row-key="userId"
+    row-key="id"
     :columns="columns"
     :datasource="datasource"
     :show-overflow-tooltip="true"
@@ -11,7 +11,7 @@
     :export-config="{ fileName: '用户数据', datasource: exportSource }"
     :print-config="{ datasource: exportSource }"
     :style="{ paddingBottom: '16px' }"
-    cache-key="listUserTable"
+    cache-key="collectionTable"
   >
     <template #toolbar>
       <el-button
@@ -31,38 +31,24 @@
         删除
       </el-button>
     </template>
-    <template #roles="{ row }">
-      <el-tag
-        v-for="item in row.roles"
-        :key="item.roleId"
-        size="small"
-        :disable-transitions="true"
-      >
-        {{ item.roleName }}
-      </el-tag>
-    </template>
-    <template #status="{ row }">
-      <el-switch
-        size="small"
-        :model-value="row.status === 0"
-        @change="(checked: boolean) => editStatus(checked, row)"
-      />
-    </template>
     <template #action="{ row }">
       <el-link type="primary" :underline="false" @click="openEdit(row)">
         修改
       </el-link>
       <el-divider direction="vertical" />
-      <el-link
-        type="primary"
-        :underline="false"
-        @mouseenter="(e: MouseEvent) => openMoreDropdown(e.currentTarget, row)"
-      >
-        <span>更多</span>
-        <el-icon :size="12" style="vertical-align: -1px; margin-left: 2px">
-          <ArrowDown />
-        </el-icon>
+      <el-link type="danger" :underline="false" @click="remove(row)">
+        删除
       </el-link>
+    </template>
+    <template #imageInfo="{ row }">
+      <el-image
+        v-if="row.imageInfo"
+        :src="row.imageInfo"
+        :preview-src-list="[row.imageInfo]"
+        fit="cover"
+        class="w-20 h-20"
+      />
+      <el-empty v-else description="暂无图片" :image-size="40" />
     </template>
   </ele-pro-table>
 
@@ -91,23 +77,18 @@
   } from 'ele-admin-plus/es/ele-pro-table/types';
   import type { EleDropdownInstance } from 'ele-admin-plus/es/ele-app/plus';
   import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types';
-  import { PlusOutlined, DeleteOutlined, ArrowDown } from '@/components/icons';
+  import { PlusOutlined, DeleteOutlined } from '@/components/icons';
   import UserSearch from './search-form.vue';
-  import type { Organization } from '@/api/system/organization/model';
-  import {
-    pageUsers,
-    removeUsers,
-    updateUserStatus,
-    updateUserPassword,
-    listUsers
-  } from '@/api/system/user';
-  import type { User, UserParam } from '@/api/system/user/model';
+  import { updateUserPassword, listUsers } from '@/api/system/user';
+  import { getCatalogs, deleteCollections } from '@/api/collection/catalog';
+  import type {
+    Collection,
+    CollectionQueryParams
+  } from '@/api/collection/catalog/model';
 
   const props = defineProps<{
-    /** 机构 id */
-    organizationId?: number;
-    /** 指定机构下拉数据 */
-    organizationData?: Organization[];
+    /** 分类 id */
+    categoryId?: number;
   }>();
 
   /** 搜索栏实例 */
@@ -133,31 +114,22 @@
       fixed: 'left'
     },
     {
-      prop: 'username',
-      label: '用户账号',
+      prop: 'name',
+      label: '藏品名称',
       sortable: 'custom',
-      minWidth: 110
+      minWidth: 120
     },
     {
-      prop: 'nickname',
-      label: '用户名',
+      prop: 'code',
+      label: '藏品编号',
       sortable: 'custom',
-      minWidth: 110
+      minWidth: 120
     },
     {
-      prop: 'sexName',
-      label: '性别',
+      prop: 'categoryName',
+      label: '分类名称',
       sortable: 'custom',
-      width: 90,
-      align: 'center'
-    },
-    {
-      columnKey: 'roles',
-      label: '角色',
-      minWidth: 120,
-      slot: 'roles',
-      align: 'center',
-      formatter: (row) => row.roles.map((d: any) => d.roleName).join(',')
+      minWidth: 120
     },
     {
       prop: 'createTime',
@@ -167,15 +139,6 @@
       align: 'center'
     },
     {
-      prop: 'status',
-      label: '状态',
-      width: 90,
-      align: 'center',
-      sortable: 'custom',
-      slot: 'status',
-      formatter: (row) => (row.status == 0 ? '正常' : '冻结')
-    },
-    {
       columnKey: 'action',
       label: '操作',
       width: 128,
@@ -183,57 +146,63 @@
       slot: 'action',
       hideInPrint: true,
       hideInExport: true
+    },
+    {
+      prop: 'imageInfo',
+      label: '图片',
+      width: 100,
+      align: 'center',
+      slot: 'imageInfo'
     }
   ]);
 
   /** 表格选中数据 */
-  const selections = ref<User[]>([]);
+  const selections = ref<Collection[]>([]);
 
   /** 当前编辑数据 */
-  const current = ref<User | null>(null);
+  const current = ref<Collection | null>(null);
 
   /** 是否显示编辑弹窗 */
   const showEdit = ref(false);
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
-    return pageUsers({
+    return getCatalogs({
       ...where,
       ...orders,
       ...pages,
-      organizationId: props.organizationId
+      categoryId: props.categoryId?.toString()
     });
   };
 
-  /** 搜索 */
-  const reload = (where?: UserParam) => {
+  /** 刷新表格 */
+  const reload = (where?: CollectionQueryParams) => {
     tableRef.value?.reload?.({ page: 1, where });
   };
 
   /** 打开编辑弹窗 */
-  const openEdit = (row?: User) => {
+  const openEdit = (row?: Collection) => {
     current.value = row ?? null;
     showEdit.value = true;
   };
 
   /** 删除 */
-  const remove = (row?: User) => {
+  const remove = (row?: Collection) => {
     const rows = row == null ? selections.value : [row];
     if (!rows.length) {
       EleMessage.error('请至少选择一条数据');
       return;
     }
-    ElMessageBox.confirm(
-      '确定要删除“' + rows.map((d) => d.nickname).join(', ') + '”吗?',
-      '系统提示',
-      { type: 'warning', draggable: true }
-    )
+    ElMessageBox.confirm('确定要删除选中的藏品吗？', '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
       .then(() => {
         const loading = EleMessage.loading({
           message: '请求中..',
           plain: true
         });
-        removeUsers(rows.map((d) => d.userId))
+        deleteCollections(rows.map((d) => Number(d.id)))
           .then((msg) => {
             loading.close();
             EleMessage.success(msg);
@@ -247,22 +216,9 @@
       .catch(() => {});
   };
 
-  /** 修改用户状态 */
-  const editStatus = (checked: boolean, row: User) => {
-    const status = checked ? 0 : 1;
-    updateUserStatus(row.userId, status)
-      .then((msg) => {
-        row.status = status;
-        EleMessage.success(msg);
-      })
-      .catch((e) => {
-        EleMessage.error(e.message);
-      });
-  };
-
-  // 监听机构 id 变化
+  // 监听分类 id 变化
   watch(
-    () => props.organizationId,
+    () => props.categoryId,
     () => {
       searchRef.value?.resetFields?.();
       reload({});
@@ -288,10 +244,10 @@
   const moreDropdownVirtualRef = ref<any>();
 
   /** 当前打开的下拉菜单对应的数据 */
-  let moreDropdownCurrentData: User | null = null;
+  let moreDropdownCurrentData: Collection | null = null;
 
   /** 获取下拉菜单数据 */
-  const getDropdownMenus = (_item: User) => {
+  const getDropdownMenus = (_item: Collection) => {
     return [
       { title: '重置密码', command: 'password' },
       { title: '删除用户', command: 'delete', divided: true, danger: true }
@@ -299,7 +255,7 @@
   };
 
   /** 打开下拉菜单 */
-  const openMoreDropdown = (triggerEl: any, item: User) => {
+  const openMoreDropdown = (triggerEl: any, item: Collection) => {
     if (
       triggerEl == null ||
       moreDropdownVirtualRef.value === triggerEl ||
@@ -329,7 +285,7 @@
     if (command === 'delete') {
       remove(row);
     } else if (command === 'password') {
-      ElMessageBox.prompt(`请输入用户"${row.nickname}"的新密码：`, '重置密码', {
+      ElMessageBox.prompt(`请输入用户"${row.name}"的新密码：`, '重置密码', {
         inputPattern: /^[\S]{5,18}$/,
         inputErrorMessage: '密码必须为5-18位非空白字符',
         draggable: true
@@ -339,7 +295,7 @@
             message: '请求中..',
             plain: true
           });
-          updateUserPassword(row.userId, value)
+          updateUserPassword(row.id, value)
             .then((msg) => {
               loading.close();
               EleMessage.success(msg);

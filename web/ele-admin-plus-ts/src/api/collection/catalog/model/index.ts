@@ -1,25 +1,15 @@
 import { PageParam } from '@/api';
 
 /**
- * 图片信息
+ * 藏品信息
  */
-export interface ImageInfo {
-  /** 图片链接 */
-  imageUrl: string;
-  /** 图片大小 */
-  imageSize: string;
-}
-
-/**
- * 藏品基础信息
- */
-export interface CollectionBase {
+export interface Collection {
   /** ID */
   id: string;
   /** 藏品状态 */
   collectionStatus: string;
   /** 图片信息 */
-  imageInfo: ImageInfo;
+  imageInfo: string;
   /** 编号类别 */
   numberCategory: string;
   /** 藏品编号 */
@@ -116,18 +106,14 @@ export interface CollectionBase {
  * 添加藏品参数
  */
 export interface AddCollectionParams {
-  /** 藏品状态 */
-  collectionStatus?: string;
   /** 图片信息 */
-  imageInfo?: ImageInfo;
+  imageInfo?: string;
   /** 编号类别 */
   numberCategory?: string;
   /** 藏品编号 */
-  collectionCode?: string;
+  code?: string;
   /** 藏品名称 */
   collectionName?: string;
-  /** 藏品类别 */
-  categoryName?: string;
   /** 藏品类别ID */
   categoryId: string;
   /** RFID编号 */
@@ -196,10 +182,6 @@ export interface AddCollectionParams {
   colorCategory?: string;
   /** 颜色描述 */
   colorDescription?: string;
-  /** 存放位置ID */
-  warehouseId: string;
-  /** 存放位置 */
-  warehouseName?: string;
   /** 备注 */
   notes?: string;
   /** 入馆时间 */

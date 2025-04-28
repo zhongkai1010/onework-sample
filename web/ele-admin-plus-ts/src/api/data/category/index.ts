@@ -2,8 +2,7 @@ import request from '@/utils/request';
 import type { ApiResult } from '@/api';
 import type {
   Category,
-  AddCategoryParams,
-  UpdateCategoryParams,
+  CategoryEditParams,
   DeleteCategoryParams,
   CategoryQueryParams
 } from './model';
@@ -12,11 +11,8 @@ import type {
  * 新增藏品分类
  * @param data 分类信息
  */
-export async function addCategory(data: AddCategoryParams) {
-  const res = await request.post<ApiResult<unknown>>(
-    '/api/data/categories',
-    data
-  );
+export async function addCategory(data: CategoryEditParams) {
+  const res = await request.post<ApiResult<unknown>>('/data/categories', data);
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -28,7 +24,7 @@ export async function addCategory(data: AddCategoryParams) {
  * @param params 查询参数
  */
 export async function listCategories(params?: CategoryQueryParams) {
-  const res = await request.get<ApiResult<Category[]>>('/api/data/categories', {
+  const res = await request.get<ApiResult<Category[]>>('/data/categories', {
     params
   });
   if (res.data.code === 0 && res.data.data) {
@@ -42,7 +38,7 @@ export async function listCategories(params?: CategoryQueryParams) {
  * @param data 分类ID集合
  */
 export async function removeCategories(data: DeleteCategoryParams) {
-  const res = await request.delete<ApiResult<unknown>>('/api/data/categories', {
+  const res = await request.delete<ApiResult<unknown>>('/data/categories', {
     data
   });
   if (res.data.code === 0) {
@@ -55,11 +51,8 @@ export async function removeCategories(data: DeleteCategoryParams) {
  * 修改藏品分类
  * @param data 分类信息
  */
-export async function updateCategory(data: UpdateCategoryParams) {
-  const res = await request.put<ApiResult<unknown>>(
-    '/api/data/categories',
-    data
-  );
+export async function updateCategory(data: CategoryEditParams) {
+  const res = await request.put<ApiResult<unknown>>('/data/categories', data);
   if (res.data.code === 0) {
     return res.data.message;
   }
@@ -74,7 +67,7 @@ export async function importCategories(file: File) {
   const formData = new FormData();
   formData.append('file', file);
   const res = await request.post<ApiResult<unknown>>(
-    '/api/data/categories/import',
+    '/data/categories/import',
     formData,
     {
       headers: {

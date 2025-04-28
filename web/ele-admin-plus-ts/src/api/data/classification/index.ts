@@ -18,7 +18,7 @@ export async function listClassifications(params?: ClassificationQueryParams) {
       count: number;
       list: Classification[];
     }>
-  >('/api/data/classification', { params });
+  >('/data/classification', { params });
   if (res.data.code === 0 && res.data.data) {
     return res.data.data;
   }
@@ -31,7 +31,7 @@ export async function listClassifications(params?: ClassificationQueryParams) {
  */
 export async function addClassification(data: AddClassificationParams) {
   const res = await request.post<ApiResult<unknown>>(
-    '/api/data/classification',
+    '/data/classification',
     data
   );
   if (res.data.code === 0) {
@@ -46,7 +46,7 @@ export async function addClassification(data: AddClassificationParams) {
  */
 export async function updateClassification(data: UpdateClassificationParams) {
   const res = await request.put<ApiResult<unknown>>(
-    '/api/data/classification',
+    '/data/classification',
     data
   );
   if (res.data.code === 0) {
@@ -60,12 +60,9 @@ export async function updateClassification(data: UpdateClassificationParams) {
  * @param data ID集合
  */
 export async function removeClassifications(data: DeleteClassificationParams) {
-  const res = await request.delete<ApiResult<unknown>>(
-    '/api/data/classification',
-    {
-      data
-    }
-  );
+  const res = await request.delete<ApiResult<unknown>>('/data/classification', {
+    data
+  });
   if (res.data.code === 0) {
     return res.data.message;
   }

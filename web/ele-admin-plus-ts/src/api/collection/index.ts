@@ -1,4 +1,4 @@
-export * from './collection';
+export * from './catalog';
 export * from './book';
 export * from './ledger';
 export * from './repair';
