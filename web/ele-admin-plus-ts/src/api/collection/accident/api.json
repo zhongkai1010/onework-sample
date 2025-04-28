@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "藏品管理系统",
+    "title": "OneWork",
     "description": "",
     "version": "1.0.0"
   },
@@ -73,10 +73,7 @@
                     "description": "事故处理结果"
                   }
                 },
-                "required": [
-                  "status",
-                  "processingResult"
-                ]
+                "required": ["status", "processingResult"]
               },
               "examples": {}
             }
@@ -326,10 +323,7 @@
                                 "description": "处理结果"
                               }
                             },
-                            "required": [
-                              "id",
-                              "collectionId"
-                            ]
+                            "required": ["id", "collectionId"]
                           }
                         }
                       }
@@ -502,10 +496,7 @@
                           "description": "处理结果"
                         }
                       },
-                      "required": [
-                        "id",
-                        "collectionId"
-                      ]
+                      "required": ["id", "collectionId"]
                     },
                     "error": {
                       "type": "string",

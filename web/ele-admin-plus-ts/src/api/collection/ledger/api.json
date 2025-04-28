@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "藏品管理系统",
+    "title": "OneWork",
     "description": "",
     "version": "1.0.0"
   },
@@ -389,10 +389,7 @@
                     "description": "库存位置ID"
                   }
                 },
-                "required": [
-                  "collectionIds",
-                  "warehouseId"
-                ]
+                "required": ["collectionIds", "warehouseId"]
               },
               "examples": {}
             }
@@ -470,10 +467,7 @@
                     "description": "藏品分组ID"
                   }
                 },
-                "required": [
-                  "collectionIds",
-                  "classificationId"
-                ]
+                "required": ["collectionIds", "classificationId"]
               },
               "examples": {}
             }
@@ -1778,9 +1772,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "collectionIds"
-                ]
+                "required": ["collectionIds"]
               },
               "examples": {}
             }

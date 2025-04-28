@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "藏品管理系统",
+    "title": "OneWork",
     "description": "",
     "version": "1.0.0"
   },
@@ -327,9 +327,7 @@
                     "description": "类型"
                   }
                 },
-                "required": [
-                  "isbn"
-                ]
+                "required": ["isbn"]
               },
               "examples": {}
             }
@@ -458,10 +456,7 @@
                     "description": "类型"
                   }
                 },
-                "required": [
-                  "isbn",
-                  "id"
-                ]
+                "required": ["isbn", "id"]
               },
               "examples": {}
             }
@@ -533,9 +528,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -609,9 +602,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -761,12 +752,7 @@
                       "description": "类型"
                     }
                   },
-                  "required": [
-                    "isbn",
-                    "id",
-                    "categoryName",
-                    "warehouseName"
-                  ]
+                  "required": ["isbn", "id", "categoryName", "warehouseName"]
                 }
               }
             },

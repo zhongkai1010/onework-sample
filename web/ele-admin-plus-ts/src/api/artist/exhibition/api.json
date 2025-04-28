@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "藏品管理系统",
+    "title": "OneWork",
     "description": "",
     "version": "1.0.0"
   },
@@ -188,9 +188,7 @@
                           "description": "封面"
                         }
                       },
-                      "required": [
-                        "id"
-                      ]
+                      "required": ["id"]
                     },
                     "error": {
                       "type": "string",
@@ -271,9 +269,7 @@
                     "description": "封面"
                   }
                 },
-                "required": [
-                  "id"
-                ]
+                "required": ["id"]
               },
               "examples": {}
             }
@@ -345,9 +341,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }

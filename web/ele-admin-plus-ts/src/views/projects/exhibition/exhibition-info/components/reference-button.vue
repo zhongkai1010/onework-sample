@@ -1,4 +1,3 @@
-import EleAdminPlus from 'ele-admin-plus/es';
 <template>
   <div>
     <el-button
@@ -12,7 +11,7 @@ import EleAdminPlus from 'ele-admin-plus/es';
       v-model="open"
       title="页面内容"
       direction="rtl"
-      size="90%"
+      size="50%"
       :destroy-on-close="true"
     >
       <el-descriptions
@@ -23,18 +22,20 @@ import EleAdminPlus from 'ele-admin-plus/es';
         :label-width="200"
       >
         <el-descriptions-item label="页面图片">
-          <img src="../page.png" style="width: 100%"
-        /></el-descriptions-item>
+          <img src="../page.png" style="width: 100%" />
+        </el-descriptions-item>
         <el-descriptions-item label="搜索条件">
-          工号 姓名
+          展览标题 展览时间 展览地点
         </el-descriptions-item>
         <el-descriptions-item label="操作栏">
-          新增 删除 导入
+          新增 编辑 删除
         </el-descriptions-item>
         <el-descriptions-item label="表格字段" :span="24">
-          编号 工号 姓名 性别 职务 工作部门 联系电话 操作
+          编号 展览标题 展览时间 展览地点 展览简介 操作
         </el-descriptions-item>
-        <el-descriptions-item label="表格操作"> 修改 </el-descriptions-item>
+        <el-descriptions-item label="表格操作">
+          编辑 删除
+        </el-descriptions-item>
       </el-descriptions>
     </el-drawer>
   </div>
@@ -43,7 +44,6 @@ import EleAdminPlus from 'ele-admin-plus/es';
 <script setup lang="ts">
   import { ref } from 'vue';
   import { Search } from '@element-plus/icons-vue';
-
   const open = ref(false);
 </script>
 

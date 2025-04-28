@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "藏品管理系统",
+    "title": "OneWork",
     "description": "",
     "version": "1.0.0"
   },
@@ -228,9 +228,7 @@
                                 "description": "添加时间"
                               }
                             },
-                            "required": [
-                              "id"
-                            ]
+                            "required": ["id"]
                           }
                         }
                       }
@@ -365,9 +363,7 @@
                     "description": "添加时间"
                   }
                 },
-                "required": [
-                  "id"
-                ]
+                "required": ["id"]
               },
               "examples": {}
             }

@@ -15,9 +15,7 @@
         :show-file-list="false"
         :before-upload="importFile2"
       >
-        <el-button type="primary" class="ele-btn-icon">
-          导入拆分合并
-        </el-button>
+        <el-button type="primary" class="ele-btn-icon">导入拆分合并</el-button>
       </el-upload>
       <el-upload
         action=""
@@ -25,9 +23,7 @@
         :show-file-list="false"
         :before-upload="importFile3"
       >
-        <el-button type="primary" class="ele-btn-icon">
-          导入保持合并
-        </el-button>
+        <el-button type="primary" class="ele-btn-icon">导入保持合并</el-button>
       </el-upload>
     </el-space>
     <div style="overflow: auto; margin-top: 12px">
@@ -91,165 +87,175 @@
   /** 导入的数据 */
   const importData = ref<Record<string, any>[]>([]);
 
-  /** 导入本地excel文件 */
-  const importFile = (file: File) => {
-    if (
-      ![
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      ].includes(file.type)
-    ) {
+  /** 验证文件类型和大小 */
+  const validateFile = (file: File): boolean => {
+    const validTypes = [
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
+
+    if (!validTypes.includes(file.type)) {
       EleMessage.error('只能选择 excel 文件');
       return false;
     }
+
     if (file.size / 1024 / 1024 > 20) {
       EleMessage.error('大小不能超过 20MB');
       return false;
     }
+
+    return true;
+  };
+
+  /** 读取Excel文件 */
+  const readExcelFile = (
+    file: File,
+    callback: (workbook: ExcelJS.Workbook) => void
+  ) => {
     const loading = EleMessage.loading({ message: '加载中..', plain: true });
     const reader = new FileReader();
+
     reader.onload = (e) => {
       const workbook = new ExcelJS.Workbook();
       workbook.xlsx.load(e.target?.result as any).then(() => {
-        const title: string[] = [];
-        const list: Record<string, any>[] = [];
-        workbook.eachSheet((sheet) => {
-          list.splice(0, list.length);
-          sheet.eachRow({ includeEmpty: true }, (row, rowIndex) => {
-            title.splice(0, title.length);
-            const item: Record<string, any> = {};
-            row.eachCell({ includeEmpty: true }, (cell) => {
-              const key = cell.address.slice(0, -String(rowIndex).length);
-              title.push(key);
-              const isMerged =
-                cell.isMerged && cell.address !== cell.master.address;
-              item[key] = {
-                value: isMerged ? '' : cell.value,
-                colspan: 1,
-                rowspan: 1
-              };
-            });
-            list.push(item);
-          });
-        });
-        importTitle.value = title;
-        importData.value = list;
+        callback(workbook);
         loading.close();
       });
     };
+
     reader.readAsArrayBuffer(file);
+  };
+
+  /** 处理单元格数据 */
+  const processCellData = (cell: ExcelJS.Cell, rowIndex: number) => {
+    const key = cell.address.slice(0, -String(rowIndex).length);
+    const isMerged = cell.isMerged && cell.address !== cell.master.address;
+
+    return {
+      key,
+      data: {
+        value: isMerged ? '' : cell.value,
+        colspan: 1,
+        rowspan: 1
+      }
+    };
+  };
+
+  /** 导入本地excel文件 */
+  const importFile = (file: File) => {
+    if (!validateFile(file)) return false;
+
+    readExcelFile(file, (workbook) => {
+      const title: string[] = [];
+      const list: Record<string, any>[] = [];
+
+      workbook.eachSheet((sheet) => {
+        list.splice(0, list.length);
+        sheet.eachRow({ includeEmpty: true }, (row, rowIndex) => {
+          title.splice(0, title.length);
+          const item: Record<string, any> = {};
+
+          row.eachCell({ includeEmpty: true }, (cell) => {
+            const { key, data } = processCellData(cell, rowIndex);
+            title.push(key);
+            item[key] = data;
+          });
+
+          list.push(item);
+        });
+      });
+
+      importTitle.value = title;
+      importData.value = list;
+    });
+
     return false;
   };
 
   /** 导入excel拆分合并单元格 */
   const importFile2 = (file: File) => {
-    if (
-      ![
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      ].includes(file.type)
-    ) {
-      EleMessage.error('只能选择 excel 文件');
-      return false;
-    }
-    if (file.size / 1024 / 1024 > 20) {
-      EleMessage.error('大小不能超过 20MB');
-      return false;
-    }
-    const loading = EleMessage.loading({ message: '加载中..', plain: true });
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const workbook = new ExcelJS.Workbook();
-      workbook.xlsx.load(e.target?.result as any).then(() => {
-        const title: string[] = [];
-        const list: Record<string, any>[] = [];
-        workbook.eachSheet((sheet) => {
-          list.splice(0, list.length);
-          sheet.eachRow({ includeEmpty: true }, (row, rowIndex) => {
-            title.splice(0, title.length);
-            const item: Record<string, any> = {};
-            row.eachCell({ includeEmpty: true }, (cell) => {
-              const key = cell.address.slice(0, -String(rowIndex).length);
-              title.push(key);
-              item[key] = {
-                value: cell.value,
-                colspan: 1,
-                rowspan: 1
-              };
-            });
-            list.push(item);
+    if (!validateFile(file)) return false;
+
+    readExcelFile(file, (workbook) => {
+      const title: string[] = [];
+      const list: Record<string, any>[] = [];
+
+      workbook.eachSheet((sheet) => {
+        list.splice(0, list.length);
+        sheet.eachRow({ includeEmpty: true }, (row, rowIndex) => {
+          title.splice(0, title.length);
+          const item: Record<string, any> = {};
+
+          row.eachCell({ includeEmpty: true }, (cell) => {
+            const key = cell.address.slice(0, -String(rowIndex).length);
+            title.push(key);
+            item[key] = {
+              value: cell.value,
+              colspan: 1,
+              rowspan: 1
+            };
           });
+
+          list.push(item);
         });
-        importTitle.value = title;
-        importData.value = list;
-        loading.close();
       });
-    };
-    reader.readAsArrayBuffer(file);
+
+      importTitle.value = title;
+      importData.value = list;
+    });
+
     return false;
   };
 
   /** 导入 excel 读取合并信息 */
   const importFile3 = (file: File) => {
-    if (
-      ![
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      ].includes(file.type)
-    ) {
-      EleMessage.error('只能选择 excel 文件');
-      return false;
-    }
-    if (file.size / 1024 / 1024 > 20) {
-      EleMessage.error('大小不能超过 20MB');
-      return false;
-    }
-    const loading = EleMessage.loading({ message: '加载中..', plain: true });
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const workbook = new ExcelJS.Workbook();
-      workbook.xlsx.load(e.target?.result as any).then(() => {
-        const title: string[] = [];
-        const list: Record<string, any>[] = [];
-        workbook.eachSheet((sheet) => {
-          list.splice(0, list.length);
-          sheet.eachRow({ includeEmpty: true }, (row) => {
-            title.splice(0, title.length);
-            const item: Record<string, any> = {};
-            row.eachCell({ includeEmpty: true }, (cell) => {
-              const key = cell.address.slice(0, -String(cell.row).length);
-              title.push(key);
-              const isMerged =
-                cell.isMerged && cell.address !== cell.master.address;
-              item[key] = {
-                value: cell.value,
-                colspan: isMerged ? 0 : 1,
-                rowspan: isMerged ? 0 : 1
-              };
-            });
-            list.push(item);
+    if (!validateFile(file)) return false;
+
+    readExcelFile(file, (workbook) => {
+      const title: string[] = [];
+      const list: Record<string, any>[] = [];
+
+      workbook.eachSheet((sheet) => {
+        list.splice(0, list.length);
+        sheet.eachRow({ includeEmpty: true }, (row) => {
+          title.splice(0, title.length);
+          const item: Record<string, any> = {};
+
+          row.eachCell({ includeEmpty: true }, (cell) => {
+            const key = cell.address.slice(0, -String(cell.row).length);
+            title.push(key);
+            const isMerged =
+              cell.isMerged && cell.address !== cell.master.address;
+            item[key] = {
+              value: cell.value,
+              colspan: isMerged ? 0 : 1,
+              rowspan: isMerged ? 0 : 1
+            };
           });
-          // 生成表格的跨行跨列
-          sheet.eachRow({ includeEmpty: true }, (row) => {
-            row.eachCell({ includeEmpty: true }, (cell) => {
-              const master = cell.master;
-              if (cell.isMerged && cell.address !== master.address) {
-                const mk = master.address.slice(0, -String(master.row).length);
-                const mItem = list[Number(master.row) - 1][mk];
-                const rs = Math.abs(Number(cell.row) - Number(master.row)) + 1;
-                rs > mItem.rowspan && (mItem.rowspan = rs);
-                const cs = Math.abs(Number(cell.col) - Number(master.col)) + 1;
-                cs > mItem.colspan && (mItem.colspan = cs);
-              }
-            });
+
+          list.push(item);
+        });
+
+        // 生成表格的跨行跨列
+        sheet.eachRow({ includeEmpty: true }, (row) => {
+          row.eachCell({ includeEmpty: true }, (cell) => {
+            const master = cell.master;
+            if (cell.isMerged && cell.address !== master.address) {
+              const mk = master.address.slice(0, -String(master.row).length);
+              const mItem = list[Number(master.row) - 1][mk];
+              const rs = Math.abs(Number(cell.row) - Number(master.row)) + 1;
+              rs > mItem.rowspan && (mItem.rowspan = rs);
+              const cs = Math.abs(Number(cell.col) - Number(master.col)) + 1;
+              cs > mItem.colspan && (mItem.colspan = cs);
+            }
           });
         });
-        importTitle.value = title;
-        importData.value = list;
-        loading.close();
       });
-    };
-    reader.readAsArrayBuffer(file);
+
+      importTitle.value = title;
+      importData.value = list;
+    });
+
     return false;
   };
 </script>

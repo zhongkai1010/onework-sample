@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "藏品管理系统",
+    "title": "OneWork",
     "description": "",
     "version": "1.0.0"
   },
@@ -608,11 +608,7 @@
                     "description": "入柜时间"
                   }
                 },
-                "required": [
-                  "categoryId",
-                  "material",
-                  "warehouseId"
-                ]
+                "required": ["categoryId", "material", "warehouseId"]
               },
               "examples": {}
             }
@@ -684,9 +680,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -925,10 +919,7 @@
                     "description": "入柜时间"
                   }
                 },
-                "required": [
-                  "categoryId",
-                  "material"
-                ]
+                "required": ["categoryId", "material"]
               },
               "examples": {}
             }
@@ -1002,9 +993,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -1353,11 +1342,7 @@
                           "description": "入柜时间"
                         }
                       },
-                      "required": [
-                        "categoryId",
-                        "material",
-                        "warehouseId"
-                      ]
+                      "required": ["categoryId", "material", "warehouseId"]
                     },
                     "error": {
                       "type": "string",
@@ -1735,9 +1720,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
