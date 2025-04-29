@@ -21,116 +21,116 @@ export default [
         message: 'success',
         data: [
           {
-            id: '99b19Bbe-3b4b-fc25-B3d5-AbFeffDAecA5',
+            id: 1,
             name: '绘画',
             code: 'WBKWITYB',
             description: '绘画类藏品',
             parentId: null
           },
           {
-            id: '1BAcF0D8-3f8b-d284-Eccc-bbA96F4414a0',
+            id: 2,
             name: '油画',
             code: 'HQOLJNCV',
             description: '油画类藏品',
-            parentId: '99b19Bbe-3b4b-fc25-B3d5-AbFeffDAecA5'
+            parentId: 1
           },
           {
-            id: 'aDA1b352-c90D-cED1-47fe-B4E8D5BB1dcE',
+            id: 3,
             name: '水彩',
             code: 'FYHNESDK',
             description: '水彩类藏品',
-            parentId: '99b19Bbe-3b4b-fc25-B3d5-AbFeffDAecA5'
+            parentId: 1
           },
           {
-            id: 'bDA1b352-c90D-cED1-47fe-B4E8D5BB1dcF',
+            id: 4,
             name: '素描',
             code: 'SMESDK',
             description: '素描类藏品',
-            parentId: '99b19Bbe-3b4b-fc25-B3d5-AbFeffDAecA5'
+            parentId: 1
           },
           {
-            id: 'e3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e1',
+            id: 5,
             name: '雕塑',
             code: 'RWHEQHCM',
             description: '雕塑类藏品',
             parentId: null
           },
           {
-            id: 'Ed828C6D-EC10-BfE6-bAA8-E4b595F969BD',
+            id: 6,
             name: '石雕',
             code: 'MGXYSTPO',
             description: '石雕类藏品',
-            parentId: 'e3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e1'
+            parentId: 5
           },
           {
-            id: 'Fd828C6D-EC10-BfE6-bAA8-E4b595F969BE',
+            id: 7,
             name: '木雕',
             code: 'MDXYSTPO',
             description: '木雕类藏品',
-            parentId: 'e3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e1'
+            parentId: 5
           },
           {
-            id: 'f3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e2',
+            id: 8,
             name: '陶瓷',
             code: 'TCXYSTPO',
             description: '陶瓷类藏品',
             parentId: null
           },
           {
-            id: 'Gd828C6D-EC10-BfE6-bAA8-E4b595F969BF',
+            id: 9,
             name: '青花瓷',
             code: 'QHCXYSTPO',
             description: '青花瓷类藏品',
-            parentId: 'f3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e2'
+            parentId: 8
           },
           {
-            id: 'Hd828C6D-EC10-BfE6-bAA8-E4b595F969BG',
+            id: 10,
             name: '彩瓷',
             code: 'CCXYSTPO',
             description: '彩瓷类藏品',
-            parentId: 'f3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e2'
+            parentId: 8
           },
           {
-            id: 'g3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e3',
+            id: 11,
             name: '书法',
             code: 'SFXYSTPO',
             description: '书法类藏品',
             parentId: null
           },
           {
-            id: 'Id828C6D-EC10-BfE6-bAA8-E4b595F969BH',
+            id: 12,
             name: '楷书',
             code: 'KSXYSTPO',
             description: '楷书类藏品',
-            parentId: 'g3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e3'
+            parentId: 11
           },
           {
-            id: 'Jd828C6D-EC10-BfE6-bAA8-E4b595F969BI',
+            id: 13,
             name: '行书',
             code: 'XSXYSTPO',
             description: '行书类藏品',
-            parentId: 'g3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e3'
+            parentId: 11
           },
           {
-            id: 'h3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e4',
+            id: 14,
             name: '玉器',
             code: 'YQXYSTPO',
             description: '玉器类藏品',
             parentId: null
           },
           {
-            id: 'Kd828C6D-EC10-BfE6-bAA8-E4b595F969BJ',
+            id: 15,
             name: '和田玉',
             code: 'HTYXYSTPO',
             description: '和田玉类藏品',
-            parentId: 'h3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e4'
+            parentId: 14
           },
           {
-            id: 'Ld828C6D-EC10-BfE6-bAA8-E4b595F969BK',
+            id: 16,
             name: '翡翠',
             code: 'FCXYSTPO',
             description: '翡翠类藏品',
-            parentId: 'h3CEd74b-4fF9-fcd9-1dd5-6A7e004d95e4'
+            parentId: 14
           }
         ]
       };

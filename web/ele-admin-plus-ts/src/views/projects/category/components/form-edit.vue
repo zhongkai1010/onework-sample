@@ -17,7 +17,7 @@
       <el-row :gutter="16">
         <el-col :span="24">
           <el-form-item label="上级分类" prop="parentId">
-            <classification-select v-model="form.parentId" />
+            <category-select v-model="form.parentId" />
           </el-form-item>
         </el-col>
         <el-col :span="24">
@@ -66,7 +66,7 @@
   import { useFormData } from '@/utils/use-form-data';
   import type { Category, CategoryEditParams } from '@/api/data/category/model';
   import { addCategory, updateCategory } from '@/api/data/category';
-  import ClassificationSelect from '@/components/CustomForm/ClassificationSelect.vue';
+  import CategorySelect from '@/components/CustomForm/CategorySelect.vue';
 
   const props = defineProps<{
     /** 修改回显的数据 */

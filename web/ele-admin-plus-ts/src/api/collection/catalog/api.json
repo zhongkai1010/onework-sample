@@ -39,9 +39,9 @@
             "in": "query",
             "description": "藏品分类   ",
             "required": false,
-            "example": "",
+            "example": 0,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -174,7 +174,7 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID"
                               },
                               "collectionStatus": {
@@ -202,7 +202,7 @@
                                 "description": "藏品类别"
                               },
                               "categoryId": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "藏品类别ID"
                               },
                               "rfidCode": {
@@ -367,9 +367,12 @@
                               }
                             },
                             "required": [
-                              "categoryId",
                               "material",
-                              "warehouseId"
+                              "warehouseId",
+                              "id",
+                              "collectionStatus",
+                              "collectionCode",
+                              "collectionName"
                             ]
                           }
                         }
@@ -416,7 +419,7 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "ID"
                   },
                   "collectionStatus": {
@@ -444,7 +447,7 @@
                     "description": "藏品类别"
                   },
                   "categoryId": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "藏品类别ID"
                   },
                   "rfidCode": {
@@ -769,7 +772,7 @@
                     "description": "藏品名称"
                   },
                   "categoryId": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "藏品类别ID"
                   },
                   "rfidCode": {
@@ -926,8 +929,8 @@
                   }
                 },
                 "required": [
-                  "categoryId",
-                  "material"
+                  "collectionName",
+                  "code"
                 ]
               },
               "examples": {}
@@ -972,7 +975,7 @@
     },
     "/api/collection/catalog/approve": {
       "post": {
-        "summary": "审核通过藏品",
+        "summary": "审核通过",
         "deprecated": false,
         "description": "",
         "tags": [],
@@ -1004,6 +1007,168 @@
                 },
                 "required": [
                   "ids"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/catalog/bind-rfid": {
+      "post": {
+        "summary": "绑定RFID",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
+                  },
+                  "rfidCode": {
+                    "type": "string",
+                    "description": "RFID编号"
+                  }
+                },
+                "required": [
+                  "ids",
+                  "rfidCode"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/catalog/update-category": {
+      "post": {
+        "summary": "批量修改分类",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
+                  },
+                  "categoryId": {
+                    "type": "integer",
+                    "description": "分类ID"
+                  }
+                },
+                "required": [
+                  "ids",
+                  "categoryId"
                 ]
               },
               "examples": {}
@@ -1161,7 +1326,7 @@
                       "type": "object",
                       "properties": {
                         "id": {
-                          "type": "string",
+                          "type": "integer",
                           "description": "ID"
                         },
                         "collectionStatus": {
@@ -1189,7 +1354,7 @@
                           "description": "藏品类别"
                         },
                         "categoryId": {
-                          "type": "string",
+                          "type": "integer",
                           "description": "藏品类别ID"
                         },
                         "rfidCode": {
@@ -1354,9 +1519,9 @@
                         }
                       },
                       "required": [
-                        "categoryId",
-                        "material",
-                        "warehouseId"
+                        "id",
+                        "collectionCode",
+                        "collectionName"
                       ]
                     },
                     "error": {
@@ -1484,7 +1649,7 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID"
                               },
                               "collectionStatus": {
@@ -1512,7 +1677,7 @@
                                 "description": "藏品类别"
                               },
                               "categoryId": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "藏品类别ID"
                               },
                               "rfidCode": {
@@ -1677,9 +1842,8 @@
                               }
                             },
                             "required": [
-                              "categoryId",
-                              "material",
-                              "warehouseId"
+                              "collectionCode",
+                              "collectionName"
                             ]
                           }
                         }

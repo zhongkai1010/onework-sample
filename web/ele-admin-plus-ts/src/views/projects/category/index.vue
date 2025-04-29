@@ -29,7 +29,7 @@
           </el-col>
           <el-col :lg="6" :md="12" :sm="12" :xs="24">
             <el-form-item label="上级分类">
-              <classification-select v-model="form.parentId" />
+              <category-select v-model="form.parentId" />
             </el-form-item>
           </el-col>
           <el-col :lg="6" :md="12" :sm="12" :xs="24">
@@ -50,7 +50,7 @@
         v-model:selections="selections"
         :highlight-current-row="true"
         :style="{ paddingBottom: '16px' }"
-        cache-key="classificationTable"
+        cache-key="categoryTable"
         :pagination="false"
         :tools="['reload', 'size', 'columns', 'maximized']"
       >
@@ -143,7 +143,7 @@
   import { useFormData } from '@/utils/use-form-data';
   import ReferenceButton from './components/reference-button.vue';
   import FormEdit from './components/form-edit.vue';
-  import ClassificationSelect from '@/components/CustomForm/ClassificationSelect.vue';
+  import CategorySelect from '@/components/CustomForm/CategorySelect.vue';
 
   defineOptions({ name: 'Classification' });
 

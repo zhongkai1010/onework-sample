@@ -3,7 +3,7 @@ import type { MockMethod } from 'vite-plugin-mock';
 
 // 藏品信息
 interface Collection {
-  id: string;
+  id: number;
   collectionStatus: string;
   imageInfo: string;
   numberCategory: string;
@@ -69,15 +69,15 @@ interface CollectionQueryParams {
 
 // 生成藏品列表数据
 const generateCollectionList = (count: number): Collection[] => {
-  return Array.from({ length: count }, () => ({
-    id: mock('@guid'),
+  return Array.from({ length: count }, (_, index) => ({
+    id: index + 1,
     collectionStatus: mock('@pick(["待审核", "已审核", "已退回"])'),
     imageInfo: mock('@image("200x200", "#50B347", "#FFF", "Mock")'),
     numberCategory: mock('@pick(["文物", "艺术品", "文献"])'),
     collectionCode: mock('@string("upper", 8)'),
     collectionName: mock('@ctitle(3, 8)'),
     categoryName: mock('@pick(["书画", "陶瓷", "玉器", "青铜器"])'),
-    categoryId: mock('@guid'),
+    categoryId: mock('@integer(1, 16)'),
     rfidCode: mock('@string("upper", 10)'),
     quantity: mock('@integer(1, 100)'),
     unit: mock('@pick(["件", "套", "册"])'),
@@ -142,7 +142,7 @@ const generatePageData = (params: CollectionQueryParams) => {
 export default [
   // 查询藏品编目分页列表
   {
-    url: '/collection/catalog',
+    url: '/api/collection/catalog',
     method: 'get',
     response: ({ query }: { query: CollectionQueryParams }) => {
       return {
@@ -154,7 +154,7 @@ export default [
   },
   // 编辑藏品
   {
-    url: '/collection/catalog',
+    url: '/api/collection/catalog',
     method: 'put',
     response: () => {
       return {
@@ -165,7 +165,7 @@ export default [
   },
   // 删除藏品
   {
-    url: '/collection/catalog',
+    url: '/api/collection/catalog',
     method: 'delete',
     response: () => {
       return {
@@ -176,7 +176,7 @@ export default [
   },
   // 藏品登记
   {
-    url: '/collection/catalog/register',
+    url: '/api/collection/catalog/register',
     method: 'post',
     response: () => {
       return {
@@ -187,7 +187,7 @@ export default [
   },
   // 审核通过藏品
   {
-    url: '/collection/catalog/approve',
+    url: '/api/collection/catalog/approve',
     method: 'post',
     response: () => {
       return {
@@ -198,7 +198,7 @@ export default [
   },
   // 导入藏品
   {
-    url: '/collection/catalog/import',
+    url: '/api/collection/catalog/import',
     method: 'post',
     response: () => {
       return {
@@ -209,7 +209,7 @@ export default [
   },
   // 查询藏品详情
   {
-    url: '/collection/catalog/details',
+    url: '/api/collection/catalog/details',
     method: 'get',
     response: () => {
       return {
@@ -221,7 +221,7 @@ export default [
   },
   // 查询藏品预备帐分页列表
   {
-    url: '/collection/catalog/preparation',
+    url: '/api/collection/catalog/preparation',
     method: 'get',
     response: ({ query }: { query: CollectionQueryParams }) => {
       return {
@@ -233,12 +233,34 @@ export default [
   },
   // 藏品退回编目
   {
-    url: '/collection/catalog/return',
+    url: '/api/collection/catalog/return',
     method: 'post',
     response: () => {
       return {
         code: 0,
         message: '退回成功'
+      };
+    }
+  },
+  // 绑定RFID
+  {
+    url: '/api/collection/catalog/bind-rfid',
+    method: 'post',
+    response: () => {
+      return {
+        code: 0,
+        message: '绑定成功'
+      };
+    }
+  },
+  // 批量修改分类
+  {
+    url: '/api/collection/catalog/update-category',
+    method: 'post',
+    response: () => {
+      return {
+        code: 0,
+        message: '修改成功'
       };
     }
   }

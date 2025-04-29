@@ -40,7 +40,8 @@
   .fixt-button-wrapper {
     position: fixed;
     right: 32px;
-    bottom: 64px;
+    bottom: 32px;
+    z-index: 1000;
     .button {
       width: 48px;
       height: 48px;

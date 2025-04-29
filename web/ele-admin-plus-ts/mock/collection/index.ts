@@ -3,7 +3,7 @@ import repairApi from './repair';
 import imageApi from './image';
 import cancellationApi from './cancellation';
 import accidentApi from './accident';
-import collectionApi from './collection';
+import catalogApi from './catalog';
 import bookApi from './book';
 
 export default [
@@ -12,6 +12,6 @@ export default [
   ...imageApi,
   ...cancellationApi,
   ...accidentApi,
-  ...collectionApi,
+  ...catalogApi,
   ...bookApi
 ];

@@ -5,7 +5,7 @@ import { PageParam } from '@/api';
  */
 export interface Collection {
   /** ID */
-  id: string;
+  id: number;
   /** 藏品状态 */
   collectionStatus: string;
   /** 图片信息 */
@@ -19,7 +19,7 @@ export interface Collection {
   /** 藏品类别 */
   categoryName: string;
   /** 藏品类别ID */
-  categoryId: string;
+  categoryId: number;
   /** RFID编号 */
   rfidCode: string;
   /** 数量 */
@@ -115,7 +115,7 @@ export interface AddCollectionParams {
   /** 藏品名称 */
   collectionName?: string;
   /** 藏品类别ID */
-  categoryId: string;
+  categoryId: number;
   /** RFID编号 */
   rfidCode?: string;
   /** 数量 */
@@ -203,7 +203,7 @@ export interface CollectionQueryParams extends PageParam {
   /** 藏品名称 */
   collectionName?: string;
   /** 藏品类别ID */
-  categoryId?: string;
+  categoryId?: number;
   /** 地域类型 */
   regionType?: string;
   /** 地域 */

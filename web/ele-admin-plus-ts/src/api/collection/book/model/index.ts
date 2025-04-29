@@ -1,10 +1,9 @@
 import { PageParam } from '@/api';
-import { Collection } from '../../catalog/model';
 
 /**
  * 图书藏品信息
  */
-export interface BookCollection extends Collection {
+export interface BookCollection {
   /** ID编号 */
   id: string;
   /** 编号 */

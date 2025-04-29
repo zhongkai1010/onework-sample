@@ -101,7 +101,7 @@ export async function importCollections(file: File) {
 /**
  * 查询藏品详情
  */
-export async function getDetails(id: string) {
+export async function getDetails(id: number) {
   const res = await request.get<ApiResult<Collection>>(
     '/collection/catalog/details',
     {
@@ -137,6 +137,37 @@ export async function returnCollections(ids: number[]) {
   const res = await request.post<ApiResult<unknown>>(
     '/collection/catalog/return',
     { ids }
+  );
+  if (res.data.code === 0) {
+    return res.data.message;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
+
+/**
+ * 绑定RFID
+ */
+export async function bindRfid(data: { ids: number[]; rfidCode: string }) {
+  const res = await request.post<ApiResult<unknown>>(
+    '/collection/catalog/bind-rfid',
+    data
+  );
+  if (res.data.code === 0) {
+    return res.data.message;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
+
+/**
+ * 批量修改分类
+ */
+export async function updateCategory(data: {
+  ids: number[];
+  categoryId: number;
+}) {
+  const res = await request.post<ApiResult<unknown>>(
+    '/collection/catalog/update-category',
+    data
   );
   if (res.data.code === 0) {
     return res.data.message;

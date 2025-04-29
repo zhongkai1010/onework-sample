@@ -67,7 +67,7 @@
         </template>
       </ele-split-panel>
     </ele-card>
-    <ReferenceButton />
+    <reference-button />
   </ele-page>
 </template>
 
@@ -146,4 +146,6 @@
   });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  /* No changes to the existing styles */
+</style>

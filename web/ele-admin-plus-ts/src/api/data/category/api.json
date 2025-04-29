@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OneWork",
+    "title": "藏品管理系统",
     "description": "",
     "version": "1.0.0"
   },
@@ -38,9 +38,22 @@
                   "parentId": {
                     "type": "integer",
                     "description": "上级分类"
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "分类码"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "描述"
                   }
                 },
-                "required": ["name", "parentId"]
+                "required": [
+                  "name",
+                  "parentId",
+                  "description",
+                  "code"
+                ]
               },
               "examples": {}
             }
@@ -137,18 +150,32 @@
                         "properties": {
                           "id": {
                             "type": "integer",
-                            "description": "分类ID",
-                            "format": "int32"
+                            "description": "ID 编号"
                           },
                           "name": {
                             "type": "string",
-                            "description": "分类名称"
+                            "description": "名称"
                           },
                           "parentId": {
                             "type": "integer",
                             "description": "上级分类"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "分类码"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "描述"
                           }
-                        }
+                        },
+                        "required": [
+                          "name",
+                          "parentId",
+                          "description",
+                          "code",
+                          "id"
+                        ]
                       }
                     },
                     "error": {
@@ -199,7 +226,9 @@
                     "title": "分类ID集合"
                   }
                 },
-                "required": ["ids"]
+                "required": [
+                  "ids"
+                ]
               },
               "examples": {}
             }
@@ -276,7 +305,11 @@
                     "description": "上级分类"
                   }
                 },
-                "required": ["name", "parentId", "id"]
+                "required": [
+                  "name",
+                  "parentId",
+                  "id"
+                ]
               },
               "examples": {}
             }

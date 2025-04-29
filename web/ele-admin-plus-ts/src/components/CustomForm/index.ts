@@ -1,1 +1,1 @@
-export { default as ClassificationSelect } from './ClassificationSelect.vue';
+export { default as CategorySelect } from './CategorySelect.vue';
