@@ -27,36 +27,19 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button
-            type="danger"
-            class="ele-btn-icon"
-            :icon="ArrowLeftOutlined"
-            @click="handleReturn"
-            :disabled="!selections.length"
-          >
-            退回编目
-          </el-button>
+          <el-button type="danger" class="ele-btn-icon" :icon="ArrowLeftOutlined" @click="handleReturn" :disabled="!selections.length"> 退回编目 </el-button>
         </template>
 
         <!-- 图片信息列 -->
         <template #imageInfo="{ row }">
-          <el-image
-            v-if="row.imageInfo"
-            :src="row.imageInfo"
-            :preview-src-list="[row.imageInfo]"
-            fit="cover"
-            class="w-20 h-20"
-            :title="row.collectionName || '藏品图片'"
-          />
+          <el-image v-if="row.imageInfo" :src="row.imageInfo" :preview-src-list="[row.imageInfo]" fit="cover" class="w-20 h-20" :title="row.collectionName || '藏品图片'" />
           <el-empty v-else description="暂无图片" :image-size="40" />
         </template>
 
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
-            <el-button type="primary" @click="handleViewDetails(row)"
-              >查看详情</el-button
-            >
+            <el-button type="primary" @click="handleViewDetails(row)">查看详情</el-button>
           </el-space>
         </template>
       </ele-pro-table>
@@ -71,33 +54,27 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { ElMessageBox } from 'element-plus/es';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import { ArrowLeftOutlined } from '@/components/icons';
-  import type { EleProTable } from 'ele-admin-plus';
-  import type {
-    DatasourceFunction,
-    Columns
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import type {
-    Collection,
-    CollectionQueryParams
-  } from '@/api/collection/catalog/model';
-  import { getPreparation, returnCollections } from '@/api/collection/catalog';
-  import SearchForm from './components/search-form.vue';
-  import CollectionDetails from '../collection/components/collection-details.vue';
-  import ReferenceButton from './components/reference-button.vue';
+  import { ref } from 'vue'
+  import { ElMessageBox } from 'element-plus/es'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import { ArrowLeftOutlined } from '@/components/icons'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type { Collection, CollectionQueryParams } from '@/api/collection/catalog/model'
+  import { getPreparation, returnCollections } from '@/api/collection/catalog'
+  import SearchForm from './components/search-form.vue'
+  import CollectionDetails from '../collection/components/collection-details.vue'
+  import ReferenceButton from './components/reference-button.vue'
 
   /* ==================== 组件引用 ==================== */
-  const searchRef = ref<InstanceType<typeof SearchForm> | null>(null);
-  const tableRef = ref<InstanceType<typeof EleProTable>>();
+  const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
+  const tableRef = ref<InstanceType<typeof EleProTable>>()
 
   /* ==================== 状态管理 ==================== */
-  const currentId = ref<number>(); // 当前查看详情的藏品ID
-  const showDetails = ref(false); // 是否显示详情弹窗
-  const fixedHeight = ref(false); // 是否固定高度
-  const selections = ref<Collection[]>([]); // 表格选中的行
+  const currentId = ref<number>() // 当前查看详情的藏品ID
+  const showDetails = ref(false) // 是否显示详情弹窗
+  const fixedHeight = ref(false) // 是否固定高度
+  const selections = ref<Collection[]>([]) // 表格选中的行
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -361,7 +338,7 @@
       slot: 'action',
       fixed: 'right'
     }
-  ]);
+  ])
 
   /* ==================== 数据源 ==================== */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
@@ -369,8 +346,8 @@
       ...where,
       ...orders,
       ...pages
-    });
-  };
+    })
+  }
 
   /* ==================== 表格操作 ==================== */
   /**
@@ -378,24 +355,24 @@
    * @param where 查询条件
    */
   const reload = (where?: CollectionQueryParams) => {
-    tableRef.value?.reload?.({ page: 1, where });
-  };
+    tableRef.value?.reload?.({ page: 1, where })
+  }
 
   /**
    * 处理查看详情
    * @param row 藏品数据
    */
   const handleViewDetails = (row: Collection) => {
-    currentId.value = row.id;
-    showDetails.value = true;
-  };
+    currentId.value = row.id
+    showDetails.value = true
+  }
 
   /**
    * 处理退回编目
    */
   const handleReturn = () => {
     if (!selections.value.length) {
-      return;
+      return
     }
     ElMessageBox.confirm('确定要将选中的藏品退回编目吗？', '系统提示', {
       type: 'warning',
@@ -405,28 +382,28 @@
         const loading = EleMessage.loading({
           message: '请求中..',
           plain: true
-        });
+        })
         returnCollections(selections.value.map((d) => Number(d.id)))
           .then((msg) => {
-            loading.close();
-            EleMessage.success(msg);
-            reload();
+            loading.close()
+            EleMessage.success(msg)
+            reload()
           })
           .catch((e) => {
-            loading.close();
-            EleMessage.error(e.message);
-          });
+            loading.close()
+            EleMessage.error(e.message)
+          })
       })
-      .catch(() => {});
-  };
+      .catch(() => {})
+  }
 
   /* ==================== 暴露方法 ==================== */
   defineExpose({
     reload: (where?: CollectionQueryParams) => {
-      tableRef.value?.reload?.({ page: 1, where });
+      tableRef.value?.reload?.({ page: 1, where })
     },
     selections
-  });
+  })
 </script>
 
 <style lang="scss" scoped></style>
