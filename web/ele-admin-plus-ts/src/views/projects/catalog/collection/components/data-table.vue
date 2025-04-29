@@ -15,75 +15,14 @@
     :export-config="exportConfig"
   >
     <template #toolbar>
-      <el-button
-        type="primary"
-        class="ele-btn-icon"
-        :icon="PlusOutlined"
-        @click="handleRegister"
-      >
-        藏品登记
-      </el-button>
-      <el-button
-        type="default"
-        class="ele-btn-icon"
-        :icon="PlusOutlined"
-        @click="handleBind"
-        :disabled="!selections.length"
-      >
-        绑定RFID
-      </el-button>
-      <el-button
-        type="default"
-        class="ele-btn-icon"
-        :icon="EditOutlined"
-        @click="handleBatchModify"
-        :disabled="!selections.length"
-      >
-        批量修改分类
-      </el-button>
-      <el-button
-        type="success"
-        class="ele-btn-icon"
-        :icon="CheckOutlined"
-        @click="handleApprove"
-        :disabled="!selections.length"
-      >
-        审核通过
-      </el-button>
-      <el-button
-        type="danger"
-        class="ele-btn-icon"
-        :icon="DeleteOutlined"
-        @click="remove"
-        :disabled="!selections.length"
-      >
-        删除藏品
-      </el-button>
-      <el-button
-        type="success"
-        class="ele-btn-icon"
-        :icon="UploadOutlined"
-        @click="handleImport"
-      >
-        导入
-      </el-button>
-      <el-button
-        type="success"
-        class="ele-btn-icon"
-        :icon="DownloadOutlined"
-        @click="handleExport"
-      >
-        导出
-      </el-button>
-      <el-button
-        type="default"
-        class="ele-btn-icon"
-        :icon="PrinterOutlined"
-        @click="handlePrint"
-        :disabled="!selections.length"
-      >
-        标签打印
-      </el-button>
+      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleRegister"> 藏品登记 </el-button>
+      <el-button type="default" class="ele-btn-icon" :icon="PlusOutlined" @click="handleBind" :disabled="!selections.length"> 绑定RFID </el-button>
+      <el-button type="default" class="ele-btn-icon" :icon="EditOutlined" @click="handleBatchModify" :disabled="!selections.length"> 批量修改分类 </el-button>
+      <el-button type="success" class="ele-btn-icon" :icon="CheckOutlined" @click="handleApprove" :disabled="!selections.length"> 审核通过 </el-button>
+      <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove" :disabled="!selections.length"> 删除藏品 </el-button>
+      <el-button type="success" class="ele-btn-icon" :icon="UploadOutlined" @click="handleImport"> 导入 </el-button>
+      <el-button type="success" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport"> 导出 </el-button>
+      <el-button type="default" class="ele-btn-icon" :icon="PrinterOutlined" @click="handlePrint" :disabled="!selections.length"> 标签打印 </el-button>
     </template>
     <template #collectionStatus="{ row }">
       <el-tag :type="getStatusType(row.collectionStatus)" effect="light">
@@ -93,26 +32,13 @@
     <template #action="{ row }">
       <el-space :size="4">
         <el-button type="primary" @click="openEdit(row)">编辑</el-button>
-        <el-button type="success" @click="() => handleSingleBind(row)">
-          绑定
-        </el-button>
-        <el-button type="info" @click="handleViewDetails(row)">
-          查看详情
-        </el-button>
-        <el-button type="warning" @click="handlePrintLabel(row)">
-          铭牌打印
-        </el-button>
+        <el-button type="success" @click="() => handleSingleBind(row)"> 绑定 </el-button>
+        <el-button type="info" @click="handleViewDetails(row)"> 查看详情 </el-button>
+        <el-button type="warning" @click="handlePrintLabel(row)"> 铭牌打印 </el-button>
       </el-space>
     </template>
     <template #imageInfo="{ row }">
-      <el-image
-        v-if="row.imageInfo"
-        :src="row.imageInfo"
-        :preview-src-list="[row.imageInfo]"
-        fit="cover"
-        class="w-20 h-20"
-        :title="row.collectionName || '藏品图片'"
-      />
+      <el-image v-if="row.imageInfo" :src="row.imageInfo" :preview-src-list="[row.imageInfo]" fit="cover" class="w-20 h-20" :title="row.collectionName || '藏品图片'" />
       <el-empty v-else description="暂无图片" :image-size="40" />
     </template>
   </ele-pro-table>
@@ -121,26 +47,13 @@
   <form-edit v-model="showEdit" :data="current" @done="reload" />
 
   <!-- 批量修改分类弹窗 -->
-  <update-category
-    v-model="showUpdateCategory"
-    :collection-ids="selectedCollectionIds"
-    @done="reload"
-  />
+  <update-category v-model="showUpdateCategory" :collection-ids="selectedCollectionIds" @done="reload" />
 
   <!-- RFID绑定弹窗 -->
-  <bind-rfid
-    v-model="showBindRfid"
-    :collection-ids="selectedCollectionIds"
-    :is-batch="isBatchBind"
-    @done="reload"
-  />
+  <bind-rfid v-model="showBindRfid" :collection-ids="selectedCollectionIds" :is-batch="isBatchBind" @done="reload" />
 
   <!-- 藏品详情弹窗 -->
-  <collection-details
-    v-model="showDetails"
-    :id="currentDetailsId"
-    @done="reload"
-  />
+  <collection-details v-model="showDetails" :id="currentDetailsId" @done="reload" />
 
   <!-- 标签打印弹窗 -->
   <print-label v-model="showPrintLabel" :data="selections" />
@@ -150,81 +63,60 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch, computed, reactive } from 'vue';
-  import { ElMessageBox } from 'element-plus/es';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type { EleProTable } from 'ele-admin-plus';
-  import type {
-    DatasourceFunction,
-    Columns,
-    ExportConfig
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import {
-    PlusOutlined,
-    DeleteOutlined,
-    EditOutlined,
-    CheckOutlined,
-    UploadOutlined,
-    DownloadOutlined,
-    PrinterOutlined
-  } from '@/components/icons';
-  import SearchForm from './search-form.vue';
-  import FormEdit from './form-edit.vue';
-  import UpdateCategory from './update-category.vue';
-  import BindRfid from './bind-rfid.vue';
-  import CollectionDetails from './collection-details.vue';
-  import PrintLabel from './print-label.vue';
-  import CollectionNameplate from './collection-nameplate.vue';
-  import {
-    getCatalogs,
-    deleteCollections,
-    approve
-  } from '@/api/collection/catalog';
-  import type {
-    Collection,
-    CollectionQueryParams
-  } from '@/api/collection/catalog/model';
-  import { getExportWorkbook } from '@/config/use-global-config';
-  import { download } from '@/utils/common';
-  import request from '@/utils/request';
+  import { ref, watch, computed, reactive } from 'vue'
+  import { ElMessageBox } from 'element-plus/es'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Columns, ExportConfig } from 'ele-admin-plus/es/ele-pro-table/types'
+  import { PlusOutlined, DeleteOutlined, EditOutlined, CheckOutlined, UploadOutlined, DownloadOutlined, PrinterOutlined } from '@/components/icons'
+  import SearchForm from './search-form.vue'
+  import FormEdit from './form-edit.vue'
+  import UpdateCategory from './update-category.vue'
+  import BindRfid from './bind-rfid.vue'
+  import CollectionDetails from './collection-details.vue'
+  import PrintLabel from './print-label.vue'
+  import CollectionNameplate from './collection-nameplate.vue'
+  import { getCatalogs, deleteCollections, approve } from '@/api/collection/catalog'
+  import type { Collection, CollectionQueryParams } from '@/api/collection/catalog/model'
+  import { getExportWorkbook } from '@/config/use-global-config'
+  import { download } from '@/utils/common'
+  import request from '@/utils/request'
 
   /* Props 定义 */
   const props = defineProps<{
     /** 分类 id */
-    categoryId?: number;
-  }>();
+    categoryId?: number
+  }>()
 
   /* 组件引用 */
-  const searchRef = ref<InstanceType<typeof SearchForm> | null>(null);
-  const tableRef = ref<
-    InstanceType<typeof EleProTable> & { export: () => void }
-  >();
+  const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
+  const tableRef = ref<InstanceType<typeof EleProTable> & { export: () => void }>()
 
   /* 状态管理 */
-  const selections = ref<Collection[]>([]);
-  const current = ref<Collection | undefined>(undefined);
-  const showEdit = ref(false);
-  const showUpdateCategory = ref(false);
-  const showBindRfid = ref(false);
-  const isBatchBind = ref(false);
-  const showDetails = ref(false);
-  const currentDetailsId = ref<number>();
-  const showPrintLabel = ref(false);
-  const showNameplate = ref(false);
-  const currentNameplateId = ref<number>();
+  const selections = ref<Collection[]>([])
+  const current = ref<Collection | undefined>(undefined)
+  const showEdit = ref(false)
+  const showUpdateCategory = ref(false)
+  const showBindRfid = ref(false)
+  const isBatchBind = ref(false)
+  const showDetails = ref(false)
+  const currentDetailsId = ref<number>()
+  const showPrintLabel = ref(false)
+  const showNameplate = ref(false)
+  const currentNameplateId = ref<number>()
 
   /* 计算属性 */
   const selectedCollectionIds = computed(() =>
     selections.value
       .map((item) => {
-        const id = item.id;
+        const id = item.id
         if (id === undefined) {
-          return undefined;
+          return undefined
         }
-        return typeof id === 'string' ? Number(id) : id;
+        return typeof id === 'string' ? Number(id) : id
       })
       .filter((id) => id !== undefined)
-  );
+  )
 
   /* 表格配置 */
   const columns = ref<Columns>([
@@ -568,7 +460,7 @@
       hideInExport: true,
       fixed: 'right'
     }
-  ]);
+  ])
 
   /* 数据源 */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
@@ -577,100 +469,93 @@
       ...orders,
       ...pages,
       categoryId: props.categoryId
-    });
-  };
+    })
+  }
 
   /* 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = ({ where, orders, filters }) => {
-    return getCatalogs({ ...where, ...orders, ...filters });
-  };
+    return getCatalogs({ ...where, ...orders, ...filters })
+  }
 
   /* 导出配置 */
   const exportConfig = reactive<ExportConfig>({
     fileName: '藏品数据',
     datasource: exportSource,
     beforeExport: (params) => {
-      const { fileName, closeModal, bodyCols, bodyData, headerData } = params;
-      const workbook = getExportWorkbook(params);
-      const sheet = workbook.getWorksheet('Sheet1');
+      const { fileName, closeModal, bodyCols, bodyData, headerData } = params
+      const workbook = getExportWorkbook(params)
+      const sheet = workbook.getWorksheet('Sheet1')
 
       const getBuffer = async () => {
         // 添加图片列图片
-        const imageColIndex = bodyCols.findIndex(
-          (c) => c.dataKey === 'imageInfo'
-        );
+        const imageColIndex = bodyCols.findIndex((c) => c.dataKey === 'imageInfo')
         if (sheet != null && imageColIndex !== -1) {
           const imageBuffers = await Promise.all(
             bodyData.map(async (row) => {
-              const url = row[imageColIndex].text as string | undefined;
+              const url = row[imageColIndex].text as string | undefined
               if (!url) {
-                return;
+                return
               }
-              const res = await request({ url, responseType: 'arraybuffer' });
-              return res.data;
+              const res = await request({ url, responseType: 'arraybuffer' })
+              return res.data
             })
-          );
+          )
           imageBuffers.forEach((buffer, index) => {
-            const rowIndex = index + headerData.length;
+            const rowIndex = index + headerData.length
             if (buffer != null) {
-              const imgId = workbook.addImage({ buffer, extension: 'png' });
+              const imgId = workbook.addImage({ buffer, extension: 'png' })
               sheet.addImage(imgId, {
                 tl: { col: imageColIndex + 0.4, row: rowIndex + 0.2 },
                 ext: { width: 48, height: 48 }
-              });
-              sheet.getCell(rowIndex + 1, imageColIndex + 1).value = '';
+              })
+              sheet.getCell(rowIndex + 1, imageColIndex + 1).value = ''
             }
-            sheet.getRow(rowIndex + 1).height = 42;
-            sheet.getColumn(imageColIndex + 1).width = 8;
-          });
+            sheet.getRow(rowIndex + 1).height = 42
+            sheet.getColumn(imageColIndex + 1).width = 8
+          })
         }
         // 输出workbook
-        const data = await workbook.xlsx.writeBuffer();
-        return data;
-      };
+        const data = await workbook.xlsx.writeBuffer()
+        return data
+      }
 
       getBuffer().then((data) => {
-        download(data, `${fileName}.xlsx`);
-        closeModal();
-      });
-      return false;
+        download(data, `${fileName}.xlsx`)
+        closeModal()
+      })
+      return false
     }
-  });
+  })
 
   /* 工具函数 */
   const getStatusType = (status: string) => {
     switch (status) {
       case '待审核':
-        return 'warning';
+        return 'warning'
       case '已审核':
-        return 'success';
+        return 'success'
       case '已退回':
-        return 'danger';
+        return 'danger'
       default:
-        return 'info';
+        return 'info'
     }
-  };
+  }
 
   /* 表格操作 */
   const reload = (where?: CollectionQueryParams) => {
-    tableRef.value?.reload?.({ page: 1, where });
-  };
+    tableRef.value?.reload?.({ page: 1, where })
+  }
 
   const openEdit = (row: Collection) => {
-    current.value = row;
-    showEdit.value = true;
-  };
+    current.value = row
+    showEdit.value = true
+  }
 
   const remove = () => {
-    const rows =
-      selections.value.length > 0
-        ? selections.value
-        : current.value
-          ? [current.value]
-          : [];
+    const rows = selections.value.length > 0 ? selections.value : current.value ? [current.value] : []
     if (!rows.length) {
-      EleMessage.error('请至少选择一条数据');
-      return;
+      EleMessage.error('请至少选择一条数据')
+      return
     }
     ElMessageBox.confirm('确定要删除选中的藏品吗？', '系统提示', {
       type: 'warning',
@@ -680,54 +565,54 @@
         const loading = EleMessage.loading({
           message: '请求中..',
           plain: true
-        });
+        })
         deleteCollections(rows.map((d) => Number(d.id)))
           .then((msg) => {
-            loading.close();
-            EleMessage.success(msg);
-            reload();
+            loading.close()
+            EleMessage.success(msg)
+            reload()
           })
           .catch((e) => {
-            loading.close();
-            EleMessage.error(e.message);
-          });
+            loading.close()
+            EleMessage.error(e.message)
+          })
       })
-      .catch(() => {});
-  };
+      .catch(() => {})
+  }
 
   /* 业务处理函数 */
   const handleRegister = () => {
-    current.value = undefined;
-    showEdit.value = true;
-  };
+    current.value = undefined
+    showEdit.value = true
+  }
 
   const handleBind = (_evt: MouseEvent) => {
     if (!selections.value.length) {
-      EleMessage.error('请至少选择一条数据');
-      return;
+      EleMessage.error('请至少选择一条数据')
+      return
     }
-    isBatchBind.value = true;
-    showBindRfid.value = true;
-  };
+    isBatchBind.value = true
+    showBindRfid.value = true
+  }
 
   const handleSingleBind = (row: Collection) => {
-    isBatchBind.value = false;
-    selections.value = [row];
-    showBindRfid.value = true;
-  };
+    isBatchBind.value = false
+    selections.value = [row]
+    showBindRfid.value = true
+  }
 
   const handleBatchModify = () => {
     if (!selections.value.length) {
-      EleMessage.error('请至少选择一条数据');
-      return;
+      EleMessage.error('请至少选择一条数据')
+      return
     }
-    showUpdateCategory.value = true;
-  };
+    showUpdateCategory.value = true
+  }
 
   const handleApprove = () => {
     if (!selections.value.length) {
-      EleMessage.error('请至少选择一条数据');
-      return;
+      EleMessage.error('请至少选择一条数据')
+      return
     }
     ElMessageBox.confirm('确定要通过选中的藏品审核吗？', '系统提示', {
       type: 'warning',
@@ -737,54 +622,54 @@
         const loading = EleMessage.loading({
           message: '请求中..',
           plain: true
-        });
+        })
         approve(selections.value.map((d) => Number(d.id)))
           .then((msg) => {
-            loading.close();
-            EleMessage.success(msg);
-            reload();
+            loading.close()
+            EleMessage.success(msg)
+            reload()
           })
           .catch((e) => {
-            loading.close();
-            EleMessage.error(e.message);
-          });
+            loading.close()
+            EleMessage.error(e.message)
+          })
       })
-      .catch(() => {});
-  };
+      .catch(() => {})
+  }
 
   const handleImport = () => {
     // TODO: Implement import functionality
-    console.log('Import collections');
-  };
+    console.log('Import collections')
+  }
 
   const handleExport = () => {
-    tableRef.value?.openExportModal?.();
-  };
+    tableRef.value?.openExportModal?.()
+  }
 
   const handlePrint = () => {
     if (!selections.value.length) {
-      EleMessage.error('请至少选择一条数据');
-      return;
+      EleMessage.error('请至少选择一条数据')
+      return
     }
-    showPrintLabel.value = true;
-  };
+    showPrintLabel.value = true
+  }
 
   const handleViewDetails = (row: Collection) => {
-    currentDetailsId.value = row.id;
-    showDetails.value = true;
-  };
+    currentDetailsId.value = row.id
+    showDetails.value = true
+  }
 
   const handlePrintLabel = (row: Collection) => {
-    currentNameplateId.value = row.id;
-    showNameplate.value = true;
-  };
+    currentNameplateId.value = row.id
+    showNameplate.value = true
+  }
 
   /* 监听器 */
   watch(
     () => props.categoryId,
     () => {
-      searchRef.value?.resetFields?.();
-      reload({});
+      searchRef.value?.resetFields?.()
+      reload({})
     }
-  );
+  )
 </script>

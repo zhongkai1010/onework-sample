@@ -3,7 +3,9 @@
     <el-button type="primary" :icon="Search" circle class="reference-button" @click="open = true" />
     <el-drawer v-model="open" title="页面内容" direction="rtl" size="50%" :destroy-on-close="true">
       <el-descriptions title="页面内容" :column="1" size="large" :border="true" :label-width="200">
-        <el-descriptions-item label="页面图片"> <img src="../page.png" style="width: 100%" /></el-descriptions-item>
+        <el-descriptions-item label="页面图片">
+          <img :src="pageImage" style="width: 100%; cursor: pointer" @click="openPreview" />
+        </el-descriptions-item>
         <el-descriptions-item label="搜索条件"> 藏品编号 请输入藏品编号 藏品名称 </el-descriptions-item>
         <el-descriptions-item label="操作栏"> 退回编目 </el-descriptions-item>
         <el-descriptions-item label="表格字段" :span="24"
@@ -13,14 +15,25 @@
         <el-descriptions-item label="表格操作"> 查看详情 </el-descriptions-item>
       </el-descriptions>
     </el-drawer>
+    <ele-image-viewer v-model="showImageViewer" :urlList="viewerImages" :initialIndex="viewerIndex" :infinite="false" />
   </div>
 </template>
 
 <script setup lang="ts">
   import { ref } from 'vue'
   import { Search } from '@element-plus/icons-vue'
+  import pageImage from '../page.png'
 
   const open = ref(false)
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
+
+  const openPreview = () => {
+    viewerImages.value = [pageImage]
+    viewerIndex.value = 0
+    showImageViewer.value = true
+  }
 </script>
 
 <style lang="scss" scoped>

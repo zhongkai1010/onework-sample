@@ -1,51 +1,26 @@
 <!-- 藏品铭牌打印 -->
 <template>
-  <ele-modal
-    v-model="visible"
-    title="铭牌打印"
-    position="center"
-    :width="'auto'"
-    :min-width="400"
-    class="nameplate-modal"
-  >
+  <ele-modal v-model="visible" title="铭牌打印" position="center" :width="'auto'" :min-width="400" class="nameplate-modal">
     <div class="print-content">
       <div class="nameplate-grid">
         <div class="nameplate-item">
           <div class="nameplate-header">
             <div class="museum-name">{{ museumName }}</div>
-            <div class="collection-code"
-              >编号：{{ nameplateData[0]?.collectionCode }}</div
-            >
+            <div class="collection-code">编号：{{ nameplateData[0]?.collectionCode }}</div>
           </div>
           <div class="nameplate-body">
-            <div class="collection-name">{{
-              nameplateData[0]?.collectionName
-            }}</div>
+            <div class="collection-name">{{ nameplateData[0]?.collectionName }}</div>
             <div class="collection-info">
-              <div v-if="nameplateData[0]?.categoryName"
-                >类别：{{ nameplateData[0]?.categoryName }}</div
-              >
-              <div v-if="nameplateData[0]?.era"
-                >年代：{{ nameplateData[0]?.era }}</div
-              >
-              <div v-if="nameplateData[0]?.region"
-                >地域：{{ nameplateData[0]?.region }}</div
-              >
-              <div v-if="nameplateData[0]?.material"
-                >质地：{{ nameplateData[0]?.material }}</div
-              >
-              <div v-if="nameplateData[0]?.warehouseName"
-                >存放位置：{{ nameplateData[0]?.warehouseName }}</div
-              >
+              <div v-if="nameplateData[0]?.categoryName">类别：{{ nameplateData[0]?.categoryName }}</div>
+              <div v-if="nameplateData[0]?.era">年代：{{ nameplateData[0]?.era }}</div>
+              <div v-if="nameplateData[0]?.region">地域：{{ nameplateData[0]?.region }}</div>
+              <div v-if="nameplateData[0]?.material">质地：{{ nameplateData[0]?.material }}</div>
+              <div v-if="nameplateData[0]?.warehouseName">存放位置：{{ nameplateData[0]?.warehouseName }}</div>
             </div>
           </div>
           <div class="nameplate-footer">
             <div class="barcode">
-              <ele-bar-code
-                :value="nameplateData[0]?.collectionCode"
-                :display-value="false"
-                :options="{ height: 40 }"
-              />
+              <ele-bar-code :value="nameplateData[0]?.collectionCode" :display-value="false" :options="{ height: 40 }" />
             </div>
           </div>
         </div>
@@ -61,39 +36,21 @@
           <div class="nameplate-item">
             <div class="nameplate-header">
               <div class="museum-name">{{ museumName }}</div>
-              <div class="collection-code"
-                >编号：{{ nameplateData[0]?.collectionCode }}</div
-              >
+              <div class="collection-code">编号：{{ nameplateData[0]?.collectionCode }}</div>
             </div>
             <div class="nameplate-body">
-              <div class="collection-name">{{
-                nameplateData[0]?.collectionName
-              }}</div>
+              <div class="collection-name">{{ nameplateData[0]?.collectionName }}</div>
               <div class="collection-info">
-                <div v-if="nameplateData[0]?.categoryName"
-                  >类别：{{ nameplateData[0]?.categoryName }}</div
-                >
-                <div v-if="nameplateData[0]?.era"
-                  >年代：{{ nameplateData[0]?.era }}</div
-                >
-                <div v-if="nameplateData[0]?.region"
-                  >地域：{{ nameplateData[0]?.region }}</div
-                >
-                <div v-if="nameplateData[0]?.material"
-                  >质地：{{ nameplateData[0]?.material }}</div
-                >
-                <div v-if="nameplateData[0]?.warehouseName"
-                  >存放位置：{{ nameplateData[0]?.warehouseName }}</div
-                >
+                <div v-if="nameplateData[0]?.categoryName">类别：{{ nameplateData[0]?.categoryName }}</div>
+                <div v-if="nameplateData[0]?.era">年代：{{ nameplateData[0]?.era }}</div>
+                <div v-if="nameplateData[0]?.region">地域：{{ nameplateData[0]?.region }}</div>
+                <div v-if="nameplateData[0]?.material">质地：{{ nameplateData[0]?.material }}</div>
+                <div v-if="nameplateData[0]?.warehouseName">存放位置：{{ nameplateData[0]?.warehouseName }}</div>
               </div>
             </div>
             <div class="nameplate-footer">
               <div class="barcode">
-                <ele-bar-code
-                  :value="nameplateData[0]?.collectionCode"
-                  :display-value="false"
-                  :options="{ height: 40 }"
-                />
+                <ele-bar-code :value="nameplateData[0]?.collectionCode" :display-value="false" :options="{ height: 40 }" />
               </div>
             </div>
           </div>
@@ -104,59 +61,59 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
-  import { EleBarCode } from 'ele-admin-plus/es';
-  import type { Collection } from '@/api/collection/catalog/model';
-  import { getDetails } from '@/api/collection/catalog';
+  import { ref, watch } from 'vue'
+  import { EleBarCode } from 'ele-admin-plus/es'
+  import type { Collection } from '@/api/collection/catalog/model'
+  import { getDetails } from '@/api/collection/catalog'
 
   const props = defineProps<{
     /** 藏品ID */
-    id?: number;
-  }>();
+    id?: number
+  }>()
 
   /** 弹窗是否打开 */
-  const visible = defineModel<boolean>({ type: Boolean });
+  const visible = defineModel<boolean>({ type: Boolean })
 
   /** 打印状态 */
-  const printing = ref(false);
+  const printing = ref(false)
 
   /** 博物馆名称 */
-  const museumName = '博物馆名称';
+  const museumName = '博物馆名称'
 
   /** 铭牌数据 */
-  const nameplateData = ref<Collection[]>([]);
+  const nameplateData = ref<Collection[]>([])
 
   /** 关闭弹窗 */
   const handleClose = () => {
-    visible.value = false;
-  };
+    visible.value = false
+  }
 
   /** 打印铭牌 */
   const handlePrint = () => {
-    printing.value = true;
-  };
+    printing.value = true
+  }
 
   /** 获取藏品详情 */
   const getDetailsData = async () => {
-    if (!props.id) return;
+    if (!props.id) return
     try {
-      const data = await getDetails(props.id);
-      nameplateData.value = [data];
+      const data = await getDetails(props.id)
+      nameplateData.value = [data]
     } catch (e) {
-      console.error('获取藏品详情失败:', e);
+      console.error('获取藏品详情失败:', e)
     }
-  };
+  }
 
   /** 监听ID变化 */
   watch(
     () => props.id,
     () => {
       if (props.id) {
-        getDetailsData();
+        getDetailsData()
       }
     },
     { immediate: true }
-  );
+  )
 </script>
 
 <style scoped>

@@ -17,16 +17,16 @@
 
 <script lang="ts" setup>
   const props = defineProps<{
-    images: string[];
-  }>();
+    images: string[]
+  }>()
 
   const emit = defineEmits<{
-    (e: 'preview', images: string[], index: number): void;
-  }>();
+    (e: 'preview', images: string[], index: number): void
+  }>()
 
   const openPreview = (index: number) => {
-    emit('preview', props.images, index);
-  };
+    emit('preview', props.images, index)
+  }
 </script>
 
 <style lang="scss" scoped>

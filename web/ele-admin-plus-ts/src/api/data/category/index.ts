@@ -1,22 +1,17 @@
-import request from '@/utils/request';
-import type { ApiResult } from '@/api';
-import type {
-  Category,
-  CategoryEditParams,
-  DeleteCategoryParams,
-  CategoryQueryParams
-} from './model';
+import request from '@/utils/request'
+import type { ApiResult } from '@/api'
+import type { Category, CategoryEditParams, DeleteCategoryParams, CategoryQueryParams } from './model'
 
 /**
  * 新增藏品分类
  * @param data 分类信息
  */
 export async function addCategory(data: CategoryEditParams) {
-  const res = await request.post<ApiResult<unknown>>('/data/categories', data);
+  const res = await request.post<ApiResult<unknown>>('/data/categories', data)
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -26,11 +21,11 @@ export async function addCategory(data: CategoryEditParams) {
 export async function listCategories(params?: CategoryQueryParams) {
   const res = await request.get<ApiResult<Category[]>>('/data/categories', {
     params
-  });
+  })
   if (res.data.code === 0 && res.data.data) {
-    return res.data.data;
+    return res.data.data
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -40,11 +35,11 @@ export async function listCategories(params?: CategoryQueryParams) {
 export async function removeCategories(data: DeleteCategoryParams) {
   const res = await request.delete<ApiResult<unknown>>('/data/categories', {
     data
-  });
+  })
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -52,11 +47,11 @@ export async function removeCategories(data: DeleteCategoryParams) {
  * @param data 分类信息
  */
 export async function updateCategory(data: CategoryEditParams) {
-  const res = await request.put<ApiResult<unknown>>('/data/categories', data);
+  const res = await request.put<ApiResult<unknown>>('/data/categories', data)
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -64,19 +59,15 @@ export async function updateCategory(data: CategoryEditParams) {
  * @param file 文件对象
  */
 export async function importCategories(file: File) {
-  const formData = new FormData();
-  formData.append('file', file);
-  const res = await request.post<ApiResult<unknown>>(
-    '/data/categories/import',
-    formData,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+  const formData = new FormData()
+  formData.append('file', file)
+  const res = await request.post<ApiResult<unknown>>('/data/categories/import', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
     }
-  );
+  })
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }

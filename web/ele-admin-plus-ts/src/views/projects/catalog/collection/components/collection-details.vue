@@ -1,13 +1,6 @@
 <!-- 藏品详情弹窗 -->
 <template>
-  <ele-modal
-    :width="'900px'"
-    v-model="visible"
-    title="藏品详情"
-    position="center"
-    @open="handleOpen"
-    class="details-modal"
-  >
+  <ele-modal :width="'900px'" v-model="visible" title="藏品详情" position="center" @open="handleOpen" class="details-modal">
     <div class="details-content">
       <el-descriptions v-if="data" :column="2" border>
         <!-- 基本信息 -->
@@ -37,13 +30,7 @@
 
         <!-- 图片信息 -->
         <el-descriptions-item label="图片信息" :span="2">
-          <el-image
-            v-if="data.imageInfo"
-            :src="data.imageInfo"
-            :preview-src-list="[data.imageInfo]"
-            fit="cover"
-            class="w-40 h-40"
-          />
+          <el-image v-if="data.imageInfo" :src="data.imageInfo" :preview-src-list="[data.imageInfo]" fit="cover" class="w-40 h-40" />
           <el-empty v-else description="暂无图片" :image-size="40" />
         </el-descriptions-item>
 
@@ -191,58 +178,58 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import { getDetails } from '@/api/collection/catalog';
-  import type { Collection } from '@/api/collection/catalog/model';
+  import { ref } from 'vue'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import { getDetails } from '@/api/collection/catalog'
+  import type { Collection } from '@/api/collection/catalog/model'
 
   const props = defineProps<{
     /** 藏品ID */
-    id?: number;
-  }>();
+    id?: number
+  }>()
 
   /** 弹窗是否打开 */
-  const visible = defineModel({ type: Boolean });
+  const visible = defineModel({ type: Boolean })
 
   /** 藏品详情数据 */
-  const data = ref<Collection>();
+  const data = ref<Collection>()
 
   /** 获取状态类型对应的标签类型 */
   const getStatusType = (status: string) => {
     switch (status) {
       case '待审核':
-        return 'warning';
+        return 'warning'
       case '已审核':
-        return 'success';
+        return 'success'
       case '已退回':
-        return 'danger';
+        return 'danger'
       default:
-        return 'info';
+        return 'info'
     }
-  };
+  }
 
   /** 弹窗打开事件 */
   const handleOpen = async () => {
     if (!props.id) {
-      EleMessage.error('藏品ID不能为空');
-      handleClose();
-      return;
+      EleMessage.error('藏品ID不能为空')
+      handleClose()
+      return
     }
     try {
-      data.value = await getDetails(props.id);
+      data.value = await getDetails(props.id)
     } catch (e: any) {
       if (e.message) {
-        EleMessage.error(e.message);
+        EleMessage.error(e.message)
       }
-      handleClose();
+      handleClose()
     }
-  };
+  }
 
   /** 关闭弹窗 */
   const handleClose = () => {
-    visible.value = false;
-    data.value = undefined;
-  };
+    visible.value = false
+    data.value = undefined
+  }
 </script>
 
 <style scoped>

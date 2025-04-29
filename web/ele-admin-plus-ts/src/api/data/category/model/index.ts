@@ -3,17 +3,17 @@
  */
 export interface Category {
   /** 分类ID */
-  id: number;
+  id: number
   /** 分类名称 */
-  name: string;
+  name: string
   /** 上级分类 */
-  parentId?: number;
+  parentId?: number
   /** 分类码 */
-  code: string;
+  code: string
   /** 描述 */
-  description: string;
+  description: string
   /** 子级 */
-  children?: Category[];
+  children?: Category[]
 }
 
 /**
@@ -21,7 +21,7 @@ export interface Category {
  */
 export interface CategoryEditParams extends Omit<Category, 'id' | 'children'> {
   /** 分类ID */
-  id?: number;
+  id?: number
 }
 
 /**
@@ -29,11 +29,10 @@ export interface CategoryEditParams extends Omit<Category, 'id' | 'children'> {
  */
 export interface DeleteCategoryParams {
   /** 分类ID集合 */
-  ids: number[];
+  ids: number[]
 }
 
 /**
  * 查询藏品分类参数
  */
-export interface CategoryQueryParams
-  extends Partial<Omit<Category, 'id' | 'children'>> {}
+export interface CategoryQueryParams extends Partial<Omit<Category, 'id' | 'children'>> {}

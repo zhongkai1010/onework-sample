@@ -3,17 +3,9 @@
   <ele-modal v-model="visible" title="打印标签" position="center">
     <div class="print-content">
       <div class="label-grid">
-        <div
-          v-for="(item, index) in props.data"
-          :key="index"
-          class="label-item"
-        >
+        <div v-for="(item, index) in props.data" :key="index" class="label-item">
           <div class="label-barcode">
-            <ele-bar-code
-              :value="item.collectionCode"
-              :display-value="false"
-              :options="{ height: 60 }"
-            />
+            <ele-bar-code :value="item.collectionCode" :display-value="false" :options="{ height: 60 }" />
           </div>
           <div class="label-name">{{ item.collectionName }}</div>
         </div>
@@ -26,17 +18,9 @@
     <ele-printer v-model="printing" target="_iframe">
       <div class="print-page">
         <div class="label-grid">
-          <div
-            v-for="(item, index) in props.data"
-            :key="index"
-            class="label-item"
-          >
+          <div v-for="(item, index) in props.data" :key="index" class="label-item">
             <div class="label-barcode">
-              <ele-bar-code
-                :value="item.collectionCode"
-                :display-value="false"
-                :options="{ height: 60 }"
-              />
+              <ele-bar-code :value="item.collectionCode" :display-value="false" :options="{ height: 60 }" />
             </div>
             <div class="label-name">{{ item.collectionName }}</div>
           </div>
@@ -47,28 +31,28 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { EleBarCode } from 'ele-admin-plus/es';
-  import type { Collection } from '@/api/collection/catalog/model';
+  import { ref } from 'vue'
+  import { EleBarCode } from 'ele-admin-plus/es'
+  import type { Collection } from '@/api/collection/catalog/model'
 
-  const printing = ref(false);
+  const printing = ref(false)
   const props = defineProps<{
     /** 藏品数据 */
-    data: Collection[];
-  }>();
+    data: Collection[]
+  }>()
 
   /** 弹窗是否打开 */
-  const visible = defineModel<boolean>({ type: Boolean });
+  const visible = defineModel<boolean>({ type: Boolean })
 
   /** 关闭弹窗 */
   const handleClose = () => {
-    visible.value = false;
-  };
+    visible.value = false
+  }
 
   /** 打印标签 */
   const handlePrint = () => {
-    printing.value = true;
-  };
+    printing.value = true
+  }
 </script>
 
 <style scoped>

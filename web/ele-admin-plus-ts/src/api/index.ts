@@ -3,11 +3,11 @@
  */
 export interface ApiResult<T> {
   /** 状态码 */
-  code: number;
+  code: number
   /** 状态信息 */
-  message?: string;
+  message?: string
   /** 返回数据 */
-  data?: T;
+  data?: T
 }
 
 /**
@@ -15,9 +15,9 @@ export interface ApiResult<T> {
  */
 export interface PageResult<T> {
   /** 返回数据 */
-  list: T[];
+  list: T[]
   /** 总数量 */
-  count: number;
+  count: number
 }
 
 /**
@@ -25,11 +25,11 @@ export interface PageResult<T> {
  */
 export interface PageParam {
   /** 第几页 */
-  page?: number;
+  page?: number
   /** 每页多少条 */
-  limit?: number;
+  limit?: number
   /** 排序字段 */
-  sort?: string;
+  sort?: string
   /** 排序方式, asc升序, desc降序 */
-  order?: string;
+  order?: string
 }

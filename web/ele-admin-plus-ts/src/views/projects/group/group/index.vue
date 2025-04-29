@@ -1,60 +1,243 @@
 <template>
-  <div class="group-container">
-    <el-card>
-      <template #header>
-        <div class="card-header">
-          <span>藏品组管理</span>
-          <reference-button />
-        </div>
-      </template>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="name" label="名称" />
-        <el-table-column prop="description" label="描述" />
-        <el-table-column prop="createTime" label="创建时间" />
-        <el-table-column label="操作" width="200">
-          <template #default="scope">
-            <el-button type="primary" link @click="handleEdit(scope.row)"
-              >编辑</el-button
-            >
-            <el-button type="danger" link @click="handleDelete(scope.row)"
-              >删除</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-card>
-  </div>
+  <ele-page hideFooter flex-table>
+    <ele-card flex-table>
+      <!-- 搜索表单 -->
+      <search-form ref="searchRef" @search="reload" />
+
+      <!-- 数据表格 -->
+      <ele-pro-table
+        ref="tableRef"
+        row-key="id"
+        :columns="columns"
+        :datasource="datasource"
+        :show-overflow-tooltip="true"
+        v-model:selections="selections"
+        :highlight-current-row="true"
+        :style="{ paddingBottom: '16px' }"
+        cache-key="groupTable"
+        :tools="['reload', 'size', 'columns', 'maximized']"
+        :stripe="true"
+      >
+        <!-- 工具栏按钮 -->
+        <template #toolbar>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd">新增</el-button>
+          <el-button type="success" class="ele-btn-icon" :icon="CheckOutlined" @click="handleAudit" :disabled="!selections.length">审核</el-button>
+        </template>
+
+        <!-- 操作列 -->
+        <template #action="{ row }">
+          <el-space :size="4">
+            <el-button type="primary" @click="handleEdit(row)">编辑</el-button>
+            <el-button type="danger" @click="handleDelete(row)">删除</el-button>
+          </el-space>
+        </template>
+
+        <!-- 状态列 -->
+        <template #status="{ row }">
+          <el-tag :type="row.status === 1 ? 'success' : 'warning'" effect="light">
+            {{ row.status === 1 ? '已审核' : '未审核' }}
+          </el-tag>
+        </template>
+      </ele-pro-table>
+
+      <!-- 新增/编辑弹窗 -->
+      <form-edit v-model="showForm" :id="currentId" @done="reload" />
+    </ele-card>
+
+    <!-- 参考按钮 -->
+    <reference-button />
+  </ele-page>
 </template>
 
-<script lang="ts" setup>
-  import { ref } from 'vue';
-  import ReferenceButton from './reference-button.vue';
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { ElMessageBox } from 'element-plus/es'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import { PlusOutlined, CheckOutlined } from '@/components/icons'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type { Group, GroupQueryParams } from '@/api/data/group/model'
+  import { getGroupPage, removeGroups, approveGroups } from '@/api/data/group'
+  import SearchForm from './components/search-form.vue'
+  import FormEdit from './components/form-edit.vue'
+  import ReferenceButton from './components/reference-button.vue'
 
-  const tableData = ref([
+  /* ==================== 组件引用 ==================== */
+  const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
+  const tableRef = ref<InstanceType<typeof EleProTable>>()
+
+  /* ==================== 状态管理 ==================== */
+  const currentId = ref<number>() // 当前编辑的藏品组ID
+  const showForm = ref(false) // 是否显示表单弹窗
+  const selections = ref<Group[]>([]) // 表格选中的行
+
+  /* ==================== 表格配置 ==================== */
+  const columns = ref<Columns>([
     {
-      name: '示例藏品组',
-      description: '这是一个示例藏品组',
-      createTime: '2024-01-01 12:00:00'
+      type: 'selection',
+      columnKey: 'selection',
+      width: 50,
+      align: 'center',
+      fixed: 'left'
+    },
+    {
+      type: 'index',
+      columnKey: 'index',
+      width: 50,
+      align: 'center',
+      fixed: 'left'
+    },
+    {
+      prop: 'groupName',
+      label: '藏品组名称',
+      sortable: 'custom',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'personInCharge',
+      label: '负责人',
+      sortable: 'custom',
+      width: 120,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'remarks',
+      label: '备注说明',
+      sortable: 'custom',
+      width: 200,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'sortOrder',
+      label: '排序',
+      sortable: 'custom',
+      width: 80,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'status',
+      label: '状态',
+      sortable: 'custom',
+      width: 100,
+      showOverflowTooltip: true,
+      slot: 'status'
+    },
+    {
+      columnKey: 'action',
+      label: '操作',
+      width: 150,
+      align: 'center',
+      slot: 'action',
+      fixed: 'right'
     }
-  ]);
+  ])
 
-  const handleEdit = (row: any) => {
-    console.log('编辑:', row);
-  };
+  /* ==================== 数据源 ==================== */
+  const datasource: DatasourceFunction = ({ pages, where, orders }) => {
+    return getGroupPage({
+      ...where,
+      ...orders,
+      ...pages
+    })
+  }
 
-  const handleDelete = (row: any) => {
-    console.log('删除:', row);
-  };
+  /* ==================== 表格操作 ==================== */
+  /**
+   * 重新加载表格数据
+   * @param where 查询条件
+   */
+  const reload = (where?: GroupQueryParams) => {
+    tableRef.value?.reload?.({ page: 1, where })
+  }
+
+  /**
+   * 处理新增
+   */
+  const handleAdd = () => {
+    currentId.value = undefined
+    showForm.value = true
+  }
+
+  /**
+   * 处理编辑
+   * @param row 藏品组数据
+   */
+  const handleEdit = (row: Group) => {
+    currentId.value = row.id
+    showForm.value = true
+  }
+
+  /**
+   * 处理删除
+   * @param row 藏品组数据
+   */
+  const handleDelete = (row: Group) => {
+    ElMessageBox.confirm('确定要删除该藏品组吗？', '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
+      .then(() => {
+        const loading = EleMessage.loading({
+          message: '请求中..',
+          plain: true
+        })
+        removeGroups({ ids: [row.id] })
+          .then((msg) => {
+            loading.close()
+            EleMessage.success(msg)
+            reload()
+          })
+          .catch((e) => {
+            loading.close()
+            EleMessage.error(e.message)
+          })
+      })
+      .catch(() => {})
+  }
+
+  /**
+   * 处理审核
+   */
+  const handleAudit = () => {
+    if (!selections.value.length) {
+      return
+    }
+    // 筛选出未审核的选项
+    const unapprovedItems = selections.value.filter((item) => item.status === 0)
+    if (!unapprovedItems.length) {
+      EleMessage.warning('选中的藏品组都已审核')
+      return
+    }
+    ElMessageBox.confirm(`确定要审核选中的 ${unapprovedItems.length} 个未审核藏品组吗？`, '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
+      .then(() => {
+        const loading = EleMessage.loading({
+          message: '请求中..',
+          plain: true
+        })
+        approveGroups({ ids: unapprovedItems.map((item) => item.id) })
+          .then((msg) => {
+            loading.close()
+            EleMessage.success(msg)
+            reload()
+          })
+          .catch((e) => {
+            loading.close()
+            EleMessage.error(e.message)
+          })
+      })
+      .catch(() => {})
+  }
+
+  /* ==================== 暴露方法 ==================== */
+  defineExpose({
+    reload: (where?: GroupQueryParams) => {
+      tableRef.value?.reload?.({ page: 1, where })
+    },
+    selections
+  })
 </script>
 
-<style lang="scss" scoped>
-  .group-container {
-    padding: 20px;
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
-</style>
+<style lang="scss" scoped></style>
