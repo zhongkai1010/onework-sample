@@ -1,18 +1,15 @@
-import { defaultComponentData as componentData } from 'ele-admin-plus/es/ele-pro-form-builder/util';
-import {
-  codeTips,
-  vIfCodeTips
-} from 'ele-admin-plus/es/ele-pro-form-builder/components/component-data';
-import CoverDictCheckbox from './covers/cover-dict-checkbox.vue';
-import CoverDictMultipleSelect from './covers/cover-dict-multiple-select.vue';
-import CoverDictRadio from './covers/cover-dict-radio.vue';
-import CoverDictSelect from './covers/cover-dict-select.vue';
-import CoverEditor from './covers/cover-editor.vue';
-import CoverFileUpload from './covers/cover-file-upload.vue';
-import CoverIconSelect from './covers/cover-icon-select.vue';
-import CoverImageUpload from './covers/cover-image-upload.vue';
-import CoverMultipleRegions from './covers/cover-multiple-regions.vue';
-import CoverRegions from './covers/cover-regions.vue';
+import { defaultComponentData as componentData } from 'ele-admin-plus/es/ele-pro-form-builder/util'
+import { codeTips, vIfCodeTips } from 'ele-admin-plus/es/ele-pro-form-builder/components/component-data'
+import CoverDictCheckbox from './covers/cover-dict-checkbox.vue'
+import CoverDictMultipleSelect from './covers/cover-dict-multiple-select.vue'
+import CoverDictRadio from './covers/cover-dict-radio.vue'
+import CoverDictSelect from './covers/cover-dict-select.vue'
+import CoverEditor from './covers/cover-editor.vue'
+import CoverFileUpload from './covers/cover-file-upload.vue'
+import CoverIconSelect from './covers/cover-icon-select.vue'
+import CoverImageUpload from './covers/cover-image-upload.vue'
+import CoverMultipleRegions from './covers/cover-multiple-regions.vue'
+import CoverRegions from './covers/cover-regions.vue'
 
 /**
  * 自定义的组件
@@ -1646,21 +1643,19 @@ const additionalItems = [
     ],
     componentName: 'TinymceEditor'
   }
-];
+]
 
 /**
  * 表单组件库数据
  */
-export const defaultComponentData = componentData.map(
-  (groupItem, groupIndex) => {
-    const items =
-      groupIndex !== 0
-        ? groupItem.items
-        : [
-            ...groupItem.items.slice(0, groupItem.items.length - 1),
-            ...additionalItems, // 插入自定义的组件数据
-            groupItem.items[groupItem.items.length - 1]
-          ];
-    return { ...groupItem, items };
-  }
-);
+export const defaultComponentData = componentData.map((groupItem, groupIndex) => {
+  const items =
+    groupIndex !== 0
+      ? groupItem.items
+      : [
+          ...groupItem.items.slice(0, groupItem.items.length - 1),
+          ...additionalItems, // 插入自定义的组件数据
+          groupItem.items[groupItem.items.length - 1]
+        ]
+  return { ...groupItem, items }
+})

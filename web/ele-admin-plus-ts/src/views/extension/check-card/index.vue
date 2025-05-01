@@ -1,12 +1,7 @@
 <template>
   <ele-page>
     <ele-card header="基本用法">
-      <ele-check-card
-        multiple
-        v-model="checked"
-        :items="items"
-        :row="{ gutter: 12 }"
-      >
+      <ele-check-card multiple v-model="checked" :items="items" :row="{ gutter: 12 }">
         <template #item="{ item }">
           <div style="display: flex; padding: 18px 12px; height: 87px">
             <el-avatar :size="46" shape="square" :src="item?.avatar" />
@@ -21,11 +16,7 @@
       </ele-check-card>
       <div>已选中：{{ JSON.stringify(checked) }}</div>
     </ele-card>
-    <ele-card
-      header="单选模式"
-      :collapsable="true"
-      :body-style="{ padding: 0 }"
-    >
+    <ele-card header="单选模式" :collapsable="true" :body-style="{ padding: 0 }">
       <div style="padding: 20px">
         <ele-check-card v-model="checked2" :items="items" :row="{ gutter: 12 }">
           <template #item="{ item }">
@@ -43,19 +34,9 @@
         <div>已选中：{{ checked2 }}</div>
       </div>
     </ele-card>
-    <ele-card
-      header="禁用"
-      collapsable="header"
-      :header-style="{ cursor: 'pointer', userSelect: 'none' }"
-      :body-style="{ padding: 0 }"
-    >
+    <ele-card header="禁用" collapsable="header" :header-style="{ cursor: 'pointer', userSelect: 'none' }" :body-style="{ padding: 0 }">
       <div style="padding: 20px">
-        <ele-check-card
-          :items="items2"
-          v-model="checked2"
-          :disabled="disabled"
-          :row="{ gutter: 12 }"
-        >
+        <ele-check-card :items="items2" v-model="checked2" :disabled="disabled" :row="{ gutter: 12 }">
           <template #item="{ item }">
             <div style="display: flex; padding: 18px 12px; height: 87px">
               <el-avatar :size="46" shape="square" :src="item?.avatar" />
@@ -74,34 +55,15 @@
         </div>
       </div>
     </ele-card>
-    <ele-card
-      header="标签风格"
-      collapsable="header"
-      :header-style="{ cursor: 'pointer', userSelect: 'none' }"
-      :body-style="{ padding: 0 }"
-      :collapse-icon-style="{ order: -1, margin: '1px 6px 0 -10px' }"
-    >
+    <ele-card header="标签风格" collapsable="header" :header-style="{ cursor: 'pointer', userSelect: 'none' }" :body-style="{ padding: 0 }" :collapse-icon-style="{ order: -1, margin: '1px 6px 0 -10px' }">
       <div style="padding: 28px 20px">
         <div style="display: flex">
           <div style="flex-shrink: 0">个人爱好:</div>
-          <ele-check-card
-            :arrow="false"
-            :bordered="false"
-            v-model="checked3"
-            :items="items4"
-            class="check-tag"
-          />
+          <ele-check-card :arrow="false" :bordered="false" v-model="checked3" :items="items4" class="check-tag" />
         </div>
         <div style="display: flex; margin-top: 12px">
           <div style="flex-shrink: 0">多选模式:</div>
-          <ele-check-card
-            multiple
-            :arrow="false"
-            :bordered="false"
-            v-model="checked4"
-            :items="items4"
-            class="check-tag"
-          />
+          <ele-check-card multiple :arrow="false" :bordered="false" v-model="checked4" :items="items4" class="check-tag" />
         </div>
       </div>
       <template #footer>
@@ -111,12 +73,7 @@
     <ele-card header="自定义内容">
       <div style="display: flex">
         <div style="flex-shrink: 0; margin-top: 20px">支付方式:&emsp;</div>
-        <ele-check-card
-          v-model="checked5"
-          :items="items5"
-          :item-style="{ margin: '8px', padding: '8px 12px', display: 'flex' }"
-          style="display: flex; flex-wrap: wrap"
-        >
+        <ele-check-card v-model="checked5" :items="items5" :item-style="{ margin: '8px', padding: '8px 12px', display: 'flex' }" style="display: flex; flex-wrap: wrap">
           <template #item="{ item }">
             <div
               :style="{
@@ -134,17 +91,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { CheckCardItem } from 'ele-admin-plus/es/ele-check-card/types';
-  import { getDemoCardData } from '@/api/example';
+  import { ref } from 'vue'
+  import type { CheckCardItem } from 'ele-admin-plus/es/ele-check-card/types'
+  import { getDemoCardData } from '@/api/example'
 
-  defineOptions({ name: 'ExtensionCheckCard' });
+  defineOptions({ name: 'ExtensionCheckCard' })
 
   /** 卡片选中 */
-  const checked = ref([2]);
+  const checked = ref([2])
 
   /** 卡片数据 */
-  const items = ref<CheckCardItem[]>([]);
+  const items = ref<CheckCardItem[]>([])
 
   // 获取卡片数据
   getDemoCardData()
@@ -153,41 +110,36 @@
         return {
           ...d,
           col: { md: 6, sm: 12, xs: 24, style: { marginBottom: '12px' } }
-        };
-      });
+        }
+      })
       items2.value = items.value.map((d) => {
-        return { ...d, disabled: d.value === 2 };
-      });
+        return { ...d, disabled: d.value === 2 }
+      })
     })
     .catch((e) => {
-      console.error(e);
-    });
+      console.error(e)
+    })
 
   /** 单选选中 */
-  const checked2 = ref();
+  const checked2 = ref()
 
   /** 有禁用的数据 */
-  const items2 = ref<CheckCardItem[]>([]);
+  const items2 = ref<CheckCardItem[]>([])
 
   /** 整体禁用 */
-  const disabled = ref(false);
+  const disabled = ref(false)
 
   /** 标签风格单选 */
-  const checked3 = ref('看电影');
+  const checked3 = ref('看电影')
 
   /** 标签风格多选 */
-  const checked4 = ref(['看电影']);
+  const checked4 = ref(['看电影'])
 
   /** 个人爱好数据 */
-  const items4 = ref([
-    { value: '看电影' },
-    { value: '听音乐' },
-    { value: '打篮球' },
-    { value: '阅读' }
-  ]);
+  const items4 = ref([{ value: '看电影' }, { value: '听音乐' }, { value: '打篮球' }, { value: '阅读' }])
 
   /** 支付方式 */
-  const checked5 = ref();
+  const checked5 = ref()
 
   /** 支付方式数据 */
   const items5 = ref([
@@ -203,7 +155,7 @@
       value: 3,
       img: 'https://cn.unionpay.com/upowhtml/cn/resources/images/header/homepage-logo.png'
     }
-  ]);
+  ])
 </script>
 
 <style lang="scss" scoped>

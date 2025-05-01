@@ -1,10 +1,6 @@
 <template>
   <ele-card header="消息弹窗">
-    <option-item
-      label="限制在主体区域"
-      :responsive="false"
-      style="margin-bottom: 20px"
-    >
+    <option-item label="限制在主体区域" :responsive="false" style="margin-bottom: 20px">
       <el-switch v-model="inner" size="small" />
     </option-item>
     <div>
@@ -22,13 +18,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { useMessageBox } from 'ele-admin-plus/es';
-  import OptionItem from '@/views/extension/avatar/components/option-item.vue';
+  import { ref } from 'vue'
+  import { useMessageBox } from 'ele-admin-plus/es'
+  import OptionItem from '@/views/extension/avatar/components/option-item.vue'
 
-  const messageBox = useMessageBox();
+  const messageBox = useMessageBox()
 
-  const inner = ref(false);
+  const inner = ref(false)
 
   const openConfirm = () => {
     messageBox
@@ -38,10 +34,10 @@
         draggable: true
       })
       .then(() => {
-        console.log('点击了确定');
+        console.log('点击了确定')
       })
-      .catch(() => {});
-  };
+      .catch(() => {})
+  }
 
   const openPrompt = () => {
     messageBox
@@ -52,10 +48,10 @@
         draggable: true
       })
       .then(({ value }) => {
-        console.log(value);
+        console.log(value)
       })
-      .catch(() => {});
-  };
+      .catch(() => {})
+  }
 
   const openAlert = () => {
     messageBox
@@ -64,84 +60,68 @@
         draggable: true
       })
       .then(() => {
-        console.log('点击了确定');
+        console.log('点击了确定')
       })
-      .catch(() => {});
-  };
+      .catch(() => {})
+  }
 
   const openSuccess = () => {
     messageBox
-      .alert(
-        '导入完成，共新增 80 条数据，更新 20 条数据，失败 0 条数据。',
-        '导入成功',
-        {
-          type: 'success',
-          confirmButtonText: '太好了',
-          inner: inner.value,
-          draggable: true
-        }
-      )
-      .then(() => {
-        console.log('点击了太好了');
+      .alert('导入完成，共新增 80 条数据，更新 20 条数据，失败 0 条数据。', '导入成功', {
+        type: 'success',
+        confirmButtonText: '太好了',
+        inner: inner.value,
+        draggable: true
       })
-      .catch(() => {});
-  };
+      .then(() => {
+        console.log('点击了太好了')
+      })
+      .catch(() => {})
+  }
 
   const openWarning = () => {
     messageBox
-      .confirm(
-        '您的专业版会员还有 6 天到期，请及时续费，以免影响正常使用！',
-        '到期提醒',
-        {
-          type: 'warning',
-          cancelButtonText: '下次再说',
-          confirmButtonText: '前往续费',
-          closeOnClickModal: false,
-          inner: inner.value,
-          draggable: true
-        }
-      )
-      .then(() => {
-        console.log('点击了前往续费');
+      .confirm('您的专业版会员还有 6 天到期，请及时续费，以免影响正常使用！', '到期提醒', {
+        type: 'warning',
+        cancelButtonText: '下次再说',
+        confirmButtonText: '前往续费',
+        closeOnClickModal: false,
+        inner: inner.value,
+        draggable: true
       })
-      .catch(() => {});
-  };
+      .then(() => {
+        console.log('点击了前往续费')
+      })
+      .catch(() => {})
+  }
 
   const openError = () => {
     messageBox
-      .alert(
-        '您的账号存在违规操作，已被系统强制下线并冻结，请联系管理员处理。',
-        '异常提醒',
-        {
-          type: 'error',
-          confirmButtonText: '查看详情',
-          showClose: false,
-          inner: inner.value,
-          draggable: true
-        }
-      )
-      .then(() => {
-        console.log('点击了查看详情');
+      .alert('您的账号存在违规操作，已被系统强制下线并冻结，请联系管理员处理。', '异常提醒', {
+        type: 'error',
+        confirmButtonText: '查看详情',
+        showClose: false,
+        inner: inner.value,
+        draggable: true
       })
-      .catch(() => {});
-  };
+      .then(() => {
+        console.log('点击了查看详情')
+      })
+      .catch(() => {})
+  }
 
   const openInfo = () => {
     messageBox
-      .alert(
-        '本周五 03:00 ~ 05:00 将进行网站升级，期间无法访问系统，请提前做好准备！',
-        '系统通知',
-        {
-          type: 'info',
-          confirmButtonText: '知道了',
-          closeOnClickModal: true,
-          inner: inner.value,
-          draggable: true
-        }
-      )
-      .then(() => {
-        console.log('点击了知道了');
+      .alert('本周五 03:00 ~ 05:00 将进行网站升级，期间无法访问系统，请提前做好准备！', '系统通知', {
+        type: 'info',
+        confirmButtonText: '知道了',
+        closeOnClickModal: true,
+        inner: inner.value,
+        draggable: true
       })
-      .catch(() => {});
-  };
+      .then(() => {
+        console.log('点击了知道了')
+      })
+      .catch(() => {})
+  }
 </script>

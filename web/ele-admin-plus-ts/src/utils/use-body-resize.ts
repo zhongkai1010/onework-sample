@@ -1,6 +1,6 @@
-import { watch } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useThemeStore } from '@/store/modules/theme';
+import { watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useThemeStore } from '@/store/modules/theme'
 
 /**
  * 主体区尺寸改变hook
@@ -8,14 +8,14 @@ import { useThemeStore } from '@/store/modules/theme';
  */
 export function useBodyResize(hook: Function) {
   if (!hook) {
-    return;
+    return
   }
-  const themeStore = useThemeStore();
-  const { contentWidth } = storeToRefs(themeStore);
+  const themeStore = useThemeStore()
+  const { contentWidth } = storeToRefs(themeStore)
 
   watch(contentWidth, (value, oldValue) => {
     if (value != null && oldValue != null) {
-      hook();
+      hook()
     }
-  });
+  })
 }

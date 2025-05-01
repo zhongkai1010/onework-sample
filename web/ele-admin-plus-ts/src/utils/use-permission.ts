@@ -1,12 +1,12 @@
-import { storeToRefs } from 'pinia';
-import { useUserStore } from '@/store/modules/user';
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/store/modules/user'
 
 /**
  * 权限判断hook
  */
 export function usePermission() {
-  const userStore = useUserStore();
-  const { authorities, roles } = storeToRefs(userStore);
+  const userStore = useUserStore()
+  const { authorities, roles } = storeToRefs(userStore)
 
   /**
    * 是否有某些权限
@@ -17,8 +17,8 @@ export function usePermission() {
     /* if (authorities.value && authorities.value.includes('*:*:*')) {
       return true;
     } */
-    return arrayHas(authorities.value, value);
-  };
+    return arrayHas(authorities.value, value)
+  }
 
   /**
    * 是否有任意权限
@@ -29,26 +29,26 @@ export function usePermission() {
     /* if (authorities.value && authorities.value.includes('*:*:*')) {
       return true;
     } */
-    return arrayHasAny(authorities.value, value);
-  };
+    return arrayHasAny(authorities.value, value)
+  }
 
   /**
    * 是否有某些角色
    * @param value 角色字符或字符数组
    */
   const hasRole = (value: string | string[]): boolean => {
-    return arrayHas(roles.value, value);
-  };
+    return arrayHas(roles.value, value)
+  }
 
   /**
    * 是否有任意角色
    * @param value 角色字符或字符数组
    */
   const hasAnyRole = (value: string | string[]): boolean => {
-    return arrayHasAny(roles.value, value);
-  };
+    return arrayHasAny(roles.value, value)
+  }
 
-  return { hasPermission, hasAnyPermission, hasRole, hasAnyRole };
+  return { hasPermission, hasAnyPermission, hasRole, hasAnyRole }
 }
 
 /**
@@ -58,15 +58,15 @@ export function usePermission() {
  */
 function arrayHas(array: (string | undefined)[], value: string | string[]) {
   if (!value) {
-    return true;
+    return true
   }
   if (!array) {
-    return false;
+    return false
   }
   if (Array.isArray(value)) {
-    return value.every((v) => array.includes(v));
+    return value.every((v) => array.includes(v))
   }
-  return array.includes(value);
+  return array.includes(value)
 }
 
 /**
@@ -76,13 +76,13 @@ function arrayHas(array: (string | undefined)[], value: string | string[]) {
  */
 function arrayHasAny(array: (string | undefined)[], value: string | string[]) {
   if (!value) {
-    return true;
+    return true
   }
   if (!array) {
-    return false;
+    return false
   }
   if (Array.isArray(value)) {
-    return array.some((d) => d && value.includes(d));
+    return array.some((d) => d && value.includes(d))
   }
-  return array.includes(value);
+  return array.includes(value)
 }

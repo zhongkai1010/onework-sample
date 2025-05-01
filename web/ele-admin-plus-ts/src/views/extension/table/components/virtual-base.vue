@@ -48,76 +48,48 @@
       :print-config="{ datasource: exportSource }"
     >
       <template #toolbar>
-        <el-button type="primary" class="ele-btn-icon" @click="getSelections">
-          获取多选行数据
-        </el-button>
-        <el-button
-          v-if="highlightCurrentRow"
-          type="primary"
-          class="ele-btn-icon"
-          @click="getCurrent"
-        >
-          获取单选行数据
-        </el-button>
+        <el-button type="primary" class="ele-btn-icon" @click="getSelections"> 获取多选行数据 </el-button>
+        <el-button v-if="highlightCurrentRow" type="primary" class="ele-btn-icon" @click="getCurrent"> 获取单选行数据 </el-button>
       </template>
       <template #roles="{ row }">
-        <el-tag
-          v-for="item in row.roles"
-          :key="item"
-          size="small"
-          :disable-transitions="true"
-          style="margin-right: 6px"
-        >
+        <el-tag v-for="item in row.roles" :key="item" size="small" :disable-transitions="true" style="margin-right: 6px">
           {{ item }}
         </el-tag>
       </template>
       <template #status="{ row }">
         <ele-dot v-if="row.status == 0" text="正常" size="8px" />
-        <ele-dot
-          v-else-if="row.status == 1"
-          text="冻结"
-          type="danger"
-          :ripple="false"
-          size="8px"
-        />
+        <ele-dot v-else-if="row.status == 1" text="冻结" type="danger" :ripple="false" size="8px" />
       </template>
       <template #action="{ row }">
-        <el-link type="primary" :underline="false" @click="openEdit(row)">
-          修改
-        </el-link>
+        <el-link type="primary" :underline="false" @click="openEdit(row)"> 修改 </el-link>
         <el-divider direction="vertical" />
-        <el-link type="danger" :underline="false" @click="remove(row)">
-          删除
-        </el-link>
+        <el-link type="danger" :underline="false" @click="remove(row)"> 删除 </el-link>
       </template>
     </ele-pro-table>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import dayjs from 'dayjs';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type {
-    DatasourceFunction,
-    Columns
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import OptionItem from '@/views/extension/avatar/components/option-item.vue';
+  import { ref } from 'vue'
+  import dayjs from 'dayjs'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import OptionItem from '@/views/extension/avatar/components/option-item.vue'
 
   interface User {
-    userId?: number;
-    username?: string;
-    nickname?: string;
-    sex?: string;
-    roles?: string[];
-    phone?: string;
-    email?: string;
-    birthday?: string;
-    createTime?: string;
-    status?: string;
+    userId?: number
+    username?: string
+    nickname?: string
+    sex?: string
+    roles?: string[]
+    phone?: string
+    email?: string
+    birthday?: string
+    createTime?: string
+    status?: string
   }
 
-  const data: User[] = [];
+  const data: User[] = []
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -218,16 +190,16 @@
       hideInPrint: true,
       hideInExport: true
     }
-  ]);
+  ])
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = async ({ pages, filter, orders }) => {
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100))
     if (!data.length) {
       Array.from({ length: 10000 }).forEach((_, i) => {
-        const userId = i + 1;
-        const username = 'user-' + String(userId).padStart(6, '0');
-        const random = Math.random();
+        const userId = i + 1
+        const username = 'user-' + String(userId).padStart(6, '0')
+        const random = Math.random()
         const item: User = {
           userId,
           username,
@@ -243,102 +215,100 @@
           createTime: dayjs()
             .subtract(45 * userId, 's')
             .format('YYYY-MM-DD HH:mm:ss')
-        };
-        data.push(item);
-      });
+        }
+        data.push(item)
+      })
     }
-    const rolesFilter = filter.roles?.length ? filter.roles : null;
-    const statusFilter = filter.status?.length ? filter.status : null;
+    const rolesFilter = filter.roles?.length ? filter.roles : null
+    const statusFilter = filter.status?.length ? filter.status : null
     const list = data.filter((d) => {
       if (rolesFilter != null) {
         if (!d.roles || !d.roles.some((r) => rolesFilter.includes(r))) {
-          return false;
+          return false
         }
       }
       if (statusFilter != null) {
         if (d.status == null || !statusFilter.includes(d.status)) {
-          return false;
+          return false
         }
       }
-      return true;
-    });
+      return true
+    })
     if (orders != null && orders.sort) {
       list.sort((a: any, b: any) => {
-        const aValue = a[orders.sort as any];
-        const bValue = b[orders.sort as any];
+        const aValue = a[orders.sort as any]
+        const bValue = b[orders.sort as any]
         if (aValue == bValue) {
-          return 0;
+          return 0
         }
-        const r = aValue < bValue ? -1 : 1;
-        return orders.order === 'desc' ? -r : r;
-      });
+        const r = aValue < bValue ? -1 : 1
+        return orders.order === 'desc' ? -r : r
+      })
     }
-    const start = ((pages.page || 1) - 1) * (pages.limit || 10);
-    const end = start + (pages.limit || 10);
+    const start = ((pages.page || 1) - 1) * (pages.limit || 10)
+    const end = start + (pages.limit || 10)
     return {
       count: list.length,
       list: list.slice(start, end > list.length ? list.length : end)
-    };
-  };
+    }
+  }
 
   /** 表格多选选中数据 */
-  const selections = ref<User[]>([]);
+  const selections = ref<User[]>([])
 
   /** 表格单选选中数据 */
-  const current = ref<User | null>(null);
+  const current = ref<User | null>(null)
 
   /** 更多配置 */
-  const toolbarBg = ref(false);
-  const border = ref(false);
-  const stripe = ref(false);
-  const showHeader = ref(true);
-  const showSummary = ref(true);
-  const highlightCurrentRow = ref(false);
-  const rowClickChecked = ref(false);
+  const toolbarBg = ref(false)
+  const border = ref(false)
+  const stripe = ref(false)
+  const showHeader = ref(true)
+  const showSummary = ref(true)
+  const highlightCurrentRow = ref(false)
+  const rowClickChecked = ref(false)
 
   /** 打开编辑弹窗 */
   const openEdit = (row: User) => {
-    EleMessage.success('编辑:' + row.nickname);
-  };
+    EleMessage.success('编辑:' + row.nickname)
+  }
 
   /** 删除单个 */
   const remove = (row: User) => {
-    EleMessage.error('删除:' + row.nickname);
-  };
+    EleMessage.error('删除:' + row.nickname)
+  }
 
   /** 表尾合计行 */
   const getSummaries = ({ columns, data }) => {
-    const sums: string[] = [];
+    const sums: string[] = []
     columns.forEach((column: any, i: number) => {
       if (column.property === 'sex') {
-        const num = data.filter((d: User) => d.sex == '女').length;
-        sums[i] = ((num / data.length) * 100).toFixed(2) + '% (女)';
+        const num = data.filter((d: User) => d.sex == '女').length
+        sums[i] = ((num / data.length) * 100).toFixed(2) + '% (女)'
       } else if (column.property === 'status') {
-        sums[i] = data.filter((d: User) => d.status == '1').length + ' (冻结)';
+        sums[i] = data.filter((d: User) => d.status == '1').length + ' (冻结)'
       } else if (column.property === 'username') {
-        sums[i] = '合计';
+        sums[i] = '合计'
       }
-    });
-    return sums;
-  };
+    })
+    return sums
+  }
 
   /** 获取多选行数据 */
   const getSelections = () => {
-    console.log(JSON.parse(JSON.stringify(selections.value)));
-    EleMessage.success(
-      '共 ' + selections.value.length + ' 条数据已打印在控制台'
-    );
-  };
+    console.log(JSON.parse(JSON.stringify(selections.value)))
+    EleMessage.success('共 ' + selections.value.length + ' 条数据已打印在控制台')
+  }
 
   /** 获取选中行数据 */
   const getCurrent = () => {
     if (!current.value) {
-      EleMessage.success('未选中任何数据');
+      EleMessage.success('未选中任何数据')
     } else {
-      console.log(JSON.parse(JSON.stringify(current.value)));
-      EleMessage.success(current.value.nickname + '的数据已打印在控制台');
+      console.log(JSON.parse(JSON.stringify(current.value)))
+      EleMessage.success(current.value.nickname + '的数据已打印在控制台')
     }
-  };
+  }
 
   /** 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = async ({ filter, orders }) => {
@@ -346,9 +316,9 @@
       filter,
       orders,
       pages: { page: 1, limit: data.length }
-    } as any);
-    return res.list;
-  };
+    } as any)
+    return res.list
+  }
 </script>
 
 <style lang="scss" scoped>

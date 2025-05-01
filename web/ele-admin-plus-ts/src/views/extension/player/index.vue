@@ -20,12 +20,12 @@
 </template>
 
 <script lang="ts" setup>
-  import DemoBasic from './components/demo-basic.vue';
-  import DemoDanmu from './components/demo-danmu.vue';
-  import DemoLive from './components/demo-live.vue';
-  import DemoMusic from './components/demo-music.vue';
+  import DemoBasic from './components/demo-basic.vue'
+  import DemoDanmu from './components/demo-danmu.vue'
+  import DemoLive from './components/demo-live.vue'
+  import DemoMusic from './components/demo-music.vue'
 
-  defineOptions({ name: 'ExtensionPlayer' });
+  defineOptions({ name: 'ExtensionPlayer' })
 </script>
 
 <style lang="scss" scoped>

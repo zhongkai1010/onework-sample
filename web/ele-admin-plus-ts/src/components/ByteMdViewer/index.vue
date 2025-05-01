@@ -1,41 +1,35 @@
 <!-- markdown解析 -->
 <template>
   <!-- eslint-disable vue/no-v-html -->
-  <div
-    ref="rootRef"
-    v-html="content"
-    class="markdown-body"
-    @click="handleClick"
-  >
-  </div>
+  <div ref="rootRef" v-html="content" class="markdown-body" @click="handleClick"> </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue';
-  import type { BytemdPlugin } from 'bytemd';
-  import { getProcessor } from 'bytemd';
+  import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
+  import type { BytemdPlugin } from 'bytemd'
+  import { getProcessor } from 'bytemd'
 
-  defineOptions({ name: 'ByteMdViewer' });
+  defineOptions({ name: 'ByteMdViewer' })
 
   interface ViewerConfig {
-    plugins?: BytemdPlugin[];
-    sanitize?: (schema: any) => any;
-    remarkRehype?: Record<any, any>;
+    plugins?: BytemdPlugin[]
+    sanitize?: (schema: any) => any
+    remarkRehype?: Record<any, any>
   }
 
   const props = defineProps<{
-    value: string;
-    config?: ViewerConfig;
-  }>();
+    value: string
+    config?: ViewerConfig
+  }>()
 
   /** 根节点 */
-  const rootRef = ref<HTMLElement | null>(null);
+  const rootRef = ref<HTMLElement | null>(null)
 
   /** 解析后内容 */
-  const content = ref<any | null>(null);
+  const content = ref<any | null>(null)
 
   /** 已绑定的插件 */
-  const cbs = ref<(void | (() => void))[]>([]);
+  const cbs = ref<(void | (() => void))[]>([])
 
   /** 绑定插件 */
   const on = () => {
@@ -47,64 +41,62 @@
             markdownBody: rootRef.value as HTMLElement,
             file: content.value
           })
-        );
-      });
+        )
+      })
     }
-  };
+  }
 
   /** 解绑插件 */
   const off = () => {
     if (cbs.value) {
-      cbs.value.forEach((cb) => cb && cb());
+      cbs.value.forEach((cb) => cb && cb())
     }
-  };
+  }
 
   /** 处理点击事件支持锚点 */
   const handleClick = (e: MouseEvent) => {
-    const $ = e.target as HTMLElement;
+    const $ = e.target as HTMLElement
     if ($.tagName !== 'A') {
-      return;
+      return
     }
-    const href = $.getAttribute('href');
+    const href = $.getAttribute('href')
     if (!href || !href.startsWith('#')) {
-      return;
+      return
     }
-    const $root = rootRef.value;
+    const $root = rootRef.value
     if ($root) {
-      const dest = $root.querySelector('#user-content-' + href.slice(1));
+      const dest = $root.querySelector('#user-content-' + href.slice(1))
       if (dest) {
-        dest.scrollIntoView();
+        dest.scrollIntoView()
       }
     }
-  };
+  }
 
   // 解析
   watch(
     [() => props.value, () => props.config],
     () => {
       try {
-        content.value = getProcessor(
-          Object.assign({}, props.config)
-        ).processSync(props.value);
+        content.value = getProcessor(Object.assign({}, props.config)).processSync(props.value)
       } catch (e) {
-        console.error(e);
+        console.error(e)
       }
-      off();
+      off()
       nextTick(() => {
-        on();
-      });
+        on()
+      })
     },
     {
       immediate: true,
       deep: true
     }
-  );
+  )
 
   onMounted(() => {
-    on();
-  });
+    on()
+  })
 
   onBeforeUnmount(() => {
-    off();
-  });
+    off()
+  })
 </script>

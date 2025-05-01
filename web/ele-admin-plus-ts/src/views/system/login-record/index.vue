@@ -2,60 +2,15 @@
   <ele-page>
     <login-record-search :where="defaultWhere" @search="reload" />
     <ele-card :body-style="{ paddingTop: '8px' }">
-      <ele-pro-table
-        ref="tableRef"
-        row-key="id"
-        :columns="columns"
-        :datasource="datasource"
-        :show-overflow-tooltip="true"
-        :highlight-current-row="true"
-        :export-config="{ fileName: '登录日志数据' }"
-        :where="defaultWhere"
-        cache-key="systemLoginRecordTable"
-      >
+      <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :highlight-current-row="true" :export-config="{ fileName: '登录日志数据' }" :where="defaultWhere" cache-key="systemLoginRecordTable">
         <template #toolbar>
-          <el-button
-            type="primary"
-            class="ele-btn-icon"
-            :icon="DownloadOutlined"
-            @click="exportData"
-          >
-            导出
-          </el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="DownloadOutlined" @click="exportData"> 导出 </el-button>
         </template>
         <template #loginType="{ row }">
-          <el-tag
-            v-if="row.loginType === 0"
-            size="small"
-            type="success"
-            :disable-transitions="true"
-          >
-            登录成功
-          </el-tag>
-          <el-tag
-            v-else-if="row.loginType === 1"
-            size="small"
-            type="danger"
-            :disable-transitions="true"
-          >
-            登录失败
-          </el-tag>
-          <el-tag
-            v-else-if="row.loginType === 2"
-            size="small"
-            type="info"
-            :disable-transitions="true"
-          >
-            退出登录
-          </el-tag>
-          <el-tag
-            v-else-if="row.loginType === 3"
-            size="small"
-            type="warning"
-            :disable-transitions="true"
-          >
-            刷新TOKEN
-          </el-tag>
+          <el-tag v-if="row.loginType === 0" size="small" type="success" :disable-transitions="true"> 登录成功 </el-tag>
+          <el-tag v-else-if="row.loginType === 1" size="small" type="danger" :disable-transitions="true"> 登录失败 </el-tag>
+          <el-tag v-else-if="row.loginType === 2" size="small" type="info" :disable-transitions="true"> 退出登录 </el-tag>
+          <el-tag v-else-if="row.loginType === 3" size="small" type="warning" :disable-transitions="true"> 刷新TOKEN </el-tag>
         </template>
       </ele-pro-table>
     </ele-card>
@@ -63,33 +18,27 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type { EleProTable } from 'ele-admin-plus';
-  import type {
-    DatasourceFunction,
-    Columns
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import ExcelJS from 'exceljs';
-  import { download } from '@/utils/common';
-  import { DownloadOutlined } from '@/components/icons';
-  import LoginRecordSearch from './components/login-record-search.vue';
-  import {
-    pageLoginRecords,
-    listLoginRecords
-  } from '@/api/system/login-record';
-  import type { LoginRecordParam } from '@/api/system/login-record/model';
+  import { ref, reactive } from 'vue'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import ExcelJS from 'exceljs'
+  import { download } from '@/utils/common'
+  import { DownloadOutlined } from '@/components/icons'
+  import LoginRecordSearch from './components/login-record-search.vue'
+  import { pageLoginRecords, listLoginRecords } from '@/api/system/login-record'
+  import type { LoginRecordParam } from '@/api/system/login-record/model'
 
-  defineOptions({ name: 'SystemLoginRecord' });
+  defineOptions({ name: 'SystemLoginRecord' })
 
   /** 默认搜索条件 */
   const defaultWhere = reactive({
     username: '',
     nickname: ''
-  });
+  })
 
   /** 表格实例 */
-  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null);
+  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null)
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -162,8 +111,7 @@
       ],
       filterMultiple: false,
       align: 'center',
-      formatter: (row) =>
-        ['登录成功', '登录失败', '退出登录', '刷新TOKEN'][row.loginType]
+      formatter: (row) => ['登录成功', '登录失败', '退出登录', '刷新TOKEN'][row.loginType]
     },
     {
       prop: 'comments',
@@ -179,22 +127,17 @@
       width: 180,
       align: 'center'
     }
-  ]);
+  ])
 
   /** 表格数据源 */
-  const datasource: DatasourceFunction = ({
-    pages,
-    where,
-    orders,
-    filters
-  }) => {
-    return pageLoginRecords({ ...where, ...orders, ...filters, ...pages });
-  };
+  const datasource: DatasourceFunction = ({ pages, where, orders, filters }) => {
+    return pageLoginRecords({ ...where, ...orders, ...filters, ...pages })
+  }
 
   /** 刷新表格 */
   const reload = (where?: LoginRecordParam) => {
-    tableRef.value?.reload?.({ page: 1, where });
-  };
+    tableRef.value?.reload?.({ page: 1, where })
+  }
 
   /** 导出数据 */
   const exportData = () => {
@@ -202,67 +145,47 @@
     const loading = EleMessage.loading({
       message: '请求中..',
       plain: true
-    });
+    })
     tableRef.value?.fetch?.(({ where, orders, filters }) => {
       listLoginRecords({ ...where, ...orders, ...filters })
         .then((data) => {
-          const workbook = new ExcelJS.Workbook();
-          const sheet = workbook.addWorksheet('Sheet1');
-          sheet.addRow([
-            '账号',
-            '用户名',
-            'IP地址',
-            '设备型号',
-            '操作系统',
-            '浏览器',
-            '操作类型',
-            '备注',
-            '登录时间'
-          ]);
+          const workbook = new ExcelJS.Workbook()
+          const sheet = workbook.addWorksheet('Sheet1')
+          sheet.addRow(['账号', '用户名', 'IP地址', '设备型号', '操作系统', '浏览器', '操作类型', '备注', '登录时间'])
           data.forEach((d) => {
-            sheet.addRow([
-              d.username,
-              d.nickname,
-              d.ip,
-              d.device,
-              d.os,
-              d.browser,
-              ['登录成功', '登录失败', '退出登录', '刷新TOKEN'][d.loginType],
-              d.comments,
-              d.createTime
-            ]);
-          });
+            sheet.addRow([d.username, d.nickname, d.ip, d.device, d.os, d.browser, ['登录成功', '登录失败', '退出登录', '刷新TOKEN'][d.loginType], d.comments, d.createTime])
+          })
           // 设置列宽
-          [16, 16, 22, 22, 18, 20, 14, 16, 24].forEach((width, index) => {
-            sheet.getColumn(index + 1).width = width;
-          });
+          ;[16, 16, 22, 22, 18, 20, 14, 16, 24].forEach((width, index) => {
+            sheet.getColumn(index + 1).width = width
+          })
           // 设置样式
           sheet.eachRow({ includeEmpty: true }, (row, rowIndex) => {
-            row.height = 20;
+            row.height = 20
             row.eachCell({ includeEmpty: true }, (cell) => {
               cell.border = {
                 top: { style: 'thin' },
                 left: { style: 'thin' },
                 bottom: { style: 'thin' },
                 right: { style: 'thin' }
-              };
+              }
               cell.alignment = {
                 vertical: 'middle',
                 horizontal: 'center'
-              };
-              cell.font = { size: 12, bold: rowIndex === 1 };
-            });
-          });
+              }
+              cell.font = { size: 12, bold: rowIndex === 1 }
+            })
+          })
           // 下载文件
           workbook.xlsx.writeBuffer().then((data) => {
-            download(data, '登录日志.xlsx');
-            loading.close();
-          });
+            download(data, '登录日志.xlsx')
+            loading.close()
+          })
         })
         .catch((e) => {
-          loading.close();
-          EleMessage.error(e.message);
-        });
-    });
-  };
+          loading.close()
+          EleMessage.error(e.message)
+        })
+    })
+  }
 </script>

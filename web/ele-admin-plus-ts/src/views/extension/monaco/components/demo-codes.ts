@@ -880,14 +880,10 @@ RUN echo must work 'some str' and some more
 RUN echo hi this is # not a comment
 RUN echo 'String with \${VAR} and another $one here'
 `
-};
+}
 
 /** 生成在线运行代码 */
-export function generateRunCode(
-  cssCode: string,
-  htmlCode: string,
-  jsCode: string
-) {
+export function generateRunCode(cssCode: string, htmlCode: string, jsCode: string) {
   /** iframe内用于收集日志的代码 */
   const consoleOverrideCode = `const originalConsoleMethods = {
   log: console.log,
@@ -905,7 +901,7 @@ window.onerror = function(message, source, lineno, colno, error) {
 at (\${source}:\${lineno}:\${colno})\`;
   parent.postMessage({ id: 'iframeConsole', code: error.stack || errorStack, type: 'error' }, '*');
 };
-`;
+`
   return `<!DOCTYPE html>
 <html>
   <head>
@@ -929,5 +925,5 @@ at (\${source}:\${lineno}:\${colno})\`;
     <\/script>
   </body>
 </html>
-`;
+`
 }

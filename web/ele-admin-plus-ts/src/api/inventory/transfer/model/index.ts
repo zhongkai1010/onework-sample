@@ -3,25 +3,25 @@
  */
 export interface TransferOrder {
   /** ID */
-  id: string;
+  id: string
   /** 单据图片 */
-  documentImage?: string;
+  documentImage?: string
   /** 调拨单号 */
-  code?: string;
+  code?: string
   /** 单据状态 */
-  status?: string;
+  status?: string
   /** 调拨日期 */
-  transferDate?: string;
+  transferDate?: string
   /** 调拨仓库ID */
-  warehouseId?: string;
+  warehouseId?: string
   /** 调拨仓库 */
-  warehouseName: string;
+  warehouseName: string
   /** 接收人 */
-  receiver?: string;
+  receiver?: string
   /** 调拨原因 */
-  transferReason?: string;
+  transferReason?: string
   /** 备注 */
-  remarks?: string;
+  remarks?: string
 }
 
 /**
@@ -29,21 +29,21 @@ export interface TransferOrder {
  */
 export interface TransferDetail {
   /** ID */
-  id: string;
+  id: string
   /** 藏品状态 */
-  collectionStatus?: string;
+  collectionStatus?: string
   /** 图片信息 */
-  imageInfo?: string;
+  imageInfo?: string
   /** 编号类别 */
-  numberCategory?: string;
+  numberCategory?: string
   /** 藏品编号 */
-  collectionCode?: string;
+  collectionCode?: string
   /** 藏品名称 */
-  collectionName?: string;
+  collectionName?: string
   /** 藏品类别 */
-  categoryName?: string;
+  categoryName?: string
   /** 藏品类别ID */
-  categoryId?: string;
+  categoryId?: string
 }
 
 /**
@@ -51,7 +51,7 @@ export interface TransferDetail {
  */
 export interface AddTransferParams {
   /** ID集合 */
-  ids: number[];
+  ids: number[]
 }
 
 /**
@@ -59,7 +59,7 @@ export interface AddTransferParams {
  */
 export interface ApproveTransferParams {
   /** ID集合 */
-  ids: number[];
+  ids: number[]
 }
 
 /**
@@ -67,7 +67,7 @@ export interface ApproveTransferParams {
  */
 export interface ConfirmTransferParams {
   /** ID 编号 */
-  id: string;
+  id: string
 }
 
 /**
@@ -75,17 +75,17 @@ export interface ConfirmTransferParams {
  */
 export interface TransferQueryParams {
   /** 单据状态 */
-  status?: string;
+  status?: string
   /** 调拨仓库 */
-  warehouseId?: string;
+  warehouseId?: string
   /** 分页查询每页数量 */
-  limit?: number;
+  limit?: number
   /** 分页查询页码 */
-  page?: number;
+  page?: number
   /** 排序方式 */
-  order?: string;
+  order?: string
   /** 排序字段 */
-  sort?: string;
+  sort?: string
 }
 
 /**
@@ -93,13 +93,13 @@ export interface TransferQueryParams {
  */
 export interface TransferDetailQueryParams {
   /** 调拨单ID */
-  id?: string;
+  id?: string
   /** 分页查询每页数量 */
-  limit?: number;
+  limit?: number
   /** 分页查询页码 */
-  page?: number;
+  page?: number
   /** 排序方式 */
-  order?: string;
+  order?: string
   /** 排序字段 */
-  sort?: string;
+  sort?: string
 }

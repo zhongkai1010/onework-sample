@@ -2,11 +2,7 @@
   <ele-page :multi-card="false">
     <div class="user-wrapper">
       <user-card :data="loginUser" @done="updateLoginUser" class="user-side" />
-      <ele-card
-        :header-style="{ padding: '0 24px' }"
-        :body-style="{ padding: 0, minHeight: '462px' }"
-        class="user-body"
-      >
+      <ele-card :header-style="{ padding: '0 24px' }" :body-style="{ padding: 0, minHeight: '462px' }" class="user-body">
         <template #header>
           <ele-tabs
             type="plain"
@@ -18,11 +14,7 @@
             ]"
           />
         </template>
-        <user-form
-          v-if="active === 'info'"
-          :data="loginUser"
-          @done="updateLoginUser"
-        />
+        <user-form v-if="active === 'info'" :data="loginUser" @done="updateLoginUser" />
         <user-account v-if="active === 'account'" :data="loginUser" />
       </ele-card>
     </div>
@@ -30,27 +22,27 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, computed } from 'vue';
-  import { useUserStore } from '@/store/modules/user';
-  import type { User } from '@/api/system/user/model';
-  import UserCard from './components/user-card.vue';
-  import UserForm from './components/user-form.vue';
-  import UserAccount from './components/user-account.vue';
+  import { ref, computed } from 'vue'
+  import { useUserStore } from '@/store/modules/user'
+  import type { User } from '@/api/system/user/model'
+  import UserCard from './components/user-card.vue'
+  import UserForm from './components/user-form.vue'
+  import UserAccount from './components/user-account.vue'
 
-  defineOptions({ name: 'UserProfile' });
+  defineOptions({ name: 'UserProfile' })
 
-  const userStore = useUserStore();
+  const userStore = useUserStore()
 
   /** 标签页选中 */
-  const active = ref('info');
+  const active = ref('info')
 
   /** 登录用户信息 */
-  const loginUser = computed(() => userStore.info ?? {});
+  const loginUser = computed(() => userStore.info ?? {})
 
   /** 修改登录用户 */
   const updateLoginUser = (data: User) => {
-    userStore.setInfo({ ...loginUser.value, ...data });
-  };
+    userStore.setInfo({ ...loginUser.value, ...data })
+  }
 </script>
 
 <style lang="scss" scoped>

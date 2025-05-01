@@ -1,59 +1,39 @@
 <template>
   <div>
-    <ele-pro-table
-      ref="tableRef"
-      row-key="id"
-      :columns="columns"
-      :datasource="datasource"
-      :show-overflow-tooltip="true"
-      v-model:selections="selections"
-      :highlight-current-row="true"
-      :export-config="{ fileName: '系统通知数据' }"
-    >
+    <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" v-model:selections="selections" :highlight-current-row="true" :export-config="{ fileName: '系统通知数据' }">
       <template #toolbar>
-        <el-button type="primary" class="ele-btn-icon" @click="confirm()">
-          批量确认
-        </el-button>
-        <el-button type="danger" class="ele-btn-icon" @click="remove()">
-          删除通知
-        </el-button>
+        <el-button type="primary" class="ele-btn-icon" @click="confirm()"> 批量确认 </el-button>
+        <el-button type="danger" class="ele-btn-icon" @click="remove()"> 删除通知 </el-button>
       </template>
       <template #status="{ row }">
         <ele-text v-if="row.status === 0" type="warning">未确认</ele-text>
         <ele-text v-else-if="row.status === 1" type="info">已确认</ele-text>
       </template>
       <template #action="{ row }">
-        <el-link type="primary" :underline="false" @click="confirm(row)">
-          确认
-        </el-link>
+        <el-link type="primary" :underline="false" @click="confirm(row)"> 确认 </el-link>
         <el-divider direction="vertical" />
-        <el-link type="danger" :underline="false" @click="remove(row)">
-          删除
-        </el-link>
+        <el-link type="danger" :underline="false" @click="remove(row)"> 删除 </el-link>
       </template>
     </ele-pro-table>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { useMessage } from 'ele-admin-plus/es';
-  import type { EleProTable } from 'ele-admin-plus';
-  import type {
-    DatasourceFunction,
-    Columns
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import { pageNotices } from '@/api/example';
-  import type { Message } from '@/api/example/model';
+  import { ref } from 'vue'
+  import { useMessage } from 'ele-admin-plus/es'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import { pageNotices } from '@/api/example'
+  import type { Message } from '@/api/example/model'
 
   const emit = defineEmits<{
-    (e: 'reload'): void;
-  }>();
+    (e: 'reload'): void
+  }>()
 
-  const EleMessage = useMessage({ inner: true });
+  const EleMessage = useMessage({ inner: true })
 
   /** 表格实例 */
-  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null);
+  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null)
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -99,39 +79,39 @@
       hideInPrint: true,
       hideInExport: true
     }
-  ]);
+  ])
 
   /** 列表选中数据 */
-  const selections = ref<Message[]>([]);
+  const selections = ref<Message[]>([])
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
-    return pageNotices({ ...where, ...orders, ...pages });
-  };
+    return pageNotices({ ...where, ...orders, ...pages })
+  }
 
   /** 确认 */
   const confirm = (row?: Message) => {
-    const rows = row == null ? selections.value : [row];
+    const rows = row == null ? selections.value : [row]
     if (!rows.length) {
-      EleMessage.error('请至少选择一条数据');
-      return;
+      EleMessage.error('请至少选择一条数据')
+      return
     }
-    EleMessage.success('点击了确认');
-    updateUnReadNum();
-  };
+    EleMessage.success('点击了确认')
+    updateUnReadNum()
+  }
 
   /** 删除 */
   const remove = (row?: Message) => {
-    const rows = row == null ? selections.value : [row];
+    const rows = row == null ? selections.value : [row]
     if (!rows.length) {
-      EleMessage.error('请至少选择一条数据');
-      return;
+      EleMessage.error('请至少选择一条数据')
+      return
     }
-    EleMessage.error('点击了删除');
-  };
+    EleMessage.error('点击了删除')
+  }
 
   /** 触发更新未读数量事件 */
   const updateUnReadNum = () => {
-    emit('reload');
-  };
+    emit('reload')
+  }
 </script>

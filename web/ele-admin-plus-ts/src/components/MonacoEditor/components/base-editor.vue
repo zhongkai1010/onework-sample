@@ -3,39 +3,39 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue';
-  import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+  import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
+  import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 
   const props = defineProps<{
     /** v-model */
-    modelValue?: string;
+    modelValue?: string
     /** 语言 */
-    language: string;
+    language: string
     /** 主题 */
-    theme?: string;
+    theme?: string
     /** 配置 */
-    config?: monaco.editor.IStandaloneEditorConstructionOptions;
-  }>();
+    config?: monaco.editor.IStandaloneEditorConstructionOptions
+  }>()
 
   const emit = defineEmits<{
-    (e: 'update:modelValue', value?: string): void;
-  }>();
+    (e: 'update:modelValue', value?: string): void
+  }>()
 
   /** 编辑器实例 */
-  let editorIns: monaco.editor.IStandaloneCodeEditor | null = null;
+  let editorIns: monaco.editor.IStandaloneCodeEditor | null = null
 
   /** 编辑器节点 */
-  const editorRef = ref<HTMLElement | null>(null);
+  const editorRef = ref<HTMLElement | null>(null)
 
   /** 更新modelValue */
   const updateModelValue = (value?: string) => {
-    emit('update:modelValue', value);
-  };
+    emit('update:modelValue', value)
+  }
 
   /** 渲染编辑器 */
   const render = () => {
     if (!editorRef.value) {
-      return;
+      return
     }
     editorIns = monaco.editor.create(editorRef.value, {
       value: props.modelValue || '',
@@ -43,68 +43,68 @@
       theme: props.theme,
       automaticLayout: true,
       ...(props.config || {})
-    });
+    })
     // modelValue属性同步编辑器内容
     editorIns.onDidChangeModelContent(() => {
-      updateModelValue(editorIns?.getValue?.());
-    });
-  };
+      updateModelValue(editorIns?.getValue?.())
+    })
+  }
 
   /** 销毁编辑器 */
   const destory = () => {
     if (editorIns != null) {
-      editorIns.dispose();
-      editorIns = null;
+      editorIns.dispose()
+      editorIns = null
     }
-  };
+  }
 
   /** 修改内容 */
   const setContent = (value: string) => {
     if (editorIns && value !== editorIns.getValue()) {
-      editorIns.setValue(value);
+      editorIns.setValue(value)
     }
-  };
+  }
 
   /** 获取编辑器实例 */
   const getEditorIns = () => {
-    return editorIns;
-  };
+    return editorIns
+  }
 
   /** 编辑器内容同步modelValue属性 */
   watch(
     () => props.modelValue,
     (value) => {
-      setContent(value || '');
+      setContent(value || '')
     }
-  );
+  )
 
   /** 更新代码语言和编辑器配置 */
   watch(
     [() => props.language, () => props.config],
     () => {
-      destory();
+      destory()
       nextTick(() => {
-        render();
-      });
+        render()
+      })
     },
     { deep: true }
-  );
+  )
 
   /** 更新编辑器主题 */
   watch(
     () => props.theme,
     (theme) => {
-      editorIns && editorIns.updateOptions({ theme });
+      editorIns && editorIns.updateOptions({ theme })
     }
-  );
+  )
 
   onMounted(() => {
-    render();
-  });
+    render()
+  })
 
   onBeforeUnmount(() => {
-    destory();
-  });
+    destory()
+  })
 
-  defineExpose({ getEditorIns });
+  defineExpose({ getEditorIns })
 </script>

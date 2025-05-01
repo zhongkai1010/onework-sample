@@ -1,4 +1,4 @@
-import type { Locale } from './zh_CN';
+import type { Locale } from './zh_CN'
 
 export const en: Locale = {
   layout: {
@@ -120,4 +120,4 @@ export const en: Locale = {
       }
     }
   }
-};
+}

@@ -1,43 +1,33 @@
 <template>
   <ele-card header="轨迹展示及轨迹回放">
-    <div
-      ref="trackMapRef"
-      style="height: 360px; max-width: 800px; margin-bottom: 16px"
-    >
-    </div>
+    <div ref="trackMapRef" style="height: 360px; max-width: 800px; margin-bottom: 16px"> </div>
     <div>
-      <el-button type="primary" class="ele-btn-icon" @click="startTrackAnim">
-        开始移动
-      </el-button>
-      <el-button type="primary" class="ele-btn-icon" @click="pauseTrackAnim">
-        暂停移动
-      </el-button>
-      <el-button type="primary" class="ele-btn-icon" @click="resumeTrackAnim">
-        继续移动
-      </el-button>
+      <el-button type="primary" class="ele-btn-icon" @click="startTrackAnim"> 开始移动 </el-button>
+      <el-button type="primary" class="ele-btn-icon" @click="pauseTrackAnim"> 暂停移动 </el-button>
+      <el-button type="primary" class="ele-btn-icon" @click="resumeTrackAnim"> 继续移动 </el-button>
     </div>
   </ele-card>
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
-  import AMapLoader from '@amap/amap-jsapi-loader';
-  import { useThemeStore } from '@/store/modules/theme';
-  import { storeToRefs } from 'pinia';
-  import { MAP_KEY } from '@/config/setting';
+  import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+  import AMapLoader from '@amap/amap-jsapi-loader'
+  import { useThemeStore } from '@/store/modules/theme'
+  import { storeToRefs } from 'pinia'
+  import { MAP_KEY } from '@/config/setting'
 
   /** 是否是暗黑主题 */
-  const themeStore = useThemeStore();
-  const { darkMode } = storeToRefs(themeStore);
+  const themeStore = useThemeStore()
+  const { darkMode } = storeToRefs(themeStore)
 
   /** 地图容器 */
-  const trackMapRef = ref<HTMLElement | null>(null);
+  const trackMapRef = ref<HTMLElement | null>(null)
 
   /** 小车轨迹地图的实例 */
-  let mapInsTrack: any;
+  let mapInsTrack: any
 
   /** 小车的 marker */
-  let carMarker: any;
+  let carMarker: any
 
   /** 轨迹路线 */
   const lineData = [
@@ -60,7 +50,7 @@
     [116.483633, 39.998935],
     [116.48367, 39.998968],
     [116.484648, 39.999861]
-  ];
+  ]
 
   /** 渲染轨迹回放地图 */
   const renderTrackMap = () => {
@@ -75,15 +65,15 @@
           zoom: 17,
           center: [116.478935, 39.997761],
           mapStyle: darkMode.value ? 'amap://styles/dark' : void 0
-        };
-        mapInsTrack = new AMap.Map(trackMapRef.value, option);
+        }
+        mapInsTrack = new AMap.Map(trackMapRef.value, option)
         // 创建小车 marker
         carMarker = new AMap.Marker({
           map: mapInsTrack,
           position: [116.478935, 39.997761],
           icon: 'https://a.amap.com/jsapi_demos/static/demo-center-v2/car.png',
           offset: new AMap.Pixel(-13, -26)
-        });
+        })
         // 绘制轨迹
         new AMap.Polyline({
           map: mapInsTrack,
@@ -93,7 +83,7 @@
           strokeOpacity: 1, // 线透明度
           strokeWeight: 6 // 线宽
           //strokeStyle: 'solid'  // 线样式
-        });
+        })
         // 通过的轨迹
         const passedPolyline = new AMap.Polyline({
           map: mapInsTrack,
@@ -101,65 +91,65 @@
           strokeColor: '#44BB55', // 线颜色
           strokeOpacity: 1, // 线透明度
           strokeWeight: 6 // 线宽
-        });
+        })
         // 小车移动回调
         carMarker.on('moving', (e) => {
-          passedPolyline.setPath(e.passedPath);
-        });
+          passedPolyline.setPath(e.passedPath)
+        })
         // 地图自适应
-        mapInsTrack.setFitView();
+        mapInsTrack.setFitView()
       })
       .catch((e) => {
-        console.error(e);
-      });
-  };
+        console.error(e)
+      })
+  }
 
   /** 开始轨迹回放动画 */
   const startTrackAnim = () => {
     if (carMarker) {
-      carMarker.stopMove();
+      carMarker.stopMove()
       carMarker.moveAlong(lineData, {
         duration: 200,
         autoRotation: true
-      });
+      })
     }
-  };
+  }
 
   /** 暂停轨迹回放动画 */
   const pauseTrackAnim = () => {
     if (carMarker) {
-      carMarker.pauseMove();
+      carMarker.pauseMove()
     }
-  };
+  }
 
   /** 继续开始轨迹回放动画 */
   const resumeTrackAnim = () => {
     if (carMarker) {
-      carMarker.resumeMove();
+      carMarker.resumeMove()
     }
-  };
+  }
 
   /** 渲染地图 */
   onMounted(() => {
-    renderTrackMap();
-  });
+    renderTrackMap()
+  })
 
   /** 销毁地图 */
   onBeforeUnmount(() => {
     if (mapInsTrack) {
-      mapInsTrack.destroy();
-      mapInsTrack = null;
+      mapInsTrack.destroy()
+      mapInsTrack = null
     }
-  });
+  })
 
   /** 同步框架暗黑模式切换 */
   watch(darkMode, () => {
     if (mapInsTrack) {
       if (darkMode.value) {
-        mapInsTrack.setMapStyle('amap://styles/dark');
+        mapInsTrack.setMapStyle('amap://styles/dark')
       } else {
-        mapInsTrack.setMapStyle('amap://styles/normal');
+        mapInsTrack.setMapStyle('amap://styles/normal')
       }
     }
-  });
+  })
 </script>

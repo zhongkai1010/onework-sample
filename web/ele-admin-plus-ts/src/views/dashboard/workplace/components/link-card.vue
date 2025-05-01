@@ -15,19 +15,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted, onBeforeUnmount } from 'vue';
-  import SortableJs from 'sortablejs';
-  import type { ElRow } from 'element-plus';
-  import {
-    UserOutlined,
-    AnalysisOutlined,
-    ShoppingOutlined,
-    LogOutlined,
-    CopyOutlined,
-    MailOutlined,
-    TagOutlined,
-    ControlOutlined
-  } from '@/components/icons';
+  import { ref, onMounted, onBeforeUnmount } from 'vue'
+  import SortableJs from 'sortablejs'
+  import type { ElRow } from 'element-plus'
+  import { UserOutlined, AnalysisOutlined, ShoppingOutlined, LogOutlined, CopyOutlined, MailOutlined, TagOutlined, ControlOutlined } from '@/components/icons'
 
   defineOptions({
     components: {
@@ -40,16 +31,16 @@
       TagOutlined,
       ControlOutlined
     }
-  });
+  })
 
-  const CACHE_KEY = 'workplace-links';
+  const CACHE_KEY = 'workplace-links'
 
   interface LinkItem {
-    id: number;
-    icon: string;
-    title: string;
-    url: string;
-    color?: string;
+    id: number
+    icon: string
+    title: string
+    url: string
+    color?: string
   }
 
   /** 默认顺序 */
@@ -109,72 +100,69 @@
       url: '/user/profile',
       color: '#ffc069'
     }
-  ];
+  ]
 
   /** 数据 */
   const data = ref<LinkItem[]>(
     (() => {
       try {
-        const str = localStorage.getItem(CACHE_KEY);
-        const temp = str ? JSON.parse(str) : null;
+        const str = localStorage.getItem(CACHE_KEY)
+        const temp = str ? JSON.parse(str) : null
         if (temp) {
-          const result = [...DEFAULT];
-          result.sort((a, b) => temp.indexOf(a.id) - temp.indexOf(b.id));
-          return result;
+          const result = [...DEFAULT]
+          result.sort((a, b) => temp.indexOf(a.id) - temp.indexOf(b.id))
+          return result
         }
       } catch (_e) {
         //
       }
-      return [...DEFAULT];
+      return [...DEFAULT]
     })()
-  );
+  )
 
   /** 根节点 */
-  const wrapRef = ref<InstanceType<typeof ElRow> | null>(null);
+  const wrapRef = ref<InstanceType<typeof ElRow> | null>(null)
 
   /** 排序实例 */
-  let sortableIns: SortableJs | null = null;
+  let sortableIns: SortableJs | null = null
 
   /** 重置布局 */
   const reset = () => {
-    data.value = [...DEFAULT];
-    localStorage.removeItem(CACHE_KEY);
-  };
+    data.value = [...DEFAULT]
+    localStorage.removeItem(CACHE_KEY)
+  }
 
   /** 缓存布局 */
   const cacheData = () => {
-    localStorage.setItem(
-      CACHE_KEY,
-      JSON.stringify(data.value.map((d) => d.id))
-    );
-  };
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data.value.map((d) => d.id)))
+  }
 
   onMounted(() => {
     if ('ontouchstart' in document.documentElement) {
-      return;
+      return
     }
     sortableIns = new SortableJs(wrapRef.value?.$el, {
       animation: 300,
       onUpdate: ({ oldIndex, newIndex }) => {
         if (typeof oldIndex === 'number' && typeof newIndex === 'number') {
-          const temp = [...data.value];
-          temp.splice(newIndex, 0, temp.splice(oldIndex, 1)[0]);
-          data.value = temp;
-          cacheData();
+          const temp = [...data.value]
+          temp.splice(newIndex, 0, temp.splice(oldIndex, 1)[0])
+          data.value = temp
+          cacheData()
         }
       },
       setData: () => {}
-    });
-  });
+    })
+  })
 
   onBeforeUnmount(() => {
     if (sortableIns) {
-      sortableIns.destroy();
-      sortableIns = null;
+      sortableIns.destroy()
+      sortableIns = null
     }
-  });
+  })
 
-  defineExpose({ reset });
+  defineExpose({ reset })
 </script>
 
 <style lang="scss" scoped>

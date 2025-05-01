@@ -34,4 +34,4 @@ export {
   QqFilled,
   WechatFilled,
   AlipayFilled
-} from '@/components/icons';
+} from '@/components/icons'

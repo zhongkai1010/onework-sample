@@ -15,24 +15,10 @@
     @previewFormSubmit="handlePreviewFormSubmit"
   >
     <template v-if="!$slots.headerTools" #headerTools>
-      <ElButton
-        :text="true"
-        type="primary"
-        :icon="CodeOutlined"
-        @click="handlePreviewCode"
-      >
-        生成代码
-      </ElButton>
-      <CodePreview
-        v-model="showCodePreview"
-        :config="modelValue"
-        :componentData="defaultComponentData"
-      />
+      <ElButton :text="true" type="primary" :icon="CodeOutlined" @click="handlePreviewCode"> 生成代码 </ElButton>
+      <CodePreview v-model="showCodePreview" :config="modelValue" :componentData="defaultComponentData" />
     </template>
-    <template
-      v-if="!$slots.proFormBuilderIconInput"
-      #proFormBuilderIconInput="{ modelValue, updateValue }"
-    >
+    <template v-if="!$slots.proFormBuilderIconInput" #proFormBuilderIconInput="{ modelValue, updateValue }">
       <IconEditer :modelValue="modelValue" @update:modelValue="updateValue" />
     </template>
     <template v-for="name in Object.keys($slots)" #[name]="slotProps">
@@ -42,46 +28,43 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { TemplateFormConfig } from 'ele-admin-plus/es/ele-pro-form-builder/types';
-  import { proFormBuilderProps } from 'ele-admin-plus/es/ele-pro-form-builder/props';
-  import {
-    defaultConfigFormItems,
-    defaultConfigFormPresetProps as formPresetProps
-  } from 'ele-admin-plus/es/ele-pro-form-builder/util';
-  import { CodeOutlined } from '@/components/icons';
-  import ProForm from '@/components/ProForm/index.vue';
-  import { defaultComponentData } from './components/component-data';
-  import { defaultTemplateData } from './components/template-data';
-  import CodeEditer from './components/code-editer.vue';
-  import JsonEditer from './components/json-editer.vue';
-  import HtmlEditer from './components/html-editer.vue';
-  import IconEditer from './components/icon-editer.vue';
-  import CodePreview from './components/code-preview.vue';
+  import { ref } from 'vue'
+  import type { TemplateFormConfig } from 'ele-admin-plus/es/ele-pro-form-builder/types'
+  import { proFormBuilderProps } from 'ele-admin-plus/es/ele-pro-form-builder/props'
+  import { defaultConfigFormItems, defaultConfigFormPresetProps as formPresetProps } from 'ele-admin-plus/es/ele-pro-form-builder/util'
+  import { CodeOutlined } from '@/components/icons'
+  import ProForm from '@/components/ProForm/index.vue'
+  import { defaultComponentData } from './components/component-data'
+  import { defaultTemplateData } from './components/template-data'
+  import CodeEditer from './components/code-editer.vue'
+  import JsonEditer from './components/json-editer.vue'
+  import HtmlEditer from './components/html-editer.vue'
+  import IconEditer from './components/icon-editer.vue'
+  import CodePreview from './components/code-preview.vue'
 
-  defineOptions({ name: 'ProFormBuilder' });
+  defineOptions({ name: 'ProFormBuilder' })
 
-  defineProps(proFormBuilderProps);
+  defineProps(proFormBuilderProps)
 
   const emit = defineEmits<{
-    (e: 'update:modelValue', config: TemplateFormConfig): void;
-  }>();
+    (e: 'update:modelValue', config: TemplateFormConfig): void
+  }>()
 
   /** 更新绑定值 */
   const handleUpdateModelValue = (config: TemplateFormConfig) => {
-    emit('update:modelValue', config);
-  };
+    emit('update:modelValue', config)
+  }
 
   /** 预览表单提交事件 */
   const handlePreviewFormSubmit = (data: Record<string, any>) => {
-    console.log(data);
-  };
+    console.log(data)
+  }
 
   /** 是否显示代码预览弹窗 */
-  const showCodePreview = ref(false);
+  const showCodePreview = ref(false)
 
   /** 打开代码预览弹窗 */
   const handlePreviewCode = () => {
-    showCodePreview.value = true;
-  };
+    showCodePreview.value = true
+  }
 </script>

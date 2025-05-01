@@ -1,10 +1,10 @@
-import type { RouteRecordRaw } from 'vue-router';
-import { menuToRoutes, eachTree } from 'ele-admin-plus/es';
-import type { MenuItem } from 'ele-admin-plus/es/ele-pro-layout/types';
-import { HOME_PATH, LAYOUT_PATH, REDIRECT_PATH } from '@/config/setting';
-import Layout from '@/layout/index.vue';
-import RedirectLayout from '@/components/RedirectLayout/index.vue';
-const modules = import.meta.glob('/src/views/**/index.vue');
+import type { RouteRecordRaw } from 'vue-router'
+import { menuToRoutes, eachTree } from 'ele-admin-plus/es'
+import type { MenuItem } from 'ele-admin-plus/es/ele-pro-layout/types'
+import { HOME_PATH, LAYOUT_PATH, REDIRECT_PATH } from '@/config/setting'
+import Layout from '@/layout/index.vue'
+import RedirectLayout from '@/components/RedirectLayout/index.vue'
+const modules = import.meta.glob('/src/views/**/index.vue')
 
 /**
  * 静态路由
@@ -20,7 +20,7 @@ export const routes = [
     path: '/:path(.*)*',
     component: () => import('@/views/exception/404/index.vue')
   }
-];
+]
 
 /**
  * 根据菜单生成动态路由
@@ -35,7 +35,7 @@ export function getMenuRoutes(menus?: MenuItem[], homePath?: string) {
       component: RedirectLayout,
       meta: { hideFooter: true }
     }
-  ];
+  ]
   const layoutRoutes: RouteRecordRaw[] = [
     {
       path: LAYOUT_PATH,
@@ -43,17 +43,17 @@ export function getMenuRoutes(menus?: MenuItem[], homePath?: string) {
       redirect: HOME_PATH ?? homePath,
       children: childRoutes
     }
-  ];
+  ]
   // 路由铺平处理
   eachTree(menuToRoutes(menus, getComponent, routes), (route) => {
-    const temp = Object.assign({}, route, { children: void 0 });
+    const temp = Object.assign({}, route, { children: void 0 })
     if (route.meta?.layout === false) {
-      layoutRoutes.push(temp); // 不需要外层布局的路由
+      layoutRoutes.push(temp) // 不需要外层布局的路由
     } else {
-      childRoutes.push(temp); // 需要外层布局的路由
+      childRoutes.push(temp) // 需要外层布局的路由
     }
-  });
-  return layoutRoutes;
+  })
+  return layoutRoutes
 }
 
 /**
@@ -62,10 +62,10 @@ export function getMenuRoutes(menus?: MenuItem[], homePath?: string) {
  */
 function getComponent(component?: string) {
   if (component) {
-    const module = modules[`/src/views${component}.vue`];
+    const module = modules[`/src/views${component}.vue`]
     if (!module) {
-      return modules[`/src/views${component}/index.vue`];
+      return modules[`/src/views${component}/index.vue`]
     }
-    return module;
+    return module
   }
 }

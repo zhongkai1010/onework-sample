@@ -13,12 +13,7 @@
     </ele-text>
     <div class="rate-item">
       <div class="rate-item-progress">
-        <el-progress
-          color="#52c41a"
-          :percentage="60"
-          :show-text="false"
-          :stroke-width="8"
-        />
+        <el-progress color="#52c41a" :percentage="60" :show-text="false" :stroke-width="8" />
       </div>
       <ele-text type="placeholder" :icon="StarFilled" class="rate-item-text">
         <span>5 : 368 人</span>
@@ -26,12 +21,7 @@
     </div>
     <div class="rate-item">
       <div class="rate-item-progress">
-        <el-progress
-          color="#1890ff"
-          :percentage="40"
-          :show-text="false"
-          :stroke-width="8"
-        />
+        <el-progress color="#1890ff" :percentage="40" :show-text="false" :stroke-width="8" />
       </div>
       <ele-text type="placeholder" :icon="StarFilled" class="rate-item-text">
         <span>4 : 256 人</span>
@@ -39,12 +29,7 @@
     </div>
     <div class="rate-item">
       <div class="rate-item-progress">
-        <el-progress
-          color="#faad14"
-          :percentage="20"
-          :show-text="false"
-          :stroke-width="8"
-        />
+        <el-progress color="#faad14" :percentage="20" :show-text="false" :stroke-width="8" />
       </div>
       <ele-text type="placeholder" :icon="StarFilled" class="rate-item-text">
         <span>3 : 49 人</span>
@@ -52,12 +37,7 @@
     </div>
     <div class="rate-item">
       <div class="rate-item-progress">
-        <el-progress
-          color="#f5222d"
-          :percentage="10"
-          :show-text="false"
-          :stroke-width="8"
-        />
+        <el-progress color="#f5222d" :percentage="10" :show-text="false" :stroke-width="8" />
       </div>
       <ele-text type="placeholder" :icon="StarFilled" class="rate-item-text">
         <span>2 : 14 人</span>
@@ -75,11 +55,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { StarFilled } from '@/components/icons';
+  import { ref } from 'vue'
+  import { StarFilled } from '@/components/icons'
 
   /** 用户评分 */
-  const userRate = ref(4.5);
+  const userRate = ref(4.5)
 </script>
 
 <style lang="scss" scoped>

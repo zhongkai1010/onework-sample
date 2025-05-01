@@ -27,9 +27,7 @@
     </option-item>
     <option-item label="限制在指定区域">
       <el-button @click="showInDemoWrap" class="ele-btn-icon">提示</el-button>
-      <el-button @click="openModal" class="ele-btn-icon">
-        限制在指定弹窗
-      </el-button>
+      <el-button @click="openModal" class="ele-btn-icon"> 限制在指定弹窗 </el-button>
     </option-item>
     <div
       :style="{
@@ -55,19 +53,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { useMessage, useMessageBox, random } from 'ele-admin-plus/es';
-  import OptionItem from '@/views/extension/avatar/components/option-item.vue';
-  import DemoMessageModal from './demo-message-modal.vue';
+  import { ref } from 'vue'
+  import { useMessage, useMessageBox, random } from 'ele-admin-plus/es'
+  import OptionItem from '@/views/extension/avatar/components/option-item.vue'
+  import DemoMessageModal from './demo-message-modal.vue'
 
-  const message = useMessage();
-  const messageBox = useMessageBox();
+  const message = useMessage()
+  const messageBox = useMessageBox()
 
   /** 主题风格 */
-  const theme = ref(0);
+  const theme = ref(0)
 
   /** 限制在主体区域 */
-  const inner = ref(false);
+  const inner = ref(false)
 
   /** 打开消息 */
   const showMessage = (type: 'success' | 'warning' | 'error' | 'info') => {
@@ -76,7 +74,7 @@
       warning: '这是一条警告的提示',
       error: '这是一条错误的提示',
       info: '这是一条普通的提示'
-    };
+    }
     message({
       type,
       message: messages[type],
@@ -84,8 +82,8 @@
       original: theme.value === 3 ? 'plain' : theme.value === 2,
       inner: inner.value,
       showClose: true
-    });
-  };
+    })
+  }
 
   /** 打开加载提示 */
   const showLoading = (mask?: boolean, centered?: boolean) => {
@@ -97,52 +95,47 @@
       showClose: true,
       mask,
       centered
-    });
+    })
     setTimeout(() => {
-      loading.close();
-    }, 3000);
-  };
+      loading.close()
+    }, 3000)
+  }
 
   /** 导入进度 */
-  const progress = ref(0);
+  const progress = ref(0)
 
   /** 打开响应式加载框 */
   const showReactiveLoading = () => {
-    progress.value = 0;
+    progress.value = 0
     const loading = message.loading({
-      message: () =>
-        `正在导入用户......${String(progress.value).padStart(2, '0')}%` as any,
+      message: () => `正在导入用户......${String(progress.value).padStart(2, '0')}%` as any,
       plain: true,
       inner: inner.value,
       mask: true,
       centered: true
-    });
+    })
     const timer = setInterval(() => {
-      const num = progress.value + random(0, 5);
-      progress.value = num > 100 ? 100 : num;
+      const num = progress.value + random(0, 5)
+      progress.value = num > 100 ? 100 : num
       if (progress.value == 100) {
-        loading.close();
-        clearInterval(timer);
+        loading.close()
+        clearInterval(timer)
         messageBox
-          .alert(
-            '导入完成，共新增 80 条数据，更新 20 条数据，失败 0 条数据。',
-            '导入成功',
-            {
-              type: 'success',
-              confirmButtonText: '完成',
-              inner: inner.value,
-              draggable: true
-            }
-          )
-          .then(() => {
-            console.log('点击了完成');
+          .alert('导入完成，共新增 80 条数据，更新 20 条数据，失败 0 条数据。', '导入成功', {
+            type: 'success',
+            confirmButtonText: '完成',
+            inner: inner.value,
+            draggable: true
           })
-          .catch(() => {});
+          .then(() => {
+            console.log('点击了完成')
+          })
+          .catch(() => {})
       }
-    }, 100);
-  };
+    }, 100)
+  }
 
-  const demoMessageWrapRef = ref<HTMLDivElement>();
+  const demoMessageWrapRef = ref<HTMLDivElement>()
 
   const showInDemoWrap = () => {
     message.success({
@@ -152,12 +145,12 @@
       inner: true,
       showClose: true,
       appendTo: demoMessageWrapRef.value
-    });
-  };
+    })
+  }
 
-  const modalVisible = ref(false);
+  const modalVisible = ref(false)
 
   const openModal = () => {
-    modalVisible.value = true;
-  };
+    modalVisible.value = true
+  }
 </script>

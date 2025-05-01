@@ -1,31 +1,31 @@
-import { PageParam } from '@/api';
+import { PageParam } from '@/api'
 
 /**
  * 机构
  */
 export interface Organization {
   /** 机构id */
-  organizationId?: number;
+  organizationId?: number
   /** 上级id, 0是顶级 */
-  parentId?: number;
+  parentId?: number
   /** 机构名称 */
-  organizationName?: string;
+  organizationName?: string
   /** 机构全称 */
-  organizationFullName?: string;
+  organizationFullName?: string
   /** 机构代码 */
-  organizationCode?: string;
+  organizationCode?: string
   /** 机构类型(字典) */
-  organizationType?: string;
+  organizationType?: string
   /** 排序号 */
-  sortNumber?: number;
+  sortNumber?: number
   /** 备注 */
-  comments?: string;
+  comments?: string
   /** 创建时间 */
-  createTime?: string;
+  createTime?: string
   /** 机构类型名称 */
-  organizationTypeName?: string;
+  organizationTypeName?: string
   /** 子级 */
-  children?: Organization[];
+  children?: Organization[]
 }
 
 /**
@@ -33,9 +33,9 @@ export interface Organization {
  */
 export interface OrganizationParam extends PageParam {
   /** 机构名称 */
-  organizationName?: string;
+  organizationName?: string
   /** 机构全称 */
-  organizationFullName?: string;
+  organizationFullName?: string
   /** 机构类型(字典) */
-  organizationType?: string;
+  organizationType?: string
 }

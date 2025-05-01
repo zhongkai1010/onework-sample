@@ -36,21 +36,16 @@
 </template>
 
 <script lang="ts" setup>
-  import {
-    MoreOutlined,
-    ReloadOutlined,
-    EditOutlined,
-    DeleteOutlined
-  } from '@/components/icons';
-  import type { Command } from '../model';
+  import { MoreOutlined, ReloadOutlined, EditOutlined, DeleteOutlined } from '@/components/icons'
+  import type { Command } from '../model'
 
   const emit = defineEmits<{
-    (e: 'command', command: Command): void;
-  }>();
+    (e: 'command', command: Command): void
+  }>()
 
   const handleCommand = (command: Command) => {
-    emit('command', command);
-  };
+    emit('command', command)
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/api/inventory/warehouse": {
+    "/api/inventory/warehouse/all": {
       "get": {
         "summary": "查询库房&展区（树形结构）",
         "deprecated": false,
@@ -19,8 +19,29 @@
             "in": "query",
             "description": "名称",
             "required": false,
+            "example": "",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "类型，1：库房，2：展区",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "tier",
+            "in": "query",
+            "description": "级别，1：库，2：区、3：列、4：节、5：层",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
             }
           },
           {
@@ -68,9 +89,17 @@
                             "type": "string",
                             "description": "名称"
                           },
+                          "pingying": {
+                            "type": "string",
+                            "description": "拼音"
+                          },
+                          "tier": {
+                            "type": "integer",
+                            "description": "级别，1：库，2：区、3：列、4：节、5：层"
+                          },
                           "type": {
                             "type": "integer",
-                            "description": "级别，1：库，2：区"
+                            "description": "类型 ，1：库房，2：展区"
                           },
                           "remark": {
                             "type": "string",
@@ -95,8 +124,9 @@
                         },
                         "required": [
                           "id",
-                          "parentId",
-                          "code"
+                          "type",
+                          "tier",
+                          "name"
                         ]
                       },
                       "description": "返回数据"
@@ -117,7 +147,9 @@
           }
         },
         "security": []
-      },
+      }
+    },
+    "/api/inventory/warehouse": {
       "post": {
         "summary": "新增库房",
         "deprecated": false,
@@ -146,31 +178,39 @@
                     "description": "编号"
                   },
                   "parentId": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "上级库房"
                   },
                   "name": {
                     "type": "string",
                     "description": "名称"
                   },
+                  "tier": {
+                    "type": "integer",
+                    "description": "级别，1：库，2：区、3：列、4：节、5：层"
+                  },
                   "type": {
+                    "type": "integer",
+                    "description": "类型 ，1：库房，2：展区"
+                  },
+                  "pingying": {
                     "type": "string",
-                    "description": "级别，1：库，2：区"
+                    "description": "拼音"
                   },
                   "remark": {
                     "type": "string",
                     "description": "备注"
                   },
                   "columnCount": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "列数"
                   },
                   "sectionCount": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "节数"
                   },
                   "layerCount": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "层数"
                   },
                   "fixedColumnType": {
@@ -179,11 +219,9 @@
                   }
                 },
                 "required": [
-                  "parentId",
-                  "columnCount",
-                  "sectionCount",
-                  "fixedColumnType",
-                  "layerCount"
+                  "type",
+                  "tier",
+                  "name"
                 ]
               },
               "examples": {}
@@ -264,24 +302,32 @@
                     "type": "string",
                     "description": "名称"
                   },
+                  "pingying": {
+                    "type": "string",
+                    "description": "拼音"
+                  },
+                  "tier": {
+                    "type": "integer",
+                    "description": "级别，1：库，2：区、3：列、4：节、5：层"
+                  },
                   "type": {
                     "type": "integer",
-                    "description": "级别，1：库，2：区级别"
+                    "description": "类型 ，1：库房，2：展区"
                   },
                   "remark": {
                     "type": "string",
                     "description": "备注"
                   },
                   "columnCount": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "列数"
                   },
                   "sectionCount": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "节数"
                   },
                   "layerCount": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "层数"
                   },
                   "fixedColumnType": {
@@ -291,11 +337,9 @@
                 },
                 "required": [
                   "id",
-                  "parentId",
-                  "columnCount",
-                  "sectionCount",
-                  "fixedColumnType",
-                  "layerCount"
+                  "type",
+                  "tier",
+                  "name"
                 ]
               },
               "examples": {}
@@ -459,8 +503,19 @@
           {
             "name": "type",
             "in": "query",
+            "description": "类型，1：库房，2：展区",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "tier",
+            "in": "query",
             "description": "级别，1：库，2：区",
             "required": false,
+            "example": 0,
             "schema": {
               "type": "integer"
             }
@@ -470,6 +525,7 @@
             "in": "query",
             "description": "地址信息",
             "required": false,
+            "example": "",
             "schema": {
               "type": "string"
             }
@@ -479,6 +535,7 @@
             "in": "query",
             "description": "地址码",
             "required": false,
+            "example": "",
             "schema": {
               "type": "string"
             }
@@ -534,8 +591,18 @@
                                 "type": "string",
                                 "format": "date-time",
                                 "description": "地址码"
+                              },
+                              "tier": {
+                                "type": "integer",
+                                "description": "级别，1：库，2：区、3：列、4：节、5：层"
                               }
-                            }
+                            },
+                            "required": [
+                              "tier",
+                              "id",
+                              "name",
+                              "code"
+                            ]
                           }
                         }
                       }
@@ -620,6 +687,7 @@
             "in": "query",
             "description": "地址条码",
             "required": false,
+            "example": "",
             "schema": {
               "type": "string"
             }
@@ -629,6 +697,27 @@
             "in": "query",
             "description": "绑定时间",
             "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "类型，1：库房，2：展区",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": " ",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "",
             "schema": {
               "type": "string"
             }
@@ -737,9 +826,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "collectionId": {
-                    "type": "integer",
-                    "description": "藏品ID"
+                  "collectionCode": {
+                    "type": "string",
+                    "description": "藏品编码"
                   },
                   "code": {
                     "type": "string",
@@ -747,7 +836,7 @@
                   }
                 },
                 "required": [
-                  "collectionId",
+                  "collectionCode",
                   "code"
                 ]
               },
@@ -842,6 +931,33 @@
             "name": "warehouseId",
             "in": "query",
             "description": "存放位置ID",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "collectionCode",
+            "in": "query",
+            "description": "藏品编号",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionName",
+            "in": "query",
+            "description": "藏品名称",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "藏品分类",
             "required": false,
             "schema": {
               "type": "integer"
@@ -1084,2761 +1200,6 @@
                               "id",
                               "collectionName"
                             ]
-                          }
-                        }
-                      }
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/inbound/type/collection": {
-      "get": {
-        "summary": "根据入库类型查询藏品列表",
-        "deprecated": false,
-        "description": "用于入库的时候选择藏品",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "type",
-            "in": "query",
-            "description": "入库类型,1:初次入库，2：归还入库",
-            "required": true,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string",
-                            "description": "藏品ID"
-                          },
-                          "collectionName": {
-                            "type": "string",
-                            "description": "藏品名称"
-                          },
-                          "collectionCode": {
-                            "type": "string",
-                            "description": "藏品编码"
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "collectionName",
-                          "collectionCode"
-                        ]
-                      },
-                      "title": "PageResult«Role»"
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/inbound/register": {
-      "post": {
-        "summary": "入库登记",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "description": "入库类型,1:初次入库，2：归还入库"
-                  },
-                  "collectionIds": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "藏品ID集合"
-                  },
-                  "operator": {
-                    "type": "string",
-                    "description": "经办人"
-                  },
-                  "warehouseId": {
-                    "type": "string",
-                    "description": "接收库房"
-                  },
-                  "storageDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "入库日期"
-                  },
-                  "remarks": {
-                    "type": "string",
-                    "description": "备注"
-                  }
-                },
-                "required": [
-                  "collectionIds"
-                ]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/inbound": {
-      "get": {
-        "summary": "查询入库单分页列表",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "status",
-            "in": "query",
-            "description": "单据状态   ",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "入库类型   ",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "collectionId",
-            "in": "query",
-            "description": "藏品ID",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "operator",
-            "in": "query",
-            "description": "经办人   ",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "warehouseId",
-            "in": "query",
-            "description": "接收库房   ",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "remarks",
-            "in": "query",
-            "description": "备注",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "分页查询每页数量",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "order",
-            "in": "query",
-            "description": "排序方式",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页查询页码",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "排序字段",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "title": "PageResult«Role»",
-                      "type": "object",
-                      "properties": {
-                        "count": {
-                          "type": "integer",
-                          "description": "总数量",
-                          "format": "int64"
-                        },
-                        "list": {
-                          "type": "array",
-                          "description": "当前页数据",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "description": "ID 编号"
-                              },
-                              "documentImage": {
-                                "type": "string",
-                                "description": "单据图片"
-                              },
-                              "status": {
-                                "type": "string",
-                                "description": "单据状态"
-                              },
-                              "code": {
-                                "type": "string",
-                                "description": "入库单号"
-                              },
-                              "type": {
-                                "type": "string",
-                                "description": "入库类型"
-                              },
-                              "operator": {
-                                "type": "string",
-                                "description": "经办人"
-                              },
-                              "warehouseId": {
-                                "type": "string",
-                                "description": "接收库房"
-                              },
-                              "warehouseName": {
-                                "type": "string",
-                                "description": "库房名称"
-                              },
-                              "storageDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "入库日期"
-                              },
-                              "remarks": {
-                                "type": "string",
-                                "description": "备注"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "warehouseName"
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/inbound/approve": {
-      "post": {
-        "summary": "入库单审核",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "description": "ID集合"
-                  }
-                },
-                "required": [
-                  "ids"
-                ]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/inbound/confirm": {
-      "post": {
-        "summary": "确认入库",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "入库单ID"
-                  }
-                },
-                "required": [
-                  "id"
-                ]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/inbound/details": {
-      "get": {
-        "summary": "查询入库明细",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "description": "",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "分页查询每页数量",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "order",
-            "in": "query",
-            "description": "排序方式",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页查询页码",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "排序字段",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "title": "PageResult«Role»",
-                      "type": "object",
-                      "properties": {
-                        "count": {
-                          "type": "integer",
-                          "description": "总数量",
-                          "format": "int64"
-                        },
-                        "list": {
-                          "type": "array",
-                          "description": "当前页数据",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "description": "ID"
-                              },
-                              "collectionStatus": {
-                                "type": "string",
-                                "description": "藏品状态"
-                              },
-                              "imageInfo": {
-                                "type": "string",
-                                "description": "图片信息"
-                              },
-                              "numberCategory": {
-                                "type": "string",
-                                "description": "编号类别"
-                              },
-                              "collectionCode": {
-                                "type": "string",
-                                "description": "藏品编号"
-                              },
-                              "collectionName": {
-                                "type": "string",
-                                "description": "藏品名称"
-                              },
-                              "categoryName": {
-                                "type": "string",
-                                "description": "藏品类别"
-                              },
-                              "categoryId": {
-                                "type": "string",
-                                "description": "藏品类别ID"
-                              },
-                              "rfidCode": {
-                                "type": "string",
-                                "description": "RFID编号"
-                              },
-                              "quantity": {
-                                "type": "integer",
-                                "description": "数量"
-                              },
-                              "unit": {
-                                "type": "string",
-                                "description": "数量单位"
-                              },
-                              "eraType": {
-                                "type": "string",
-                                "description": "年代类型"
-                              },
-                              "era": {
-                                "type": "string",
-                                "description": "年代"
-                              },
-                              "artist": {
-                                "type": "string",
-                                "description": "艺术家"
-                              },
-                              "regionType": {
-                                "type": "string",
-                                "description": "地域类型"
-                              },
-                              "region": {
-                                "type": "string",
-                                "description": "地域"
-                              },
-                              "materialType": {
-                                "type": "string",
-                                "description": "质地类型"
-                              },
-                              "material": {
-                                "type": "string",
-                                "description": "质地"
-                              },
-                              "overallLength": {
-                                "type": "number",
-                                "description": "通长(底径cm)"
-                              },
-                              "overallWidth": {
-                                "type": "number",
-                                "description": "通宽(口径cm)"
-                              },
-                              "totalHeight": {
-                                "type": "number",
-                                "description": "通高(cm)"
-                              },
-                              "specificDimensions": {
-                                "type": "string",
-                                "description": "具体尺寸"
-                              },
-                              "weightRange": {
-                                "type": "string",
-                                "description": "质量范围"
-                              },
-                              "specificWeight": {
-                                "type": "number",
-                                "description": "具体质量"
-                              },
-                              "weightUnit": {
-                                "type": "string",
-                                "description": "质量单位"
-                              },
-                              "culturalLevel": {
-                                "type": "string",
-                                "description": "文物级别"
-                              },
-                              "collectionSource": {
-                                "type": "string",
-                                "description": "藏品来源"
-                              },
-                              "condition": {
-                                "type": "string",
-                                "description": "完残状况"
-                              },
-                              "preservationStatus": {
-                                "type": "string",
-                                "description": "保存状态"
-                              },
-                              "collectionDate": {
-                                "type": "string",
-                                "description": "征集日期"
-                              },
-                              "collectionDateRange": {
-                                "type": "string",
-                                "description": "入藏日期范围"
-                              },
-                              "collectionYear": {
-                                "type": "string",
-                                "description": "入藏年度"
-                              },
-                              "type": {
-                                "type": "string",
-                                "description": "类型"
-                              },
-                              "culturalType": {
-                                "type": "string",
-                                "description": "人文类型"
-                              },
-                              "collectionIntroduction": {
-                                "type": "string",
-                                "description": "藏品介绍"
-                              },
-                              "textType": {
-                                "type": "string",
-                                "description": "文本类型"
-                              },
-                              "audioVisualCarrierType": {
-                                "type": "string",
-                                "description": "声像载体类型"
-                              },
-                              "audioVisualStorageLocation": {
-                                "type": "string",
-                                "description": "声像载体存放位置"
-                              },
-                              "diskPath": {
-                                "type": "string",
-                                "description": "计算机磁盘路径"
-                              },
-                              "colorCategory": {
-                                "type": "string",
-                                "description": "颜色类别"
-                              },
-                              "colorDescription": {
-                                "type": "string",
-                                "description": "颜色描述"
-                              },
-                              "warehouseName": {
-                                "type": "string",
-                                "description": "存放位置ID"
-                              },
-                              "warehouseId": {
-                                "type": "string",
-                                "description": "存放位置"
-                              },
-                              "notes": {
-                                "type": "string",
-                                "description": "备注"
-                              },
-                              "museumEntryTime": {
-                                "type": "string",
-                                "description": "入馆时间"
-                              },
-                              "collectionTime": {
-                                "type": "string",
-                                "description": "入藏时间"
-                              },
-                              "loginTime": {
-                                "type": "string",
-                                "description": "登录时间"
-                              },
-                              "cabinetEntryTime": {
-                                "type": "string",
-                                "description": "入柜时间"
-                              }
-                            },
-                            "required": [
-                              "categoryId",
-                              "material",
-                              "warehouseId"
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/outbound": {
-      "post": {
-        "summary": "新增藏品出库单",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "description": "ID集合"
-                  }
-                },
-                "required": [
-                  "ids"
-                ]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      },
-      "get": {
-        "summary": "查询出库单分页列表",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "分页查询每页数量",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "order",
-            "in": "query",
-            "description": "排序方式",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页查询页码",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "排序字段",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "borrowType",
-            "in": "query",
-            "description": "提借类型",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "description": "单据状态",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "code",
-            "in": "query",
-            "description": "出库单号",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "title": "PageResult«Role»",
-                      "type": "object",
-                      "properties": {
-                        "count": {
-                          "type": "integer",
-                          "description": "总数量",
-                          "format": "int64"
-                        },
-                        "list": {
-                          "type": "array",
-                          "description": "当前页数据",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "documentImage": {
-                                "type": "string",
-                                "description": "单据图片"
-                              },
-                              "status": {
-                                "type": "string",
-                                "description": "单据状态"
-                              },
-                              "code": {
-                                "type": "string",
-                                "description": "出库单号"
-                              },
-                              "outboundDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "出库日期"
-                              },
-                              "operator": {
-                                "type": "string",
-                                "description": "经办人"
-                              },
-                              "borrowDepartment": {
-                                "type": "string",
-                                "description": "提借部门"
-                              },
-                              "borrower": {
-                                "type": "string",
-                                "description": "提借人"
-                              },
-                              "borrowType": {
-                                "type": "string",
-                                "description": "提借类型"
-                              },
-                              "proposedReturnDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "拟归日期"
-                              },
-                              "remarks": {
-                                "type": "string",
-                                "description": "备注"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      },
-      "delete": {
-        "summary": "删除出库单",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/outbound/confirm": {
-      "post": {
-        "summary": "确认出库单",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/outbound/approve": {
-      "post": {
-        "summary": "审核出库单",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "description": "ID集合"
-                  }
-                },
-                "required": [
-                  "ids"
-                ]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/outbound/details": {
-      "get": {
-        "summary": "查询出库单详情",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "description": "",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "分页查询每页数量",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "order",
-            "in": "query",
-            "description": "排序方式",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页查询页码",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "排序字段",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "title": "PageResult«Role»",
-                      "type": "object",
-                      "properties": {
-                        "count": {
-                          "type": "integer",
-                          "description": "总数量",
-                          "format": "int64"
-                        },
-                        "list": {
-                          "type": "array",
-                          "description": "当前页数据",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "description": "ID"
-                              },
-                              "collectionStatus": {
-                                "type": "string",
-                                "description": "藏品状态"
-                              },
-                              "imageInfo": {
-                                "type": "string",
-                                "description": "图片信息"
-                              },
-                              "numberCategory": {
-                                "type": "string",
-                                "description": "编号类别"
-                              },
-                              "collectionCode": {
-                                "type": "string",
-                                "description": "藏品编号"
-                              },
-                              "collectionName": {
-                                "type": "string",
-                                "description": "藏品名称"
-                              },
-                              "categoryName": {
-                                "type": "string",
-                                "description": "藏品类别"
-                              },
-                              "categoryId": {
-                                "type": "string",
-                                "description": "藏品类别ID"
-                              },
-                              "rfidCode": {
-                                "type": "string",
-                                "description": "RFID编号"
-                              },
-                              "quantity": {
-                                "type": "integer",
-                                "description": "数量"
-                              },
-                              "unit": {
-                                "type": "string",
-                                "description": "数量单位"
-                              },
-                              "eraType": {
-                                "type": "string",
-                                "description": "年代类型"
-                              },
-                              "era": {
-                                "type": "string",
-                                "description": "年代"
-                              },
-                              "artist": {
-                                "type": "string",
-                                "description": "艺术家"
-                              },
-                              "regionType": {
-                                "type": "string",
-                                "description": "地域类型"
-                              },
-                              "region": {
-                                "type": "string",
-                                "description": "地域"
-                              },
-                              "materialType": {
-                                "type": "string",
-                                "description": "质地类型"
-                              },
-                              "material": {
-                                "type": "string",
-                                "description": "质地"
-                              },
-                              "overallLength": {
-                                "type": "number",
-                                "description": "通长(底径cm)"
-                              },
-                              "overallWidth": {
-                                "type": "number",
-                                "description": "通宽(口径cm)"
-                              },
-                              "totalHeight": {
-                                "type": "number",
-                                "description": "通高(cm)"
-                              },
-                              "specificDimensions": {
-                                "type": "string",
-                                "description": "具体尺寸"
-                              },
-                              "weightRange": {
-                                "type": "string",
-                                "description": "质量范围"
-                              },
-                              "specificWeight": {
-                                "type": "number",
-                                "description": "具体质量"
-                              },
-                              "weightUnit": {
-                                "type": "string",
-                                "description": "质量单位"
-                              },
-                              "culturalLevel": {
-                                "type": "string",
-                                "description": "文物级别"
-                              },
-                              "collectionSource": {
-                                "type": "string",
-                                "description": "藏品来源"
-                              },
-                              "condition": {
-                                "type": "string",
-                                "description": "完残状况"
-                              },
-                              "preservationStatus": {
-                                "type": "string",
-                                "description": "保存状态"
-                              },
-                              "collectionDate": {
-                                "type": "string",
-                                "description": "征集日期"
-                              },
-                              "collectionDateRange": {
-                                "type": "string",
-                                "description": "入藏日期范围"
-                              },
-                              "collectionYear": {
-                                "type": "string",
-                                "description": "入藏年度"
-                              },
-                              "type": {
-                                "type": "string",
-                                "description": "类型"
-                              },
-                              "culturalType": {
-                                "type": "string",
-                                "description": "人文类型"
-                              },
-                              "collectionIntroduction": {
-                                "type": "string",
-                                "description": "藏品介绍"
-                              },
-                              "textType": {
-                                "type": "string",
-                                "description": "文本类型"
-                              },
-                              "audioVisualCarrierType": {
-                                "type": "string",
-                                "description": "声像载体类型"
-                              },
-                              "audioVisualStorageLocation": {
-                                "type": "string",
-                                "description": "声像载体存放位置"
-                              },
-                              "diskPath": {
-                                "type": "string",
-                                "description": "计算机磁盘路径"
-                              },
-                              "colorCategory": {
-                                "type": "string",
-                                "description": "颜色类别"
-                              },
-                              "colorDescription": {
-                                "type": "string",
-                                "description": "颜色描述"
-                              },
-                              "warehouseName": {
-                                "type": "string",
-                                "description": "存放位置ID"
-                              },
-                              "warehouseId": {
-                                "type": "string",
-                                "description": "存放位置"
-                              },
-                              "notes": {
-                                "type": "string",
-                                "description": "备注"
-                              },
-                              "museumEntryTime": {
-                                "type": "string",
-                                "description": "入馆时间"
-                              },
-                              "collectionTime": {
-                                "type": "string",
-                                "description": "入藏时间"
-                              },
-                              "loginTime": {
-                                "type": "string",
-                                "description": "登录时间"
-                              },
-                              "cabinetEntryTime": {
-                                "type": "string",
-                                "description": "入柜时间"
-                              }
-                            },
-                            "required": [
-                              "categoryId",
-                              "material",
-                              "warehouseId"
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/outbound/catalog": {
-      "get": {
-        "summary": "查询出库目录",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "collectionId",
-            "in": "query",
-            "description": "藏品ID",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "分页查询每页数量",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "order",
-            "in": "query",
-            "description": "排序方式",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页查询页码",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "排序字段",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "collectionCode",
-            "in": "query",
-            "description": "藏品编号",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "code",
-            "in": "query",
-            "description": "出库单号",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "collectionName",
-            "in": "query",
-            "description": "藏品名称",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "description": "状态",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "title": "PageResult«Role»",
-                      "type": "object",
-                      "properties": {
-                        "count": {
-                          "type": "integer",
-                          "description": "总数量",
-                          "format": "int64"
-                        },
-                        "list": {
-                          "type": "array",
-                          "description": "当前页数据",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "code": {
-                                "type": "string",
-                                "description": "出库单号"
-                              },
-                              "outboundDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "出库日期"
-                              },
-                              "collectionCode": {
-                                "type": "string",
-                                "description": "藏品编号"
-                              },
-                              "collectionName": {
-                                "type": "string",
-                                "description": "藏品名称"
-                              },
-                              "storageDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "入库日期"
-                              },
-                              "status": {
-                                "type": "string",
-                                "description": "状态"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/transfer": {
-      "post": {
-        "summary": "新增藏品拨库单",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "description": "ID集合"
-                  }
-                },
-                "required": [
-                  "ids"
-                ]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      },
-      "get": {
-        "summary": "查询拨库单分页列表",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "status",
-            "in": "query",
-            "description": "单据状态   ",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "warehouseId",
-            "in": "query",
-            "description": " 调拨仓库",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "分页查询每页数量",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "order",
-            "in": "query",
-            "description": "排序方式",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页查询页码",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "排序字段",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "title": "PageResult«Role»",
-                      "type": "object",
-                      "properties": {
-                        "count": {
-                          "type": "integer",
-                          "description": "总数量",
-                          "format": "int64"
-                        },
-                        "list": {
-                          "type": "array",
-                          "description": "当前页数据",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "documentImage": {
-                                "type": "string",
-                                "description": "单据图片"
-                              },
-                              "code": {
-                                "type": "string",
-                                "description": "调拨单号"
-                              },
-                              "status": {
-                                "type": "string",
-                                "description": "单据状态"
-                              },
-                              "transferDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "调拨日期"
-                              },
-                              "warehouseId": {
-                                "type": "string",
-                                "description": "调拨仓库ID"
-                              },
-                              "warehouseName": {
-                                "type": "string",
-                                "description": "调拨仓库"
-                              },
-                              "receiver": {
-                                "type": "string",
-                                "description": "接收人"
-                              },
-                              "transferReason": {
-                                "type": "string",
-                                "description": "调拨原因"
-                              },
-                              "remarks": {
-                                "type": "string",
-                                "description": "备注"
-                              }
-                            },
-                            "required": [
-                              "warehouseName",
-                              "id"
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      },
-      "delete": {
-        "summary": "删除拨库单",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "description": "ID集合"
-                  }
-                },
-                "required": [
-                  "ids"
-                ]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/transfer/approve": {
-      "post": {
-        "summary": "审核拨库单",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "description": "ID集合"
-                  }
-                },
-                "required": [
-                  "ids"
-                ]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/transfer/confirm": {
-      "post": {
-        "summary": "确认拨库单",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "ID 编号"
-                  }
-                },
-                "required": [
-                  "id"
-                ]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/transfer/details": {
-      "get": {
-        "summary": "查询拨库单详情",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "description": "",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "分页查询每页数量",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "order",
-            "in": "query",
-            "description": "排序方式",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页查询页码",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "排序字段",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "title": "PageResult«Role»",
-                      "type": "object",
-                      "properties": {
-                        "count": {
-                          "type": "integer",
-                          "description": "总数量",
-                          "format": "int64"
-                        },
-                        "list": {
-                          "type": "array",
-                          "description": "当前页数据",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "description": "ID"
-                              },
-                              "collectionStatus": {
-                                "type": "string",
-                                "description": "藏品状态"
-                              },
-                              "imageInfo": {
-                                "type": "string",
-                                "description": "图片信息"
-                              },
-                              "numberCategory": {
-                                "type": "string",
-                                "description": "编号类别"
-                              },
-                              "collectionCode": {
-                                "type": "string",
-                                "description": "藏品编号"
-                              },
-                              "collectionName": {
-                                "type": "string",
-                                "description": "藏品名称"
-                              },
-                              "categoryName": {
-                                "type": "string",
-                                "description": "藏品类别"
-                              },
-                              "categoryId": {
-                                "type": "string",
-                                "description": "藏品类别ID"
-                              },
-                              "rfidCode": {
-                                "type": "string",
-                                "description": "RFID编号"
-                              },
-                              "quantity": {
-                                "type": "integer",
-                                "description": "数量"
-                              },
-                              "unit": {
-                                "type": "string",
-                                "description": "数量单位"
-                              },
-                              "eraType": {
-                                "type": "string",
-                                "description": "年代类型"
-                              },
-                              "era": {
-                                "type": "string",
-                                "description": "年代"
-                              },
-                              "artist": {
-                                "type": "string",
-                                "description": "艺术家"
-                              },
-                              "regionType": {
-                                "type": "string",
-                                "description": "地域类型"
-                              },
-                              "region": {
-                                "type": "string",
-                                "description": "地域"
-                              },
-                              "materialType": {
-                                "type": "string",
-                                "description": "质地类型"
-                              },
-                              "material": {
-                                "type": "string",
-                                "description": "质地"
-                              },
-                              "overallLength": {
-                                "type": "number",
-                                "description": "通长(底径cm)"
-                              },
-                              "overallWidth": {
-                                "type": "number",
-                                "description": "通宽(口径cm)"
-                              },
-                              "totalHeight": {
-                                "type": "number",
-                                "description": "通高(cm)"
-                              },
-                              "specificDimensions": {
-                                "type": "string",
-                                "description": "具体尺寸"
-                              },
-                              "weightRange": {
-                                "type": "string",
-                                "description": "质量范围"
-                              },
-                              "specificWeight": {
-                                "type": "number",
-                                "description": "具体质量"
-                              },
-                              "weightUnit": {
-                                "type": "string",
-                                "description": "质量单位"
-                              },
-                              "culturalLevel": {
-                                "type": "string",
-                                "description": "文物级别"
-                              },
-                              "collectionSource": {
-                                "type": "string",
-                                "description": "藏品来源"
-                              },
-                              "condition": {
-                                "type": "string",
-                                "description": "完残状况"
-                              },
-                              "preservationStatus": {
-                                "type": "string",
-                                "description": "保存状态"
-                              },
-                              "collectionDate": {
-                                "type": "string",
-                                "description": "征集日期"
-                              },
-                              "collectionDateRange": {
-                                "type": "string",
-                                "description": "入藏日期范围"
-                              },
-                              "collectionYear": {
-                                "type": "string",
-                                "description": "入藏年度"
-                              },
-                              "type": {
-                                "type": "string",
-                                "description": "类型"
-                              },
-                              "culturalType": {
-                                "type": "string",
-                                "description": "人文类型"
-                              },
-                              "collectionIntroduction": {
-                                "type": "string",
-                                "description": "藏品介绍"
-                              },
-                              "textType": {
-                                "type": "string",
-                                "description": "文本类型"
-                              },
-                              "audioVisualCarrierType": {
-                                "type": "string",
-                                "description": "声像载体类型"
-                              },
-                              "audioVisualStorageLocation": {
-                                "type": "string",
-                                "description": "声像载体存放位置"
-                              },
-                              "diskPath": {
-                                "type": "string",
-                                "description": "计算机磁盘路径"
-                              },
-                              "colorCategory": {
-                                "type": "string",
-                                "description": "颜色类别"
-                              },
-                              "colorDescription": {
-                                "type": "string",
-                                "description": "颜色描述"
-                              },
-                              "warehouseName": {
-                                "type": "string",
-                                "description": "存放位置ID"
-                              },
-                              "warehouseId": {
-                                "type": "string",
-                                "description": "存放位置"
-                              },
-                              "notes": {
-                                "type": "string",
-                                "description": "备注"
-                              },
-                              "museumEntryTime": {
-                                "type": "string",
-                                "description": "入馆时间"
-                              },
-                              "collectionTime": {
-                                "type": "string",
-                                "description": "入藏时间"
-                              },
-                              "loginTime": {
-                                "type": "string",
-                                "description": "登录时间"
-                              },
-                              "cabinetEntryTime": {
-                                "type": "string",
-                                "description": "入柜时间"
-                              }
-                            },
-                            "required": [
-                              "categoryId",
-                              "material",
-                              "warehouseId"
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/inventory/transfer/catalog": {
-      "get": {
-        "summary": "查询拨库目录分页列表",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "code",
-            "in": "query",
-            "description": "拨库单号   ",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "transferDate",
-            "in": "query",
-            "description": "拨库日期   ",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "collectionId",
-            "in": "query",
-            "description": "藏品选择   ",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "description": "状态",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "分页查询每页数量",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "order",
-            "in": "query",
-            "description": "排序方式",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页查询页码",
-            "required": false,
-            "example": 0,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "排序字段",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "title": "PageResult«Role»",
-                      "type": "object",
-                      "properties": {
-                        "count": {
-                          "type": "integer",
-                          "description": "总数量",
-                          "format": "int64"
-                        },
-                        "list": {
-                          "type": "array",
-                          "description": "当前页数据",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "code": {
-                                "type": "string",
-                                "description": "拨库单号"
-                              },
-                              "transferDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "拨库日期"
-                              },
-                              "collectionId": {
-                                "type": "string",
-                                "description": "藏品编号"
-                              },
-                              "collectionName": {
-                                "type": "string",
-                                "description": "藏品名称"
-                              },
-                              "originalWarehouse": {
-                                "type": "string",
-                                "description": "原仓库"
-                              },
-                              "currentWarehouse": {
-                                "type": "string",
-                                "description": "现仓库"
-                              },
-                              "status": {
-                                "type": "string",
-                                "description": "状态"
-                              }
-                            }
                           }
                         }
                       }

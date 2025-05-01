@@ -1,15 +1,7 @@
 <template>
   <ele-card header="进阶用法">
     <div style="max-width: 260px">
-      <ele-icon-select
-        clearable
-        filterable
-        :data="icons"
-        v-model="selectedIcon"
-        :hide-on-single-tab="true"
-        placeholder="请选择"
-        :popper-options="{ strategy: 'fixed' }"
-      >
+      <ele-icon-select clearable filterable :data="icons" v-model="selectedIcon" :hide-on-single-tab="true" placeholder="请选择" :popper-options="{ strategy: 'fixed' }">
         <template #icon="{ icon, prefix }">
           <img
             :src="`/ele-file-list/ic_file_${icon}.png`"
@@ -31,11 +23,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { IconItem } from 'ele-admin-plus/es/ele-icon-select/types';
+  import { ref } from 'vue'
+  import type { IconItem } from 'ele-admin-plus/es/ele-icon-select/types'
 
   /** 选中值 */
-  const selectedIcon = ref('');
+  const selectedIcon = ref('')
 
   /** 图标数据 */
   const icons = ref<IconItem[]>([
@@ -44,23 +36,7 @@
       children: [
         {
           title: '文档',
-          icons: [
-            'folder',
-            'word',
-            'excel',
-            'ppt',
-            'pdf',
-            'visio',
-            'text',
-            'code',
-            'htm',
-            'fonts',
-            'zip',
-            'ps',
-            'cad',
-            'bt',
-            'misc'
-          ]
+          icons: ['folder', 'word', 'excel', 'ppt', 'pdf', 'visio', 'text', 'code', 'htm', 'fonts', 'zip', 'ps', 'cad', 'bt', 'misc']
         },
         {
           title: '媒体',
@@ -72,5 +48,5 @@
         }
       ]
     }
-  ]);
+  ])
 </script>

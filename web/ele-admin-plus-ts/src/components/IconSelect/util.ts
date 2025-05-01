@@ -1,23 +1,23 @@
-import type { App } from 'vue';
-import * as elIcons from '@element-plus/icons-vue';
-import * as eleIcons from '@/components/icons';
+import type { App } from 'vue'
+import * as elIcons from '@element-plus/icons-vue'
+import * as eleIcons from '@/components/icons'
 /** element-plus 的图标全局安装的前缀 */
-const elIconPrefix = 'IconEl';
+const elIconPrefix = 'IconEl'
 /** ele-admin-plus 的图标全局安装的前缀 */
-const eleIconPrefix = 'IconPro';
+const eleIconPrefix = 'IconPro'
 
 /**
  * 获取全部图标数据
  */
 export function getIconData() {
-  const iconData: Record<string, any> = {};
+  const iconData: Record<string, any> = {}
   Object.keys(elIcons).forEach((key) => {
-    iconData[`${elIconPrefix}${key}`] = elIcons[key];
-  });
+    iconData[`${elIconPrefix}${key}`] = elIcons[key]
+  })
   Object.keys(eleIcons).forEach((key) => {
-    iconData[`${eleIconPrefix}${key}`] = eleIcons[key];
-  });
-  return iconData;
+    iconData[`${eleIconPrefix}${key}`] = eleIcons[key]
+  })
+  return iconData
 }
 
 /**
@@ -25,21 +25,19 @@ export function getIconData() {
  */
 export const iconsInstaller = {
   install(app: App) {
-    const iconData = getIconData();
+    const iconData = getIconData()
     Object.keys(iconData).forEach((key) => {
-      app.component(key, iconData[key]);
-    });
+      app.component(key, iconData[key])
+    })
   }
-};
+}
 
 /**
  * 获取图标下拉选择器数据
  */
 export function getIconSelectData() {
-  const iconNames = Object.keys(getIconData());
-  const proIconNames = iconNames.filter((name) =>
-    name.startsWith(eleIconPrefix)
-  );
+  const iconNames = Object.keys(getIconData())
+  const proIconNames = iconNames.filter((name) => name.startsWith(eleIconPrefix))
   return [
     {
       title: 'EleAdminPlus',
@@ -61,7 +59,7 @@ export function getIconSelectData() {
         icons: group.icons.map((icon) => `IconEl${icon}`)
       }))
     }
-  ];
+  ]
 }
 
 /**
@@ -236,45 +234,11 @@ export const elementIconData = [
   },
   {
     title: 'Media',
-    icons: [
-      'Microphone',
-      'Mute',
-      'Mic',
-      'VideoPause',
-      'VideoCamera',
-      'VideoPlay',
-      'Headset',
-      'Monitor',
-      'Film',
-      'Camera',
-      'Picture',
-      'PictureRounded',
-      'Iphone',
-      'Cellphone',
-      'VideoCameraFilled',
-      'PictureFilled',
-      'Platform',
-      'CameraFilled',
-      'BellFilled'
-    ]
+    icons: ['Microphone', 'Mute', 'Mic', 'VideoPause', 'VideoCamera', 'VideoPlay', 'Headset', 'Monitor', 'Film', 'Camera', 'Picture', 'PictureRounded', 'Iphone', 'Cellphone', 'VideoCameraFilled', 'PictureFilled', 'Platform', 'CameraFilled', 'BellFilled']
   },
   {
     title: 'Traffic',
-    icons: [
-      'Location',
-      'LocationInformation',
-      'DeleteLocation',
-      'Coordinate',
-      'Bicycle',
-      'OfficeBuilding',
-      'School',
-      'Guide',
-      'AddLocation',
-      'MapLocation',
-      'Place',
-      'LocationFilled',
-      'Van'
-    ]
+    icons: ['Location', 'LocationInformation', 'DeleteLocation', 'Coordinate', 'Bicycle', 'OfficeBuilding', 'School', 'Guide', 'AddLocation', 'MapLocation', 'Place', 'LocationFilled', 'Van']
   },
   {
     title: 'Food',
@@ -379,31 +343,10 @@ export const elementIconData = [
   },
   {
     title: 'Weather',
-    icons: [
-      'Sunrise',
-      'Sunny',
-      'Ship',
-      'MostlyCloudy',
-      'PartlyCloudy',
-      'Sunset',
-      'Drizzling',
-      'Pouring',
-      'Cloudy',
-      'Moon',
-      'MoonNight',
-      'Lightning'
-    ]
+    icons: ['Sunrise', 'Sunny', 'Ship', 'MostlyCloudy', 'PartlyCloudy', 'Sunset', 'Drizzling', 'Pouring', 'Cloudy', 'Moon', 'MoonNight', 'Lightning']
   },
   {
     title: 'Other',
-    icons: [
-      'ChromeFilled',
-      'Eleme',
-      'ElemeFilled',
-      'ElementPlus',
-      'Shop',
-      'SwitchFilled',
-      'WindPower'
-    ]
+    icons: ['ChromeFilled', 'Eleme', 'ElemeFilled', 'ElementPlus', 'Shop', 'SwitchFilled', 'WindPower']
   }
-];
+]

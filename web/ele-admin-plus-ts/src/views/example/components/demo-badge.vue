@@ -2,30 +2,15 @@
   <ele-card header="修改菜单徽章">
     <el-form label-width="80px" style="max-width: 360px" @submit.prevent="">
       <el-form-item label="菜单">
-        <el-tree-select
-          clearable
-          :data="treeData"
-          check-strictly
-          default-expand-all
-          placeholder="请选择菜单"
-          v-model="path"
-          class="ele-fluid"
-          :popper-options="{ strategy: 'fixed' }"
-        >
+        <el-tree-select clearable :data="treeData" check-strictly default-expand-all placeholder="请选择菜单" v-model="path" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
           <template #default="{ data }">
-            <el-icon
-              v-if="data.meta?.icon"
-              style="margin-right: 4px; transform: translateY(-1px)"
-            >
+            <el-icon v-if="data.meta?.icon" style="margin-right: 4px; transform: translateY(-1px)">
               <component :is="data.meta?.icon" />
             </el-icon>
             <span>{{ data.label }}</span>
           </template>
           <template v-if="selectedIcon" #prefix>
-            <el-icon
-              color="var(--el-text-color-regular)"
-              style="margin-right: 6px"
-            >
+            <el-icon color="var(--el-text-color-regular)" style="margin-right: 6px">
               <component :is="selectedIcon" />
             </el-icon>
           </template>
@@ -35,13 +20,7 @@
         <el-input clearable v-model="badge" placeholder="请输入徽章值" />
       </el-form-item>
       <el-form-item label="徽章类型">
-        <el-select
-          clearable
-          v-model="type"
-          placeholder="请选择徽章类型"
-          class="ele-fluid"
-          :popper-options="{ strategy: 'fixed' }"
-        >
+        <el-select clearable v-model="type" placeholder="请选择徽章类型" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
           <el-option label="primary" value="primary" />
           <el-option label="success" value="success" />
           <el-option label="warning" value="warning" />
@@ -57,15 +36,15 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, computed } from 'vue';
-  import { storeToRefs } from 'pinia';
-  import type { BadgeProps } from 'element-plus';
-  import { EleMessage, mapTree, findTree } from 'ele-admin-plus/es';
-  import { useUserStore } from '@/store/modules/user';
+  import { ref, computed } from 'vue'
+  import { storeToRefs } from 'pinia'
+  import type { BadgeProps } from 'element-plus'
+  import { EleMessage, mapTree, findTree } from 'ele-admin-plus/es'
+  import { useUserStore } from '@/store/modules/user'
 
   /** 菜单树 */
-  const userStore = useUserStore();
-  const { menus } = storeToRefs(userStore);
+  const userStore = useUserStore()
+  const { menus } = storeToRefs(userStore)
 
   /** 菜单树下拉数据 */
   const treeData = computed(() => {
@@ -74,39 +53,33 @@
         ...m,
         value: m.path,
         label: m.meta?.title
-      };
-    });
-  });
+      }
+    })
+  })
 
   /** 选中菜单 */
-  const path = ref<string>();
+  const path = ref<string>()
 
   /** 徽章值 */
-  const badge = ref<string>();
+  const badge = ref<string>()
 
   /** 徽章类型 */
-  const type = ref<BadgeProps['type']>();
+  const type = ref<BadgeProps['type']>()
 
   /** 选中菜单的图标 */
   const selectedIcon = computed(() => {
     if (!path.value) {
-      return;
+      return
     }
-    return findTree(treeData.value, (d) => d.path == path.value)?.meta?.icon;
-  });
+    return findTree(treeData.value, (d) => d.path == path.value)?.meta?.icon
+  })
 
   /** 修改菜单徽章数据 */
   const setBadge = () => {
     if (!path.value) {
-      EleMessage.error('请选择菜单');
-      return;
+      EleMessage.error('请选择菜单')
+      return
     }
-    userStore.setMenuBadge(
-      path.value,
-      !badge.value || isNaN(Number(badge.value))
-        ? badge.value
-        : Number(badge.value),
-      type.value
-    );
-  };
+    userStore.setMenuBadge(path.value, !badge.value || isNaN(Number(badge.value)) ? badge.value : Number(badge.value), type.value)
+  }
 </script>

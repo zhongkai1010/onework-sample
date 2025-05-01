@@ -1,35 +1,35 @@
-import { PageParam } from '@/api';
+import { PageParam } from '@/api'
 
 /**
  * 事故记录信息
  */
 export interface Accident {
   /** ID编号 */
-  id: string;
+  id: string
   /** 编号 */
-  code: string;
+  code: string
   /** 单据图片 */
-  documentImage: string;
+  documentImage: string
   /** 藏品编码 */
-  collectionCode: string;
+  collectionCode: string
   /** 藏品ID */
-  collectionId: string;
+  collectionId: string
   /** 藏品名称 */
-  collectionName: string;
+  collectionName: string
   /** 事故时间 */
-  incidentTime: string;
+  incidentTime: string
   /** 事故地点 */
-  incidentLocation: string;
+  incidentLocation: string
   /** 事故原因 */
-  incidentCause: string;
+  incidentCause: string
   /** 事故责任人 */
-  responsiblePerson: string;
+  responsiblePerson: string
   /** 藏品损坏情况 */
-  damageStatus: string;
+  damageStatus: string
   /** 处理状态 */
-  status: string;
+  status: string
   /** 处理结果 */
-  processingResult: string;
+  processingResult: string
 }
 
 /**
@@ -37,25 +37,25 @@ export interface Accident {
  */
 export interface AddAccidentParams {
   /** 编号 */
-  code?: string;
+  code?: string
   /** 单据图片 */
-  documentImage?: string;
+  documentImage?: string
   /** 藏品ID */
-  collectionId?: string;
+  collectionId?: string
   /** 事故时间 */
-  incidentTime?: string;
+  incidentTime?: string
   /** 事故地点 */
-  incidentLocation?: string;
+  incidentLocation?: string
   /** 事故原因 */
-  incidentCause?: string;
+  incidentCause?: string
   /** 事故责任人 */
-  responsiblePerson?: string;
+  responsiblePerson?: string
   /** 藏品损坏情况 */
-  damageStatus?: string;
+  damageStatus?: string
   /** 处理状态 */
-  status: string;
+  status: string
   /** 处理结果 */
-  processingResult: string;
+  processingResult: string
 }
 
 /**
@@ -63,17 +63,17 @@ export interface AddAccidentParams {
  */
 export interface AccidentQueryParams extends PageParam {
   /** 藏品ID */
-  collectionId?: string;
+  collectionId?: string
   /** 事故地点 */
-  accidentLocation?: string;
+  accidentLocation?: string
   /** 事故原因 */
-  accidentCause?: string;
+  accidentCause?: string
   /** 事故责任人 */
-  responsiblePerson?: string;
+  responsiblePerson?: string
   /** 藏品损坏情况 */
-  collectionDamageStatus?: string;
+  collectionDamageStatus?: string
   /** 处理状态 */
-  status?: string;
+  status?: string
   /** 处理结果 */
-  processingResult?: string;
+  processingResult?: string
 }

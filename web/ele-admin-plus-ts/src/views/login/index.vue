@@ -4,9 +4,7 @@
       <ele-card shadow="always" class="login-card">
         <div class="login-cover">
           <h1 class="login-title">OneWork</h1>
-          <h4 class="login-subtitle"
-            >智能化、便捷的藏品管理解决方案，助力精细化管理</h4
-          >
+          <h4 class="login-subtitle">智能化、便捷的藏品管理解决方案，助力精细化管理</h4>
         </div>
         <div class="login-body">
           <ele-text type="heading" style="font-size: 24px; margin-bottom: 18px">
@@ -21,39 +19,16 @@
             style="margin-bottom: 18px"
             @change="handleTabChange"
           />
-          <el-form
-            v-if="tabActive == 1"
-            ref="formRef"
-            size="large"
-            :model="form"
-            :rules="rules"
-            @keyup.enter="submit"
-            @submit.prevent=""
-          >
+          <el-form v-if="tabActive == 1" ref="formRef" size="large" :model="form" :rules="rules" @keyup.enter="submit" @submit.prevent="">
             <el-form-item prop="username">
-              <el-input
-                clearable
-                v-model="form.username"
-                :placeholder="t('login.username')"
-                :prefix-icon="UserOutlined"
-              />
+              <el-input clearable v-model="form.username" :placeholder="t('login.username')" :prefix-icon="UserOutlined" />
             </el-form-item>
             <el-form-item prop="password">
-              <el-input
-                show-password
-                v-model="form.password"
-                :placeholder="t('login.password')"
-                :prefix-icon="LockOutlined"
-              />
+              <el-input show-password v-model="form.password" :placeholder="t('login.password')" :prefix-icon="LockOutlined" />
             </el-form-item>
             <el-form-item prop="code">
               <div class="login-captcha-group">
-                <el-input
-                  clearable
-                  v-model="form.code"
-                  :placeholder="t('login.code')"
-                  :prefix-icon="ProtectOutlined"
-                />
+                <el-input clearable v-model="form.code" :placeholder="t('login.code')" :prefix-icon="ProtectOutlined" />
                 <div class="login-captcha" @click="changeCaptcha">
                   <img v-if="captcha" :src="captcha" />
                 </div>
@@ -65,34 +40,15 @@
               </el-checkbox>
             </el-form-item>
             <el-form-item>
-              <el-button
-                size="large"
-                type="primary"
-                :loading="loading"
-                style="width: 100%"
-                @click="submit"
-              >
+              <el-button size="large" type="primary" :loading="loading" style="width: 100%" @click="submit">
                 {{ t('login.login') }}
               </el-button>
             </el-form-item>
           </el-form>
           <div v-else class="login-qrcode-group">
-            <ele-qr-code-svg
-              :size="180"
-              :margin="2"
-              :value="qrcode"
-              class="login-qrcode"
-            />
-            <el-link
-              type="primary"
-              :underline="false"
-              style="margin-top: 16px; user-select: none"
-              @click="refreshQrCode"
-            >
-              <el-icon
-                :size="15"
-                style="transform: translateY(-1px); margin-right: 6px"
-              >
+            <ele-qr-code-svg :size="180" :margin="2" :value="qrcode" class="login-qrcode" />
+            <el-link type="primary" :underline="false" style="margin-top: 16px; user-select: none" @click="refreshQrCode">
+              <el-icon :size="15" style="transform: translateY(-1px); margin-right: 6px">
                 <ReloadOutlined />
               </el-icon>
               <span>{{ t('login.refreshQrcode') }}</span>
@@ -106,34 +62,29 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive, unref, computed } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type { FormInstance, FormRules } from 'element-plus';
-  import {
-    UserOutlined,
-    LockOutlined,
-    ProtectOutlined,
-    ReloadOutlined
-  } from '@/components/icons';
-  import { getToken } from '@/utils/token-util';
-  import { usePageTab } from '@/utils/use-page-tab';
-  import { login, getCaptcha } from '@/api/login';
-  import PageFooter from '@/layout/components/page-footer.vue';
-  import { useI18n } from 'vue-i18n';
+  import { ref, reactive, unref, computed } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { FormInstance, FormRules } from 'element-plus'
+  import { UserOutlined, LockOutlined, ProtectOutlined, ReloadOutlined } from '@/components/icons'
+  import { getToken } from '@/utils/token-util'
+  import { usePageTab } from '@/utils/use-page-tab'
+  import { login, getCaptcha } from '@/api/login'
+  import PageFooter from '@/layout/components/page-footer.vue'
+  import { useI18n } from 'vue-i18n'
 
-  const { t } = useI18n();
-  const { currentRoute } = useRouter();
-  const { goHomeRoute, cleanPageTabs } = usePageTab();
+  const { t } = useI18n()
+  const { currentRoute } = useRouter()
+  const { goHomeRoute, cleanPageTabs } = usePageTab()
 
   /** 页签选中 */
-  const tabActive = ref(1);
+  const tabActive = ref(1)
 
   /** 表单 */
-  const formRef = ref<FormInstance | null>(null);
+  const formRef = ref<FormInstance | null>(null)
 
   /** 加载状态 */
-  const loading = ref(false);
+  const loading = ref(false)
 
   /** 表单数据 */
   const form = reactive({
@@ -142,7 +93,7 @@
     password: 'admin',
     code: '',
     remember: true
-  });
+  })
 
   /** 表单验证规则 */
   const rules = computed<FormRules>(() => {
@@ -171,82 +122,82 @@
           trigger: 'blur'
         }
       ]
-    };
-  });
+    }
+  })
 
   /** 图形验证码 */
-  const captcha = ref('');
+  const captcha = ref('')
 
   /** 验证码内容, 实际项目去掉 */
-  const text = ref('');
+  const text = ref('')
 
   /** 二维码 */
-  const qrcode = ref('');
+  const qrcode = ref('')
 
   /** 提交 */
   const submit = () => {
     formRef.value?.validate?.((valid) => {
       if (!valid) {
-        return;
+        return
       }
       if (form.code.toLowerCase() !== text.value) {
-        EleMessage.error('验证码错误');
-        return;
+        EleMessage.error('验证码错误')
+        return
       }
-      loading.value = true;
+      loading.value = true
       login(form)
         .then((msg) => {
-          EleMessage.success(msg);
-          cleanPageTabs();
-          goHome();
+          EleMessage.success(msg)
+          cleanPageTabs()
+          goHome()
         })
         .catch((e: Error) => {
-          loading.value = false;
-          EleMessage.error(e.message);
-          changeCaptcha();
-        });
-    });
-  };
+          loading.value = false
+          EleMessage.error(e.message)
+          changeCaptcha()
+        })
+    })
+  }
 
   /** 获取图形验证码 */
   const changeCaptcha = () => {
     getCaptcha()
       .then((data) => {
-        captcha.value = data.base64;
+        captcha.value = data.base64
         // 实际项目后端一般会返回验证码的key而不是直接返回验证码的内容, 登录用key去验证, 可以根据自己后端接口修改
-        text.value = data.text;
+        text.value = data.text
         // 自动回填验证码, 实际项目去掉
-        form.code = data.text;
-        formRef.value?.clearValidate?.();
+        form.code = data.text
+        formRef.value?.clearValidate?.()
       })
       .catch((e) => {
-        EleMessage.error(e.message);
-      });
-  };
+        EleMessage.error(e.message)
+      })
+  }
 
   /** 刷新二维码 */
   const refreshQrCode = () => {
-    qrcode.value = `https://api.eleadmin.com/v2/auth/login?code=${Date.now()}`;
-  };
+    qrcode.value = `https://api.eleadmin.com/v2/auth/login?code=${Date.now()}`
+  }
 
   /** 选项卡切换事件 */
   const handleTabChange = (active: number) => {
     if (active === 2) {
-      refreshQrCode();
+      refreshQrCode()
     }
-  };
+  }
 
   /** 跳转到首页 */
   const goHome = () => {
-    const { query } = unref(currentRoute);
-    goHomeRoute(query.from as string);
-  };
+    const { query } = unref(currentRoute)
+    goHomeRoute(query.from as string)
+  }
 
   // 如果已登录直接进入首页
   if (getToken()) {
-    goHome();
+    goHome()
   } else {
-    changeCaptcha();
+    changeCaptcha()
   }
 </script>
 
@@ -359,9 +310,7 @@
     margin: 0 0 6px 0;
     font-weight: normal;
     letter-spacing: 1.2px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-      'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-      'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   }
 
   .login-subtitle {

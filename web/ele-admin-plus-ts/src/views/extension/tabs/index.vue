@@ -21,16 +21,7 @@
           </el-select>
         </div>
       </option-item>
-      <ele-tabs
-        ref="tabRef"
-        :items="items"
-        v-model="active"
-        :size="size"
-        :type="type"
-        :mousewheel="true"
-        style="margin-top: 24px"
-        :class="{ 'demo-card-button': type === 'button' }"
-      >
+      <ele-tabs ref="tabRef" :items="items" v-model="active" :size="size" :type="type" :mousewheel="true" style="margin-top: 24px" :class="{ 'demo-card-button': type === 'button' }">
         <template #user>
           <div style="padding: 20px 0">User</div>
         </template>
@@ -74,11 +65,7 @@
       </ele-tabs>
     </ele-card>
     <ele-card header="组合使用">
-      <ele-card
-        bordered
-        :header-style="{ padding: '0 16px' }"
-        style="max-width: 600px"
-      >
+      <ele-card bordered :header-style="{ padding: '0 16px' }" style="max-width: 600px">
         <template #header>
           <ele-tabs
             :items="[
@@ -125,19 +112,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { EleTabs } from 'ele-admin-plus';
-  import type { TabSize, TabType } from 'ele-admin-plus/es/ele-tabs/types';
-  import OptionItem from '@/views/extension/avatar/components/option-item.vue';
-  import DemoList from './components/demo-list.vue';
+  import { ref } from 'vue'
+  import type { EleTabs } from 'ele-admin-plus'
+  import type { TabSize, TabType } from 'ele-admin-plus/es/ele-tabs/types'
+  import OptionItem from '@/views/extension/avatar/components/option-item.vue'
+  import DemoList from './components/demo-list.vue'
 
-  defineOptions({ name: 'ExtensionTabs' });
+  defineOptions({ name: 'ExtensionTabs' })
 
   /** 组件实例 */
-  const tabRef = ref<InstanceType<typeof EleTabs> | null>(null);
+  const tabRef = ref<InstanceType<typeof EleTabs> | null>(null)
 
   /** 选中 */
-  const active = ref('user');
+  const active = ref('user')
 
   /** 标签页数据 */
   const items = ref([
@@ -159,23 +146,23 @@
       label: '菜单管理',
       closable: true
     }
-  ]);
+  ])
 
   /** 尺寸 */
-  const size = ref<TabSize>('default');
+  const size = ref<TabSize>('default')
 
   /** 风格 */
-  const type = ref<TabType>('default');
+  const type = ref<TabType>('default')
 
   /** 选中 */
-  const active2 = ref('new');
+  const active2 = ref('new')
 
   /** 选中 */
-  const active3 = ref('new');
+  const active3 = ref('new')
 
   const handleChange = () => {
-    tabRef.value?.updateActiveBar?.();
-  };
+    tabRef.value?.updateActiveBar?.()
+  }
 </script>
 
 <style lang="scss" scoped>

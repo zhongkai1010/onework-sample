@@ -1,18 +1,11 @@
 <!-- 富文本编辑器 -->
 <template>
-  <MonacoEditor
-    theme="vs-dark"
-    language="html"
-    :modelValue="modelValue"
-    @update:modelValue="updateModelValue"
-    :config="editorConfig"
-    :style="{ height: '100%' }"
-  />
+  <MonacoEditor theme="vs-dark" language="html" :modelValue="modelValue" @update:modelValue="updateModelValue" :config="editorConfig" :style="{ height: '100%' }" />
 </template>
 
 <script lang="ts" setup>
-  import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
-  import MonacoEditor from '@/components/MonacoEditor/index.vue';
+  import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
+  import MonacoEditor from '@/components/MonacoEditor/index.vue'
   const editorConfig: editor.IStandaloneEditorConstructionOptions = {
     contextmenu: false,
     minimap: { enabled: false },
@@ -31,19 +24,19 @@
     selectionHighlight: false,
     occurrencesHighlight: 'off',
     matchBrackets: 'never'
-  };
+  }
 
   defineProps<{
     /** 代码 */
-    modelValue?: string;
-  }>();
+    modelValue?: string
+  }>()
 
   const emit = defineEmits<{
-    (e: 'update:modelValue', value?: string): void;
-  }>();
+    (e: 'update:modelValue', value?: string): void
+  }>()
 
   /** 更新代码 */
   const updateModelValue = (value?: string) => {
-    emit('update:modelValue', value);
-  };
+    emit('update:modelValue', value)
+  }
 </script>

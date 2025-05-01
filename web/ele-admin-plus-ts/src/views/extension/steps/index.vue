@@ -15,12 +15,7 @@
         <el-button @click="handlePrev">上一步</el-button>
         <el-button type="primary" @click="handleNext">下一步</el-button>
         <div style="margin-left: 12px">
-          <el-checkbox
-            v-model="alignCenter"
-            :true-value="1"
-            :false-value="0"
-            label="居中"
-          />
+          <el-checkbox v-model="alignCenter" :true-value="1" :false-value="0" label="居中" />
         </div>
       </div>
     </ele-card>
@@ -86,20 +81,14 @@
     <ele-card>
       <template #header>
         <span>时间线(自动S形换行)</span>
-        <el-badge
-          value="New"
-          style="display: inline-flex; font-weight: normal; margin-left: 4px"
-        />
+        <el-badge value="New" style="display: inline-flex; font-weight: normal; margin-left: 4px" />
       </template>
       <ele-timeline :data="timelineData" style="margin-top: 28px" />
     </ele-card>
     <ele-card>
       <template #header>
         <span>自定义内容</span>
-        <el-badge
-          value="New"
-          style="display: inline-flex; font-weight: normal; margin-left: 4px"
-        />
+        <el-badge value="New" style="display: inline-flex; font-weight: normal; margin-left: 4px" />
       </template>
       <ele-timeline :data="timelineData2" style="margin-top: 28px">
         <template #itemDescription="{ item }">
@@ -113,35 +102,35 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, markRaw } from 'vue';
-  import { UserFilled, Checked, SuccessFilled } from '@element-plus/icons-vue';
-  import type { TimelineItem } from 'ele-admin-plus/es/ele-timeline/types';
+  import { ref, markRaw } from 'vue'
+  import { UserFilled, Checked, SuccessFilled } from '@element-plus/icons-vue'
+  import type { TimelineItem } from 'ele-admin-plus/es/ele-timeline/types'
 
-  defineOptions({ name: 'ExtensionSteps' });
+  defineOptions({ name: 'ExtensionSteps' })
 
   /** 选中步骤 */
-  const active = ref(0);
+  const active = ref(0)
 
   /** 居中 */
-  const alignCenter = ref(0);
+  const alignCenter = ref(0)
 
   /** 上一步 */
   const handlePrev = () => {
     if (active.value < 1) {
-      active.value = 3;
-      return;
+      active.value = 3
+      return
     }
-    active.value = active.value - 1;
-  };
+    active.value = active.value - 1
+  }
 
   /** 下一步 */
   const handleNext = () => {
     if (active.value > 2) {
-      active.value = 0;
-      return;
+      active.value = 0
+      return
     }
-    active.value = active.value + 1;
-  };
+    active.value = active.value + 1
+  }
 
   /** 数据 */
   const timelineData = ref<TimelineItem[]>([
@@ -203,7 +192,7 @@
       key: 13,
       title: '13 输血开始'
     }
-  ]);
+  ])
 
   /** 数据 */
   const timelineData2 = ref<TimelineItem[]>([
@@ -304,5 +293,5 @@
       department: '',
       executor: ''
     }
-  ]);
+  ])
 </script>

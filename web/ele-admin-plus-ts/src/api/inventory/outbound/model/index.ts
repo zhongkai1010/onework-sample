@@ -3,25 +3,25 @@
  */
 export interface OutboundOrder {
   /** 单据图片 */
-  documentImage?: string;
+  documentImage?: string
   /** 单据状态 */
-  status?: string;
+  status?: string
   /** 出库单号 */
-  code?: string;
+  code?: string
   /** 出库日期 */
-  outboundDate?: string;
+  outboundDate?: string
   /** 经办人 */
-  operator?: string;
+  operator?: string
   /** 提借部门 */
-  borrowDepartment?: string;
+  borrowDepartment?: string
   /** 提借人 */
-  borrower?: string;
+  borrower?: string
   /** 提借类型 */
-  borrowType?: string;
+  borrowType?: string
   /** 拟归日期 */
-  proposedReturnDate?: string;
+  proposedReturnDate?: string
   /** 备注 */
-  remarks?: string;
+  remarks?: string
 }
 
 /**
@@ -29,37 +29,37 @@ export interface OutboundOrder {
  */
 export interface OutboundDetail {
   /** ID */
-  id: string;
+  id: string
   /** 藏品状态 */
-  collectionStatus?: string;
+  collectionStatus?: string
   /** 图片信息 */
-  imageInfo?: string;
+  imageInfo?: string
   /** 编号类别 */
-  numberCategory?: string;
+  numberCategory?: string
   /** 藏品编号 */
-  collectionCode?: string;
+  collectionCode?: string
   /** 藏品名称 */
-  collectionName?: string;
+  collectionName?: string
   /** 藏品类别 */
-  categoryName?: string;
+  categoryName?: string
   /** 藏品类别ID */
-  categoryId?: string;
+  categoryId?: string
   /** RFID编号 */
-  rfidCode?: string;
+  rfidCode?: string
   /** 数量 */
-  quantity?: number;
+  quantity?: number
   /** 数量单位 */
-  unit?: string;
+  unit?: string
   /** 年代类型 */
-  eraType?: string;
+  eraType?: string
   /** 年代 */
-  era?: string;
+  era?: string
   /** 艺术家 */
-  artist?: string;
+  artist?: string
   /** 地域类型 */
-  regionType?: string;
+  regionType?: string
   /** 地域 */
-  region?: string;
+  region?: string
 }
 
 /**
@@ -67,7 +67,7 @@ export interface OutboundDetail {
  */
 export interface AddOutboundParams {
   /** ID集合 */
-  ids: number[];
+  ids: number[]
 }
 
 /**
@@ -75,7 +75,7 @@ export interface AddOutboundParams {
  */
 export interface ApproveOutboundParams {
   /** ID集合 */
-  ids: number[];
+  ids: number[]
 }
 
 /**
@@ -83,7 +83,7 @@ export interface ApproveOutboundParams {
  */
 export interface ConfirmOutboundParams {
   /** 出库单ID */
-  id: string;
+  id: string
 }
 
 /**
@@ -91,19 +91,19 @@ export interface ConfirmOutboundParams {
  */
 export interface OutboundQueryParams {
   /** 提借类型 */
-  borrowType?: string;
+  borrowType?: string
   /** 单据状态 */
-  status?: string;
+  status?: string
   /** 出库单号 */
-  code?: string;
+  code?: string
   /** 分页查询每页数量 */
-  limit?: number;
+  limit?: number
   /** 分页查询页码 */
-  page?: number;
+  page?: number
   /** 排序方式 */
-  order?: string;
+  order?: string
   /** 排序字段 */
-  sort?: string;
+  sort?: string
 }
 
 /**
@@ -111,13 +111,13 @@ export interface OutboundQueryParams {
  */
 export interface OutboundDetailQueryParams {
   /** 出库单ID */
-  id?: string;
+  id?: string
   /** 分页查询每页数量 */
-  limit?: number;
+  limit?: number
   /** 分页查询页码 */
-  page?: number;
+  page?: number
   /** 排序方式 */
-  order?: string;
+  order?: string
   /** 排序字段 */
-  sort?: string;
+  sort?: string
 }

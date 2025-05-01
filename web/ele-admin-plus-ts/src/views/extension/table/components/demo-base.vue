@@ -51,29 +51,17 @@
     >
       <template #toolbar>
         <el-space :size="12" wrap>
-          <el-button type="primary" class="ele-btn-icon" @click="openExport">
-            打开导出弹窗
-          </el-button>
-          <el-button type="primary" class="ele-btn-icon" @click="openPrint">
-            打开打印弹窗
-          </el-button>
-          <el-button type="primary" class="ele-btn-icon" @click="exportData">
-            直接导出
-          </el-button>
-          <el-button type="primary" class="ele-btn-icon" @click="printData">
-            直接打印
-          </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="openExport"> 打开导出弹窗 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="openPrint"> 打开打印弹窗 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="exportData"> 直接导出 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="printData"> 直接打印 </el-button>
         </el-space>
       </template>
       <template #action="{ row }">
         <template v-if="row">
-          <el-link type="primary" :underline="false" @click="openEdit(row)">
-            修改
-          </el-link>
+          <el-link type="primary" :underline="false" @click="openEdit(row)"> 修改 </el-link>
           <el-divider direction="vertical" />
-          <el-link type="danger" :underline="false" @click="remove(row)">
-            删除
-          </el-link>
+          <el-link type="danger" :underline="false" @click="remove(row)"> 删除 </el-link>
         </template>
       </template>
       <!-- 直接打印时自定义多选列复选框 -->
@@ -137,49 +125,45 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive, nextTick } from 'vue';
-  import { EleMessage, random } from 'ele-admin-plus/es';
-  import type { EleProTable } from 'ele-admin-plus';
-  import type {
-    DatasourceFunction,
-    Column,
-    BeforeExportParams
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import OptionItem from '@/views/extension/avatar/components/option-item.vue';
+  import { ref, reactive, nextTick } from 'vue'
+  import { EleMessage, random } from 'ele-admin-plus/es'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Column, BeforeExportParams } from 'ele-admin-plus/es/ele-pro-table/types'
+  import OptionItem from '@/views/extension/avatar/components/option-item.vue'
 
   /** 案卷 */
   interface Piece {
     /** 案卷id */
-    pieceId?: number;
+    pieceId?: number
     /** 案卷题名 */
-    title?: string;
+    title?: string
     /** 案卷档号 */
-    pieceNo?: string;
+    pieceNo?: string
     /** 密级 */
-    secret?: string;
+    secret?: string
     /** 存放位置 */
-    location?: string;
+    location?: string
     /** 案卷类型 */
-    type?: string;
+    type?: string
     /** 保管期限 */
-    retention?: string;
+    retention?: string
     /** 载体类型 */
-    carrier?: string;
+    carrier?: string
     /** 归档年度 */
-    year?: string;
+    year?: string
     /** 件数 */
-    amount?: number;
+    amount?: number
   }
 
   const data = Array.from({ length: 39 }).map((_, i) => {
-    const pieceId = i + 1;
-    const no = String(pieceId).padStart(3, '0');
-    const secrets = ['机密', '秘密', '公开', '绝密', '内部'];
-    const retentions = ['永久', '定期10年', '定期20年'];
-    const retentionNos = ['Y', 'D10', 'D20'];
-    const retentionRandom = random(0, retentions.length);
-    const carriers = ['纸张', '光盘'];
-    const year = '2020';
+    const pieceId = i + 1
+    const no = String(pieceId).padStart(3, '0')
+    const secrets = ['机密', '秘密', '公开', '绝密', '内部']
+    const retentions = ['永久', '定期10年', '定期20年']
+    const retentionNos = ['Y', 'D10', 'D20']
+    const retentionRandom = random(0, retentions.length)
+    const carriers = ['纸张', '光盘']
+    const year = '2020'
     const item: Piece = {
       pieceId,
       title: `教学档案${no}`,
@@ -191,12 +175,12 @@
       carrier: carriers[random(0, carriers.length)],
       year,
       amount: random(2, 10)
-    };
-    return item;
-  });
+    }
+    return item
+  })
 
   /** 表格实例 */
-  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null);
+  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null)
 
   /** 表格列配置 */
   const columns = ref<Column[]>([
@@ -292,82 +276,82 @@
       hideInPrint: true,
       hideInExport: true
     }
-  ]);
+  ])
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = async ({ pages, filter }) => {
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    const secretFilter = filter.secret?.length ? filter.secret : null;
-    const retentFilter = filter.retention?.length ? filter.retention : null;
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    const secretFilter = filter.secret?.length ? filter.secret : null
+    const retentFilter = filter.retention?.length ? filter.retention : null
     const list = data.filter((d) => {
       if (secretFilter != null) {
         if (!d.secret || !secretFilter.includes(d.secret)) {
-          return false;
+          return false
         }
       }
       if (retentFilter != null) {
         if (!d.retention || !retentFilter.includes(d.retention)) {
-          return false;
+          return false
         }
       }
-      return true;
-    });
-    const start = ((pages.page || 1) - 1) * (pages.limit || 10);
-    const end = start + (pages.limit || 10);
+      return true
+    })
+    const start = ((pages.page || 1) - 1) * (pages.limit || 10)
+    const end = start + (pages.limit || 10)
     return {
       count: noCount.value ? '*' : list.length,
       list: list.slice(start, end > list.length ? list.length : end)
-    };
-  };
+    }
+  }
 
   /** 表格多选选中数据 */
-  const selections = ref<Piece[]>([]);
+  const selections = ref<Piece[]>([])
 
   /** 表格单选选中数据 */
-  const current = ref<Piece | null>(null);
+  const current = ref<Piece | null>(null)
 
   /** 更多配置 */
-  const toolbarBg = ref(false);
-  const border = ref(false);
-  const stripe = ref(false);
-  const showHeader = ref(true);
-  const showSummary = ref(true);
-  const highlightCurrentRow = ref(false);
-  const rowClickChecked = ref(false);
-  const noCount = ref(false);
+  const toolbarBg = ref(false)
+  const border = ref(false)
+  const stripe = ref(false)
+  const showHeader = ref(true)
+  const showSummary = ref(true)
+  const highlightCurrentRow = ref(false)
+  const rowClickChecked = ref(false)
+  const noCount = ref(false)
 
   /** 打开编辑弹窗 */
   const openEdit = (row: Piece) => {
-    EleMessage.success('编辑:' + row.pieceNo);
-  };
+    EleMessage.success('编辑:' + row.pieceNo)
+  }
 
   /** 删除单个 */
   const remove = (row: Piece) => {
-    EleMessage.error('删除:' + row.pieceNo);
-  };
+    EleMessage.error('删除:' + row.pieceNo)
+  }
 
   /** 表格合计行 */
   const getSummaries = ({ columns, data }) => {
-    const sums: string[] = [];
-    const labelIndex = columns[0]?.type === 'selection' ? 2 : 1;
+    const sums: string[] = []
+    const labelIndex = columns[0]?.type === 'selection' ? 2 : 1
     columns.forEach((column: Column, index: number) => {
       if (column.property === 'amount') {
         sums[index] = data
           .map((item: Piece) => Number(item[column.property as string]))
           .reduce((prev: number, curr: number) => {
-            const value = Number(curr);
+            const value = Number(curr)
             if (!isNaN(value)) {
-              return prev + curr;
+              return prev + curr
             } else {
-              return prev;
+              return prev
             }
-          }, 0);
+          }, 0)
       } else if (index === labelIndex) {
-        sums[index] = '合计';
+        sums[index] = '合计'
       }
-    });
-    return sums;
-  };
+    })
+    return sums
+  }
 
   /** 获取多选行数据 */
   /* const getSelections = () => {
@@ -389,25 +373,25 @@
 
   /** 搜索 */
   const reload = () => {
-    selections.value = [];
-    tableRef.value?.reload?.({ page: 1 });
-  };
+    selections.value = []
+    tableRef.value?.reload?.({ page: 1 })
+  }
 
   /** 表格属性改变 */
   const handleConfigChange = () => {
     nextTick(() => {
-      tableRef.value && tableRef.value.doLayout();
-    });
-  };
+      tableRef.value && tableRef.value.doLayout()
+    })
+  }
 
   /** 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = async ({ filter }) => {
     const res: any = await datasource({
       filter,
       pages: { page: 1, limit: data.length }
-    } as any);
-    return res.list;
-  };
+    } as any)
+    return res.list
+  }
 
   /** 打印配置 */
   const printConfig = reactive({
@@ -417,50 +401,42 @@
     },
     beforePrint: (params: BeforeExportParams) => {
       params.footerData.forEach((fRow) => {
-        params.bodyData.push(fRow);
-      });
-      params.footerData.splice(0, params.footerData.length);
+        params.bodyData.push(fRow)
+      })
+      params.footerData.splice(0, params.footerData.length)
     }
-  });
+  })
 
   /** 打开导出 */
   const openExport = () => {
-    tableRef.value?.openExportModal?.();
-  };
+    tableRef.value?.openExportModal?.()
+  }
 
   /** 打开打印 */
   const openPrint = () => {
-    tableRef.value?.openPrintModal?.();
-  };
+    tableRef.value?.openPrintModal?.()
+  }
 
   /** 直接打印时表格是否全选状态 */
-  const isPrintCheckAll = ref<boolean | 'indeterminate'>(false);
+  const isPrintCheckAll = ref<boolean | 'indeterminate'>(false)
 
   /** 直接打印 */
   const printData = () => {
-    const printData = tableRef.value?.getData?.() || [];
-    isPrintCheckAll.value = selections.value.length
-      ? printData.length === selections.value.length
-        ? true
-        : 'indeterminate'
-      : false;
+    const printData = tableRef.value?.getData?.() || []
+    isPrintCheckAll.value = selections.value.length ? (printData.length === selections.value.length ? true : 'indeterminate') : false
     tableRef.value?.printData?.({
       data: printData,
       columns: columns.value,
       showHeader: showHeader.value,
       showFooter: showSummary.value,
       dataType: 'pageData'
-    });
-  };
+    })
+  }
 
   /** 直接导出 */
   const exportData = () => {
-    const printData = tableRef.value?.getData?.() || [];
-    isPrintCheckAll.value = selections.value.length
-      ? printData.length === selections.value.length
-        ? true
-        : 'indeterminate'
-      : false;
+    const printData = tableRef.value?.getData?.() || []
+    isPrintCheckAll.value = selections.value.length ? (printData.length === selections.value.length ? true : 'indeterminate') : false
     tableRef.value?.exportData?.({
       data: printData,
       columns: [
@@ -470,27 +446,17 @@
           width: 50,
           align: 'center',
           fixed: 'left',
-          formatter: (row) =>
-            selections.value.some((d) => d.pieceId === row.pieceId)
-              ? '☑'
-              : '☐',
-          label:
-            isPrintCheckAll.value === 'indeterminate'
-              ? '☐'
-              : isPrintCheckAll.value
-                ? '☑'
-                : '☐'
+          formatter: (row) => (selections.value.some((d) => d.pieceId === row.pieceId) ? '☑' : '☐'),
+          label: isPrintCheckAll.value === 'indeterminate' ? '☐' : isPrintCheckAll.value ? '☑' : '☐'
         },
-        ...columns.value.filter(
-          (c) => c.columnKey !== 'action' && c.columnKey !== 'selection'
-        )
+        ...columns.value.filter((c) => c.columnKey !== 'action' && c.columnKey !== 'selection')
       ],
       showHeader: showHeader.value,
       showFooter: showSummary.value,
       fileName: '档案数据',
       dataType: 'pageData'
-    });
-  };
+    })
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -3,11 +3,7 @@
     <ele-card :body-style="{ padding: 0 }">
       <div :class="['message-wrapper', { 'is-mobile': mobile }]">
         <div class="message-side">
-          <ele-menus
-            :items="menus"
-            :default-active="active"
-            :mode="mobile ? 'horizontal' : 'vertical'"
-          />
+          <ele-menus :items="menus" :default-active="active" :mode="mobile ? 'horizontal' : 'vertical'" />
         </div>
         <div class="message-body">
           <transition name="slide-right" mode="out-in">
@@ -24,31 +20,31 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive, computed, watch, unref } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { useMessage } from 'ele-admin-plus/es';
-  import type { MenuItem } from 'ele-admin-plus/es/ele-menus/types';
-  import { useMobile } from '@/utils/use-mobile';
-  import MessageNotice from './components/message-notice.vue';
-  import MessageLetter from './components/message-letter.vue';
-  import MessageTodo from './components/message-todo.vue';
-  import { getUnReadNum } from '@/api/example';
+  import { ref, reactive, computed, watch, unref } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { useMessage } from 'ele-admin-plus/es'
+  import type { MenuItem } from 'ele-admin-plus/es/ele-menus/types'
+  import { useMobile } from '@/utils/use-mobile'
+  import MessageNotice from './components/message-notice.vue'
+  import MessageLetter from './components/message-letter.vue'
+  import MessageTodo from './components/message-todo.vue'
+  import { getUnReadNum } from '@/api/example'
 
-  defineOptions({ name: 'UserMessage' });
+  defineOptions({ name: 'UserMessage' })
 
-  const EleMessage = useMessage({ inner: true });
-  const { currentRoute } = useRouter();
-  const { mobile } = useMobile();
+  const EleMessage = useMessage({ inner: true })
+  const { currentRoute } = useRouter()
+  const { mobile } = useMobile()
 
   /** 导航选中 */
-  const active = ref<string>('notice');
+  const active = ref<string>('notice')
 
   /** 未读数量 */
   const unReadNum = reactive({
     notice: 0,
     letter: 0,
     todo: 0
-  });
+  })
 
   /** 菜单数据 */
   const menus = computed<MenuItem[]>(() => {
@@ -71,34 +67,34 @@
         title: '待办事项',
         badge: { value: unReadNum.todo }
       }
-    ];
-  });
+    ]
+  })
 
   watch(
     currentRoute,
     (route) => {
-      const { path, query } = unref(route);
+      const { path, query } = unref(route)
       if (path === '/user/message') {
-        const defaultType = 'notice';
+        const defaultType = 'notice'
         if (!query.type) {
-          active.value = defaultType;
+          active.value = defaultType
         } else if (typeof query.type === 'string') {
-          active.value = query.type;
+          active.value = query.type
         } else if (query.type.length && query.type[0]) {
-          active.value = query.type[0];
+          active.value = query.type[0]
         } else {
-          active.value = defaultType;
+          active.value = defaultType
         }
       }
     },
     { immediate: true }
-  );
+  )
 
   /** 查询未读数量 */
   const queryBadge = () => {
     getUnReadNum()
       .then((result) => {
-        Object.assign(unReadNum, result);
+        Object.assign(unReadNum, result)
         /* EleMessage.success({
           message: '查询成功',
           showClose: true,
@@ -106,11 +102,11 @@
         }); */
       })
       .catch((e) => {
-        EleMessage.error(e.message);
-      });
-  };
+        EleMessage.error(e.message)
+      })
+  }
 
-  queryBadge();
+  queryBadge()
 </script>
 
 <style lang="scss" scoped>

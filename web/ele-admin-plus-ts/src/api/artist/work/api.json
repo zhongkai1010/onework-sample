@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OneWork",
+    "title": "藏品管理系统",
     "description": "",
     "version": "1.0.0"
   },
@@ -68,7 +68,10 @@
                     "type": "string",
                     "description": "作品图片"
                   }
-                }
+                },
+                "required": [
+                  "workTitle"
+                ]
               },
               "examples": {}
             }
@@ -81,7 +84,26 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
                 }
               }
             },
@@ -185,7 +207,7 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID 编号"
                               },
                               "workTitle": {
@@ -226,7 +248,10 @@
                                 "description": "作品图片"
                               }
                             },
-                            "required": ["id"]
+                            "required": [
+                              "id",
+                              "workTitle"
+                            ]
                           }
                         }
                       }
@@ -272,7 +297,7 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "ID 编号"
                   },
                   "workTitle": {
@@ -313,7 +338,10 @@
                     "description": "作品图片"
                   }
                 },
-                "required": ["id"]
+                "required": [
+                  "id",
+                  "workTitle"
+                ]
               },
               "examples": {}
             }
@@ -385,7 +413,9 @@
                     "description": "ID集合"
                   }
                 },
-                "required": ["ids"]
+                "required": [
+                  "ids"
+                ]
               },
               "examples": {}
             }
@@ -472,7 +502,7 @@
                       "type": "object",
                       "properties": {
                         "id": {
-                          "type": "string",
+                          "type": "integer",
                           "description": "ID 编号"
                         },
                         "workTitle": {
@@ -513,7 +543,10 @@
                           "description": "作品图片"
                         }
                       },
-                      "required": ["id"]
+                      "required": [
+                        "id",
+                        "workTitle"
+                      ]
                     },
                     "error": {
                       "type": "string",

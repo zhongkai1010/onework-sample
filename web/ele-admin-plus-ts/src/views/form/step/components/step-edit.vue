@@ -1,19 +1,7 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="form"
-    :rules="rules"
-    label-width="108px"
-    style="padding-right: 60px"
-    @submit.prevent=""
-  >
+  <el-form ref="formRef" :model="form" :rules="rules" label-width="108px" style="padding-right: 60px" @submit.prevent="">
     <el-form-item label="付款账户" prop="account">
-      <el-select
-        clearable
-        v-model="form.account"
-        placeholder="请选择付款账户"
-        class="ele-fluid"
-      >
+      <el-select clearable v-model="form.account" placeholder="请选择付款账户" class="ele-fluid">
         <el-option value="plus@eleadmin.com" label="plus@eleadmin.com" />
         <el-option value="pro@eleadmin.com" label="pro@eleadmin.com" />
       </el-select>
@@ -32,39 +20,32 @@
       <el-input clearable v-model="form.name" placeholder="请输入收款人姓名" />
     </el-form-item>
     <el-form-item label="转账金额" prop="amount">
-      <el-input
-        clearable
-        v-model="form.amount"
-        placeholder="请输入转账金额"
-        :prefix-icon="prefixIcon"
-      />
+      <el-input clearable v-model="form.amount" placeholder="请输入转账金额" :prefix-icon="prefixIcon" />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" :loading="loading" @click="submit">
-        下一步
-      </el-button>
+      <el-button type="primary" :loading="loading" @click="submit"> 下一步 </el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive, h } from 'vue';
-  import type { FormInstance, FormRules } from 'element-plus';
-  import { numberReg } from 'ele-admin-plus/es';
-  import { useFormData } from '@/utils/use-form-data';
-  import type { StepForm } from '../model';
+  import { ref, reactive, h } from 'vue'
+  import type { FormInstance, FormRules } from 'element-plus'
+  import { numberReg } from 'ele-admin-plus/es'
+  import { useFormData } from '@/utils/use-form-data'
+  import type { StepForm } from '../model'
 
   const emit = defineEmits<{
-    (e: 'done', data: StepForm): void;
-  }>();
+    (e: 'done', data: StepForm): void
+  }>()
 
-  const prefixIcon = h('span', { style: { fontStyle: 'normal' } }, '￥');
+  const prefixIcon = h('span', { style: { fontStyle: 'normal' } }, '￥')
 
   /** 提交状态 */
-  const loading = ref(false);
+  const loading = ref(false)
 
   /** 表单实例 */
-  const formRef = ref<FormInstance | null>(null);
+  const formRef = ref<FormInstance | null>(null)
 
   /** 表单数据 */
   const [form] = useFormData<StepForm>({
@@ -73,7 +54,7 @@
     pay: 'alipay',
     name: 'Alex',
     amount: '500'
-  });
+  })
 
   /** 表单验证规则 */
   const rules = reactive<FormRules>({
@@ -115,19 +96,19 @@
         trigger: 'blur'
       }
     ]
-  });
+  })
 
   /** 步骤一提交 */
   const submit = () => {
     formRef.value?.validate?.((valid) => {
       if (!valid) {
-        return;
+        return
       }
-      loading.value = true;
+      loading.value = true
       setTimeout(() => {
-        loading.value = false;
-        emit('done', form);
-      }, 300);
-    });
-  };
+        loading.value = false
+        emit('done', form)
+      }, 300)
+    })
+  }
 </script>

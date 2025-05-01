@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OneWork",
+    "title": "藏品管理系统",
     "description": "",
     "version": "1.0.0"
   },
@@ -31,11 +31,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "code": {
-                    "type": "string",
-                    "description": "编号"
-                  },
-                  "collectionId": {
+                  "collectionCode": {
                     "type": "string",
                     "description": "藏品编号"
                   },
@@ -64,7 +60,10 @@
                     "format": "date-time",
                     "description": "添加时间"
                   }
-                }
+                },
+                "required": [
+                  "collectionName"
+                ]
               },
               "examples": {}
             }
@@ -191,14 +190,10 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID 编号"
                               },
-                              "code": {
-                                "type": "string",
-                                "description": "编号"
-                              },
-                              "collectionId": {
+                              "collectionCode": {
                                 "type": "string",
                                 "description": "藏品编号"
                               },
@@ -227,8 +222,7 @@
                                 "format": "date-time",
                                 "description": "添加时间"
                               }
-                            },
-                            "required": ["id"]
+                            }
                           }
                         }
                       }
@@ -267,6 +261,28 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
+                  }
+                },
+                "required": [
+                  "ids"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -326,14 +342,10 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "ID 编号"
                   },
-                  "code": {
-                    "type": "string",
-                    "description": "编号"
-                  },
-                  "collectionId": {
+                  "collectionCode": {
                     "type": "string",
                     "description": "藏品编号"
                   },
@@ -363,7 +375,10 @@
                     "description": "添加时间"
                   }
                 },
-                "required": ["id"]
+                "required": [
+                  "id",
+                  "collectionName"
+                ]
               },
               "examples": {}
             }

@@ -2,23 +2,10 @@
   <div>
     <el-form ref="formRef" :model="form" label-width="0px" @submit.prevent="">
       <div style="padding: 6px 0 12px 0">
-        <el-button
-          :icon="PlusOutlined"
-          type="primary"
-          class="ele-btn-icon"
-          @click="add"
-        >
-          新增一行
-        </el-button>
+        <el-button :icon="PlusOutlined" type="primary" class="ele-btn-icon" @click="add"> 新增一行 </el-button>
         <el-button type="primary" @click="submit">提交</el-button>
       </div>
-      <ele-data-table
-        row-key="key"
-        :columns="columns"
-        :data="form.users"
-        cell-class-name="editable-table-cell"
-        class="editable-table"
-      >
+      <ele-data-table row-key="key" :columns="columns" :data="form.users" cell-class-name="editable-table-cell" class="editable-table">
         <template #name="{ row, $index }">
           <el-form-item
             :prop="'users.' + $index + '.name'"
@@ -31,12 +18,7 @@
             class="form-error-popper"
             style="margin-bottom: 0"
           >
-            <el-input
-              v-if="row.isEdit"
-              clearable
-              v-model="row.name"
-              placeholder="请输入用户名"
-            />
+            <el-input v-if="row.isEdit" clearable v-model="row.name" placeholder="请输入用户名" />
             <div v-else class="editable-cell-text">{{ row.name }}</div>
           </el-form-item>
         </template>
@@ -52,12 +34,7 @@
             class="form-error-popper"
             style="margin-bottom: 0"
           >
-            <el-input
-              v-if="row.isEdit"
-              clearable
-              v-model="row.number"
-              placeholder="请输入工号"
-            />
+            <el-input v-if="row.isEdit" clearable v-model="row.number" placeholder="请输入工号" />
             <div v-else class="editable-cell-text">{{ row.number }}</div>
           </el-form-item>
         </template>
@@ -73,13 +50,7 @@
             class="form-error-popper"
             style="margin-bottom: 0"
           >
-            <el-select
-              v-if="row.isEdit"
-              clearable
-              v-model="row.department"
-              placeholder="请选择部门"
-              class="ele-fluid"
-            >
+            <el-select v-if="row.isEdit" clearable v-model="row.department" placeholder="请选择部门" class="ele-fluid">
               <el-option value="研发部" label="研发部" />
               <el-option value="测试部" label="测试部" />
               <el-option value="产品部" label="产品部" />
@@ -89,30 +60,10 @@
         </template>
         <template #action="{ row, $index }">
           <div style="display: inline; align-items: center">
-            <el-link
-              v-if="row.isEdit"
-              type="success"
-              :underline="false"
-              @click="done(row)"
-            >
-              完成
-            </el-link>
-            <el-link
-              v-else
-              type="primary"
-              :underline="false"
-              @click="edit(row)"
-            >
-              编辑
-            </el-link>
+            <el-link v-if="row.isEdit" type="success" :underline="false" @click="done(row)"> 完成 </el-link>
+            <el-link v-else type="primary" :underline="false" @click="edit(row)"> 编辑 </el-link>
             <el-divider direction="vertical" style="margin: 0 8px" />
-            <el-link
-              type="danger"
-              :underline="false"
-              @click="remove(row, $index)"
-            >
-              删除
-            </el-link>
+            <el-link type="danger" :underline="false" @click="remove(row, $index)"> 删除 </el-link>
           </div>
         </template>
       </ele-data-table>
@@ -121,24 +72,24 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
-  import type { FormInstance } from 'element-plus';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type { Columns } from 'ele-admin-plus/es/ele-pro-table/types';
-  import { PlusOutlined } from '@/components/icons';
-  import type { UserItem } from '@/api/example/model';
-  import { listAddedUsers } from '@/api/example';
+  import { ref, reactive } from 'vue'
+  import type { FormInstance } from 'element-plus'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import { PlusOutlined } from '@/components/icons'
+  import type { UserItem } from '@/api/example/model'
+  import { listAddedUsers } from '@/api/example'
   interface FormData {
-    users: UserItem[];
+    users: UserItem[]
   }
 
   /** 表单实例 */
-  const formRef = ref<FormInstance | null>(null);
+  const formRef = ref<FormInstance | null>(null)
 
   /** 表单数据 */
   const form = reactive<FormData>({
     users: []
-  });
+  })
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -175,19 +126,19 @@
       fixed: 'right',
       slot: 'action'
     }
-  ]);
+  ])
 
   /** 表单提交 */
   const submit = () => {
     formRef.value?.validate?.((valid, obj) => {
       if (!valid) {
-        const errors = obj ? Object.keys(obj).length : 0;
-        EleMessage.error(`有 ${errors} 项校验不通过`);
-        return;
+        const errors = obj ? Object.keys(obj).length : 0
+        EleMessage.error(`有 ${errors} 项校验不通过`)
+        return
       }
-      EleMessage.success('提交成功');
-    });
-  };
+      EleMessage.success('提交成功')
+    })
+  }
 
   /** 添加 */
   const add = () => {
@@ -197,32 +148,32 @@
       name: '',
       department: void 0,
       isEdit: true
-    });
-  };
+    })
+  }
 
   /** 删除 */
   const remove = (_row: UserItem, index: number) => {
-    form.users.splice(index, 1);
-  };
+    form.users.splice(index, 1)
+  }
 
   /** 编辑 */
   const edit = (row: UserItem) => {
-    row.isEdit = true;
-  };
+    row.isEdit = true
+  }
 
   /** 完成 */
   const done = (row: UserItem) => {
-    row.isEdit = false;
-  };
+    row.isEdit = false
+  }
 
   // 查询已添加
   listAddedUsers()
     .then((data) => {
-      form.users = data;
+      form.users = data
     })
     .catch((e) => {
-      EleMessage.error(e.message);
-    });
+      EleMessage.error(e.message)
+    })
 </script>
 
 <style lang="scss" scoped>

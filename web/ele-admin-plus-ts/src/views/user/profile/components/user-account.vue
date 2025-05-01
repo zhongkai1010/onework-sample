@@ -11,9 +11,7 @@
     <div class="list-item">
       <div class="list-item-body">
         <ele-text size="md">密保邮箱</ele-text>
-        <ele-text type="placeholder">
-          已绑定邮箱: eleadmin@eclouds.com
-        </ele-text>
+        <ele-text type="placeholder"> 已绑定邮箱: eleadmin@eclouds.com </ele-text>
       </div>
       <el-link type="primary" :underline="false">去修改</el-link>
     </div>
@@ -62,12 +60,12 @@
 </template>
 
 <script lang="ts" setup>
-  import { QqFilled, WechatFilled, AlipayFilled } from '@/components/icons';
-  import type { User } from '@/api/system/user/model';
+  import { QqFilled, WechatFilled, AlipayFilled } from '@/components/icons'
+  import type { User } from '@/api/system/user/model'
 
   defineProps<{
-    data: User;
-  }>();
+    data: User
+  }>()
 </script>
 
 <style lang="scss" scoped>

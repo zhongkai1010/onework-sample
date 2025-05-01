@@ -8,10 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-  import DemoBasic from './components/demo-basic.vue';
-  import DemoAdvanced from './components/demo-advanced.vue';
-  import DemoPaper from './components/demo-paper.vue';
-  import DemoMap from './components/demo-map.vue';
+  import DemoBasic from './components/demo-basic.vue'
+  import DemoAdvanced from './components/demo-advanced.vue'
+  import DemoPaper from './components/demo-paper.vue'
+  import DemoMap from './components/demo-map.vue'
 
-  defineOptions({ name: 'ExtensionViewer' });
+  defineOptions({ name: 'ExtensionViewer' })
 </script>

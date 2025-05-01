@@ -10,62 +10,45 @@
       }"
     >
       <template #reference>
-        <ele-text
-          :type="isFiltered ? 'primary' : 'placeholder'"
-          :icon="SearchOutlined"
-          class="demo-filter-icon"
-        />
+        <ele-text :type="isFiltered ? 'primary' : 'placeholder'" :icon="SearchOutlined" class="demo-filter-icon" />
       </template>
       <div style="margin-bottom: 12px">
-        <el-input
-          size="small"
-          v-model="nickname"
-          placeholder="请输入关键字"
-          @change="handleSearch"
-        />
+        <el-input size="small" v-model="nickname" placeholder="请输入关键字" @change="handleSearch" />
       </div>
       <div style="text-align: right">
         <el-button size="small" @click="handleReset">重置</el-button>
-        <el-button
-          size="small"
-          type="primary"
-          :icon="SearchOutlined"
-          class="ele-btn-icon"
-          @click="handleSearch"
-        >
-          搜索
-        </el-button>
+        <el-button size="small" type="primary" :icon="SearchOutlined" class="ele-btn-icon" @click="handleSearch"> 搜索 </el-button>
       </div>
     </ele-popover>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { SearchOutlined } from '@/components/icons';
+  import { ref } from 'vue'
+  import { SearchOutlined } from '@/components/icons'
 
   const emit = defineEmits<{
-    (e: 'search', nickname: string): void;
-  }>();
+    (e: 'search', nickname: string): void
+  }>()
 
   /** 值 */
-  const nickname = ref('');
+  const nickname = ref('')
 
   /** 是否已筛选 */
-  const isFiltered = ref(false);
+  const isFiltered = ref(false)
 
   /** 搜索 */
   const handleSearch = () => {
-    isFiltered.value = !!nickname.value;
-    emit('search', nickname.value);
-  };
+    isFiltered.value = !!nickname.value
+    emit('search', nickname.value)
+  }
 
   /**  重置 */
   const handleReset = () => {
-    nickname.value = '';
-    isFiltered.value = false;
-    handleSearch();
-  };
+    nickname.value = ''
+    isFiltered.value = false
+    handleSearch()
+  }
 </script>
 
 <style lang="scss" scoped>

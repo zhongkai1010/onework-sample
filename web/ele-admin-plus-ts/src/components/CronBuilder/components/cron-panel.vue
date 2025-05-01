@@ -79,10 +79,7 @@
           <div class="cron-panel-result">
             <div class="cron-panel-result-item">
               <div class="cron-panel-result-title">Cron 表达式</div>
-              <div
-                class="cron-panel-result-text"
-                :style="{ minWidth: '270px' }"
-              >
+              <div class="cron-panel-result-text" :style="{ minWidth: '270px' }">
                 {{ model }}
               </div>
             </div>
@@ -93,11 +90,7 @@
         <div class="cron-panel-extra-header">最近 5 次运行时间</div>
         <div class="cron-panel-extra-body">
           <ul class="cron-panel-test">
-            <li
-              v-for="item in resultItems"
-              :key="item"
-              class="cron-panel-test-item"
-            >
+            <li v-for="item in resultItems" :key="item" class="cron-panel-test-item">
               {{ item }}
             </li>
           </ul>
@@ -105,17 +98,9 @@
       </div>
     </div>
     <!-- 常用列表 -->
-    <div
-      :class="['cron-list-mask', { 'is-show': cronListVisible }]"
-      @click="hideCronList"
-    >
+    <div :class="['cron-list-mask', { 'is-show': cronListVisible }]" @click="hideCronList">
       <div class="cron-list-wrapper" @click.stop="">
-        <div
-          v-for="item in cronList"
-          :key="item.cron"
-          class="cron-list-item"
-          @click="handleItemClick(item)"
-        >
+        <div v-for="item in cronList" :key="item.cron" class="cron-list-item" @click="handleItemClick(item)">
           <div class="cron-list-item-value">{{ item.cron }}</div>
           <div class="cron-list-item-label">{{ item.label }}</div>
         </div>
@@ -125,123 +110,116 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
-  import CronSecond from './cron-second.vue';
-  import CronMinute from './cron-minute.vue';
-  import CronHour from './cron-hour.vue';
-  import CronDay from './cron-day.vue';
-  import CronMonth from './cron-month.vue';
-  import CronWeek from './cron-week.vue';
-  import CronYear from './cron-year.vue';
-  import { getResultItems } from './util';
+  import { ref, watch } from 'vue'
+  import CronSecond from './cron-second.vue'
+  import CronMinute from './cron-minute.vue'
+  import CronHour from './cron-hour.vue'
+  import CronDay from './cron-day.vue'
+  import CronMonth from './cron-month.vue'
+  import CronWeek from './cron-week.vue'
+  import CronYear from './cron-year.vue'
+  import { getResultItems } from './util'
 
   /** cron */
-  const model = defineModel<string>({ type: String });
+  const model = defineModel<string>({ type: String })
 
   /** 选项卡选中 */
-  const tabActive = ref('second');
+  const tabActive = ref('second')
 
   /** 秒 */
-  const second = ref('*');
+  const second = ref('*')
 
   /** 分 */
-  const minute = ref('*');
+  const minute = ref('*')
 
   /** 时 */
-  const hour = ref('*');
+  const hour = ref('*')
 
   /** 日 */
-  const day = ref('*');
+  const day = ref('*')
 
   /** 月 */
-  const month = ref('*');
+  const month = ref('*')
 
   /** 星期 */
-  const week = ref('?');
+  const week = ref('?')
 
   /** 年 */
-  const year = ref('');
+  const year = ref('')
 
   /** 最近 5 次运行时间 */
-  const resultItems = ref<string[]>([]);
+  const resultItems = ref<string[]>([])
 
   /** 更新计算 */
   const updateCron = () => {
-    const values = [
-      second.value,
-      minute.value,
-      hour.value,
-      day.value,
-      month.value,
-      week.value
-    ];
+    const values = [second.value, minute.value, hour.value, day.value, month.value, week.value]
     if (year.value != null && year.value !== '') {
-      values.push(year.value);
+      values.push(year.value)
     }
-    const cron = values.join(' ');
-    model.value = cron;
-    return cron;
-  };
+    const cron = values.join(' ')
+    model.value = cron
+    return cron
+  }
 
   /** 数据修正 */
   watch(hour, (h) => {
     if (h !== '*' && second.value === '*') {
-      second.value = '0';
+      second.value = '0'
     }
     if (h !== '*' && minute.value === '*') {
-      minute.value = '0';
+      minute.value = '0'
     }
-  });
+  })
 
   watch(day, (d) => {
     if (d !== '?' && week.value !== '?') {
-      week.value = '?';
+      week.value = '?'
     }
-  });
+  })
 
   watch(week, (w) => {
     if (w !== '?' && day.value !== '?') {
-      day.value = '?';
+      day.value = '?'
     }
-  });
+  })
 
   /** 拼接 cron 表达式 */
   watch(
     [second, minute, hour, day, month, week, year],
     () => {
-      updateCron();
+      updateCron()
     },
     { immediate: true }
-  );
+  )
 
   /** 同步数据 */
   watch(model, (cron) => {
     if (!cron) {
-      tabActive.value = 'second';
-      second.value = '*';
-      minute.value = '*';
-      hour.value = '*';
-      day.value = '*';
-      month.value = '*';
-      week.value = '?';
-      year.value = '';
-      const str = updateCron();
-      resultItems.value = getResultItems(str);
-      return;
+      tabActive.value = 'second'
+      second.value = '*'
+      minute.value = '*'
+      hour.value = '*'
+      day.value = '*'
+      month.value = '*'
+      week.value = '?'
+      year.value = ''
+      const str = updateCron()
+      resultItems.value = getResultItems(str)
+      return
     }
-    const [s, m, h, d, m2, w, y] = cron.split(' ');
-    second.value = s;
-    minute.value = m;
-    hour.value = h;
-    day.value = d;
-    month.value = m2;
-    week.value = w;
-    year.value = y || '';
-    resultItems.value = getResultItems(cron);
-  });
+    const [s, m, h, d, m2, w, y] = cron.split(' ')
+    second.value = s
+    minute.value = m
+    hour.value = h
+    day.value = d
+    month.value = m2
+    week.value = w
+    year.value = y || ''
+    resultItems.value = getResultItems(cron)
+  })
 
   /** 是否显示常用列表 */
-  const cronListVisible = ref(false);
+  const cronListVisible = ref(false)
 
   /** 常用列表数据 */
   const cronList = ref([
@@ -261,25 +239,25 @@
     { cron: '0 0 0 ? * 1', label: '每周星期日 0 点' },
     { cron: '0 0 8 ? * 2-4', label: '每周星期一到星期三 8 点' },
     { cron: '0 0 0 1 10 ? 2025-2028', label: '2025 年至 2028 年每 10 月 1 号' }
-  ]);
+  ])
 
   /** 打开常用列表 */
   const openCronList = () => {
-    cronListVisible.value = true;
-  };
+    cronListVisible.value = true
+  }
 
   /** 关闭常用列表 */
   const hideCronList = () => {
-    cronListVisible.value = false;
-  };
+    cronListVisible.value = false
+  }
 
   /** 常用选择 */
   const handleItemClick = (item: any) => {
-    model.value = item.cron;
-    hideCronList();
-  };
+    model.value = item.cron
+    hideCronList()
+  }
 
-  defineExpose({ hideCronList });
+  defineExpose({ hideCronList })
 </script>
 
 <style scoped lang="scss">

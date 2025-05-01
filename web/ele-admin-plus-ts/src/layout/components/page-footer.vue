@@ -1,29 +1,14 @@
 <!-- 全局页脚 -->
 <template>
-  <ele-text
-    type="placeholder"
-    class="ele-footer"
-    style="padding: 16px 0; text-align: center"
-  >
-    <el-space
-      :size="24"
-      style="--el-text-color-regular: var(--el-text-color-placeholder)"
-    >
+  <ele-text type="placeholder" class="ele-footer" style="padding: 16px 0; text-align: center">
+    <el-space :size="24" style="--el-text-color-regular: var(--el-text-color-placeholder)">
       <el-link :underline="false" href="https://eleadmin.com" target="_blank">
         {{ t('layout.footer.website') }}
       </el-link>
-      <el-link
-        :underline="false"
-        href="https://eleadmin.com/doc/eleadminplus/"
-        target="_blank"
-      >
+      <el-link :underline="false" href="https://eleadmin.com/doc/eleadminplus/" target="_blank">
         {{ t('layout.footer.document') }}
       </el-link>
-      <el-link
-        :underline="false"
-        href="https://eleadmin.com/goods/11"
-        target="_blank"
-      >
+      <el-link :underline="false" href="https://eleadmin.com/goods/11" target="_blank">
         {{ t('layout.footer.authorization') }}
       </el-link>
     </el-space>
@@ -34,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { useI18n } from 'vue-i18n';
+  import { useI18n } from 'vue-i18n'
 
-  const { t } = useI18n();
+  const { t } = useI18n()
 </script>

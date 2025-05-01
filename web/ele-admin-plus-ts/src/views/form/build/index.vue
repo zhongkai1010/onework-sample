@@ -7,12 +7,12 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { TemplateFormConfig } from 'ele-admin-plus/es/ele-pro-form-builder/types';
-  import ProFormBuilder from '@/components/ProFormBuilder/index.vue';
+  import { ref } from 'vue'
+  import type { TemplateFormConfig } from 'ele-admin-plus/es/ele-pro-form-builder/types'
+  import ProFormBuilder from '@/components/ProFormBuilder/index.vue'
 
-  defineOptions({ name: 'FormBuild' });
+  defineOptions({ name: 'FormBuild' })
 
   /** 表单配置数据 */
-  const config = ref<TemplateFormConfig>({});
+  const config = ref<TemplateFormConfig>({})
 </script>

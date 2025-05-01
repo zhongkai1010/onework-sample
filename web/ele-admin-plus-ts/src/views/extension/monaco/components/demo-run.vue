@@ -10,11 +10,7 @@
             <div>HTML</div>
           </div>
           <div class="editor-item-body">
-            <monaco-editor
-              v-model="htmlCode"
-              language="html"
-              style="height: 128px"
-            />
+            <monaco-editor v-model="htmlCode" language="html" style="height: 128px" />
           </div>
         </div>
         <div class="editor-item">
@@ -23,11 +19,7 @@
             <div>CSS</div>
           </div>
           <div class="editor-item-body">
-            <monaco-editor
-              v-model="cssCode"
-              language="css"
-              style="height: 220px"
-            />
+            <monaco-editor v-model="cssCode" language="css" style="height: 220px" />
           </div>
         </div>
         <div class="editor-item">
@@ -36,11 +28,7 @@
             <div>JS</div>
           </div>
           <div class="editor-item-body">
-            <monaco-editor
-              v-model="jsCode"
-              language="javascript"
-              style="height: 320px"
-            />
+            <monaco-editor v-model="jsCode" language="javascript" style="height: 320px" />
           </div>
         </div>
       </div>
@@ -68,16 +56,7 @@
             <span>Console</span>
           </div>
           <div ref="consoleBodyRef" class="console-body">
-            <pre
-              v-for="(item, index) in consoleCodes"
-              :key="index"
-              :class="[
-                'console-item',
-                { 'is-error': item.type === 'error' },
-                { 'is-warn': item.type === 'warn' }
-              ]"
-              >{{ item.code }}</pre
-            >
+            <pre v-for="(item, index) in consoleCodes" :key="index" :class="['console-item', { 'is-error': item.type === 'error' }, { 'is-warn': item.type === 'warn' }]">{{ item.code }}</pre>
           </div>
         </div>
       </div>
@@ -86,26 +65,18 @@
 </template>
 
 <script lang="ts" setup>
-  import {
-    ref,
-    onMounted,
-    onBeforeUnmount,
-    nextTick,
-    onActivated,
-    onDeactivated
-  } from 'vue';
-  import { CodeOutlined, ReloadOutlined } from '@/components/icons';
-  import MonacoEditor from '@/components/MonacoEditor/index.vue';
-  import { generateRunCode } from './demo-codes';
+  import { ref, onMounted, onBeforeUnmount, nextTick, onActivated, onDeactivated } from 'vue'
+  import { CodeOutlined, ReloadOutlined } from '@/components/icons'
+  import MonacoEditor from '@/components/MonacoEditor/index.vue'
+  import { generateRunCode } from './demo-codes'
 
   /** html代码 */
-  const htmlCode =
-    ref(`<div style="text-align: center;padding-top: calc(50vh - 24px);">
+  const htmlCode = ref(`<div style="text-align: center;padding-top: calc(50vh - 24px);">
   <div class="demo-btn" onclick="console.warn('点击了登录按钮');">登录</div>
   <div class="demo-btn" onclick="abcdefghijk">注册</div>
 </div>
 <canvas class="bg-canvas" id="bgCanvas"></canvas>
-`);
+`)
 
   /** css代码 */
   const cssCode = ref(`html {
@@ -150,7 +121,7 @@ body {
 .demo-btn + .demo-btn {
   margin-left: 12px;
 }
-`);
+`)
 
   /** js代码 */
   const jsCode = ref(`console.log('Hello World!');
@@ -228,78 +199,78 @@ function move() {
 move();
 
 console.log('Start Move.');
-`);
+`)
 
   /** iframe */
-  const iframeRef = ref<HTMLIFrameElement | null>(null);
+  const iframeRef = ref<HTMLIFrameElement | null>(null)
 
   /** 用于重新渲染iframe */
-  const iframeKey = ref(0);
+  const iframeKey = ref(0)
 
   /** 控制台 */
-  const consoleBodyRef = ref<HTMLElement | null>(null);
+  const consoleBodyRef = ref<HTMLElement | null>(null)
 
   /** 控制台信息类型 */
   interface ConsoleItem {
     /** 类型 */
-    type?: 'log' | 'error' | 'warn';
+    type?: 'log' | 'error' | 'warn'
     /** 内容 */
-    code?: string;
+    code?: string
   }
 
   /** 控制台信息 */
-  const consoleCodes = ref<ConsoleItem[]>([]);
+  const consoleCodes = ref<ConsoleItem[]>([])
 
   /** 运行代码到iframe */
   const runCode = (first?: boolean) => {
     if (!first) {
-      iframeKey.value++;
+      iframeKey.value++
       nextTick(() => {
-        runCode(true);
-      });
-      return;
+        runCode(true)
+      })
+      return
     }
-    consoleCodes.value = [];
-    const doc = iframeRef.value?.contentWindow?.document;
+    consoleCodes.value = []
+    const doc = iframeRef.value?.contentWindow?.document
     if (!doc) {
-      return;
+      return
     }
-    doc.open();
-    doc.write(generateRunCode(cssCode.value, htmlCode.value, jsCode.value));
-    doc.close();
-  };
+    doc.open()
+    doc.write(generateRunCode(cssCode.value, htmlCode.value, jsCode.value))
+    doc.close()
+  }
 
   /** 收集iframe内日志的消息监听 */
   const handleMessage = (e: MessageEvent<any>) => {
     if (e.data && e.data.id === 'iframeConsole') {
-      consoleCodes.value.push(e.data);
+      consoleCodes.value.push(e.data)
       nextTick(() => {
-        consoleBodyRef.value?.scrollTo?.(0, consoleBodyRef.value.scrollHeight);
-      });
+        consoleBodyRef.value?.scrollTo?.(0, consoleBodyRef.value.scrollHeight)
+      })
     }
-  };
+  }
 
   onMounted(() => {
-    window.addEventListener('message', handleMessage);
-    runCode(true);
-  });
+    window.addEventListener('message', handleMessage)
+    runCode(true)
+  })
 
   onBeforeUnmount(() => {
-    window.removeEventListener('message', handleMessage);
-  });
+    window.removeEventListener('message', handleMessage)
+  })
 
-  const isDeactivated = ref(false);
+  const isDeactivated = ref(false)
 
   onActivated(() => {
     if (isDeactivated.value) {
-      runCode(true);
-      isDeactivated.value = false;
+      runCode(true)
+      isDeactivated.value = false
     }
-  });
+  })
 
   onDeactivated(() => {
-    isDeactivated.value = true;
-  });
+    isDeactivated.value = true
+  })
 </script>
 
 <style lang="scss" scoped>

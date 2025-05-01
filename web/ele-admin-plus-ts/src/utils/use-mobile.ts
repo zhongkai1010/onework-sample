@@ -1,18 +1,18 @@
-import { watch } from 'vue';
-import { useMediaQuery } from '@vueuse/core';
+import { watch } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
 
 /**
  * 获取是否是移动端小屏幕hook
  * @param onChange 值改变回调
  */
 export function useMobile(onChange?: (isMobile: boolean) => void) {
-  const mobile = useMediaQuery('(max-width: 768px)');
+  const mobile = useMediaQuery('(max-width: 768px)')
 
   watch(mobile, (isMobile) => {
-    onChange && onChange(isMobile);
-  });
+    onChange && onChange(isMobile)
+  })
 
-  return { mobile };
+  return { mobile }
 }
 
 /**
@@ -20,11 +20,11 @@ export function useMobile(onChange?: (isMobile: boolean) => void) {
  * @param onChange 值改变回调
  */
 export function useMobileDevice(onChange?: (isMobile: boolean) => void) {
-  const mobileDevice = useMediaQuery('(pointer: coarse)');
+  const mobileDevice = useMediaQuery('(pointer: coarse)')
 
   watch(mobileDevice, (isMobile) => {
-    onChange && onChange(isMobile);
-  });
+    onChange && onChange(isMobile)
+  })
 
-  return { mobileDevice };
+  return { mobileDevice }
 }

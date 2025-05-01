@@ -1,19 +1,19 @@
-import { PageParam } from '@/api';
+import { PageParam } from '@/api'
 
 /**
  * 通知数据格式
  */
 export interface NoticeModel {
   /** 通知id */
-  id: number;
+  id: number
   /** 图标颜色 */
-  color?: string;
+  color?: string
   /** 图标 */
-  icon?: string;
+  icon?: string
   /** 标题 */
-  title?: string;
+  title?: string
   /** 时间 */
-  time?: string;
+  time?: string
 }
 
 /**
@@ -21,15 +21,15 @@ export interface NoticeModel {
  */
 export interface LetterModel {
   /** 私信id */
-  id: number;
+  id: number
   /** 头像 */
-  avatar?: string;
+  avatar?: string
   /** 标题 */
-  title?: string;
+  title?: string
   /** 内容 */
-  content?: string;
+  content?: string
   /** 时间 */
-  time?: string;
+  time?: string
 }
 
 /**
@@ -37,13 +37,13 @@ export interface LetterModel {
  */
 export interface TodoModel {
   /** 待办id */
-  id: number;
+  id: number
   /** 状态 */
-  status?: number;
+  status?: number
   /** 标题 */
-  title?: string;
+  title?: string
   /** 描述 */
-  description?: string;
+  description?: string
 }
 
 /**
@@ -51,11 +51,11 @@ export interface TodoModel {
  */
 export interface NoticeResult {
   /** 通知 */
-  notice: NoticeModel[];
+  notice: NoticeModel[]
   /** 私信 */
-  letter: LetterModel[];
+  letter: LetterModel[]
   /** 待办 */
-  todo: TodoModel[];
+  todo: TodoModel[]
 }
 
 /**
@@ -63,13 +63,13 @@ export interface NoticeResult {
  */
 export interface Message {
   /** 消息id */
-  id?: number;
+  id?: number
   /** 标题 */
-  title?: string;
+  title?: string
   /** 时间 */
-  time?: string;
+  time?: string
   /** 状态 */
-  status?: number;
+  status?: number
 }
 
 /**
@@ -77,15 +77,15 @@ export interface Message {
  */
 export interface UserItem {
   /** 成员id */
-  key: string;
+  key: string
   /** 工号 */
-  number?: string;
+  number?: string
   /** 用户名 */
-  name?: string;
+  name?: string
   /** 部门 */
-  department?: string;
+  department?: string
   /** 是否编辑状态 */
-  isEdit?: boolean;
+  isEdit?: boolean
 }
 
 /**
@@ -93,15 +93,15 @@ export interface UserItem {
  */
 export interface UserScore {
   /** 成绩id */
-  id: number;
+  id: number
   /** 姓名 */
-  userName: string;
+  userName: string
   /** 课程 */
-  courseName: string;
+  courseName: string
   /** 得分 */
-  score: number;
+  score: number
   /** 合并行 */
-  userNameRowSpan: number;
+  userNameRowSpan: number
 }
 
 /**
@@ -109,25 +109,25 @@ export interface UserScore {
  */
 export interface Piece {
   /** 案卷id */
-  id?: number;
+  id?: number
   /** 案卷题名 */
-  title?: string;
+  title?: string
   /** 案卷档号 */
-  piece_no?: string;
+  piece_no?: string
   /** 密级 */
-  secret?: string;
+  secret?: string
   /** 存放位置 */
-  location?: string;
+  location?: string
   /** 案卷类型 */
-  type?: string;
+  type?: string
   /** 保管期限 */
-  retention?: string;
+  retention?: string
   /** 载体类型 */
-  carrier?: string;
+  carrier?: string
   /** 归档年度 */
-  year?: string;
+  year?: string
   /** 件数 */
-  amount?: number;
+  amount?: number
 }
 
 /**
@@ -135,9 +135,9 @@ export interface Piece {
  */
 export interface PieceParam extends PageParam {
   /** 案卷题名 */
-  title?: string;
+  title?: string
   /** 案卷档号 */
-  piece_no?: string;
+  piece_no?: string
 }
 
 /**
@@ -145,19 +145,19 @@ export interface PieceParam extends PageParam {
  */
 export interface Project {
   /** id */
-  id: string;
+  id: string
   /** 项目名称 */
-  projectName: string;
+  projectName: string
   /** 状态 */
-  status: number;
+  status: number
   /** 开始时间 */
-  startDate: string;
+  startDate: string
   /** 结束时间 */
-  endDate: string;
+  endDate: string
   /** 进度 */
-  progress: number;
+  progress: number
   /** 金额 */
-  money: number;
+  money: number
 }
 
 /**
@@ -165,13 +165,13 @@ export interface Project {
  */
 export interface Contract {
   /** 甲方 */
-  partyA?: string;
+  partyA?: string
   /** 乙方 */
-  partyB?: string;
+  partyB?: string
   /** 房屋地址 */
-  address?: string;
+  address?: string
   /** 日期 */
-  date?: string;
+  date?: string
   /** 项目 */
-  projects?: Project[];
+  projects?: Project[]
 }

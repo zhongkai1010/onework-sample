@@ -1,17 +1,17 @@
 /**
  * token操作封装
  */
-import { TOKEN_CACHE_NAME } from '@/config/setting';
+import { TOKEN_CACHE_NAME } from '@/config/setting'
 
 /**
  * 获取缓存的token
  */
 export function getToken(): string | null {
-  const token = localStorage.getItem(TOKEN_CACHE_NAME);
+  const token = localStorage.getItem(TOKEN_CACHE_NAME)
   if (!token) {
-    return sessionStorage.getItem(TOKEN_CACHE_NAME);
+    return sessionStorage.getItem(TOKEN_CACHE_NAME)
   }
-  return token;
+  return token
 }
 
 /**
@@ -20,12 +20,12 @@ export function getToken(): string | null {
  * @param remember 是否永久存储
  */
 export function setToken(token?: string, remember?: boolean) {
-  removeToken();
+  removeToken()
   if (token) {
     if (remember) {
-      localStorage.setItem(TOKEN_CACHE_NAME, token);
+      localStorage.setItem(TOKEN_CACHE_NAME, token)
     } else {
-      sessionStorage.setItem(TOKEN_CACHE_NAME, token);
+      sessionStorage.setItem(TOKEN_CACHE_NAME, token)
     }
   }
 }
@@ -34,6 +34,6 @@ export function setToken(token?: string, remember?: boolean) {
  * 移除token
  */
 export function removeToken() {
-  localStorage.removeItem(TOKEN_CACHE_NAME);
-  sessionStorage.removeItem(TOKEN_CACHE_NAME);
+  localStorage.removeItem(TOKEN_CACHE_NAME)
+  sessionStorage.removeItem(TOKEN_CACHE_NAME)
 }

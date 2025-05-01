@@ -21,12 +21,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import dayjs from 'dayjs';
-  import type {
-    DatasourceFunction,
-    Columns
-  } from 'ele-admin-plus/es/ele-pro-table/types';
+  import { ref } from 'vue'
+  import dayjs from 'dayjs'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   const addresses = [
     ['浙江', '杭州', '西湖区'],
     ['江苏', '苏州', '姑苏区'],
@@ -34,19 +31,19 @@
     ['福建', '泉州', '丰泽区'],
     ['湖北', '武汉', '武昌区'],
     ['安徽', '黄山', '黄山区']
-  ];
+  ]
 
   interface User {
-    userId?: number;
-    username?: string;
-    nickname?: string;
-    createTime?: string;
-    province?: string;
-    city?: string;
-    zone?: string;
+    userId?: number
+    username?: string
+    nickname?: string
+    createTime?: string
+    province?: string
+    city?: string
+    zone?: string
   }
 
-  const data: User[] = [];
+  const data: User[] = []
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -101,19 +98,17 @@
       sortable: 'custom',
       align: 'center'
     }
-  ]);
+  ])
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = async ({ pages, orders }) => {
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100))
     if (!data.length) {
       Array.from({ length: 2000 }).forEach((_, i) => {
-        const userId = i + 1;
-        const username = 'user-' + String(userId).padStart(6, '0');
-        const index = Math.floor(
-          Math.random() * (0 - addresses.length) + addresses.length
-        );
-        const [province, city, zone] = addresses[index];
+        const userId = i + 1
+        const username = 'user-' + String(userId).padStart(6, '0')
+        const index = Math.floor(Math.random() * (0 - addresses.length) + addresses.length)
+        const [province, city, zone] = addresses[index]
         const item: User = {
           userId,
           username,
@@ -124,36 +119,36 @@
           province,
           city,
           zone
-        };
-        data.push(item);
-      });
+        }
+        data.push(item)
+      })
     }
-    const list = [...data];
+    const list = [...data]
     if (orders != null && orders.sort) {
       list.sort((a: any, b: any) => {
-        const aValue = a[orders.sort as any];
-        const bValue = b[orders.sort as any];
+        const aValue = a[orders.sort as any]
+        const bValue = b[orders.sort as any]
         if (aValue == bValue) {
-          return 0;
+          return 0
         }
-        const r = aValue < bValue ? -1 : 1;
-        return orders.order === 'desc' ? -r : r;
-      });
+        const r = aValue < bValue ? -1 : 1
+        return orders.order === 'desc' ? -r : r
+      })
     }
-    const start = ((pages.page || 1) - 1) * (pages.limit || 10);
-    const end = start + (pages.limit || 10);
+    const start = ((pages.page || 1) - 1) * (pages.limit || 10)
+    const end = start + (pages.limit || 10)
     return {
       count: list.length,
       list: list.slice(start, end > list.length ? list.length : end)
-    };
-  };
+    }
+  }
 
   /** 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = async ({ orders }) => {
     const res: any = await datasource({
       orders,
       pages: { page: 1, limit: data.length }
-    } as any);
-    return res.list;
-  };
+    } as any)
+    return res.list
+  }
 </script>

@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-  import IconSvg from './components/icon-svg.vue';
+  import IconSvg from './components/icon-svg.vue'
 
-  defineOptions({ name: 'Exception404' });
+  defineOptions({ name: 'Exception404' })
 </script>

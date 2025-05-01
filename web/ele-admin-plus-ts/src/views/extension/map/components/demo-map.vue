@@ -5,21 +5,21 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
-  import AMapLoader from '@amap/amap-jsapi-loader';
-  import { useThemeStore } from '@/store/modules/theme';
-  import { storeToRefs } from 'pinia';
-  import { MAP_KEY } from '@/config/setting';
+  import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+  import AMapLoader from '@amap/amap-jsapi-loader'
+  import { useThemeStore } from '@/store/modules/theme'
+  import { storeToRefs } from 'pinia'
+  import { MAP_KEY } from '@/config/setting'
 
   /** 是否是暗黑主题 */
-  const themeStore = useThemeStore();
-  const { darkMode } = storeToRefs(themeStore);
+  const themeStore = useThemeStore()
+  const { darkMode } = storeToRefs(themeStore)
 
   /** 地图容器 */
-  const locationMapRef = ref<HTMLElement | null>(null);
+  const locationMapRef = ref<HTMLElement | null>(null)
 
   /** 官网底部地图的实例 */
-  let mapInsLocation: any;
+  let mapInsLocation: any
 
   /** 渲染官网底部地图 */
   const renderLocationMap = () => {
@@ -34,8 +34,8 @@
           zoom: 13, // 初缩放级别
           center: [114.346084, 30.511215 + 0.005], // 初始中心点
           mapStyle: darkMode.value ? 'amap://styles/dark' : void 0
-        };
-        mapInsLocation = new AMap.Map(locationMapRef.value, option);
+        }
+        mapInsLocation = new AMap.Map(locationMapRef.value, option)
         // 创建信息窗体
         const infoWindow = new AMap.InfoWindow({
           content: `
@@ -50,50 +50,49 @@
               target="_blank">到这里去→
             </a>
           `
-        });
-        infoWindow.open(mapInsLocation, [114.346084, 30.511215]);
+        })
+        infoWindow.open(mapInsLocation, [114.346084, 30.511215])
         const icon = new AMap.Icon({
           size: new AMap.Size(25, 34),
-          image:
-            '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png',
+          image: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png',
           imageSize: new AMap.Size(25, 34)
-        });
+        })
         const marker = new AMap.Marker({
           icon: icon,
           position: [114.346084, 30.511215],
           offset: new AMap.Pixel(-12, -28)
-        });
-        marker.setMap(mapInsLocation);
+        })
+        marker.setMap(mapInsLocation)
         marker.on('click', () => {
-          infoWindow.open(mapInsLocation);
-        });
+          infoWindow.open(mapInsLocation)
+        })
       })
       .catch((e) => {
-        console.error(e);
-      });
-  };
+        console.error(e)
+      })
+  }
 
   /** 渲染地图 */
   onMounted(() => {
-    renderLocationMap();
-  });
+    renderLocationMap()
+  })
 
   /** 销毁地图 */
   onBeforeUnmount(() => {
     if (mapInsLocation) {
-      mapInsLocation.destroy();
-      mapInsLocation = null;
+      mapInsLocation.destroy()
+      mapInsLocation = null
     }
-  });
+  })
 
   /** 同步框架暗黑模式切换 */
   watch(darkMode, (value) => {
     if (mapInsLocation) {
       if (value) {
-        mapInsLocation.setMapStyle('amap://styles/dark');
+        mapInsLocation.setMapStyle('amap://styles/dark')
       } else {
-        mapInsLocation.setMapStyle('amap://styles/normal');
+        mapInsLocation.setMapStyle('amap://styles/normal')
       }
     }
-  });
+  })
 </script>

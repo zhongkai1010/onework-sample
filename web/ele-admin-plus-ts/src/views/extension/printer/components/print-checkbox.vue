@@ -1,15 +1,7 @@
 <!-- 复选框组 -->
 <template>
   <div class="print-checkbox-group">
-    <div
-      v-for="item in items"
-      :key="item.value"
-      :class="[
-        'print-checkbox',
-        { 'is-checked': model && model.includes(item.value) }
-      ]"
-      @click="handleItemClick(item)"
-    >
+    <div v-for="item in items" :key="item.value" :class="['print-checkbox', { 'is-checked': model && model.includes(item.value) }]" @click="handleItemClick(item)">
       <div class="print-checkbox-icon"></div>
       <div>{{ item.label }}</div>
     </div>
@@ -18,31 +10,31 @@
 
 <script lang="ts" setup>
   interface Item {
-    label: string;
-    value: string | number;
+    label: string
+    value: string | number
   }
 
   defineProps<{
     /** 选项 */
-    items: Item[];
-  }>();
+    items: Item[]
+  }>()
 
-  const model = defineModel<(string | number)[]>({ type: Array });
+  const model = defineModel<(string | number)[]>({ type: Array })
 
   /** item点击事件 */
   const handleItemClick = (item: Item) => {
     // 取消选中
     if (model.value && model.value.includes(item.value)) {
-      model.value.splice(model.value.indexOf(item.value), 1);
-      return;
+      model.value.splice(model.value.indexOf(item.value), 1)
+      return
     }
     // 选中
     if (model.value) {
-      model.value.push(item.value);
-      return;
+      model.value.push(item.value)
+      return
     }
-    model.value = [item.value];
-  };
+    model.value = [item.value]
+  }
 </script>
 
 <style lang="scss" scoped>

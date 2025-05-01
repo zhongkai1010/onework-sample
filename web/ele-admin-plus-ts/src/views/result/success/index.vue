@@ -3,9 +3,7 @@
     <ele-card>
       <el-result icon="success" title="提交成功">
         <template #sub-title>
-          <ele-text type="placeholder">
-            提交结果页用于反馈一系列操作任务的处理结果，灰色区域可以显示一些补充的信息。
-          </ele-text>
+          <ele-text type="placeholder"> 提交结果页用于反馈一系列操作任务的处理结果，灰色区域可以显示一些补充的信息。 </ele-text>
         </template>
       </el-result>
       <div style="text-align: center">
@@ -13,21 +11,11 @@
         <el-button>查看项目</el-button>
         <el-button>打印</el-button>
       </div>
-      <div
-        style="
-          max-width: 740px;
-          padding: 20px 32px;
-          background: hsla(0, 0%, 60%, 0.1);
-          border-radius: var(--el-border-radius-base);
-          margin: 26px auto;
-        "
-      >
-        已提交申请，等待部门审核。
-      </div>
+      <div style="max-width: 740px; padding: 20px 32px; background: hsla(0, 0%, 60%, 0.1); border-radius: var(--el-border-radius-base); margin: 26px auto"> 已提交申请，等待部门审核。 </div>
     </ele-card>
   </ele-page>
 </template>
 
 <script lang="ts" setup>
-  defineOptions({ name: 'ResultSuccess' });
+  defineOptions({ name: 'ResultSuccess' })
 </script>

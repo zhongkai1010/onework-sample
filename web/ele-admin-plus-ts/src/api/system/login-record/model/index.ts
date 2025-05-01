@@ -1,29 +1,29 @@
-import { PageParam } from '@/api';
+import { PageParam } from '@/api'
 
 /**
  * 登录日志
  */
 export interface LoginRecord {
   /** 登录日志id */
-  id: number;
+  id: number
   /** 用户账号 */
-  username: string;
+  username: string
   /** 操作系统 */
-  os: string;
+  os: string
   /** 设备名称 */
-  device: string;
+  device: string
   /** 浏览器类型 */
-  browser: string;
+  browser: string
   /** ip地址 */
-  ip: string;
+  ip: string
   /** 操作类型, 0登录成功, 1登录失败, 2退出登录, 3续签token */
-  loginType: number;
+  loginType: number
   /** 备注 */
-  comments: string;
+  comments: string
   /** 操作时间 */
-  createTime: string;
+  createTime: string
   /** 用户昵称 */
-  nickname: string;
+  nickname: string
 }
 
 /**
@@ -31,13 +31,13 @@ export interface LoginRecord {
  */
 export interface LoginRecordParam extends PageParam {
   /** 用户账号 */
-  username?: string;
+  username?: string
   /** 用户昵称 */
-  nickname?: string;
+  nickname?: string
   /** 开始时间 */
-  createTimeStart?: string;
+  createTimeStart?: string
   /** 截止时间 */
-  createTimeEnd?: string;
+  createTimeEnd?: string
   /** 操作类型 */
-  loginType?: number;
+  loginType?: number
 }

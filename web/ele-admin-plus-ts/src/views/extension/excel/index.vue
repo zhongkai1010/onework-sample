@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts" setup>
-  import ExcelExport from './components/excel-export.vue';
-  import ExcelImport from './components/excel-import.vue';
+  import ExcelExport from './components/excel-export.vue'
+  import ExcelImport from './components/excel-import.vue'
 
-  defineOptions({ name: 'ExtensionExcel' });
+  defineOptions({ name: 'ExtensionExcel' })
 </script>

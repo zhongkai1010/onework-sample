@@ -1,34 +1,15 @@
 <template>
   <ele-card header="二次封装简化使用">
-    <div style="margin-bottom: 24px">
-      二次封装后无需再处理上传事件及转换数据格式，使用起来就像一个普通输入框一样简单
-    </div>
-    <el-form
-      ref="formRef"
-      :model="form"
-      :rules="rules"
-      label-width="100px"
-      style="max-width: 460px"
-      @submit.prevent=""
-    >
+    <div style="margin-bottom: 24px"> 二次封装后无需再处理上传事件及转换数据格式，使用起来就像一个普通输入框一样简单 </div>
+    <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" style="max-width: 460px" @submit.prevent="">
       <el-form-item label="投诉内容" prop="content">
-        <el-input
-          :rows="4"
-          type="textarea"
-          v-model="form.content"
-          placeholder="请输入投诉内容"
-        />
+        <el-input :rows="4" type="textarea" v-model="form.content" placeholder="请输入投诉内容" />
       </el-form-item>
       <el-form-item label="现场照片" prop="images">
         <image-upload ref="imagesUploadRef" :limit="3" v-model="form.images" />
       </el-form-item>
       <el-form-item label="真实姓名" prop="realName">
-        <el-input
-          clearable
-          :maxlength="20"
-          v-model="form.realName"
-          placeholder="请输入真实姓名"
-        />
+        <el-input clearable :maxlength="20" v-model="form.realName" placeholder="请输入真实姓名" />
       </el-form-item>
       <el-form-item label="身份证正面" prop="idCardImg1">
         <image-upload
@@ -65,23 +46,23 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive, nextTick } from 'vue';
-  import type { FormInstance, FormRules } from 'element-plus';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import { useFormData } from '@/utils/use-form-data';
-  import ImageUpload from '@/components/ImageUpload/index.vue';
+  import { ref, reactive, nextTick } from 'vue'
+  import type { FormInstance, FormRules } from 'element-plus'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import { useFormData } from '@/utils/use-form-data'
+  import ImageUpload from '@/components/ImageUpload/index.vue'
 
   interface User {
-    id?: number;
-    realName?: string;
-    idCardImg1?: string;
-    idCardImg2?: string;
-    content?: string;
-    images?: string;
+    id?: number
+    realName?: string
+    idCardImg1?: string
+    idCardImg2?: string
+    content?: string
+    images?: string
   }
 
   /** 表单实例 */
-  const formRef = ref<FormInstance | null>(null);
+  const formRef = ref<FormInstance | null>(null)
 
   /** 表单数据 */
   const [form, _resetFields, assignFields] = useFormData<User>({
@@ -94,7 +75,7 @@
     content: '',
     /** 现场照片 */
     images: ''
-  });
+  })
 
   /** 表单验证规则 */
   const rules = reactive<FormRules>({
@@ -142,44 +123,41 @@
         trigger: 'change',
         validator: (_rule: any, _value: string, callback: any) => {
           if (!imagesUploadRef.value?.isDone?.()) {
-            return callback(new Error('现场照片还未上传完毕'));
+            return callback(new Error('现场照片还未上传完毕'))
           }
-          callback();
+          callback()
         }
       }
     ]
-  });
+  })
 
   /** 现场照片上传组件 */
-  const imagesUploadRef = ref<InstanceType<typeof ImageUpload> | null>(null);
+  const imagesUploadRef = ref<InstanceType<typeof ImageUpload> | null>(null)
 
   /** 保存编辑 */
   const save = () => {
     formRef.value?.validate?.((valid) => {
       if (!valid) {
-        return;
+        return
       }
-      console.log(JSON.parse(JSON.stringify(form)));
-      EleMessage.success('数据已打印在控制台');
-    });
-  };
+      console.log(JSON.parse(JSON.stringify(form)))
+      EleMessage.success('数据已打印在控制台')
+    })
+  }
 
   /** 回显数据 */
   const setData = async () => {
-    imagesUploadRef.value?.clearData?.();
-    await nextTick();
+    imagesUploadRef.value?.clearData?.()
+    await nextTick()
     const data: User = {
       id: 1,
       realName: '张三',
-      idCardImg1:
-        'https://cdn.eleadmin.com/20200610/CyrCNmTJfv7D6GFAg39bjT3eRkkRm5dI.jpg',
-      idCardImg2:
-        'https://cdn.eleadmin.com/20200610/ttkIjNPlVDuv4lUTvRX8GIlM2QqSe0jg.jpg',
+      idCardImg1: 'https://cdn.eleadmin.com/20200610/CyrCNmTJfv7D6GFAg39bjT3eRkkRm5dI.jpg',
+      idCardImg2: 'https://cdn.eleadmin.com/20200610/ttkIjNPlVDuv4lUTvRX8GIlM2QqSe0jg.jpg',
       content: '2栋楼下的路灯已经坏了几天了都没人来维修一下',
-      images:
-        '["https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg","https://cdn.eleadmin.com/20200610/WLXm7gp1EbLDtvVQgkeQeyq5OtDm00Jd.jpg"]'
-    };
-    assignFields(data);
-    formRef.value?.clearValidate?.();
-  };
+      images: '["https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg","https://cdn.eleadmin.com/20200610/WLXm7gp1EbLDtvVQgkeQeyq5OtDm00Jd.jpg"]'
+    }
+    assignFields(data)
+    formRef.value?.clearValidate?.()
+  }
 </script>

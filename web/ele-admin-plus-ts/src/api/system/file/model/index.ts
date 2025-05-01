@@ -1,33 +1,33 @@
-import { PageParam } from '@/api';
+import { PageParam } from '@/api'
 
 /**
  * 文件上传记录
  */
 export interface FileRecord {
   /** id */
-  id: number;
+  id: number
   /** 文件名称 */
-  name?: string;
+  name?: string
   /** 文件存储路径 */
-  path?: string;
+  path?: string
   /** 文件大小 */
-  length?: number;
+  length?: number
   /** 文件类型 */
-  contentType?: string;
+  contentType?: string
   /** 上传人id */
-  createUserId?: number;
+  createUserId?: number
   /** 上传时间 */
-  createTime?: string;
+  createTime?: string
   /** 文件访问地址 */
-  url?: string;
+  url?: string
   /** 文件缩略图访问地址 */
-  thumbnail?: string;
+  thumbnail?: string
   /** 文件下载地址 */
-  downloadUrl?: string;
+  downloadUrl?: string
   /** 上传人账号 */
-  createUsername?: string;
+  createUsername?: string
   /** 上传人名称 */
-  createNickname?: string;
+  createNickname?: string
 }
 
 /**
@@ -35,9 +35,9 @@ export interface FileRecord {
  */
 export interface FileRecordParam extends PageParam {
   /** 文件名称 */
-  name?: string;
+  name?: string
   /** 文件存储路径 */
-  path?: string;
+  path?: string
   /** 上传人名称 */
-  createNickname?: string;
+  createNickname?: string
 }

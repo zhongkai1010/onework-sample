@@ -1,22 +1,8 @@
 <template>
   <ele-page>
     <ele-card header="基础用法">
-      <ele-edit-tag
-        v-model="tags"
-        :size="size"
-        :type="type"
-        :effect="effect"
-        :validator="validator"
-        :tooltip-props="{ effect: 'danger' }"
-        style="margin-top: 0"
-        :readonly="readonly"
-        :disabled="disabled"
-        :round="round"
-        :hit="hit"
-      />
-      <ele-text type="secondary" style="padding: 8px 0">{{
-        JSON.stringify(tags)
-      }}</ele-text>
+      <ele-edit-tag v-model="tags" :size="size" :type="type" :effect="effect" :validator="validator" :tooltip-props="{ effect: 'danger' }" style="margin-top: 0" :readonly="readonly" :disabled="disabled" :round="round" :hit="hit" />
+      <ele-text type="secondary" style="padding: 8px 0">{{ JSON.stringify(tags) }}</ele-text>
       <option-item label="尺寸选择">
         <el-radio-group v-model="size">
           <el-radio value="large" label="large" />
@@ -81,81 +67,73 @@
         :hit="hit"
       />
       <div style="margin: 22px 0 12px 0">输入 `,` 自动分割为多个:</div>
-      <ele-edit-tag
-        :model-value="tags3"
-        @update:modelValue="updateModelValue3"
-        :size="size"
-        :type="type"
-        :effect="effect"
-        :round="round"
-        :hit="hit"
-      />
+      <ele-edit-tag :model-value="tags3" @update:modelValue="updateModelValue3" :size="size" :type="type" :effect="effect" :round="round" :hit="hit" />
     </ele-card>
   </ele-page>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { TagProps } from 'element-plus';
-  import OptionItem from '@/views/extension/avatar/components/option-item.vue';
+  import { ref } from 'vue'
+  import type { TagProps } from 'element-plus'
+  import OptionItem from '@/views/extension/avatar/components/option-item.vue'
 
-  defineOptions({ name: 'ExtensionTag' });
+  defineOptions({ name: 'ExtensionTag' })
 
   /** 选中尺寸 */
-  const size = ref<TagProps['size']>('default');
+  const size = ref<TagProps['size']>('default')
 
   /** 选中类型 */
-  const type = ref<TagProps['type']>('info');
+  const type = ref<TagProps['type']>('info')
 
   /** 选中主题 */
-  const effect = ref<TagProps['effect']>('light');
+  const effect = ref<TagProps['effect']>('light')
 
   /** 标签输入 */
-  const tags = ref(['标签一', '标签二', '标签三']);
+  const tags = ref(['标签一', '标签二', '标签三'])
 
   /** 是否圆形 */
-  const round = ref(false);
+  const round = ref(false)
 
   /** 是否边框 */
-  const hit = ref(false);
+  const hit = ref(false)
 
   /** 是否只读 */
-  const readonly = ref(false);
+  const readonly = ref(false)
 
   /** 是否禁用 */
-  const disabled = ref(false);
+  const disabled = ref(false)
 
   /** 限制不能重复添加 */
   const validator = (value: string) => {
     return new Promise<void>((resolve, reject) => {
       if (tags.value.includes(value)) {
-        reject(new Error(value + '已经存在'));
-        return;
+        reject(new Error(value + '已经存在'))
+        return
       }
-      resolve();
-    });
-  };
+      resolve()
+    })
+  }
 
   /** 标签输入 */
-  const tags2 = ref(['标签一', '标签二', '标签三']);
+  const tags2 = ref(['标签一', '标签二', '标签三'])
 
   /** 自定义异步验证 */
   const validator2 = (value: string) => {
     return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
         if (value !== 'eleadmin') {
-          reject(new Error('只能输入eleadmin'));
-          return;
+          reject(new Error('只能输入eleadmin'))
+          return
         }
-        resolve();
-      }, 1000);
-    });
-  };
+        resolve()
+      }, 1000)
+    })
+  }
 
   /** 标签输入 */
-  const tags3 = ref(['标签一', '标签二', '标签三']);
+  const tags3 = ref(['标签一', '标签二', '标签三'])
 
   const updateModelValue3 = (modelValue: string[]) => {
-    tags3.value = modelValue.map((d) => d.split(',')).flat();
-  };
+    tags3.value = modelValue.map((d) => d.split(',')).flat()
+  }
 </script>

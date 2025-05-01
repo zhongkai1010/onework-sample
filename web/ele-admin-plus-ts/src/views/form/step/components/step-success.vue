@@ -8,13 +8,7 @@
         <el-button type="primary" @click="back">再转一笔</el-button>
         <el-button>查看账单</el-button>
       </div>
-      <el-descriptions
-        :border="true"
-        :column="1"
-        size="large"
-        class="detail-table"
-        style="width: 680px; max-width: 100%"
-      >
+      <el-descriptions :border="true" :column="1" size="large" class="detail-table" style="width: 680px; max-width: 100%">
         <el-descriptions-item label="付款账户">
           <div>{{ data.account }}</div>
         </el-descriptions-item>
@@ -26,9 +20,7 @@
         </el-descriptions-item>
         <el-descriptions-item label="转账金额">
           <div style="display: flex; align-items: flex-end">
-            <ele-text size="xl" style="line-height: 1">
-              {{ data.amount }}&nbsp;
-            </ele-text>
+            <ele-text size="xl" style="line-height: 1"> {{ data.amount }}&nbsp; </ele-text>
             <div style="line-height: 1.15">&nbsp;元</div>
           </div>
         </el-descriptions-item>
@@ -38,19 +30,19 @@
 </template>
 
 <script lang="ts" setup>
-  import type { StepForm } from '../model';
+  import type { StepForm } from '../model'
 
   defineProps<{
-    data: StepForm;
-  }>();
+    data: StepForm
+  }>()
 
   const emit = defineEmits<{
-    (e: 'back'): void;
-  }>();
+    (e: 'back'): void
+  }>()
 
   const back = () => {
-    emit('back');
-  };
+    emit('back')
+  }
 </script>
 
 <style lang="scss" scoped>

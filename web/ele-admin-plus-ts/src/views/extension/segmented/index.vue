@@ -120,12 +120,7 @@
       </div>
     </ele-card>
     <ele-card header="自定义渲染">
-      <ele-segmented
-        size="large"
-        v-model="active2"
-        :items="items"
-        style="--ele-segmented-large-height: 68px"
-      >
+      <ele-segmented size="large" v-model="active2" :items="items" style="--ele-segmented-large-height: 68px">
         <template #label="{ item }">
           <div
             :style="{
@@ -147,35 +142,32 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { UserOutlined, SettingOutlined } from '@/components/icons';
+  import { ref } from 'vue'
+  import { UserOutlined, SettingOutlined } from '@/components/icons'
 
-  defineOptions({ name: 'ExtensionSegmented' });
+  defineOptions({ name: 'ExtensionSegmented' })
 
-  const active1 = ref(1);
+  const active1 = ref(1)
 
-  const active2 = ref('Map');
+  const active2 = ref('Map')
 
-  const active3 = ref(1);
+  const active3 = ref(1)
 
   const items = ref([
     {
       label: 'Map',
       value: 'Map',
-      avatar:
-        'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg'
+      avatar: 'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg'
     },
     {
       label: 'Transit',
       value: 'Transit',
-      avatar:
-        'https://cdn.eleadmin.com/20200609/b6a811873e704db49db994053a5019b2.jpg'
+      avatar: 'https://cdn.eleadmin.com/20200609/b6a811873e704db49db994053a5019b2.jpg'
     },
     {
       label: 'Satellite',
       value: 'Satellite',
-      avatar:
-        'https://cdn.eleadmin.com/20200609/f6bc05af944a4f738b54128717952107.jpg'
+      avatar: 'https://cdn.eleadmin.com/20200609/f6bc05af944a4f738b54128717952107.jpg'
     }
-  ]);
+  ])
 </script>

@@ -6,13 +6,7 @@
     </template>
     <el-scrollbar :view-style="{ padding: '20px 20px 0 20px' }">
       <el-timeline :reverse="false" class="demo-timeline">
-        <el-timeline-item
-          v-for="item in activities"
-          :key="item.id"
-          :timestamp="item.time"
-          :type="item.type"
-          :hollow="true"
-        >
+        <el-timeline-item v-for="item in activities" :key="item.id" :timestamp="item.time" :type="item.type" :hollow="true">
           {{ item.title }}
         </el-timeline-item>
       </el-timeline>
@@ -21,27 +15,27 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import MoreIcon from './more-icon.vue';
-  import type { Command } from '../model';
+  import { ref } from 'vue'
+  import MoreIcon from './more-icon.vue'
+  import type { Command } from '../model'
 
   defineProps<{
-    title?: string;
-  }>();
+    title?: string
+  }>()
 
   const emit = defineEmits<{
-    (e: 'command', command: Command): void;
-  }>();
+    (e: 'command', command: Command): void
+  }>()
 
   interface Activitie {
-    id: number;
-    title: string;
-    time: string;
-    type?: any;
+    id: number
+    title: string
+    time: string
+    type?: any
   }
 
   /** 最新动态数据 */
-  const activities = ref<Activitie[]>([]);
+  const activities = ref<Activitie[]>([])
 
   /** 查询最新动态 */
   const queryActivities = () => {
@@ -112,14 +106,14 @@
         time: '08:30',
         type: 'danger'
       }
-    ];
-  };
+    ]
+  }
 
   const handleCommand = (command: Command) => {
-    emit('command', command);
-  };
+    emit('command', command)
+  }
 
-  queryActivities();
+  queryActivities()
 </script>
 
 <style lang="scss" scoped>

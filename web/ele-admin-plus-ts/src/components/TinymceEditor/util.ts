@@ -1,10 +1,6 @@
-import type {
-  Editor as TinyMCEEditor,
-  EditorEvent,
-  RawEditorSettings
-} from 'tinymce';
-import { uploadFile } from '@/api/system/file';
-const BASE_URL = import.meta.env.BASE_URL;
+import type { Editor as TinyMCEEditor, EditorEvent, RawEditorSettings } from 'tinymce'
+import { uploadFile } from '@/api/system/file'
+const BASE_URL = import.meta.env.BASE_URL
 //const BASE_URL = location.protocol + '//' + location.host + import.meta.env.BASE_URL;
 
 /** 默认加载插件 */
@@ -35,7 +31,7 @@ const PLUGINS: string = [
   'visualblocks',
   'visualchars',
   'wordcount'
-].join(' ');
+].join(' ')
 
 /** 默认工具栏布局 */
 const TOOLBAR: string = [
@@ -80,7 +76,7 @@ const TOOLBAR: string = [
   '|',
   'ltr',
   'rtl'
-].join(' ');
+].join(' ')
 
 /** 默认配置 */
 export const DEFAULT_CONFIG: RawEditorSettings = {
@@ -97,29 +93,29 @@ export const DEFAULT_CONFIG: RawEditorSettings = {
   quickbars_insert_toolbar: '',
   convert_urls: false,
   images_upload_handler: (blobInfo: any, success: any, error: any) => {
-    const file = blobInfo.blob();
+    const file = blobInfo.blob()
     /* if (file.size / 1024 / 1024 > 100) {
       error('大小不能超过 100MB');
       return;
     } */
     uploadFile(file, void 0, file.name)
       .then((res) => {
-        success(res.url);
+        success(res.url)
       })
       .catch((e) => {
-        console.error(e);
-        error(e.message);
-      });
+        console.error(e)
+        error(e.message)
+      })
   },
   file_picker_types: 'media image file',
   file_picker_callback: () => {}
-};
+}
 
 /** 暗黑主题配置 */
 export const DARK_CONFIG: RawEditorSettings = {
   skin_url: BASE_URL + 'tinymce/skins/ui/oxide-dark',
   content_css: BASE_URL + 'tinymce/skins/content/dark/content.min.css'
-};
+}
 
 /** 支持监听的事件 */
 export const VALID_EVENTS = [
@@ -185,52 +181,43 @@ export const VALID_EVENTS = [
   'onSubmit',
   'onUndo',
   'onVisualAid'
-];
+]
 
-let unique = 0;
+let unique = 0
 
 /**
  * 生成编辑器 id
  */
 export function uuid(prefix: string): string {
-  const time = Date.now();
-  const random = Math.floor(Math.random() * 1000000000);
-  unique++;
-  return prefix + '_' + random + unique + String(time);
+  const time = Date.now()
+  const random = Math.floor(Math.random() * 1000000000)
+  unique++
+  return prefix + '_' + random + unique + String(time)
 }
 
 /**
  * 绑定事件
  */
-export function bindHandlers(
-  initEvent: EditorEvent<any>,
-  listeners: Record<string, any>,
-  editor: TinyMCEEditor
-): void {
-  const validEvents = VALID_EVENTS.map((event) => event.toLowerCase());
+export function bindHandlers(initEvent: EditorEvent<any>, listeners: Record<string, any>, editor: TinyMCEEditor): void {
+  const validEvents = VALID_EVENTS.map((event) => event.toLowerCase())
   Object.keys(listeners)
     .filter((key: string) => validEvents.includes(key.toLowerCase()))
     .forEach((key: string) => {
-      const handler = listeners[key];
+      const handler = listeners[key]
       if (typeof handler === 'function') {
         if (key === 'onInit') {
-          handler(initEvent, editor);
+          handler(initEvent, editor)
         } else {
-          editor.on(key.substring(2), (e: EditorEvent<any>) =>
-            handler(e, editor)
-          );
+          editor.on(key.substring(2), (e: EditorEvent<any>) => handler(e, editor))
         }
       }
-    });
+    })
 }
 
 /**
  * 弹出提示框
  */
-export function openAlert(
-  editor: TinyMCEEditor | null,
-  option: AlertOption = {}
-) {
+export function openAlert(editor: TinyMCEEditor | null, option: AlertOption = {}) {
   editor?.windowManager?.open?.({
     title: option.title ?? '提示',
     body: {
@@ -250,7 +237,7 @@ export function openAlert(
         primary: true
       }
     ]
-  });
+  })
 }
 
 /**
@@ -258,7 +245,7 @@ export function openAlert(
  */
 export interface AlertOption {
   /** 标题 */
-  title?: string;
+  title?: string
   /** 内容 */
-  content?: string;
+  content?: string
 }

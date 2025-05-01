@@ -34,69 +34,58 @@
 </template>
 
 <script lang="ts" setup>
-  import type { CSSProperties } from 'vue';
-  import type { AxiosProgressEvent } from 'axios';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type {
-    ElProgressProps,
-    ElImageProps
-  } from 'ele-admin-plus/es/ele-app/el';
-  import type { EleImageViewerProps } from 'ele-admin-plus/es/ele-app/plus';
-  import type {
-    UploadItem,
-    EditUploadResult,
-    ListType,
-    BeforeUploadClick,
-    BeforeItemEdit,
-    BeforePreview,
-    UploadLocale
-  } from 'ele-admin-plus/es/ele-upload-list/types';
-  import { uploadFile } from '@/api/system/file';
+  import type { CSSProperties } from 'vue'
+  import type { AxiosProgressEvent } from 'axios'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { ElProgressProps, ElImageProps } from 'ele-admin-plus/es/ele-app/el'
+  import type { EleImageViewerProps } from 'ele-admin-plus/es/ele-app/plus'
+  import type { UploadItem, EditUploadResult, ListType, BeforeUploadClick, BeforeItemEdit, BeforePreview, UploadLocale } from 'ele-admin-plus/es/ele-upload-list/types'
+  import { uploadFile } from '@/api/system/file'
 
-  defineOptions({ name: 'CommonUpload' });
+  defineOptions({ name: 'CommonUpload' })
 
   const props = withDefaults(
     defineProps<{
       /** 文件大小限制, 单位MB */
-      fileLimit?: number;
+      fileLimit?: number
       /** 是否只读 */
-      readonly?: boolean;
+      readonly?: boolean
       /** 是否禁用 */
-      disabled?: boolean;
+      disabled?: boolean
       /** 是否支持点击预览 */
-      preview?: boolean;
+      preview?: boolean
       /** 最大上传数量 */
-      limit?: number;
+      limit?: number
       /** 是否支持多选文件 */
-      multiple?: boolean;
+      multiple?: boolean
       /** 是否启用拖拽上传 */
-      drag?: boolean;
+      drag?: boolean
       /** 接受上传的文件类型 */
-      accept?: string;
+      accept?: string
       /** 自定义样式 */
-      itemStyle?: CSSProperties;
+      itemStyle?: CSSProperties
       /** 自定义上传按钮样式 */
-      buttonStyle?: CSSProperties;
+      buttonStyle?: CSSProperties
       /** 是否开启拖拽排序 */
-      sortable?: boolean | Record<keyof any, any>;
+      sortable?: boolean | Record<keyof any, any>
       /** 自定义图片属性 */
-      imageProps?: ElImageProps;
+      imageProps?: ElImageProps
       /** 自定义进度条属性 */
-      progressProps?: ElProgressProps;
+      progressProps?: ElProgressProps
       /** 自定义图片预览属性 */
-      previewProps?: EleImageViewerProps;
+      previewProps?: EleImageViewerProps
       /** 是否开启底部预览和修改的操作按钮 */
-      tools?: boolean;
+      tools?: boolean
       /** 列表显示样式 */
-      listType?: ListType;
+      listType?: ListType
       /** 上传按钮点击前的钩子 */
-      beforeUploadClick?: BeforeUploadClick;
+      beforeUploadClick?: BeforeUploadClick
       /** 修改按钮点击前的钩子 */
-      beforeItemEdit?: BeforeItemEdit;
+      beforeItemEdit?: BeforeItemEdit
       /** 预览按钮点击前的钩子 */
-      beforePreview?: BeforePreview;
+      beforePreview?: BeforePreview
       /** 国际化 */
-      locale?: Partial<UploadLocale>;
+      locale?: Partial<UploadLocale>
     }>(),
     {
       fileLimit: 100,
@@ -106,107 +95,102 @@
       sortable: () => ({ forceFallback: true }),
       tools: true
     }
-  );
+  )
 
   const emit = defineEmits<{
-    (e: 'itemClick', item: UploadItem): void;
-    (e: 'preview', item: UploadItem): void;
-  }>();
+    (e: 'itemClick', item: UploadItem): void
+    (e: 'preview', item: UploadItem): void
+  }>()
 
   /** 已上传数据 */
   const images = defineModel<UploadItem[]>({
     type: Array,
     default: () => []
-  });
+  })
 
   /** 校验选择的文件 */
   const checkFile = (file?: File) => {
     if (!file) {
-      return;
+      return
     }
     if (props.accept === 'image/*') {
       if (!file.type.startsWith('image')) {
-        EleMessage.error('只能选择图片');
-        return;
+        EleMessage.error('只能选择图片')
+        return
       }
     } else if (props.accept === '.xls,.xlsx') {
-      if (
-        ![
-          'application/vnd.ms-excel',
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        ].includes(file.type)
-      ) {
-        EleMessage.error('只能选择 excel 文件');
-        return;
+      if (!['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(file.type)) {
+        EleMessage.error('只能选择 excel 文件')
+        return
       }
     }
     if (props.fileLimit && file.size / 1024 / 1024 > props.fileLimit) {
-      EleMessage.error(`大小不能超过 ${props.fileLimit}MB`);
-      return;
+      EleMessage.error(`大小不能超过 ${props.fileLimit}MB`)
+      return
     }
-    return true;
-  };
+    return true
+  }
 
   /** 上传事件 */
   const handleItemUpload = (data: UploadItem, retry?: boolean) => {
     if (!data.file || !checkFile(data.file)) {
-      return;
+      return
     }
     if (!retry) {
-      images.value.push({ ...data });
+      images.value.push({ ...data })
     }
-    const item = images.value.find((t) => t.key === data.key);
+    const item = images.value.find((t) => t.key === data.key)
     if (!item) {
-      return;
+      return
     }
-    item.status = 'uploading';
-    item.progress = 0;
+    item.status = 'uploading'
+    item.progress = 0
     uploadFile(data.file, {
       onUploadProgress: (e: AxiosProgressEvent) => {
         if (e.total != null && item.status !== 'done') {
-          item.progress = (e.loaded / e.total) * 100;
+          item.progress = (e.loaded / e.total) * 100
         }
       }
     })
       .then((res) => {
-        item.progress = 100;
-        item.status = 'done';
-        item.url = res.url;
+        item.progress = 100
+        item.status = 'done'
+        item.url = res.url
       })
       .catch((e) => {
-        item.status = 'exception';
-        EleMessage.error(e.message);
-      });
-  };
+        item.status = 'exception'
+        EleMessage.error(e.message)
+      })
+  }
 
   /** 修改事件 */
   const handleItemEditUpload = ({ item, newItem }: EditUploadResult) => {
     if (!checkFile(newItem.file)) {
-      return;
+      return
     }
-    const oldItem = images.value.find((t) => t.key === item.key);
+    const oldItem = images.value.find((t) => t.key === item.key)
     if (oldItem) {
-      oldItem.url = void 0;
-      oldItem.name = newItem.name;
-      oldItem.file = newItem.file;
-      oldItem.progress = 0;
-      oldItem.status = void 0;
-      handleItemUpload(oldItem, true);
+      oldItem.url = void 0
+      oldItem.name = newItem.name
+      oldItem.file = newItem.file
+      oldItem.progress = 0
+      oldItem.status = void 0
+      handleItemUpload(oldItem, true)
     }
-  };
+  }
 
   /** 删除事件 */
   const handleItemRemove = (item: UploadItem) => {
-    images.value.splice(images.value.indexOf(item), 1);
-  };
+    images.value.splice(images.value.indexOf(item), 1)
+  }
 
   /** 点击事件 */
   const handleItemClick = (item: UploadItem) => {
-    emit('itemClick', item);
-  };
+    emit('itemClick', item)
+  }
 
   /** 预览事件 */
   const handleItemPreview = (item: UploadItem) => {
-    emit('preview', item);
-  };
+    emit('preview', item)
+  }
 </script>

@@ -1,34 +1,29 @@
 <template>
   <ele-card header="浏览器分布" :body-style="{ padding: 0 }">
-    <v-chart
-      ref="browserChartRef"
-      :option="browserChartOption"
-      style="height: 236px"
-      @click="handleBrowserChartClick"
-    />
+    <v-chart ref="browserChartRef" :option="browserChartOption" style="height: 236px" @click="handleBrowserChartClick" />
   </ele-card>
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import { use } from 'echarts/core';
-  import type { EChartsCoreOption } from 'echarts/core';
-  import { CanvasRenderer } from 'echarts/renderers';
-  import { PieChart } from 'echarts/charts';
-  import { TooltipComponent, LegendComponent } from 'echarts/components';
-  import VChart from 'vue-echarts';
-  import { getBrowserCountList } from '@/api/dashboard/monitor';
-  import { useEcharts } from '@/utils/use-echarts';
+  import { ref, reactive } from 'vue'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import { use } from 'echarts/core'
+  import type { EChartsCoreOption } from 'echarts/core'
+  import { CanvasRenderer } from 'echarts/renderers'
+  import { PieChart } from 'echarts/charts'
+  import { TooltipComponent, LegendComponent } from 'echarts/components'
+  import VChart from 'vue-echarts'
+  import { getBrowserCountList } from '@/api/dashboard/monitor'
+  import { useEcharts } from '@/utils/use-echarts'
 
-  use([CanvasRenderer, PieChart, TooltipComponent, LegendComponent]);
+  use([CanvasRenderer, PieChart, TooltipComponent, LegendComponent])
 
-  const browserChartRef = ref<InstanceType<typeof VChart> | null>(null);
+  const browserChartRef = ref<InstanceType<typeof VChart> | null>(null)
 
-  useEcharts([browserChartRef]);
+  useEcharts([browserChartRef])
 
   /** 浏览器分布饼图配置 */
-  const browserChartOption: EChartsCoreOption = reactive({});
+  const browserChartOption: EChartsCoreOption = reactive({})
 
   /** 获取用户浏览器分布数据 */
   const getBrowserCountData = () => {
@@ -58,20 +53,20 @@
               data: data
             }
           ]
-        });
+        })
       })
       .catch((e) => {
-        EleMessage.error(e.message);
-      });
-  };
+        EleMessage.error(e.message)
+      })
+  }
 
   /** 图表点击事件 */
   const handleBrowserChartClick = (params: any) => {
     EleMessage.info({
       message: `点击了: ${params.name} , 用户量: ${params.value}`,
       plain: true
-    });
-  };
+    })
+  }
 
-  getBrowserCountData();
+  getBrowserCountData()
 </script>

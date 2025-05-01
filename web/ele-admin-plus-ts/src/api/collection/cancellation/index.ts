@@ -1,25 +1,17 @@
-import request from '@/utils/request';
-import type { ApiResult, PageResult } from '@/api';
-import type {
-  Cancellation,
-  AddCancellationParams,
-  CancellationQueryParams,
-  ConfirmCancellationParams
-} from './model';
+import request from '@/utils/request'
+import type { ApiResult, PageResult } from '@/api'
+import type { Cancellation, AddCancellationParams, CancellationQueryParams, ConfirmCancellationParams } from './model'
 
 /**
  * 添加注销记录
  * @param data 注销记录信息
  */
 export async function addCancellation(data: AddCancellationParams) {
-  const res = await request.post<ApiResult<unknown>>(
-    '/collection/cancellation',
-    data
-  );
+  const res = await request.post<ApiResult<unknown>>('/collection/cancellation', data)
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -27,16 +19,13 @@ export async function addCancellation(data: AddCancellationParams) {
  * @param params 查询参数
  */
 export async function getCancellationList(params: CancellationQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Cancellation>>>(
-    '/collection/cancellation',
-    {
-      params
-    }
-  );
+  const res = await request.get<ApiResult<PageResult<Cancellation>>>('/collection/cancellation', {
+    params
+  })
   if (res.data.code === 0 && res.data.data) {
-    return res.data.data;
+    return res.data.data
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -44,14 +33,11 @@ export async function getCancellationList(params: CancellationQueryParams) {
  * @param data 注销记录信息
  */
 export async function updateCancellation(data: Cancellation) {
-  const res = await request.put<ApiResult<unknown>>(
-    '/collection/cancellation',
-    data
-  );
+  const res = await request.put<ApiResult<unknown>>('/collection/cancellation', data)
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -59,13 +45,11 @@ export async function updateCancellation(data: Cancellation) {
  * @param id 注销记录ID
  */
 export async function deleteCancellation(id: string) {
-  const res = await request.delete<ApiResult<unknown>>(
-    `/collection/cancellation/${id}`
-  );
+  const res = await request.delete<ApiResult<unknown>>(`/collection/cancellation/${id}`)
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -73,12 +57,9 @@ export async function deleteCancellation(id: string) {
  * @param data 确认注销参数
  */
 export async function confirmCancellation(data: ConfirmCancellationParams) {
-  const res = await request.post<ApiResult<unknown>>(
-    '/collection/cancellation/confirm',
-    data
-  );
+  const res = await request.post<ApiResult<unknown>>('/collection/cancellation/confirm', data)
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }

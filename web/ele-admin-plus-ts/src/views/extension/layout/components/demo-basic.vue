@@ -90,17 +90,11 @@
           <div
             :style="{
               flex: 'auto',
-              padding:
-                tabStyle === 'button' && tabBar === true
-                  ? '0 12px'
-                  : '12px 12px 0 12px',
+              padding: tabStyle === 'button' && tabBar === true ? '0 12px' : '12px 12px 0 12px',
               boxSizing: 'border-box'
             }"
           >
-            <ele-card
-              :body-style="{ padding: '16px 8px 16px 14px' }"
-              style="margin: 0"
-            >
+            <ele-card :body-style="{ padding: '16px 8px 16px 14px' }" style="margin: 0">
               <option-item label="整体布局">
                 <el-radio-group v-model="layout">
                   <el-radio value="default" label="侧栏导航" />
@@ -117,20 +111,14 @@
                 </el-radio-group>
               </option-item>
               <option-item label="顶栏风格">
-                <el-radio-group
-                  :disabled="layout === 'side'"
-                  v-model="headerStyle"
-                >
+                <el-radio-group :disabled="layout === 'side'" v-model="headerStyle">
                   <el-radio value="light" label="亮色风格" />
                   <el-radio value="dark" label="暗色风格" />
                   <el-radio value="primary" label="主色风格" />
                 </el-radio-group>
               </option-item>
               <option-item label="侧栏风格">
-                <el-radio-group
-                  :disabled="layout === 'top'"
-                  v-model="sidebarStyle"
-                >
+                <el-radio-group :disabled="layout === 'top'" v-model="sidebarStyle">
                   <el-radio value="light" label="亮色风格" />
                   <el-radio value="dark" label="暗色风格" />
                 </el-radio-group>
@@ -175,10 +163,7 @@
                 </el-radio-group>
               </option-item>
               <option-item label="Logo 位置">
-                <el-radio-group
-                  :disabled="layout === 'top' || layout === 'side' || mobile"
-                  v-model="logoInHeader"
-                >
+                <el-radio-group :disabled="layout === 'top' || layout === 'side' || mobile" v-model="logoInHeader">
                   <el-radio :value="true" label="顶栏" />
                   <el-radio :value="false" label="侧栏" />
                 </el-radio-group>
@@ -191,21 +176,13 @@
                 </el-radio-group>
               </option-item>
               <option-item label="折叠侧栏">
-                <el-radio-group
-                  :disabled="
-                    (layout === 'top' || sidebarLayout === 'box') && !mobile
-                  "
-                  v-model="collapse"
-                >
+                <el-radio-group :disabled="(layout === 'top' || sidebarLayout === 'box') && !mobile" v-model="collapse">
                   <el-radio :value="false" label="否" />
                   <el-radio :value="true" label="是" />
                 </el-radio-group>
               </option-item>
               <option-item label="折叠双侧栏一级">
-                <el-radio-group
-                  :disabled="layout === 'top' || sidebarLayout === 'default'"
-                  v-model="compact"
-                >
+                <el-radio-group :disabled="layout === 'top' || sidebarLayout === 'default'" v-model="compact">
                   <el-radio :value="false" label="否" />
                   <el-radio :value="true" label="是" />
                 </el-radio-group>
@@ -231,19 +208,14 @@
                   <el-slider v-model="sidebarWidth" :min="120" :max="280" />
                 </div>
               </option-item>
-              <option-item
-                v-if="sidebarLayout === 'mix'"
-                label="双侧栏一级宽度"
-              >
+              <option-item v-if="sidebarLayout === 'mix'" label="双侧栏一级宽度">
                 <div style="max-width: 160px">
                   <el-slider v-model="sideboxWidth" :min="60" :max="120" />
                 </div>
               </option-item>
             </ele-card>
           </div>
-          <div style="padding: 16px 0; text-align: center; opacity: 0.6">
-            我是页脚&emsp;我是页脚&emsp;我是页脚
-          </div>
+          <div style="padding: 16px 0; text-align: center; opacity: 0.6"> 我是页脚&emsp;我是页脚&emsp;我是页脚 </div>
         </ele-admin-layout>
       </div>
     </frame-card>
@@ -251,37 +223,18 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch, markRaw } from 'vue';
-  import { LayoutTool } from 'ele-admin-plus/es';
-  import { useTimer } from 'ele-admin-plus/es/utils/hook';
-  import {
-    SettingOutlined,
-    UserOutlined,
-    IdcardOutlined,
-    LogOutlined,
-    CalendarOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    ReloadOutlined,
-    ExpandOutlined,
-    MoreOutlined
-  } from '@/components/icons';
-  import type {
-    Layout,
-    SidebarLayout,
-    TabBar,
-    HeaderStyle,
-    SidebarStyle,
-    TabStyle,
-    Maximized
-  } from 'ele-admin-plus/es/ele-admin-layout/types';
-  import type { MenuItem } from 'ele-admin-plus/es/ele-menus/types';
-  import type { TabPaneItem } from 'ele-admin-plus/es/ele-tabs/types';
-  import type { BreadcrumbItem } from 'ele-admin-plus/es/ele-breadcrumb/types';
-  import OptionItem from '@/views/extension/avatar/components/option-item.vue';
-  import FrameCard from './frame-card.vue';
+  import { ref, watch, markRaw } from 'vue'
+  import { LayoutTool } from 'ele-admin-plus/es'
+  import { useTimer } from 'ele-admin-plus/es/utils/hook'
+  import { SettingOutlined, UserOutlined, IdcardOutlined, LogOutlined, CalendarOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ReloadOutlined, ExpandOutlined, MoreOutlined } from '@/components/icons'
+  import type { Layout, SidebarLayout, TabBar, HeaderStyle, SidebarStyle, TabStyle, Maximized } from 'ele-admin-plus/es/ele-admin-layout/types'
+  import type { MenuItem } from 'ele-admin-plus/es/ele-menus/types'
+  import type { TabPaneItem } from 'ele-admin-plus/es/ele-tabs/types'
+  import type { BreadcrumbItem } from 'ele-admin-plus/es/ele-breadcrumb/types'
+  import OptionItem from '@/views/extension/avatar/components/option-item.vue'
+  import FrameCard from './frame-card.vue'
 
-  const layoutRef = ref<any>(null);
+  const layoutRef = ref<any>(null)
 
   const headerMenus = ref<MenuItem[]>([
     {
@@ -294,9 +247,9 @@
       title: '财务系统',
       icon: markRaw(SettingOutlined)
     }
-  ]);
+  ])
 
-  const headerActive = ref('/personnel');
+  const headerActive = ref('/personnel')
 
   const sidebarMenus = ref<MenuItem[]>([
     {
@@ -333,9 +286,9 @@
       title: '个人中心',
       icon: markRaw(UserOutlined)
     }
-  ]);
+  ])
 
-  const sidebarActive = ref('/system/user');
+  const sidebarActive = ref('/system/user')
 
   const sideboxMenus = ref<MenuItem[]>([
     {
@@ -372,70 +325,66 @@
         }
       ]
     }
-  ]);
+  ])
 
-  const sideboxActive = ref('/system/user');
+  const sideboxActive = ref('/system/user')
 
   const tabs = ref<TabPaneItem[]>([
     { name: '/system/user', label: '用户管理', closable: true },
     { name: '/system/role', label: '角色管理', closable: true }
-  ]);
+  ])
 
-  const tabActive = ref('/system/user');
+  const tabActive = ref('/system/user')
 
-  const levels = ref<BreadcrumbItem[]>([
-    { title: '首页' },
-    { title: '系统管理' },
-    { title: '用户管理' }
-  ]);
+  const levels = ref<BreadcrumbItem[]>([{ title: '首页' }, { title: '系统管理' }, { title: '用户管理' }])
 
-  const layout = ref<Layout>('default');
+  const layout = ref<Layout>('default')
 
-  const sidebarLayout = ref<SidebarLayout>('mix');
+  const sidebarLayout = ref<SidebarLayout>('mix')
 
-  const tabBar = ref<TabBar>(true);
+  const tabBar = ref<TabBar>(true)
 
-  const breadcrumb = ref(true);
+  const breadcrumb = ref(true)
 
-  const headerStyle = ref<HeaderStyle>('light');
+  const headerStyle = ref<HeaderStyle>('light')
 
-  const sidebarStyle = ref<SidebarStyle>('light');
+  const sidebarStyle = ref<SidebarStyle>('light')
 
-  const tabStyle = ref<TabStyle>('button');
+  const tabStyle = ref<TabStyle>('button')
 
-  const fixedHeader = ref(true);
+  const fixedHeader = ref(true)
 
-  const fixedSidebar = ref(true);
+  const fixedSidebar = ref(true)
 
-  const fixedBody = ref(true);
+  const fixedBody = ref(true)
 
-  const logoInHeader = ref(false);
+  const logoInHeader = ref(false)
 
-  const maximized = ref<Maximized>(false);
+  const maximized = ref<Maximized>(false)
 
-  const collapse = ref(false);
+  const collapse = ref(false)
 
-  const compact = ref(false);
+  const compact = ref(false)
 
-  const mobile = ref(false);
+  const mobile = ref(false)
 
-  const headerHeight = ref(54);
+  const headerHeight = ref(54)
 
-  const sidebarWidth = ref(220);
+  const sidebarWidth = ref(220)
 
-  const sideboxWidth = ref(80);
+  const sideboxWidth = ref(80)
 
-  const sidebarMixWidth = ref(160);
+  const sidebarMixWidth = ref(160)
 
-  const [startDisableTransitionTimer] = useTimer(400);
+  const [startDisableTransitionTimer] = useTimer(400)
 
   watch([headerHeight, sidebarWidth, sideboxWidth, sidebarMixWidth], () => {
-    const el = layoutRef.value?.$el;
-    el?.classList?.add?.('is-transition-disabled');
+    const el = layoutRef.value?.$el
+    el?.classList?.add?.('is-transition-disabled')
     startDisableTransitionTimer(() => {
-      el?.classList?.remove?.('is-transition-disabled');
-    });
-  });
+      el?.classList?.remove?.('is-transition-disabled')
+    })
+  })
 </script>
 
 <style lang="scss" scoped>

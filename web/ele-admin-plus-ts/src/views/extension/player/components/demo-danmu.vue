@@ -2,20 +2,8 @@
   <ele-card header="显示弹幕">
     <!-- 操作按钮 -->
     <el-space style="margin-bottom: 16px">
-      <el-input
-        style="width: 160px"
-        v-model="text"
-        placeholder="请输入弹幕内容"
-        :disabled="!ready"
-      />
-      <el-button
-        type="primary"
-        :disabled="!ready"
-        class="ele-btn-icon"
-        @click="shoot"
-      >
-        发射
-      </el-button>
+      <el-input style="width: 160px" v-model="text" placeholder="请输入弹幕内容" :disabled="!ready" />
+      <el-button type="primary" :disabled="!ready" class="ele-btn-icon" @click="shoot"> 发射 </el-button>
     </el-space>
     <!-- 播放器 -->
     <ele-xg-player :config="config" @player="handlePlayer" />
@@ -23,11 +11,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type Player from 'xgplayer';
-  import Danmu from 'xgplayer/es/plugins/danmu';
-  import 'xgplayer/es/plugins/danmu/index.css';
+  import { ref, reactive } from 'vue'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type Player from 'xgplayer'
+  import Danmu from 'xgplayer/es/plugins/danmu'
+  import 'xgplayer/es/plugins/danmu/index.css'
 
   /** 视频播放器配置 */
   const config = reactive({
@@ -35,8 +23,7 @@
     fluid: true,
     volume: 1,
     url: 'https://tianyu.v.netease.com/2024/0617/745cbbaa15464f6c191a10a4c7fb9a30.mp4',
-    poster:
-      'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png',
+    poster: 'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png',
     plugins: [Danmu],
     danmu: {
       comments: [
@@ -207,35 +194,35 @@
         }
       ]
     }
-  });
+  })
 
   /** 视频播放器是否实例化完成 */
-  const ready = ref(false);
+  const ready = ref(false)
 
   /** 弹幕输入内容 */
-  const text = ref('');
+  const text = ref('')
 
   /** 视频播放器实例 */
-  let player: Player;
+  let player: Player
 
   /** 播放器二渲染完成 */
   const handlePlayer = (e: Player) => {
-    player = e;
+    player = e
     player.on('play', () => {
-      ready.value = true;
-    });
-  };
+      ready.value = true
+    })
+  }
 
   /** 发射弹幕 */
   const shoot = () => {
     if (!player) {
-      return;
+      return
     }
     if (!text.value) {
-      EleMessage.error('请输入弹幕内容');
-      return;
+      EleMessage.error('请输入弹幕内容')
+      return
     }
-    const danmuIns = player.getPlugin('danmu');
+    const danmuIns = player.getPlugin('danmu')
     danmuIns.sendComment({
       id: Date.now(),
       duration: 15000,
@@ -247,7 +234,7 @@
         fontSize: '20px',
         border: 'solid 1px #fa1f41'
       }
-    });
-    text.value = '';
-  };
+    })
+    text.value = ''
+  }
 </script>

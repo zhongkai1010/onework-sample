@@ -5,19 +5,9 @@
       <more-icon @command="handleCommand" />
     </template>
     <div class="workplace-goal">
-      <el-progress
-        :width="180"
-        :percentage="80"
-        color="#1677ff"
-        type="dashboard"
-        :format="() => ''"
-      />
+      <el-progress :width="180" :percentage="80" color="#1677ff" type="dashboard" :format="() => ''" />
       <div class="workplace-goal-body">
-        <el-tag
-          size="large"
-          :disable-transitions="true"
-          style="width: 36px; height: 36px; border-radius: 50%; line-height: 0"
-        >
+        <el-tag size="large" :disable-transitions="true" style="width: 36px; height: 36px; border-radius: 50%; line-height: 0">
           <el-icon style="cursor: default; border-radius: 0">
             <TrophyBase />
           </el-icon>
@@ -30,21 +20,21 @@
 </template>
 
 <script lang="ts" setup>
-  import { TrophyBase } from '@element-plus/icons-vue';
-  import MoreIcon from './more-icon.vue';
-  import type { Command } from '../model';
+  import { TrophyBase } from '@element-plus/icons-vue'
+  import MoreIcon from './more-icon.vue'
+  import type { Command } from '../model'
 
   defineProps<{
-    title?: string;
-  }>();
+    title?: string
+  }>()
 
   const emit = defineEmits<{
-    (e: 'command', command: Command): void;
-  }>();
+    (e: 'command', command: Command): void
+  }>()
 
   const handleCommand = (command: Command) => {
-    emit('command', command);
-  };
+    emit('command', command)
+  }
 </script>
 
 <style lang="scss" scoped>

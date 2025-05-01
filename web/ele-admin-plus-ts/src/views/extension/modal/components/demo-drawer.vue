@@ -21,39 +21,13 @@
       <el-button class="ele-btn-icon" @click="openDrawer">打开抽屉</el-button>
     </div>
   </ele-card>
-  <ele-drawer
-    :direction="direction"
-    :withHeader="withHeader"
-    :inner="inner"
-    :size="430"
-    title="表单项配置"
-    :append-to-body="true"
-    style="max-width: 100%"
-    v-model="visible"
-    :body-style="{ paddingBottom: '8px' }"
-    @closed="cancelDrawer"
-  >
-    <el-form
-      ref="formRef"
-      :model="form"
-      :rules="rules"
-      label-width="70px"
-      @submit.prevent=""
-    >
+  <ele-drawer :direction="direction" :withHeader="withHeader" :inner="inner" :size="430" title="表单项配置" :append-to-body="true" style="max-width: 100%" v-model="visible" :body-style="{ paddingBottom: '8px' }" @closed="cancelDrawer">
+    <el-form ref="formRef" :model="form" :rules="rules" label-width="70px" @submit.prevent="">
       <el-form-item label="用户名" prop="nickname">
-        <el-input
-          clearable
-          v-model="form.nickname"
-          placeholder="请输入用户名"
-        />
+        <el-input clearable v-model="form.nickname" placeholder="请输入用户名" />
       </el-form-item>
       <el-form-item label="性别" prop="sex">
-        <el-select
-          clearable
-          v-model="form.sex"
-          placeholder="请选择性别"
-          class="ele-fluid"
-        >
+        <el-select clearable v-model="form.sex" placeholder="请选择性别" class="ele-fluid">
           <el-option value="男">男</el-option>
           <el-option value="女">女</el-option>
         </el-select>
@@ -65,12 +39,7 @@
         <el-input clearable v-model="form.email" placeholder="请输入邮箱" />
       </el-form-item>
       <el-form-item label="个人简介">
-        <el-input
-          :rows="4"
-          type="textarea"
-          v-model="form.introduction"
-          placeholder="请输入个人简介"
-        />
+        <el-input :rows="4" type="textarea" v-model="form.introduction" placeholder="请输入个人简介" />
       </el-form-item>
     </el-form>
     <template v-if="withFooter" #footer>
@@ -81,34 +50,34 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
-  import type { FormInstance, FormRules } from 'element-plus';
-  import { useMessage } from 'ele-admin-plus/es';
-  import { useFormData } from '@/utils/use-form-data';
-  import OptionItem from '@/views/extension/avatar/components/option-item.vue';
+  import { ref, reactive } from 'vue'
+  import type { FormInstance, FormRules } from 'element-plus'
+  import { useMessage } from 'ele-admin-plus/es'
+  import { useFormData } from '@/utils/use-form-data'
+  import OptionItem from '@/views/extension/avatar/components/option-item.vue'
 
   /** 抽屉是否打开 */
-  const visible = ref(false);
+  const visible = ref(false)
 
   /** 方向 */
-  const direction = ref<'rtl' | 'ltr' | 'btt' | 'ttb'>('rtl');
+  const direction = ref<'rtl' | 'ltr' | 'btt' | 'ttb'>('rtl')
 
   /** 显示头部 */
-  const withHeader = ref(true);
+  const withHeader = ref(true)
 
   /** 显示底部 */
-  const withFooter = ref(true);
+  const withFooter = ref(true)
 
   /** 限制在主体区域 */
-  const inner = ref(false);
+  const inner = ref(false)
 
   /** 打开抽屉 */
   const openDrawer = () => {
-    visible.value = true;
-  };
+    visible.value = true
+  }
 
   /** 表单实例 */
-  const formRef = ref<FormInstance | null>(null);
+  const formRef = ref<FormInstance | null>(null)
 
   /** 表单数据 */
   const [form, resetFields] = useFormData({
@@ -117,7 +86,7 @@
     phone: '',
     email: '',
     introduction: ''
-  });
+  })
 
   /** 表单验证规则 */
   const rules = reactive<FormRules>({
@@ -153,24 +122,24 @@
         trigger: 'blur'
       }
     ]
-  });
+  })
 
   /** 关闭抽屉 */
   const cancelDrawer = () => {
-    resetFields();
-    formRef.value?.clearValidate?.();
-    visible.value = false;
-  };
+    resetFields()
+    formRef.value?.clearValidate?.()
+    visible.value = false
+  }
 
   /** 保存编辑 */
   const handleSave = () => {
     formRef.value?.validate?.((valid) => {
       if (!valid) {
-        return;
+        return
       }
-      message.success({ message: '保存成功', inner: inner.value });
-    });
-  };
+      message.success({ message: '保存成功', inner: inner.value })
+    })
+  }
 
-  const message = useMessage();
+  const message = useMessage()
 </script>

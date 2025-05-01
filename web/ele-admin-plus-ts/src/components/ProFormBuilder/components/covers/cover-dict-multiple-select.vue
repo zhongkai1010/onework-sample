@@ -13,17 +13,13 @@
       <IconSkeleton :style="{ width: '22px', height: 'auto' }">
         <div :style="{ transform: 'scale(0.8)' }">男</div>
       </IconSkeleton>
-      <IconSkeleton
-        :style="{ width: '22px', height: 'auto', marginLeft: '4px' }"
-      >
+      <IconSkeleton :style="{ width: '22px', height: 'auto', marginLeft: '4px' }">
         <div :style="{ transform: 'scale(0.8)' }">女</div>
       </IconSkeleton>
       <SvgIcon name="ArrowUp" size="sm" :style="{ margin: '0 0 0 auto' }" />
     </IconInput>
     <IconPanel size="sm">
-      <div
-        :style="{ display: 'flex', alignItems: 'center', marginTop: '-2px' }"
-      >
+      <div :style="{ display: 'flex', alignItems: 'center', marginTop: '-2px' }">
         <IconCheckbox size="sm" :checked="true" />
         <IconSkeleton size="sm" :style="{ flex: 1 }" />
       </div>
@@ -47,11 +43,5 @@
 </template>
 
 <script lang="ts" setup>
-  import {
-    IconInput,
-    IconSkeleton,
-    SvgIcon,
-    IconPanel,
-    IconCheckbox
-  } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index';
+  import { IconInput, IconSkeleton, SvgIcon, IconPanel, IconCheckbox } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
 </script>

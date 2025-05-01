@@ -11,11 +11,7 @@
       }"
     >
       <!-- 提示信息 -->
-      <ele-alert
-        show-icon
-        :closable="false"
-        :style="{ marginBottom: toolDefault ? '12px' : '4px' }"
-      >
+      <ele-alert show-icon :closable="false" :style="{ marginBottom: toolDefault ? '12px' : '4px' }">
         <template #title>
           <span>已选择&nbsp;</span>
           <ele-text strong type="primary" tag="span">
@@ -24,14 +20,7 @@
           <span>&nbsp;项数据&emsp;</span>
           <span>其中冻结状态的用户有 </span>
           <b>{{ selections.filter((d) => d.status === 1).length }} 个 &emsp;</b>
-          <el-link
-            type="primary"
-            :underline="false"
-            style="vertical-align: 0px"
-            @click="clearChoose"
-          >
-            清空
-          </el-link>
+          <el-link type="primary" :underline="false" style="vertical-align: 0px" @click="clearChoose"> 清空 </el-link>
         </template>
       </ele-alert>
       <!-- 表格 -->
@@ -56,14 +45,7 @@
         @done="handleDone"
       >
         <template #toolbar>
-          <el-button
-            type="primary"
-            :icon="PlusOutlined"
-            class="ele-btn-icon"
-            @click="openEdit()"
-          >
-            新建
-          </el-button>
+          <el-button type="primary" :icon="PlusOutlined" class="ele-btn-icon" @click="openEdit()"> 新建 </el-button>
           <ele-dropdown
             :disabled="!selections.length"
             :items="[
@@ -114,62 +96,27 @@
         </template>
         <!-- 头像列 -->
         <template #avatar="{ row }">
-          <el-avatar
-            v-if="row.avatar"
-            :src="row.avatar"
-            :size="32"
-            @click.stop=""
-            style="vertical-align: -16px"
-          />
-          <el-avatar
-            v-else
-            :size="32"
-            style="background: var(--el-color-primary); vertical-align: -2px"
-            @click.stop=""
-          >
-            {{
-              row.nickname && row.nickname.length > 2
-                ? row.nickname.substring(row.nickname.length - 2)
-                : row.nickname
-            }}
+          <el-avatar v-if="row.avatar" :src="row.avatar" :size="32" @click.stop="" style="vertical-align: -16px" />
+          <el-avatar v-else :size="32" style="background: var(--el-color-primary); vertical-align: -2px" @click.stop="">
+            {{ row.nickname && row.nickname.length > 2 ? row.nickname.substring(row.nickname.length - 2) : row.nickname }}
           </el-avatar>
         </template>
         <!-- 状态列 -->
         <template #status="{ row }">
           <ele-dot v-if="row.status === 0" text="正常" size="8px" />
-          <ele-dot
-            v-else-if="row.status === 1"
-            text="冻结"
-            type="danger"
-            :ripple="false"
-            size="8px"
-          />
+          <ele-dot v-else-if="row.status === 1" text="冻结" type="danger" :ripple="false" size="8px" />
         </template>
         <!-- 角色列 -->
         <template #roles="{ row }">
-          <el-tag
-            v-for="item in row.roles"
-            :key="item.roleId"
-            size="small"
-            :disable-transitions="true"
-            style="margin-right: 6px"
-          >
+          <el-tag v-for="item in row.roles" :key="item.roleId" size="small" :disable-transitions="true" style="margin-right: 6px">
             {{ item.roleName }}
           </el-tag>
         </template>
         <!-- 操作列 -->
         <template #action="{ row }">
-          <el-link
-            type="primary"
-            :underline="false"
-            @click.stop="openEdit(row)"
-          >
-            修改
-          </el-link>
+          <el-link type="primary" :underline="false" @click.stop="openEdit(row)"> 修改 </el-link>
           <el-divider direction="vertical" />
-          <el-link type="danger" :underline="false" @click.stop="remove(row)">
-            删除
-          </el-link>
+          <el-link type="danger" :underline="false" @click.stop="remove(row)"> 删除 </el-link>
         </template>
         <!-- 用户名表头 -->
         <template #nicknameHeader="{ column }">
@@ -196,52 +143,41 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive, computed, nextTick } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { ElMessageBox } from 'element-plus/es';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type { EleProTable } from 'ele-admin-plus';
-  import type {
-    DatasourceFunction,
-    Columns,
-    DoneFunction,
-    ExportConfig
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import { useI18n } from 'vue-i18n';
-  import {
-    PlusOutlined,
-    ArrowDown,
-    EditOutlined,
-    MinusCircleOutlined,
-    DeleteOutlined
-  } from '@/components/icons';
-  import { getExportWorkbook } from '@/config/use-global-config';
-  import { download } from '@/utils/common';
-  import request from '@/utils/request';
-  import { usePageTab } from '@/utils/use-page-tab';
-  import { useDictData } from '@/utils/use-dict-data';
-  import SearchForm from './components/search-form.vue';
-  import NicknameFilter from './components/nickname-filter.vue';
-  import type { User, UserParam } from '@/api/system/user/model';
-  import { pageUsers, listUsers } from '@/api/system/user';
+  import { ref, reactive, computed, nextTick } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { ElMessageBox } from 'element-plus/es'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Columns, DoneFunction, ExportConfig } from 'ele-admin-plus/es/ele-pro-table/types'
+  import { useI18n } from 'vue-i18n'
+  import { PlusOutlined, ArrowDown, EditOutlined, MinusCircleOutlined, DeleteOutlined } from '@/components/icons'
+  import { getExportWorkbook } from '@/config/use-global-config'
+  import { download } from '@/utils/common'
+  import request from '@/utils/request'
+  import { usePageTab } from '@/utils/use-page-tab'
+  import { useDictData } from '@/utils/use-dict-data'
+  import SearchForm from './components/search-form.vue'
+  import NicknameFilter from './components/nickname-filter.vue'
+  import type { User, UserParam } from '@/api/system/user/model'
+  import { pageUsers, listUsers } from '@/api/system/user'
 
-  defineOptions({ name: 'ListBasic' });
+  defineOptions({ name: 'ListBasic' })
 
-  const { t } = useI18n();
-  const { push } = useRouter();
-  const { addPageTab } = usePageTab();
+  const { t } = useI18n()
+  const { push } = useRouter()
+  const { addPageTab } = usePageTab()
 
   /** 性别字典数据 */
-  const [sexDicts] = useDictData(['sex']);
+  const [sexDicts] = useDictData(['sex'])
 
   /** 表格实例 */
-  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null);
+  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null)
 
   /** 用户名筛选值 */
-  const nicknameFilterValue = ref('');
+  const nicknameFilterValue = ref('')
 
   /** 表格搜索参数 */
-  const lastWhere = reactive<UserParam>({});
+  const lastWhere = reactive<UserParam>({})
 
   /** 表格列配置 */
   const columns = computed<Columns>(() => {
@@ -319,7 +255,7 @@
         align: 'center',
         sortable: 'custom',
         filters: sexDicts.value.map((d) => {
-          return { text: d.dictDataName, value: d.dictDataCode };
+          return { text: d.dictDataName, value: d.dictDataCode }
         }),
         filterMultiple: false
       },
@@ -356,72 +292,67 @@
         hideInPrint: true,
         hideInExport: true
       }
-    ];
-  });
+    ]
+  })
 
   /** 表格选中数据 */
-  const selections = ref<User[]>([]);
+  const selections = ref<User[]>([])
 
   /** 表格单选选中数据 */
-  const current = ref<User | null>(null);
+  const current = ref<User | null>(null)
 
   /** 表格是否显示边框 */
-  const bordered = ref(true);
+  const bordered = ref(true)
 
   /** 表头工具栏风格 */
-  const toolDefault = ref(true);
+  const toolDefault = ref(true)
 
   /** 表格固定高度 */
-  const fixedHeight = ref(false);
+  const fixedHeight = ref(false)
 
   /** 表格数据源 */
-  const datasource: DatasourceFunction = ({
-    pages,
-    where,
-    orders,
-    filters
-  }) => {
-    return pageUsers({ ...where, ...orders, ...filters, ...pages });
-  };
+  const datasource: DatasourceFunction = ({ pages, where, orders, filters }) => {
+    return pageUsers({ ...where, ...orders, ...filters, ...pages })
+  }
 
   /** 表格数据请求完成事件 */
   const handleDone: DoneFunction<User> = () => {
     // 回显 id 为 45、47、48 的数据的复选框
     nextTick(() => {
-      const ids = [45, 47, 48];
-      tableRef.value?.setSelectedRowKeys?.(ids);
-    });
-  };
+      const ids = [45, 47, 48]
+      tableRef.value?.setSelectedRowKeys?.(ids)
+    })
+  }
 
   /** 搜索事件 */
   const handleSearch = (where: UserParam) => {
-    Object.assign(lastWhere, where);
-    doReload();
-  };
+    Object.assign(lastWhere, where)
+    doReload()
+  }
 
   /** 刷新表格 */
   const reload = (where?: UserParam) => {
-    tableRef.value?.reload?.({ page: 1, where });
-  };
+    tableRef.value?.reload?.({ page: 1, where })
+  }
 
   /** 清空选择 */
   const clearChoose = () => {
-    tableRef.value?.clearSelection?.();
-  };
+    tableRef.value?.clearSelection?.()
+  }
 
   /** 编辑 */
   const openEdit = (row?: User) => {
-    const path = row ? `/list/basic/edit/${row.userId}` : '/list/basic/add';
+    const path = row ? `/list/basic/edit/${row.userId}` : '/list/basic/add'
     if (row) {
       addPageTab({
         title: `修改用户[${row.nickname}]`,
         key: path,
         closable: true,
         meta: { icon: 'LinkOutlined' }
-      });
+      })
     }
-    push(path);
-  };
+    push(path)
+  }
 
   /** 删除 */
   const remove = (row: User) => {
@@ -430,21 +361,21 @@
       draggable: true
     })
       .then(() => {
-        EleMessage.success('点击了删除');
+        EleMessage.success('点击了删除')
       })
-      .catch(() => {});
-  };
+      .catch(() => {})
+  }
 
   /** 下拉按钮点击 */
   const handleDropClick = (command: string) => {
     if (command === 'del') {
-      EleMessage.error('点击了批量删除');
+      EleMessage.error('点击了批量删除')
     } else if (command === 'edit') {
-      EleMessage.info({ message: '点击了批量修改', plain: true });
+      EleMessage.info({ message: '点击了批量修改', plain: true })
     } else if (command === 'disabled') {
-      EleMessage.info({ message: '点击了批量禁用', plain: true });
+      EleMessage.info({ message: '点击了批量禁用', plain: true })
     }
-  };
+  }
 
   /** 表格搜索 */
   const doReload = () => {
@@ -452,74 +383,72 @@
       reload({
         ...lastWhere,
         nickname: nicknameFilterValue.value
-      });
+      })
     } else {
-      reload(lastWhere);
+      reload(lastWhere)
     }
-  };
+  }
 
   /** 用户名筛选事件 */
   const handleNicknameFilter = (nickname: string) => {
-    nicknameFilterValue.value = nickname;
-    doReload();
-  };
+    nicknameFilterValue.value = nickname
+    doReload()
+  }
 
   /** 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = ({ where, orders, filters }) => {
-    return listUsers({ ...where, ...orders, ...filters });
-  };
+    return listUsers({ ...where, ...orders, ...filters })
+  }
 
   /** 导出配置 */
   const exportConfig = reactive<ExportConfig>({
     fileName: '基础列表数据',
     datasource: exportSource,
     beforeExport: (params) => {
-      const { fileName, closeModal, bodyCols, bodyData, headerData } = params;
-      const workbook = getExportWorkbook(params);
-      const sheet = workbook.getWorksheet('Sheet1');
+      const { fileName, closeModal, bodyCols, bodyData, headerData } = params
+      const workbook = getExportWorkbook(params)
+      const sheet = workbook.getWorksheet('Sheet1')
 
       const getBuffer = async () => {
         // 添加头像列图片
-        const avatarColIndex = bodyCols.findIndex(
-          (c) => c.dataKey === 'avatar'
-        );
+        const avatarColIndex = bodyCols.findIndex((c) => c.dataKey === 'avatar')
         if (sheet != null && avatarColIndex !== -1) {
           const avatarBuffers = await Promise.all(
             bodyData.map(async (row) => {
-              const url = row[avatarColIndex].text as string | undefined;
+              const url = row[avatarColIndex].text as string | undefined
               if (!url) {
-                return;
+                return
               }
-              const res = await request({ url, responseType: 'arraybuffer' });
-              return res.data;
+              const res = await request({ url, responseType: 'arraybuffer' })
+              return res.data
             })
-          );
+          )
           avatarBuffers.forEach((buffer, index) => {
-            const rowIndex = index + headerData.length;
+            const rowIndex = index + headerData.length
             if (buffer != null) {
-              const imgId = workbook.addImage({ buffer, extension: 'png' });
+              const imgId = workbook.addImage({ buffer, extension: 'png' })
               sheet.addImage(imgId, {
                 tl: { col: avatarColIndex + 0.4, row: rowIndex + 0.2 },
                 ext: { width: 48, height: 48 }
-              });
-              sheet.getCell(rowIndex + 1, avatarColIndex + 1).value = '';
+              })
+              sheet.getCell(rowIndex + 1, avatarColIndex + 1).value = ''
             }
-            sheet.getRow(rowIndex + 1).height = 42;
-            sheet.getColumn(avatarColIndex + 1).width = 8;
-          });
+            sheet.getRow(rowIndex + 1).height = 42
+            sheet.getColumn(avatarColIndex + 1).width = 8
+          })
         }
         // 输出workbook
-        const data = await workbook.xlsx.writeBuffer();
-        return data;
-      };
+        const data = await workbook.xlsx.writeBuffer()
+        return data
+      }
 
       getBuffer().then((data) => {
-        download(data, `${fileName}.xlsx`);
-        closeModal();
-      });
-      return false;
+        download(data, `${fileName}.xlsx`)
+        closeModal()
+      })
+      return false
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

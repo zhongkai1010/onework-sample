@@ -5,11 +5,7 @@
       <el-row :gutter="8">
         <el-col :lg="6" :md="12" :sm="12" :xs="24">
           <el-form-item label="菜单名称">
-            <el-input
-              clearable
-              v-model.trim="form.title"
-              placeholder="请输入"
-            />
+            <el-input clearable v-model.trim="form.title" placeholder="请输入" />
           </el-form-item>
         </el-col>
         <el-col :lg="6" :md="12" :sm="12" :xs="24">
@@ -19,11 +15,7 @@
         </el-col>
         <el-col :lg="6" :md="12" :sm="12" :xs="24">
           <el-form-item label="权限标识">
-            <el-input
-              clearable
-              v-model.trim="form.authority"
-              placeholder="请输入"
-            />
+            <el-input clearable v-model.trim="form.authority" placeholder="请输入" />
           </el-form-item>
         </el-col>
         <el-col :lg="6" :md="12" :sm="12" :xs="24">
@@ -38,28 +30,28 @@
 </template>
 
 <script lang="ts" setup>
-  import { useFormData } from '@/utils/use-form-data';
-  import type { MenuParam } from '@/api/system/menu/model';
+  import { useFormData } from '@/utils/use-form-data'
+  import type { MenuParam } from '@/api/system/menu/model'
 
   const emit = defineEmits<{
-    (e: 'search', where?: MenuParam): void;
-  }>();
+    (e: 'search', where?: MenuParam): void
+  }>()
 
   /** 表单数据 */
   const [form, resetFields] = useFormData<MenuParam>({
     title: '',
     path: '',
     authority: ''
-  });
+  })
 
   /** 搜索 */
   const search = () => {
-    emit('search', { ...form });
-  };
+    emit('search', { ...form })
+  }
 
   /**  重置 */
   const reset = () => {
-    resetFields();
-    search();
-  };
+    resetFields()
+    search()
+  }
 </script>

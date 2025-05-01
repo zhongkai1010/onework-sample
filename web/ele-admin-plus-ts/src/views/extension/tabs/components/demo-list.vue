@@ -11,11 +11,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
   const props = defineProps<{
-    type: number;
-  }>();
+    type: number
+  }>()
 
   const data = ref(
     (() => {
@@ -23,10 +23,10 @@
         return {
           title: `EleAdmin新版本发布, 欢迎体验 ${props.type + 1}-${i + 1}`,
           date: '2023-05-20'
-        };
-      });
+        }
+      })
     })()
-  );
+  )
 </script>
 
 <style lang="scss" scoped>

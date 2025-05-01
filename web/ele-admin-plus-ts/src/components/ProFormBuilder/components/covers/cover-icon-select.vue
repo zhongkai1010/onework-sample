@@ -13,8 +13,5 @@
 </template>
 
 <script lang="ts" setup>
-  import {
-    IconInput,
-    SvgIcon
-  } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index';
+  import { IconInput, SvgIcon } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
 </script>

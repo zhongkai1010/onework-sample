@@ -11,12 +11,7 @@
         :collapse-style="{ marginLeft: '4px' }"
         style="min-height: 708px; border-radius: var(--ele-card-radius)"
       >
-        <ele-menus
-          :items="items as any"
-          :default-active="active"
-          class="demo-menu"
-          @itemClick="handleMenuItemClick"
-        />
+        <ele-menus :items="items as any" :default-active="active" class="demo-menu" @itemClick="handleMenuItemClick" />
         <template #body>
           <transition name="slide-right" mode="out-in">
             <demo-base v-if="active == 'base'" />
@@ -42,36 +37,36 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { EleSplitPanel } from 'ele-admin-plus/es';
-  import type { MenuItem } from 'ele-admin-plus/es/ele-menus/types';
-  import { useMobile } from '@/utils/use-mobile';
-  import DemoBase from './components/demo-base.vue';
-  import TreeTable from './components/tree-table.vue';
-  import DefaultSorter from './components/default-sorter.vue';
-  import NestedTable from './components/nested-table.vue';
-  import ExpandableTable from './components/expandable-table.vue';
-  import MergeCell from './components/merge-cell.vue';
-  import EditableTable from './components/editable-table.vue';
-  import SortableTable from './components/sortable-table.vue';
-  import DemoSelections from './components/demo-selections.vue';
-  import DemoContextmenu from './components/demo-contextmenu.vue';
-  import VirtualBase from './components/virtual-base.vue';
-  import VirtualHeader from './components/virtual-header.vue';
-  import VirtualMerge from './components/virtual-merge.vue';
-  import VirtualTree from './components/virtual-tree.vue';
-  import VirtualExpandable from './components/virtual-expandable.vue';
+  import { ref } from 'vue'
+  import type { EleSplitPanel } from 'ele-admin-plus/es'
+  import type { MenuItem } from 'ele-admin-plus/es/ele-menus/types'
+  import { useMobile } from '@/utils/use-mobile'
+  import DemoBase from './components/demo-base.vue'
+  import TreeTable from './components/tree-table.vue'
+  import DefaultSorter from './components/default-sorter.vue'
+  import NestedTable from './components/nested-table.vue'
+  import ExpandableTable from './components/expandable-table.vue'
+  import MergeCell from './components/merge-cell.vue'
+  import EditableTable from './components/editable-table.vue'
+  import SortableTable from './components/sortable-table.vue'
+  import DemoSelections from './components/demo-selections.vue'
+  import DemoContextmenu from './components/demo-contextmenu.vue'
+  import VirtualBase from './components/virtual-base.vue'
+  import VirtualHeader from './components/virtual-header.vue'
+  import VirtualMerge from './components/virtual-merge.vue'
+  import VirtualTree from './components/virtual-tree.vue'
+  import VirtualExpandable from './components/virtual-expandable.vue'
 
-  defineOptions({ name: 'ExtensionTable' });
+  defineOptions({ name: 'ExtensionTable' })
 
   /** 是否是移动端 */
-  const { mobile } = useMobile();
+  const { mobile } = useMobile()
 
   /** 分割面板组件 */
-  const splitRef = ref<InstanceType<typeof EleSplitPanel> | null>(null);
+  const splitRef = ref<InstanceType<typeof EleSplitPanel> | null>(null)
 
   /** 选中 */
-  const active = ref<string>('base');
+  const active = ref<string>('base')
 
   /** 菜单 */
   const items = ref<MenuItem[]>([
@@ -142,16 +137,16 @@
         }
       ]
     }
-  ]);
+  ])
 
   /** 菜单点击事件 */
   const handleMenuItemClick = (item: MenuItem) => {
-    active.value = item.index as string;
+    active.value = item.index as string
     // 移动端自动收起左侧
     if (mobile.value) {
-      splitRef.value?.toggleCollapse?.(true);
+      splitRef.value?.toggleCollapse?.(true)
     }
-  };
+  }
 </script>
 
 <style lang="scss" scoped>

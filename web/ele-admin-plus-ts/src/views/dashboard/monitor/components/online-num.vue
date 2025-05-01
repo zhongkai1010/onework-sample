@@ -5,53 +5,51 @@
       <ele-text size="xxxl">
         <ele-count-up :end-val="onlineNum" />
       </ele-text>
-      <ele-text type="placeholder" style="margin-bottom: 11px">
-        在线总人数
-      </ele-text>
+      <ele-text type="placeholder" style="margin-bottom: 11px"> 在线总人数 </ele-text>
       <ele-dot :text="updateTimeText" size="8px" />
     </div>
   </ele-card>
 </template>
 
 <script lang="ts" setup>
-  import { ref, computed, onBeforeUnmount } from 'vue';
-  import dayjs from 'dayjs';
+  import { ref, computed, onBeforeUnmount } from 'vue'
+  import dayjs from 'dayjs'
 
   /** 在线人数更新定时器 */
-  let onlineNumTimer: number | null = null;
+  let onlineNumTimer: number | null = null
 
   /** 在线总人数倒计时 */
-  const updateTime = ref(10);
+  const updateTime = ref(10)
 
   /** 当前时间 */
-  const currentTime = ref(dayjs().format('HH:mm:ss'));
+  const currentTime = ref(dayjs().format('HH:mm:ss'))
 
   /** 在线人数 */
-  const onlineNum = ref(228);
+  const onlineNum = ref(228)
 
   /** 在线人数倒计时文字 */
-  const updateTimeText = computed(() => updateTime.value + ' 秒后更新');
+  const updateTimeText = computed(() => updateTime.value + ' 秒后更新')
 
   /** 在线人数更新倒计时 */
   const startUpdateOnlineNum = () => {
     onlineNumTimer = setInterval(() => {
-      currentTime.value = dayjs().format('HH:mm:ss');
+      currentTime.value = dayjs().format('HH:mm:ss')
       if (updateTime.value === 1) {
-        updateTime.value = 10;
-        onlineNum.value = 100 + Math.round(Math.random() * 900);
+        updateTime.value = 10
+        onlineNum.value = 100 + Math.round(Math.random() * 900)
       } else {
-        updateTime.value--;
+        updateTime.value--
       }
-    }, 1000) as unknown as number;
-  };
+    }, 1000) as unknown as number
+  }
 
   onBeforeUnmount(() => {
     // 销毁定时器
     if (onlineNumTimer) {
-      clearInterval(onlineNumTimer);
-      onlineNumTimer = null;
+      clearInterval(onlineNumTimer)
+      onlineNumTimer = null
     }
-  });
+  })
 
-  startUpdateOnlineNum();
+  startUpdateOnlineNum()
 </script>

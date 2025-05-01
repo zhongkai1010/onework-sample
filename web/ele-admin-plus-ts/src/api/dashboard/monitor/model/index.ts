@@ -3,11 +3,11 @@
  */
 export interface UserCount {
   /** 省份 */
-  name: string;
+  name: string
   /** 用户数量 */
-  value: number;
+  value: number
   /** 百分比 */
-  percent?: number;
+  percent?: number
 }
 
 /**
@@ -15,7 +15,7 @@ export interface UserCount {
  */
 export interface BrowserCount {
   /** 浏览器 */
-  name: string;
+  name: string
   /** 用户数量 */
-  value: number;
+  value: number
 }

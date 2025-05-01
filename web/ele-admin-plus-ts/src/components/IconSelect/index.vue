@@ -1,15 +1,6 @@
 <!-- 图标选择器 -->
 <template>
-  <EleIconSelect
-    v-bind="$props"
-    :data="iconData"
-    @update:modelValue="emitMethods['update:modelValue']"
-    @change="emitMethods['change']"
-    @visibleChange="emitMethods['visibleChange']"
-    @clear="emitMethods['clear']"
-    @focus="emitMethods['focus']"
-    @blur="emitMethods['blur']"
-  >
+  <EleIconSelect v-bind="$props" :data="iconData" @update:modelValue="emitMethods['update:modelValue']" @change="emitMethods['change']" @visibleChange="emitMethods['visibleChange']" @clear="emitMethods['clear']" @focus="emitMethods['focus']" @blur="emitMethods['blur']">
     <template #icon="{ icon }">
       <ElIcon>
         <component :is="icon" />
@@ -19,21 +10,18 @@
 </template>
 
 <script lang="ts" setup>
-  import {
-    iconSelectProps,
-    iconSelectEmits
-  } from 'ele-admin-plus/es/ele-icon-select/props';
-  import { useComponentEvents } from 'ele-admin-plus/es/utils/hook';
-  import { getIconSelectData } from './util';
+  import { iconSelectProps, iconSelectEmits } from 'ele-admin-plus/es/ele-icon-select/props'
+  import { useComponentEvents } from 'ele-admin-plus/es/utils/hook'
+  import { getIconSelectData } from './util'
 
-  defineOptions({ name: 'IconSelect' });
+  defineOptions({ name: 'IconSelect' })
 
-  defineProps(iconSelectProps);
+  defineProps(iconSelectProps)
 
-  const emit = defineEmits(iconSelectEmits);
+  const emit = defineEmits(iconSelectEmits)
 
-  const { emitMethods } = useComponentEvents(iconSelectEmits, emit);
+  const { emitMethods } = useComponentEvents(iconSelectEmits, emit)
 
   /** 图标数据 */
-  const iconData = getIconSelectData();
+  const iconData = getIconSelectData()
 </script>

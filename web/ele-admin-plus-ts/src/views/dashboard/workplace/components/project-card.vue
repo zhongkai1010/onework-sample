@@ -4,19 +4,7 @@
     <template #extra>
       <more-icon @command="handleCommand" />
     </template>
-    <ele-pro-table
-      :height="352"
-      row-key="id"
-      :columns="columns"
-      :datasource="projectList"
-      :show-overflow-tooltip="true"
-      highlight-current-row
-      :pagination="false"
-      :toolbar="false"
-      :bottom-line="false"
-      size="large"
-      class="project-table"
-    >
+    <ele-pro-table :height="352" row-key="id" :columns="columns" :datasource="projectList" :show-overflow-tooltip="true" highlight-current-row :pagination="false" :toolbar="false" :bottom-line="false" size="large" class="project-table">
       <template #projectName="{ row }">
         <el-link type="primary" :underline="false">
           {{ row.projectName }}
@@ -25,9 +13,7 @@
       <template #status="{ row }">
         <ele-text v-if="row.status === 0" type="success">进行中</ele-text>
         <ele-text v-else-if="row.status === 1" type="danger">已延期</ele-text>
-        <ele-text v-else-if="row.status === 2" type="warning">
-          未开始
-        </ele-text>
+        <ele-text v-else-if="row.status === 2" type="warning"> 未开始 </ele-text>
         <ele-text v-else-if="row.status === 3" type="info">已结束</ele-text>
       </template>
       <template #progress="{ row }">
@@ -38,26 +24,26 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { Columns } from 'ele-admin-plus/es/ele-pro-table/types';
-  import MoreIcon from './more-icon.vue';
-  import type { Command } from '../model';
+  import { ref } from 'vue'
+  import type { Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import MoreIcon from './more-icon.vue'
+  import type { Command } from '../model'
 
   defineProps<{
-    title?: string;
-  }>();
+    title?: string
+  }>()
 
   const emit = defineEmits<{
-    (e: 'command', command: Command): void;
-  }>();
+    (e: 'command', command: Command): void
+  }>()
 
   interface Project {
-    id: number;
-    projectName: string;
-    status: number;
-    startDate: string;
-    endDate: string;
-    progress: number;
+    id: number
+    projectName: string
+    status: number
+    startDate: string
+    endDate: string
+    progress: number
   }
 
   /** 表格列配置 */
@@ -102,10 +88,10 @@
       slot: 'progress',
       showOverflowTooltip: false
     }
-  ]);
+  ])
 
   /** 项目进度数据 */
-  const projectList = ref<Project[]>([]);
+  const projectList = ref<Project[]>([])
 
   /** 查询项目进度 */
   const queryProjectList = () => {
@@ -158,14 +144,14 @@
         endDate: '2020-06-01',
         progress: 100
       }
-    ];
-  };
+    ]
+  }
 
   const handleCommand = (command: Command) => {
-    emit('command', command);
-  };
+    emit('command', command)
+  }
 
-  queryProjectList();
+  queryProjectList()
 </script>
 
 <style lang="scss" scoped>

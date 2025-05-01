@@ -35,10 +35,7 @@
         <template #text="{ step, current }">
           <template v-if="current === 0">
             <div style="margin-bottom: 10px">
-              <img
-                src="https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*P0S-QIRUbsUAAAAAAAAAAABkARQnAQ"
-                style="height: 184px; width: 100%; object-fit: cover"
-              />
+              <img src="https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*P0S-QIRUbsUAAAAAAAAAAABkARQnAQ" style="height: 184px; width: 100%; object-fit: cover" />
             </div>
             <div>{{ step.description }}</div>
           </template>
@@ -49,19 +46,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { ElButton } from 'element-plus';
-  import type { TourStep } from 'ele-admin-plus/es/ele-tour/types';
+  import { ref } from 'vue'
+  import type { ElButton } from 'element-plus'
+  import type { TourStep } from 'ele-admin-plus/es/ele-tour/types'
 
-  defineOptions({ name: 'ExtensionTour' });
+  defineOptions({ name: 'ExtensionTour' })
 
   /** 当前步骤 */
-  const current1 = ref<number>();
+  const current1 = ref<number>()
 
   /** 按钮 */
-  const uploadRef1 = ref<InstanceType<typeof ElButton> | null>(null);
-  const saveRef1 = ref<InstanceType<typeof ElButton> | null>(null);
-  const moreRef1 = ref<InstanceType<typeof ElButton> | null>(null);
+  const uploadRef1 = ref<InstanceType<typeof ElButton> | null>(null)
+  const saveRef1 = ref<InstanceType<typeof ElButton> | null>(null)
+  const moreRef1 = ref<InstanceType<typeof ElButton> | null>(null)
 
   /** 步骤 */
   const steps1 = ref<TourStep[]>([
@@ -80,20 +77,20 @@
       title: '如何进行更多的操作',
       description: '鼠标移入到此按钮上即可展示出更多的操作功能.'
     }
-  ]);
+  ])
 
   /** 开始引导 */
   const handleStart1 = () => {
-    current1.value = 0;
-  };
+    current1.value = 0
+  }
 
   /** 当前步骤 */
-  const current2 = ref<number>();
+  const current2 = ref<number>()
 
   /** 按钮 */
-  const uploadRef2 = ref<InstanceType<typeof ElButton> | null>(null);
-  const saveRef2 = ref<InstanceType<typeof ElButton> | null>(null);
-  const moreRef2 = ref<InstanceType<typeof ElButton> | null>(null);
+  const uploadRef2 = ref<InstanceType<typeof ElButton> | null>(null)
+  const saveRef2 = ref<InstanceType<typeof ElButton> | null>(null)
+  const moreRef2 = ref<InstanceType<typeof ElButton> | null>(null)
 
   /** 步骤 */
   const steps2 = ref<TourStep[]>([
@@ -115,27 +112,26 @@
       description: '鼠标移入到此按钮上即可展示出更多的操作功能.',
       popoverProps: { placement: 'top-end' }
     }
-  ]);
+  ])
 
   /** 开始引导 */
   const handleStart2 = () => {
-    current2.value = 0;
-  };
+    current2.value = 0
+  }
 
   /** 当前步骤 */
-  const current3 = ref<number>();
+  const current3 = ref<number>()
 
   /** 按钮 */
-  const uploadRef3 = ref<InstanceType<typeof ElButton> | null>(null);
-  const saveRef3 = ref<InstanceType<typeof ElButton> | null>(null);
-  const moreRef3 = ref<InstanceType<typeof ElButton> | null>(null);
+  const uploadRef3 = ref<InstanceType<typeof ElButton> | null>(null)
+  const saveRef3 = ref<InstanceType<typeof ElButton> | null>(null)
+  const moreRef3 = ref<InstanceType<typeof ElButton> | null>(null)
 
   /** 步骤 */
   const steps3 = ref<TourStep[]>([
     {
       title: '欢迎使用 EleAdminPlus 系统',
-      description:
-        '下面将为您介绍一些常用功能的操作说明, 如果之前已经为您介绍过, 您可以直接点击跳过结束指引.'
+      description: '下面将为您介绍一些常用功能的操作说明, 如果之前已经为您介绍过, 您可以直接点击跳过结束指引.'
     },
     {
       target: () => uploadRef3.value?.$el,
@@ -153,10 +149,10 @@
       title: '如何进行更多的操作',
       description: '鼠标移入到此按钮上即可展示出更多的操作功能.'
     }
-  ]);
+  ])
 
   /** 开始引导 */
   const handleStart3 = () => {
-    current3.value = 0;
-  };
+    current3.value = 0
+  }
 </script>

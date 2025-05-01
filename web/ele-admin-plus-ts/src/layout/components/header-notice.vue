@@ -14,11 +14,7 @@
   >
     <template #reference>
       <div style="display: flex; align-items: center; height: 100%">
-        <el-badge
-          :value="unreadNum"
-          :hidden="!unreadNum"
-          style="line-height: 1; padding: 4px 0"
-        >
+        <el-badge :value="unreadNum" :hidden="!unreadNum" style="line-height: 1; padding: 4px 0">
           <el-icon style="transform: scale(1.17) translateY(1px)">
             <BellOutlined />
           </el-icon>
@@ -38,25 +34,16 @@
     >
       <template #label="{ item, label }">
         <span>{{ label }}</span>
-        <span v-if="item.name === 'notice' && notice.length">
-          ({{ notice.length }})
-        </span>
-        <span v-if="item.name === 'letter' && letter.length">
-          ({{ letter.length }})
-        </span>
-        <span v-if="item.name === 'todo' && todo.length">
-          ({{ todo.length }})
-        </span>
+        <span v-if="item.name === 'notice' && notice.length"> ({{ notice.length }}) </span>
+        <span v-if="item.name === 'letter' && letter.length"> ({{ letter.length }}) </span>
+        <span v-if="item.name === 'todo' && todo.length"> ({{ todo.length }}) </span>
       </template>
       <template #notice>
         <div class="list-wrapper">
           <div v-for="item in notice" :key="item.id" class="list-item">
             <div class="list-item-icon" :style="{ background: item.color }">
               <el-icon>
-                <Comment
-                  v-if="item.icon === 'report'"
-                  style="transform: translateY(1px)"
-                />
+                <Comment v-if="item.icon === 'report'" style="transform: translateY(1px)" />
                 <Stamp v-else-if="item.icon === 'leave'" />
                 <Promotion v-else-if="item.icon === 'meeting'" />
                 <Checked v-else-if="item.icon === 'interview'" />
@@ -74,9 +61,7 @@
         <div v-if="notice.length" class="bottom-tools">
           <div class="bottom-tool" @click="clearNotice">清空通知</div>
           <el-divider direction="vertical" style="margin: 0; width: 0" />
-          <router-link to="/user/message?type=notice" class="bottom-tool">
-            查看更多
-          </router-link>
+          <router-link to="/user/message?type=notice" class="bottom-tool"> 查看更多 </router-link>
         </div>
         <el-empty v-else description="已查看所有通知" :image-size="68" />
       </template>
@@ -98,9 +83,7 @@
         <div v-if="letter.length" class="bottom-tools">
           <div class="bottom-tool" @click="clearLetter">清空私信</div>
           <el-divider direction="vertical" style="margin: 0; width: 0" />
-          <router-link to="/user/message?type=letter" class="bottom-tool">
-            查看更多
-          </router-link>
+          <router-link to="/user/message?type=letter" class="bottom-tool"> 查看更多 </router-link>
         </div>
         <el-empty v-else description="已读完所有私信" :image-size="68" />
       </template>
@@ -113,37 +96,15 @@
                 {{ item.description }}
               </ele-ellipsis>
             </div>
-            <el-tag
-              v-if="item.status === 0"
-              type="info"
-              size="small"
-              :disable-transitions="true"
-            >
-              未开始
-            </el-tag>
-            <el-tag
-              v-else-if="item.status === 1"
-              type="danger"
-              size="small"
-              :disable-transitions="true"
-            >
-              即将到期
-            </el-tag>
-            <el-tag
-              v-else-if="item.status === 2"
-              size="small"
-              :disable-transitions="true"
-            >
-              进行中
-            </el-tag>
+            <el-tag v-if="item.status === 0" type="info" size="small" :disable-transitions="true"> 未开始 </el-tag>
+            <el-tag v-else-if="item.status === 1" type="danger" size="small" :disable-transitions="true"> 即将到期 </el-tag>
+            <el-tag v-else-if="item.status === 2" size="small" :disable-transitions="true"> 进行中 </el-tag>
           </div>
         </div>
         <div v-if="todo.length" class="bottom-tools">
           <div class="bottom-tool" @click="clearTodo">清空待办</div>
           <el-divider direction="vertical" style="margin: 0; width: 0" />
-          <router-link to="/user/message?type=todo" class="bottom-tool">
-            查看更多
-          </router-link>
+          <router-link to="/user/message?type=todo" class="bottom-tool"> 查看更多 </router-link>
         </div>
         <el-empty v-else description="已完成所有任务" :image-size="68" />
       </template>
@@ -152,83 +113,73 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, computed, nextTick } from 'vue';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type { EleTabs } from 'ele-admin-plus';
-  import {
-    Comment,
-    Stamp,
-    Promotion,
-    Checked,
-    BellFilled
-  } from '@element-plus/icons-vue';
-  import { BellOutlined } from '@/components/icons';
-  import { getUnreadNotice } from '@/api/example';
-  import type {
-    NoticeModel,
-    LetterModel,
-    TodoModel
-  } from '@/api/example/model';
+  import { ref, computed, nextTick } from 'vue'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { EleTabs } from 'ele-admin-plus'
+  import { Comment, Stamp, Promotion, Checked, BellFilled } from '@element-plus/icons-vue'
+  import { BellOutlined } from '@/components/icons'
+  import { getUnreadNotice } from '@/api/example'
+  import type { NoticeModel, LetterModel, TodoModel } from '@/api/example/model'
 
   /** 标签页 */
-  const tabRef = ref<InstanceType<typeof EleTabs> | null>(null);
+  const tabRef = ref<InstanceType<typeof EleTabs> | null>(null)
 
   /** 选项卡选中 */
-  const active = ref<string>('notice');
+  const active = ref<string>('notice')
 
   /** 通知数据 */
-  const notice = ref<NoticeModel[]>([]);
+  const notice = ref<NoticeModel[]>([])
 
   /** 私信数据 */
-  const letter = ref<LetterModel[]>([]);
+  const letter = ref<LetterModel[]>([])
 
   /** 待办数据 */
-  const todo = ref<TodoModel[]>([]);
+  const todo = ref<TodoModel[]>([])
 
   /** 未读数量 */
   const unreadNum = computed(() => {
-    return notice.value.length + letter.value.length + todo.value.length;
-  });
+    return notice.value.length + letter.value.length + todo.value.length
+  })
 
   /** 查询数据 */
   const query = () => {
     getUnreadNotice()
       .then((result) => {
-        notice.value = result.notice;
-        letter.value = result.letter;
-        todo.value = result.todo;
+        notice.value = result.notice
+        letter.value = result.letter
+        todo.value = result.todo
       })
       .catch((e) => {
-        EleMessage.error(e.message);
-      });
-  };
+        EleMessage.error(e.message)
+      })
+  }
 
   /** 清空通知 */
   const clearNotice = () => {
-    notice.value = [];
-    updateActiveBar();
-  };
+    notice.value = []
+    updateActiveBar()
+  }
 
   /** 清空私信 */
   const clearLetter = () => {
-    letter.value = [];
-    updateActiveBar();
-  };
+    letter.value = []
+    updateActiveBar()
+  }
 
   /** 清空待办 */
   const clearTodo = () => {
-    todo.value = [];
-    updateActiveBar();
-  };
+    todo.value = []
+    updateActiveBar()
+  }
 
   /** 更新标签页指示线 */
   const updateActiveBar = () => {
     nextTick(() => {
-      tabRef.value?.updateActiveBar?.();
-    });
-  };
+      tabRef.value?.updateActiveBar?.()
+    })
+  }
 
-  query();
+  query()
 </script>
 
 <style lang="scss" scoped>

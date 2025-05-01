@@ -1,18 +1,5 @@
 <template>
-  <ele-split-panel
-    :flex-table="true"
-    space="0px"
-    size="360px"
-    :min-size="180"
-    :max-size="-180"
-    :vertical="true"
-    :resizable="true"
-    :allow-collapse="true"
-    :custom-style="{ overflow: 'hidden', border: 'none' }"
-    :responsive="false"
-    style="background: var(--el-bg-color)"
-    class="demo-split-panel"
-  >
+  <ele-split-panel :flex-table="true" space="0px" size="360px" :min-size="180" :max-size="-180" :vertical="true" :resizable="true" :allow-collapse="true" :custom-style="{ overflow: 'hidden', border: 'none' }" :responsive="false" style="background: var(--el-bg-color)" class="demo-split-panel">
     <ele-pro-table
       ref="tableRef"
       row-key="organizationId"
@@ -89,29 +76,25 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, nextTick, watch } from 'vue';
-  import type { EleProTable } from 'ele-admin-plus/es';
-  import type {
-    DatasourceFunction,
-    Columns,
-    DoneFunction
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import type { Organization } from '@/api/system/organization/model';
-  import type { User } from '@/api/system/user/model';
-  import { pageOrganizations } from '@/api/system/organization';
-  import { pageUsers } from '@/api/system/user';
+  import { ref, nextTick, watch } from 'vue'
+  import type { EleProTable } from 'ele-admin-plus/es'
+  import type { DatasourceFunction, Columns, DoneFunction } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type { Organization } from '@/api/system/organization/model'
+  import type { User } from '@/api/system/user/model'
+  import { pageOrganizations } from '@/api/system/organization'
+  import { pageUsers } from '@/api/system/user'
 
   const emit = defineEmits<{
-    (e: 'change', type?: number): void;
-  }>();
+    (e: 'change', type?: number): void
+  }>()
 
   /** 返回 */
   const back = () => {
-    emit('change', 0);
-  };
+    emit('change', 0)
+  }
 
   /** 表格实例 */
-  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null);
+  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null)
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -167,37 +150,37 @@
       hideInPrint: true,
       hideInExport: true
     }
-  ]);
+  ])
 
   /** 表格选中数据 */
-  const selections = ref<Organization[]>([]);
+  const selections = ref<Organization[]>([])
 
   /** 表格单选选中数据 */
-  const current = ref<Organization | null>(null);
+  const current = ref<Organization | null>(null)
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
-    return pageOrganizations({ ...where, ...orders, ...pages });
-  };
+    return pageOrganizations({ ...where, ...orders, ...pages })
+  }
 
   /** 表格数据请求完成事件 */
   const handleDone: DoneFunction<Organization> = ({ data }) => {
     if (data?.length) {
       nextTick(() => {
-        tableRef.value?.setCurrentRow?.(data[0]);
-      });
+        tableRef.value?.setCurrentRow?.(data[0])
+      })
     }
-  };
+  }
 
   /** 刷新表格2数据 */
   watch(current, (row: Organization) => {
     table2Ref.value?.reload?.({
       where: { organizationId: row.organizationId }
-    });
-  });
+    })
+  })
 
   /** 表格2实例 */
-  const table2Ref = ref<InstanceType<typeof EleProTable> | null>(null);
+  const table2Ref = ref<InstanceType<typeof EleProTable> | null>(null)
 
   /** 表格2列配置 */
   const columns2 = ref<Columns>([
@@ -253,15 +236,15 @@
       hideInPrint: true,
       hideInExport: true
     }
-  ]);
+  ])
 
   /** 表格2选中数据 */
-  const selections2 = ref<User[]>([]);
+  const selections2 = ref<User[]>([])
 
   /** 表格2数据源 */
   const datasource2: DatasourceFunction = ({ pages, where, orders }) => {
-    return pageUsers({ ...where, ...orders, ...pages });
-  };
+    return pageUsers({ ...where, ...orders, ...pages })
+  }
 </script>
 
 <style lang="scss" scoped>

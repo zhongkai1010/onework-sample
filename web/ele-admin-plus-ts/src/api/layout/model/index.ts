@@ -3,7 +3,7 @@
  */
 export interface UpdatePasswordParam {
   /** 新密码 */
-  password: string;
+  password: string
   /** 原始密码 */
-  oldPassword: string;
+  oldPassword: string
 }

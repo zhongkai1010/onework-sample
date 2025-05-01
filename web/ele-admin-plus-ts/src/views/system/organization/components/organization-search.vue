@@ -5,20 +5,12 @@
       <el-row :gutter="8">
         <el-col :lg="6" :md="8" :sm="12" :xs="24">
           <el-form-item label="机构名称">
-            <el-input
-              clearable
-              v-model.trim="form.organizationName"
-              placeholder="请输入"
-            />
+            <el-input clearable v-model.trim="form.organizationName" placeholder="请输入" />
           </el-form-item>
         </el-col>
         <el-col :lg="6" :md="8" :sm="12" :xs="24">
           <el-form-item label="机构类型">
-            <dict-data
-              code="organization_type"
-              v-model="form.organizationType"
-              placeholder="请选择"
-            />
+            <dict-data code="organization_type" v-model="form.organizationType" placeholder="请选择" />
           </el-form-item>
         </el-col>
         <el-col :lg="12" :md="8" :sm="24" :xs="24">
@@ -33,28 +25,28 @@
 </template>
 
 <script lang="ts" setup>
-  import { useFormData } from '@/utils/use-form-data';
-  import type { OrganizationParam } from '@/api/system/organization/model';
+  import { useFormData } from '@/utils/use-form-data'
+  import type { OrganizationParam } from '@/api/system/organization/model'
 
   const emit = defineEmits<{
-    (e: 'search', where?: OrganizationParam): void;
-  }>();
+    (e: 'search', where?: OrganizationParam): void
+  }>()
 
   /** 表单数据 */
   const [form, resetFields] = useFormData<OrganizationParam>({
     organizationName: '',
     organizationFullName: '',
     organizationType: void 0
-  });
+  })
 
   /** 搜索 */
   const search = () => {
-    emit('search', { ...form });
-  };
+    emit('search', { ...form })
+  }
 
   /**  重置 */
   const reset = () => {
-    resetFields();
-    search();
-  };
+    resetFields()
+    search()
+  }
 </script>

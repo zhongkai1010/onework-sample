@@ -1,31 +1,31 @@
-import { PageParam } from '@/api';
+import { PageParam } from '@/api'
 
 /**
  * 图书藏品信息
  */
 export interface BookCollection {
   /** ID编号 */
-  id: string;
+  id: string
   /** 编号 */
-  code: string;
+  code: string
   /** 单据图片 */
-  documentImage: string;
+  documentImage: string
   /** 藏品编码 */
-  collectionCode: string;
+  collectionCode: string
   /** 藏品ID */
-  collectionId: string;
+  collectionId: string
   /** 藏品名称 */
-  collectionName: string;
+  collectionName: string
   /** 作者 */
-  author: string;
+  author: string
   /** 仓库 */
-  warehouse: string;
+  warehouse: string
   /** 图书价值 */
-  bookValue: string;
+  bookValue: string
   /** 地址编码 */
-  addressCode: string;
+  addressCode: string
   /** 处理状态 */
-  status: string;
+  status: string
 }
 
 /**
@@ -33,21 +33,21 @@ export interface BookCollection {
  */
 export interface AddBookParams {
   /** 编号 */
-  code?: string;
+  code?: string
   /** 单据图片 */
-  documentImage?: string;
+  documentImage?: string
   /** 藏品ID */
-  collectionId?: string;
+  collectionId?: string
   /** 作者 */
-  author?: string;
+  author?: string
   /** 仓库 */
-  warehouse?: string;
+  warehouse?: string
   /** 图书价值 */
-  bookValue?: string;
+  bookValue?: string
   /** 地址编码 */
-  addressCode?: string;
+  addressCode?: string
   /** 处理状态 */
-  status: string;
+  status: string
 }
 
 /**
@@ -55,15 +55,15 @@ export interface AddBookParams {
  */
 export interface BookQueryParams extends PageParam {
   /** ISBN编号 */
-  ISBN?: string;
+  ISBN?: string
   /** 作者 */
-  author?: string;
+  author?: string
   /** 图书价值 */
-  bookValue?: string;
+  bookValue?: string
   /** 仓库 */
-  warehouse?: string;
+  warehouse?: string
   /** 处理状态 */
-  status?: string;
+  status?: string
   /** 类型 */
-  type?: string;
+  type?: string
 }

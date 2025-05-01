@@ -1,66 +1,66 @@
-import { PageParam } from '@/api';
+import { PageParam } from '@/api'
 
 /**
  * 藏品修复记录信息
  */
 export interface Repair {
   /** ID编号 */
-  id: string;
+  id: string
   /** 单据图片 */
-  documentImage: string;
+  documentImage: string
   /** 修复单号 */
-  repairCode: string;
+  repairCode: string
   /** 登记日期 */
-  registrationDate: string;
+  registrationDate: string
   /** 藏品编码 */
-  collectionCode: string;
+  collectionCode: string
   /** 藏品名称 */
-  collectionName: string;
+  collectionName: string
   /** 藏品分类 */
-  collectionCategory: string;
+  collectionCategory: string
   /** 送修部门 */
-  sendRepairDepartment: string;
+  sendRepairDepartment: string
   /** 送修人 */
-  sentBy: string;
+  sentBy: string
   /** 修复原因 */
-  repairReason: string;
+  repairReason: string
   /** 备注 */
-  remarks: string;
+  remarks: string
   /** 送修日期 */
-  sendRepairDate: string;
+  sendRepairDate: string
   /** 工单状态 */
-  status: string;
+  status: string
   /** 承担机构 */
-  undertakingOrganization: string;
+  undertakingOrganization: string
   /** 修复人 */
-  repairPerson: string;
+  repairPerson: string
   /** 资质证书 */
-  qualificationCertificate: string;
+  qualificationCertificate: string
   /** 修完日期 */
-  repairCompletionDate: string;
+  repairCompletionDate: string
   /** 修复情况及结果 */
-  repairStatusAndResults: string;
+  repairStatusAndResults: string
   /** 修复前图片 */
-  beforeRepairImage: string;
+  beforeRepairImage: string
   /** 修复后图片 */
-  afterRepairImage: string;
+  afterRepairImage: string
 }
 
 /**
  * 添加修复记录参数
  */
-export type AddRepairParams = Omit<Repair, 'id'>;
+export type AddRepairParams = Omit<Repair, 'id'>
 
 /**
  * 修复记录查询参数
  */
 export interface RepairQueryParams extends PageParam {
   /** 藏品选择 */
-  collectionSelection?: string;
+  collectionSelection?: string
   /** 藏品编码 */
-  collectionCode?: string;
+  collectionCode?: string
   /** 藏品名称 */
-  collectionName?: string;
+  collectionName?: string
   /** 工单状态 */
-  status?: number;
+  status?: number
 }

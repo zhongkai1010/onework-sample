@@ -8,7 +8,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
   import ReferenceButton from './components/reference-button.vue'
 </script>
 

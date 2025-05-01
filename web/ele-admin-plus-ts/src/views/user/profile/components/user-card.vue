@@ -43,22 +43,12 @@
     <el-divider border-style="dashed" style="margin: 0" />
     <ele-text size="md" style="margin-top: 16px">标签</ele-text>
     <div class="info-tags" style="margin-top: 12px">
-      <el-tag type="info" size="small" :disable-transitions="true">
-        很有想法的
-      </el-tag>
-      <el-tag type="info" size="small" :disable-transitions="true">
-        专注设计
-      </el-tag>
+      <el-tag type="info" size="small" :disable-transitions="true"> 很有想法的 </el-tag>
+      <el-tag type="info" size="small" :disable-transitions="true"> 专注设计 </el-tag>
       <el-tag type="info" size="small" :disable-transitions="true">辣~</el-tag>
-      <el-tag type="info" size="small" :disable-transitions="true">
-        大长腿
-      </el-tag>
-      <el-tag type="info" size="small" :disable-transitions="true">
-        川妹子
-      </el-tag>
-      <el-tag type="info" size="small" :disable-transitions="true">
-        海纳百川
-      </el-tag>
+      <el-tag type="info" size="small" :disable-transitions="true"> 大长腿 </el-tag>
+      <el-tag type="info" size="small" :disable-transitions="true"> 川妹子 </el-tag>
+      <el-tag type="info" size="small" :disable-transitions="true"> 海纳百川 </el-tag>
     </div>
     <!-- 头像裁剪弹窗 -->
     <ele-cropper-modal
@@ -77,38 +67,32 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import {
-    CloudUploadOutlined,
-    UserOutlined,
-    CityOutlined,
-    EnvironmentOutlined,
-    TagOutlined
-  } from '@/components/icons';
+  import { ref } from 'vue'
+  import { CloudUploadOutlined, UserOutlined, CityOutlined, EnvironmentOutlined, TagOutlined } from '@/components/icons'
   //import { EleMessage } from 'ele-admin-plus/es';
   //import { updateUserInfo } from '@/api/layout';
-  import type { User } from '@/api/system/user/model';
+  import type { User } from '@/api/system/user/model'
 
   defineProps<{
-    data: User;
-  }>();
+    data: User
+  }>()
 
   const emit = defineEmits<{
-    (e: 'done', value: User): void;
-  }>();
+    (e: 'done', value: User): void
+  }>()
 
   /** 是否显示裁剪弹窗 */
-  const visible = ref(false);
+  const visible = ref(false)
 
   /** 打开图片裁剪 */
   const openCropper = () => {
-    visible.value = true;
-  };
+    visible.value = true
+  }
 
   /** 头像裁剪完成回调 */
   const handleCrop = (result: string) => {
-    visible.value = false;
-    emit('done', { avatar: result });
+    visible.value = false
+    emit('done', { avatar: result })
     /* const loading = EleMessage.loading({
       message: '请求中..',
       plain: true
@@ -124,7 +108,7 @@
         loading.close();
         EleMessage.error(e.message);
       }); */
-  };
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -1,17 +1,17 @@
-import type { User } from '../../system/user/model';
+import type { User } from '../../system/user/model'
 
 /**
  * 登录参数
  */
 export interface LoginParam {
   /** 账号 */
-  username?: string;
+  username?: string
   /** 密码 */
-  password?: string;
+  password?: string
   /** 租户id */
-  tenantId?: number;
+  tenantId?: number
   /** 是否记住密码 */
-  remember?: boolean;
+  remember?: boolean
 }
 
 /**
@@ -19,9 +19,9 @@ export interface LoginParam {
  */
 export interface LoginResult {
   /** token */
-  access_token?: string;
+  access_token?: string
   /** 用户信息 */
-  user?: User;
+  user?: User
 }
 
 /**
@@ -29,7 +29,7 @@ export interface LoginResult {
  */
 export interface CaptchaResult {
   /** 图形验证码base64数据 */
-  base64: string;
+  base64: string
   /** 验证码文本 */
-  text: string;
+  text: string
 }

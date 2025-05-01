@@ -1,12 +1,7 @@
 <!-- 详情弹窗 -->
 <template>
   <ele-modal title="详情" :width="720" v-model="visible">
-    <el-descriptions
-      v-if="data"
-      :border="true"
-      :column="mobile ? 1 : 2"
-      class="detail-table"
-    >
+    <el-descriptions v-if="data" :border="true" :column="mobile ? 1 : 2" class="detail-table">
       <el-descriptions-item label="操作人">
         <div>{{ data.nickname }}({{ data.username }})</div>
       </el-descriptions-item>
@@ -29,22 +24,8 @@
         <div>{{ data.requestMethod }}</div>
       </el-descriptions-item>
       <el-descriptions-item label="请求状态">
-        <el-tag
-          v-if="data.status === 0"
-          size="small"
-          type="success"
-          :disable-transitions="true"
-        >
-          正常
-        </el-tag>
-        <el-tag
-          v-else-if="data.status === 1"
-          size="small"
-          type="danger"
-          :disable-transitions="true"
-        >
-          异常
-        </el-tag>
+        <el-tag v-if="data.status === 0" size="small" type="success" :disable-transitions="true"> 正常 </el-tag>
+        <el-tag v-else-if="data.status === 1" size="small" type="danger" :disable-transitions="true"> 异常 </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="请求地址" :span="2">
         <div style="word-break: break-all">{{ data.url }}</div>
@@ -72,18 +53,18 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive } from 'vue';
-  import type { EleTooltipProps } from 'ele-admin-plus/es/ele-app/plus';
-  import type { OperationRecord } from '@/api/system/operation-record/model';
-  import { useMobile } from '@/utils/use-mobile';
+  import { reactive } from 'vue'
+  import type { EleTooltipProps } from 'ele-admin-plus/es/ele-app/plus'
+  import type { OperationRecord } from '@/api/system/operation-record/model'
+  import { useMobile } from '@/utils/use-mobile'
 
   defineProps<{
     /** 修改回显的数据 */
-    data: OperationRecord;
-  }>();
+    data: OperationRecord
+  }>()
 
   /** 弹窗是否打开 */
-  const visible = defineModel({ type: Boolean });
+  const visible = defineModel({ type: Boolean })
 
   /** 文字省略组件的提示组件的属性 */
   const ellipsisTooltipProps = reactive<EleTooltipProps>({
@@ -102,10 +83,10 @@
     },
     offset: 4,
     placement: 'top'
-  });
+  })
 
   /** 是否是移动端 */
-  const { mobile } = useMobile();
+  const { mobile } = useMobile()
 </script>
 
 <style lang="scss" scoped>

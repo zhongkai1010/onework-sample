@@ -1,21 +1,21 @@
-import { PageParam } from '@/api';
+import { PageParam } from '@/api'
 
 /**
  * 字典
  */
 export interface Dictionary {
   /** 字典id */
-  dictId?: number;
+  dictId?: number
   /** 字典标识 */
-  dictCode?: string;
+  dictCode?: string
   /** 字典名称 */
-  dictName?: string;
+  dictName?: string
   /** 排序号 */
-  sortNumber?: number;
+  sortNumber?: number
   /** 备注 */
-  comments?: string;
+  comments?: string
   /** 创建时间 */
-  createTime?: string;
+  createTime?: string
 }
 
 /**
@@ -23,7 +23,7 @@ export interface Dictionary {
  */
 export interface DictionaryParam extends PageParam {
   /** 字典标识 */
-  dictCode?: string;
+  dictCode?: string
   /** 字典名称 */
-  dictName?: string;
+  dictName?: string
 }

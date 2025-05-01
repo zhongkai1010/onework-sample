@@ -1,19 +1,19 @@
-import type { PageParam } from '@/api';
+import type { PageParam } from '@/api'
 
 /**
  * 角色
  */
 export interface Role {
   /** 角色id */
-  roleId?: number;
+  roleId?: number
   /** 角色标识 */
-  roleCode?: string;
+  roleCode?: string
   /** 角色名称 */
-  roleName?: string;
+  roleName?: string
   /** 备注 */
-  comments?: string;
+  comments?: string
   /** 创建时间 */
-  createTime?: string;
+  createTime?: string
 }
 
 /**
@@ -21,9 +21,9 @@ export interface Role {
  */
 export interface RoleParam extends PageParam {
   /** 角色名称 */
-  roleName?: string;
+  roleName?: string
   /** 角色标识 */
-  roleCode?: string;
+  roleCode?: string
   /** 备注 */
-  comments?: string;
+  comments?: string
 }

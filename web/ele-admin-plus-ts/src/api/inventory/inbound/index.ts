@@ -1,28 +1,17 @@
-import type { ApiResult } from '@/api';
-import request from '@/utils/request';
-import type {
-  InboundOrder,
-  InboundCollection,
-  InboundRegisterParams,
-  InboundApproveParams,
-  InboundConfirmParams,
-  InboundQueryParams,
-  InboundDetailsQueryParams
-} from './model';
+import type { ApiResult } from '@/api'
+import request from '@/utils/request'
+import type { InboundOrder, InboundCollection, InboundRegisterParams, InboundApproveParams, InboundConfirmParams, InboundQueryParams, InboundDetailsQueryParams } from './model'
 
 /**
  * 根据入库类型查询藏品列表
  * @param type 入库类型,1:初次入库，2：归还入库
  */
 export async function listCollectionsByType(type: string) {
-  const res = await request.get<ApiResult<InboundCollection[]>>(
-    '/api/inventory/inbound/type/collection',
-    { params: { type } }
-  );
+  const res = await request.get<ApiResult<InboundCollection[]>>('/api/inventory/inbound/type/collection', { params: { type } })
   if (res.data.code === 0 && res.data.data) {
-    return res.data.data;
+    return res.data.data
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -30,14 +19,11 @@ export async function listCollectionsByType(type: string) {
  * @param data 入库信息
  */
 export async function registerInbound(data: InboundRegisterParams) {
-  const res = await request.post<ApiResult<unknown>>(
-    '/api/inventory/inbound/register',
-    data
-  );
+  const res = await request.post<ApiResult<unknown>>('/api/inventory/inbound/register', data)
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -47,14 +33,14 @@ export async function registerInbound(data: InboundRegisterParams) {
 export async function listInbounds(params?: InboundQueryParams) {
   const res = await request.get<
     ApiResult<{
-      count: number;
-      list: InboundOrder[];
+      count: number
+      list: InboundOrder[]
     }>
-  >('/api/inventory/inbound', { params });
+  >('/api/inventory/inbound', { params })
   if (res.data.code === 0 && res.data.data) {
-    return res.data.data;
+    return res.data.data
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -62,14 +48,11 @@ export async function listInbounds(params?: InboundQueryParams) {
  * @param data ID集合
  */
 export async function approveInbound(data: InboundApproveParams) {
-  const res = await request.post<ApiResult<unknown>>(
-    '/api/inventory/inbound/approve',
-    data
-  );
+  const res = await request.post<ApiResult<unknown>>('/api/inventory/inbound/approve', data)
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -77,14 +60,11 @@ export async function approveInbound(data: InboundApproveParams) {
  * @param data 入库单ID
  */
 export async function confirmInbound(data: InboundConfirmParams) {
-  const res = await request.post<ApiResult<unknown>>(
-    '/api/inventory/inbound/confirm',
-    data
-  );
+  const res = await request.post<ApiResult<unknown>>('/api/inventory/inbound/confirm', data)
   if (res.data.code === 0) {
-    return res.data.message;
+    return res.data.message
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }
 
 /**
@@ -94,12 +74,12 @@ export async function confirmInbound(data: InboundConfirmParams) {
 export async function getInboundDetails(params?: InboundDetailsQueryParams) {
   const res = await request.get<
     ApiResult<{
-      count: number;
-      list: InboundOrder[];
+      count: number
+      list: InboundOrder[]
     }>
-  >('/api/inventory/inbound/details', { params });
+  >('/api/inventory/inbound/details', { params })
   if (res.data.code === 0 && res.data.data) {
-    return res.data.data;
+    return res.data.data
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.data.message))
 }

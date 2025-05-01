@@ -8,10 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-  import DemoBasic from './components/demo-basic.vue';
-  import DemoSide from './components/demo-side.vue';
-  import DemoMenu from './components/demo-menu.vue';
-  import DemoTop from './components/demo-top.vue';
+  import DemoBasic from './components/demo-basic.vue'
+  import DemoSide from './components/demo-side.vue'
+  import DemoMenu from './components/demo-menu.vue'
+  import DemoTop from './components/demo-top.vue'
 
-  defineOptions({ name: 'ExtensionLayout' });
+  defineOptions({ name: 'ExtensionLayout' })
 </script>

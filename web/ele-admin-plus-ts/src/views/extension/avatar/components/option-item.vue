@@ -1,10 +1,6 @@
 <template>
   <div :class="['option-item', { 'is-responsive': responsive }]">
-    <div
-      v-if="label"
-      class="option-item-label"
-      :style="[{ width: labelWidth }, labelStyle || {}]"
-    >
+    <div v-if="label" class="option-item-label" :style="[{ width: labelWidth }, labelStyle || {}]">
       {{ label }}
     </div>
     <div class="option-item-body" :style="bodyStyle">
@@ -14,18 +10,18 @@
 </template>
 
 <script lang="ts" setup>
-  import type { CSSProperties } from 'vue';
+  import type { CSSProperties } from 'vue'
 
   withDefaults(
     defineProps<{
-      label?: string;
-      labelWidth?: string;
-      labelStyle?: CSSProperties;
-      bodyStyle?: CSSProperties;
-      responsive?: boolean;
+      label?: string
+      labelWidth?: string
+      labelStyle?: CSSProperties
+      bodyStyle?: CSSProperties
+      responsive?: boolean
     }>(),
     { responsive: true }
-  );
+  )
 </script>
 
 <style lang="scss" scoped>

@@ -36,10 +36,7 @@
           <layout-tool>注册</layout-tool>
         </template>
         <div :style="{ flex: 'auto' }">
-          <el-carousel
-            height="320px"
-            style="margin-top: calc(0px - var(--ele-header-height) - 1px)"
-          >
+          <el-carousel height="320px" style="margin-top: calc(0px - var(--ele-header-height) - 1px)">
             <el-carousel-item v-for="item in banner" :key="item">
               <img
                 :src="item"
@@ -76,14 +73,11 @@
             :style="{
               textAlign: 'center',
               padding: '26px 0',
-              backgroundImage:
-                'url(https://cdn2.weimob.com/saas/@assets/saas-fe-website-web-stc/_next/static/media/ZhuceBg.d0ce1f1c.png)',
+              backgroundImage: 'url(https://cdn2.weimob.com/saas/@assets/saas-fe-website-web-stc/_next/static/media/ZhuceBg.d0ce1f1c.png)',
               backgroundSize: '100% 100%'
             }"
           >
-            <div style="color: #fff; font-size: 16px">
-              文本文本文本文本文本文本文本文本
-            </div>
+            <div style="color: #fff; font-size: 16px"> 文本文本文本文本文本文本文本文本 </div>
             <div
               :style="{
                 width: '88px',
@@ -155,31 +149,19 @@
       </ele-admin-layout>
     </ele-viewer>
     <div style="margin-top: 12px">
-      <el-button class="ele-btn-icon" @click="handleCallViewer('zoomIn')">
-        放大
-      </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('zoomOut')">
-        缩小
-      </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('rotateLeft')">
-        向左旋转
-      </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('rotateRight')">
-        向右旋转
-      </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('autoIntoView')">
-        自适应缩放
-      </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('reset')">
-        重置
-      </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('zoomIn')"> 放大 </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('zoomOut')"> 缩小 </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('rotateLeft')"> 向左旋转 </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('rotateRight')"> 向右旋转 </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('autoIntoView')"> 自适应缩放 </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('reset')"> 重置 </el-button>
     </div>
   </ele-card>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { LayoutTool } from 'ele-admin-plus/es';
+  import { ref } from 'vue'
+  import { LayoutTool } from 'ele-admin-plus/es'
 
   /** 菜单 */
   const headerMenus = ref([
@@ -187,22 +169,22 @@
     { index: '/service', title: '产品和服务' },
     { index: '/product', title: '解决方案' },
     { index: '/cases', title: '客户案例' }
-  ]);
+  ])
 
   /** 轮播图 */
   const banner = ref([
     'https://cdn2.weimob.com/saas/@assets/saas-fe-website-web-stc/_next/static/media/L101.0a6f1b83.jpg',
     'https://cdn2.weimob.com/saas/@assets/saas-fe-website-web-stc/_next/static/media/L108.d7c6f061.png',
     'https://cdn2.weimob.com/saas/@assets/saas-fe-website-web-stc/_next/static/media/L100.98e3daa4.jpg'
-  ]);
+  ])
 
   /** 查看器组件 */
-  const viewerRef = ref<any>(null);
+  const viewerRef = ref<any>(null)
 
   /** 调用查看器组件方法 */
   const handleCallViewer = (methodName: string) => {
     if (viewerRef.value) {
-      viewerRef.value[methodName]();
+      viewerRef.value[methodName]()
     }
-  };
+  }
 </script>

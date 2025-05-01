@@ -66,10 +66,7 @@
         </el-icon>
       </layout-tool>
       <!-- 刷新 -->
-      <layout-tool
-        :class="{ 'hidden-sm-and-down': tabBar && tabInHeader }"
-        @click="reloadPageTab()"
-      >
+      <layout-tool :class="{ 'hidden-sm-and-down': tabBar && tabInHeader }" @click="reloadPageTab()">
         <el-icon style="transform: scale(1.09)">
           <ReloadOutlined />
         </el-icon>
@@ -98,12 +95,7 @@
       </layout-tool>
       <!-- 夜间模式 -->
       <layout-tool ref="darkSwitchRef" class="dark-switch">
-        <el-switch
-          :active-action-icon="MoonOutlined"
-          :inactive-action-icon="SunOutlined"
-          :model-value="darkMode"
-          @update:modelValue="updateDarkMode"
-        />
+        <el-switch :active-action-icon="MoonOutlined" :inactive-action-icon="SunOutlined" :model-value="darkMode" @update:modelValue="updateDarkMode" />
       </layout-tool>
       <!-- 主题设置 -->
       <layout-tool @click="openSetting">
@@ -143,11 +135,7 @@
     </template>
     <!-- 页签标题 -->
     <template #tabTitle="{ label, item }">
-      <el-icon
-        v-if="item.meta?.icon"
-        class="ele-tab-icon"
-        v-bind="item.meta?.props?.iconProps || {}"
-      >
+      <el-icon v-if="item.meta?.icon" class="ele-tab-icon" v-bind="item.meta?.props?.iconProps || {}">
         <component :is="item.meta.icon" :style="item.meta?.props?.iconStyle" />
       </el-icon>
       <span :style="item.meta?.icon ? { paddingLeft: '4px' } : {}">
@@ -160,111 +148,47 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, computed, markRaw } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { storeToRefs } from 'pinia';
-  import { useI18n } from 'vue-i18n';
-  import {
-    LayoutTool,
-    TabDropdown,
-    requestFullscreen,
-    exitFullscreen,
-    checkFullscreen,
-    EleMessage
-  } from 'ele-admin-plus/es';
-  import type {
-    MenuI18n,
-    TabItemEventOption,
-    BodySizeChangeOption
-  } from 'ele-admin-plus/es/ele-pro-layout/types';
-  import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types';
-  import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    ReloadOutlined,
-    ExpandOutlined,
-    CompressOutlined,
-    MoreOutlined,
-    CloseOutlined,
-    ArrowLeftOutlined,
-    ArrowRightOutlined,
-    MinusCircleOutlined,
-    CloseCircleOutlined,
-    MoonOutlined,
-    SunOutlined
-  } from '@/components/icons';
-  import {
-    PROJECT_NAME,
-    HOME_PATH,
-    REDIRECT_PATH,
-    TAB_KEEP_ALIVE
-  } from '@/config/setting';
-  import { doWithTransition } from '@/utils/common';
-  import { useUserStore } from '@/store/modules/user';
-  import { useThemeStore } from '@/store/modules/theme';
-  import { useMobileDevice } from '@/utils/use-mobile';
-  import { usePageTab } from '@/utils/use-page-tab';
-  import RouterLayout from '@/components/RouterLayout/index.vue';
-  import HeaderUser from './components/header-user.vue';
-  import HeaderNotice from './components/header-notice.vue';
-  import I18nIcon from './components/i18n-icon.vue';
-  import PageFooter from './components/page-footer.vue';
-  import SettingDrawer from './components/setting-drawer.vue';
+  import { ref, computed, markRaw } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { storeToRefs } from 'pinia'
+  import { useI18n } from 'vue-i18n'
+  import { LayoutTool, TabDropdown, requestFullscreen, exitFullscreen, checkFullscreen, EleMessage } from 'ele-admin-plus/es'
+  import type { MenuI18n, TabItemEventOption, BodySizeChangeOption } from 'ele-admin-plus/es/ele-pro-layout/types'
+  import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types'
+  import { MenuFoldOutlined, MenuUnfoldOutlined, ReloadOutlined, ExpandOutlined, CompressOutlined, MoreOutlined, CloseOutlined, ArrowLeftOutlined, ArrowRightOutlined, MinusCircleOutlined, CloseCircleOutlined, MoonOutlined, SunOutlined } from '@/components/icons'
+  import { PROJECT_NAME, HOME_PATH, REDIRECT_PATH, TAB_KEEP_ALIVE } from '@/config/setting'
+  import { doWithTransition } from '@/utils/common'
+  import { useUserStore } from '@/store/modules/user'
+  import { useThemeStore } from '@/store/modules/theme'
+  import { useMobileDevice } from '@/utils/use-mobile'
+  import { usePageTab } from '@/utils/use-page-tab'
+  import RouterLayout from '@/components/RouterLayout/index.vue'
+  import HeaderUser from './components/header-user.vue'
+  import HeaderNotice from './components/header-notice.vue'
+  import PageFooter from './components/page-footer.vue'
+  import SettingDrawer from './components/setting-drawer.vue'
 
-  defineOptions({ name: 'Layout' });
+  defineOptions({ name: 'Layout' })
 
-  const { push } = useRouter();
-  const { t, locale } = useI18n();
-  const {
-    addPageTab,
-    removePageTab,
-    removeAllPageTab,
-    removeLeftPageTab,
-    removeRightPageTab,
-    removeOtherPageTab,
-    reloadPageTab,
-    setPageTabs
-  } = usePageTab();
-  const { mobileDevice } = useMobileDevice();
-  const userStore = useUserStore();
-  const themeStore = useThemeStore();
+  const { push } = useRouter()
+  const { t, locale } = useI18n()
+  const { addPageTab, removePageTab, removeAllPageTab, removeLeftPageTab, removeRightPageTab, removeOtherPageTab, reloadPageTab, setPageTabs } = usePageTab()
+  const { mobileDevice } = useMobileDevice()
+  const userStore = useUserStore()
+  const themeStore = useThemeStore()
 
   /** 菜单数据 */
-  const { menus } = storeToRefs(userStore);
+  const { menus } = storeToRefs(userStore)
 
   /** 布局风格 */
-  const {
-    tabs,
-    collapse,
-    compact,
-    maximized,
-    tabBar,
-    layout,
-    sidebarLayout,
-    headerStyle,
-    sidebarStyle,
-    tabStyle,
-    fixedHeader,
-    fixedSidebar,
-    fixedBody,
-    fluid,
-    logoInHeader,
-    colorfulIcon,
-    transitionName,
-    uniqueOpened,
-    fixedHome,
-    tabInHeader,
-    roundedTheme,
-    menuItemTrigger,
-    responsive,
-    darkMode
-  } = storeToRefs(themeStore);
+  const { tabs, collapse, compact, maximized, tabBar, layout, sidebarLayout, headerStyle, sidebarStyle, tabStyle, fixedHeader, fixedSidebar, fixedBody, fluid, logoInHeader, colorfulIcon, transitionName, uniqueOpened, fixedHome, tabInHeader, roundedTheme, menuItemTrigger, responsive, darkMode } =
+    storeToRefs(themeStore)
 
   /** 是否全屏 */
-  const isFullscreen = ref(false);
+  const isFullscreen = ref(false)
 
   /** 是否显示主题设置抽屉 */
-  const settingVisible = ref(false);
+  const settingVisible = ref(false)
 
   /** 页签右键菜单 */
   const tabContext = computed<DropdownItem[]>(() => {
@@ -302,12 +226,12 @@
         command: 'all',
         icon: markRaw(CloseCircleOutlined)
       }
-    ];
-  });
+    ]
+  })
 
   /** 页签栏右侧下拉菜单 */
   const tabExtra = computed<DropdownItem[]>(() => {
-    const isMax = maximized.value;
+    const isMax = maximized.value
     return [
       {
         title: t(`layout.tabs.${isMax ? 'fullscreenExit' : 'fullscreen'}`),
@@ -315,113 +239,109 @@
         icon: isMax ? markRaw(CompressOutlined) : markRaw(ExpandOutlined)
       },
       ...tabContext.value
-    ];
-  });
+    ]
+  })
 
   /** 侧栏折叠切换 */
   const updateCollapse = (value: boolean) => {
-    themeStore.setCollapse(value);
-  };
+    themeStore.setCollapse(value)
+  }
 
   /** 双侧栏一级折叠切换 */
   const updateCompact = (value: boolean) => {
-    themeStore.setCompact(value);
-  };
+    themeStore.setCompact(value)
+  }
 
   /** 内容区全屏切换 */
   const updateMaximized = (value: boolean) => {
-    themeStore.setMaximized(value);
-  };
+    themeStore.setMaximized(value)
+  }
 
   /** 页签点击事件 */
   const handleTabClick = (option: TabItemEventOption) => {
-    const { key, active, item } = option;
-    const path = item?.fullPath || key;
+    const { key, active, item } = option
+    const path = item?.fullPath || key
     if (key !== active && path) {
-      push(path);
+      push(path)
     }
-  };
+  }
 
   /** 内容区尺寸改变事件 */
   const handleBodySizeChange = ({ width }: BodySizeChangeOption) => {
-    themeStore.setContentWidth(width ?? null);
-    isFullscreen.value = checkFullscreen();
-  };
+    themeStore.setContentWidth(width ?? null)
+    isFullscreen.value = checkFullscreen()
+  }
 
   /** 全屏切换 */
   const toggleFullscreen = () => {
     if (isFullscreen.value) {
-      exitFullscreen();
-      isFullscreen.value = false;
-      return;
+      exitFullscreen()
+      isFullscreen.value = false
+      return
     }
     try {
-      requestFullscreen();
-      isFullscreen.value = true;
+      requestFullscreen()
+      isFullscreen.value = true
     } catch (e) {
-      console.error(e);
-      EleMessage.error('您的浏览器不支持全屏模式');
+      console.error(e)
+      EleMessage.error('您的浏览器不支持全屏模式')
     }
-  };
+  }
 
   /** 页签右键菜单点击事件 */
   const handleTabContextMenu = (option: TabItemEventOption) => {
-    const { command, key, item, active } = option;
+    const { command, key, item, active } = option
     if (command === 'reload') {
-      reloadPageTab({ fullPath: item?.fullPath || key });
+      reloadPageTab({ fullPath: item?.fullPath || key })
     } else if (command === 'close') {
-      removePageTab({ key, active });
+      removePageTab({ key, active })
     } else if (command === 'left') {
-      removeLeftPageTab({ key, active });
+      removeLeftPageTab({ key, active })
     } else if (command === 'right') {
-      removeRightPageTab({ key, active });
+      removeRightPageTab({ key, active })
     } else if (command === 'other') {
-      removeOtherPageTab({ key, active });
+      removeOtherPageTab({ key, active })
     } else if (command === 'all') {
-      removeAllPageTab({ key, active });
+      removeAllPageTab({ key, active })
     }
-  };
+  }
 
   /** 页签栏右侧下拉菜单点击事件 */
   const handleTabDropdownMenu = (command: string, active: string) => {
     if (command === 'reload') {
-      reloadPageTab();
+      reloadPageTab()
     } else if (command === 'fullscreen') {
-      updateMaximized(!maximized.value);
+      updateMaximized(!maximized.value)
     } else {
-      handleTabContextMenu({ command, key: active, active });
+      handleTabContextMenu({ command, key: active, active })
     }
-  };
+  }
 
   /** 菜单标题国际化 */
   const i18n: MenuI18n = ({ menu, locale, tab }) => {
     if (locale) {
       if (tab && tab.meta?.lang && tab.meta.lang[locale]) {
-        return tab.meta.lang[locale];
+        return tab.meta.lang[locale]
       }
       if (menu?.meta?.lang && menu.meta.lang[locale]) {
-        return menu.meta.lang[locale];
+        return menu.meta.lang[locale]
       }
     }
-    return menu?.meta?.title;
-  };
+    return menu?.meta?.title
+  }
 
   /** 打开主题设置抽屉 */
   const openSetting = () => {
-    settingVisible.value = true;
-  };
+    settingVisible.value = true
+  }
 
   /** 暗黑主题切换开关 */
-  const darkSwitchRef = ref<any>(null);
+  const darkSwitchRef = ref<any>(null)
 
   /** 切换暗黑模式 */
   const updateDarkMode = (isDark) => {
-    doWithTransition(
-      () => themeStore.setDarkMode(isDark),
-      darkSwitchRef.value?.$el?.querySelector?.('.el-switch__action'),
-      !isDark
-    );
-  };
+    doWithTransition(() => themeStore.setDarkMode(isDark), darkSwitchRef.value?.$el?.querySelector?.('.el-switch__action'), !isDark)
+  }
 </script>
 
 <style lang="scss" scoped>

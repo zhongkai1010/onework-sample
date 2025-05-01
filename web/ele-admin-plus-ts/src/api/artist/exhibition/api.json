@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OneWork",
+    "title": "藏品管理系统",
     "description": "",
     "version": "1.0.0"
   },
@@ -65,7 +65,10 @@
                     "type": "string",
                     "description": "封面"
                   }
-                }
+                },
+                "required": [
+                  "exhibitionTitle"
+                ]
               },
               "examples": {}
             }
@@ -107,17 +110,56 @@
         "security": []
       },
       "get": {
-        "summary": "查询艺术展览详情",
+        "summary": "查询艺术展览分页列表",
         "deprecated": false,
         "description": "",
         "tags": [],
         "parameters": [
           {
-            "name": "id",
+            "name": "limit",
             "in": "query",
-            "description": "",
+            "description": "分页查询每页数量",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "排序方式",
             "required": false,
             "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页查询页码",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exhibitionTitle",
+            "in": "query",
+            "description": "展览标题",
+            "required": false,
             "schema": {
               "type": "string"
             }
@@ -147,48 +189,66 @@
                       "format": "int32"
                     },
                     "data": {
+                      "title": "PageResult«Role»",
                       "type": "object",
                       "properties": {
-                        "id": {
-                          "type": "string",
-                          "description": "ID 编号"
+                        "count": {
+                          "type": "integer",
+                          "description": "总数量",
+                          "format": "int64"
                         },
-                        "exhibitionTitle": {
-                          "type": "string",
-                          "description": "展览标题"
-                        },
-                        "exhibitionStartDate": {
-                          "type": "string",
-                          "format": "date",
-                          "description": "展览开始时间"
-                        },
-                        "exhibitionEndDate": {
-                          "type": "string",
-                          "format": "date",
-                          "description": "展览结束日期"
-                        },
-                        "exhibitionInstitution": {
-                          "type": "string",
-                          "description": "展览机构"
-                        },
-                        "exhibitionCity": {
-                          "type": "string",
-                          "description": "展览城市"
-                        },
-                        "exhibitionAddress": {
-                          "type": "string",
-                          "description": "展览地址"
-                        },
-                        "artistName": {
-                          "type": "string",
-                          "description": "艺术家名称"
-                        },
-                        "coverImage": {
-                          "type": "string",
-                          "description": "封面"
+                        "list": {
+                          "type": "array",
+                          "description": "当前页数据",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "ID 编号"
+                              },
+                              "exhibitionTitle": {
+                                "type": "string",
+                                "description": "展览标题"
+                              },
+                              "exhibitionStartDate": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "展览开始时间"
+                              },
+                              "exhibitionEndDate": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "展览结束日期"
+                              },
+                              "exhibitionInstitution": {
+                                "type": "string",
+                                "description": "展览机构"
+                              },
+                              "exhibitionCity": {
+                                "type": "string",
+                                "description": "展览城市"
+                              },
+                              "exhibitionAddress": {
+                                "type": "string",
+                                "description": "展览地址"
+                              },
+                              "artistName": {
+                                "type": "string",
+                                "description": "艺术家名称"
+                              },
+                              "coverImage": {
+                                "type": "string",
+                                "description": "封面"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "exhibitionTitle"
+                            ]
+                          }
                         }
-                      },
-                      "required": ["id"]
+                      }
                     },
                     "error": {
                       "type": "string",
@@ -230,10 +290,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "ID 编号"
-                  },
                   "exhibitionTitle": {
                     "type": "string",
                     "description": "展览标题"
@@ -269,7 +325,9 @@
                     "description": "封面"
                   }
                 },
-                "required": ["id"]
+                "required": [
+                  "exhibitionTitle"
+                ]
               },
               "examples": {}
             }
@@ -341,7 +399,9 @@
                     "description": "ID集合"
                   }
                 },
-                "required": ["ids"]
+                "required": [
+                  "ids"
+                ]
               },
               "examples": {}
             }
@@ -364,6 +424,112 @@
                       "description": "返回数据",
                       "type": "object",
                       "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/artist/exhibition/details": {
+      "get": {
+        "summary": "查询艺术展览详情",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "ID 编号"
+                        },
+                        "exhibitionTitle": {
+                          "type": "string",
+                          "description": "展览标题"
+                        },
+                        "exhibitionStartDate": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "展览开始时间"
+                        },
+                        "exhibitionEndDate": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "展览结束日期"
+                        },
+                        "exhibitionInstitution": {
+                          "type": "string",
+                          "description": "展览机构"
+                        },
+                        "exhibitionCity": {
+                          "type": "string",
+                          "description": "展览城市"
+                        },
+                        "exhibitionAddress": {
+                          "type": "string",
+                          "description": "展览地址"
+                        },
+                        "artistName": {
+                          "type": "string",
+                          "description": "艺术家名称"
+                        },
+                        "coverImage": {
+                          "type": "string",
+                          "description": "封面"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "exhibitionTitle"
+                      ]
                     },
                     "error": {
                       "type": "string",

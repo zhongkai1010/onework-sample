@@ -25,13 +25,13 @@
 </template>
 
 <script lang="ts" setup>
-  import StatisticsCard from './components/statistics-card.vue';
-  import MapCard from './components/map-card.vue';
-  import OnlineNum from './components/online-num.vue';
-  import BrowserCard from './components/browser-card.vue';
-  import UserRate from './components/user-rate.vue';
-  import UserSatisfaction from './components/user-satisfaction.vue';
-  import UserLiveness from './components/user-liveness.vue';
+  import StatisticsCard from './components/statistics-card.vue'
+  import MapCard from './components/map-card.vue'
+  import OnlineNum from './components/online-num.vue'
+  import BrowserCard from './components/browser-card.vue'
+  import UserRate from './components/user-rate.vue'
+  import UserSatisfaction from './components/user-satisfaction.vue'
+  import UserLiveness from './components/user-liveness.vue'
 
-  defineOptions({ name: 'DashboardMonitor' });
+  defineOptions({ name: 'DashboardMonitor' })
 </script>

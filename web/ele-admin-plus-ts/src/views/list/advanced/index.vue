@@ -35,11 +35,7 @@
             <div style="width: 200px; margin-left: 12px" class="hidden-xs-only">
               <el-input v-model="where.keyword" placeholder="请输入">
                 <template #append>
-                  <el-button
-                    :icon="SearchOutlined"
-                    class="ele-btn-icon"
-                    @click="query"
-                  />
+                  <el-button :icon="SearchOutlined" class="ele-btn-icon" @click="query" />
                 </template>
               </el-input>
             </div>
@@ -76,13 +72,7 @@
               <el-progress :status="item.status" :percentage="item.progress" />
             </div>
             <div class="list-item-tools">
-              <el-link
-                type="primary"
-                :underline="false"
-                @click="openEdit(item)"
-              >
-                编辑
-              </el-link>
+              <el-link type="primary" :underline="false" @click="openEdit(item)"> 编辑 </el-link>
               <el-divider direction="vertical" />
               <ele-dropdown
                 :items="[
@@ -103,54 +93,19 @@
           <el-divider style="margin: 0; opacity: 0.6" />
         </div>
       </ele-loading>
-      <ele-pagination
-        :total="count"
-        v-model:page-size="limit"
-        v-model:current-page="page"
-        layout="prev, pager, next, sizes, jumper"
-        :pageSizes="[5, 10, 20]"
-        style="margin-top: 10px; justify-content: center"
-      />
+      <ele-pagination :total="count" v-model:page-size="limit" v-model:current-page="page" layout="prev, pager, next, sizes, jumper" :pageSizes="[5, 10, 20]" style="margin-top: 10px; justify-content: center" />
     </ele-card>
     <!-- 编辑弹窗 -->
-    <ele-modal
-      form
-      :width="460"
-      v-model="visible"
-      :title="form.id ? '任务编辑' : '任务添加'"
-    >
-      <el-form
-        ref="formRef"
-        :model="form"
-        :rules="rules"
-        label-width="88px"
-        @submit.prevent=""
-      >
+    <ele-modal form :width="460" v-model="visible" :title="form.id ? '任务编辑' : '任务添加'">
+      <el-form ref="formRef" :model="form" :rules="rules" label-width="88px" @submit.prevent="">
         <el-form-item label="任务名称" prop="title">
-          <el-input
-            clearable
-            :maxlength="20"
-            v-model="form.title"
-            placeholder="请输入任务名称"
-          />
+          <el-input clearable :maxlength="20" v-model="form.title" placeholder="请输入任务名称" />
         </el-form-item>
         <el-form-item label="开始时间" prop="time">
-          <el-date-picker
-            type="datetime"
-            v-model="form.time"
-            format="YYYY-MM-DD HH:mm:ss"
-            value-format="YYYY-MM-DD HH:mm:ss"
-            placeholder="请选择开始时间"
-            class="ele-fluid"
-          />
+          <el-date-picker type="datetime" v-model="form.time" format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" class="ele-fluid" />
         </el-form-item>
         <el-form-item label="负责人" prop="user">
-          <el-select
-            clearable
-            v-model="form.user"
-            placeholder="请选择负责人"
-            class="ele-fluid"
-          >
+          <el-select clearable v-model="form.user" placeholder="请选择负责人" class="ele-fluid">
             <el-option value="SunSmile" label="SunSmile" />
             <el-option value="Pojin" label="Pojin" />
             <el-option value="SuperWill" label="SuperWill" />
@@ -159,75 +114,64 @@
           </el-select>
         </el-form-item>
         <el-form-item label="任务描述">
-          <el-input
-            :rows="4"
-            type="textarea"
-            v-model="form.content"
-            placeholder="请输入任务描述"
-          />
+          <el-input :rows="4" type="textarea" v-model="form.content" placeholder="请输入任务描述" />
         </el-form-item>
       </el-form>
       <template #footer>
         <el-button @click="closeEdit">取消</el-button>
-        <el-button
-          type="primary"
-          :loading="submitLoading"
-          @click="handleSubmit"
-        >
-          保存
-        </el-button>
+        <el-button type="primary" :loading="submitLoading" @click="handleSubmit"> 保存 </el-button>
       </template>
     </ele-modal>
   </ele-page>
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive, watch, nextTick } from 'vue';
-  import { ElMessageBox } from 'element-plus/es';
-  import type { FormInstance, FormRules } from 'element-plus';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import { SearchOutlined, PlusOutlined, ArrowDown } from '@/components/icons';
-  import { useFormData } from '@/utils/use-form-data';
+  import { ref, reactive, watch, nextTick } from 'vue'
+  import { ElMessageBox } from 'element-plus/es'
+  import type { FormInstance, FormRules } from 'element-plus'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import { SearchOutlined, PlusOutlined, ArrowDown } from '@/components/icons'
+  import { useFormData } from '@/utils/use-form-data'
 
-  defineOptions({ name: 'ListAdvanced' });
+  defineOptions({ name: 'ListAdvanced' })
 
   interface ListItem {
-    id?: number;
-    title?: string;
-    time?: string;
-    user?: string;
-    progress?: number;
-    content?: string;
-    cover?: string;
-    status?: 'success' | 'exception';
+    id?: number
+    title?: string
+    time?: string
+    user?: string
+    progress?: number
+    content?: string
+    cover?: string
+    status?: 'success' | 'exception'
   }
 
   /** 列表加载状态 */
-  const loading = ref(false);
+  const loading = ref(false)
 
   /** 列表数据 */
-  const data = ref<ListItem[]>([]);
+  const data = ref<ListItem[]>([])
 
   /** 搜索表单 */
   const where = reactive({
     status: '0',
     keyword: ''
-  });
+  })
 
   /** 第几页 */
-  const page = ref(1);
+  const page = ref(1)
 
   /** 每页多少条 */
-  const limit = ref(5);
+  const limit = ref(5)
 
   /** 总数量 */
-  const count = ref(0);
+  const count = ref(0)
 
   /** 编辑弹窗是否显示 */
-  const visible = ref(false);
+  const visible = ref(false)
 
   /** 表单实例 */
-  const formRef = ref<FormInstance | null>(null);
+  const formRef = ref<FormInstance | null>(null)
 
   /** 编辑弹窗表单数据 */
   const [form, resetFields, assignFields] = useFormData<ListItem>({
@@ -236,7 +180,7 @@
     time: void 0,
     user: '',
     content: ''
-  });
+  })
 
   /** 编辑弹窗表单验证规则 */
   const rules = reactive<FormRules>({
@@ -264,17 +208,17 @@
         trigger: 'change'
       }
     ]
-  });
+  })
 
   /** 编辑表单提交状态 */
-  const submitLoading = ref(false);
+  const submitLoading = ref(false)
 
   /** 查询数据 */
   const query = () => {
-    loading.value = true;
+    loading.value = true
     setTimeout(() => {
-      loading.value = false;
-      count.value = 20;
+      loading.value = false
+      count.value = 20
       data.value = [
         {
           id: 1,
@@ -282,10 +226,8 @@
           time: '2020-06-13 08:33:12',
           user: 'SunSmile',
           progress: 87,
-          content:
-            'Element, 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的组件库, 提供了配套设计资源, 帮助你的网站快速成型。',
-          cover:
-            'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg'
+          content: 'Element, 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的组件库, 提供了配套设计资源, 帮助你的网站快速成型。',
+          cover: 'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg'
         },
         {
           id: 2,
@@ -294,10 +236,8 @@
           user: 'Pojin',
           progress: 100,
           status: 'success',
-          content:
-            'Vue 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是, Vue 被设计为可以自底向上逐层应用。',
-          cover:
-            'https://cdn.eleadmin.com/20200609/b6a811873e704db49db994053a5019b2.jpg'
+          content: 'Vue 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是, Vue 被设计为可以自底向上逐层应用。',
+          cover: 'https://cdn.eleadmin.com/20200609/b6a811873e704db49db994053a5019b2.jpg'
         },
         {
           id: 3,
@@ -305,10 +245,8 @@
           time: '2020-06-13 04:40:20',
           user: 'SuperWill',
           progress: 75,
-          content:
-            'Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态, 并以相应的规则保证状态以一种可预测的方式发生变化。',
-          cover:
-            'https://cdn.eleadmin.com/20200609/948344a2a77c47a7a7b332fe12ff749a.jpg'
+          content: 'Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态, 并以相应的规则保证状态以一种可预测的方式发生变化。',
+          cover: 'https://cdn.eleadmin.com/20200609/948344a2a77c47a7a7b332fe12ff749a.jpg'
         },
         {
           id: 4,
@@ -316,10 +254,8 @@
           time: '2020-06-13 02:40:05',
           user: 'Jasmine',
           progress: 65,
-          content:
-            'Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成, 让构建单页面应用变得易如反掌。',
-          cover:
-            'https://cdn.eleadmin.com/20200609/f6bc05af944a4f738b54128717952107.jpg'
+          content: 'Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成, 让构建单页面应用变得易如反掌。',
+          cover: 'https://cdn.eleadmin.com/20200609/f6bc05af944a4f738b54128717952107.jpg'
         },
         {
           id: 5,
@@ -329,61 +265,59 @@
           progress: 45,
           status: 'exception',
           content: 'Sass 是世界上最成熟、稳定、强大的专业级 CSS 扩展语言。',
-          cover:
-            'https://cdn.eleadmin.com/20200609/2d98970a51b34b6b859339c96b240dcd.jpg'
+          cover: 'https://cdn.eleadmin.com/20200609/2d98970a51b34b6b859339c96b240dcd.jpg'
         }
-      ];
-    }, 300);
-  };
+      ]
+    }, 300)
+  }
 
   /** 显示编辑弹窗 */
   const openEdit = (row?: ListItem) => {
-    resetFields();
-    visible.value = true;
+    resetFields()
+    visible.value = true
     nextTick(() => {
       nextTick(() => {
-        formRef.value?.clearValidate?.();
-      });
-    });
+        formRef.value?.clearValidate?.()
+      })
+    })
     if (row) {
-      assignFields(row);
+      assignFields(row)
     }
-  };
+  }
 
   /** 关闭编辑弹窗 */
   const closeEdit = () => {
-    visible.value = false;
-  };
+    visible.value = false
+  }
 
   /** 保存编辑 */
   const handleSubmit = () => {
     formRef.value?.validate?.((valid) => {
       if (!valid) {
-        return;
+        return
       }
-      submitLoading.value = true;
+      submitLoading.value = true
       setTimeout(() => {
-        closeEdit();
-        submitLoading.value = false;
-        EleMessage.success('保存成功');
+        closeEdit()
+        submitLoading.value = false
+        EleMessage.success('保存成功')
         if (form.id) {
           // 保存修改
-          const index = data.value.findIndex((d) => d.id === form.id);
+          const index = data.value.findIndex((d) => d.id === form.id)
           if (index !== -1) {
-            Object.assign(data.value[index], form);
+            Object.assign(data.value[index], form)
           }
         } else {
           // 保存添加
           data.value.push({
             ...form,
             id: Date.now(),
-            cover:
-              'https://cdn.eleadmin.com/20200610/RZ8FQmZfHkcffMlTBCJllBFjEhEsObVo.jpg'
-          });
+            cover: 'https://cdn.eleadmin.com/20200610/RZ8FQmZfHkcffMlTBCJllBFjEhEsObVo.jpg'
+          })
         }
-      }, 300);
-    });
-  };
+      }, 300)
+    })
+  }
 
   /** 下拉菜单点击事件 */
   const dropClick = (key: string, item: ListItem) => {
@@ -394,19 +328,19 @@
         draggable: true
       })
         .then(() => {
-          EleMessage.success('点击了删除');
+          EleMessage.success('点击了删除')
         })
-        .catch(() => {});
+        .catch(() => {})
     } else if (key === 'share') {
-      EleMessage.success('点击了分享');
+      EleMessage.success('点击了分享')
     }
-  };
+  }
 
-  query();
+  query()
 
   watch([page, limit], () => {
-    query();
-  });
+    query()
+  })
 </script>
 
 <style lang="scss" scoped>

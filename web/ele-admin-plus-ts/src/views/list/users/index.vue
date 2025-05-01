@@ -1,10 +1,7 @@
 <template>
   <ele-page>
     <ele-card>
-      <div>
-        “男用户”页面和“女用户”页面是共用的同一个页面,
-        通过获取路由参数展示不同的数据, 并且会各自KeepAlive.
-      </div>
+      <div> “男用户”页面和“女用户”页面是共用的同一个页面, 通过获取路由参数展示不同的数据, 并且会各自KeepAlive. </div>
       <div style="display: flex; align-items: center; margin-top: 16px">
         <div style="padding-right: 16px">路由参数</div>
         <div>sex: {{ userType }}</div>
@@ -33,9 +30,7 @@
         :cache-key="'listUsersTable-' + userType"
       >
         <template #action="{ row }">
-          <el-link type="primary" :underline="false" @click="openDetail(row)">
-            查看用户详情
-          </el-link>
+          <el-link type="primary" :underline="false" @click="openDetail(row)"> 查看用户详情 </el-link>
         </template>
       </ele-pro-table>
     </ele-card>
@@ -43,23 +38,20 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { useRouter, useRoute } from 'vue-router';
-  import type {
-    DatasourceFunction,
-    Columns
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import { usePageTab } from '@/utils/use-page-tab';
-  import { pageUsers, listUsers } from '@/api/system/user';
-  import type { User } from '@/api/system/user/model';
+  import { ref } from 'vue'
+  import { useRouter, useRoute } from 'vue-router'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import { usePageTab } from '@/utils/use-page-tab'
+  import { pageUsers, listUsers } from '@/api/system/user'
+  import type { User } from '@/api/system/user/model'
 
-  defineOptions({ name: 'ListUsers' });
+  defineOptions({ name: 'ListUsers' })
 
-  const { push } = useRouter();
-  const { path } = useRoute();
-  const { addPageTab } = usePageTab();
+  const { push } = useRouter()
+  const { path } = useRoute()
+  const { addPageTab } = usePageTab()
   /** 获取用户性别类型 */
-  const userType = path.substring(path.lastIndexOf('/') + 1);
+  const userType = path.substring(path.lastIndexOf('/') + 1)
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -114,31 +106,31 @@
       hideInPrint: true,
       hideInExport: true
     }
-  ]);
+  ])
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = ({ pages, orders }) => {
-    return pageUsers({ ...orders, ...pages, sex: userType });
-  };
+    return pageUsers({ ...orders, ...pages, sex: userType })
+  }
 
   /** 输入框 */
-  const text = ref('');
+  const text = ref('')
 
   /** 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = ({ orders }) => {
-    return listUsers({ ...orders, sex: userType });
-  };
+    return listUsers({ ...orders, sex: userType })
+  }
 
   /** 查看详情 */
   const openDetail = (row: User) => {
-    const path = `/list/users/details/${userType}/${row.userId}`;
-    const sex = userType == '1' ? '男' : '女';
+    const path = `/list/users/details/${userType}/${row.userId}`
+    const sex = userType == '1' ? '男' : '女'
     addPageTab({
       title: `${sex}用户详情[${row.nickname}]`,
       key: path,
       closable: true,
       meta: { icon: 'LinkOutlined' }
-    });
-    push(path);
-  };
+    })
+    push(path)
+  }
 </script>

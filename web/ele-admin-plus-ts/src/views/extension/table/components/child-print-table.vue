@@ -31,9 +31,9 @@
 </template>
 
 <script lang="ts" setup>
-  import type { DictionaryData } from '@/api/system/dictionary-data/model';
+  import type { DictionaryData } from '@/api/system/dictionary-data/model'
 
   defineProps<{
-    data?: DictionaryData[];
-  }>();
+    data?: DictionaryData[]
+  }>()
 </script>

@@ -117,5 +117,5 @@
 </template>
 
 <script lang="ts" setup>
-  import { IconSkeleton } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index';
+  import { IconSkeleton } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
 </script>

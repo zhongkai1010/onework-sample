@@ -6,9 +6,7 @@
         <div class="face-smile"><i></i></div>
         <ele-text type="placeholder">正面评论</ele-text>
       </div>
-      <ele-text size="xxl" type="success" class="satisfaction-item">
-        82%
-      </ele-text>
+      <ele-text size="xxl" type="success" class="satisfaction-item"> 82% </ele-text>
     </div>
     <el-divider style="margin: 24px 0 25px 0; opacity: 0.6" />
     <div class="user-satisfaction">

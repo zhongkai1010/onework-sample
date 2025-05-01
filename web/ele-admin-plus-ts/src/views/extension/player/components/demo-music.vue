@@ -2,11 +2,7 @@
   <ele-card header="音乐播放功能演示">
     <div class="demo-music-wrap">
       <div class="music-wrapper">
-        <div
-          :key="current.vid"
-          class="music-body"
-          :style="{ backgroundImage: `url('${current.poster}')` }"
-        >
+        <div :key="current.vid" class="music-body" :style="{ backgroundImage: `url('${current.poster}')` }">
           <div ref="lrcRef" class="lrc-wrap" style="height: 100%"></div>
           <canvas ref="analyzeRef" class="analyze-wrap"></canvas>
         </div>
@@ -23,12 +19,7 @@
               <StepForwardFilled @click="playNext" />
             </el-icon>
           </div>
-          <ele-xg-player
-            :key="current.vid"
-            :config="config"
-            @player="handlePlayer"
-            style="flex: 1; overflow: visible"
-          />
+          <ele-xg-player :key="current.vid" :config="config" @player="handlePlayer" style="flex: 1; overflow: visible" />
         </div>
       </div>
     </div>
@@ -36,15 +27,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type Player from 'xgplayer';
-  import MusicPreset, { Analyze, Lyric } from 'xgplayer-music';
-  import {
-    PlayFilled,
-    PauseFilled,
-    StepForwardFilled,
-    StepBackwardFilled
-  } from '@/components/icons';
+  import { ref } from 'vue'
+  import type Player from 'xgplayer'
+  import MusicPreset, { Analyze, Lyric } from 'xgplayer-music'
+  import { PlayFilled, PauseFilled, StepForwardFilled, StepBackwardFilled } from '@/components/icons'
   /** 歌词 */
   const lyrics = [
     {
@@ -55,22 +41,20 @@
       vid: '000002',
       lrc: `[00:00.000]Westlife-My Love\n[00:08.800]An empty street\n[00:10.510]An empty house\n[00:12.200]A hole inside my heart\n[00:15.470]I am all alone\n[00:17.270]The rooms are getting smaller\n[00:22.440]I wonder how\n[00:23.850]I wonder why\n[00:25.460]I wonder where they are\n[00:28.870]The days we had\n[00:30.500]The songs we sang together\n[00:33.320]Oh yeah\n[00:35.480]And oh my love\n[00:38.710]I am holding on forever\n[00:42.200]Reaching for a love that seems so far\n[00:48.070]So i say a little prayer\n[00:51.100]And hope my dreams will take me there\n[00:54.520]Where the skies are blue to see you once again, my love\n[01:01.230]Over seas and coast to coast\n[01:04.430]To find a place i love the most\n[01:07.830]Where the fields are green to see you once again, my love\n[01:18.730]I try to read\n[01:20.210]I go to work\n[01:21.900]I am laughing with my friends\n[01:25.180]But i cannot stop to keep myself from thinking\n[01:29.710]Oh no I wonder how\n[01:33.420]I wonder why\n[01:34.960]I wonder where they are\n[01:38.470]The days we had\n[01:40.150]The songs we sang together\n[01:42.900]Oh yeah And oh my love\n[01:48.300]I am holding on forever\n[01:51.760]Reaching for a love that seems so far Mark:\n[01:58.070]So i say a little prayer\n[02:01.400]And hope my dreams will take me there\n[02:04.800]Where the skies are blue to see you once again, my love\n[02:11.400]Over seas and coast to coast\n[02:14.720]To find a place i love the most\n[02:18.080]Where the fields are green to see you once again, my love\n[02:24.040]To hold you in my arms\n[02:27.290]To promise you my love\n[02:30.610]To tell you from the heart\n[02:33.870]You are all i am thinking of\n[02:45.460]I am reaching for a love that seems so far\n[02:51.940]So i say a little prayer\n[02:54.820]And hope my dreams will take me there\n[02:58.080]Where the skies are blue to see you once again, my love\n[03:04.700]Over seas and coast to coast\n[03:07.980]To find a place i love the most\n[03:11.520]Where the fields are green to see you once again,my love\n[03:19.000]Where the fields are green to see you once again,my love\n[03:31.580]Over seas and coast to coast\n[03:34.670]To find a place i love the most\n[03:38.110]Where the fields are green to see you once again,my love\n[03:19.020]say a little prayer\n[03:22.300]dreams will take me there\n[03:24.770]Where the skies are blue to see you once again\n`
     }
-  ];
+  ]
   /** 歌曲 */
   const songs = [
     {
       vid: '000001',
       src: '//sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/music/audio.mp3',
-      poster:
-        'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/1.png'
+      poster: 'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/1.png'
     },
     {
       vid: '000002',
       src: '//sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/music/audio-en.mp3',
-      poster:
-        'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png'
+      poster: 'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png'
     }
-  ];
+  ]
 
   /** 播放器配置 */
   const config = ref({
@@ -82,36 +66,26 @@
     mediaType: 'audio',
     marginControls: true,
     controls: { initShow: true, mode: 'flex' },
-    ignores: [
-      'play',
-      'mobile',
-      'playbackrate',
-      'musicbackward',
-      'musicforward',
-      'musiccover',
-      'musicmeta',
-      'musicnext',
-      'musicprev'
-    ],
+    ignores: ['play', 'mobile', 'playbackrate', 'musicbackward', 'musicforward', 'musiccover', 'musicmeta', 'musicnext', 'musicprev'],
     presets: ['default', MusicPreset],
     videoConfig: { crossOrigin: 'anonymous' }
-  });
+  })
 
   /** 频谱容器 */
-  const analyzeRef = ref<HTMLCanvasElement | null>(null);
+  const analyzeRef = ref<HTMLCanvasElement | null>(null)
 
   /** 歌词容器 */
-  const lrcRef = ref<HTMLDivElement | null>(null);
+  const lrcRef = ref<HTMLDivElement | null>(null)
 
   /** 当前歌曲 */
-  const current = ref(songs[0]);
+  const current = ref(songs[0])
 
   /** 是否播放状态 */
-  const playing = ref(false);
+  const playing = ref(false)
 
   interface Sate {
-    player: Player | null;
-    analyze: Analyze | null;
+    player: Player | null
+    analyze: Analyze | null
   }
 
   const state: Sate = {
@@ -119,79 +93,76 @@
     player: null,
     /** 频谱实例 */
     analyze: null
-  };
+  }
 
   /** 播放器渲染完成 */
   const handlePlayer = (ins: Player) => {
-    state.player = ins;
-    state.player.crossOrigin = 'anonymous';
+    state.player = ins
+    state.player.crossOrigin = 'anonymous'
     state.player.on('pause', () => {
-      playing.value = false;
-    });
+      playing.value = false
+    })
     state.player.on('ended', () => {
-      playing.value = false;
-      playNext();
-    });
+      playing.value = false
+      playNext()
+    })
     state.player.on('play', () => {
-      playing.value = true;
+      playing.value = true
       // 初始化频谱
       if (!state.analyze && analyzeRef.value) {
         state.analyze = new Analyze(state.player, analyzeRef.value, {
           stroke: 1,
           mode: 'vertLines',
           bgColor: 'rgba(0, 0, 0, 0)'
-        });
+        })
       }
-    });
+    })
     // 初始化歌词
-    const lyric = new Lyric(
-      [lyrics.find((d) => d.vid == current.value.vid)?.lrc],
-      lrcRef.value
-    );
-    lyric.bind(state.player);
-    lyric.show();
-  };
+    const lyric = new Lyric([lyrics.find((d) => d.vid == current.value.vid)?.lrc], lrcRef.value)
+    lyric.bind(state.player)
+    lyric.show()
+  }
 
   /** 播放/暂停 */
   const playOrPause = () => {
     if (state.player) {
       if (state.player.paused) {
-        state.player.play();
+        state.player.play()
       } else {
-        state.player.pause();
+        state.player.pause()
       }
     }
-  };
+  }
 
   /** 播放下一曲 */
   const playNext = () => {
-    const index = songs.findIndex((d) => d.vid === current.value.vid);
+    const index = songs.findIndex((d) => d.vid === current.value.vid)
     if (index === songs.length - 1) {
-      current.value = songs[0];
+      current.value = songs[0]
     } else {
-      current.value = songs[index + 1];
+      current.value = songs[index + 1]
     }
     if (state.analyze) {
-      state.analyze.stop();
-      state.analyze = null;
+      state.analyze.stop()
+      state.analyze = null
     }
-    config.value = { ...config.value, url: current.value.src, autoplay: true };
-  };
+    config.value = { ...config.value, url: current.value.src, autoplay: true }
+  }
 
   /** 播放上一曲 */
   const playPrev = () => {
-    const index = songs.findIndex((d) => d.vid === current.value.vid);
+    const index = songs.findIndex((d) => d.vid === current.value.vid)
     if (index === 0) {
-      current.value = songs[songs.length - 1];
+      current.value = songs[songs.length - 1]
     } else {
-      current.value = songs[index - 1];
+      current.value = songs[index - 1]
     }
     if (state.analyze) {
-      state.analyze.stop();
-      state.analyze = null;
+      state.analyze.stop()
+      state.analyze = null
     }
-    config.value = { ...config.value, url: current.value.src, autoplay: true };
-  };
+    config.value = { ...config.value, url: current.value.src, autoplay: true }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -210,22 +181,14 @@
       top: 0;
       left: 0;
       width: 100%;
-      background-image: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.6),
-        rgba(0, 0, 0, 0)
-      );
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
       z-index: 2;
     }
 
     &::after {
       top: auto;
       bottom: 0;
-      background-image: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0),
-        rgba(0, 0, 0, 0.6)
-      );
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
     }
   }
 

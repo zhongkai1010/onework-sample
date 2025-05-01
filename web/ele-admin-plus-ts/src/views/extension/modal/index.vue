@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts" setup>
-  import DemoModal from './components/demo-modal.vue';
-  import DemoMultiple from './components/demo-multiple.vue';
-  import DemoDrawer from './components/demo-drawer.vue';
-  import DemoMessageBox from './components/demo-message-box.vue';
-  import DemoPopper from './components/demo-popper.vue';
+  import DemoModal from './components/demo-modal.vue'
+  import DemoMultiple from './components/demo-multiple.vue'
+  import DemoDrawer from './components/demo-drawer.vue'
+  import DemoMessageBox from './components/demo-message-box.vue'
+  import DemoPopper from './components/demo-popper.vue'
 
-  defineOptions({ name: 'ExtensionDialog' });
+  defineOptions({ name: 'ExtensionDialog' })
 </script>

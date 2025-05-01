@@ -20,9 +20,7 @@
           </el-button>
         </template>
       </ele-dropdown>
-      <el-button type="primary" class="ele-btn-icon" @click="openMapPicker">
-        打开位置选择
-      </el-button>
+      <el-button type="primary" class="ele-btn-icon" @click="openMapPicker"> 打开位置选择 </el-button>
     </div>
     <div style="margin-top: 12px">经 纬 度 : {{ result.lngAndLat }}</div>
     <div style="margin-top: 12px">选中位置: {{ result.location }}</div>
@@ -50,46 +48,43 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
-  import { ArrowDown } from '@/components/icons';
-  import type {
-    PoiItem,
-    SelectMode
-  } from 'ele-admin-plus/es/ele-map-picker/types';
-  import { useThemeStore } from '@/store/modules/theme';
-  import { storeToRefs } from 'pinia';
+  import { ref, reactive } from 'vue'
+  import { ArrowDown } from '@/components/icons'
+  import type { PoiItem, SelectMode } from 'ele-admin-plus/es/ele-map-picker/types'
+  import { useThemeStore } from '@/store/modules/theme'
+  import { storeToRefs } from 'pinia'
 
-  const themeStore = useThemeStore();
-  const { darkMode } = storeToRefs(themeStore);
+  const themeStore = useThemeStore()
+  const { darkMode } = storeToRefs(themeStore)
 
   /** 是否显示地图选择弹窗 */
-  const visible = ref(false);
+  const visible = ref(false)
 
   /** 地点检索类型 */
-  const mode = ref<SelectMode>('lnglat');
+  const mode = ref<SelectMode>('lnglat')
 
   /** 回显选中的位置 */
-  const selectedData = ref<PoiItem>();
+  const selectedData = ref<PoiItem>()
 
   /** 选择结果 */
   const result = reactive({
     location: '',
     address: '',
     lngAndLat: ''
-  });
+  })
 
   /** 打开位置选择 */
   const openMapPicker = () => {
-    visible.value = true;
-  };
+    visible.value = true
+  }
 
   /** 地图选择后回调 */
   const handleChoose = (location: PoiItem) => {
-    console.log(JSON.parse(JSON.stringify(location)));
-    result.location = `${location.city?.province}/${location.city?.city}/${location.city?.district}`;
-    result.address = `${location.name} ${location.address}`;
-    result.lngAndLat = `${location.lng},${location.lat}`;
-    visible.value = false;
-    selectedData.value = location;
-  };
+    console.log(JSON.parse(JSON.stringify(location)))
+    result.location = `${location.city?.province}/${location.city?.city}/${location.city?.district}`
+    result.address = `${location.name} ${location.address}`
+    result.lngAndLat = `${location.lng},${location.lat}`
+    visible.value = false
+    selectedData.value = location
+  }
 </script>

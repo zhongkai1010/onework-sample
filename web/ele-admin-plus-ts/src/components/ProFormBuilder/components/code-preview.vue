@@ -16,15 +16,7 @@
     <div class="form-builder-code-view">
       <div class="form-builder-code-header">
         <div class="form-builder-code-tabs">
-          <div
-            v-for="item in tabs"
-            :key="item.value"
-            :class="[
-              'form-builder-code-tab',
-              { 'is-active': active === item.value }
-            ]"
-            @click="handleTabClick(item.value)"
-          >
+          <div v-for="item in tabs" :key="item.value" :class="['form-builder-code-tab', { 'is-active': active === item.value }]" @click="handleTabClick(item.value)">
             {{ item.label }}
           </div>
         </div>
@@ -39,14 +31,7 @@
               hideAfter: 0
             }"
           />
-          <EleTooltip
-            content="下载"
-            placement="bottom"
-            bg="#383838"
-            arrowBg="#383838"
-            :hideAfter="0"
-            :offset="6"
-          >
+          <EleTooltip content="下载" placement="bottom" bg="#383838" arrowBg="#383838" :hideAfter="0" :offset="6">
             <ElIcon class="form-builder-code-icon-tool" @click="handleDownload">
               <DownloadOutlined />
             </ElIcon>
@@ -64,92 +49,86 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import hljs from 'highlight.js';
-  import 'highlight.js/styles/github-dark.css';
-  import xml from 'highlight.js/lib/languages/xml';
-  import type {
-    TemplateFormConfig,
-    ComponentGroup
-  } from 'ele-admin-plus/es/ele-pro-form-builder/types';
-  import {
-    generateProFormCode,
-    generateElFormCode
-  } from 'ele-admin-plus/es/ele-pro-form-builder/components/code-generator';
-  import { DownloadOutlined } from '@/components/icons';
-  import { download } from '@/utils/common';
-  import { useFormData } from '@/utils/use-form-data';
+  import { ref } from 'vue'
+  import hljs from 'highlight.js'
+  import 'highlight.js/styles/github-dark.css'
+  import xml from 'highlight.js/lib/languages/xml'
+  import type { TemplateFormConfig, ComponentGroup } from 'ele-admin-plus/es/ele-pro-form-builder/types'
+  import { generateProFormCode, generateElFormCode } from 'ele-admin-plus/es/ele-pro-form-builder/components/code-generator'
+  import { DownloadOutlined } from '@/components/icons'
+  import { download } from '@/utils/common'
+  import { useFormData } from '@/utils/use-form-data'
 
-  hljs.registerLanguage('vue', xml);
+  hljs.registerLanguage('vue', xml)
 
   const props = defineProps<{
     /** 配置数据 */
-    config?: TemplateFormConfig;
+    config?: TemplateFormConfig
     /** 组件库数据 */
-    componentData: ComponentGroup[];
-  }>();
+    componentData: ComponentGroup[]
+  }>()
 
   /** 弹窗是否打开 */
-  const visible = defineModel({ type: Boolean });
+  const visible = defineModel({ type: Boolean })
 
   /** 数据 */
   const [data, resetData, assignData] = useFormData({
     code: '',
     html: '',
     lines: [1]
-  });
+  })
 
   /** 代码生成的数据 */
-  const generateData = [{}, {}];
+  const generateData = [{}, {}]
 
   /** 选项卡 */
   const tabs = ref([
     { label: 'ProForm', value: 0 },
     { label: 'ElForm', value: 1 }
-  ]);
+  ])
 
   /** 选项卡选中 */
-  const active = ref(0);
+  const active = ref(0)
 
   /** 选项卡点击事件 */
   const handleTabClick = (value: number, force?: boolean) => {
     if (!force && active.value === value) {
-      return;
+      return
     }
-    active.value = value;
-    assignData(generateData[active.value]);
-  };
+    active.value = value
+    assignData(generateData[active.value])
+  }
 
   /** 下载 */
   const handleDownload = () => {
-    download(data.code, 'index.vue', 'text/plain;charset=utf-8');
-  };
+    download(data.code, 'index.vue', 'text/plain;charset=utf-8')
+  }
 
   /** 弹窗关闭事件 */
   const handleClosed = () => {
-    generateData[0] = {};
-    generateData[1] = {};
-    resetData();
-  };
+    generateData[0] = {}
+    generateData[1] = {}
+    resetData()
+  }
 
   /** 弹窗打开事件 */
   const handleOpen = () => {
-    const proCode = generateProFormCode(props.config);
-    const proHtml = hljs.highlight(proCode, { language: 'vue' }).value;
+    const proCode = generateProFormCode(props.config)
+    const proHtml = hljs.highlight(proCode, { language: 'vue' }).value
     generateData[0] = {
       code: proCode,
       html: proHtml,
       lines: proHtml.split('\n').map((_, i) => i + 1)
-    };
-    const elCode = generateElFormCode(props.config, props.componentData);
-    const elHtml = hljs.highlight(elCode, { language: 'vue' }).value;
+    }
+    const elCode = generateElFormCode(props.config, props.componentData)
+    const elHtml = hljs.highlight(elCode, { language: 'vue' }).value
     generateData[1] = {
       code: elCode,
       html: elHtml,
       lines: elHtml.split('\n').map((_, i) => i + 1)
-    };
-    handleTabClick(active.value, true);
-  };
+    }
+    handleTabClick(active.value, true)
+  }
 </script>
 
 <style lang="scss" scoped>

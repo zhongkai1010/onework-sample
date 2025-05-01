@@ -1,8 +1,5 @@
 <template>
-  <IconSkeleton
-    size="sm"
-    :style="{ width: '48px', margin: '2px auto 0 auto' }"
-  />
+  <IconSkeleton size="sm" :style="{ width: '48px', margin: '2px auto 0 auto' }" />
   <div :style="{ display: 'flex', gap: '18px', marginTop: '12px' }">
     <div :style="{ flex: 1 }">
       <IconSkeleton size="sm" />
@@ -51,5 +48,5 @@
 </template>
 
 <script lang="ts" setup>
-  import { IconSkeleton } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index';
+  import { IconSkeleton } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
 </script>

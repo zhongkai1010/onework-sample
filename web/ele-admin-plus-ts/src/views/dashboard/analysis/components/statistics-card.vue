@@ -30,16 +30,10 @@
       <ele-card class="statistics-card">
         <ele-text type="placeholder" class="statistics-header">
           <div class="statistics-header-text">访问量</div>
-          <el-tag type="danger" size="small" :disable-transitions="true">
-            日
-          </el-tag>
+          <el-tag type="danger" size="small" :disable-transitions="true"> 日 </el-tag>
         </ele-text>
         <ele-text size="xxl" class="statistics-value">8,846</ele-text>
-        <v-chart
-          ref="visitChartRef"
-          :option="visitChartOption"
-          style="height: 36px"
-        />
+        <v-chart ref="visitChartRef" :option="visitChartOption" style="height: 36px" />
         <el-divider />
         <div>日访问量 1,234</div>
       </ele-card>
@@ -51,11 +45,7 @@
           <el-tag size="small" :disable-transitions="true">月</el-tag>
         </ele-text>
         <ele-text size="xxl" class="statistics-value">6,560</ele-text>
-        <v-chart
-          ref="payNumChartRef"
-          :option="payNumChartOption"
-          style="height: 36px"
-        />
+        <v-chart ref="payNumChartRef" :option="payNumChartOption" style="height: 36px" />
         <el-divider />
         <div>转化率 60%</div>
       </ele-card>
@@ -64,19 +54,11 @@
       <ele-card class="statistics-card">
         <ele-text type="placeholder" class="statistics-header">
           <div class="statistics-header-text">活动运营效果</div>
-          <el-tag type="success" size="small" :disable-transitions="true">
-            周
-          </el-tag>
+          <el-tag type="success" size="small" :disable-transitions="true"> 周 </el-tag>
         </ele-text>
         <ele-text size="xxl" class="statistics-value">78%</ele-text>
         <div class="statistics-body">
-          <el-progress
-            color="#13c2c2"
-            :percentage="78"
-            :show-text="false"
-            :stroke-width="8"
-            style="width: 100%"
-          />
+          <el-progress color="#13c2c2" :percentage="78" :show-text="false" :stroke-width="8" style="width: 100%" />
         </div>
         <el-divider />
         <div class="statistics-footer">
@@ -95,37 +77,33 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import { use } from 'echarts/core';
-  import type { EChartsCoreOption } from 'echarts/core';
-  import { CanvasRenderer } from 'echarts/renderers';
-  import { LineChart, BarChart } from 'echarts/charts';
-  import { GridComponent, TooltipComponent } from 'echarts/components';
-  import VChart from 'vue-echarts';
-  import {
-    QuestionCircleOutlined,
-    CaretUpFilled,
-    CaretDownFilled
-  } from '@/components/icons';
-  import { getPayNumList } from '@/api/dashboard/analysis';
-  import { useEcharts } from '@/utils/use-echarts';
+  import { ref, reactive } from 'vue'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import { use } from 'echarts/core'
+  import type { EChartsCoreOption } from 'echarts/core'
+  import { CanvasRenderer } from 'echarts/renderers'
+  import { LineChart, BarChart } from 'echarts/charts'
+  import { GridComponent, TooltipComponent } from 'echarts/components'
+  import VChart from 'vue-echarts'
+  import { QuestionCircleOutlined, CaretUpFilled, CaretDownFilled } from '@/components/icons'
+  import { getPayNumList } from '@/api/dashboard/analysis'
+  import { useEcharts } from '@/utils/use-echarts'
 
-  use([CanvasRenderer, LineChart, BarChart, GridComponent, TooltipComponent]);
+  use([CanvasRenderer, LineChart, BarChart, GridComponent, TooltipComponent])
 
   /** 访问量图表 */
-  const visitChartRef = ref<InstanceType<typeof VChart> | null>(null);
+  const visitChartRef = ref<InstanceType<typeof VChart> | null>(null)
 
   /** 支付笔数图表 */
-  const payNumChartRef = ref<InstanceType<typeof VChart> | null>(null);
+  const payNumChartRef = ref<InstanceType<typeof VChart> | null>(null)
 
-  useEcharts([visitChartRef, payNumChartRef]);
+  useEcharts([visitChartRef, payNumChartRef])
 
   /** 访问量折线图配置 */
-  const visitChartOption: EChartsCoreOption = reactive({});
+  const visitChartOption: EChartsCoreOption = reactive({})
 
   /** 支付笔数柱状图配置 */
-  const payNumChartOption: EChartsCoreOption = reactive({});
+  const payNumChartOption: EChartsCoreOption = reactive({})
 
   /** 获取支付笔数数据 */
   const getPayNumData = () => {
@@ -177,7 +155,7 @@
               data: data.map((d) => d.value)
             }
           ]
-        });
+        })
 
         Object.assign(payNumChartOption, {
           tooltip: {
@@ -218,14 +196,14 @@
               data: data.map((d) => d.value)
             }
           ]
-        });
+        })
       })
       .catch((e) => {
-        EleMessage.error(e.message);
-      });
-  };
+        EleMessage.error(e.message)
+      })
+  }
 
-  getPayNumData();
+  getPayNumData()
 </script>
 
 <style lang="scss" scoped>

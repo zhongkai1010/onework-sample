@@ -3,23 +3,13 @@
     <ele-card header="基础用法">
       <el-form label-width="80px" style="max-width: 320px" @submit.prevent="">
         <el-form-item label="纸张方向">
-          <el-select
-            clearable
-            class="ele-fluid"
-            placeholder="不设置"
-            v-model="option.direction"
-          >
+          <el-select clearable class="ele-fluid" placeholder="不设置" v-model="option.direction">
             <el-option value="landscape" label="横向" />
             <el-option value="portrait" label="纵向" />
           </el-select>
         </el-form-item>
         <el-form-item label="纸张旋转">
-          <el-select
-            clearable
-            class="ele-fluid"
-            placeholder="不旋转"
-            v-model="option.orientation"
-          >
+          <el-select clearable class="ele-fluid" placeholder="不旋转" v-model="option.orientation">
             <el-option value="rotate-left" label="向左旋转" />
             <el-option value="rotate-right" label="向右旋转" />
           </el-select>
@@ -48,16 +38,7 @@
           </el-button>
         </el-form-item>
       </el-form>
-      <ele-printer
-        v-model="printing"
-        :direction="option.direction"
-        :orientation="option.orientation"
-        :margin="option.margin"
-        :title="option.title"
-        :target="option.target"
-        :static="option.static"
-        :body-style="{ overflow: 'hidden' }"
-      >
+      <ele-printer v-model="printing" :direction="option.direction" :orientation="option.orientation" :margin="option.margin" :title="option.title" :target="option.target" :static="option.static" :body-style="{ overflow: 'hidden' }">
         <div style="overflow: auto">
           <ele-table has-footer style="min-width: 600px" size="large">
             <colgroup>
@@ -85,30 +66,15 @@
                 <td style="text-align: center">{{ index + 1 }}</td>
                 <td>{{ row.projectName }}</td>
                 <td>
-                  <el-input-number
-                    :min="0"
-                    :max="999"
-                    v-model="row.money"
-                    placeholder="请输入"
-                    controls-position="right"
-                    class="ele-fluid"
-                  />
+                  <el-input-number :min="0" :max="999" v-model="row.money" placeholder="请输入" controls-position="right" class="ele-fluid" />
                 </td>
                 <td>{{ row.startDate }}</td>
                 <td>{{ row.endDate }}</td>
                 <td>
-                  <ele-text v-if="row.status === 0" type="success">
-                    进行中
-                  </ele-text>
-                  <ele-text v-else-if="row.status === 1" type="danger">
-                    已延期
-                  </ele-text>
-                  <ele-text v-else-if="row.status === 2" type="warning">
-                    未开始
-                  </ele-text>
-                  <ele-text v-else-if="row.status === 3" type="info">
-                    已结束
-                  </ele-text>
+                  <ele-text v-if="row.status === 0" type="success"> 进行中 </ele-text>
+                  <ele-text v-else-if="row.status === 1" type="danger"> 已延期 </ele-text>
+                  <ele-text v-else-if="row.status === 2" type="warning"> 未开始 </ele-text>
+                  <ele-text v-else-if="row.status === 3" type="info"> 已结束 </ele-text>
                 </td>
                 <td>
                   <el-progress :percentage="row.progress" />
@@ -186,43 +152,34 @@
           <el-button type="primary" @click="handlePrint2">打印</el-button>
         </el-form-item>
       </el-form>
-      <print-contract
-        ref="contractRef"
-        :data="contractData"
-        :is-static="option2.static"
-        :target="option2.target"
-      />
+      <print-contract ref="contractRef" :data="contractData" :is-static="option2.static" :target="option2.target" />
     </ele-card>
     <print-pdf />
   </ele-page>
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive, computed, nextTick } from 'vue';
-  import type {
-    PrintDirection,
-    PrintOrientation,
-    PrintTarget
-  } from 'ele-admin-plus/es/ele-printer/types';
-  import type { Project, Contract } from '@/api/example/model';
-  import PrintCheckbox from './components/print-checkbox.vue';
-  import PrintContract from './components/print-contract.vue';
-  import PrintPdf from './components/print-pdf.vue';
-  import dayjs from 'dayjs';
+  import { ref, reactive, computed, nextTick } from 'vue'
+  import type { PrintDirection, PrintOrientation, PrintTarget } from 'ele-admin-plus/es/ele-printer/types'
+  import type { Project, Contract } from '@/api/example/model'
+  import PrintCheckbox from './components/print-checkbox.vue'
+  import PrintContract from './components/print-contract.vue'
+  import PrintPdf from './components/print-pdf.vue'
+  import dayjs from 'dayjs'
 
-  defineOptions({ name: 'ExtensionPrinter' });
+  defineOptions({ name: 'ExtensionPrinter' })
 
   interface Option {
-    direction?: PrintDirection;
-    orientation?: PrintOrientation;
-    margin: string;
-    title: string;
-    target: PrintTarget;
-    static: boolean;
+    direction?: PrintDirection
+    orientation?: PrintOrientation
+    margin: string
+    title: string
+    target: PrintTarget
+    static: boolean
   }
 
   /** 是否打印 */
-  const printing = ref(false);
+  const printing = ref(false)
 
   /** 打印参数 */
   const option = reactive<Option>({
@@ -232,29 +189,29 @@
     title: '',
     target: '_iframe',
     static: false
-  });
+  })
 
   /** 打印 */
   const handlePrint = () => {
-    printing.value = true;
-  };
+    printing.value = true
+  }
 
   /** 是否完成 */
-  const status = ref('未完成');
+  const status = ref('未完成')
 
   /** 城市 */
-  const citys = ref(['武汉', '北京']);
+  const citys = ref(['武汉', '北京'])
 
   /** 项目进度数据 */
-  const projectList = ref<Project[]>([]);
+  const projectList = ref<Project[]>([])
 
   /** 金额合计 */
   const sumMoney = computed(() => {
     return projectList.value.reduce((sum, d) => {
-      const money = d.money ? Number(d.money) : 0;
-      return sum + (isNaN(money) ? 0 : money);
-    }, 0);
-  });
+      const money = d.money ? Number(d.money) : 0
+      return sum + (isNaN(money) ? 0 : money)
+    }, 0)
+  })
 
   /** 查询项目进度 */
   const queryProjectList = () => {
@@ -313,51 +270,46 @@
         progress: 100,
         money: 6
       }
-    ];
-  };
+    ]
+  }
 
-  queryProjectList();
+  queryProjectList()
 
   /** 表单数据 */
   const form = reactive({
     partyA: 'XX房屋租赁有限公司',
     partyB: '张三',
     address: 'XX省XX市XX区XX街道XX小区18栋一单元1104室'
-  });
+  })
 
   /** 打印参数 */
   const option2 = reactive<Pick<Option, 'target' | 'static'>>({
     target: '_iframe',
     static: false
-  });
+  })
 
   /** 获取合同数据 */
   const getContractData = () => {
     return {
       ...form,
       date: dayjs().format('YYYY-MM-DD'),
-      projects: [
-        ...projectList.value,
-        ...projectList.value,
-        ...projectList.value,
-        ...projectList.value
-      ].map((d, i) => {
-        return { ...d, id: d.id + '_' + i, projectName: d.projectName + i };
+      projects: [...projectList.value, ...projectList.value, ...projectList.value, ...projectList.value].map((d, i) => {
+        return { ...d, id: d.id + '_' + i, projectName: d.projectName + i }
       })
-    };
-  };
+    }
+  }
 
   /** 合同组件 */
-  const contractRef = ref<InstanceType<typeof PrintContract> | null>(null);
+  const contractRef = ref<InstanceType<typeof PrintContract> | null>(null)
 
   /** 合同数据 */
-  const contractData = ref<Contract | null>(getContractData());
+  const contractData = ref<Contract | null>(getContractData())
 
   /** 打印合同 */
   const handlePrint2 = () => {
-    contractData.value = getContractData();
+    contractData.value = getContractData()
     nextTick(() => {
-      contractRef.value && contractRef.value.print();
-    });
-  };
+      contractRef.value && contractRef.value.print()
+    })
+  }
 </script>

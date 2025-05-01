@@ -14,29 +14,9 @@
     cache-key="systemUserTable"
   >
     <template #toolbar>
-      <el-button
-        type="primary"
-        class="ele-btn-icon"
-        :icon="PlusOutlined"
-        @click="openEdit()"
-      >
-        新建
-      </el-button>
-      <el-button
-        type="danger"
-        class="ele-btn-icon"
-        :icon="DeleteOutlined"
-        @click="remove()"
-      >
-        删除
-      </el-button>
-      <el-button
-        class="ele-btn-icon"
-        :icon="UploadOutlined"
-        @click="openImport"
-      >
-        导入
-      </el-button>
+      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()"> 新建 </el-button>
+      <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove()"> 删除 </el-button>
+      <el-button class="ele-btn-icon" :icon="UploadOutlined" @click="openImport"> 导入 </el-button>
     </template>
     <template #nickname="{ row }">
       <el-link type="primary" :underline="false" @click="openDetail(row)">
@@ -44,26 +24,15 @@
       </el-link>
     </template>
     <template #roles="{ row }">
-      <el-tag
-        v-for="item in row.roles"
-        :key="item.roleId"
-        size="small"
-        :disable-transitions="true"
-      >
+      <el-tag v-for="item in row.roles" :key="item.roleId" size="small" :disable-transitions="true">
         {{ item.roleName }}
       </el-tag>
     </template>
     <template #status="{ row }">
-      <el-switch
-        size="small"
-        :model-value="row.status === 0"
-        @change="(checked: boolean) => editStatus(checked, row)"
-      />
+      <el-switch size="small" :model-value="row.status === 0" @change="(checked: boolean) => editStatus(checked, row)" />
     </template>
     <template #action="{ row }">
-      <el-link type="primary" :underline="false" @click="openEdit(row)">
-        修改
-      </el-link>
+      <el-link type="primary" :underline="false" @click="openEdit(row)"> 修改 </el-link>
       <el-divider direction="vertical" />
       <ele-dropdown
         :items="[
@@ -82,57 +51,38 @@
       </ele-dropdown>
     </template>
   </ele-pro-table>
-  <user-edit
-    :data="current"
-    v-model="showEdit"
-    :organization-id="organizationId"
-    @done="reload"
-  />
+  <user-edit :data="current" v-model="showEdit" :organization-id="organizationId" @done="reload" />
   <user-import v-model="showImport" @done="reload" />
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { ElMessageBox } from 'element-plus/es';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type { EleProTable } from 'ele-admin-plus';
-  import type {
-    DatasourceFunction,
-    Columns
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import {
-    PlusOutlined,
-    DeleteOutlined,
-    ArrowDown,
-    UploadOutlined
-  } from '@/components/icons';
-  import { usePageTab } from '@/utils/use-page-tab';
-  import UserSearch from './user-search.vue';
-  import UserEdit from './user-edit.vue';
-  import UserImport from './user-import.vue';
-  import {
-    pageUsers,
-    removeUsers,
-    updateUserStatus,
-    updateUserPassword,
-    listUsers
-  } from '@/api/system/user';
-  import type { User, UserParam } from '@/api/system/user/model';
+  import { ref, watch } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { ElMessageBox } from 'element-plus/es'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import { PlusOutlined, DeleteOutlined, ArrowDown, UploadOutlined } from '@/components/icons'
+  import { usePageTab } from '@/utils/use-page-tab'
+  import UserSearch from './user-search.vue'
+  import UserEdit from './user-edit.vue'
+  import UserImport from './user-import.vue'
+  import { pageUsers, removeUsers, updateUserStatus, updateUserPassword, listUsers } from '@/api/system/user'
+  import type { User, UserParam } from '@/api/system/user/model'
 
   const props = defineProps<{
     /** 机构 id */
-    organizationId: number;
-  }>();
+    organizationId: number
+  }>()
 
-  const { push } = useRouter();
-  const { addPageTab } = usePageTab();
+  const { push } = useRouter()
+  const { addPageTab } = usePageTab()
 
   /** 搜索栏实例 */
-  const searchRef = ref<InstanceType<typeof UserSearch> | null>(null);
+  const searchRef = ref<InstanceType<typeof UserSearch> | null>(null)
 
   /** 表格实例 */
-  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null);
+  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null)
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -203,19 +153,19 @@
       hideInPrint: true,
       hideInExport: true
     }
-  ]);
+  ])
 
   /** 表格选中数据 */
-  const selections = ref<User[]>([]);
+  const selections = ref<User[]>([])
 
   /** 当前编辑数据 */
-  const current = ref<User | null>(null);
+  const current = ref<User | null>(null)
 
   /** 是否显示编辑弹窗 */
-  const showEdit = ref(false);
+  const showEdit = ref(false)
 
   /** 是否显示用户导入弹窗 */
-  const showImport = ref(false);
+  const showImport = ref(false)
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
@@ -224,69 +174,65 @@
       ...orders,
       ...pages,
       organizationId: props.organizationId
-    });
-  };
+    })
+  }
 
   /** 搜索 */
   const reload = (where?: UserParam) => {
-    selections.value = [];
-    tableRef.value?.reload?.({ page: 1, where });
-  };
+    selections.value = []
+    tableRef.value?.reload?.({ page: 1, where })
+  }
 
   /** 打开编辑弹窗 */
   const openEdit = (row?: User) => {
-    current.value = row ?? null;
-    showEdit.value = true;
-  };
+    current.value = row ?? null
+    showEdit.value = true
+  }
 
   /** 打开编辑弹窗 */
   const openImport = () => {
-    showImport.value = true;
-  };
+    showImport.value = true
+  }
 
   /** 删除 */
   const remove = (row?: User) => {
-    const rows = row == null ? selections.value : [row];
+    const rows = row == null ? selections.value : [row]
     if (!rows.length) {
-      EleMessage.error('请至少选择一条数据');
-      return;
+      EleMessage.error('请至少选择一条数据')
+      return
     }
-    ElMessageBox.confirm(
-      '确定要删除“' + rows.map((d) => d.nickname).join(', ') + '”吗?',
-      '系统提示',
-      { type: 'warning', draggable: true }
-    )
+    ElMessageBox.confirm('确定要删除“' + rows.map((d) => d.nickname).join(', ') + '”吗?', '系统提示', { type: 'warning', draggable: true })
       .then(() => {
         const loading = EleMessage.loading({
           message: '请求中..',
           plain: true
-        });
+        })
         removeUsers(rows.map((d) => d.userId))
           .then((msg) => {
-            loading.close();
-            EleMessage.success(msg);
-            reload();
+            loading.close()
+            EleMessage.success(msg)
+            reload()
           })
           .catch((e) => {
-            loading.close();
-            EleMessage.error(e.message);
-          });
+            loading.close()
+            EleMessage.error(e.message)
+          })
       })
-      .catch(() => {});
-  };
+      .catch(() => {})
+  }
 
   /** 修改用户状态 */
   const editStatus = (checked: boolean, row: User) => {
-    const status = checked ? 0 : 1;
+    const status = checked ? 0 : 1
     updateUserStatus(row.userId, status)
       .then((msg) => {
-        row.status = status;
-        EleMessage.success(msg);
+        row.status = status
+        EleMessage.success(msg)
       })
       .catch((e) => {
-        EleMessage.error(e.message);
-      });
-  };
+        EleMessage.error(e.message)
+      })
+  }
 
   /** 下拉菜单点击事件 */
   const dropClick = (key: any, row: User) => {
@@ -300,31 +246,31 @@
           const loading = EleMessage.loading({
             message: '请求中..',
             plain: true
-          });
+          })
           updateUserPassword(row.userId, value)
             .then((msg) => {
-              loading.close();
-              EleMessage.success(msg);
+              loading.close()
+              EleMessage.success(msg)
             })
             .catch((e) => {
-              loading.close();
-              EleMessage.error(e.message);
-            });
+              loading.close()
+              EleMessage.error(e.message)
+            })
         })
-        .catch(() => {});
+        .catch(() => {})
     } else if (key === 'delete') {
-      remove(row);
+      remove(row)
     }
-  };
+  }
 
   // 监听机构 id 变化
   watch(
     () => props.organizationId,
     () => {
-      searchRef.value?.resetFields?.();
-      reload({});
+      searchRef.value?.resetFields?.()
+      reload({})
     }
-  );
+  )
 
   /** 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = ({ where, orders }) => {
@@ -332,18 +278,18 @@
       ...where,
       ...orders,
       organizationId: props.organizationId
-    });
-  };
+    })
+  }
 
   /** 查看详情 */
   const openDetail = (row: User) => {
-    const path = `/system/user/details/${row.userId}`;
+    const path = `/system/user/details/${row.userId}`
     addPageTab({
       title: `用户详情[${row.nickname}]`,
       key: path,
       closable: true,
       meta: { icon: 'UserOutlined' }
-    });
-    push(path);
-  };
+    })
+    push(path)
+  }
 </script>

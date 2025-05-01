@@ -1,27 +1,11 @@
 <template>
   <ele-card header="导出 Excel" :body-style="{ padding: '18px 20px' }">
-    <ele-pro-table
-      row-key="key"
-      :columns="columns"
-      :datasource="data"
-      :show-overflow-tooltip="true"
-      :pagination="false"
-      v-model:selections="selections"
-      :tools="['export', 'print', 'size', 'columns', 'maximized']"
-      :toolbar="{ theme: 'default' }"
-      :border="true"
-    >
+    <ele-pro-table row-key="key" :columns="columns" :datasource="data" :show-overflow-tooltip="true" :pagination="false" v-model:selections="selections" :tools="['export', 'print', 'size', 'columns', 'maximized']" :toolbar="{ theme: 'default' }" :border="true">
       <template #toolbar>
         <el-space :size="12" wrap>
-          <el-button type="primary" class="ele-btn-icon" @click="exportBas">
-            导出
-          </el-button>
-          <el-button type="primary" class="ele-btn-icon" @click="exportAdv">
-            导出带表头合并
-          </el-button>
-          <el-button type="primary" class="ele-btn-icon" @click="exportSel">
-            导出选中
-          </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="exportBas"> 导出 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="exportAdv"> 导出带表头合并 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="exportSel"> 导出选中 </el-button>
         </el-space>
       </template>
     </ele-pro-table>
@@ -29,21 +13,21 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type { Columns } from 'ele-admin-plus/es/ele-pro-table/types';
-  import ExcelJS from 'exceljs';
-  import { download } from '@/utils/common';
+  import { ref } from 'vue'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import ExcelJS from 'exceljs'
+  import { download } from '@/utils/common'
 
   interface User {
-    key: number;
-    username: string;
-    amount: number;
-    province: string;
-    city: string;
-    zone: string;
-    street: string;
-    address: string;
+    key: number
+    username: string
+    amount: number
+    province: string
+    city: string
+    zone: string
+    street: string
+    address: string
   }
 
   /** 表格数据 */
@@ -108,7 +92,7 @@
       street: '汤口镇',
       address: '温泉村21号'
     }
-  ]);
+  ])
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -173,147 +157,123 @@
       align: 'center',
       minWidth: 80
     }
-  ]);
+  ])
 
   /** 选中数据 */
-  const selections = ref<User[]>([]);
+  const selections = ref<User[]>([])
 
   /** 导出excel */
   const exportBas = () => {
-    const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet('Sheet1');
-    sheet.addRow(['用户名', '省', '市', '区', '街道', '详细地址', '金额']);
+    const workbook = new ExcelJS.Workbook()
+    const sheet = workbook.addWorksheet('Sheet1')
+    sheet.addRow(['用户名', '省', '市', '区', '街道', '详细地址', '金额'])
     data.value.forEach((d) => {
-      sheet.addRow([
-        d.username,
-        d.province,
-        d.city,
-        d.zone,
-        d.street,
-        d.address,
-        d.amount
-      ]);
-    });
+      sheet.addRow([d.username, d.province, d.city, d.zone, d.street, d.address, d.amount])
+    })
     // 设置列宽
-    [16, 16, 16, 16, 20, 30, 12].forEach((width, index) => {
-      sheet.getColumn(index + 1).width = width;
-    });
+    ;[16, 16, 16, 16, 20, 30, 12].forEach((width, index) => {
+      sheet.getColumn(index + 1).width = width
+    })
     // 设置样式
     sheet.eachRow({ includeEmpty: true }, (row, rowIndex) => {
-      row.height = 20;
+      row.height = 20
       row.eachCell({ includeEmpty: true }, (cell) => {
         cell.border = {
           top: { style: 'thin' },
           left: { style: 'thin' },
           bottom: { style: 'thin' },
           right: { style: 'thin' }
-        };
+        }
         cell.alignment = {
           vertical: 'middle',
           horizontal: 'center'
-        };
-        cell.font = { size: 12, bold: rowIndex === 1 };
-      });
-    });
+        }
+        cell.font = { size: 12, bold: rowIndex === 1 }
+      })
+    })
     // 下载文件
     workbook.xlsx.writeBuffer().then((data) => {
-      download(data, '用户数据.xlsx');
-    });
-  };
+      download(data, '用户数据.xlsx')
+    })
+  }
 
   /** 导出带单元格合并 */
   const exportAdv = () => {
-    const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet('Sheet1');
-    sheet.addRow(['用户名', '地址', null, null, null, null, '金额']);
-    sheet.addRow([null, '省', '市', '区', '街道', '详细地址', null]);
+    const workbook = new ExcelJS.Workbook()
+    const sheet = workbook.addWorksheet('Sheet1')
+    sheet.addRow(['用户名', '地址', null, null, null, null, '金额'])
+    sheet.addRow([null, '省', '市', '区', '街道', '详细地址', null])
     data.value.forEach((d) => {
-      sheet.addRow([
-        d.username,
-        d.province,
-        d.city,
-        d.zone,
-        d.street,
-        d.address,
-        d.amount
-      ]);
-    });
+      sheet.addRow([d.username, d.province, d.city, d.zone, d.street, d.address, d.amount])
+    })
     // 设置列宽
-    [16, 16, 16, 16, 20, 30, 12].forEach((width, index) => {
-      sheet.getColumn(index + 1).width = width;
-    });
+    ;[16, 16, 16, 16, 20, 30, 12].forEach((width, index) => {
+      sheet.getColumn(index + 1).width = width
+    })
     // 设置样式
     sheet.eachRow({ includeEmpty: true }, (row, rowIndex) => {
-      row.height = 20;
+      row.height = 20
       row.eachCell({ includeEmpty: true }, (cell) => {
         cell.border = {
           top: { style: 'thin' },
           left: { style: 'thin' },
           bottom: { style: 'thin' },
           right: { style: 'thin' }
-        };
+        }
         cell.alignment = {
           vertical: 'middle',
           horizontal: 'center'
-        };
-        cell.font = { size: 12, bold: rowIndex < 3 };
-      });
-    });
+        }
+        cell.font = { size: 12, bold: rowIndex < 3 }
+      })
+    })
     // 合并单元格
-    sheet.mergeCells(1, 2, 1, 6);
-    sheet.mergeCells(1, 1, 2, 1);
-    sheet.mergeCells(1, 7, 2, 7);
+    sheet.mergeCells(1, 2, 1, 6)
+    sheet.mergeCells(1, 1, 2, 1)
+    sheet.mergeCells(1, 7, 2, 7)
     // 下载文件
     workbook.xlsx.writeBuffer().then((data) => {
-      download(data, '用户数据.xlsx');
-    });
-  };
+      download(data, '用户数据.xlsx')
+    })
+  }
 
   /** 导出选中数据 */
   const exportSel = () => {
     if (selections.value.length === 0) {
-      EleMessage.error('请至少选择一条数据');
-      return;
+      EleMessage.error('请至少选择一条数据')
+      return
     }
     //
-    const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet('Sheet1');
-    sheet.addRow(['用户名', '省', '市', '区', '街道', '详细地址', '金额']);
+    const workbook = new ExcelJS.Workbook()
+    const sheet = workbook.addWorksheet('Sheet1')
+    sheet.addRow(['用户名', '省', '市', '区', '街道', '详细地址', '金额'])
     selections.value.forEach((d) => {
-      sheet.addRow([
-        d.username,
-        d.province,
-        d.city,
-        d.zone,
-        d.street,
-        d.address,
-        d.amount
-      ]);
-    });
+      sheet.addRow([d.username, d.province, d.city, d.zone, d.street, d.address, d.amount])
+    })
     // 设置列宽
-    [16, 16, 16, 16, 20, 30, 12].forEach((width, index) => {
-      sheet.getColumn(index + 1).width = width;
-    });
+    ;[16, 16, 16, 16, 20, 30, 12].forEach((width, index) => {
+      sheet.getColumn(index + 1).width = width
+    })
     // 设置样式
     sheet.eachRow({ includeEmpty: true }, (row, rowIndex) => {
-      row.height = 20;
+      row.height = 20
       row.eachCell({ includeEmpty: true }, (cell) => {
         cell.border = {
           top: { style: 'thin' },
           left: { style: 'thin' },
           bottom: { style: 'thin' },
           right: { style: 'thin' }
-        };
+        }
         cell.alignment = {
           vertical: 'middle',
           horizontal: 'center'
-        };
-        cell.font = { size: 12, bold: rowIndex === 1 };
-      });
-    });
+        }
+        cell.font = { size: 12, bold: rowIndex === 1 }
+      })
+    })
     // 下载文件
     workbook.xlsx.writeBuffer().then((data) => {
-      download(data, '用户数据.xlsx');
-    });
-  };
+      download(data, '用户数据.xlsx')
+    })
+  }
 </script>

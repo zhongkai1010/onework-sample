@@ -1,7 +1,5 @@
 <template>
-  <div
-    :style="{ display: 'flex', alignItems: 'center', justifyContent: 'center' }"
-  >
+  <div :style="{ display: 'flex', alignItems: 'center', justifyContent: 'center' }">
     <div
       class="ele-icon-border-color-base"
       :style="{
@@ -39,8 +37,5 @@
 </template>
 
 <script lang="ts" setup>
-  import {
-    IconImage,
-    SvgIcon
-  } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index';
+  import { IconImage, SvgIcon } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
 </script>

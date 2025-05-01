@@ -1,11 +1,5 @@
 <template>
-  <ele-drawer
-    :size="430"
-    :inner="inner"
-    :append-to-body="true"
-    v-model="visible"
-    title="限制在抽屉中的消息提示"
-  >
+  <ele-drawer :size="430" :inner="inner" :append-to-body="true" v-model="visible" title="限制在抽屉中的消息提示">
     <div>内容内容内容内容内容内容</div>
     <div>内容内容内容内容内容内容</div>
     <div>内容内容内容内容内容内容</div>
@@ -13,9 +7,7 @@
     <div>内容内容内容内容内容内容</div>
     <div>内容内容内容内容内容内容</div>
     <div style="margin: 16px 0 26px 0">
-      <el-button type="primary" class="ele-btn-icon" @click="showMessage">
-        显示提示
-      </el-button>
+      <el-button type="primary" class="ele-btn-icon" @click="showMessage"> 显示提示 </el-button>
     </div>
     <div ref="modalMessageWrapRef" class="ele-message-wrapper"></div>
     <template #footer>
@@ -26,19 +18,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { useMessage } from 'ele-admin-plus/es';
+  import { ref } from 'vue'
+  import { useMessage } from 'ele-admin-plus/es'
 
   const props = defineProps<{
-    theme?: number;
-    inner?: boolean;
-  }>();
+    theme?: number
+    inner?: boolean
+  }>()
 
-  const visible = defineModel({ type: Boolean });
+  const visible = defineModel({ type: Boolean })
 
-  const message = useMessage();
+  const message = useMessage()
 
-  const modalMessageWrapRef = ref<HTMLDivElement>();
+  const modalMessageWrapRef = ref<HTMLDivElement>()
 
   const showMessage = () => {
     message.success({
@@ -48,8 +40,8 @@
       inner: true,
       showClose: true,
       appendTo: modalMessageWrapRef.value
-    });
-  };
+    })
+  }
 
   const save = () => {
     message.info({
@@ -57,10 +49,10 @@
       plain: true,
       inner: true,
       appendTo: modalMessageWrapRef.value
-    });
-  };
+    })
+  }
 
   const handleCancel = () => {
-    visible.value = false;
-  };
+    visible.value = false
+  }
 </script>

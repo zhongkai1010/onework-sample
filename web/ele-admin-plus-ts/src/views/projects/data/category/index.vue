@@ -49,11 +49,11 @@
           <el-button type="warning" class="ele-btn-icon" :icon="DeleteOutlined"> 导入 </el-button>
         </template>
         <template #action="{ row }">
-          <el-link type="primary" :underline="false" @click="openEdit(undefined, row.id)"> 添加 </el-link>
-          <el-divider direction="vertical" />
-          <el-link type="primary" :underline="false" @click="openEdit(row)"> 修改 </el-link>
-          <el-divider direction="vertical" />
-          <el-link type="danger" :underline="false" @click="remove(row)"> 删除 </el-link>
+          <el-space :size="4">
+            <el-button type="info" @click="openEdit(undefined, row.id)">添加</el-button>
+            <el-button type="primary" @click="openEdit(row)">修改</el-button>
+            <el-button type="danger" @click="remove(row)">删除</el-button>
+          </el-space>
         </template>
       </ele-pro-table>
     </ele-card>
@@ -126,7 +126,7 @@
     {
       columnKey: 'action',
       label: '操作',
-      width: 180,
+      width: 220,
       align: 'center',
       slot: 'action',
       hideInPrint: true,

@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="formRef" :model="form" :inline="true" class="search-form" @submit.prevent>
+  <el-form :model="form" :inline="true" class="search-form" @submit.prevent>
     <el-form-item label="藏品编号" prop="collectionCode">
       <el-input v-model="form.collectionCode" placeholder="请输入藏品编号" clearable @keyup.enter="handleSearch" />
     </el-form-item>
@@ -14,27 +14,26 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
   import type { CollectionQueryParams } from '@/api/collection/catalog/model'
+  import { useFormData } from '@/utils/use-form-data'
 
   const emit = defineEmits<{
     (e: 'search', params: CollectionQueryParams): void
   }>()
 
-  const formRef = ref()
-  const form = ref<CollectionQueryParams>({
+  const [form, resetFields] = useFormData<CollectionQueryParams>({
     collectionCode: '',
     collectionName: ''
   })
 
   /** 搜索 */
   const handleSearch = () => {
-    emit('search', { ...form.value })
+    emit('search', { ...form })
   }
 
   /** 重置 */
   const handleReset = () => {
-    formRef.value?.resetFields()
+    resetFields()
     emit('search', {})
   }
 </script>

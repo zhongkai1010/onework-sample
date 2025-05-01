@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OneWork",
+    "title": "藏品管理系统",
     "description": "",
     "version": "1.0.0"
   },
@@ -63,7 +63,10 @@
                     "type": "number",
                     "description": "定价"
                   }
-                }
+                },
+                "required": [
+                  "bookTitle"
+                ]
               },
               "examples": {}
             }
@@ -199,7 +202,7 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID 编号"
                               },
                               "bookTitle": {
@@ -235,7 +238,10 @@
                                 "description": "定价"
                               }
                             },
-                            "required": ["id"]
+                            "required": [
+                              "id",
+                              "bookTitle"
+                            ]
                           }
                         }
                       }
@@ -281,7 +287,7 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "ID 编号"
                   },
                   "bookTitle": {
@@ -317,7 +323,10 @@
                     "description": "定价"
                   }
                 },
-                "required": ["id"]
+                "required": [
+                  "id",
+                  "bookTitle"
+                ]
               },
               "examples": {}
             }
@@ -389,7 +398,9 @@
                     "description": "ID集合"
                   }
                 },
-                "required": ["ids"]
+                "required": [
+                  "ids"
+                ]
               },
               "examples": {}
             }
@@ -443,9 +454,9 @@
             "in": "query",
             "description": "",
             "required": false,
-            "example": "",
+            "example": 0,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -476,7 +487,7 @@
                       "type": "object",
                       "properties": {
                         "id": {
-                          "type": "string",
+                          "type": "integer",
                           "description": "ID 编号"
                         },
                         "bookTitle": {
@@ -512,7 +523,10 @@
                           "description": "定价"
                         }
                       },
-                      "required": ["id"]
+                      "required": [
+                        "id",
+                        "bookTitle"
+                      ]
                     },
                     "error": {
                       "type": "string",

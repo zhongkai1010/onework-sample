@@ -1,25 +1,10 @@
 <template>
   <ele-modal :width="460" title="移动到" v-model="visible" @open="handleOpen">
     <div class="demo-file-move-tree">
-      <el-tree
-        :data="folderData"
-        nodeKey="id"
-        :props="{ label: 'name' }"
-        :expand-on-click-node="false"
-        :default-expand-all="true"
-        @node-click="handleFolderSelect"
-      >
+      <el-tree :data="folderData" nodeKey="id" :props="{ label: 'name' }" :expand-on-click-node="false" :default-expand-all="true" @node-click="handleFolderSelect">
         <template #default="scope">
-          <img
-            src="/ele-file-list/ic_file_folder.png"
-            style="width: 18px; height: 18px; margin-right: 6px"
-          />
-          <span
-            :class="[
-              'el-tree-node__label',
-              { 'is-active': scope.data.id === selectedId }
-            ]"
-          >
+          <img src="/ele-file-list/ic_file_folder.png" style="width: 18px; height: 18px; margin-right: 6px" />
+          <span :class="['el-tree-node__label', { 'is-active': scope.data.id === selectedId }]">
             {{ scope.data.name }}
           </span>
           <el-radio :value="true" :model-value="scope.data.id === selectedId" />
@@ -41,77 +26,75 @@
     />
     <template #footer>
       <el-button @click="handleCancel">取消</el-button>
-      <el-button type="primary" :loading="loading" @click="save">
-        保存
-      </el-button>
+      <el-button type="primary" :loading="loading" @click="save"> 保存 </el-button>
     </template>
   </ele-modal>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { EleMessage, toTree, mapTree } from 'ele-admin-plus/es';
-  import { updateUserFile, listUserFiles } from '@/api/system/user-file';
-  import type { UserFile } from '@/api/system/user-file/model';
+  import { ref } from 'vue'
+  import { EleMessage, toTree, mapTree } from 'ele-admin-plus/es'
+  import { updateUserFile, listUserFiles } from '@/api/system/user-file'
+  import type { UserFile } from '@/api/system/user-file/model'
 
   const props = defineProps<{
     /** 文件数据 */
-    data?: UserFile;
-  }>();
+    data?: UserFile
+  }>()
 
   const emit = defineEmits<{
-    (e: 'done'): void;
-  }>();
+    (e: 'done'): void
+  }>()
 
   /** 弹窗是否打开 */
-  const visible = defineModel({ type: Boolean });
+  const visible = defineModel({ type: Boolean })
 
   /** 提交状态 */
-  const loading = ref(false);
+  const loading = ref(false)
 
   /** 选中的id */
-  const selectedId = ref<number>();
+  const selectedId = ref<number>()
 
   /** 文件夹数据 */
-  const folderData = ref<UserFile[]>([]);
+  const folderData = ref<UserFile[]>([])
 
   /** 文件夹请求状态 */
-  const folderLoading = ref(false);
+  const folderLoading = ref(false)
 
   /** 文件夹选中事件 */
   const handleFolderSelect = (item: UserFile) => {
-    selectedId.value = item.id;
-  };
+    selectedId.value = item.id
+  }
 
   /** 关闭弹窗 */
   const handleCancel = () => {
-    visible.value = false;
-  };
+    visible.value = false
+  }
 
   /** 保存编辑 */
   const save = () => {
-    const parentId = selectedId.value;
+    const parentId = selectedId.value
     if (parentId == null) {
-      EleMessage.error('请选择分组');
-      return;
+      EleMessage.error('请选择分组')
+      return
     }
-    loading.value = true;
+    loading.value = true
     updateUserFile({ id: props.data?.id, parentId })
       .then((msg) => {
-        loading.value = false;
-        EleMessage.success(msg);
-        handleCancel();
-        emit('done');
+        loading.value = false
+        EleMessage.success(msg)
+        handleCancel()
+        emit('done')
       })
       .catch((e) => {
-        loading.value = false;
-        EleMessage.error(e.message);
-      });
-  };
+        loading.value = false
+        EleMessage.error(e.message)
+      })
+  }
 
   /** 查询文件夹数据 */
   const queryFolder = () => {
-    folderLoading.value = true;
+    folderLoading.value = true
     listUserFiles({ isDirectory: 1 })
       .then((list) => {
         const result = [
@@ -124,24 +107,24 @@
             }),
             (d) => (d.id === props.data?.id ? void 0 : d)
           )
-        ];
-        folderData.value = result;
-        folderLoading.value = false;
+        ]
+        folderData.value = result
+        folderLoading.value = false
       })
       .catch((e) => {
-        folderData.value = [];
-        EleMessage.error(e.message);
-        folderLoading.value = false;
-      });
-  };
+        folderData.value = []
+        EleMessage.error(e.message)
+        folderLoading.value = false
+      })
+  }
 
   /** 弹窗打开事件 */
   const handleOpen = () => {
-    queryFolder();
+    queryFolder()
     if (props.data) {
-      selectedId.value = props.data.parentId;
+      selectedId.value = props.data.parentId
     }
-  };
+  }
 </script>
 
 <style lang="scss" scoped>

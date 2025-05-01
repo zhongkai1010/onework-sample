@@ -8,22 +8,22 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { CardProps } from 'element-plus';
+  import { ref } from 'vue'
+  import type { CardProps } from 'element-plus'
 
   defineProps<{
-    shadow?: CardProps['shadow'];
-  }>();
+    shadow?: CardProps['shadow']
+  }>()
 
   const emit = defineEmits<{
-    (e: 'search', value: string): void;
-  }>();
+    (e: 'search', value: string): void
+  }>()
 
-  const keyword = ref('');
+  const keyword = ref('')
 
   const handleSearch = () => {
-    emit('search', keyword.value);
-  };
+    emit('search', keyword.value)
+  }
 </script>
 
 <style lang="scss" scoped>

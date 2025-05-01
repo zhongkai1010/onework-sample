@@ -1,2 +1,3 @@
 export { default as CategorySelect } from './CategorySelect.vue'
 export { default as GroupSelect } from './GroupSelect.vue'
+export { default as WarehouseSelect } from './WarehouseSelect.vue'

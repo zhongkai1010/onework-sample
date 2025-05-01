@@ -34,27 +34,18 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive, nextTick, markRaw } from 'vue';
-  import { EleMessage } from 'ele-admin-plus/es';
-  import type { EleDropdownInstance } from 'ele-admin-plus/es/ele-app/plus';
-  import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types';
-  import type { EleProTable } from 'ele-admin-plus';
-  import type {
-    DatasourceFunction,
-    Column
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import {
-    LockOutlined,
-    EditOutlined,
-    DeleteOutlined,
-    DownloadOutlined,
-    LinkOutlined
-  } from '@/components/icons';
-  import { pageUsers, listUsers } from '@/api/system/user';
-  import type { User } from '@/api/system/user/model';
+  import { ref, reactive, nextTick, markRaw } from 'vue'
+  import { EleMessage } from 'ele-admin-plus/es'
+  import type { EleDropdownInstance } from 'ele-admin-plus/es/ele-app/plus'
+  import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Column } from 'ele-admin-plus/es/ele-pro-table/types'
+  import { LockOutlined, EditOutlined, DeleteOutlined, DownloadOutlined, LinkOutlined } from '@/components/icons'
+  import { pageUsers, listUsers } from '@/api/system/user'
+  import type { User } from '@/api/system/user/model'
 
   /** 表格实例 */
-  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null);
+  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null)
 
   /** 表格列配置 */
   const columns = ref<Column[]>([
@@ -90,32 +81,32 @@
       minWidth: 180,
       align: 'center'
     }
-  ]);
+  ])
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = ({ pages, orders, filters }) => {
-    return pageUsers({ ...orders, ...filters, ...pages });
-  };
+    return pageUsers({ ...orders, ...filters, ...pages })
+  }
 
   /** 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = ({ orders, filters }) => {
-    return listUsers({ ...orders, ...filters });
-  };
+    return listUsers({ ...orders, ...filters })
+  }
 
   /** 右键菜单组件 */
-  const ctxMenuDropdownRef = ref<EleDropdownInstance>(null);
+  const ctxMenuDropdownRef = ref<EleDropdownInstance>(null)
 
   /** 右键菜单数据 */
-  const ctxMenuDropdownItems = ref<DropdownItem[]>([]);
+  const ctxMenuDropdownItems = ref<DropdownItem[]>([])
 
   /** 右键菜单虚拟触发节点 */
-  const ctxMenuDropdownVirtualRef = ref<any>();
+  const ctxMenuDropdownVirtualRef = ref<any>()
 
   /** 当前打开的右键菜单对应的数据 */
-  let ctxMenuCurrentData: User | null = null;
+  let ctxMenuCurrentData: User | null = null
 
   /** 右键菜单调整位置 */
-  const ctxMenuDropdownStyle = reactive({ marginLeft: '0px' });
+  const ctxMenuDropdownStyle = reactive({ marginLeft: '0px' })
 
   /** 获取右键菜单数据 */
   const getContextMenus = (_item: User) => {
@@ -151,65 +142,65 @@
         danger: true,
         divided: true
       }
-    ];
-  };
+    ]
+  }
 
   /** 打开右键菜单 */
   const openCtxMenuDropdown = (triggerEl: any, row: User) => {
-    ctxMenuDropdownRef.value && ctxMenuDropdownRef.value.handleClose();
+    ctxMenuDropdownRef.value && ctxMenuDropdownRef.value.handleClose()
     nextTick(() => {
-      ctxMenuCurrentData = row;
-      ctxMenuDropdownItems.value = getContextMenus(row) || [];
-      ctxMenuDropdownVirtualRef.value = triggerEl;
+      ctxMenuCurrentData = row
+      ctxMenuDropdownItems.value = getContextMenus(row) || []
+      ctxMenuDropdownVirtualRef.value = triggerEl
       if (ctxMenuDropdownItems.value.length) {
         nextTick(() => {
-          ctxMenuDropdownRef.value && ctxMenuDropdownRef.value.handleOpen();
-        });
+          ctxMenuDropdownRef.value && ctxMenuDropdownRef.value.handleOpen()
+        })
       }
-    });
-  };
+    })
+  }
 
   /** 右键菜单项点击事件 */
   const handleItemCommand = (command: string) => {
-    const row = ctxMenuCurrentData;
+    const row = ctxMenuCurrentData
     if (row == null) {
-      return;
+      return
     }
     if (command === 'psw') {
       EleMessage.info({
         message: `点击了重置密码: ${row.nickname}`,
         plain: true
-      });
+      })
     } else if (command === 'edit') {
-      EleMessage.info({ message: `点击了修改: ${row.nickname}`, plain: true });
+      EleMessage.info({ message: `点击了修改: ${row.nickname}`, plain: true })
     } else if (command === 'del') {
-      EleMessage.info({ message: `点击了删除: ${row.nickname}`, plain: true });
+      EleMessage.info({ message: `点击了删除: ${row.nickname}`, plain: true })
     } else if (command === 'exportXlsx') {
       EleMessage.info({
         message: `点击了导出XLS: ${row.nickname}`,
         plain: true
-      });
+      })
     } else if (command === 'exportCsv') {
       EleMessage.info({
         message: `点击了导出CSV: ${row.nickname}`,
         plain: true
-      });
+      })
     } else if (command === 'exportHtml') {
       EleMessage.info({
         message: `点击了导出HTML: ${row.nickname}`,
         plain: true
-      });
+      })
     }
-  };
+  }
 
   /** 表格行右键事件 */
   const handleRowContextmenu = (row: User, _column: Column, e: MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const rowEl = e.currentTarget as HTMLElement;
-    const rect = rowEl.getBoundingClientRect();
-    ctxMenuDropdownStyle.marginLeft = `${e.clientX - rect.left - rect.width / 2}px`;
-    tableRef.value?.setCurrentRow?.(row);
-    openCtxMenuDropdown(rowEl, row);
-  };
+    e.preventDefault()
+    e.stopPropagation()
+    const rowEl = e.currentTarget as HTMLElement
+    const rect = rowEl.getBoundingClientRect()
+    ctxMenuDropdownStyle.marginLeft = `${e.clientX - rect.left - rect.width / 2}px`
+    tableRef.value?.setCurrentRow?.(row)
+    openCtxMenuDropdown(rowEl, row)
+  }
 </script>

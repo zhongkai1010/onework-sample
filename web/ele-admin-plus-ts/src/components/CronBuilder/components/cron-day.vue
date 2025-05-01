@@ -7,25 +7,11 @@
           <div>范围，</div>
           <div>从&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber
-              v-model="start"
-              :min="minValue"
-              :max="maxValue - 1"
-              placeholder=""
-              controlsPosition="right"
-              class="ele-fluid"
-            />
+            <ElInputNumber v-model="start" :min="minValue" :max="maxValue - 1" placeholder="" controlsPosition="right" class="ele-fluid" />
           </div>
           <div>&emsp;号到&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber
-              v-model="end"
-              :min="endMin"
-              :max="maxValue"
-              placeholder=""
-              controlsPosition="right"
-              class="ele-fluid"
-            />
+            <ElInputNumber v-model="end" :min="endMin" :max="maxValue" placeholder="" controlsPosition="right" class="ele-fluid" />
           </div>
           <div>&emsp;号</div>
         </div>
@@ -35,25 +21,11 @@
           <div>间隔，</div>
           <div>从&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber
-              v-model="intervalStart"
-              :min="minValue"
-              :max="maxValue - 1"
-              placeholder=""
-              controlsPosition="right"
-              class="ele-fluid"
-            />
+            <ElInputNumber v-model="intervalStart" :min="minValue" :max="maxValue - 1" placeholder="" controlsPosition="right" class="ele-fluid" />
           </div>
           <div>&emsp;号开始，每&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber
-              v-model="intervalStep"
-              :min="1"
-              :max="intervalStepMax"
-              placeholder=""
-              controlsPosition="right"
-              class="ele-fluid"
-            />
+            <ElInputNumber v-model="intervalStep" :min="1" :max="intervalStepMax" placeholder="" controlsPosition="right" class="ele-fluid" />
           </div>
           <div>&emsp;天执行一次</div>
         </div>
@@ -70,11 +42,7 @@
         <div class="cron-panel-options">
           <ElCheckboxGroup v-model="selections">
             <template v-for="item in maxValue + 1" :key="item">
-              <ElCheckbox
-                v-if="item - 1 >= minValue"
-                :value="item - 1"
-                :label="item - 1"
-              />
+              <ElCheckbox v-if="item - 1 >= minValue" :value="item - 1" :label="item - 1" />
             </template>
           </ElCheckboxGroup>
         </div>
@@ -83,14 +51,7 @@
         <div :style="{ display: 'flex', alignItems: 'center' }">
           <div>每月&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber
-              v-model="workday"
-              :min="minValue"
-              :max="maxValue"
-              placeholder=""
-              controlsPosition="right"
-              class="ele-fluid"
-            />
+            <ElInputNumber v-model="workday" :min="minValue" :max="maxValue" placeholder="" controlsPosition="right" class="ele-fluid" />
           </div>
           <div>&emsp;号最近的一个工作日</div>
         </div>
@@ -102,71 +63,60 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
-  import { useCron } from './util';
-  const minValue = 1;
-  const maxValue = 31;
+  import { ref, watch } from 'vue'
+  import { useCron } from './util'
+  const minValue = 1
+  const maxValue = 31
 
   /** day */
-  const model = defineModel<string>({ type: String });
+  const model = defineModel<string>({ type: String })
 
-  const {
-    type,
-    start,
-    end,
-    endMin,
-    intervalStart,
-    intervalStep,
-    intervalStepMax,
-    selections,
-    getValue,
-    parseValue
-  } = useCron(minValue, maxValue);
+  const { type, start, end, endMin, intervalStart, intervalStep, intervalStepMax, selections, getValue, parseValue } = useCron(minValue, maxValue)
 
   /** 工作日 */
-  const workday = ref(1);
+  const workday = ref(1)
 
   watch(
     [type, start, end, intervalStart, intervalStep, selections, workday],
     () => {
       if (type.value === 'workday') {
-        model.value = `${workday.value}W`;
-        return;
+        model.value = `${workday.value}W`
+        return
       }
       if (type.value === 'last') {
-        model.value = 'L';
-        return;
+        model.value = 'L'
+        return
       }
       if (type.value === 'unset') {
-        model.value = '?';
-        return;
+        model.value = '?'
+        return
       }
-      model.value = getValue();
+      model.value = getValue()
     },
     {
       deep: true,
       immediate: true
     }
-  );
+  )
 
   watch(
     model,
     (day) => {
       if (day != null && day.endsWith('W')) {
-        type.value = 'workday';
-        workday.value = Number(day.slice(0, -1));
-        return;
+        type.value = 'workday'
+        workday.value = Number(day.slice(0, -1))
+        return
       }
       if (day === 'L') {
-        type.value = 'last';
-        return;
+        type.value = 'last'
+        return
       }
       if (day === '?') {
-        type.value = 'unset';
-        return;
+        type.value = 'unset'
+        return
       }
-      parseValue(day);
+      parseValue(day)
     },
     { immediate: true }
-  );
+  )
 </script>

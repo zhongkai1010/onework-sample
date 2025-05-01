@@ -14,42 +14,24 @@
       @done="handleDone"
     >
       <template #action="{ row }">
-        <el-link
-          type="primary"
-          :underline="false"
-          @click="reloadChild(row, $event)"
-        >
-          刷新我的子级
-        </el-link>
+        <el-link type="primary" :underline="false" @click="reloadChild(row, $event)"> 刷新我的子级 </el-link>
         <el-divider v-if="row.parentId" direction="vertical" />
-        <el-link
-          v-if="row.parentId"
-          type="primary"
-          :underline="false"
-          @click="reloadParent(row)"
-        >
-          刷新我父级的子级
-        </el-link>
+        <el-link v-if="row.parentId" type="primary" :underline="false" @click="reloadParent(row)"> 刷新我父级的子级 </el-link>
       </template>
     </ele-pro-table>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref, nextTick } from 'vue';
-  import { EleMessage, toTree } from 'ele-admin-plus/es';
-  import dayjs from 'dayjs';
-  import type { EleProTable } from 'ele-admin-plus';
-  import type {
-    DatasourceFunction,
-    Columns,
-    DataItem,
-    DoneFunction
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import { pageMenus, listMenus } from '@/api/system/menu';
+  import { ref, nextTick } from 'vue'
+  import { EleMessage, toTree } from 'ele-admin-plus/es'
+  import dayjs from 'dayjs'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Columns, DataItem, DoneFunction } from 'ele-admin-plus/es/ele-pro-table/types'
+  import { pageMenus, listMenus } from '@/api/system/menu'
 
   /** 表格实例 */
-  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null);
+  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null)
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -90,13 +72,13 @@
       hideInPrint: true,
       hideInExport: true
     }
-  ]);
+  ])
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = async ({ pages, where, parent }) => {
-    const now = Date.now();
+    const now = Date.now()
     if (parent == null) {
-      const res = await pageMenus({ ...where, ...pages, parentId: 0 });
+      const res = await pageMenus({ ...where, ...pages, parentId: 0 })
       return {
         count: res?.count,
         list: res?.list?.map?.((d) => {
@@ -104,12 +86,12 @@
             ...d,
             updateTime: dayjs(now).format('YYYY-MM-DD HH:mm:ss.SSS'),
             menuKey: d.menuId + '-' + now
-          };
+          }
         })
-      };
+      }
     }
-    const data = await listMenus({ ...where, parentId: parent.menuId });
-    parent._oldChildrenLength = parent.children?.length || 0;
+    const data = await listMenus({ ...where, parentId: parent.menuId })
+    parent._oldChildrenLength = parent.children?.length || 0
     return data.map((d) => {
       return {
         ...d,
@@ -117,9 +99,9 @@
         menuKey: d.menuId + '-' + now,
         _parentTableResolve: parent._tableResolve,
         parent
-      };
-    });
-  };
+      }
+    })
+  }
 
   /** 表格数据加载完成事件 */
   const handleDone: DoneFunction<DataItem> = ({ response }, parent) => {
@@ -127,46 +109,46 @@
     if (parent && !response.length && parent._oldChildrenLength) {
       nextTick(() => {
         //console.log(parent);
-        parent.hasChildren = false;
-        parent.menuKey = parent.menuId + '-' + Date.now();
-      });
+        parent.hasChildren = false
+        parent.menuKey = parent.menuId + '-' + Date.now()
+      })
     }
-  };
+  }
 
   /** 重写树表格懒加载方法 */
   const tableLoad = (row: any, _treeNode: any, resolve: any) => {
-    row._tableResolve = resolve;
-    tableRef.value?.reload?.(void 0, row, resolve);
-  };
+    row._tableResolve = resolve
+    tableRef.value?.reload?.(void 0, row, resolve)
+  }
 
   /** 刷新节点的子级数据 */
   const reloadChild = (row: any, e: MouseEvent) => {
-    EleMessage.success('已刷新, 可查看控制台发出的请求');
+    EleMessage.success('已刷新, 可查看控制台发出的请求')
     if (row._tableResolve) {
-      tableRef.value?.reload?.(void 0, row, row._tableResolve);
-      return;
+      tableRef.value?.reload?.(void 0, row, row._tableResolve)
+      return
     }
-    const target = e.currentTarget as HTMLElement;
-    const $tr = target?.parentElement?.parentElement?.parentElement;
-    const $icon = $tr?.querySelector?.('.el-table__expand-icon') as any;
-    $icon && $icon.click();
-  };
+    const target = e.currentTarget as HTMLElement
+    const $tr = target?.parentElement?.parentElement?.parentElement
+    const $icon = $tr?.querySelector?.('.el-table__expand-icon') as any
+    $icon && $icon.click()
+  }
 
   /** 刷新父级节点的子级数据 */
   const reloadParent = (row: any) => {
-    EleMessage.success('已刷新, 可查看控制台发出的请求');
+    EleMessage.success('已刷新, 可查看控制台发出的请求')
     if (row._parentTableResolve) {
-      tableRef.value?.reload?.(void 0, row.parent, row._parentTableResolve);
+      tableRef.value?.reload?.(void 0, row.parent, row._parentTableResolve)
     }
-  };
+  }
 
   /** 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = async ({ where }) => {
-    const data = await listMenus({ ...where });
+    const data = await listMenus({ ...where })
     return toTree({
       data,
       idField: 'menuId',
       parentIdField: 'parentId'
-    });
-  };
+    })
+  }
 </script>

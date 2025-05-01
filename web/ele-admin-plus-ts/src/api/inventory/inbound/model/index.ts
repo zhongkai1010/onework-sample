@@ -3,11 +3,11 @@
  */
 export interface InboundCollection {
   /** 藏品ID */
-  id: string;
+  id: string
   /** 藏品名称 */
-  collectionName: string;
+  collectionName: string
   /** 藏品编码 */
-  collectionCode: string;
+  collectionCode: string
 }
 
 /**
@@ -15,25 +15,25 @@ export interface InboundCollection {
  */
 export interface InboundOrder {
   /** ID 编号 */
-  id: string;
+  id: string
   /** 单据图片 */
-  documentImage?: string;
+  documentImage?: string
   /** 单据状态 */
-  status?: string;
+  status?: string
   /** 入库单号 */
-  code?: string;
+  code?: string
   /** 入库类型 */
-  type?: string;
+  type?: string
   /** 经办人 */
-  operator?: string;
+  operator?: string
   /** 接收库房 */
-  warehouseId?: string;
+  warehouseId?: string
   /** 库房名称 */
-  warehouseName: string;
+  warehouseName: string
   /** 入库日期 */
-  storageDate?: string;
+  storageDate?: string
   /** 备注 */
-  remarks?: string;
+  remarks?: string
 }
 
 /**
@@ -41,17 +41,17 @@ export interface InboundOrder {
  */
 export interface InboundRegisterParams {
   /** 入库类型,1:初次入库，2：归还入库 */
-  type?: string;
+  type?: string
   /** 藏品ID集合 */
-  collectionIds: string[];
+  collectionIds: string[]
   /** 经办人 */
-  operator?: string;
+  operator?: string
   /** 接收库房 */
-  warehouseId?: string;
+  warehouseId?: string
   /** 入库日期 */
-  storageDate?: string;
+  storageDate?: string
   /** 备注 */
-  remarks?: string;
+  remarks?: string
 }
 
 /**
@@ -59,7 +59,7 @@ export interface InboundRegisterParams {
  */
 export interface InboundApproveParams {
   /** ID集合 */
-  ids: number[];
+  ids: number[]
 }
 
 /**
@@ -67,7 +67,7 @@ export interface InboundApproveParams {
  */
 export interface InboundConfirmParams {
   /** 入库单ID */
-  id: string;
+  id: string
 }
 
 /**
@@ -75,25 +75,25 @@ export interface InboundConfirmParams {
  */
 export interface InboundQueryParams {
   /** 单据状态 */
-  status?: string;
+  status?: string
   /** 入库类型 */
-  type?: string;
+  type?: string
   /** 藏品ID */
-  collectionId?: string;
+  collectionId?: string
   /** 经办人 */
-  operator?: string;
+  operator?: string
   /** 接收库房 */
-  warehouseId?: string;
+  warehouseId?: string
   /** 备注 */
-  remarks?: string;
+  remarks?: string
   /** 分页查询每页数量 */
-  limit?: number;
+  limit?: number
   /** 分页查询页码 */
-  page?: number;
+  page?: number
   /** 排序方式 */
-  order?: string;
+  order?: string
   /** 排序字段 */
-  sort?: string;
+  sort?: string
 }
 
 /**
@@ -101,13 +101,13 @@ export interface InboundQueryParams {
  */
 export interface InboundDetailsQueryParams {
   /** 入库单ID */
-  id?: string;
+  id?: string
   /** 分页查询每页数量 */
-  limit?: number;
+  limit?: number
   /** 分页查询页码 */
-  page?: number;
+  page?: number
   /** 排序方式 */
-  order?: string;
+  order?: string
   /** 排序字段 */
-  sort?: string;
+  sort?: string
 }

@@ -16,26 +16,14 @@
     >
       <template #status="{ row }">
         <ele-dot v-if="row.status == 0" text="正常" size="8px" />
-        <ele-dot
-          v-else-if="row.status == 1"
-          text="冻结"
-          type="danger"
-          :ripple="false"
-          size="8px"
-        />
+        <ele-dot v-else-if="row.status == 1" text="冻结" type="danger" :ripple="false" size="8px" />
       </template>
       <template #expand="{ row }">
         <div style="padding: 12px 16px 12px 32px">
           <div>
             <span>角&emsp;&emsp;色：</span>
             <span>
-              <el-tag
-                v-for="item in row.roles"
-                :key="item"
-                size="small"
-                :disable-transitions="true"
-                style="margin-right: 6px"
-              >
+              <el-tag v-for="item in row.roles" :key="item" size="small" :disable-transitions="true" style="margin-right: 6px">
                 {{ item }}
               </el-tag>
             </span>
@@ -55,27 +43,24 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import dayjs from 'dayjs';
-  import type {
-    DatasourceFunction,
-    Columns
-  } from 'ele-admin-plus/es/ele-pro-table/types';
+  import { ref } from 'vue'
+  import dayjs from 'dayjs'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
 
   interface User {
-    userId?: number;
-    username?: string;
-    nickname?: string;
-    sex?: string;
-    roles?: string[];
-    phone?: string;
-    email?: string;
-    birthday?: string;
-    createTime?: string;
-    status?: string;
+    userId?: number
+    username?: string
+    nickname?: string
+    sex?: string
+    roles?: string[]
+    phone?: string
+    email?: string
+    birthday?: string
+    createTime?: string
+    status?: string
   }
 
-  const data: User[] = [];
+  const data: User[] = []
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -87,11 +72,7 @@
       slot: 'expand',
       fixed: 'left',
       formatter: (row) => {
-        return [
-          `角色：${row.roles.join()}`,
-          `出生日期：${row.birthday}`,
-          `邮箱账户：${row.email}`
-        ].join('\n');
+        return [`角色：${row.roles.join()}`, `出生日期：${row.birthday}`, `邮箱账户：${row.email}`].join('\n')
       }
     },
     {
@@ -147,16 +128,16 @@
       sortable: 'custom',
       align: 'center'
     }
-  ]);
+  ])
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = async ({ pages, filter, orders }) => {
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100))
     if (!data.length) {
       Array.from({ length: 2000 }).forEach((_, i) => {
-        const userId = i + 1;
-        const username = 'user-' + String(userId).padStart(6, '0');
-        const random = Math.random();
+        const userId = i + 1
+        const username = 'user-' + String(userId).padStart(6, '0')
+        const random = Math.random()
         const item: User = {
           userId,
           username,
@@ -172,37 +153,37 @@
           createTime: dayjs()
             .subtract(45 * userId, 's')
             .format('YYYY-MM-DD HH:mm:ss')
-        };
-        data.push(item);
-      });
+        }
+        data.push(item)
+      })
     }
-    const statusFilter = filter.status?.length ? filter.status : null;
+    const statusFilter = filter.status?.length ? filter.status : null
     const list = data.filter((d) => {
       if (statusFilter != null) {
         if (d.status == null || !statusFilter.includes(d.status)) {
-          return false;
+          return false
         }
       }
-      return true;
-    });
+      return true
+    })
     if (orders != null && orders.sort) {
       list.sort((a: any, b: any) => {
-        const aValue = a[orders.sort as any];
-        const bValue = b[orders.sort as any];
+        const aValue = a[orders.sort as any]
+        const bValue = b[orders.sort as any]
         if (aValue == bValue) {
-          return 0;
+          return 0
         }
-        const r = aValue < bValue ? -1 : 1;
-        return orders.order === 'desc' ? -r : r;
-      });
+        const r = aValue < bValue ? -1 : 1
+        return orders.order === 'desc' ? -r : r
+      })
     }
-    const start = ((pages.page || 1) - 1) * (pages.limit || 10);
-    const end = start + (pages.limit || 10);
+    const start = ((pages.page || 1) - 1) * (pages.limit || 10)
+    const end = start + (pages.limit || 10)
     return {
       count: list.length,
       list: list.slice(start, end > list.length ? list.length : end)
-    };
-  };
+    }
+  }
 
   /** 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = async ({ filter, orders }) => {
@@ -210,7 +191,7 @@
       filter,
       orders,
       pages: { page: 1, limit: data.length }
-    } as any);
-    return res.list;
-  };
+    } as any)
+    return res.list
+  }
 </script>

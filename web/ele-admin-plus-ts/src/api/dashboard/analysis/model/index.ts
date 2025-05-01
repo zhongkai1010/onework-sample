@@ -3,9 +3,9 @@
  */
 export interface PayNumData {
   /** 日期 */
-  date?: string;
+  date?: string
   /** 支付笔数 */
-  value?: number;
+  value?: number
 }
 
 /**
@@ -13,9 +13,9 @@ export interface PayNumData {
  */
 export interface SaleroomData {
   /** 月份 */
-  month?: string;
+  month?: string
   /** 销售量 */
-  value?: number;
+  value?: number
 }
 
 /**
@@ -23,9 +23,9 @@ export interface SaleroomData {
  */
 export interface SaleroomResult {
   /** 销售量 */
-  list1: SaleroomData[];
+  list1: SaleroomData[]
   /** 访问量 */
-  list2: SaleroomData[];
+  list2: SaleroomData[]
 }
 
 /**
@@ -33,11 +33,11 @@ export interface SaleroomResult {
  */
 export interface VisitData {
   /** 时间 */
-  time?: string;
+  time?: string
   /** 访问量 */
-  visits?: number;
+  visits?: number
   /** 浏览量 */
-  views?: number;
+  views?: number
 }
 
 /**
@@ -45,7 +45,7 @@ export interface VisitData {
  */
 export interface CloudData {
   /** 标题 */
-  name: string;
+  name: string
   /** 数量 */
-  value: number;
+  value: number
 }

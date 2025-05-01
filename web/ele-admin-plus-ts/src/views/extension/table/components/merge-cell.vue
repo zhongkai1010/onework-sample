@@ -1,25 +1,13 @@
 <template>
   <div>
-    <ele-pro-table
-      :border="true"
-      row-key="userId"
-      :columns="columns"
-      :datasource="datasource"
-      :span-method="spanMethod"
-      :toolbar="{ theme: 'default' }"
-      :show-overflow-tooltip="true"
-      :export-config="{ fileName: '成绩数据' }"
-    />
+    <ele-pro-table :border="true" row-key="userId" :columns="columns" :datasource="datasource" :span-method="spanMethod" :toolbar="{ theme: 'default' }" :show-overflow-tooltip="true" :export-config="{ fileName: '成绩数据' }" />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type {
-    DatasourceFunction,
-    Columns
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import { pageUserScores } from '@/api/example';
+  import { ref } from 'vue'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import { pageUserScores } from '@/api/example'
 
   /** 表格列配置 */
   const columns = ref<Columns>([
@@ -42,18 +30,18 @@
       prop: 'score',
       label: '得分'
     }
-  ]);
+  ])
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = () => {
-    return pageUserScores();
-  };
+    return pageUserScores()
+  }
 
   /** 合并表格单元格 */
   const spanMethod = ({ row, column }) => {
     if (column.columnKey === 'userName') {
-      return [row.userNameRowSpan, 1];
+      return [row.userNameRowSpan, 1]
     }
-    return [1, 1];
-  };
+    return [1, 1]
+  }
 </script>

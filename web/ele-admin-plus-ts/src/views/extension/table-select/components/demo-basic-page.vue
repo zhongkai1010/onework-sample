@@ -1,27 +1,10 @@
 <template>
   <ele-card header="表格后端分页">
     <div style="max-width: 260px">
-      <ele-table-select
-        clearable
-        placeholder="请选择"
-        value-key="userId"
-        label-key="nickname"
-        v-model="selectedValue"
-        :table-props="tableProps"
-        :popper-width="580"
-        :disabled="disabled"
-        :cache-data="cacheData"
-        @select="handleSelect"
-        :popper-options="{ strategy: 'fixed' }"
-      >
+      <ele-table-select clearable placeholder="请选择" value-key="userId" label-key="nickname" v-model="selectedValue" :table-props="tableProps" :popper-width="580" :disabled="disabled" :cache-data="cacheData" @select="handleSelect" :popper-options="{ strategy: 'fixed' }">
         <!-- 角色列 -->
         <template #roles="{ row }">
-          <el-tag
-            v-for="item in row.roles"
-            :key="item.roleId"
-            size="small"
-            :disable-transitions="true"
-          >
+          <el-tag v-for="item in row.roles" :key="item.roleId" size="small" :disable-transitions="true">
             {{ item.roleName }}
           </el-tag>
         </template>
@@ -41,19 +24,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
-  import { pageUsers } from '@/api/system/user';
-  import type { TableSelectProps } from 'ele-admin-plus/es/ele-table-select/props';
-  import type { User } from '@/api/system/user/model';
-  type SelectTableProps = Exclude<TableSelectProps['tableProps'], undefined>;
+  import { ref, reactive } from 'vue'
+  import { pageUsers } from '@/api/system/user'
+  import type { TableSelectProps } from 'ele-admin-plus/es/ele-table-select/props'
+  import type { User } from '@/api/system/user/model'
+  type SelectTableProps = Exclude<TableSelectProps['tableProps'], undefined>
 
   /** 表格下拉选中值 */
-  const selectedValue = ref<number>();
+  const selectedValue = ref<number>()
 
   /** 表格配置 */
   const tableProps = reactive<SelectTableProps>({
     datasource: ({ pages, where, orders }) => {
-      return pageUsers({ ...where, ...orders, ...pages });
+      return pageUsers({ ...where, ...orders, ...pages })
     },
     columns: [
       {
@@ -95,22 +78,22 @@
       style: { padding: '0px' }
     },
     rowStyle: { cursor: 'pointer' }
-  });
+  })
 
   /** 禁用 */
-  const disabled = ref(false);
+  const disabled = ref(false)
 
   /** 缓存数据 */
-  const cacheData = ref<Partial<User>[]>();
+  const cacheData = ref<Partial<User>[]>()
 
   /** 回显数据 */
   const setValue = () => {
-    cacheData.value = [{ userId: 40, nickname: '管理员' }];
-    selectedValue.value = 40;
-  };
+    cacheData.value = [{ userId: 40, nickname: '管理员' }]
+    selectedValue.value = 40
+  }
 
   /** 选中事件 */
   const handleSelect = (item: User) => {
-    console.log(JSON.parse(JSON.stringify(item)));
-  };
+    console.log(JSON.parse(JSON.stringify(item)))
+  }
 </script>

@@ -2,11 +2,7 @@
   <div>
     <div class="option-wrapper">
       <option-item label="翻页保留多选" :responsive="false">
-        <el-switch
-          v-model="reserveSelection"
-          size="small"
-          @change="handleReserveSelectionChange"
-        />
+        <el-switch v-model="reserveSelection" size="small" @change="handleReserveSelectionChange" />
       </option-item>
       <option-item label="翻页保留单选" :responsive="false">
         <el-switch v-model="reserveCurrent" size="small" />
@@ -31,43 +27,12 @@
     >
       <template #toolbar>
         <el-space :size="12" wrap>
-          <el-button type="primary" class="ele-btn-icon" @click="getSelections">
-            获取多选
-          </el-button>
-          <el-button type="warning" class="ele-btn-icon" @click="setSelections">
-            修改多选
-          </el-button>
-          <el-button
-            type="danger"
-            class="ele-btn-icon"
-            @click="clearSelections"
-          >
-            清空多选
-          </el-button>
-          <el-button
-            plain
-            type="primary"
-            class="ele-btn-icon"
-            @click="getCurrent"
-          >
-            获取单选
-          </el-button>
-          <el-button
-            plain
-            type="warning"
-            class="ele-btn-icon"
-            @click="setCurrent"
-          >
-            修改单选
-          </el-button>
-          <el-button
-            plain
-            type="danger"
-            class="ele-btn-icon"
-            @click="removeCurrent"
-          >
-            清空单选
-          </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="getSelections"> 获取多选 </el-button>
+          <el-button type="warning" class="ele-btn-icon" @click="setSelections"> 修改多选 </el-button>
+          <el-button type="danger" class="ele-btn-icon" @click="clearSelections"> 清空多选 </el-button>
+          <el-button plain type="primary" class="ele-btn-icon" @click="getCurrent"> 获取单选 </el-button>
+          <el-button plain type="warning" class="ele-btn-icon" @click="setCurrent"> 修改单选 </el-button>
+          <el-button plain type="danger" class="ele-btn-icon" @click="removeCurrent"> 清空单选 </el-button>
         </el-space>
       </template>
     </ele-pro-table>
@@ -75,22 +40,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { EleMessage, random } from 'ele-admin-plus/es';
-  import type { EleProTable } from 'ele-admin-plus';
-  import type {
-    DatasourceFunction,
-    Column
-  } from 'ele-admin-plus/es/ele-pro-table/types';
-  import OptionItem from '@/views/extension/avatar/components/option-item.vue';
+  import { ref } from 'vue'
+  import { EleMessage, random } from 'ele-admin-plus/es'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Column } from 'ele-admin-plus/es/ele-pro-table/types'
+  import OptionItem from '@/views/extension/avatar/components/option-item.vue'
   const data = Array.from({ length: 39 }).map((_, i) => {
-    const pieceId = i + 1;
-    const no = String(pieceId).padStart(3, '0');
-    const secrets = ['机密', '秘密', '公开', '绝密', '内部'];
-    const retentions = ['永久', '定期10年', '定期20年'];
-    const retentionNos = ['Y', 'D10', 'D20'];
-    const retentionRandom = random(0, retentions.length);
-    const year = '2020';
+    const pieceId = i + 1
+    const no = String(pieceId).padStart(3, '0')
+    const secrets = ['机密', '秘密', '公开', '绝密', '内部']
+    const retentions = ['永久', '定期10年', '定期20年']
+    const retentionNos = ['Y', 'D10', 'D20']
+    const retentionRandom = random(0, retentions.length)
+    const year = '2020'
     const item: Piece = {
       pieceId,
       title: `教学档案${no}`,
@@ -99,36 +61,36 @@
       retention: retentions[retentionRandom],
       year,
       amount: random(2, 10)
-    };
-    return item;
-  });
+    }
+    return item
+  })
 
   /** 案卷 */
   interface Piece {
     /** 案卷id */
-    pieceId?: number;
+    pieceId?: number
     /** 案卷题名 */
-    title?: string;
+    title?: string
     /** 案卷档号 */
-    pieceNo?: string;
+    pieceNo?: string
     /** 密级 */
-    secret?: string;
+    secret?: string
     /** 保管期限 */
-    retention?: string;
+    retention?: string
     /** 归档年度 */
-    year?: string;
+    year?: string
     /** 件数 */
-    amount?: number;
+    amount?: number
   }
 
   /** 翻页保留多选 */
-  const reserveSelection = ref(false);
+  const reserveSelection = ref(false)
 
   /** 翻页保留单选 */
-  const reserveCurrent = ref(false);
+  const reserveCurrent = ref(false)
 
   /** 表格实例 */
-  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null);
+  const tableRef = ref<InstanceType<typeof EleProTable> | null>(null)
 
   /** 表格列配置 */
   const columns = ref<Column[]>([
@@ -140,7 +102,7 @@
       fixed: 'left',
       reserveSelection: reserveSelection.value,
       selectable: (row) => {
-        return ![1, 5, 8].includes(row.pieceId);
+        return ![1, 5, 8].includes(row.pieceId)
       }
     },
     {
@@ -198,91 +160,89 @@
       minWidth: 110,
       align: 'center'
     }
-  ]);
+  ])
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = async ({ pages, filter }) => {
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    const secretFilter = filter.secret?.length ? filter.secret : null;
-    const retentFilter = filter.retention?.length ? filter.retention : null;
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    const secretFilter = filter.secret?.length ? filter.secret : null
+    const retentFilter = filter.retention?.length ? filter.retention : null
     const list = data.filter((d) => {
       if (secretFilter != null) {
         if (!d.secret || !secretFilter.includes(d.secret)) {
-          return false;
+          return false
         }
       }
       if (retentFilter != null) {
         if (!d.retention || !retentFilter.includes(d.retention)) {
-          return false;
+          return false
         }
       }
-      return true;
-    });
-    const start = ((pages.page || 1) - 1) * (pages.limit || 10);
-    const end = start + (pages.limit || 10);
+      return true
+    })
+    const start = ((pages.page || 1) - 1) * (pages.limit || 10)
+    const end = start + (pages.limit || 10)
     return {
       count: list.length,
       list: list.slice(start, end > list.length ? list.length : end)
-    };
-  };
+    }
+  }
 
   /** 表格多选选中数据 */
-  const selections = ref<Piece[]>([]);
+  const selections = ref<Piece[]>([])
 
   /** 表格单选选中数据 */
-  const current = ref<Piece | null>(null);
+  const current = ref<Piece | null>(null)
 
   /** 获取多选 */
   const getSelections = () => {
-    console.log(JSON.parse(JSON.stringify(selections.value)));
-    EleMessage.success(
-      '共 ' + selections.value.length + ' 条数据已打印在控制台'
-    );
-  };
+    console.log(JSON.parse(JSON.stringify(selections.value)))
+    EleMessage.success('共 ' + selections.value.length + ' 条数据已打印在控制台')
+  }
 
   /** 修改多选 */
   const setSelections = () => {
-    tableRef.value?.setSelectedRows?.([data[1], data[2], data[5]]);
-  };
+    tableRef.value?.setSelectedRows?.([data[1], data[2], data[5]])
+  }
 
   /** 清空多选 */
   const clearSelections = () => {
-    selections.value = [];
-  };
+    selections.value = []
+  }
 
   /** 获取单选 */
   const getCurrent = () => {
     if (!current.value) {
-      EleMessage.success('未选中任何数据');
+      EleMessage.success('未选中任何数据')
     } else {
-      console.log(JSON.parse(JSON.stringify(current.value)));
-      EleMessage.success(current.value.pieceNo + '的数据已打印在控制台');
+      console.log(JSON.parse(JSON.stringify(current.value)))
+      EleMessage.success(current.value.pieceNo + '的数据已打印在控制台')
     }
-  };
+  }
 
   /** 修改单选 */
   const setCurrent = () => {
-    tableRef.value?.setCurrentRow?.(data[3]);
-  };
+    tableRef.value?.setCurrentRow?.(data[3])
+  }
 
   /** 清空单选 */
   const removeCurrent = () => {
-    current.value = null;
-  };
+    current.value = null
+  }
 
   /** 翻页保留多选改变 */
   const handleReserveSelectionChange = () => {
-    columns.value[0].reserveSelection = reserveSelection.value;
-  };
+    columns.value[0].reserveSelection = reserveSelection.value
+  }
 
   /** 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = async ({ filter }) => {
     const res: any = await datasource({
       filter,
       pages: { page: 1, limit: 1000 }
-    } as any);
-    return res.list;
-  };
+    } as any)
+    return res.list
+  }
 </script>
 
 <style lang="scss" scoped>

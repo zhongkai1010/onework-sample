@@ -2,19 +2,8 @@
   <ele-page :multi-card="false">
     <top-search shadow="always" />
     <el-row :gutter="16">
-      <el-col
-        v-for="item in data"
-        :key="item.id"
-        :lg="6"
-        :md="8"
-        :sm="12"
-        :xs="24"
-      >
-        <ele-card
-          :body-style="{ padding: 0 }"
-          style="margin-top: 16px"
-          shadow="always"
-        >
+      <el-col v-for="item in data" :key="item.id" :lg="6" :md="8" :sm="12" :xs="24">
+        <ele-card :body-style="{ padding: 0 }" style="margin-top: 16px" shadow="always">
           <div style="padding: 24px">
             <div style="display: flex; align-items: center">
               <el-avatar :size="40" :src="item.cover" style="flex-shrink: 0" />
@@ -22,12 +11,8 @@
                 {{ item.title }}
               </ele-text>
             </div>
-            <ele-ellipsis style="margin-top: 16px">
-              网址: {{ item.url }}
-            </ele-ellipsis>
-            <ele-ellipsis style="margin-top: 6px">
-              最后更新时间: {{ item.time }}
-            </ele-ellipsis>
+            <ele-ellipsis style="margin-top: 16px"> 网址: {{ item.url }} </ele-ellipsis>
+            <ele-ellipsis style="margin-top: 6px"> 最后更新时间: {{ item.time }} </ele-ellipsis>
           </div>
           <el-divider style="margin: 0; opacity: 0.48" />
           <div class="list-item-footer">
@@ -43,12 +28,7 @@
             </ele-tooltip>
             <el-divider direction="vertical" style="margin: 0; opacity: 0.8" />
             <ele-tooltip placement="top" content="设置" :offset="-8">
-              <ele-text
-                :icon="Tools"
-                type="secondary"
-                class="list-item-tool"
-                :icon-props="{ style: { opacity: 0.88 } }"
-              />
+              <ele-text :icon="Tools" type="secondary" class="list-item-tool" :icon-props="{ style: { opacity: 0.88 } }" />
             </ele-tooltip>
             <el-divider direction="vertical" style="margin: 0; opacity: 0.8" />
             <ele-tooltip placement="top" content="删除" :offset="-8">
@@ -103,109 +83,96 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import {
-    Tools,
-    DeleteFilled,
-    Share,
-    MoreFilled
-  } from '@element-plus/icons-vue';
-  import TopSearch from '../project/components/top-search.vue';
+  import { ref } from 'vue'
+  import { Tools, DeleteFilled, Share, MoreFilled } from '@element-plus/icons-vue'
+  import TopSearch from '../project/components/top-search.vue'
 
-  defineOptions({ name: 'ListCardApplication' });
+  defineOptions({ name: 'ListCardApplication' })
 
   interface Item {
-    id: number;
-    title: string;
-    url: string;
-    time: string;
-    cover: string;
+    id: number
+    title: string
+    url: string
+    time: string
+    cover: string
   }
 
   /** 数据 */
-  const data = ref<Item[]>([]);
+  const data = ref<Item[]>([])
 
   /** 第几页 */
-  const page = ref(1);
+  const page = ref(1)
 
   /** 每页多少条 */
-  const limit = ref(8);
+  const limit = ref(8)
 
   /** 总数量 */
-  const count = ref(0);
+  const count = ref(0)
 
   /** 查询数据 */
   const query = () => {
-    count.value = 40;
+    count.value = 40
     data.value = [
       {
         id: 1,
         title: 'ElementUI',
         url: 'https://element.eleme.cn',
         time: '2 小时前',
-        cover:
-          'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg'
+        cover: 'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg'
       },
       {
         id: 2,
         title: 'Vue.js',
         url: 'https://cn.vuejs.org',
         time: '4 小时前',
-        cover:
-          'https://cdn.eleadmin.com/20200609/b6a811873e704db49db994053a5019b2.jpg'
+        cover: 'https://cdn.eleadmin.com/20200609/b6a811873e704db49db994053a5019b2.jpg'
       },
       {
         id: 3,
         title: 'Vuex',
         url: 'https://vuex.vuejs.org',
         time: '12 小时前',
-        cover:
-          'https://cdn.eleadmin.com/20200609/948344a2a77c47a7a7b332fe12ff749a.jpg'
+        cover: 'https://cdn.eleadmin.com/20200609/948344a2a77c47a7a7b332fe12ff749a.jpg'
       },
       {
         id: 4,
         title: 'Vue Router',
         url: 'https://vuex.vuejs.org',
         time: '14 小时前',
-        cover:
-          'https://cdn.eleadmin.com/20200609/f6bc05af944a4f738b54128717952107.jpg'
+        cover: 'https://cdn.eleadmin.com/20200609/f6bc05af944a4f738b54128717952107.jpg'
       },
       {
         id: 5,
         title: 'Sass',
         url: 'https://www.sass.hk',
         time: '10 小时前',
-        cover:
-          'https://cdn.eleadmin.com/20200609/2d98970a51b34b6b859339c96b240dcd.jpg'
+        cover: 'https://cdn.eleadmin.com/20200609/2d98970a51b34b6b859339c96b240dcd.jpg'
       },
       {
         id: 6,
         title: 'Axios',
         url: 'http://www.axios-js.com',
         time: '16 小时前',
-        cover:
-          'https://cdn.eleadmin.com/20200609/faa0202700ee455b90fe77d8bef98bc0.jpg'
+        cover: 'https://cdn.eleadmin.com/20200609/faa0202700ee455b90fe77d8bef98bc0.jpg'
       },
       {
         id: 7,
         title: 'Webpack',
         url: 'https://www.webpackjs.com',
         time: '6 小时前',
-        cover:
-          'https://cdn.eleadmin.com/20200609/d3519518b00d42d3936b2ab5ce3a4cc3.jpg'
+        cover: 'https://cdn.eleadmin.com/20200609/d3519518b00d42d3936b2ab5ce3a4cc3.jpg'
       },
       {
         id: 8,
         title: 'Node.js',
         url: 'https://nodejs.org/',
         time: '8 小时前',
-        cover:
-          'https://cdn.eleadmin.com/20200609/fe9196dd091e438fba115205c1003ee7.jpg'
+        cover: 'https://cdn.eleadmin.com/20200609/fe9196dd091e438fba115205c1003ee7.jpg'
       }
-    ];
-  };
+    ]
+  }
 
-  query();
+  query()
 </script>
 
 <style lang="scss" scoped>

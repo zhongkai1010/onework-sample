@@ -1,51 +1,51 @@
-import type { PageParam } from '@/api';
-import type { Role } from '../../role/model';
-import type { Menu } from '../../menu/model';
+import type { PageParam } from '@/api'
+import type { Role } from '../../role/model'
+import type { Menu } from '../../menu/model'
 
 /**
  * 用户
  */
 export interface User {
   /** 用户id */
-  userId?: number;
+  userId?: number
   /** 账号 */
-  username?: string;
+  username?: string
   /** 密码 */
-  password?: string;
+  password?: string
   /** 昵称 */
-  nickname?: string;
+  nickname?: string
   /** 头像 */
-  avatar?: string;
+  avatar?: string
   /** 性别(字典) */
-  sex?: string;
+  sex?: string
   /** 手机号 */
-  phone?: string;
+  phone?: string
   /** 邮箱 */
-  email?: string;
+  email?: string
   /** 出生日期 */
-  birthday?: string;
+  birthday?: string
   /** 个人简介 */
-  introduction?: string;
+  introduction?: string
   /** 机构id */
-  organizationId?: number;
+  organizationId?: number
   /** 状态, 0正常, 1冻结 */
-  status?: number;
+  status?: number
   /** 性别名称 */
-  sexName?: string;
+  sexName?: string
   /** 机构名称 */
-  organizationName?: string;
+  organizationName?: string
   /** 角色列表 */
-  roles?: Role[];
+  roles?: Role[]
   /** 权限列表 */
-  authorities?: Menu[];
+  authorities?: Menu[]
   /** 创建时间 */
-  createTime?: string;
+  createTime?: string
   /** 街道地址 */
-  address?: string;
+  address?: string
   /** 联系电话前缀 */
-  tellPre?: string;
+  tellPre?: string
   /** 联系电话 */
-  tell?: string;
+  tell?: string
 }
 
 /**
@@ -53,25 +53,25 @@ export interface User {
  */
 export interface UserParam extends PageParam {
   /** 账号 */
-  username?: string;
+  username?: string
   /** 昵称 */
-  nickname?: string;
+  nickname?: string
   /** 性别(字典) */
-  sex?: string;
+  sex?: string
   /** 手机号 */
-  phone?: string;
+  phone?: string
   /** 状态 */
-  status?: number;
+  status?: number
   /** 机构id */
-  organizationId?: number;
+  organizationId?: number
   /** 性别名称 */
-  sexName?: string;
+  sexName?: string
   /** 机构名称 */
-  organizationName?: string;
+  organizationName?: string
   /** 邮箱 */
-  email?: string;
+  email?: string
   /** 创建时间开始时间 */
-  createTimeStart?: string;
+  createTimeStart?: string
   /** 创建时间截止时间 */
-  createTimeEnd?: string;
+  createTimeEnd?: string
 }

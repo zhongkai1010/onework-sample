@@ -14,10 +14,10 @@
 </template>
 
 <script lang="ts" setup>
-  import StatisticsCard from './components/statistics-card.vue';
-  import SaleCard from './components/sale-card.vue';
-  import VisitHour from './components/visit-hour.vue';
-  import HotSearch from './components/hot-search.vue';
+  import StatisticsCard from './components/statistics-card.vue'
+  import SaleCard from './components/sale-card.vue'
+  import VisitHour from './components/visit-hour.vue'
+  import HotSearch from './components/hot-search.vue'
 
-  defineOptions({ name: 'DashboardAnalysis' });
+  defineOptions({ name: 'DashboardAnalysis' })
 </script>

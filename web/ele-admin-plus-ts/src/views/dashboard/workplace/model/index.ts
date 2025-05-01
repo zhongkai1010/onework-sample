@@ -1,1 +1,1 @@
-export type Command = 'refresh' | 'edit' | 'remove';
+export type Command = 'refresh' | 'edit' | 'remove'

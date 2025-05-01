@@ -1,23 +1,23 @@
-import { PageParam } from '@/api';
+import { PageParam } from '@/api'
 
 /**
  * 字典数据
  */
 export interface DictionaryData {
   /** 字典数据id */
-  dictDataId?: number;
+  dictDataId?: number
   /** 字典id */
-  dictId?: number;
+  dictId?: number
   /** 字典数据标识 */
-  dictDataCode: string;
+  dictDataCode: string
   /** 字典数据名称 */
-  dictDataName: string;
+  dictDataName: string
   /** 排序号 */
-  sortNumber?: number;
+  sortNumber?: number
   /** 备注 */
-  comments?: string;
+  comments?: string
   /** 创建时间 */
-  createTime?: string;
+  createTime?: string
 }
 
 /**
@@ -25,13 +25,13 @@ export interface DictionaryData {
  */
 export interface DictionaryDataParam extends PageParam {
   /** 关键字 */
-  keywords?: string;
+  keywords?: string
   /** 字典数据名称 */
-  dictDataName?: string;
+  dictDataName?: string
   /** 字典数据名称 */
-  dictDataCode?: string;
+  dictDataCode?: string
   /** 字典标识 */
-  dictCode?: string;
+  dictCode?: string
   /** 字典id */
-  dictId?: number;
+  dictId?: number
 }

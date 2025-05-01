@@ -1,8 +1,5 @@
 <template>
-  <ele-card
-    header="基础用法"
-    :body-style="{ overflow: 'hidden', padding: '8px 13px 13px 13px' }"
-  >
+  <ele-card header="基础用法" :body-style="{ overflow: 'hidden', padding: '8px 13px 13px 13px' }">
     <option-item label="显示折叠按钮" :responsive="false" style="margin: 0">
       <el-radio-group v-model="allowCollapse">
         <el-radio :value="true" label="是" />
@@ -138,10 +135,7 @@
       </template>
     </ele-split-panel>
   </ele-card>
-  <ele-card
-    header="可随意自由组合"
-    :body-style="{ overflow: 'hidden', padding: '13px' }"
-  >
+  <ele-card header="可随意自由组合" :body-style="{ overflow: 'hidden', padding: '13px' }">
     <ele-split-panel
       space="0px"
       size="80px"
@@ -215,27 +209,27 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import OptionItem from '@/views/extension/avatar/components/option-item.vue';
+  import { ref } from 'vue'
+  import OptionItem from '@/views/extension/avatar/components/option-item.vue'
 
   const emit = defineEmits<{
-    (e: 'change', type?: number): void;
-  }>();
+    (e: 'change', type?: number): void
+  }>()
 
   /** 是否显示折叠按钮 */
-  const allowCollapse = ref(true);
+  const allowCollapse = ref(true)
 
   /** 是否支持自由拉伸 */
-  const resizable = ref(false);
+  const resizable = ref(false)
 
   /** 是否上下布局模式 */
-  const vertical = ref(false);
+  const vertical = ref(false)
 
   /** 是否反转布局方向 */
-  const reverse = ref(false);
+  const reverse = ref(false)
 
   /** 切换到结合表格案例 */
   const openTable = () => {
-    emit('change', 1);
-  };
+    emit('change', 1)
+  }
 </script>

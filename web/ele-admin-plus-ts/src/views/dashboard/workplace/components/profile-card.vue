@@ -5,12 +5,8 @@
       <div class="profile-main">
         <el-avatar :size="68" :src="loginUser.avatar" class="profile-avatar" />
         <div class="profile-body">
-          <ele-text size="xl" type="heading" style="font-weight: normal">
-            早安, {{ loginUser.nickname }}, 开始您一天的工作吧!
-          </ele-text>
-          <ele-text type="placeholder" :icon="PartlyCloudy">
-            今日多云转阴, 18℃ ~ 22℃, 出门记得穿外套哦~
-          </ele-text>
+          <ele-text size="xl" type="heading" style="font-weight: normal"> 早安, {{ loginUser.nickname }}, 开始您一天的工作吧! </ele-text>
+          <ele-text type="placeholder" :icon="PartlyCloudy"> 今日多云转阴, 18℃ ~ 22℃, 出门记得穿外套哦~ </ele-text>
         </div>
       </div>
       <div class="profile-count">
@@ -23,9 +19,7 @@
             </el-tag>
             <span class="profile-count-name">项目数</span>
           </div>
-          <ele-text size="xl" type="heading" style="font-weight: normal">
-            3
-          </ele-text>
+          <ele-text size="xl" type="heading" style="font-weight: normal"> 3 </ele-text>
         </div>
         <div class="profile-count-item">
           <div class="profile-count-header">
@@ -36,9 +30,7 @@
             </el-tag>
             <span class="profile-count-name">待办项</span>
           </div>
-          <ele-text size="xl" type="heading" style="font-weight: normal">
-            6 / 24
-          </ele-text>
+          <ele-text size="xl" type="heading" style="font-weight: normal"> 6 / 24 </ele-text>
         </div>
         <div class="profile-count-item">
           <div class="profile-count-header">
@@ -49,9 +41,7 @@
             </el-tag>
             <span class="profile-count-name">消息</span>
           </div>
-          <ele-text size="xl" type="heading" style="font-weight: normal">
-            1,689
-          </ele-text>
+          <ele-text size="xl" type="heading" style="font-weight: normal"> 1,689 </ele-text>
         </div>
       </div>
     </div>
@@ -59,19 +49,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue';
-  import {
-    PartlyCloudy,
-    Briefcase,
-    Checked,
-    BellFilled
-  } from '@element-plus/icons-vue';
-  import { useUserStore } from '@/store/modules/user';
+  import { computed } from 'vue'
+  import { PartlyCloudy, Briefcase, Checked, BellFilled } from '@element-plus/icons-vue'
+  import { useUserStore } from '@/store/modules/user'
 
-  const userStore = useUserStore();
+  const userStore = useUserStore()
 
   /** 当前登录用户信息 */
-  const loginUser = computed(() => userStore.info ?? {});
+  const loginUser = computed(() => userStore.info ?? {})
 </script>
 
 <style lang="scss" scoped>

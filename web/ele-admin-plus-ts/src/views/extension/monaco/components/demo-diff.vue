@@ -1,21 +1,14 @@
 <template>
   <ele-card header="代码差异对比" :body-style="{ padding: '12px' }">
     <div style="border: 1px solid var(--el-border-color)">
-      <monaco-editor
-        v-model="code"
-        :language="language"
-        v-model:original="original"
-        :original-language="originalLanguage"
-        :diff="true"
-        style="height: 460px"
-      />
+      <monaco-editor v-model="code" :language="language" v-model:original="original" :original-language="originalLanguage" :diff="true" style="height: 460px" />
     </div>
   </ele-card>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import MonacoEditor from '@/components/MonacoEditor/index.vue';
+  import { ref } from 'vue'
+  import MonacoEditor from '@/components/MonacoEditor/index.vue'
 
   /** 代码内容 */
   const code = ref(`/**
@@ -72,10 +65,10 @@ export function cloneDeep(value) {
   };
   return clone(value);
 }
-`);
+`)
 
   /** 代码语言 */
-  const language = ref('javascript');
+  const language = ref('javascript')
 
   /** 原始代码内容 */
   const original = ref(`/**
@@ -117,8 +110,8 @@ export function cloneDeep(value) {
   };
   return clone(value);
 }
-`);
+`)
 
   /** 原始代码语言 */
-  const originalLanguage = ref('javascript');
+  const originalLanguage = ref('javascript')
 </script>

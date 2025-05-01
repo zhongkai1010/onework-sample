@@ -1,14 +1,7 @@
 <template>
   <ele-card header="自定义数据">
     <div style="max-width: 260px">
-      <ele-icon-select
-        clearable
-        filterable
-        :data="icons"
-        v-model="selectedIcon"
-        placeholder="请选择"
-        :popper-options="{ strategy: 'fixed' }"
-      >
+      <ele-icon-select clearable filterable :data="icons" v-model="selectedIcon" placeholder="请选择" :popper-options="{ strategy: 'fixed' }">
         <template #icon="{ icon }">
           <el-icon>
             <component :is="icon" />
@@ -20,14 +13,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import type { IconItem } from 'ele-admin-plus/es/ele-icon-select/types';
-  import * as BasicIcons from './basic-icons';
+  import { ref } from 'vue'
+  import type { IconItem } from 'ele-admin-plus/es/ele-icon-select/types'
+  import * as BasicIcons from './basic-icons'
 
-  defineOptions({ components: BasicIcons });
+  defineOptions({ components: BasicIcons })
 
   /** 选中值 */
-  const selectedIcon = ref('');
+  const selectedIcon = ref('')
 
   /** 图标数据 */
   const icons = ref<IconItem[]>([
@@ -36,20 +29,7 @@
       children: [
         {
           title: 'System',
-          icons: [
-            'CheckCircleOutlined',
-            'CloseCircleOutlined',
-            'QuestionCircleOutlined',
-            'UserOutlined',
-            'SearchOutlined',
-            'SettingOutlined',
-            'HomeOutlined',
-            'MessageOutlined',
-            'EditOutlined',
-            'DeleteOutlined',
-            'PlusCircleOutlined',
-            'MinusCircleOutlined'
-          ]
+          icons: ['CheckCircleOutlined', 'CloseCircleOutlined', 'QuestionCircleOutlined', 'UserOutlined', 'SearchOutlined', 'SettingOutlined', 'HomeOutlined', 'MessageOutlined', 'EditOutlined', 'DeleteOutlined', 'PlusCircleOutlined', 'MinusCircleOutlined']
         },
         {
           title: 'Arrow',
@@ -70,13 +50,7 @@
       children: [
         {
           title: 'System',
-          icons: [
-            'CheckCircleFilled',
-            'CloseCircleFilled',
-            'QuestionCircleFilled',
-            'ExclamationCircleFilled',
-            'FilterFilled'
-          ]
+          icons: ['CheckCircleFilled', 'CloseCircleFilled', 'QuestionCircleFilled', 'ExclamationCircleFilled', 'FilterFilled']
         },
         {
           title: 'Arrow',
@@ -84,12 +58,7 @@
         },
         {
           title: 'Media',
-          icons: [
-            'StepBackwardFilled',
-            'StepForwardFilled',
-            'PlayFilled',
-            'PauseFilled'
-          ]
+          icons: ['StepBackwardFilled', 'StepForwardFilled', 'PlayFilled', 'PauseFilled']
         },
         {
           title: 'Other',
@@ -97,5 +66,5 @@
         }
       ]
     }
-  ]);
+  ])
 </script>

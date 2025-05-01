@@ -33,36 +33,36 @@
 </template>
 
 <script lang="ts" setup>
-  import type { CSSProperties } from 'vue';
-  import { ref, markRaw, h } from 'vue';
-  import { useI18n } from 'vue-i18n';
-  import type { ElTooltipProps } from 'element-plus';
-  import { GlobalOutlined } from '@/components/icons';
-  import { setCacheLang } from '@/i18n/use-locale';
+  import type { CSSProperties } from 'vue'
+  import { ref, markRaw, h } from 'vue'
+  import { useI18n } from 'vue-i18n'
+  import type { ElTooltipProps } from 'element-plus'
+  import { GlobalOutlined } from '@/components/icons'
+  import { setCacheLang } from '@/i18n/use-locale'
 
   withDefaults(
     defineProps<{
       /** placement */
-      placement?: ElTooltipProps['placement'];
+      placement?: ElTooltipProps['placement']
       /** 自定义样式 */
-      iconStyle?: CSSProperties;
+      iconStyle?: CSSProperties
     }>(),
     {
       placement: 'bottom'
     }
-  );
+  )
 
-  const { locale } = useI18n();
+  const { locale } = useI18n()
 
   const items = ref([
     { title: '简体中文', command: 'zh_CN', icon: markRaw(h('span', {}, 'CN')) },
     { title: '繁體中文', command: 'zh_TW', icon: markRaw(h('span', {}, 'HK')) },
     { title: 'English', command: 'en', icon: markRaw(h('span', {}, 'US')) }
-  ]);
+  ])
 
   /** 切换语言 */
   const changeLanguage = (command: string) => {
-    locale.value = command;
-    setCacheLang(command);
-  };
+    locale.value = command
+    setCacheLang(command)
+  }
 </script>

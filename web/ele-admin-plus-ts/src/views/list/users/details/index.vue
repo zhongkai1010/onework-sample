@@ -1,10 +1,7 @@
 <template>
   <ele-page>
     <ele-card>
-      <div>
-        从“男用户”页面和“女用户”页面点击进入的详情页面是共用的同一个页面,
-        会选中各自对应的“男用户”或“女用户”菜单, 并且会各自KeepAlive.
-      </div>
+      <div> 从“男用户”页面和“女用户”页面点击进入的详情页面是共用的同一个页面, 会选中各自对应的“男用户”或“女用户”菜单, 并且会各自KeepAlive. </div>
       <div style="display: flex; align-items: center; margin-top: 16px">
         <div style="padding-right: 16px">路由参数</div>
         <div style="padding-right: 16px">sex: {{ form.sex }}</div>
@@ -40,18 +37,18 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
-  import { useRoute } from 'vue-router';
-  import { usePageTab } from '@/utils/use-page-tab';
-  import { getUser } from '@/api/system/user';
-  import type { User } from '@/api/system/user/model';
+  import { ref, reactive } from 'vue'
+  import { useRoute } from 'vue-router'
+  import { usePageTab } from '@/utils/use-page-tab'
+  import { getUser } from '@/api/system/user'
+  import type { User } from '@/api/system/user/model'
 
-  defineOptions({ name: 'ListUsersDetails' });
+  defineOptions({ name: 'ListUsersDetails' })
 
-  const { setPageTabTitle } = usePageTab();
+  const { setPageTabTitle } = usePageTab()
 
-  const route = useRoute();
-  const paths = route.path.split('/');
+  const route = useRoute()
+  const paths = route.path.split('/')
 
   /** 用户信息 */
   const form = reactive<User>({
@@ -62,28 +59,28 @@
     sexName: '',
     phone: '',
     createTime: ''
-  });
+  })
 
   /** 查询详情 */
   const query = () => {
     if (!form.userId || isNaN(form.userId)) {
-      return;
+      return
     }
     getUser(form.userId)
       .then((data) => {
-        Object.assign(form, data);
-        const sex = form.sex == '1' ? '男' : '女';
-        setPageTabTitle(`${sex}用户详情[${form.nickname}]`);
+        Object.assign(form, data)
+        const sex = form.sex == '1' ? '男' : '女'
+        setPageTabTitle(`${sex}用户详情[${form.nickname}]`)
       })
       .catch((e) => {
-        console.error(e.message);
-      });
-  };
+        console.error(e.message)
+      })
+  }
 
-  query();
+  query()
 
   /** 输入框 */
-  const text = ref('');
+  const text = ref('')
 </script>
 
 <style lang="scss" scoped>

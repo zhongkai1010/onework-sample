@@ -15,11 +15,7 @@
         </el-col>
         <el-col :lg="6" :md="12" :sm="12" :xs="24">
           <el-form-item label="上传人">
-            <el-input
-              clearable
-              v-model.trim="form.createNickname"
-              placeholder="请输入"
-            />
+            <el-input clearable v-model.trim="form.createNickname" placeholder="请输入" />
           </el-form-item>
         </el-col>
         <el-col :lg="6" :md="12" :sm="12" :xs="24">
@@ -34,28 +30,28 @@
 </template>
 
 <script lang="ts" setup>
-  import { useFormData } from '@/utils/use-form-data';
-  import type { FileRecordParam } from '@/api/system/file/model';
+  import { useFormData } from '@/utils/use-form-data'
+  import type { FileRecordParam } from '@/api/system/file/model'
 
   const emit = defineEmits<{
-    (e: 'search', where?: FileRecordParam): void;
-  }>();
+    (e: 'search', where?: FileRecordParam): void
+  }>()
 
   /** 表单数据 */
   const [form, resetFields] = useFormData<FileRecordParam>({
     name: '',
     path: '',
     createNickname: ''
-  });
+  })
 
   /** 搜索 */
   const search = () => {
-    emit('search', { ...form });
-  };
+    emit('search', { ...form })
+  }
 
   /**  重置 */
   const reset = () => {
-    resetFields();
-    search();
-  };
+    resetFields()
+    search()
+  }
 </script>
