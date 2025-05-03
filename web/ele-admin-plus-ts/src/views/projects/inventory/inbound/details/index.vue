@@ -1,32 +1,135 @@
 <template>
-  <ele-page>
-    <ele-card>
-      <el-descriptions title="页面内容" :column="1" size="large" :border="true" :label-width="200">
-        <el-descriptions-item label="页面图片">
-          <img :src="pageImage" style="width: 100%; cursor: pointer" @click="openPreview" />
-        </el-descriptions-item>
-        <el-descriptions-item label="搜索条件"> 入库单号 请输入入库单号 藏品选择 请选择 接收库房 请输入接收库房 状态 </el-descriptions-item>
-        <el-descriptions-item label="操作栏">无 </el-descriptions-item>
-        <el-descriptions-item label="表格字段" :span="24">编号 入库单号 藏品编号 藏品名称 接收库房 入库日期 状态</el-descriptions-item>
-        <el-descriptions-item label="表格操作"> 无 </el-descriptions-item>
-      </el-descriptions>
+  <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
+    <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
+      <!-- 搜索表单 -->
+      <search-form ref="searchRef" @search="reload" />
+
+      <!-- 数据表格 -->
+      <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :highlight-current-row="true" :style="{ paddingBottom: '16px' }" cache-key="inboundDetailsTable" :tools="['reload', 'size', 'columns', 'maximized']" :stripe="true">
+        <!-- 单据状态列 -->
+        <template #status="{ row }">
+          <el-tag :type="getStatusType(row.status)">
+            {{ getStatusText(row.status) }}
+          </el-tag>
+        </template>
+      </ele-pro-table>
     </ele-card>
-    <ele-image-viewer v-model="showImageViewer" :urlList="viewerImages" :initialIndex="viewerIndex" :infinite="false" />
   </ele-page>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
   import { ref } from 'vue'
-  import pageImage from './page.png'
+  import type { EleProTable } from 'ele-admin-plus'
+  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
 
-  const showImageViewer = ref(false)
-  const viewerImages = ref<string[]>([])
-  const viewerIndex = ref(0)
+  import { getInboundCollections } from '@/api/inventory/inbound'
+  import SearchForm from './components/search-form.vue'
 
-  const openPreview = () => {
-    viewerImages.value = [pageImage]
-    viewerIndex.value = 0
-    showImageViewer.value = true
+  /* ==================== 组件引用 ==================== */
+  const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
+  const tableRef = ref<InstanceType<typeof EleProTable>>()
+
+  /* ==================== 表格配置 ==================== */
+  const columns = ref<Columns>([
+    {
+      type: 'index',
+      columnKey: 'index',
+      width: 50,
+      align: 'center',
+      fixed: 'left'
+    },
+    {
+      prop: 'code',
+      label: '入库单号',
+      sortable: 'custom',
+      width: 120,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionCode',
+      label: '藏品编号',
+      sortable: 'custom',
+      width: 120,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionName',
+      label: '藏品名称',
+      sortable: 'custom',
+      minWidth: 200,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'warehouseName',
+      label: '接收库房',
+      sortable: 'custom',
+      width: 120,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'storageDate',
+      label: '入库日期',
+      sortable: 'custom',
+      width: 120,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'status',
+      label: '状态',
+      sortable: 'custom',
+      width: 100,
+      showOverflowTooltip: true,
+      slot: 'status'
+    }
+  ])
+
+  /* ==================== 数据源 ==================== */
+  const datasource: DatasourceFunction = ({ pages, where, orders }) => {
+    return getInboundCollections({
+      ...where,
+      ...orders,
+      ...pages
+    })
+  }
+
+  /* ==================== 表格操作 ==================== */
+  /**
+   * 重新加载表格数据
+   */
+  const reload = () => {
+    tableRef.value?.reload?.({ page: 1 })
+  }
+
+  /**
+   * 获取状态类型
+   */
+  const getStatusType = (status?: number) => {
+    switch (status) {
+      case 0:
+        return 'warning'
+      case 1:
+        return 'success'
+      case 2:
+        return 'info'
+      default:
+        return 'info'
+    }
+  }
+
+  /**
+   * 获取状态文本
+   */
+  const getStatusText = (status?: number) => {
+    switch (status) {
+      case 0:
+        return '待审核'
+      case 1:
+        return '已审核'
+      case 2:
+        return '已入库'
+      default:
+        return '未知'
+    }
   }
 </script>
 

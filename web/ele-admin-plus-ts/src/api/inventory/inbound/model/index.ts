@@ -15,19 +15,19 @@ export interface InboundCollection {
  */
 export interface InboundOrder {
   /** ID 编号 */
-  id: string
+  id: number
   /** 单据图片 */
   documentImage?: string
-  /** 单据状态 */
-  status?: string
+  /** 单据状态 0：待审核，1：已审核、2：已入库 */
+  status?: number
   /** 入库单号 */
   code?: string
-  /** 入库类型 */
-  type?: string
+  /** 入库类型 1:初次入库，2：归还入库 */
+  type?: number
   /** 经办人 */
   operator?: string
   /** 接收库房 */
-  warehouseId?: string
+  warehouseId?: number
   /** 库房名称 */
   warehouseName: string
   /** 入库日期 */
@@ -41,13 +41,13 @@ export interface InboundOrder {
  */
 export interface InboundRegisterParams {
   /** 入库类型,1:初次入库，2：归还入库 */
-  type?: string
+  type?: number
   /** 藏品ID集合 */
-  collectionIds: string[]
+  collectionIds: number[]
   /** 经办人 */
   operator?: string
   /** 接收库房 */
-  warehouseId?: string
+  warehouseId?: number
   /** 入库日期 */
   storageDate?: string
   /** 备注 */
@@ -67,23 +67,23 @@ export interface InboundApproveParams {
  */
 export interface InboundConfirmParams {
   /** 入库单ID */
-  id: string
+  id: number
 }
 
 /**
  * 查询入库单参数
  */
 export interface InboundQueryParams {
-  /** 单据状态 */
-  status?: string
-  /** 入库类型 */
-  type?: string
+  /** 单据状态 0：待审核，1：已审核、2：已入库 */
+  status?: number
+  /** 入库类型 1:初次入库，2：归还入库 */
+  type?: number
   /** 藏品ID */
-  collectionId?: string
+  collectionId?: number
   /** 经办人 */
   operator?: string
   /** 接收库房 */
-  warehouseId?: string
+  warehouseId?: number
   /** 备注 */
   remarks?: string
   /** 分页查询每页数量 */
@@ -100,14 +100,108 @@ export interface InboundQueryParams {
  * 查询入库明细参数
  */
 export interface InboundDetailsQueryParams {
-  /** 入库单ID */
-  id?: string
+  /** 单据ID */
+  id: number
+}
+
+/**
+ * 查询入库单详情参数
+ */
+export interface InboundOrderDetailsQueryParams {
+  /** ID 编号 */
+  id?: number
+}
+
+/**
+ * 查询入库单明细参数
+ */
+export interface InboundCollectionQueryParams {
+  /** 入库单号 */
+  collectionStatus?: string
+  /** 藏品选择 */
+  collectionCode?: number
+  /** 接收库房 */
+  collectionName?: number
+  /** 单据状态 0：待审核，1：已审核、2：已入库 */
+  status?: number
   /** 分页查询每页数量 */
   limit?: number
-  /** 分页查询页码 */
-  page?: number
   /** 排序方式 */
   order?: string
+  /** 分页查询页码 */
+  page?: number
   /** 排序字段 */
   sort?: string
+}
+
+/**
+ * 入库单明细
+ */
+export interface InboundCollection {
+  /** ID 编号 */
+  id: string
+  /** 入库单号 */
+  code: string
+  /** 藏品编号 */
+  collectionCode: string
+  /** 藏品名称 */
+  collectionName: string
+  /** 接收库房 */
+  warehouseId: number
+  /** 库房名称 */
+  warehouseName: string
+  /** 入库日期 */
+  storageDate: string
+  /** 单据状态 0：待审核，1：已审核、2：已入库 */
+  status: number
+}
+
+/**
+ * 入库单详情藏品
+ */
+export interface InboundOrderDetailCollection {
+  /** ID 编号 */
+  id: number
+  /** 入库单号 */
+  code: string
+  /** 藏品编号 */
+  collectionCode: string
+  /** 藏品名称 */
+  collectionName: string
+  /** 接收库房 */
+  warehouseId: number
+  /** 库房名称 */
+  warehouseName: string
+  /** 入库日期 */
+  storageDate: string
+  /** 单据状态 0：待审核，1：已审核、2：已入库 */
+  status: number
+}
+
+/**
+ * 入库单详情
+ */
+export interface InboundOrderDetail {
+  /** ID 编号 */
+  id: number
+  /** 单据图片 */
+  documentImage?: string
+  /** 单据状态 0：待审核，1：已审核、2：已入库 */
+  status?: number
+  /** 入库单号 */
+  code?: string
+  /** 入库类型 1:初次入库，2：归还入库 */
+  type?: number
+  /** 经办人 */
+  operator?: string
+  /** 接收库房 */
+  warehouseId?: number
+  /** 库房名称 */
+  warehouseName: string
+  /** 入库日期 */
+  storageDate?: string
+  /** 备注 */
+  remarks?: string
+  /** 入库藏品明细 */
+  collections: InboundOrderDetailCollection[]
 }

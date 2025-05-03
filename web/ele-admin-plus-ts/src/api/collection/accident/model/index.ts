@@ -5,43 +5,15 @@ import { PageParam } from '@/api'
  */
 export interface Accident {
   /** ID编号 */
-  id: string
-  /** 编号 */
-  code: string
+  id: number
   /** 单据图片 */
-  documentImage: string
+  documentImage?: string
   /** 藏品编码 */
-  collectionCode: string
+  collectionCode?: string
   /** 藏品ID */
   collectionId: string
   /** 藏品名称 */
-  collectionName: string
-  /** 事故时间 */
-  incidentTime: string
-  /** 事故地点 */
-  incidentLocation: string
-  /** 事故原因 */
-  incidentCause: string
-  /** 事故责任人 */
-  responsiblePerson: string
-  /** 藏品损坏情况 */
-  damageStatus: string
-  /** 处理状态 */
-  status: string
-  /** 处理结果 */
-  processingResult: string
-}
-
-/**
- * 添加事故记录参数
- */
-export interface AddAccidentParams {
-  /** 编号 */
-  code?: string
-  /** 单据图片 */
-  documentImage?: string
-  /** 藏品ID */
-  collectionId?: string
+  collectionName?: string
   /** 事故时间 */
   incidentTime?: string
   /** 事故地点 */
@@ -52,18 +24,23 @@ export interface AddAccidentParams {
   responsiblePerson?: string
   /** 藏品损坏情况 */
   damageStatus?: string
-  /** 处理状态 */
-  status: string
+  /** 处理状态，0：未处理，1：已处理 */
+  status?: number
   /** 处理结果 */
-  processingResult: string
+  processingResult?: string
 }
+
+/**
+ * 添加事故记录参数
+ */
+export type AddAccidentParams = Omit<Accident, 'id'>
 
 /**
  * 事故记录查询参数
  */
 export interface AccidentQueryParams extends PageParam {
   /** 藏品ID */
-  collectionId?: string
+  collectionId?: number
   /** 事故地点 */
   accidentLocation?: string
   /** 事故原因 */
@@ -74,6 +51,18 @@ export interface AccidentQueryParams extends PageParam {
   collectionDamageStatus?: string
   /** 处理状态 */
   status?: string
+  /** 处理结果 */
+  processingResult?: string
+}
+
+/**
+ * 处理事故参数
+ */
+export interface HandleAccidentParams {
+  /** ID编号 */
+  id: number
+  /** 处理状态，0：未处理，1：已处理 */
+  status: number
   /** 处理结果 */
   processingResult?: string
 }

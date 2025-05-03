@@ -6,22 +6,20 @@ import { PageParam } from '@/api'
 export interface Image {
   /** ID编号 */
   id: number
-  /** 编号 */
-  code: string
   /** 藏品编号 */
-  collectionId: string
+  collectionCode?: string
   /** 藏品名称 */
   collectionName: string
   /** 标题 */
-  title: string
+  title?: string
   /** 容量大小 */
-  fileSize: string
+  fileSize?: string
   /** 文件 */
-  file: string
+  file?: string
   /** 添加人 */
-  addedBy: string
+  addedBy?: string
   /** 添加时间 */
-  addTime: string
+  addTime?: string
 }
 
 /**
@@ -38,10 +36,8 @@ export type UpdateImageParams = Omit<Image, 'addedBy' | 'addTime'>
  * 影像查询参数
  */
 export interface ImageQueryParams extends PageParam {
-  /** 编号 */
-  code?: string
-  /** 藏品编号 */
-  collectionId?: string
   /** 标题 */
   title?: string
+  /** 容量大小 */
+  fileSize?: string
 }

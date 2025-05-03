@@ -7,7 +7,7 @@ import type { Cancellation, AddCancellationParams, CancellationQueryParams, Conf
  * @param data 注销记录信息
  */
 export async function addCancellation(data: AddCancellationParams) {
-  const res = await request.post<ApiResult<unknown>>('/collection/cancellation', data)
+  const res = await request.post<ApiResult<unknown>>('/api/collection/cancellation', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -19,7 +19,7 @@ export async function addCancellation(data: AddCancellationParams) {
  * @param params 查询参数
  */
 export async function getCancellationList(params: CancellationQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Cancellation>>>('/collection/cancellation', {
+  const res = await request.get<ApiResult<PageResult<Cancellation>>>('/api/collection/cancellation', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -33,7 +33,7 @@ export async function getCancellationList(params: CancellationQueryParams) {
  * @param data 注销记录信息
  */
 export async function updateCancellation(data: Cancellation) {
-  const res = await request.put<ApiResult<unknown>>('/collection/cancellation', data)
+  const res = await request.put<ApiResult<unknown>>('/api/collection/cancellation', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -57,7 +57,7 @@ export async function deleteCancellation(id: string) {
  * @param data 确认注销参数
  */
 export async function confirmCancellation(data: ConfirmCancellationParams) {
-  const res = await request.post<ApiResult<unknown>>('/collection/cancellation/confirm', data)
+  const res = await request.post<ApiResult<unknown>>('/api/collection/cancellation/confirm', data)
   if (res.data.code === 0) {
     return res.data.message
   }

@@ -19,7 +19,7 @@ export async function addCategory(data: CategoryEditParams) {
  * @param params 查询参数
  */
 export async function listCategories(params?: CategoryQueryParams) {
-  const res = await request.get<ApiResult<Category[]>>('/data/categories', {
+  const res = await request.get<ApiResult<Category[]>>('/api/data/categories', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -33,7 +33,7 @@ export async function listCategories(params?: CategoryQueryParams) {
  * @param data 分类ID集合
  */
 export async function removeCategories(data: DeleteCategoryParams) {
-  const res = await request.delete<ApiResult<unknown>>('/data/categories', {
+  const res = await request.delete<ApiResult<unknown>>('/api/data/categories', {
     data
   })
   if (res.data.code === 0) {
@@ -47,7 +47,7 @@ export async function removeCategories(data: DeleteCategoryParams) {
  * @param data 分类信息
  */
 export async function updateCategory(data: CategoryEditParams) {
-  const res = await request.put<ApiResult<unknown>>('/data/categories', data)
+  const res = await request.put<ApiResult<unknown>>('/api/data/categories', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -61,7 +61,7 @@ export async function updateCategory(data: CategoryEditParams) {
 export async function importCategories(file: File) {
   const formData = new FormData()
   formData.append('file', file)
-  const res = await request.post<ApiResult<unknown>>('/data/categories/import', formData, {
+  const res = await request.post<ApiResult<unknown>>('/api/data/categories/import', formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }

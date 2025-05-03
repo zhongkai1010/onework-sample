@@ -1,13 +1,111 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OneWork",
+    "title": "藏品管理系统",
     "description": "",
     "version": "1.0.0"
   },
   "tags": [],
   "paths": {
     "/api/collection/repair": {
+      "post": {
+        "summary": "修复登记",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "registrationDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "登记日期"
+                  },
+                  "collectionId": {
+                    "type": "integer",
+                    "description": "藏品ID"
+                  },
+                  "sendRepairDepartment": {
+                    "type": "string",
+                    "description": "送修部门"
+                  },
+                  "sentBy": {
+                    "type": "string",
+                    "description": "送修人"
+                  },
+                  "repairReason": {
+                    "type": "string",
+                    "description": "修复原因"
+                  },
+                  "remarks": {
+                    "type": "string",
+                    "description": "备注"
+                  },
+                  "sendRepairDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "送修日期"
+                  }
+                },
+                "required": [
+                  "registrationDate",
+                  "collectionId"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
       "get": {
         "summary": "查询藏品修复记录分页列表",
         "deprecated": false,
@@ -134,7 +232,7 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID 编号"
                               },
                               "documentImage": {
@@ -153,6 +251,10 @@
                               "collectionCode": {
                                 "type": "string",
                                 "description": "藏品编码"
+                              },
+                              "collectionId": {
+                                "type": "integer",
+                                "description": "藏品ID"
                               },
                               "collectionName": {
                                 "type": "string",
@@ -184,8 +286,8 @@
                                 "description": "送修日期"
                               },
                               "status": {
-                                "type": "string",
-                                "description": "工单状态"
+                                "type": "integer",
+                                "description": "工单状态，0：修改中、1：已修复"
                               },
                               "undertakingOrganization": {
                                 "type": "string",
@@ -217,146 +319,13 @@
                                 "description": "修复后图片"
                               }
                             },
-                            "required": ["id"]
+                            "required": [
+                              "id",
+                              "collectionId"
+                            ]
                           }
                         }
                       }
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      },
-      "post": {
-        "summary": "修复登记",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "ID 编号"
-                  },
-                  "documentImage": {
-                    "type": "string",
-                    "description": "单据图片"
-                  },
-                  "repairCode": {
-                    "type": "string",
-                    "description": "修复单号"
-                  },
-                  "registrationDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "登记日期"
-                  },
-                  "collectionId": {
-                    "type": "string",
-                    "description": "藏品ID"
-                  },
-                  "sendRepairDepartment": {
-                    "type": "string",
-                    "description": "送修部门"
-                  },
-                  "sentBy": {
-                    "type": "string",
-                    "description": "送修人"
-                  },
-                  "repairReason": {
-                    "type": "string",
-                    "description": "修复原因"
-                  },
-                  "remarks": {
-                    "type": "string",
-                    "description": "备注"
-                  },
-                  "sendRepairDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "送修日期"
-                  },
-                  "undertakingOrganization": {
-                    "type": "string",
-                    "description": "承担机构"
-                  },
-                  "repairPerson": {
-                    "type": "string",
-                    "description": "修复人"
-                  },
-                  "qualificationCertificate": {
-                    "type": "string",
-                    "description": "资质证书"
-                  },
-                  "repairCompletionDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "修完日期"
-                  },
-                  "repairStatusAndResults": {
-                    "type": "string",
-                    "description": "修复情况及结果"
-                  },
-                  "beforeRepairImage": {
-                    "type": "string",
-                    "description": "修复前图片"
-                  },
-                  "afterRepairImage": {
-                    "type": "string",
-                    "description": "修复后图片"
-                  }
-                },
-                "required": ["id"]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
                     },
                     "error": {
                       "type": "string",
@@ -388,9 +357,9 @@
             "in": "query",
             "description": "",
             "required": false,
-            "example": "",
+            "example": 0,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -421,8 +390,100 @@
                       "type": "object",
                       "properties": {
                         "id": {
-                          "type": "string",
-                          "description": "ID 编号"
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "ID 编号"
+                            },
+                            "documentImage": {
+                              "type": "string",
+                              "description": "单据图片"
+                            },
+                            "repairCode": {
+                              "type": "string",
+                              "description": "修复单号"
+                            },
+                            "registrationDate": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "登记日期"
+                            },
+                            "collectionCode": {
+                              "type": "string",
+                              "description": "藏品编码"
+                            },
+                            "collectionId": {
+                              "type": "integer",
+                              "description": "藏品ID"
+                            },
+                            "collectionName": {
+                              "type": "string",
+                              "description": "藏品名称"
+                            },
+                            "collectionCategory": {
+                              "type": "string",
+                              "description": "藏品分类"
+                            },
+                            "sendRepairDepartment": {
+                              "type": "string",
+                              "description": "送修部门"
+                            },
+                            "sentBy": {
+                              "type": "string",
+                              "description": "送修人"
+                            },
+                            "repairReason": {
+                              "type": "string",
+                              "description": "修复原因"
+                            },
+                            "remarks": {
+                              "type": "string",
+                              "description": "备注"
+                            },
+                            "sendRepairDate": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "送修日期"
+                            },
+                            "status": {
+                              "type": "integer",
+                              "description": "工单状态，0：修改中、1：已修复"
+                            },
+                            "undertakingOrganization": {
+                              "type": "string",
+                              "description": "承担机构"
+                            },
+                            "repairPerson": {
+                              "type": "string",
+                              "description": "修复人"
+                            },
+                            "qualificationCertificate": {
+                              "type": "string",
+                              "description": "资质证书"
+                            },
+                            "repairCompletionDate": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "修完日期"
+                            },
+                            "repairStatusAndResults": {
+                              "type": "string",
+                              "description": "修复情况及结果"
+                            },
+                            "beforeRepairImage": {
+                              "type": "string",
+                              "description": "修复前图片"
+                            },
+                            "afterRepairImage": {
+                              "type": "string",
+                              "description": "修复后图片"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "collectionId"
+                          ]
                         },
                         "documentImage": {
                           "type": "string",
@@ -504,7 +565,9 @@
                           "description": "修复后图片"
                         }
                       },
-                      "required": ["id"]
+                      "required": [
+                        "id"
+                      ]
                     },
                     "error": {
                       "type": "string",
@@ -548,12 +611,127 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "repairId": {
+                  "id": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "ID 编号"
+                      },
+                      "documentImage": {
+                        "type": "string",
+                        "description": "单据图片"
+                      },
+                      "repairCode": {
+                        "type": "string",
+                        "description": "修复单号"
+                      },
+                      "registrationDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "登记日期"
+                      },
+                      "collectionCode": {
+                        "type": "string",
+                        "description": "藏品编码"
+                      },
+                      "collectionId": {
+                        "type": "integer",
+                        "description": "藏品ID"
+                      },
+                      "collectionName": {
+                        "type": "string",
+                        "description": "藏品名称"
+                      },
+                      "collectionCategory": {
+                        "type": "string",
+                        "description": "藏品分类"
+                      },
+                      "sendRepairDepartment": {
+                        "type": "string",
+                        "description": "送修部门"
+                      },
+                      "sentBy": {
+                        "type": "string",
+                        "description": "送修人"
+                      },
+                      "repairReason": {
+                        "type": "string",
+                        "description": "修复原因"
+                      },
+                      "remarks": {
+                        "type": "string",
+                        "description": "备注"
+                      },
+                      "sendRepairDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "送修日期"
+                      },
+                      "status": {
+                        "type": "integer",
+                        "description": "工单状态，0：修改中、1：已修复"
+                      },
+                      "undertakingOrganization": {
+                        "type": "string",
+                        "description": "承担机构"
+                      },
+                      "repairPerson": {
+                        "type": "string",
+                        "description": "修复人"
+                      },
+                      "qualificationCertificate": {
+                        "type": "string",
+                        "description": "资质证书"
+                      },
+                      "repairCompletionDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "修完日期"
+                      },
+                      "repairStatusAndResults": {
+                        "type": "string",
+                        "description": "修复情况及结果"
+                      },
+                      "beforeRepairImage": {
+                        "type": "string",
+                        "description": "修复前图片"
+                      },
+                      "afterRepairImage": {
+                        "type": "string",
+                        "description": "修复后图片"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "collectionId"
+                    ]
+                  },
+                  "repairPerson": {
                     "type": "string",
-                    "description": "修改单据ID"
+                    "description": "修复人"
+                  },
+                  "qualificationCertificate": {
+                    "type": "string",
+                    "description": "资质证书"
+                  },
+                  "repairCompletionDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "修完日期"
+                  },
+                  "repairStatusAndResults": {
+                    "type": "string",
+                    "description": "修复情况及结果"
+                  },
+                  "afterRepairImage": {
+                    "type": "string",
+                    "description": "修复后图片"
                   }
                 },
-                "required": ["repairId"]
+                "required": [
+                  "id"
+                ]
               },
               "examples": {}
             }

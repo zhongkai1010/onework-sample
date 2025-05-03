@@ -7,7 +7,7 @@ import type { Image, AddImageParams, ImageQueryParams } from './model'
  * @param data 影像信息
  */
 export async function addImage(data: AddImageParams) {
-  const res = await request.post<ApiResult<unknown>>('/collection/image', data)
+  const res = await request.post<ApiResult<unknown>>('/api/collection/image', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -19,7 +19,7 @@ export async function addImage(data: AddImageParams) {
  * @param params 查询参数
  */
 export async function getImageList(params: ImageQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Image>>>('/collection/image', {
+  const res = await request.get<ApiResult<PageResult<Image>>>('/api/collection/image', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -33,7 +33,7 @@ export async function getImageList(params: ImageQueryParams) {
  * @param data 影像信息
  */
 export async function updateImage(data: Image) {
-  const res = await request.put<ApiResult<unknown>>('/collection/image', data)
+  const res = await request.put<ApiResult<unknown>>('/api/collection/image', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -42,10 +42,12 @@ export async function updateImage(data: Image) {
 
 /**
  * 删除影像
- * @param id 影像ID
+ * @param ids 影像ID数组
  */
-export async function deleteImage(id: string) {
-  const res = await request.delete<ApiResult<unknown>>(`/collection/image/${id}`)
+export async function deleteImage(ids: number[]) {
+  const res = await request.delete<ApiResult<unknown>>('/api/collection/image', {
+    data: ids
+  })
   if (res.data.code === 0) {
     return res.data.message
   }

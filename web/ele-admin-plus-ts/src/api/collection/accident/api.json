@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OneWork",
+    "title": "藏品管理系统",
     "description": "",
     "version": "1.0.0"
   },
@@ -31,17 +31,21 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "code": {
-                    "type": "string",
-                    "description": "编号"
-                  },
                   "documentImage": {
                     "type": "string",
                     "description": "单据图片"
                   },
+                  "collectionCode": {
+                    "type": "string",
+                    "description": "藏品编码"
+                  },
                   "collectionId": {
                     "type": "string",
                     "description": "藏品ID"
+                  },
+                  "collectionName": {
+                    "type": "string",
+                    "description": "藏品名称"
                   },
                   "incidentTime": {
                     "type": "string",
@@ -65,15 +69,17 @@
                     "description": "藏品损坏情况"
                   },
                   "status": {
-                    "type": "string",
-                    "description": "事故状态"
+                    "type": "integer",
+                    "description": "处理状态，0：未处理，1：已处理"
                   },
                   "processingResult": {
                     "type": "string",
-                    "description": "事故处理结果"
+                    "description": "处理结果"
                   }
                 },
-                "required": ["status", "processingResult"]
+                "required": [
+                  "collectionId"
+                ]
               },
               "examples": {}
             }
@@ -125,9 +131,9 @@
             "in": "query",
             "description": "藏品   ",
             "required": false,
-            "example": "",
+            "example": 0,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -270,12 +276,8 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID 编号"
-                              },
-                              "code": {
-                                "type": "string",
-                                "description": "编号"
                               },
                               "documentImage": {
                                 "type": "string",
@@ -315,15 +317,18 @@
                                 "description": "藏品损坏情况"
                               },
                               "status": {
-                                "type": "string",
-                                "description": "处理状态"
+                                "type": "integer",
+                                "description": "处理状态，0：未处理，1：已处理"
                               },
                               "processingResult": {
                                 "type": "string",
                                 "description": "处理结果"
                               }
                             },
-                            "required": ["id", "collectionId"]
+                            "required": [
+                              "collectionId",
+                              "id"
+                            ]
                           }
                         }
                       }
@@ -362,6 +367,28 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
+                  }
+                },
+                "required": [
+                  "ids"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -410,9 +437,9 @@
             "in": "query",
             "description": "",
             "required": false,
-            "example": "",
+            "example": 0,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -443,12 +470,8 @@
                       "type": "object",
                       "properties": {
                         "id": {
-                          "type": "string",
+                          "type": "integer",
                           "description": "ID 编号"
-                        },
-                        "code": {
-                          "type": "string",
-                          "description": "编号"
                         },
                         "documentImage": {
                           "type": "string",
@@ -488,15 +511,100 @@
                           "description": "藏品损坏情况"
                         },
                         "status": {
-                          "type": "string",
-                          "description": "处理状态"
+                          "type": "integer",
+                          "description": "处理状态，0：未处理，1：已处理"
                         },
                         "processingResult": {
                           "type": "string",
                           "description": "处理结果"
                         }
                       },
-                      "required": ["id", "collectionId"]
+                      "required": [
+                        "collectionId",
+                        "id"
+                      ]
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/accident/handle": {
+      "post": {
+        "summary": "处理事故",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "ID 编号"
+                  },
+                  "status": {
+                    "type": "integer",
+                    "description": "处理状态，0：未处理，1：已处"
+                  },
+                  "processingResult": {
+                    "type": "string",
+                    "description": "处理结果"
+                  }
+                },
+                "required": [
+                  "id",
+                  "status"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
                     },
                     "error": {
                       "type": "string",

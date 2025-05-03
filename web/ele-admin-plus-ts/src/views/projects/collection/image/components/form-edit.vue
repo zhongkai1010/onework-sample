@@ -1,38 +1,25 @@
 <template>
-  <ele-modal v-model="visible" :title="isUpdate ? '修改艺术家' : '添加艺术家'" width="600px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
+  <ele-modal v-model="visible" :title="isUpdate ? '修改影像' : '添加影像'" width="600px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
-      <el-form-item label="姓名" prop="name">
-        <el-input v-model="form.name" placeholder="请输入艺术家姓名" clearable />
+      <el-form-item label="藏品编号" prop="collectionCode">
+        <el-input v-model="form.collectionCode" placeholder="请输入藏品编号" clearable />
       </el-form-item>
-      <el-form-item label="性别" prop="gender">
-        <el-select v-model="form.gender" placeholder="请选择性别" clearable style="width: 100%">
-          <el-option label="男" value="男" />
-          <el-option label="女" value="女" />
-        </el-select>
+      <el-form-item label="藏品名称" prop="collectionName">
+        <el-input v-model="form.collectionName" placeholder="请输入藏品名称" clearable />
       </el-form-item>
-      <el-form-item label="民族" prop="ethnicity">
-        <el-input v-model="form.ethnicity" placeholder="请输入民族" clearable />
+      <el-form-item label="标题" prop="title">
+        <el-input v-model="form.title" placeholder="请输入标题" clearable />
       </el-form-item>
-      <el-form-item label="籍贯" prop="hometown">
-        <el-input v-model="form.hometown" placeholder="请输入籍贯" clearable />
+      <el-form-item label="容量大小" prop="fileSize">
+        <el-input v-model="form.fileSize" placeholder="请输入容量大小" clearable />
       </el-form-item>
-      <el-form-item label="艺术风格" prop="artStyle">
-        <el-input v-model="form.artStyle" placeholder="请输入艺术风格" clearable />
-      </el-form-item>
-      <el-form-item label="师承" prop="mentor">
-        <el-input v-model="form.mentor" placeholder="请输入师承" clearable />
-      </el-form-item>
-      <el-form-item label="毕业信息" prop="graduation">
-        <el-input v-model="form.graduation" placeholder="请输入何时何校毕业" clearable />
-      </el-form-item>
-      <el-form-item label="学历" prop="education">
-        <el-input v-model="form.education" placeholder="请输入学历" clearable />
-      </el-form-item>
-      <el-form-item label="任职单位" prop="currentInstitution">
-        <el-input v-model="form.currentInstitution" placeholder="请输入任职单位或机构" clearable />
-      </el-form-item>
-      <el-form-item label="肖像" prop="portrait">
-        <el-input v-model="form.portrait" placeholder="请输入肖像图片URL" clearable />
+      <el-form-item label="文件" prop="file">
+        <el-upload class="upload-demo" action="/api/upload" :on-success="handleUploadSuccess" :on-error="handleUploadError" :before-upload="beforeUpload">
+          <el-button type="primary">点击上传</el-button>
+          <template #tip>
+            <div class="el-upload__tip"> 请上传影像文件 </div>
+          </template>
+        </el-upload>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -47,12 +34,12 @@
   import type { FormInstance, FormRules } from 'element-plus'
   import { EleMessage } from 'ele-admin-plus/es'
   import { useFormData } from '@/utils/use-form-data'
-  import type { Artist, CreateArtistParams, UpdateArtistParams } from '@/api/artist/artist/model'
-  import { createArtist, updateArtist } from '@/api/artist/artist'
+  import type { Image, AddImageParams, UpdateImageParams } from '@/api/collection/image/model'
+  import { addImage, updateImage } from '@/api/collection/image'
 
   const props = defineProps<{
     /** 修改回显的数据 */
-    data?: Artist
+    data?: Image
   }>()
 
   const emit = defineEmits<{
@@ -72,31 +59,20 @@
   const formRef = ref<FormInstance>()
 
   /** 表单数据 */
-  const [form, resetFields, assignFields] = useFormData<CreateArtistParams>({
-    name: '',
-    gender: '',
-    ethnicity: '',
-    hometown: '',
-    artStyle: '',
-    mentor: '',
-    graduation: '',
-    education: '',
-    currentInstitution: '',
-    portrait: ''
+  const [form, resetFields, assignFields] = useFormData<AddImageParams>({
+    collectionCode: '',
+    collectionName: '',
+    title: '',
+    fileSize: '',
+    file: ''
   })
 
   /** 表单验证规则 */
   const rules = reactive<FormRules>({
-    name: [{ required: true, message: '请输入艺术家姓名', trigger: 'blur' }],
-    gender: [{ required: true, message: '请选择性别', trigger: 'change' }],
-    ethnicity: [{ required: true, message: '请输入民族', trigger: 'blur' }],
-    hometown: [{ required: true, message: '请输入籍贯', trigger: 'blur' }],
-    artStyle: [{ required: true, message: '请输入艺术风格', trigger: 'blur' }],
-    mentor: [{ required: true, message: '请输入师承', trigger: 'blur' }],
-    graduation: [{ required: true, message: '请输入何时何校毕业', trigger: 'blur' }],
-    education: [{ required: true, message: '请输入学历', trigger: 'blur' }],
-    currentInstitution: [{ required: true, message: '请输入任职单位或机构', trigger: 'blur' }],
-    portrait: [{ required: true, message: '请输入肖像图片URL', trigger: 'blur' }]
+    collectionName: [{ required: true, message: '请输入藏品名称', trigger: 'blur' }],
+    collectionCode: [{ required: true, message: '请输入藏品编号', trigger: 'blur' }],
+    title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
+    file: [{ required: true, message: '请上传文件', trigger: 'change' }]
   })
 
   /** 关闭弹窗 */
@@ -112,11 +88,11 @@
       }
       loading.value = true
       if (isUpdate.value && props.data) {
-        const updateData: UpdateArtistParams = {
+        const updateData: UpdateImageParams = {
           id: props.data.id,
           ...form
         }
-        updateArtist(updateData)
+        updateImage(updateData)
           .then((msg) => {
             loading.value = false
             EleMessage.success(msg)
@@ -128,7 +104,7 @@
             EleMessage.error(e.message)
           })
       } else {
-        createArtist(form)
+        addImage(form)
           .then((msg) => {
             loading.value = false
             EleMessage.success(msg)
@@ -147,16 +123,11 @@
   const handleOpen = () => {
     if (props.data) {
       assignFields({
-        name: props.data.name,
-        gender: props.data.gender,
-        ethnicity: props.data.ethnicity,
-        hometown: props.data.hometown,
-        artStyle: props.data.artStyle,
-        mentor: props.data.mentor,
-        graduation: props.data.graduation,
-        education: props.data.education,
-        currentInstitution: props.data.currentInstitution,
-        portrait: props.data.portrait
+        collectionCode: props.data.collectionCode,
+        collectionName: props.data.collectionName,
+        title: props.data.title,
+        fileSize: props.data.fileSize,
+        file: props.data.file
       })
       isUpdate.value = true
     } else {
@@ -172,4 +143,45 @@
   const reset = () => {
     resetFields()
   }
+
+  /** 上传成功回调 */
+  const handleUploadSuccess = (response: any) => {
+    if (response.code === 0) {
+      form.file = response.data.url
+      form.fileSize = response.data.size
+      EleMessage.success('上传成功')
+    } else {
+      EleMessage.error(response.message || '上传失败')
+    }
+  }
+
+  /** 上传失败回调 */
+  const handleUploadError = () => {
+    EleMessage.error('上传失败')
+  }
+
+  /** 上传前校验 */
+  const beforeUpload = (file: File) => {
+    const isImage = file.type.startsWith('image/')
+    if (!isImage) {
+      EleMessage.error('只能上传图片文件!')
+      return false
+    }
+    const isLt10M = file.size / 1024 / 1024 < 10
+    if (!isLt10M) {
+      EleMessage.error('图片大小不能超过 10MB!')
+      return false
+    }
+    return true
+  }
 </script>
+
+<style lang="scss" scoped>
+  .upload-demo {
+    :deep(.el-upload__tip) {
+      color: #909399;
+      font-size: 12px;
+      margin-top: 7px;
+    }
+  }
+</style>

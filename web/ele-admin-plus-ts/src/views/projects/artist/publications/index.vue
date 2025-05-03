@@ -29,9 +29,9 @@
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
-            <el-button type="primary" @click="handleEdit(row)">编辑</el-button>
-            <el-button type="info" @click="handleDetails(row)">查看详情</el-button>
-            <el-button type="danger" @click="() => handleRemove([row])">删除</el-button>
+            <el-button type="primary" @click="handleEdit(row)" size="small"> 编辑</el-button>
+            <el-button type="info" @click="handleDetails(row)" size="small">查看详情</el-button>
+            <el-button type="danger" @click="() => handleRemove([row])" size="small">删除</el-button>
           </el-space>
         </template>
       </ele-pro-table>
@@ -123,7 +123,7 @@
     {
       columnKey: 'action',
       label: '操作',
-      width: 320,
+      width: 220,
       align: 'center',
       slot: 'action',
       fixed: 'right'
