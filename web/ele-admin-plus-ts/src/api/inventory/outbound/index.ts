@@ -1,13 +1,16 @@
 import type { ApiResult } from '@/api'
 import request from '@/utils/request'
-import type { OutboundOrder, OutboundDetail, AddOutboundParams, ApproveOutboundParams, ConfirmOutboundParams, OutboundQueryParams, OutboundDetailQueryParams } from './model'
+import type { OutboundOrder, AddOutboundParams, OutboundQueryParams, OutboundDetailQueryParams, OutboundCatalogQueryParams, PageResult, OutboundDetailInfo, OutboundCatalogItem } from './model'
 
 /**
  * 新增藏品出库单
  * @param data 出库单信息
  */
 export async function addOutbound(data: AddOutboundParams) {
-  const res = await request.post<ApiResult<unknown>>('/api/inventory/outbound', data)
+  if (!data.collectionIds || data.collectionIds.length === 0) {
+    return Promise.reject(new Error('藏品ID集合不能为空'))
+  }
+  const res = await request.post<ApiResult<unknown>>('/api/inventory/outbound/', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -19,12 +22,7 @@ export async function addOutbound(data: AddOutboundParams) {
  * @param params 查询参数
  */
 export async function listOutbounds(params?: OutboundQueryParams) {
-  const res = await request.get<
-    ApiResult<{
-      count: number
-      list: OutboundOrder[]
-    }>
-  >('/api/inventory/outbound', { params })
+  const res = await request.get<ApiResult<PageResult<OutboundOrder>>>('/api/inventory/outbound', { params })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -33,12 +31,13 @@ export async function listOutbounds(params?: OutboundQueryParams) {
 
 /**
  * 删除出库单
- * @param ids 出库单ID集合
+ * @param id 出库单ID
  */
-export async function removeOutbounds(ids: number[]) {
-  const res = await request.delete<ApiResult<unknown>>('/api/inventory/outbound', {
-    data: { ids }
-  })
+export async function deleteOutbound(id: number) {
+  if (!id) {
+    return Promise.reject(new Error('出库单ID不能为空'))
+  }
+  const res = await request.delete<ApiResult<unknown>>('/api/inventory/outbound', { params: { id } })
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -47,10 +46,13 @@ export async function removeOutbounds(ids: number[]) {
 
 /**
  * 确认出库单
- * @param data 出库单ID
+ * @param id 出库单ID
  */
-export async function confirmOutbound(data: ConfirmOutboundParams) {
-  const res = await request.post<ApiResult<unknown>>('/api/inventory/outbound/confirm', data)
+export async function confirmOutbound(id: number) {
+  if (!id) {
+    return Promise.reject(new Error('出库单ID不能为空'))
+  }
+  const res = await request.post<ApiResult<unknown>>('/api/inventory/outbound/confirm', { id })
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -59,10 +61,13 @@ export async function confirmOutbound(data: ConfirmOutboundParams) {
 
 /**
  * 审核出库单
- * @param data ID集合
+ * @param ids 出库单ID集合
  */
-export async function approveOutbound(data: ApproveOutboundParams) {
-  const res = await request.post<ApiResult<unknown>>('/api/inventory/outbound/approve', data)
+export async function approveOutbounds(ids: number[]) {
+  if (!ids || ids.length === 0) {
+    return Promise.reject(new Error('出库单ID集合不能为空'))
+  }
+  const res = await request.post<ApiResult<unknown>>('/api/inventory/outbound/approve', { ids })
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -73,13 +78,23 @@ export async function approveOutbound(data: ApproveOutboundParams) {
  * 查询出库单详情
  * @param params 查询参数
  */
-export async function getOutboundDetails(params?: OutboundDetailQueryParams) {
-  const res = await request.get<
-    ApiResult<{
-      count: number
-      list: OutboundDetail[]
-    }>
-  >('/api/inventory/outbound/details', { params })
+export async function getOutboundDetails(params: OutboundDetailQueryParams) {
+  if (!params.id) {
+    return Promise.reject(new Error('出库单ID不能为空'))
+  }
+  const res = await request.get<ApiResult<OutboundDetailInfo>>('/api/inventory/outbound/details', { params })
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+/**
+ * 查询出库目录
+ * @param params 查询参数
+ */
+export async function getOutboundCatalog(params?: OutboundCatalogQueryParams) {
+  const res = await request.get<ApiResult<PageResult<OutboundCatalogItem>>>('/api/inventory/outbound/catalog', { params })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

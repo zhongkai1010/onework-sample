@@ -5,28 +5,41 @@ export default [
   {
     url: '/api/inventory/inbound/type/collection',
     method: 'get',
-    response: () => {
+    response: ({ query }) => {
+      const { type } = query
+      if (!type) {
+        return {
+          code: 1,
+          message: '入库类型不能为空',
+          data: null
+        }
+      }
       return {
         code: 0,
         message: 'success',
-        data: [
-          {
-            id: mock('@integer(1, 1000)'),
-            collectionName: mock('@cname'),
-            collectionCode: mock('@string("upper", 8)')
-          }
-        ]
+        data: Array.from({ length: mock('@integer(1, 5)') }, () => ({
+          id: mock('@integer(1, 1000)'),
+          collectionName: mock('@ctitle(2, 4)'),
+          collectionCode: mock('@string("upper", 8)')
+        }))
       }
     }
   },
   {
     url: '/api/inventory/inbound/register',
     method: 'post',
-    response: () => {
+    response: ({ body }) => {
+      if (!body.collectionIds || body.collectionIds.length === 0) {
+        return {
+          code: 1,
+          message: '藏品ID集合不能为空',
+          data: null
+        }
+      }
       return {
         code: 0,
         message: '入库登记成功',
-        data: {}
+        data: null
       }
     }
   },
@@ -58,7 +71,14 @@ export default [
   {
     url: '/api/inventory/inbound',
     method: 'delete',
-    response: () => {
+    response: ({ body }) => {
+      if (!body.ids || body.ids.length === 0) {
+        return {
+          code: 1,
+          message: '入库单ID集合不能为空',
+          data: null
+        }
+      }
       return {
         code: 0,
         message: '删除成功',
@@ -69,22 +89,36 @@ export default [
   {
     url: '/api/inventory/inbound/approve',
     method: 'post',
-    response: () => {
+    response: ({ body }) => {
+      if (!body.ids || body.ids.length === 0) {
+        return {
+          code: 1,
+          message: '入库单ID集合不能为空',
+          data: null
+        }
+      }
       return {
         code: 0,
         message: '审核成功',
-        data: {}
+        data: null
       }
     }
   },
   {
     url: '/api/inventory/inbound/confirm',
     method: 'post',
-    response: () => {
+    response: ({ body }) => {
+      if (!body.id) {
+        return {
+          code: 1,
+          message: '入库单ID不能为空',
+          data: null
+        }
+      }
       return {
         code: 0,
         message: '确认入库成功',
-        data: {}
+        data: null
       }
     }
   },
@@ -93,6 +127,13 @@ export default [
     method: 'get',
     response: ({ query }) => {
       const { id } = query
+      if (!id) {
+        return {
+          code: 1,
+          message: '入库单ID不能为空',
+          data: null
+        }
+      }
       return {
         code: 0,
         message: 'success',

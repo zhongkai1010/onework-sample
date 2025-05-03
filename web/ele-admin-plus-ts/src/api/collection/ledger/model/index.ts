@@ -1,37 +1,43 @@
 import { PageParam } from '@/api'
 
-/** 图片信息 */
-export interface ImageInfo {
-  /** 图片链接 */
-  imageUrl: string
-  /** 图片大小 */
-  imageSize: string
-}
-
 /** 藏品台账基础信息 */
 export interface LedgerBase {
   /** ID */
-  id?: string
-  /** 编号 */
-  code?: string
-  /** 图片信息 */
-  imageInfo?: ImageInfo
-  /** 编号类别 */
-  category?: string
-  /** 藏品编号 */
-  collectionId?: string
+  id?: number
+  /** 藏品状态，1：在藏，2：修复中、3、待出库、4、待注销、5、已注销、6、yi */
+  collectionStatus?: number
+  /** RFID编号 */
+  rfidCode?: string
   /** 藏品名称 */
   collectionName?: string
+  /** 藏品类别ID */
+  categoryId?: number
   /** 藏品类别 */
-  collectionCategory?: string
+  categoryName?: string
+  /** 存放位置 */
+  warehouseId?: number
+  /** 存放位置名称 */
+  warehouseName?: string
+  /** 年代 */
+  era?: string
+  /** 质地 */
+  material?: string
   /** 数量 */
   quantity?: number
   /** 数量单位 */
   unit?: string
+  /** 具体尺寸 */
+  specificDimensions?: string
+  /** 完残状况 */
+  condition?: string
   /** 年代类型 */
   eraType?: string
-  /** 年代 */
-  era?: string
+  /** 图片信息 */
+  imageInfo?: string
+  /** 编号类别 */
+  numberCategory?: string
+  /** 藏品编号 */
+  collectionCode?: string
   /** 艺术家 */
   artist?: string
   /** 地域类型 */
@@ -40,84 +46,70 @@ export interface LedgerBase {
   region?: string
   /** 质地类型 */
   materialType?: string
-  /** 质地 */
-  material?: string
-  /** 通长 */
-  length?: number
-  /** 底径 */
-  diameter?: number
-  /** 通宽 */
-  width?: number
-  /** 口径 */
-  caliber?: number
-  /** 通高 */
-  height?: number
-  /** 具体尺寸 */
-  specificDimensions?: string
+  /** 通长(底径cm) */
+  overallLength?: number
+  /** 通宽(口径cm) */
+  overallWidth?: number
+  /** 通高(cm) */
+  totalHeight?: number
   /** 质量范围 */
   weightRange?: string
   /** 具体质量 */
   specificWeight?: number
   /** 质量单位 */
   weightUnit?: string
-  /** 文化程度 */
+  /** 文物级别 */
   culturalLevel?: string
   /** 藏品来源 */
   collectionSource?: string
-  /** 保存状况 */
-  condition?: string
   /** 保存状态 */
   preservationStatus?: string
-  /** 入藏日期 */
+  /** 征集日期 */
   collectionDate?: string
   /** 入藏日期范围 */
   collectionDateRange?: string
-  /** 入藏年份 */
+  /** 入藏年度 */
   collectionYear?: string
   /** 类型 */
   type?: string
-  /** 文化类型 */
+  /** 人文类型 */
   culturalType?: string
-  /** 藏品简介 */
+  /** 藏品介绍 */
   collectionIntroduction?: string
   /** 文本类型 */
   textType?: string
-  /** 音像载体类型 */
+  /** 声像载体类型 */
   audioVisualCarrierType?: string
-  /** 音像存放位置 */
+  /** 声像载体存放位置 */
   audioVisualStorageLocation?: string
-  /** 磁盘路径 */
+  /** 计算机磁盘路径 */
   diskPath?: string
   /** 颜色类别 */
   colorCategory?: string
   /** 颜色描述 */
   colorDescription?: string
-  /** 存放位置 */
-  storageLocation?: string
   /** 备注 */
   notes?: string
-  /** 博物馆入藏时间 */
+  /** 入馆时间 */
   museumEntryTime?: string
   /** 入藏时间 */
   collectionTime?: string
   /** 登录时间 */
   loginTime?: string
-  /** 柜子入藏时间 */
+  /** 入柜时间 */
   cabinetEntryTime?: string
-  /** 藏品状态 */
-  collectionStatus?: string
 }
 
 /** 台账查询参数 */
 export interface LedgerQueryParams extends PageParam {
   /** 藏品状态 */
-  collectionStatus?: string
+  collectionStatus?: number
   /** 藏品编号 */
-  collectionNumber?: string
+  collectionCode?: string
   /** 藏品名称 */
   collectionName?: string
   /** 存放位置 */
-  storageLocation?: string
+  warehouseId?: number
   /** 地址码 */
-  addressCode?: string
+  warehouseCode?: string
 }

@@ -1,0 +1,13 @@
+D:\projects\onework-sample\web\ele-admin-plus-ts\src\api\inventory\outbound\index.ts
+D:\projects\onework-sample\web\ele-admin-plus-ts\src\api\inventory\outbound\model\index.ts
+D:\projects\onework-sample\web\ele-admin-plus-ts\mock\inventory\outbound\index.ts
+3个文件根据
+D:\projects\onework-sample\web\ele-admin-plus-ts\src\api\inventory\outbound\open.json
+进行修改，保证
+D:\projects\onework-sample\web\ele-admin-plus-ts\src\api\inventory\outbound\open.json
+定义的接口，
+3个文件都需要有，没有的需要补充
+3个文件定义的内容api.json没有出现，就移除掉，需要参数名、参数类型、参数数量、参数注释前端要一样
+检查一遍3个文件中定义的内容，是否没有在api.json声明的，从3个文件中移除掉
+
+ 
