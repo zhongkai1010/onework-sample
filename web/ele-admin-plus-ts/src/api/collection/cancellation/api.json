@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OneWork",
+    "title": "藏品管理系统",
     "description": "",
     "version": "1.0.0"
   },
@@ -31,15 +31,30 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "ids": {
+                  "cancellationTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "注销时间"
+                  },
+                  "approvalDepartment": {
+                    "type": "string",
+                    "description": "批准部门"
+                  },
+                  "cancellationReason": {
+                    "type": "string",
+                    "description": "注销原因"
+                  },
+                  "collectionIds": {
                     "type": "array",
                     "items": {
                       "type": "integer"
                     },
-                    "title": "分类ID集合"
+                    "description": "藏品ID集合"
                   }
                 },
-                "required": ["ids"]
+                "required": [
+                  "collectionIds"
+                ]
               },
               "examples": {}
             }
@@ -87,6 +102,42 @@
         "tags": [],
         "parameters": [
           {
+            "name": "collectionId",
+            "in": "query",
+            "description": "藏品ID",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "approvalDepartment",
+            "in": "query",
+            "description": "批准部门",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cancellationReason",
+            "in": "query",
+            "description": "注销原因",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态：0：待注销、1：已注销，2：已恢复",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
             "name": "limit",
             "in": "query",
             "description": "分页查询每页数量",
@@ -124,42 +175,6 @@
             "example": "",
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "collectionId",
-            "in": "query",
-            "description": "藏品ID",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "approvalDepartment",
-            "in": "query",
-            "description": "批准部门",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "cancellationReason",
-            "in": "query",
-            "description": "注销原因",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "description": "",
-            "required": false,
-            "schema": {
-              "type": "integer"
             }
           },
           {
@@ -202,18 +217,14 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID 编号"
-                              },
-                              "code": {
-                                "type": "string",
-                                "description": "编号"
                               },
                               "documentImage": {
                                 "type": "string",
                                 "description": "单据图片"
                               },
-                              "cancellationCode": {
+                              "code": {
                                 "type": "string",
                                 "description": "注销单号"
                               },
@@ -232,10 +243,9 @@
                               },
                               "status": {
                                 "type": "integer",
-                                "description": "状态"
+                                "description": "状态：0：待注销、1：已注销，2：已恢复"
                               }
-                            },
-                            "required": ["id"]
+                            }
                           }
                         }
                       }
@@ -290,7 +300,9 @@
                     "title": "分类ID集合"
                   }
                 },
-                "required": ["ids"]
+                "required": [
+                  "ids"
+                ]
               },
               "examples": {}
             }
@@ -364,7 +376,9 @@
                     "title": "分类ID集合"
                   }
                 },
-                "required": ["ids"]
+                "required": [
+                  "ids"
+                ]
               },
               "examples": {}
             }
@@ -408,7 +422,7 @@
     },
     "/api/collection/cancellation/details": {
       "get": {
-        "summary": "查询注销单明细",
+        "summary": "查询注销单详情",
         "deprecated": false,
         "description": "",
         "tags": [],
@@ -416,7 +430,206 @@
           {
             "name": "id",
             "in": "query",
+            "description": "单据ID",
+            "required": true,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
             "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "ID 编号"
+                        },
+                        "documentImage": {
+                          "type": "string",
+                          "description": "单据图片"
+                        },
+                        "code": {
+                          "type": "string",
+                          "description": "注销单号"
+                        },
+                        "cancellationTime": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "注销时间"
+                        },
+                        "approvalDepartment": {
+                          "type": "string",
+                          "description": "批准部门"
+                        },
+                        "cancellationReason": {
+                          "type": "string",
+                          "description": "注销原因"
+                        },
+                        "status": {
+                          "type": "integer",
+                          "description": "状态：0：待注销、1：已注销，2：已恢复"
+                        },
+                        "collections": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "ID 编号"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "注销单号"
+                            },
+                            "collectionCode": {
+                              "type": "string",
+                              "description": "藏品编号"
+                            },
+                            "collectionName": {
+                              "type": "string",
+                              "description": "藏品名称"
+                            },
+                            "cancellationTime": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "注销日期"
+                            },
+                            "status": {
+                              "type": "integer",
+                              "description": "单据状态  ，0：待审核，1：已审核、2：已入库"
+                            }
+                          },
+                          "required": [
+                            "id"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "collections"
+                      ]
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/collection/cancellation/catalog": {
+      "get": {
+        "summary": "查询注销单明细",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "description": "注销单号",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionCode",
+            "in": "query",
+            "description": "藏品编号",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionName",
+            "in": "query",
+            "description": "藏品名称",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态：0：待注销、1：已注销，2：已恢复",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "分页查询每页数量",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "排序方式",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页查询页码",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段",
             "required": false,
             "example": "",
             "schema": {
@@ -451,40 +664,34 @@
                       "type": "object",
                       "properties": {
                         "id": {
-                          "type": "string",
+                          "type": "integer",
                           "description": "ID 编号"
                         },
                         "code": {
                           "type": "string",
-                          "description": "编号"
-                        },
-                        "documentImage": {
-                          "type": "string",
-                          "description": "单据图片"
-                        },
-                        "cancellationCode": {
-                          "type": "string",
                           "description": "注销单号"
+                        },
+                        "collectionCode": {
+                          "type": "string",
+                          "description": "藏品编号"
+                        },
+                        "collectionName": {
+                          "type": "string",
+                          "description": "藏品名称"
                         },
                         "cancellationTime": {
                           "type": "string",
                           "format": "date-time",
-                          "description": "注销时间"
-                        },
-                        "approvalDepartment": {
-                          "type": "string",
-                          "description": "批准部门"
-                        },
-                        "cancellationReason": {
-                          "type": "string",
-                          "description": "注销原因"
+                          "description": "注销日期"
                         },
                         "status": {
-                          "type": "string",
-                          "description": "状态"
+                          "type": "integer",
+                          "description": "状态：0：待注销、1：已注销，2：已恢复"
                         }
                       },
-                      "required": ["id"]
+                      "required": [
+                        "id"
+                      ]
                     },
                     "error": {
                       "type": "string",

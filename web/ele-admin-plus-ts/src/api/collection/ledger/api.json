@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OneWork",
+    "title": "藏品管理系统",
     "description": "",
     "version": "1.0.0"
   },
@@ -17,11 +17,11 @@
           {
             "name": "collectionStatus",
             "in": "query",
-            "description": "藏品状态   ",
+            "description": "藏品状态，1：在藏，2：修复中、3、待出库、4、待注销、5、已注销、6、yi",
             "required": false,
-            "example": "",
+            "example": 0,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -38,16 +38,6 @@
             "name": "collectionName",
             "in": "query",
             "description": "藏品名称   ",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "warehouseId",
-            "in": "query",
-            "description": "存放位置   ",
             "required": false,
             "example": "",
             "schema": {
@@ -95,6 +85,24 @@
             }
           },
           {
+            "name": "warehouseId",
+            "in": "query",
+            "description": "仓库位置",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "warehouseCode",
+            "in": "query",
+            "description": "地址码",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "token",
             "in": "header",
             "description": "",
@@ -134,12 +142,64 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID"
                               },
                               "collectionStatus": {
+                                "type": "integer",
+                                "description": "藏品状态，1：在藏，2：修复中、3、待出库、4、待注销、5、已注销、6、yi"
+                              },
+                              "rfidCode": {
                                 "type": "string",
-                                "description": "藏品状态"
+                                "description": "RFID编号"
+                              },
+                              "collectionName": {
+                                "type": "string",
+                                "description": "藏品名称"
+                              },
+                              "categoryId": {
+                                "type": "integer",
+                                "description": "藏品类别ID"
+                              },
+                              "categoryName": {
+                                "type": "string",
+                                "description": "藏品类别"
+                              },
+                              "warehouseId": {
+                                "type": "integer",
+                                "description": "存放位置"
+                              },
+                              "warehouseName": {
+                                "type": "string",
+                                "description": "存放位置ID"
+                              },
+                              "era": {
+                                "type": "string",
+                                "description": "年代"
+                              },
+                              "material": {
+                                "type": "string",
+                                "description": "质地"
+                              },
+                              "quantity": {
+                                "type": "integer",
+                                "description": "数量"
+                              },
+                              "unit": {
+                                "type": "string",
+                                "description": "数量单位"
+                              },
+                              "specificDimensions": {
+                                "type": "string",
+                                "description": "具体尺寸"
+                              },
+                              "condition": {
+                                "type": "string",
+                                "description": "完残状况"
+                              },
+                              "eraType": {
+                                "type": "string",
+                                "description": "年代类型"
                               },
                               "imageInfo": {
                                 "type": "string",
@@ -152,38 +212,6 @@
                               "collectionCode": {
                                 "type": "string",
                                 "description": "藏品编号"
-                              },
-                              "collectionName": {
-                                "type": "string",
-                                "description": "藏品名称"
-                              },
-                              "categoryName": {
-                                "type": "string",
-                                "description": "藏品类别"
-                              },
-                              "categoryId": {
-                                "type": "string",
-                                "description": "藏品类别ID"
-                              },
-                              "rfidCode": {
-                                "type": "string",
-                                "description": "RFID编号"
-                              },
-                              "quantity": {
-                                "type": "integer",
-                                "description": "数量"
-                              },
-                              "unit": {
-                                "type": "string",
-                                "description": "数量单位"
-                              },
-                              "eraType": {
-                                "type": "string",
-                                "description": "年代类型"
-                              },
-                              "era": {
-                                "type": "string",
-                                "description": "年代"
                               },
                               "artist": {
                                 "type": "string",
@@ -201,10 +229,6 @@
                                 "type": "string",
                                 "description": "质地类型"
                               },
-                              "material": {
-                                "type": "string",
-                                "description": "质地"
-                              },
                               "overallLength": {
                                 "type": "number",
                                 "description": "通长(底径cm)"
@@ -216,10 +240,6 @@
                               "totalHeight": {
                                 "type": "number",
                                 "description": "通高(cm)"
-                              },
-                              "specificDimensions": {
-                                "type": "string",
-                                "description": "具体尺寸"
                               },
                               "weightRange": {
                                 "type": "string",
@@ -240,10 +260,6 @@
                               "collectionSource": {
                                 "type": "string",
                                 "description": "藏品来源"
-                              },
-                              "condition": {
-                                "type": "string",
-                                "description": "完残状况"
                               },
                               "preservationStatus": {
                                 "type": "string",
@@ -296,14 +312,6 @@
                               "colorDescription": {
                                 "type": "string",
                                 "description": "颜色描述"
-                              },
-                              "warehouseName": {
-                                "type": "string",
-                                "description": "存放位置ID"
-                              },
-                              "warehouseId": {
-                                "type": "string",
-                                "description": "存放位置"
                               },
                               "notes": {
                                 "type": "string",
@@ -389,7 +397,10 @@
                     "description": "库存位置ID"
                   }
                 },
-                "required": ["collectionIds", "warehouseId"]
+                "required": [
+                  "collectionIds",
+                  "warehouseId"
+                ]
               },
               "examples": {}
             }
@@ -462,12 +473,15 @@
                     },
                     "description": "ID集合"
                   },
-                  "classificationId": {
+                  "groupId": {
                     "type": "string",
                     "description": "藏品分组ID"
                   }
                 },
-                "required": ["collectionIds", "classificationId"]
+                "required": [
+                  "collectionIds",
+                  "groupId"
+                ]
               },
               "examples": {}
             }
@@ -632,9 +646,9 @@
             "in": "query",
             "description": "藏品ID",
             "required": true,
-            "example": "",
+            "example": 0,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -677,34 +691,29 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
-                                "description": "ID"
+                                "type": "integer",
+                                "description": "ID 编号"
                               },
-                              "collectionStatus": {
+                              "documentImage": {
                                 "type": "string",
-                                "description": "藏品状态"
+                                "description": "单据图片"
                               },
-                              "imageInfo": {
-                                "type": "object",
-                                "description": "图片信息",
-                                "properties": {
-                                  "imageUrl": {
-                                    "type": "string",
-                                    "description": "图片链接"
-                                  },
-                                  "imageSize": {
-                                    "type": "string",
-                                    "description": "图片大小"
-                                  }
-                                }
-                              },
-                              "category": {
+                              "repairCode": {
                                 "type": "string",
-                                "description": "编号类别"
+                                "description": "修复单号"
+                              },
+                              "registrationDate": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "登记日期"
+                              },
+                              "collectionCode": {
+                                "type": "string",
+                                "description": "藏品编码"
                               },
                               "collectionId": {
-                                "type": "string",
-                                "description": "藏品编号"
+                                "type": "integer",
+                                "description": "藏品ID"
                               },
                               "collectionName": {
                                 "type": "string",
@@ -712,173 +721,67 @@
                               },
                               "collectionCategory": {
                                 "type": "string",
-                                "description": "藏品类别"
+                                "description": "藏品分类"
                               },
-                              "code": {
+                              "sendRepairDepartment": {
                                 "type": "string",
-                                "description": "编号"
+                                "description": "送修部门"
                               },
-                              "quantity": {
-                                "type": "integer",
-                                "description": "数量"
-                              },
-                              "unit": {
+                              "sentBy": {
                                 "type": "string",
-                                "description": "数量单位"
+                                "description": "送修人"
                               },
-                              "eraType": {
+                              "repairReason": {
                                 "type": "string",
-                                "description": "年代类型"
+                                "description": "修复原因"
                               },
-                              "era": {
-                                "type": "string",
-                                "description": "年代"
-                              },
-                              "artist": {
-                                "type": "string",
-                                "description": "艺术家"
-                              },
-                              "regionType": {
-                                "type": "string",
-                                "description": "地域类型"
-                              },
-                              "region": {
-                                "type": "string",
-                                "description": "地域"
-                              },
-                              "materialType": {
-                                "type": "string",
-                                "description": "质地类型"
-                              },
-                              "material": {
-                                "type": "string",
-                                "description": "质地"
-                              },
-                              "length": {
-                                "type": "number",
-                                "description": "通长"
-                              },
-                              "diameter": {
-                                "type": "number",
-                                "description": "底径"
-                              },
-                              "width": {
-                                "type": "number",
-                                "description": "通宽"
-                              },
-                              "caliber": {
-                                "type": "number",
-                                "description": "口径"
-                              },
-                              "height": {
-                                "type": "number",
-                                "description": "通高"
-                              },
-                              "specificDimensions": {
-                                "type": "string",
-                                "description": "具体尺寸"
-                              },
-                              "weightRange": {
-                                "type": "string",
-                                "description": "质量范围"
-                              },
-                              "specificWeight": {
-                                "type": "number",
-                                "description": "具体质量"
-                              },
-                              "weightUnit": {
-                                "type": "string",
-                                "description": "质量单位"
-                              },
-                              "culturalLevel": {
-                                "type": "string",
-                                "description": "文物级别"
-                              },
-                              "collectionSource": {
-                                "type": "string",
-                                "description": "藏品来源"
-                              },
-                              "condition": {
-                                "type": "string",
-                                "description": "完残状况"
-                              },
-                              "preservationStatus": {
-                                "type": "string",
-                                "description": "保存状态"
-                              },
-                              "collectionDate": {
-                                "type": "string",
-                                "description": "征集日期"
-                              },
-                              "collectionDateRange": {
-                                "type": "string",
-                                "description": "入藏日期范围"
-                              },
-                              "collectionYear": {
-                                "type": "string",
-                                "description": "入藏年度"
-                              },
-                              "type": {
-                                "type": "string",
-                                "description": "类型"
-                              },
-                              "culturalType": {
-                                "type": "string",
-                                "description": "人文类型"
-                              },
-                              "collectionIntroduction": {
-                                "type": "string",
-                                "description": "藏品介绍"
-                              },
-                              "textType": {
-                                "type": "string",
-                                "description": "文本类型"
-                              },
-                              "audioVisualCarrierType": {
-                                "type": "string",
-                                "description": "声像载体类型"
-                              },
-                              "audioVisualStorageLocation": {
-                                "type": "string",
-                                "description": "声像载体存放位置"
-                              },
-                              "diskPath": {
-                                "type": "string",
-                                "description": "计算机磁盘路径"
-                              },
-                              "colorCategory": {
-                                "type": "string",
-                                "description": "颜色类别"
-                              },
-                              "colorDescription": {
-                                "type": "string",
-                                "description": "颜色描述"
-                              },
-                              "storageLocation": {
-                                "type": "string",
-                                "description": "存放位置"
-                              },
-                              "notes": {
+                              "remarks": {
                                 "type": "string",
                                 "description": "备注"
                               },
-                              "museumEntryTime": {
+                              "sendRepairDate": {
                                 "type": "string",
-                                "description": "入馆时间"
+                                "format": "date-time",
+                                "description": "送修日期"
                               },
-                              "collectionTime": {
-                                "type": "string",
-                                "description": "入藏时间"
+                              "status": {
+                                "type": "integer",
+                                "description": "工单状态，0：修改中、1：已修复"
                               },
-                              "loginTime": {
+                              "undertakingOrganization": {
                                 "type": "string",
-                                "description": "登录时间"
+                                "description": "承担机构"
                               },
-                              "cabinetEntryTime": {
+                              "repairPerson": {
                                 "type": "string",
-                                "description": "入柜时间"
+                                "description": "修复人"
+                              },
+                              "qualificationCertificate": {
+                                "type": "string",
+                                "description": "资质证书"
+                              },
+                              "repairCompletionDate": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "修完日期"
+                              },
+                              "repairStatusAndResults": {
+                                "type": "string",
+                                "description": "修复情况及结果"
+                              },
+                              "beforeRepairImage": {
+                                "type": "string",
+                                "description": "修复前图片"
+                              },
+                              "afterRepairImage": {
+                                "type": "string",
+                                "description": "修复后图片"
                               }
-                            }
+                            },
+                            "required": [
+                              "id",
+                              "collectionId"
+                            ]
                           }
                         }
                       }
@@ -953,9 +856,9 @@
             "in": "query",
             "description": "藏品ID",
             "required": true,
-            "example": "",
+            "example": 0,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -998,32 +901,19 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID"
                               },
-                              "collectionStatus": {
+                              "code": {
                                 "type": "string",
-                                "description": "藏品状态"
+                                "description": "出库单号"
                               },
-                              "imageInfo": {
-                                "type": "object",
-                                "description": "图片信息",
-                                "properties": {
-                                  "imageUrl": {
-                                    "type": "string",
-                                    "description": "图片链接"
-                                  },
-                                  "imageSize": {
-                                    "type": "string",
-                                    "description": "图片大小"
-                                  }
-                                }
-                              },
-                              "category": {
+                              "outboundDate": {
                                 "type": "string",
-                                "description": "编号类别"
+                                "format": "date-time",
+                                "description": "出库日期"
                               },
-                              "collectionId": {
+                              "collectionCode": {
                                 "type": "string",
                                 "description": "藏品编号"
                               },
@@ -1031,175 +921,19 @@
                                 "type": "string",
                                 "description": "藏品名称"
                               },
-                              "collectionCategory": {
+                              "storageDate": {
                                 "type": "string",
-                                "description": "藏品类别"
+                                "format": "date-time",
+                                "description": "入库日期"
                               },
-                              "code": {
-                                "type": "string",
-                                "description": "编号"
-                              },
-                              "quantity": {
+                              "status": {
                                 "type": "integer",
-                                "description": "数量"
-                              },
-                              "unit": {
-                                "type": "string",
-                                "description": "数量单位"
-                              },
-                              "eraType": {
-                                "type": "string",
-                                "description": "年代类型"
-                              },
-                              "era": {
-                                "type": "string",
-                                "description": "年代"
-                              },
-                              "artist": {
-                                "type": "string",
-                                "description": "艺术家"
-                              },
-                              "regionType": {
-                                "type": "string",
-                                "description": "地域类型"
-                              },
-                              "region": {
-                                "type": "string",
-                                "description": "地域"
-                              },
-                              "materialType": {
-                                "type": "string",
-                                "description": "质地类型"
-                              },
-                              "material": {
-                                "type": "string",
-                                "description": "质地"
-                              },
-                              "length": {
-                                "type": "number",
-                                "description": "通长"
-                              },
-                              "diameter": {
-                                "type": "number",
-                                "description": "底径"
-                              },
-                              "width": {
-                                "type": "number",
-                                "description": "通宽"
-                              },
-                              "caliber": {
-                                "type": "number",
-                                "description": "口径"
-                              },
-                              "height": {
-                                "type": "number",
-                                "description": "通高"
-                              },
-                              "specificDimensions": {
-                                "type": "string",
-                                "description": "具体尺寸"
-                              },
-                              "weightRange": {
-                                "type": "string",
-                                "description": "质量范围"
-                              },
-                              "specificWeight": {
-                                "type": "number",
-                                "description": "具体质量"
-                              },
-                              "weightUnit": {
-                                "type": "string",
-                                "description": "质量单位"
-                              },
-                              "culturalLevel": {
-                                "type": "string",
-                                "description": "文物级别"
-                              },
-                              "collectionSource": {
-                                "type": "string",
-                                "description": "藏品来源"
-                              },
-                              "condition": {
-                                "type": "string",
-                                "description": "完残状况"
-                              },
-                              "preservationStatus": {
-                                "type": "string",
-                                "description": "保存状态"
-                              },
-                              "collectionDate": {
-                                "type": "string",
-                                "description": "征集日期"
-                              },
-                              "collectionDateRange": {
-                                "type": "string",
-                                "description": "入藏日期范围"
-                              },
-                              "collectionYear": {
-                                "type": "string",
-                                "description": "入藏年度"
-                              },
-                              "type": {
-                                "type": "string",
-                                "description": "类型"
-                              },
-                              "culturalType": {
-                                "type": "string",
-                                "description": "人文类型"
-                              },
-                              "collectionIntroduction": {
-                                "type": "string",
-                                "description": "藏品介绍"
-                              },
-                              "textType": {
-                                "type": "string",
-                                "description": "文本类型"
-                              },
-                              "audioVisualCarrierType": {
-                                "type": "string",
-                                "description": "声像载体类型"
-                              },
-                              "audioVisualStorageLocation": {
-                                "type": "string",
-                                "description": "声像载体存放位置"
-                              },
-                              "diskPath": {
-                                "type": "string",
-                                "description": "计算机磁盘路径"
-                              },
-                              "colorCategory": {
-                                "type": "string",
-                                "description": "颜色类别"
-                              },
-                              "colorDescription": {
-                                "type": "string",
-                                "description": "颜色描述"
-                              },
-                              "storageLocation": {
-                                "type": "string",
-                                "description": "存放位置"
-                              },
-                              "notes": {
-                                "type": "string",
-                                "description": "备注"
-                              },
-                              "museumEntryTime": {
-                                "type": "string",
-                                "description": "入馆时间"
-                              },
-                              "collectionTime": {
-                                "type": "string",
-                                "description": "入藏时间"
-                              },
-                              "loginTime": {
-                                "type": "string",
-                                "description": "登录时间"
-                              },
-                              "cabinetEntryTime": {
-                                "type": "string",
-                                "description": "入柜时间"
+                                "description": "状态，0：未审核、1：待出库、2：已出库、3：已归还"
                               }
-                            }
+                            },
+                            "required": [
+                              "id"
+                            ]
                           }
                         }
                       }
@@ -1274,9 +1008,9 @@
             "in": "query",
             "description": "藏品ID",
             "required": true,
-            "example": "",
+            "example": 0,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1319,32 +1053,14 @@
                             "type": "object",
                             "properties": {
                               "id": {
+                                "type": "integer",
+                                "description": "ID 编号"
+                              },
+                              "code": {
                                 "type": "string",
-                                "description": "ID"
+                                "description": "出库单号"
                               },
-                              "collectionStatus": {
-                                "type": "string",
-                                "description": "藏品状态"
-                              },
-                              "imageInfo": {
-                                "type": "object",
-                                "description": "图片信息",
-                                "properties": {
-                                  "imageUrl": {
-                                    "type": "string",
-                                    "description": "图片链接"
-                                  },
-                                  "imageSize": {
-                                    "type": "string",
-                                    "description": "图片大小"
-                                  }
-                                }
-                              },
-                              "category": {
-                                "type": "string",
-                                "description": "编号类别"
-                              },
-                              "collectionId": {
+                              "collectionCode": {
                                 "type": "string",
                                 "description": "藏品编号"
                               },
@@ -1352,175 +1068,34 @@
                                 "type": "string",
                                 "description": "藏品名称"
                               },
-                              "collectionCategory": {
+                              "originalWarehouse": {
                                 "type": "string",
-                                "description": "藏品类别"
+                                "format": "date-time",
+                                "description": "原出库"
                               },
-                              "code": {
-                                "type": "string",
-                                "description": "编号"
-                              },
-                              "quantity": {
+                              "originalWarehouseId": {
                                 "type": "integer",
-                                "description": "数量"
+                                "description": "原仓库ID"
                               },
-                              "unit": {
+                              "currentWarehouse": {
                                 "type": "string",
-                                "description": "数量单位"
+                                "description": "现仓库"
                               },
-                              "eraType": {
-                                "type": "string",
-                                "description": "年代类型"
+                              "currentWarehouseId": {
+                                "type": "integer",
+                                "description": "现仓库ID"
                               },
-                              "era": {
-                                "type": "string",
-                                "description": "年代"
-                              },
-                              "artist": {
-                                "type": "string",
-                                "description": "艺术家"
-                              },
-                              "regionType": {
-                                "type": "string",
-                                "description": "地域类型"
-                              },
-                              "region": {
-                                "type": "string",
-                                "description": "地域"
-                              },
-                              "materialType": {
-                                "type": "string",
-                                "description": "质地类型"
-                              },
-                              "material": {
-                                "type": "string",
-                                "description": "质地"
-                              },
-                              "length": {
-                                "type": "number",
-                                "description": "通长"
-                              },
-                              "diameter": {
-                                "type": "number",
-                                "description": "底径"
-                              },
-                              "width": {
-                                "type": "number",
-                                "description": "通宽"
-                              },
-                              "caliber": {
-                                "type": "number",
-                                "description": "口径"
-                              },
-                              "height": {
-                                "type": "number",
-                                "description": "通高"
-                              },
-                              "specificDimensions": {
-                                "type": "string",
-                                "description": "具体尺寸"
-                              },
-                              "weightRange": {
-                                "type": "string",
-                                "description": "质量范围"
-                              },
-                              "specificWeight": {
-                                "type": "number",
-                                "description": "具体质量"
-                              },
-                              "weightUnit": {
-                                "type": "string",
-                                "description": "质量单位"
-                              },
-                              "culturalLevel": {
-                                "type": "string",
-                                "description": "文物级别"
-                              },
-                              "collectionSource": {
-                                "type": "string",
-                                "description": "藏品来源"
-                              },
-                              "condition": {
-                                "type": "string",
-                                "description": "完残状况"
-                              },
-                              "preservationStatus": {
-                                "type": "string",
-                                "description": "保存状态"
-                              },
-                              "collectionDate": {
-                                "type": "string",
-                                "description": "征集日期"
-                              },
-                              "collectionDateRange": {
-                                "type": "string",
-                                "description": "入藏日期范围"
-                              },
-                              "collectionYear": {
-                                "type": "string",
-                                "description": "入藏年度"
-                              },
-                              "type": {
-                                "type": "string",
-                                "description": "类型"
-                              },
-                              "culturalType": {
-                                "type": "string",
-                                "description": "人文类型"
-                              },
-                              "collectionIntroduction": {
-                                "type": "string",
-                                "description": "藏品介绍"
-                              },
-                              "textType": {
-                                "type": "string",
-                                "description": "文本类型"
-                              },
-                              "audioVisualCarrierType": {
-                                "type": "string",
-                                "description": "声像载体类型"
-                              },
-                              "audioVisualStorageLocation": {
-                                "type": "string",
-                                "description": "声像载体存放位置"
-                              },
-                              "diskPath": {
-                                "type": "string",
-                                "description": "计算机磁盘路径"
-                              },
-                              "colorCategory": {
-                                "type": "string",
-                                "description": "颜色类别"
-                              },
-                              "colorDescription": {
-                                "type": "string",
-                                "description": "颜色描述"
-                              },
-                              "storageLocation": {
-                                "type": "string",
-                                "description": "存放位置"
-                              },
-                              "notes": {
-                                "type": "string",
-                                "description": "备注"
-                              },
-                              "museumEntryTime": {
-                                "type": "string",
-                                "description": "入馆时间"
-                              },
-                              "collectionTime": {
-                                "type": "string",
-                                "description": "入藏时间"
-                              },
-                              "loginTime": {
-                                "type": "string",
-                                "description": "登录时间"
-                              },
-                              "cabinetEntryTime": {
-                                "type": "string",
-                                "description": "入柜时间"
+                              "status": {
+                                "type": "integer",
+                                "description": "单据状态  ，0：待审核。1：已拨库"
                               }
-                            }
+                            },
+                            "required": [
+                              "id",
+                              "currentWarehouse",
+                              "originalWarehouseId",
+                              "currentWarehouseId"
+                            ]
                           }
                         }
                       }
@@ -1640,7 +1215,7 @@
                             "type": "object",
                             "properties": {
                               "id": {
-                                "type": "string",
+                                "type": "integer",
                                 "description": "ID 编号"
                               },
                               "imageInfo": {
@@ -1772,7 +1347,9 @@
                     "description": "ID集合"
                   }
                 },
-                "required": ["collectionIds"]
+                "required": [
+                  "collectionIds"
+                ]
               },
               "examples": {}
             }

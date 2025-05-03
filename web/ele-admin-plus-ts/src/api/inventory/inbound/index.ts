@@ -54,6 +54,9 @@ export async function listInbounds(params?: InboundQueryParams) {
  * @param ids 入库单ID集合
  */
 export async function deleteInbound(ids: number[]) {
+  if (!ids || ids.length === 0) {
+    return Promise.reject(new Error('入库单ID集合不能为空'))
+  }
   const res = await request.delete<ApiResult<unknown>>('/api/inventory/inbound', { data: { ids } })
   if (res.data.code === 0) {
     return res.data.message
