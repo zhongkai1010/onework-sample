@@ -42,15 +42,15 @@
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
-            <el-button type="primary" @click="handleEdit(row)">修改</el-button>
-            <el-button type="danger" @click="() => handleRemove([row])">删除</el-button>
+            <el-button type="primary" @click="handleEdit(row)" size="small">修改</el-button>
+            <el-button type="danger" @click="() => handleRemove([row])" size="small">删除</el-button>
           </el-space>
         </template>
 
         <!-- 图片信息列 -->
         <template #imageInfo="{ row }">
           <el-image v-if="row.imageInfo" :src="row.imageInfo" :preview-src-list="[row.imageInfo]" fit="cover" class="w-20 h-20" :title="row.collectionName || '图书图片'" />
-          <el-empty v-else description="暂无图片" :image-size="40" />
+          <el-empty v-else description="暂无图片" :image-size="40" style="padding: 0" />
         </template>
       </ele-pro-table>
 
@@ -225,7 +225,7 @@
     {
       columnKey: 'action',
       label: '操作',
-      width: 200,
+      width: 120,
       align: 'center',
       slot: 'action',
       fixed: 'right'

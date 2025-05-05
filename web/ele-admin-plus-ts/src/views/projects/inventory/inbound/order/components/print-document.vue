@@ -83,7 +83,7 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import type { InboundOrderDetail } from '@/api/inventory/inbound/model'
-  import { getInboundDetails } from '@/api/inventory/inbound'
+  import { getInboundOrderDetail } from '@/api/inventory/inbound'
   import { ElMessage } from 'element-plus'
 
   /** 弹窗是否打开 */
@@ -141,7 +141,7 @@
     }
     visible.value = true
     try {
-      data.value = await getInboundDetails({ id })
+      data.value = await getInboundOrderDetail({ id })
     } catch (e: any) {
       ElMessage.error(e.message || '获取入库单详情失败')
       visible.value = false

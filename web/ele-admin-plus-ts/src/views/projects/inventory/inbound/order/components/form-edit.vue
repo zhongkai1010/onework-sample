@@ -46,7 +46,7 @@
   import { EleMessage } from 'ele-admin-plus/es'
   import { useFormData } from '@/utils/use-form-data'
   import type { InboundCollection, InboundRegisterParams } from '@/api/inventory/inbound/model'
-  import { registerInbound, listCollectionsByType } from '@/api/inventory/inbound'
+  import { createInbound, getCollectionsByType } from '@/api/inventory/inbound'
 
   const emit = defineEmits<{
     (e: 'done'): void
@@ -101,7 +101,7 @@
           ...form,
           documentImage: documentImage.value
         }
-        registerInbound(submitData)
+        createInbound(submitData)
           .then((msg) => {
             submitting.value = false
             EleMessage.success(msg)
@@ -134,7 +134,7 @@
     if (query) {
       loading.value = true
       const type = form.type || 1 // 确保 type 不为 undefined
-      listCollectionsByType(type)
+      getCollectionsByType(type)
         .then((data) => {
           collectionOptions.value = data
         })

@@ -122,8 +122,6 @@ export interface InboundCollectionQueryParams {
   collectionCode?: number
   /** 接收库房 */
   collectionName?: number
-  /** 单据状态 0：待审核，1：已审核、2：已入库 */
-  status?: number
   /** 分页查询每页数量 */
   limit?: number
   /** 排序方式 */

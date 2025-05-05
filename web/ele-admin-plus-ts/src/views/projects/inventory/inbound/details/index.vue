@@ -22,7 +22,7 @@
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
 
-  import { getInboundCollections } from '@/api/inventory/inbound'
+  import { getInboundCollectionList } from '@/api/inventory/inbound'
   import SearchForm from './components/search-form.vue'
 
   /* ==================== 组件引用 ==================== */
@@ -85,7 +85,7 @@
 
   /* ==================== 数据源 ==================== */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
-    return getInboundCollections({
+    return getInboundCollectionList({
       ...where,
       ...orders,
       ...pages

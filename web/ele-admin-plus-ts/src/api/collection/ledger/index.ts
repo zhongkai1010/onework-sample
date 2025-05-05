@@ -1,13 +1,13 @@
 import request from '@/utils/request'
 import type { ApiResult, PageResult } from '@/api'
-import type { LedgerBase, LedgerQueryParams } from './model'
+import type { CollectionLedger, LedgerQueryParams, RepairRecord, OutboundRecord, TransferRecord, BooksLedger } from './model/index'
 
 /**
  * 查询藏品台账分页列表
  * @param params 查询参数
  */
 export async function getLedgerList(params: LedgerQueryParams) {
-  const res = await request.get<ApiResult<PageResult<LedgerBase>>>('/api/collection/ledger', { params })
+  const res = await request.get<ApiResult<PageResult<CollectionLedger>>>('/api/collection/ledger', { params })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -19,7 +19,7 @@ export async function getLedgerList(params: LedgerQueryParams) {
  * @param params 查询参数
  */
 export async function getRepairList(params: { collectionId: number; page: number; limit: number; sort?: string; order?: string }) {
-  const res = await request.get<ApiResult<PageResult<any>>>('/api/collection/ledger/repair', { params })
+  const res = await request.get<ApiResult<PageResult<RepairRecord>>>('/api/collection/ledger/repair', { params })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -31,7 +31,7 @@ export async function getRepairList(params: { collectionId: number; page: number
  * @param params 查询参数
  */
 export async function getOutboundList(params: { collectionId: number; page: number; limit: number; sort?: string; order?: string }) {
-  const res = await request.get<ApiResult<PageResult<any>>>('/api/collection/ledger/outbound', { params })
+  const res = await request.get<ApiResult<PageResult<OutboundRecord>>>('/api/collection/ledger/outbound', { params })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -43,7 +43,7 @@ export async function getOutboundList(params: { collectionId: number; page: numb
  * @param params 查询参数
  */
 export async function getTransferList(params: { collectionId: number; page: number; limit: number; sort?: string; order?: string }) {
-  const res = await request.get<ApiResult<PageResult<any>>>('/api/collection/ledger/transfer', { params })
+  const res = await request.get<ApiResult<PageResult<TransferRecord>>>('/api/collection/ledger/transfer', { params })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -55,7 +55,7 @@ export async function getTransferList(params: { collectionId: number; page: numb
  * @param params 查询参数
  */
 export async function getBooksLedgerList(params: { bookValue?: string; page?: number; limit?: number; sort?: string; order?: string }) {
-  const res = await request.get<ApiResult<PageResult<any>>>('/api/collection/books/ledger', { params })
+  const res = await request.get<ApiResult<PageResult<BooksLedger>>>('/api/collection/books/ledger', { params })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -128,6 +128,21 @@ export async function returnBooks(data: { collectionIds: number[] }) {
     return Promise.reject(new Error('藏品ID集合不能为空'))
   }
   const res = await request.post<ApiResult<unknown>>('/api/collection/books/return', data)
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+/**
+ * 藏品退回编目
+ * @param data 退回数据
+ */
+export async function returnLedgers(data: { collectionIds: number[] }) {
+  if (!data.collectionIds || data.collectionIds.length === 0) {
+    return Promise.reject(new Error('藏品ID集合不能为空'))
+  }
+  const res = await request.post<ApiResult<unknown>>('/api/collection/ledger/return', data)
   if (res.data.code === 0) {
     return res.data.message
   }

@@ -1,70 +1,70 @@
-import { mock } from 'mockjs';
-import type { MockMethod } from 'vite-plugin-mock';
+import { mock } from 'mockjs'
+import type { MockMethod } from 'vite-plugin-mock'
 
 // 藏品信息
 interface Collection {
-  id: number;
-  collectionStatus: string;
-  imageInfo: string;
-  numberCategory: string;
-  collectionCode: string;
-  collectionName: string;
-  categoryName: string;
-  categoryId: string;
-  rfidCode: string;
-  quantity: number;
-  unit: string;
-  eraType: string;
-  era: string;
-  artist: string;
-  regionType: string;
-  region: string;
-  materialType: string;
-  material: string;
-  overallLength: number;
-  overallWidth: number;
-  totalHeight: number;
-  specificDimensions: string;
-  weightRange: string;
-  specificWeight: number;
-  weightUnit: string;
-  culturalLevel: string;
-  collectionSource: string;
-  condition: string;
-  preservationStatus: string;
-  collectionDate: string;
-  collectionDateRange: string;
-  collectionYear: string;
-  type: string;
-  culturalType: string;
-  collectionIntroduction: string;
-  textType: string;
-  audioVisualCarrierType: string;
-  audioVisualStorageLocation: string;
-  diskPath: string;
-  colorCategory: string;
-  colorDescription: string;
-  warehouseId: string;
-  warehouseName: string;
-  notes: string;
-  museumEntryTime: string;
-  collectionTime: string;
-  loginTime: string;
-  cabinetEntryTime: string;
+  id: number
+  collectionStatus: string
+  imageInfo: string
+  numberCategory: string
+  collectionCode: string
+  collectionName: string
+  categoryName: string
+  categoryId: string
+  rfidCode: string
+  quantity: number
+  unit: string
+  eraType: string
+  era: string
+  artist: string
+  regionType: string
+  region: string
+  materialType: string
+  material: string
+  overallLength: number
+  overallWidth: number
+  totalHeight: number
+  specificDimensions: string
+  weightRange: string
+  specificWeight: number
+  weightUnit: string
+  culturalLevel: string
+  collectionSource: string
+  condition: string
+  preservationStatus: string
+  collectionDate: string
+  collectionDateRange: string
+  collectionYear: string
+  type: string
+  culturalType: string
+  collectionIntroduction: string
+  textType: string
+  audioVisualCarrierType: string
+  audioVisualStorageLocation: string
+  diskPath: string
+  colorCategory: string
+  colorDescription: string
+  warehouseId: string
+  warehouseName: string
+  notes: string
+  museumEntryTime: string
+  collectionTime: string
+  loginTime: string
+  cabinetEntryTime: string
 }
 
 // 藏品查询参数
 interface CollectionQueryParams {
-  page?: number;
-  size?: number;
-  collectionCode?: string;
-  collectionName?: string;
-  categoryId?: string;
-  regionType?: string;
-  region?: string;
-  collectionSource?: string;
-  collectionTime?: string;
-  type?: string;
+  page?: number
+  size?: number
+  collectionCode?: string
+  collectionName?: string
+  categoryId?: string
+  regionType?: string
+  region?: string
+  collectionSource?: string
+  collectionTime?: string
+  type?: string
 }
 
 // 生成藏品列表数据
@@ -91,9 +91,7 @@ const generateCollectionList = (count: number): Collection[] => {
     overallLength: mock('@float(10, 100, 1, 1)'),
     overallWidth: mock('@float(10, 100, 1, 1)'),
     totalHeight: mock('@float(10, 100, 1, 1)'),
-    specificDimensions: mock(
-      '@string("number", 3) + "x" + @string("number", 3) + "x" + @string("number", 3)'
-    ),
+    specificDimensions: mock('@string("number", 3) + "x" + @string("number", 3) + "x" + @string("number", 3)'),
     weightRange: mock('@pick(["轻", "中", "重"])'),
     specificWeight: mock('@float(0.1, 10, 1, 1)'),
     weightUnit: mock('@pick(["kg", "g"])'),
@@ -102,9 +100,7 @@ const generateCollectionList = (count: number): Collection[] => {
     condition: mock('@pick(["完好", "轻微破损", "严重破损"])'),
     preservationStatus: mock('@pick(["良好", "一般", "较差"])'),
     collectionDate: mock('@date("yyyy-MM-dd")'),
-    collectionDateRange: mock(
-      '@date("yyyy-MM-dd") + "至" + @date("yyyy-MM-dd")'
-    ),
+    collectionDateRange: mock('@date("yyyy-MM-dd") + "至" + @date("yyyy-MM-dd")'),
     collectionYear: mock('@date("yyyy")'),
     type: mock('@pick(["文物", "艺术品", "文献"])'),
     culturalType: mock('@pick(["历史文物", "艺术文物", "科技文物"])'),
@@ -122,22 +118,22 @@ const generateCollectionList = (count: number): Collection[] => {
     collectionTime: mock('@datetime("yyyy-MM-dd HH:mm:ss")'),
     loginTime: mock('@datetime("yyyy-MM-dd HH:mm:ss")'),
     cabinetEntryTime: mock('@datetime("yyyy-MM-dd HH:mm:ss")')
-  }));
-};
+  }))
+}
 
 // 生成分页数据
 const generatePageData = (params: CollectionQueryParams) => {
-  const { page = 1, size = 10 } = params;
-  const total = 100;
-  const list = generateCollectionList(size);
+  const { page = 1, size = 10 } = params
+  const total = 100
+  const list = generateCollectionList(size)
 
   return {
     total,
     list,
     page,
     size
-  };
-};
+  }
+}
 
 export default [
   // 查询藏品编目分页列表
@@ -149,7 +145,7 @@ export default [
         code: 0,
         message: 'success',
         data: generatePageData(query)
-      };
+      }
     }
   },
   // 编辑藏品
@@ -160,7 +156,7 @@ export default [
       return {
         code: 0,
         message: '编辑成功'
-      };
+      }
     }
   },
   // 删除藏品
@@ -171,7 +167,7 @@ export default [
       return {
         code: 0,
         message: '删除成功'
-      };
+      }
     }
   },
   // 藏品登记
@@ -182,7 +178,7 @@ export default [
       return {
         code: 0,
         message: '登记成功'
-      };
+      }
     }
   },
   // 审核通过藏品
@@ -193,7 +189,7 @@ export default [
       return {
         code: 0,
         message: '审核通过'
-      };
+      }
     }
   },
   // 导入藏品
@@ -204,7 +200,7 @@ export default [
       return {
         code: 0,
         message: '导入成功'
-      };
+      }
     }
   },
   // 查询藏品详情
@@ -216,7 +212,7 @@ export default [
         code: 0,
         message: 'success',
         data: generateCollectionList(1)[0]
-      };
+      }
     }
   },
   // 查询藏品预备帐分页列表
@@ -228,7 +224,7 @@ export default [
         code: 0,
         message: 'success',
         data: generatePageData(query)
-      };
+      }
     }
   },
   // 藏品退回编目
@@ -239,7 +235,7 @@ export default [
       return {
         code: 0,
         message: '退回成功'
-      };
+      }
     }
   },
   // 绑定RFID
@@ -250,7 +246,7 @@ export default [
       return {
         code: 0,
         message: '绑定成功'
-      };
+      }
     }
   },
   // 批量修改分类
@@ -261,7 +257,7 @@ export default [
       return {
         code: 0,
         message: '修改成功'
-      };
+      }
     }
   }
-] as MockMethod[];
+] as MockMethod[]

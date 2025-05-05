@@ -79,7 +79,7 @@
   import type { DatasourceFunction, Columns, ExportConfig } from 'ele-admin-plus/es/ele-pro-table/types'
   import { PlusOutlined, UploadOutlined, DeleteOutlined, DownloadOutlined, PrinterOutlined } from '@/components/icons'
   import type { InboundOrder } from '@/api/inventory/inbound/model'
-  import { listInbounds, deleteInbound } from '@/api/inventory/inbound'
+  import { getInboundList, deleteInboundList } from '@/api/inventory/inbound'
   import { getExportWorkbook } from '@/config/use-global-config'
   import { download } from '@/utils/common'
   import request from '@/utils/request'
@@ -188,7 +188,7 @@
 
   /* ==================== 数据源 ==================== */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
-    return listInbounds({
+    return getInboundList({
       ...where,
       ...orders,
       ...pages
@@ -197,7 +197,7 @@
 
   /* 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = ({ where, orders, filters }) => {
-    return listInbounds({ ...where, ...orders, ...filters })
+    return getInboundList({ ...where, ...orders, ...filters })
   }
 
   /* 导出配置 */
@@ -336,7 +336,7 @@
     })
       .then(() => {
         const ids = selections.value.map((item) => item.id)
-        deleteInbound(ids)
+        deleteInboundList(ids)
           .then((msg) => {
             EleMessage.success(msg)
             reload()

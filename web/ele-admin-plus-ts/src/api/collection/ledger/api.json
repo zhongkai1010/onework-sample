@@ -361,6 +361,82 @@
         "security": []
       }
     },
+    "/api/collection/ledger/return": {
+      "post": {
+        "summary": "藏品退回编目",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "collectionIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
+                  }
+                },
+                "required": [
+                  "collectionIds"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
     "/api/collection/changeWarehouse": {
       "put": {
         "summary": "藏品位置变更",

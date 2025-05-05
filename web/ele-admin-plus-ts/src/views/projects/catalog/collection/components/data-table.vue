@@ -31,10 +31,10 @@
     </template>
     <template #action="{ row }">
       <el-space :size="4">
-        <el-button type="primary" @click="openEdit(row)">编辑</el-button>
-        <el-button type="success" @click="() => handleSingleBind(row)"> 绑定 </el-button>
-        <el-button type="info" @click="handleViewDetails(row)"> 查看详情 </el-button>
-        <el-button type="warning" @click="handlePrintLabel(row)"> 铭牌打印 </el-button>
+        <el-button type="primary" size="small" @click="openEdit(row)">编辑</el-button>
+        <el-button type="success" size="small" @click="() => handleSingleBind(row)"> 绑定 </el-button>
+        <el-button type="info" size="small" @click="handleViewDetails(row)"> 查看详情 </el-button>
+        <el-button type="warning" size="small" @click="handlePrintLabel(row)"> 铭牌打印 </el-button>
       </el-space>
     </template>
     <template #imageInfo="{ row }">
@@ -453,7 +453,7 @@
     {
       columnKey: 'action',
       label: '操作',
-      width: 368,
+      width: 280,
       align: 'center',
       slot: 'action',
       hideInPrint: true,

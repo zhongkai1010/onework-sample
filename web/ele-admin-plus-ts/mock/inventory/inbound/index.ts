@@ -162,26 +162,35 @@ export default [
       }
     }
   },
+  /**
+   * 查询入库单明细
+   * 返回入库单的藏品明细列表
+   */
   {
     url: '/api/inventory/inbound/collection',
     method: 'get',
-    response: () => {
+    response: ({ query }) => {
+      const { code, collectionCode, collectionName, status } = query
       return {
         code: 0,
-        message: 'success',
         data: {
-          count: mock('@integer(10, 100)'),
-          list: Array.from({ length: 10 }, () => ({
-            id: mock('@integer(1, 1000)'),
-            code: mock('@string("upper", 10)'),
-            collectionCode: mock('@string("upper", 8)'),
-            collectionName: mock('@ctitle(2, 4)'),
-            warehouseId: mock('@integer(1, 100)'),
-            warehouseName: mock('@ctitle(2, 4)'),
-            storageDate: mock('@date("yyyy-MM-dd")'),
-            status: mock('@integer(0, 2)')
-          }))
-        }
+          list: mock({
+            'list|10': [
+              {
+                'id|+1': 1,
+                code: code || '@string("upper", 10)',
+                collectionCode: collectionCode || '@string("upper", 8)',
+                collectionName: collectionName || '@ctitle(2, 4)',
+                'warehouseId|+1': 1,
+                warehouseName: '@ctitle(2, 4)',
+                storageDate: '@datetime',
+                'status|1': status ? [Number(status)] : [0, 1, 2]
+              }
+            ]
+          }).list,
+          count: 100
+        },
+        message: 'success'
       }
     }
   }

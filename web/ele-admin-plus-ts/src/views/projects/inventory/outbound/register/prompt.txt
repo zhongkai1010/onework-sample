@@ -1,86 +1,15 @@
-# 入库单管理模块开发说明
+完成src\views\projects\inventory\outbound\register\index.vue开发
+操作栏选择出库藏品 取消选择，确认选择
 
-## 一、准备工作
-1. 确保API接口文件同步
-   - 检查并同步 `src/api/inventory/inbound/index.ts` 和 `src/api/inventory/inbound/api.json`
-   - 确保接口地址、参数、参数类型定义完整
-   - 删除未定义的接口函数
-   - 补充缺少的接口定义
 
-## 二、开发文件清单
-需要完成以下文件的开发:
-1. `src/views/projects/inventory/inbound/order/index.vue` - 主页面
-2. `src/views/projects/inventory/inbound/order/components/search-form.vue` - 搜索表单
-3. `src/views/projects/inventory/inbound/order/components/print-document.vue` - 打印单据
-4. `src/views/projects/inventory/inbound/order/components/order-details.vue` - 详情查看
-5. `src/views/projects/inventory/inbound/order/components/form-edit.vue` - 入库登记
+需要完成以下文件的开发：
+src\views\projects\inventory\outbound\register\index.vue  -主页面
+src\views\projects\inventory\outbound\register\components\selection-collection.vue  -选择藏品表格弹框
 
-## 三、功能需求说明
+主页面的数据来源点击选择出库藏品按钮，弹框展示表格，进行勾选后，关闭弹框，数据展示在主页面
 
-### 1. 主页面 (index.vue)
-- 参考文件: `src/views/projects/collection/repair/index.vue`
-- 主要功能:
-  - 表格展示入库单数据
-  - 工具栏按钮: 入库登记、上传图片、删除、导出、单据打印
-  - 表格字段: 单据图片、单据状态、入库单号、入库类型、经办人、接收库房、入库日期、备注、操作
-  - 操作列功能: 上传图片、查看详情
 
-### 2. 搜索表单 (search-form.vue)
-- 参考文件: `src/views/projects/collection/repair/components/search-form.vue`
-- 搜索条件:
-  - 单据状态
-  - 入库类型
-  - 藏品选择
-  - 经办人
-  - 接收库房
-  - 备注
-- 技术要求:
-  - 使用 `useFormData` 管理表单状态
-  - 实现表单验证
-  - 实现搜索和重置功能
 
-### 3. 打印单据 (print-document.vue)
-- 参考文件: `src/views/projects/collection/repair/components/print-document.vue`
-- 功能要求:
-  - 展示入库单详细信息
-  - 支持打印功能
-  - 美观的打印布局
+表格字段：编号 藏品编号 藏品名称 库房 年代 质地类型 质地 数量 单位 具体尺寸 完残程度
 
-### 4. 详情查看 (order-details.vue)
-- 参考文件: `src/views/projects/collection/repair/components/repair-details.vue`
-- 功能要求:
-  - 展示入库单完整信息
-  - 使用描述列表展示数据
-  - 支持图片预览
-
-### 5. 入库登记 (form-edit.vue)
-- 参考文件: `src/views/projects/collection/repair/components/form-edit.vue`
-- 功能要求:
-  - 表单字段完整
-  - 使用 `useFormData` 管理表单状态
-  - 实现表单验证
-  - 支持图片上传
-  - 实现保存和取消功能
-
-## 四、技术要求
-1. 所有组件使用 TypeScript 开发
-2. 使用 Element Plus 组件库
-3. 使用 ele-admin-plus 框架特性
-4. 遵循项目代码规范
-5. 确保代码无错误和警告
-6. 实现完整的类型定义
-7. 添加必要的注释说明
-
-## 五、API调用
-- 所有页面统一调用 `src/api/inventory/inbound/index.ts` 中定义的接口
-- 确保接口调用错误处理完善
-- 实现加载状态管理
-- 添加适当的用户提示
-
-## 六、注意事项
-1. 保持代码风格统一
-2. 确保组件间通信正确
-3. 实现完整的错误处理
-4. 添加必要的用户交互反馈
-5. 优化页面加载性能
-6. 确保移动端适配
+调用接口D:\projects\onework-sample\web\ele-admin-plus-ts\src\api\inventory\inbound\index.ts的getInboundCollectionList

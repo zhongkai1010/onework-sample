@@ -65,7 +65,7 @@
   import { ref, computed } from 'vue'
   import type { EleProTable } from 'ele-admin-plus'
   import type { InboundOrderDetail } from '@/api/inventory/inbound/model'
-  import { getInboundDetails } from '@/api/inventory/inbound'
+  import { getInboundOrderDetail } from '@/api/inventory/inbound'
   import { ElMessage } from 'element-plus'
 
   /** 弹窗是否打开 */
@@ -257,7 +257,7 @@
     visible.value = true
     loading.value = true
     try {
-      const orderDetail = await getInboundDetails({ id })
+      const orderDetail = await getInboundOrderDetail({ id })
       data.value = orderDetail
       tableRef.value?.reload?.({ page: 1 })
     } catch (e: any) {

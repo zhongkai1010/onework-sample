@@ -2,6 +2,10 @@ import { mock } from 'mockjs'
 import type { MockMethod } from 'vite-plugin-mock'
 
 export default [
+  /**
+   * 获取藏品台账列表
+   * 返回藏品的基本信息列表，包含分页数据
+   */
   {
     url: '/api/collection/ledger',
     method: 'get',
@@ -9,12 +13,11 @@ export default [
       return {
         code: 0,
         data: {
-          count: 100,
           list: mock({
             'list|10': [
               {
                 'id|+1': 1,
-                'collectionStatus|1': [1, 2, 3, 4, 5, 6],
+                'collectionStatus|1': ['在库', '出库', '修复中', '调拨中', '已注销', '其他'],
                 rfidCode: '@string(10)',
                 collectionName: '@ctitle',
                 'categoryId|+1': 1,
@@ -63,12 +66,17 @@ export default [
                 cabinetEntryTime: '@datetime'
               }
             ]
-          })
+          }).list,
+          count: 100
         },
         message: 'success'
       }
     }
   },
+  /**
+   * 获取藏品修复记录列表
+   * 返回藏品的修复历史记录，包含修复状态、修复人等信息
+   */
   {
     url: '/api/collection/ledger/repair',
     method: 'get',
@@ -76,7 +84,6 @@ export default [
       return {
         code: 0,
         data: {
-          count: 100,
           list: mock({
             'list|10': [
               {
@@ -93,7 +100,7 @@ export default [
                 repairReason: '@cparagraph',
                 remarks: '@cparagraph',
                 sendRepairDate: '@datetime',
-                'status|1': [0, 1],
+                'status|1': ['待修复', '修复中', '已完成'],
                 undertakingOrganization: '@ctitle',
                 repairPerson: '@cname',
                 qualificationCertificate: '@string',
@@ -103,12 +110,17 @@ export default [
                 afterRepairImage: '@image'
               }
             ]
-          })
+          }).list,
+          count: 100
         },
         message: 'success'
       }
     }
   },
+  /**
+   * 获取藏品出库记录列表
+   * 返回藏品的出库历史记录，包含出库状态、出库日期等信息
+   */
   {
     url: '/api/collection/ledger/outbound',
     method: 'get',
@@ -116,7 +128,6 @@ export default [
       return {
         code: 0,
         data: {
-          count: 100,
           list: mock({
             'list|10': [
               {
@@ -126,15 +137,20 @@ export default [
                 collectionCode: '@string',
                 collectionName: '@ctitle',
                 storageDate: '@datetime',
-                'status|1': [0, 1, 2, 3]
+                'status|1': ['待出库', '出库中', '已出库', '已退回']
               }
             ]
-          })
+          }).list,
+          count: 100
         },
         message: 'success'
       }
     }
   },
+  /**
+   * 获取藏品调拨记录列表
+   * 返回藏品的调拨历史记录，包含原仓库、目标仓库等信息
+   */
   {
     url: '/api/collection/ledger/transfer',
     method: 'get',
@@ -142,7 +158,6 @@ export default [
       return {
         code: 0,
         data: {
-          count: 100,
           list: mock({
             'list|10': [
               {
@@ -154,15 +169,80 @@ export default [
                 'originalWarehouseId|+1': 1,
                 currentWarehouse: '@ctitle',
                 'currentWarehouseId|+1': 1,
-                'status|1': [0, 1]
+                'status|1': ['待调拨', '调拨中', '已完成']
               }
             ]
-          })
+          }).list,
+          count: 100
         },
         message: 'success'
       }
     }
   },
+  /**
+   * 变更藏品仓库位置
+   * 用于更新藏品的存放位置
+   */
+  {
+    url: '/api/collection/changeWarehouse',
+    method: 'put',
+    response: () => {
+      return {
+        code: 0,
+        data: null,
+        message: 'success'
+      }
+    }
+  },
+  /**
+   * 变更藏品分类
+   * 用于更新藏品的分类信息
+   */
+  {
+    url: '/api/collection/changeClassification',
+    method: 'put',
+    response: () => {
+      return {
+        code: 0,
+        data: null,
+        message: 'success'
+      }
+    }
+  },
+  /**
+   * 导入藏品台账
+   * 用于批量导入藏品信息
+   */
+  {
+    url: '/api/collection/ledger/import',
+    method: 'post',
+    response: () => {
+      return {
+        code: 0,
+        data: null,
+        message: 'success'
+      }
+    }
+  },
+  /**
+   * 退回藏品编目
+   * 用于将藏品退回编目状态
+   */
+  {
+    url: '/api/collection/ledger/return',
+    method: 'post',
+    response: () => {
+      return {
+        code: 0,
+        data: null,
+        message: 'success'
+      }
+    }
+  },
+  /**
+   * 获取图书总账分页列表
+   * 返回图书的基本信息列表，包含分页数据
+   */
   {
     url: '/api/collection/books/ledger',
     method: 'get',
@@ -170,7 +250,6 @@ export default [
       return {
         code: 0,
         data: {
-          count: 100,
           list: mock({
             'list|10': [
               {
@@ -178,10 +257,10 @@ export default [
                 imageInfo: '@image',
                 numberCategory: '@string',
                 collectionName: '@ctitle',
-                rfidCode: '@string',
+                rfidCode: '@string(10)',
                 categoryId: '@string',
                 categoryName: '@ctitle',
-                isbn: '@string',
+                isbn: '@string(13)',
                 author: '@cname',
                 warehouseId: '@string',
                 warehouseName: '@ctitle',
@@ -194,52 +273,9 @@ export default [
                 type: '@ctitle'
               }
             ]
-          })
+          }).list,
+          count: 100
         },
-        message: 'success'
-      }
-    }
-  },
-  {
-    url: '/api/collection/changeWarehouse',
-    method: 'put',
-    response: () => {
-      return {
-        code: 0,
-        data: null,
-        message: 'success'
-      }
-    }
-  },
-  {
-    url: '/api/collection/changeClassification',
-    method: 'put',
-    response: () => {
-      return {
-        code: 0,
-        data: null,
-        message: 'success'
-      }
-    }
-  },
-  {
-    url: '/api/collection/ledger/import',
-    method: 'post',
-    response: () => {
-      return {
-        code: 0,
-        data: null,
-        message: 'success'
-      }
-    }
-  },
-  {
-    url: '/api/collection/books/return',
-    method: 'post',
-    response: () => {
-      return {
-        code: 0,
-        data: null,
         message: 'success'
       }
     }
