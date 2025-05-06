@@ -1,6 +1,6 @@
 <template>
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
-    <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
+    <ele-card flex-table>
       <ele-split-panel
         ref="splitRef"
         flex-table
