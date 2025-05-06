@@ -68,8 +68,12 @@
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
-            <el-button type="success" @click="handleUploadImage(row)">上传图片</el-button>
-            <el-button type="danger" @click="() => handleRemove([row])">删除</el-button>
+            <el-button type="success" size="small" @click="handleUploadImage(row)"
+              >上传图片</el-button
+            >
+            <el-button type="danger" size="small" @click="() => handleRemove([row])"
+              >删除</el-button
+            >
           </el-space>
         </template>
 

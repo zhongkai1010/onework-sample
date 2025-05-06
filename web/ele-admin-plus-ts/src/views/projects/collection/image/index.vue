@@ -37,8 +37,10 @@
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
-            <el-button type="primary" @click="handleEdit(row)">编辑</el-button>
-            <el-button type="danger" @click="() => handleRemove([row])">删除</el-button>
+            <el-button type="primary" size="small" @click="handleEdit(row)">编辑</el-button>
+            <el-button type="danger" size="small" @click="() => handleRemove([row])"
+              >删除</el-button
+            >
           </el-space>
         </template>
       </ele-pro-table>

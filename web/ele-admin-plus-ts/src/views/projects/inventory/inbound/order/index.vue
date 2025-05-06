@@ -82,15 +82,13 @@
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
-            <el-button type="success" size="small" @click="handleUploadImage(row)"
+            <el-button type="primary" size="small" @click="handleUploadImage(row)"
               >上传图片</el-button
             >
             <el-button type="primary" size="small" @click="handleViewDetails(row)"
               >查看详情</el-button
             >
-            <el-button v-if="row.status === 0" type="warning" size="small" @click="handleAudit(row)"
-              >审核</el-button
-            >
+            <el-button type="success" size="small" @click="handleAudit(row)">审核</el-button>
           </el-space>
         </template>
       </ele-pro-table>
