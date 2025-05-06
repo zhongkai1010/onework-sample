@@ -1,6 +1,14 @@
 <!-- 图标编辑器 -->
 <template>
-  <IconSelect :clearable="true" :popperHeight="388" filterable="popper" placeholder="请选择图标" :popperOptions="{ strategy: 'fixed' }" :modelValue="modelValue" @update:modelValue="updateModelValue" />
+  <IconSelect
+    :clearable="true"
+    :popperHeight="388"
+    filterable="popper"
+    placeholder="请选择图标"
+    :popperOptions="{ strategy: 'fixed' }"
+    :modelValue="modelValue"
+    @update:modelValue="updateModelValue"
+  />
 </template>
 
 <script lang="ts" setup>

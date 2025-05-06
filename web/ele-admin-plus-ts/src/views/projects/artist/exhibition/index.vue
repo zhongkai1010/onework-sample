@@ -19,8 +19,18 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd"> 添加 </el-button>
-          <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="() => handleRemove()" :disabled="!selections.length"> 删除 </el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd">
+            添加
+          </el-button>
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            @click="() => handleRemove()"
+            :disabled="!selections.length"
+          >
+            删除
+          </el-button>
         </template>
 
         <!-- 状态列 -->
@@ -32,7 +42,13 @@
 
         <!-- 封面列 -->
         <template #cover="{ row }">
-          <el-image v-if="row.coverImage" :src="row.coverImage" :preview-src-list="[row.coverImage]" fit="cover" class="w-12 h-12 rounded" />
+          <el-image
+            v-if="row.coverImage"
+            :src="row.coverImage"
+            :preview-src-list="[row.coverImage]"
+            fit="cover"
+            class="w-12 h-12 rounded"
+          />
           <el-empty v-else description="暂无封面" :image-size="20" />
         </template>
 
@@ -40,7 +56,9 @@
         <template #action="{ row }">
           <el-space :size="4">
             <el-button type="primary" @click="handleEdit(row)" size="small">编辑</el-button>
-            <el-button type="danger" @click="() => handleRemove([row])" size="small">删除</el-button>
+            <el-button type="danger" @click="() => handleRemove([row])" size="small"
+              >删除</el-button
+            >
             <el-button type="info" @click="handleView(row)" size="small">查看详情</el-button>
           </el-space>
         </template>

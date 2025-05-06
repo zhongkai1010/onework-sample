@@ -2,7 +2,14 @@
   <ele-page :multi-card="false">
     <ele-card>
       <div style="margin-bottom: 16px">
-        <el-button :icon="ArrowLeftOutlined" type="primary" class="ele-btn-icon" @click="handleBack"> 返回列表 </el-button>
+        <el-button
+          :icon="ArrowLeftOutlined"
+          type="primary"
+          class="ele-btn-icon"
+          @click="handleBack"
+        >
+          返回列表
+        </el-button>
       </div>
       <el-descriptions :border="true" :column="mobile ? 1 : 2" class="detail-table">
         <el-descriptions-item label="用户名">
@@ -12,7 +19,11 @@
           <div style="display: flex">
             <el-avatar v-if="form.avatar" :src="form.avatar" :size="32" />
             <el-avatar v-else style="background: #1677ff" :size="32">
-              {{ form.nickname && form.nickname.length > 2 ? form.nickname.substring(form.nickname.length - 2) : form.nickname }}
+              {{
+                form.nickname && form.nickname.length > 2
+                  ? form.nickname.substring(form.nickname.length - 2)
+                  : form.nickname
+              }}
             </el-avatar>
           </div>
         </el-descriptions-item>
@@ -26,13 +37,24 @@
           <div>{{ form.phone }}</div>
         </el-descriptions-item>
         <el-descriptions-item label="角色">
-          <el-tag v-for="item in form.roles" :key="item.roleId" size="small" :disable-transitions="true">
+          <el-tag
+            v-for="item in form.roles"
+            :key="item.roleId"
+            size="small"
+            :disable-transitions="true"
+          >
             {{ item.roleName }}
           </el-tag>
         </el-descriptions-item>
         <el-descriptions-item label="状态">
           <ele-dot v-if="form.status === 0" text="正常" size="9px" />
-          <ele-dot v-else-if="form.status === 1" text="冻结" type="danger" :ripple="false" size="9px" />
+          <ele-dot
+            v-else-if="form.status === 1"
+            text="冻结"
+            type="danger"
+            :ripple="false"
+            size="9px"
+          />
         </el-descriptions-item>
         <el-descriptions-item label="创建时间">
           <div>{{ form.createTime }}</div>

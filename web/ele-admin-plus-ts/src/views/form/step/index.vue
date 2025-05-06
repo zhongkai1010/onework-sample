@@ -2,7 +2,9 @@
   <div>
     <ele-card style="border-radius: 0">
       <ele-text type="heading" size="lg">分步表单</ele-text>
-      <ele-text type="placeholder" style="margin-top: 6px"> 将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。 </ele-text>
+      <ele-text type="placeholder" style="margin-top: 6px">
+        将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
+      </ele-text>
     </ele-card>
     <ele-page>
       <ele-card class="step-card">
@@ -27,9 +29,15 @@
           <ele-alert :closable="false">
             <ele-text size="lg" style="margin-bottom: 12px">说明</ele-text>
             <ele-text size="md" style="margin-bottom: 8px"> 转账到支付宝 </ele-text>
-            <ele-text style="margin-bottom: 12px"> 如果需要，这里可以放一些关于产品的常见问题说明。如果需要， 这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。 </ele-text>
+            <ele-text style="margin-bottom: 12px">
+              如果需要，这里可以放一些关于产品的常见问题说明。如果需要，
+              这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。
+            </ele-text>
             <ele-text size="md" style="margin-bottom: 8px">转账到微信</ele-text>
-            <ele-text style="margin-bottom: 8px"> 如果需要，这里可以放一些关于产品的常见问题说明。如果需要， 这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。 </ele-text>
+            <ele-text style="margin-bottom: 8px">
+              如果需要，这里可以放一些关于产品的常见问题说明。如果需要，
+              这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。
+            </ele-text>
           </ele-alert>
         </template>
       </ele-card>

@@ -20,7 +20,9 @@
           </el-button>
         </template>
       </ele-dropdown>
-      <el-button type="primary" class="ele-btn-icon" @click="openMapPicker"> 打开位置选择 </el-button>
+      <el-button type="primary" class="ele-btn-icon" @click="openMapPicker">
+        打开位置选择
+      </el-button>
     </div>
     <div style="margin-top: 12px">经 纬 度 : {{ result.lngAndLat }}</div>
     <div style="margin-top: 12px">选中位置: {{ result.location }}</div>

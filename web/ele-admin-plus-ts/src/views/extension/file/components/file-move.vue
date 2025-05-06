@@ -1,9 +1,19 @@
 <template>
   <ele-modal :width="460" title="移动到" v-model="visible" @open="handleOpen">
     <div class="demo-file-move-tree">
-      <el-tree :data="folderData" nodeKey="id" :props="{ label: 'name' }" :expand-on-click-node="false" :default-expand-all="true" @node-click="handleFolderSelect">
+      <el-tree
+        :data="folderData"
+        nodeKey="id"
+        :props="{ label: 'name' }"
+        :expand-on-click-node="false"
+        :default-expand-all="true"
+        @node-click="handleFolderSelect"
+      >
         <template #default="scope">
-          <img src="/ele-file-list/ic_file_folder.png" style="width: 18px; height: 18px; margin-right: 6px" />
+          <img
+            src="/ele-file-list/ic_file_folder.png"
+            style="width: 18px; height: 18px; margin-right: 6px"
+          />
           <span :class="['el-tree-node__label', { 'is-active': scope.data.id === selectedId }]">
             {{ scope.data.name }}
           </span>

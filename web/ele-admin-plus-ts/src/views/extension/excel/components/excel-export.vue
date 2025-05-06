@@ -1,10 +1,22 @@
 <template>
   <ele-card header="导出 Excel" :body-style="{ padding: '18px 20px' }">
-    <ele-pro-table row-key="key" :columns="columns" :datasource="data" :show-overflow-tooltip="true" :pagination="false" v-model:selections="selections" :tools="['export', 'print', 'size', 'columns', 'maximized']" :toolbar="{ theme: 'default' }" :border="true">
+    <ele-pro-table
+      row-key="key"
+      :columns="columns"
+      :datasource="data"
+      :show-overflow-tooltip="true"
+      :pagination="false"
+      v-model:selections="selections"
+      :tools="['export', 'print', 'size', 'columns', 'maximized']"
+      :toolbar="{ theme: 'default' }"
+      :border="true"
+    >
       <template #toolbar>
         <el-space :size="12" wrap>
           <el-button type="primary" class="ele-btn-icon" @click="exportBas"> 导出 </el-button>
-          <el-button type="primary" class="ele-btn-icon" @click="exportAdv"> 导出带表头合并 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="exportAdv">
+            导出带表头合并
+          </el-button>
           <el-button type="primary" class="ele-btn-icon" @click="exportSel"> 导出选中 </el-button>
         </el-space>
       </template>

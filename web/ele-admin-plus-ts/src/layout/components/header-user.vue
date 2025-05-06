@@ -27,7 +27,12 @@
     @command="handleUserDropClick"
   >
     <div class="header-avatar">
-      <el-avatar :size="28" :src="loginUser.avatar" :icon="loginUser.avatar ? void 0 : UserOutlined" style="transform: translateY(-1px)" />
+      <el-avatar
+        :size="28"
+        :src="loginUser.avatar"
+        :icon="loginUser.avatar ? void 0 : UserOutlined"
+        style="transform: translateY(-1px)"
+      />
       <div class="hidden-sm-and-down" style="margin-left: 4px; line-height: 1.5">
         {{ loginUser.nickname }}
       </div>
@@ -68,7 +73,10 @@
       push('/user/profile')
     } else if (command === 'logout') {
       // 退出登录
-      ElMessageBox.confirm(t('layout.logout.message'), t('layout.logout.title'), { type: 'warning', draggable: true })
+      ElMessageBox.confirm(t('layout.logout.message'), t('layout.logout.title'), {
+        type: 'warning',
+        draggable: true
+      })
         .then(() => {
           logout(false)
         })

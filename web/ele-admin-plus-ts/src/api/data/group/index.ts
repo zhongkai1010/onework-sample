@@ -1,6 +1,13 @@
 import request from '@/utils/request'
 import type { ApiResult, PageResult } from '@/api'
-import type { Group, GroupQueryParams, GroupEditParams, DeleteGroupParams, GroupCollectionQueryParams, GroupCollection } from './model'
+import type {
+  Group,
+  GroupQueryParams,
+  GroupEditParams,
+  DeleteGroupParams,
+  GroupCollectionQueryParams,
+  GroupCollection
+} from './model'
 
 /**
  * 查询藏品组分页列表
@@ -38,9 +45,12 @@ export async function getAllGroups(groupName?: string) {
  * @returns 藏品分页数据
  */
 export async function getGroupCollections(params: GroupCollectionQueryParams) {
-  const res = await request.get<ApiResult<PageResult<GroupCollection>>>('/api/data/group/collection', {
-    params
-  })
+  const res = await request.get<ApiResult<PageResult<GroupCollection>>>(
+    '/api/data/group/collection',
+    {
+      params
+    }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

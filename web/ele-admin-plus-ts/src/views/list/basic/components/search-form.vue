@@ -25,14 +25,28 @@
         </el-col>
         <el-col v-if="searchExpand" :lg="8" :md="12" :sm="12" :xs="24">
           <el-form-item label="创建时间">
-            <el-date-picker unlink-panels type="daterange" v-model="dateRange" range-separator="-" value-format="YYYY-MM-DD" start-placeholder="开始日期" end-placeholder="结束日期" class="ele-fluid" />
+            <el-date-picker
+              unlink-panels
+              type="daterange"
+              v-model="dateRange"
+              range-separator="-"
+              value-format="YYYY-MM-DD"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              class="ele-fluid"
+            />
           </el-form-item>
         </el-col>
         <el-col :lg="8" :md="12" :sm="12" :xs="24">
           <el-form-item label-width="16px">
             <el-button type="primary" @click="search">查询</el-button>
             <el-button @click="reset">重置</el-button>
-            <el-link type="primary" :underline="false" @click="toggleExpand" style="margin-left: 12px">
+            <el-link
+              type="primary"
+              :underline="false"
+              @click="toggleExpand"
+              style="margin-left: 12px"
+            >
               <template v-if="searchExpand">
                 <span>收起</span>
                 <el-icon style="vertical-align: -1px">

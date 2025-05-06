@@ -1,13 +1,43 @@
 <template>
   <ele-card header="标签显示策略">
     <div style="max-width: 240px">
-      <ele-tree-select ref="treeSelectRef" clearable multiple placeholder="请选择" v-model="selectedValue" :popper-width="240" :tree-props="treeProps" :showCheckedStrategy="showCheckedStrategy" :checkedValueStrategy="checkedValueStrategy" :popper-options="{ strategy: 'fixed' }" />
+      <ele-tree-select
+        ref="treeSelectRef"
+        clearable
+        multiple
+        placeholder="请选择"
+        v-model="selectedValue"
+        :popper-width="240"
+        :tree-props="treeProps"
+        :showCheckedStrategy="showCheckedStrategy"
+        :checkedValueStrategy="checkedValueStrategy"
+        :popper-options="{ strategy: 'fixed' }"
+      />
     </div>
-    <option-item label="显示策略" :label-style="{ paddingTop: '6px' }" style="margin-top: 10px; align-items: flex-start">
-      <el-radio-group v-model="showCheckedStrategy" style="flex-direction: column; align-items: flex-start">
-        <el-radio value="parent" label="parent(当子节点全部选中时只显示父级)" style="margin: 0; display: flex; width: 100%" />
-        <el-radio value="child" label="child(只显示选中的子节点)" style="margin: 0; display: flex; width: 100%" />
-        <el-radio value="all" label="all(显示所有选中的节点)" style="margin: 0; display: flex; width: 100%" />
+    <option-item
+      label="显示策略"
+      :label-style="{ paddingTop: '6px' }"
+      style="margin-top: 10px; align-items: flex-start"
+    >
+      <el-radio-group
+        v-model="showCheckedStrategy"
+        style="flex-direction: column; align-items: flex-start"
+      >
+        <el-radio
+          value="parent"
+          label="parent(当子节点全部选中时只显示父级)"
+          style="margin: 0; display: flex; width: 100%"
+        />
+        <el-radio
+          value="child"
+          label="child(只显示选中的子节点)"
+          style="margin: 0; display: flex; width: 100%"
+        />
+        <el-radio
+          value="all"
+          label="all(显示所有选中的节点)"
+          style="margin: 0; display: flex; width: 100%"
+        />
       </el-radio-group>
     </option-item>
     <option-item label="值策略" :responsive="false" style="margin-top: 10px">

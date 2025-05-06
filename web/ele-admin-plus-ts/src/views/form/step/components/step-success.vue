@@ -8,7 +8,13 @@
         <el-button type="primary" @click="back">再转一笔</el-button>
         <el-button>查看账单</el-button>
       </div>
-      <el-descriptions :border="true" :column="1" size="large" class="detail-table" style="width: 680px; max-width: 100%">
+      <el-descriptions
+        :border="true"
+        :column="1"
+        size="large"
+        class="detail-table"
+        style="width: 680px; max-width: 100%"
+      >
         <el-descriptions-item label="付款账户">
           <div>{{ data.account }}</div>
         </el-descriptions-item>

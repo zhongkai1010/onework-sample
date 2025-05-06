@@ -1,8 +1,12 @@
 <template>
   <ele-card header="使用分组菜单">
     <div style="display: flex; flex-wrap: wrap">
-      <el-button type="primary" @click="toGroup1" style="margin: 0 12px 12px 0"> 一级菜单变为分组形式 </el-button>
-      <el-button type="primary" @click="toGroup2" style="margin: 0 12px 12px 0"> 二级菜单变为分组形式 </el-button>
+      <el-button type="primary" @click="toGroup1" style="margin: 0 12px 12px 0">
+        一级菜单变为分组形式
+      </el-button>
+      <el-button type="primary" @click="toGroup2" style="margin: 0 12px 12px 0">
+        二级菜单变为分组形式
+      </el-button>
     </div>
     <ele-text type="placeholder">
       <span>二级菜单可查看列表页面/卡片列表的效果, </span>
@@ -48,7 +52,9 @@
           ...m,
           children: m.children
             ? m.children.map((c: any) => {
-                const hasChild = c.children ? !!c.children.filter((t: any) => !t.meta?.hide).length : false
+                const hasChild = c.children
+                  ? !!c.children.filter((t: any) => !t.meta?.hide).length
+                  : false
                 const meta = c.meta || {}
                 return {
                   ...c,

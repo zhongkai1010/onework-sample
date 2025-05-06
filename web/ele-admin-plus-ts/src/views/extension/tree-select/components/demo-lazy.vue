@@ -2,11 +2,35 @@
   <ele-card header="更多示例">
     <div style="margin-bottom: 8px">懒加载:</div>
     <div style="max-width: 240px">
-      <el-tree-select lazy :load="loadTreeData" multiple clearable show-checkbox check-strictly check-on-click-node node-key="menuId" :props="{ label: 'title' }" v-model="selectedValue" placeholder="请选择" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+      <el-tree-select
+        lazy
+        :load="loadTreeData"
+        multiple
+        clearable
+        show-checkbox
+        check-strictly
+        check-on-click-node
+        node-key="menuId"
+        :props="{ label: 'title' }"
+        v-model="selectedValue"
+        placeholder="请选择"
+        class="ele-fluid"
+        :popper-options="{ strategy: 'fixed' }"
+      />
     </div>
     <div style="margin: 18px 0 8px 0">多选无复选框:</div>
     <div style="max-width: 240px">
-      <el-tree-select multiple clearable :data="treeData" node-key="menuId" :props="{ label: 'title' }" v-model="selectedValue2" placeholder="请选择" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+      <el-tree-select
+        multiple
+        clearable
+        :data="treeData"
+        node-key="menuId"
+        :props="{ label: 'title' }"
+        v-model="selectedValue2"
+        placeholder="请选择"
+        class="ele-fluid"
+        :popper-options="{ strategy: 'fixed' }"
+      />
     </div>
   </ele-card>
 </template>

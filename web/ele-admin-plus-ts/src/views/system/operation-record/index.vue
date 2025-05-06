@@ -2,13 +2,38 @@
   <ele-page>
     <operation-record-search @search="reload" />
     <ele-card :body-style="{ paddingTop: '8px' }">
-      <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :highlight-current-row="true" :export-config="{ fileName: '操作日志数据' }" cache-key="systemOperationRecordTable">
+      <ele-pro-table
+        ref="tableRef"
+        row-key="id"
+        :columns="columns"
+        :datasource="datasource"
+        :show-overflow-tooltip="true"
+        :highlight-current-row="true"
+        :export-config="{ fileName: '操作日志数据' }"
+        cache-key="systemOperationRecordTable"
+      >
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="DownloadOutlined" @click="exportData"> 导出 </el-button>
+          <el-button
+            type="primary"
+            class="ele-btn-icon"
+            :icon="DownloadOutlined"
+            @click="exportData"
+          >
+            导出
+          </el-button>
         </template>
         <template #status="{ row }">
-          <el-tag v-if="row.status === 0" size="small" type="success" :disable-transitions="true"> 正常 </el-tag>
-          <el-tag v-else-if="row.status === 1" size="small" type="danger" :disable-transitions="true"> 异常 </el-tag>
+          <el-tag v-if="row.status === 0" size="small" type="success" :disable-transitions="true">
+            正常
+          </el-tag>
+          <el-tag
+            v-else-if="row.status === 1"
+            size="small"
+            type="danger"
+            :disable-transitions="true"
+          >
+            异常
+          </el-tag>
         </template>
         <template #action="{ row }">
           <el-link type="primary" :underline="false" @click="openDetail(row)"> 详情 </el-link>
@@ -188,9 +213,29 @@
         .then((data) => {
           const workbook = new ExcelJS.Workbook()
           const sheet = workbook.addWorksheet('Sheet1')
-          sheet.addRow(['账号', '用户名', '操作模块', '操作功能', '请求地址', '请求方式', '状态', '耗时', '操作时间'])
+          sheet.addRow([
+            '账号',
+            '用户名',
+            '操作模块',
+            '操作功能',
+            '请求地址',
+            '请求方式',
+            '状态',
+            '耗时',
+            '操作时间'
+          ])
           data.forEach((d) => {
-            sheet.addRow([d.username, d.nickname, d.module, d.description, d.url, d.requestMethod, ['正常', '异常'][d.status], d.spendTime / 1000 + 's', d.createTime])
+            sheet.addRow([
+              d.username,
+              d.nickname,
+              d.module,
+              d.description,
+              d.url,
+              d.requestMethod,
+              ['正常', '异常'][d.status],
+              d.spendTime / 1000 + 's',
+              d.createTime
+            ])
           })
           // 设置列宽
           ;[16, 16, 18, 20, 28, 14, 14, 14, 24].forEach((width, index) => {

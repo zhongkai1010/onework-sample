@@ -120,7 +120,12 @@
       </div>
     </ele-card>
     <ele-card header="自定义渲染">
-      <ele-segmented size="large" v-model="active2" :items="items" style="--ele-segmented-large-height: 68px">
+      <ele-segmented
+        size="large"
+        v-model="active2"
+        :items="items"
+        style="--ele-segmented-large-height: 68px"
+      >
         <template #label="{ item }">
           <div
             :style="{

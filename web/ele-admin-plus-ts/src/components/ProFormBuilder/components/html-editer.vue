@@ -1,6 +1,13 @@
 <!-- 富文本编辑器 -->
 <template>
-  <MonacoEditor theme="vs-dark" language="html" :modelValue="modelValue" @update:modelValue="updateModelValue" :config="editorConfig" :style="{ height: '100%' }" />
+  <MonacoEditor
+    theme="vs-dark"
+    language="html"
+    :modelValue="modelValue"
+    @update:modelValue="updateModelValue"
+    :config="editorConfig"
+    :style="{ height: '100%' }"
+  />
 </template>
 
 <script lang="ts" setup>

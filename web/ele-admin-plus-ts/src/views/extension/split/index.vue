@@ -1,5 +1,10 @@
 <template>
-  <ele-page hide-footer :flex-table="type !== 0" :multi-card="type === 0" :style="type === 0 ? void 0 : { minHeight: '420px' }">
+  <ele-page
+    hide-footer
+    :flex-table="type !== 0"
+    :multi-card="type === 0"
+    :style="type === 0 ? void 0 : { minHeight: '420px' }"
+  >
     <demo-basic v-if="type === 0" @change="handleChange" />
     <demo-table v-else @change="handleChange" />
   </ele-page>

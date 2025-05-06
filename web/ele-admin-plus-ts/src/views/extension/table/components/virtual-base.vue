@@ -48,11 +48,26 @@
       :print-config="{ datasource: exportSource }"
     >
       <template #toolbar>
-        <el-button type="primary" class="ele-btn-icon" @click="getSelections"> 获取多选行数据 </el-button>
-        <el-button v-if="highlightCurrentRow" type="primary" class="ele-btn-icon" @click="getCurrent"> 获取单选行数据 </el-button>
+        <el-button type="primary" class="ele-btn-icon" @click="getSelections">
+          获取多选行数据
+        </el-button>
+        <el-button
+          v-if="highlightCurrentRow"
+          type="primary"
+          class="ele-btn-icon"
+          @click="getCurrent"
+        >
+          获取单选行数据
+        </el-button>
       </template>
       <template #roles="{ row }">
-        <el-tag v-for="item in row.roles" :key="item" size="small" :disable-transitions="true" style="margin-right: 6px">
+        <el-tag
+          v-for="item in row.roles"
+          :key="item"
+          size="small"
+          :disable-transitions="true"
+          style="margin-right: 6px"
+        >
           {{ item }}
         </el-tag>
       </template>

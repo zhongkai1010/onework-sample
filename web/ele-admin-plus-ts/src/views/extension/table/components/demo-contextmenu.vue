@@ -40,7 +40,13 @@
   import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Column } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { LockOutlined, EditOutlined, DeleteOutlined, DownloadOutlined, LinkOutlined } from '@/components/icons'
+  import {
+    LockOutlined,
+    EditOutlined,
+    DeleteOutlined,
+    DownloadOutlined,
+    LinkOutlined
+  } from '@/components/icons'
   import { pageUsers, listUsers } from '@/api/system/user'
   import type { User } from '@/api/system/user/model'
 

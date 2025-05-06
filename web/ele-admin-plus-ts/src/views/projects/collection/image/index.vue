@@ -20,8 +20,18 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd"> 添加 </el-button>
-          <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="() => handleRemove()" :disabled="!selections.length"> 删除 </el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd">
+            添加
+          </el-button>
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            @click="() => handleRemove()"
+            :disabled="!selections.length"
+          >
+            删除
+          </el-button>
         </template>
 
         <!-- 操作列 -->

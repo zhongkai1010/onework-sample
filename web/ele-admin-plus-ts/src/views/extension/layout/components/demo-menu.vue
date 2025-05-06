@@ -96,7 +96,9 @@
             </el-col>
           </el-row>
         </div>
-        <div style="padding: 4px 0 16px 0; text-align: center; opacity: 0.4"> 页脚页脚&emsp;页脚页脚&emsp;页脚页脚 </div>
+        <div style="padding: 4px 0 16px 0; text-align: center; opacity: 0.4">
+          页脚页脚&emsp;页脚页脚&emsp;页脚页脚
+        </div>
       </ele-admin-layout>
     </frame-card>
   </ele-card>
@@ -105,7 +107,13 @@
 <script lang="ts" setup>
   import { ref, computed } from 'vue'
   import { LayoutTool } from 'ele-admin-plus/es'
-  import { MenuFoldOutlined, MenuUnfoldOutlined, ReloadOutlined, BellOutlined, ArrowDown } from '@/components/icons'
+  import {
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    ReloadOutlined,
+    BellOutlined,
+    ArrowDown
+  } from '@/components/icons'
   import type { MenuItem } from 'ele-admin-plus/es/ele-menus/types'
   import type { TabPaneItem } from 'ele-admin-plus/es/ele-tabs/types'
   import { useMobile } from '@/utils/use-mobile'

@@ -1,5 +1,8 @@
 <template>
-  <div class="ele-icon-color-secondary" :style="{ width: '68px', margin: '0 auto', fontSize: '12px' }">
+  <div
+    class="ele-icon-color-secondary"
+    :style="{ width: '68px', margin: '0 auto', fontSize: '12px' }"
+  >
     <div :style="{ display: 'flex', alignItems: 'center' }">
       <IconRadio size="md" />
       <div>男</div>

@@ -1,17 +1,37 @@
 <template>
   <el-form :model="formData" @keyup.enter="handleSubmit" @submit.prevent :inline="true">
     <el-form-item label="注销藏品" prop="collectionId">
-      <el-input v-model="formData.collectionId" placeholder="请输入藏品ID" clearable style="width: 200px" />
+      <el-input
+        v-model="formData.collectionId"
+        placeholder="请输入藏品ID"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="批准部门" prop="approvalDepartment">
-      <el-input v-model="formData.approvalDepartment" placeholder="请输入批准部门" clearable style="width: 200px" />
+      <el-input
+        v-model="formData.approvalDepartment"
+        placeholder="请输入批准部门"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="注销原因" prop="cancellationReason">
-      <el-input v-model="formData.cancellationReason" placeholder="请输入注销原因" clearable style="width: 200px" />
+      <el-input
+        v-model="formData.cancellationReason"
+        placeholder="请输入注销原因"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="状态" prop="status">
       <el-select v-model="formData.status" placeholder="请选择状态" clearable style="width: 200px">
-        <el-option v-for="item in statusOptions" :key="item.value" :label="item.label" :value="item.value" />
+        <el-option
+          v-for="item in statusOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
       </el-select>
     </el-form-item>
     <el-form-item>
@@ -48,7 +68,9 @@
   // 提交表单
   const handleSubmit = () => {
     // 过滤掉 undefined 和空字符串的值
-    const params = Object.fromEntries(Object.entries(formData).filter(([_, value]) => value !== undefined && value !== '')) as CancellationQueryParams
+    const params = Object.fromEntries(
+      Object.entries(formData).filter(([_, value]) => value !== undefined && value !== '')
+    ) as CancellationQueryParams
     emit('search', params)
   }
 

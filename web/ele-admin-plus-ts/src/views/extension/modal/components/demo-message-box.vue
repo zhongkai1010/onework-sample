@@ -112,13 +112,17 @@
 
   const openInfo = () => {
     messageBox
-      .alert('本周五 03:00 ~ 05:00 将进行网站升级，期间无法访问系统，请提前做好准备！', '系统通知', {
-        type: 'info',
-        confirmButtonText: '知道了',
-        closeOnClickModal: true,
-        inner: inner.value,
-        draggable: true
-      })
+      .alert(
+        '本周五 03:00 ~ 05:00 将进行网站升级，期间无法访问系统，请提前做好准备！',
+        '系统通知',
+        {
+          type: 'info',
+          confirmButtonText: '知道了',
+          closeOnClickModal: true,
+          inner: inner.value,
+          draggable: true
+        }
+      )
       .then(() => {
         console.log('点击了知道了')
       })

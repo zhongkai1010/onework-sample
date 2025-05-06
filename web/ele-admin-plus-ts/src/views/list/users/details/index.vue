@@ -1,7 +1,10 @@
 <template>
   <ele-page>
     <ele-card>
-      <div> 从“男用户”页面和“女用户”页面点击进入的详情页面是共用的同一个页面, 会选中各自对应的“男用户”或“女用户”菜单, 并且会各自KeepAlive. </div>
+      <div>
+        从“男用户”页面和“女用户”页面点击进入的详情页面是共用的同一个页面,
+        会选中各自对应的“男用户”或“女用户”菜单, 并且会各自KeepAlive.
+      </div>
       <div style="display: flex; align-items: center; margin-top: 16px">
         <div style="padding-right: 16px">路由参数</div>
         <div style="padding-right: 16px">sex: {{ form.sex }}</div>

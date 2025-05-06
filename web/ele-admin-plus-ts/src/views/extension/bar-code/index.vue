@@ -19,7 +19,12 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="条码文本">
-          <el-select v-if="options.format === 'EAN13'" v-model="text" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+          <el-select
+            v-if="options.format === 'EAN13'"
+            v-model="text"
+            class="ele-fluid"
+            :popper-options="{ strategy: 'fixed' }"
+          >
             <el-option value="1234567890128" label="1234567890128" />
             <el-option value="6971872201359" label="6971872201359" />
             <el-option value="6954531770199" label="6954531770199" />

@@ -4,13 +4,28 @@
       <el-input v-model="form.code" placeholder="请输入入库单号" clearable style="width: 200px" />
     </el-form-item>
     <el-form-item label="藏品编号" prop="collectionCode">
-      <el-input v-model="form.collectionCode" placeholder="请输入藏品编号" clearable style="width: 200px" />
+      <el-input
+        v-model="form.collectionCode"
+        placeholder="请输入藏品编号"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="藏品名称" prop="collectionName">
-      <el-input v-model="form.collectionName" placeholder="请输入藏品名称" clearable style="width: 200px" />
+      <el-input
+        v-model="form.collectionName"
+        placeholder="请输入藏品名称"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="接收库房" prop="warehouseName">
-      <el-input v-model="form.warehouseName" placeholder="请输入接收库房" clearable style="width: 200px" />
+      <el-input
+        v-model="form.warehouseName"
+        placeholder="请输入接收库房"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="状态" prop="status">
       <el-select v-model="form.status" placeholder="请选择状态" clearable style="width: 200px">
@@ -45,7 +60,9 @@
   /** 搜索 */
   const search = () => {
     // 过滤掉 undefined 和空字符串的值
-    const params = Object.fromEntries(Object.entries(form).filter(([_, value]) => value !== undefined && value !== ''))
+    const params = Object.fromEntries(
+      Object.entries(form).filter(([_, value]) => value !== undefined && value !== '')
+    )
     emit('search', params)
   }
 

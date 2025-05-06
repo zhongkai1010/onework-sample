@@ -28,7 +28,13 @@
   import { ref, watch } from 'vue'
   import type { ElProgressProps, ElImageProps } from 'ele-admin-plus/es/ele-app/el'
   import type { EleImageViewerProps } from 'ele-admin-plus/es/ele-app/plus'
-  import type { UploadItem, ListType, BeforeUploadClick, BeforeItemEdit, UploadLocale } from 'ele-admin-plus/es/ele-upload-list/types'
+  import type {
+    UploadItem,
+    ListType,
+    BeforeUploadClick,
+    BeforeItemEdit,
+    UploadLocale
+  } from 'ele-admin-plus/es/ele-upload-list/types'
   import CommonUpload from '../CommonUpload/index.vue'
 
   defineOptions({ name: 'ImageUpload' })
@@ -181,7 +187,11 @@
     for (let i = 0; i < newImages.length; i++) {
       const newItem = newImages[i]
       const oldItem = oldImages[i]
-      if (newItem.key !== oldItem.key || newItem.url !== oldItem.url || newItem.status !== oldItem.status) {
+      if (
+        newItem.key !== oldItem.key ||
+        newItem.url !== oldItem.url ||
+        newItem.status !== oldItem.status
+      ) {
         return true
       }
     }

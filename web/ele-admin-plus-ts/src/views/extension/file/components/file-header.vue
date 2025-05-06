@@ -2,17 +2,44 @@
 <template>
   <div class="demo-breadcrumb">
     <div class="demo-breadcrumb-body">
-      <ele-text v-if="directorys.length" type="primary" class="demo-breadcrumb-back" @click="goBack"> 返回上一级 </ele-text>
+      <ele-text
+        v-if="directorys.length"
+        type="primary"
+        class="demo-breadcrumb-back"
+        @click="goBack"
+      >
+        返回上一级
+      </ele-text>
       <div class="demo-breadcrumb-list">
         <ele-text :type="!!directorys.length ? 'primary' : void 0" class="demo-breadcrumb-item">
-          <div :class="{ 'demo-breadcrumb-link': !!directorys.length }" @click="goRoot"> 全部文件 </div>
-          <ele-text v-if="directorys.length" :icon="ArrowRight" type="placeholder" style="display: flex" />
+          <div :class="{ 'demo-breadcrumb-link': !!directorys.length }" @click="goRoot">
+            全部文件
+          </div>
+          <ele-text
+            v-if="directorys.length"
+            :icon="ArrowRight"
+            type="placeholder"
+            style="display: flex"
+          />
         </ele-text>
-        <ele-text v-for="(item, i) in directorys" :key="item.id" class="demo-breadcrumb-item" :type="i !== directorys.length - 1 ? 'primary' : 'default'">
-          <div :class="{ 'demo-breadcrumb-link': i !== directorys.length - 1 }" @click="goDirectory(i)">
+        <ele-text
+          v-for="(item, i) in directorys"
+          :key="item.id"
+          class="demo-breadcrumb-item"
+          :type="i !== directorys.length - 1 ? 'primary' : 'default'"
+        >
+          <div
+            :class="{ 'demo-breadcrumb-link': i !== directorys.length - 1 }"
+            @click="goDirectory(i)"
+          >
             {{ item.name }}
           </div>
-          <ele-text v-if="i !== directorys.length - 1" :icon="ArrowRight" type="placeholder" style="display: flex" />
+          <ele-text
+            v-if="i !== directorys.length - 1"
+            :icon="ArrowRight"
+            type="placeholder"
+            style="display: flex"
+          />
         </ele-text>
       </div>
     </div>

@@ -1,5 +1,12 @@
 <template>
-  <ele-modal v-model="visible" title="修复入藏" width="800px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
+  <ele-modal
+    v-model="visible"
+    title="修复入藏"
+    width="800px"
+    :destroy-on-close="true"
+    @open="handleOpen"
+    @closed="reset"
+  >
     <el-form ref="formRef" :model="form" label-width="100px" @submit.prevent="">
       <el-form-item label="修复人">
         <el-input v-model="form.repairPerson" placeholder="请输入修复人" clearable />
@@ -8,13 +15,29 @@
         <el-input v-model="form.qualificationCertificate" placeholder="请输入资质证书" clearable />
       </el-form-item>
       <el-form-item label="修完日期">
-        <el-date-picker v-model="form.repairCompletionDate" type="date" placeholder="请选择修完日期" clearable />
+        <el-date-picker
+          v-model="form.repairCompletionDate"
+          type="date"
+          placeholder="请选择修完日期"
+          clearable
+        />
       </el-form-item>
       <el-form-item label="修复情况及结果">
-        <el-input v-model="form.repairStatusAndResults" type="textarea" placeholder="请输入修复情况及结果" clearable />
+        <el-input
+          v-model="form.repairStatusAndResults"
+          type="textarea"
+          placeholder="请输入修复情况及结果"
+          clearable
+        />
       </el-form-item>
       <el-form-item label="修复后图片">
-        <el-upload class="upload-demo" action="/api/upload" :on-success="handleUploadSuccess" :on-error="handleUploadError" :before-upload="beforeUpload">
+        <el-upload
+          class="upload-demo"
+          action="/api/upload"
+          :on-success="handleUploadSuccess"
+          :on-error="handleUploadError"
+          :before-upload="beforeUpload"
+        >
           <el-button type="primary">点击上传</el-button>
           <template #tip>
             <div class="el-upload__tip">请上传修复后图片</div>

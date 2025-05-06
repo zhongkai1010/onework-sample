@@ -1,6 +1,17 @@
 <template>
   <div style="padding: 0 16px">
-    <ele-pro-table row-key="dictDataId" :columns="dictDataColumns" :datasource="dictDataDatasource" :show-overflow-tooltip="true" :toolbar="false" :pagination="false" :empty-props="false" :selections="selections || []" @update:selections="updateSelections" @done="handleTableDone">
+    <ele-pro-table
+      row-key="dictDataId"
+      :columns="dictDataColumns"
+      :datasource="dictDataDatasource"
+      :show-overflow-tooltip="true"
+      :toolbar="false"
+      :pagination="false"
+      :empty-props="false"
+      :selections="selections || []"
+      @update:selections="updateSelections"
+      @done="handleTableDone"
+    >
       <template #action="{ row: d }">
         <el-link type="primary" :underline="false" @click="editDictData(d)"> 修改 </el-link>
         <el-divider direction="vertical" />
@@ -13,7 +24,11 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import { EleMessage } from 'ele-admin-plus/es'
-  import type { DatasourceFunction, Columns, DoneFunction } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    Columns,
+    DoneFunction
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import { listDictionaryData } from '@/api/system/dictionary-data'
   import type { DictionaryData } from '@/api/system/dictionary-data/model'
 

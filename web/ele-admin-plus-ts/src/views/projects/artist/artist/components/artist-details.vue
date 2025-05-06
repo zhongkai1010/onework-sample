@@ -1,6 +1,12 @@
 <!-- 艺术家详情弹窗 -->
 <template>
-  <ele-modal :width="'900px'" v-model="visible" title="艺术家详情" position="center" @open="handleOpen">
+  <ele-modal
+    :width="'900px'"
+    v-model="visible"
+    title="艺术家详情"
+    position="center"
+    @open="handleOpen"
+  >
     <el-descriptions v-if="data" :column="2" border class="artist-details">
       <!-- 基本信息 -->
       <el-descriptions-item label="姓名" :span="2">
@@ -33,7 +39,13 @@
 
       <!-- 肖像图片 -->
       <el-descriptions-item label="肖像" :span="2">
-        <el-image v-if="data.portrait" :src="data.portrait" :preview-src-list="[data.portrait]" fit="cover" class="w-40 h-40" />
+        <el-image
+          v-if="data.portrait"
+          :src="data.portrait"
+          :preview-src-list="[data.portrait]"
+          fit="cover"
+          class="w-40 h-40"
+        />
         <el-empty v-else description="暂无肖像" :image-size="40" />
       </el-descriptions-item>
     </el-descriptions>

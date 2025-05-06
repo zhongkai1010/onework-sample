@@ -1,6 +1,11 @@
 <template>
   <ele-card header="热门搜索">
-    <v-chart ref="hotSearchChartRef" :option="hotSearchChartOption" style="height: 338px" @click="handleHotSearchChartClick" />
+    <v-chart
+      ref="hotSearchChartRef"
+      :option="hotSearchChartOption"
+      style="height: 338px"
+      @click="handleHotSearchChartClick"
+    />
   </ele-card>
 </template>
 
@@ -45,7 +50,28 @@
               gridSize: 6,
               textStyle: {
                 color: () => {
-                  const colors = ['#025DF4', '#DB6BCF', '#2498D1', '#BBBDE6', '#4045B2', '#21A97A', '#FF745A', '#007E99', '#FFA8A8', '#2391FF', '#FFC328', '#A0DC2C', '#946DFF', '#626681', '#EB4185', '#CD8150', '#36BCCB', '#327039', '#803488', '#83BC99']
+                  const colors = [
+                    '#025DF4',
+                    '#DB6BCF',
+                    '#2498D1',
+                    '#BBBDE6',
+                    '#4045B2',
+                    '#21A97A',
+                    '#FF745A',
+                    '#007E99',
+                    '#FFA8A8',
+                    '#2391FF',
+                    '#FFC328',
+                    '#A0DC2C',
+                    '#946DFF',
+                    '#626681',
+                    '#EB4185',
+                    '#CD8150',
+                    '#36BCCB',
+                    '#327039',
+                    '#803488',
+                    '#83BC99'
+                  ]
                   return colors[Math.floor(Math.random() * (0 - colors.length) + colors.length)]
                 }
               },

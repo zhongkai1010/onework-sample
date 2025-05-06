@@ -1,15 +1,40 @@
 <!-- 修改密码弹窗 -->
 <template>
-  <ele-modal form :width="420" title="修改密码" :append-to-body="true" v-model="visible" @closed="handleClosed">
+  <ele-modal
+    form
+    :width="420"
+    title="修改密码"
+    :append-to-body="true"
+    v-model="visible"
+    @closed="handleClosed"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="80px" @submit.prevent="">
       <el-form-item label="旧密码" prop="oldPassword">
-        <el-input show-password type="password" :maxlength="20" v-model="form.oldPassword" placeholder="请输入旧密码" />
+        <el-input
+          show-password
+          type="password"
+          :maxlength="20"
+          v-model="form.oldPassword"
+          placeholder="请输入旧密码"
+        />
       </el-form-item>
       <el-form-item label="新密码" prop="password">
-        <el-input show-password type="password" :maxlength="20" v-model="form.password" placeholder="请输入新密码" />
+        <el-input
+          show-password
+          type="password"
+          :maxlength="20"
+          v-model="form.password"
+          placeholder="请输入新密码"
+        />
       </el-form-item>
       <el-form-item label="确认密码" prop="password2">
-        <el-input show-password type="password" :maxlength="20" v-model="form.password2" placeholder="请再次输入新密码" />
+        <el-input
+          show-password
+          type="password"
+          :maxlength="20"
+          v-model="form.password2"
+          placeholder="请再次输入新密码"
+        />
       </el-form-item>
     </el-form>
     <template #footer>

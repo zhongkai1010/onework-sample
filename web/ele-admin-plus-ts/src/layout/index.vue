@@ -66,7 +66,10 @@
         </el-icon>
       </layout-tool>
       <!-- 刷新 -->
-      <layout-tool :class="{ 'hidden-sm-and-down': tabBar && tabInHeader }" @click="reloadPageTab()">
+      <layout-tool
+        :class="{ 'hidden-sm-and-down': tabBar && tabInHeader }"
+        @click="reloadPageTab()"
+      >
         <el-icon style="transform: scale(1.09)">
           <ReloadOutlined />
         </el-icon>
@@ -95,7 +98,12 @@
       </layout-tool>
       <!-- 夜间模式 -->
       <layout-tool ref="darkSwitchRef" class="dark-switch">
-        <el-switch :active-action-icon="MoonOutlined" :inactive-action-icon="SunOutlined" :model-value="darkMode" @update:modelValue="updateDarkMode" />
+        <el-switch
+          :active-action-icon="MoonOutlined"
+          :inactive-action-icon="SunOutlined"
+          :model-value="darkMode"
+          @update:modelValue="updateDarkMode"
+        />
       </layout-tool>
       <!-- 主题设置 -->
       <layout-tool @click="openSetting">
@@ -135,7 +143,11 @@
     </template>
     <!-- 页签标题 -->
     <template #tabTitle="{ label, item }">
-      <el-icon v-if="item.meta?.icon" class="ele-tab-icon" v-bind="item.meta?.props?.iconProps || {}">
+      <el-icon
+        v-if="item.meta?.icon"
+        class="ele-tab-icon"
+        v-bind="item.meta?.props?.iconProps || {}"
+      >
         <component :is="item.meta.icon" :style="item.meta?.props?.iconStyle" />
       </el-icon>
       <span :style="item.meta?.icon ? { paddingLeft: '4px' } : {}">
@@ -152,10 +164,35 @@
   import { useRouter } from 'vue-router'
   import { storeToRefs } from 'pinia'
   import { useI18n } from 'vue-i18n'
-  import { LayoutTool, TabDropdown, requestFullscreen, exitFullscreen, checkFullscreen, EleMessage } from 'ele-admin-plus/es'
-  import type { MenuI18n, TabItemEventOption, BodySizeChangeOption } from 'ele-admin-plus/es/ele-pro-layout/types'
+  import {
+    LayoutTool,
+    TabDropdown,
+    requestFullscreen,
+    exitFullscreen,
+    checkFullscreen,
+    EleMessage
+  } from 'ele-admin-plus/es'
+  import type {
+    MenuI18n,
+    TabItemEventOption,
+    BodySizeChangeOption
+  } from 'ele-admin-plus/es/ele-pro-layout/types'
   import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types'
-  import { MenuFoldOutlined, MenuUnfoldOutlined, ReloadOutlined, ExpandOutlined, CompressOutlined, MoreOutlined, CloseOutlined, ArrowLeftOutlined, ArrowRightOutlined, MinusCircleOutlined, CloseCircleOutlined, MoonOutlined, SunOutlined } from '@/components/icons'
+  import {
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    ReloadOutlined,
+    ExpandOutlined,
+    CompressOutlined,
+    MoreOutlined,
+    CloseOutlined,
+    ArrowLeftOutlined,
+    ArrowRightOutlined,
+    MinusCircleOutlined,
+    CloseCircleOutlined,
+    MoonOutlined,
+    SunOutlined
+  } from '@/components/icons'
   import { PROJECT_NAME, HOME_PATH, REDIRECT_PATH, TAB_KEEP_ALIVE } from '@/config/setting'
   import { doWithTransition } from '@/utils/common'
   import { useUserStore } from '@/store/modules/user'
@@ -172,7 +209,16 @@
 
   const { push } = useRouter()
   const { t, locale } = useI18n()
-  const { addPageTab, removePageTab, removeAllPageTab, removeLeftPageTab, removeRightPageTab, removeOtherPageTab, reloadPageTab, setPageTabs } = usePageTab()
+  const {
+    addPageTab,
+    removePageTab,
+    removeAllPageTab,
+    removeLeftPageTab,
+    removeRightPageTab,
+    removeOtherPageTab,
+    reloadPageTab,
+    setPageTabs
+  } = usePageTab()
   const { mobileDevice } = useMobileDevice()
   const userStore = useUserStore()
   const themeStore = useThemeStore()
@@ -181,8 +227,32 @@
   const { menus } = storeToRefs(userStore)
 
   /** 布局风格 */
-  const { tabs, collapse, compact, maximized, tabBar, layout, sidebarLayout, headerStyle, sidebarStyle, tabStyle, fixedHeader, fixedSidebar, fixedBody, fluid, logoInHeader, colorfulIcon, transitionName, uniqueOpened, fixedHome, tabInHeader, roundedTheme, menuItemTrigger, responsive, darkMode } =
-    storeToRefs(themeStore)
+  const {
+    tabs,
+    collapse,
+    compact,
+    maximized,
+    tabBar,
+    layout,
+    sidebarLayout,
+    headerStyle,
+    sidebarStyle,
+    tabStyle,
+    fixedHeader,
+    fixedSidebar,
+    fixedBody,
+    fluid,
+    logoInHeader,
+    colorfulIcon,
+    transitionName,
+    uniqueOpened,
+    fixedHome,
+    tabInHeader,
+    roundedTheme,
+    menuItemTrigger,
+    responsive,
+    darkMode
+  } = storeToRefs(themeStore)
 
   /** 是否全屏 */
   const isFullscreen = ref(false)
@@ -340,7 +410,11 @@
 
   /** 切换暗黑模式 */
   const updateDarkMode = (isDark) => {
-    doWithTransition(() => themeStore.setDarkMode(isDark), darkSwitchRef.value?.$el?.querySelector?.('.el-switch__action'), !isDark)
+    doWithTransition(
+      () => themeStore.setDarkMode(isDark),
+      darkSwitchRef.value?.$el?.querySelector?.('.el-switch__action'),
+      !isDark
+    )
   }
 </script>
 

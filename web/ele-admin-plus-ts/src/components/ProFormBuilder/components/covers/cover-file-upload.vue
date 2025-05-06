@@ -57,5 +57,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { IconSkeleton, SvgIcon } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
+  import {
+    IconSkeleton,
+    SvgIcon
+  } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
 </script>

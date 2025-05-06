@@ -1,7 +1,14 @@
 <template>
   <ele-card header="自定义数据">
     <div style="max-width: 260px">
-      <ele-icon-select clearable filterable :data="icons" v-model="selectedIcon" placeholder="请选择" :popper-options="{ strategy: 'fixed' }">
+      <ele-icon-select
+        clearable
+        filterable
+        :data="icons"
+        v-model="selectedIcon"
+        placeholder="请选择"
+        :popper-options="{ strategy: 'fixed' }"
+      >
         <template #icon="{ icon }">
           <el-icon>
             <component :is="icon" />
@@ -29,7 +36,20 @@
       children: [
         {
           title: 'System',
-          icons: ['CheckCircleOutlined', 'CloseCircleOutlined', 'QuestionCircleOutlined', 'UserOutlined', 'SearchOutlined', 'SettingOutlined', 'HomeOutlined', 'MessageOutlined', 'EditOutlined', 'DeleteOutlined', 'PlusCircleOutlined', 'MinusCircleOutlined']
+          icons: [
+            'CheckCircleOutlined',
+            'CloseCircleOutlined',
+            'QuestionCircleOutlined',
+            'UserOutlined',
+            'SearchOutlined',
+            'SettingOutlined',
+            'HomeOutlined',
+            'MessageOutlined',
+            'EditOutlined',
+            'DeleteOutlined',
+            'PlusCircleOutlined',
+            'MinusCircleOutlined'
+          ]
         },
         {
           title: 'Arrow',
@@ -50,7 +70,13 @@
       children: [
         {
           title: 'System',
-          icons: ['CheckCircleFilled', 'CloseCircleFilled', 'QuestionCircleFilled', 'ExclamationCircleFilled', 'FilterFilled']
+          icons: [
+            'CheckCircleFilled',
+            'CloseCircleFilled',
+            'QuestionCircleFilled',
+            'ExclamationCircleFilled',
+            'FilterFilled'
+          ]
         },
         {
           title: 'Arrow',

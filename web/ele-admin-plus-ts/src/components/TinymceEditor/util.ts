@@ -198,7 +198,11 @@ export function uuid(prefix: string): string {
 /**
  * 绑定事件
  */
-export function bindHandlers(initEvent: EditorEvent<any>, listeners: Record<string, any>, editor: TinyMCEEditor): void {
+export function bindHandlers(
+  initEvent: EditorEvent<any>,
+  listeners: Record<string, any>,
+  editor: TinyMCEEditor
+): void {
   const validEvents = VALID_EVENTS.map((event) => event.toLowerCase())
   Object.keys(listeners)
     .filter((key: string) => validEvents.includes(key.toLowerCase()))

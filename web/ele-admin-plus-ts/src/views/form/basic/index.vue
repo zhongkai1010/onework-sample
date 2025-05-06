@@ -2,32 +2,77 @@
   <div>
     <ele-card style="border-radius: 0">
       <ele-text type="heading" size="lg">基础表单</ele-text>
-      <ele-text type="placeholder" style="margin-top: 6px"> 表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。 </ele-text>
+      <ele-text type="placeholder" style="margin-top: 6px">
+        表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。
+      </ele-text>
     </ele-card>
     <ele-page :multi-card="false">
       <ele-card>
-        <el-form status-icon ref="formRef" :model="form" :rules="rules" label-width="80px" style="max-width: 700px; margin: 10px auto" @submit.prevent="">
+        <el-form
+          status-icon
+          ref="formRef"
+          :model="form"
+          :rules="rules"
+          label-width="80px"
+          style="max-width: 700px; margin: 10px auto"
+          @submit.prevent=""
+        >
           <el-form-item label="标题" prop="title">
             <el-input clearable v-model="form.title" placeholder="请输入标题" />
           </el-form-item>
           <el-form-item label="起止日期" prop="datetime">
-            <el-date-picker unlink-panels type="daterange" v-model="form.datetime" range-separator="-" format="YYYY-MM-DD" value-format="YYYY-MM-DD" start-placeholder="开始日期" end-placeholder="结束日期" class="ele-fluid" />
+            <el-date-picker
+              unlink-panels
+              type="daterange"
+              v-model="form.datetime"
+              range-separator="-"
+              format="YYYY-MM-DD"
+              value-format="YYYY-MM-DD"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              class="ele-fluid"
+            />
           </el-form-item>
           <el-form-item label="目标描述" prop="goal">
-            <el-input show-word-limit maxlength="800" :rows="4" type="textarea" v-model="form.goal" placeholder="请输入目标描述" />
+            <el-input
+              show-word-limit
+              maxlength="800"
+              :rows="4"
+              type="textarea"
+              v-model="form.goal"
+              placeholder="请输入目标描述"
+            />
           </el-form-item>
           <el-form-item label="衡量标准" prop="standard">
-            <el-input :rows="4" type="textarea" v-model="form.standard" placeholder="请输入衡量标准" />
+            <el-input
+              :rows="4"
+              type="textarea"
+              v-model="form.standard"
+              placeholder="请输入衡量标准"
+            />
           </el-form-item>
           <el-form-item label="地点" prop="address">
-            <el-select clearable v-model="form.address" placeholder="请选择地点" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+            <el-select
+              clearable
+              v-model="form.address"
+              placeholder="请选择地点"
+              class="ele-fluid"
+              :popper-options="{ strategy: 'fixed' }"
+            >
               <el-option value="1" label="地点一" />
               <el-option value="2" label="地点二" />
               <el-option value="3" label="地点三" />
             </el-select>
           </el-form-item>
           <el-form-item label="邀评人" prop="invites">
-            <el-select multiple clearable v-model="form.invites" placeholder="请选择邀评人" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+            <el-select
+              multiple
+              clearable
+              v-model="form.invites"
+              placeholder="请选择邀评人"
+              class="ele-fluid"
+              :popper-options="{ strategy: 'fixed' }"
+            >
               <el-option-group label="分组一">
                 <el-option :value="1" label="SunSmile" />
                 <el-option :value="2" label="你的名字很好听" />
@@ -40,7 +85,14 @@
             </el-select>
           </el-form-item>
           <el-form-item label="权重" prop="weight">
-            <el-input-number :min="0" :max="100" v-model="form.weight" controls-position="right" class="ele-fluid" style="max-width: 160px" />
+            <el-input-number
+              :min="0"
+              :max="100"
+              v-model="form.weight"
+              controls-position="right"
+              class="ele-fluid"
+              style="max-width: 160px"
+            />
             <div style="padding-left: 8px">%</div>
           </el-form-item>
           <el-form-item label="目标公开" style="margin-bottom: 0">
@@ -54,7 +106,9 @@
             <el-input clearable v-model="form.publicValue" placeholder="公开给" class="ele-fluid" />
           </el-form-item>
           <el-form-item>
-            <ele-text type="placeholder" style="line-height: 1.6"> 客户、邀评人默认被分享 </ele-text>
+            <ele-text type="placeholder" style="line-height: 1.6">
+              客户、邀评人默认被分享
+            </ele-text>
           </el-form-item>
           <el-form-item>
             <el-button @click="finishPageTab()">关闭</el-button>

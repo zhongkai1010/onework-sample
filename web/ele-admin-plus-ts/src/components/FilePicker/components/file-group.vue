@@ -1,16 +1,33 @@
 <template>
-  <ElTree ref="treeRef" :data="groupData" :highlightCurrent="true" nodeKey="id" :props="{ label: 'name' }" :expandOnClickNode="false" :defaultExpandAll="true" class="file-picker-left" @node-click="handleGroupSelect" @node-contextmenu="handleGroupContextmenu">
+  <ElTree
+    ref="treeRef"
+    :data="groupData"
+    :highlightCurrent="true"
+    nodeKey="id"
+    :props="{ label: 'name' }"
+    :expandOnClickNode="false"
+    :defaultExpandAll="true"
+    class="file-picker-left"
+    @node-click="handleGroupSelect"
+    @node-contextmenu="handleGroupContextmenu"
+  >
     <template #default="scope">
       <img src="/ele-file-list/ic_file_folder.png" class="file-picker-tree-icon" />
       <span class="el-tree-node__label" :title="scope.data.name">
         {{ scope.data.name }}
       </span>
-      <ElIcon v-if="scope.data.id !== 0 && scope.data.id !== -1" class="file-picker-tree-more" @click.stop="(e) => handleMoreIconClick(e, scope.data)">
+      <ElIcon
+        v-if="scope.data.id !== 0 && scope.data.id !== -1"
+        class="file-picker-tree-more"
+        @click.stop="(e) => handleMoreIconClick(e, scope.data)"
+      >
         <MoreOutlined style="transform: scale(1.1)" />
       </ElIcon>
     </template>
   </ElTree>
-  <ElLink type="primary" :underline="false" class="file-picker-left-add" @click="handleAddBtnClick"> 添加分组 </ElLink>
+  <ElLink type="primary" :underline="false" class="file-picker-left-add" @click="handleAddBtnClick">
+    添加分组
+  </ElLink>
 </template>
 
 <script lang="ts" setup>
@@ -56,7 +73,10 @@
       emit('hideGroupCtxMenu')
       return
     }
-    const triggerEl = queryChild(e.currentTarget as HTMLElement, 'el-tree-node__content')?.querySelector?.('.file-picker-tree-more')
+    const triggerEl = queryChild(
+      e.currentTarget as HTMLElement,
+      'el-tree-node__content'
+    )?.querySelector?.('.file-picker-tree-more')
     // @ts-ignore
     triggerEl && triggerEl.click()
   }

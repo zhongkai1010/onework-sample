@@ -2,14 +2,32 @@
 <template>
   <ele-modal :width="460" title="导入用户" v-model="visible">
     <div v-loading="loading" class="user-import-upload">
-      <el-upload drag action="" accept=".xls,.xlsx" :show-file-list="false" :before-upload="doUpload">
-        <ele-text type="primary" :icon="CloudUploadOutlined" :icon-props="{ size: 52 }" style="margin-bottom: 10px" />
+      <el-upload
+        drag
+        action=""
+        accept=".xls,.xlsx"
+        :show-file-list="false"
+        :before-upload="doUpload"
+      >
+        <ele-text
+          type="primary"
+          :icon="CloudUploadOutlined"
+          :icon-props="{ size: 52 }"
+          style="margin-bottom: 10px"
+        />
         <ele-text type="placeholder">将文件拖到此处, 或点击上传</ele-text>
       </el-upload>
     </div>
     <div style="display: flex; align-items: center; justify-content: center">
       <span style="padding-right: 8px">只能上传 xls、xlsx 文件,</span>
-      <el-link type="primary" :underline="false" href="https://cdn.eleadmin.com/20200610/用户导入模板.xlsx" download="用户导入模板.xlsx"> 下载模板 </el-link>
+      <el-link
+        type="primary"
+        :underline="false"
+        href="https://cdn.eleadmin.com/20200610/用户导入模板.xlsx"
+        download="用户导入模板.xlsx"
+      >
+        下载模板
+      </el-link>
     </div>
   </ele-modal>
 </template>
@@ -32,7 +50,12 @@
 
   /** 上传 */
   const doUpload = (file: File) => {
-    if (!['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(file.type)) {
+    if (
+      ![
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      ].includes(file.type)
+    ) {
       EleMessage.error('只能选择 excel 文件')
       return false
     }

@@ -1,6 +1,17 @@
 <template>
   <ele-card header="手动上传">
-    <ele-upload-list :drag="true" :tools="true" v-model="images" :readonly="loading" :disabled="disabled" :sortable="{ forceFallback: true }" @upload="handleUpload" @retry="uploadItem" @remove="handleRemove" @editUpload="handleEditUpload" />
+    <ele-upload-list
+      :drag="true"
+      :tools="true"
+      v-model="images"
+      :readonly="loading"
+      :disabled="disabled"
+      :sortable="{ forceFallback: true }"
+      @upload="handleUpload"
+      @retry="uploadItem"
+      @remove="handleRemove"
+      @editUpload="handleEditUpload"
+    />
     <div style="display: flex; align-items: center; margin-top: 12px">
       <el-button type="primary" :loading="loading" @click="handleSubmit"> 提交 </el-button>
       <div style="line-height: 22px; margin-left: 22px">禁用:</div>
@@ -11,7 +22,9 @@
         </el-radio-group>
       </div>
     </div>
-    <div style="margin-top: 20px"> 默认选择文件后就会调用请求后端上传的方法，也可以改为在点击提交按钮后才上传 </div>
+    <div style="margin-top: 20px">
+      默认选择文件后就会调用请求后端上传的方法，也可以改为在点击提交按钮后才上传
+    </div>
   </ele-card>
 </template>
 

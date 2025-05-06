@@ -1,5 +1,11 @@
 <template>
-  <ele-drawer :size="430" :inner="inner" :append-to-body="true" v-model="visible" title="限制在抽屉中的消息提示">
+  <ele-drawer
+    :size="430"
+    :inner="inner"
+    :append-to-body="true"
+    v-model="visible"
+    title="限制在抽屉中的消息提示"
+  >
     <div>内容内容内容内容内容内容</div>
     <div>内容内容内容内容内容内容</div>
     <div>内容内容内容内容内容内容</div>

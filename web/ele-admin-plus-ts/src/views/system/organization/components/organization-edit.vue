@@ -1,31 +1,73 @@
 <!-- 机构编辑弹窗 -->
 <template>
-  <ele-modal form :width="620" v-model="visible" :title="isUpdate ? '修改机构' : '添加机构'" @open="handleOpen">
+  <ele-modal
+    form
+    :width="620"
+    v-model="visible"
+    :title="isUpdate ? '修改机构' : '添加机构'"
+    @open="handleOpen"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="80px" @submit.prevent="">
       <el-row :gutter="16">
         <el-col :sm="12" :xs="24">
           <el-form-item label="上级机构" prop="parentId">
-            <organization-select v-model="form.parentId" placeholder="请选择上级机构" :organization-data="organizationData" />
+            <organization-select
+              v-model="form.parentId"
+              placeholder="请选择上级机构"
+              :organization-data="organizationData"
+            />
           </el-form-item>
           <el-form-item label="机构名称" prop="organizationName">
-            <el-input clearable :maxlength="20" v-model="form.organizationName" placeholder="请输入机构名称" />
+            <el-input
+              clearable
+              :maxlength="20"
+              v-model="form.organizationName"
+              placeholder="请输入机构名称"
+            />
           </el-form-item>
           <el-form-item label="机构全称" prop="organizationFullName">
-            <el-input clearable :maxlength="100" v-model="form.organizationFullName" placeholder="请输入机构全称" />
+            <el-input
+              clearable
+              :maxlength="100"
+              v-model="form.organizationFullName"
+              placeholder="请输入机构全称"
+            />
           </el-form-item>
           <el-form-item label="机构代码">
-            <el-input clearable :maxlength="20" v-model="form.organizationCode" placeholder="请输入机构代码" />
+            <el-input
+              clearable
+              :maxlength="20"
+              v-model="form.organizationCode"
+              placeholder="请输入机构代码"
+            />
           </el-form-item>
         </el-col>
         <el-col :sm="12" :xs="24">
           <el-form-item label="机构类型" prop="organizationType">
-            <dict-data code="organization_type" v-model="form.organizationType" placeholder="请选择机构类型" />
+            <dict-data
+              code="organization_type"
+              v-model="form.organizationType"
+              placeholder="请选择机构类型"
+            />
           </el-form-item>
           <el-form-item label="排序号" prop="sortNumber">
-            <el-input-number :min="0" :max="99999" v-model="form.sortNumber" placeholder="请输入排序号" controls-position="right" class="ele-fluid" />
+            <el-input-number
+              :min="0"
+              :max="99999"
+              v-model="form.sortNumber"
+              placeholder="请输入排序号"
+              controls-position="right"
+              class="ele-fluid"
+            />
           </el-form-item>
           <el-form-item label="备注">
-            <el-input :rows="3" type="textarea" :maxlength="200" v-model="form.comments" placeholder="请输入备注" />
+            <el-input
+              :rows="3"
+              type="textarea"
+              :maxlength="200"
+              v-model="form.comments"
+              placeholder="请输入备注"
+            />
           </el-form-item>
         </el-col>
       </el-row>

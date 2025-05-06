@@ -1,5 +1,18 @@
 <template>
-  <ele-split-panel :flex-table="true" space="0px" size="360px" :min-size="180" :max-size="-180" :vertical="true" :resizable="true" :allow-collapse="true" :custom-style="{ overflow: 'hidden', border: 'none' }" :responsive="false" style="background: var(--el-bg-color)" class="demo-split-panel">
+  <ele-split-panel
+    :flex-table="true"
+    space="0px"
+    size="360px"
+    :min-size="180"
+    :max-size="-180"
+    :vertical="true"
+    :resizable="true"
+    :allow-collapse="true"
+    :custom-style="{ overflow: 'hidden', border: 'none' }"
+    :responsive="false"
+    style="background: var(--el-bg-color)"
+    class="demo-split-panel"
+  >
     <ele-pro-table
       ref="tableRef"
       row-key="organizationId"
@@ -78,7 +91,11 @@
 <script lang="ts" setup>
   import { ref, nextTick, watch } from 'vue'
   import type { EleProTable } from 'ele-admin-plus/es'
-  import type { DatasourceFunction, Columns, DoneFunction } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    Columns,
+    DoneFunction
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import type { Organization } from '@/api/system/organization/model'
   import type { User } from '@/api/system/user/model'
   import { pageOrganizations } from '@/api/system/organization'

@@ -3,7 +3,16 @@
  */
 import { defineStore } from 'pinia'
 import { changeColor } from 'ele-admin-plus/es/utils/theme-util'
-import type { TabItem, Layout, SidebarLayout, HeaderStyle, SidebarStyle, TabStyle, TabItemEventOption, MenuItemTrigger } from 'ele-admin-plus/es/ele-pro-layout/types'
+import type {
+  TabItem,
+  Layout,
+  SidebarLayout,
+  HeaderStyle,
+  SidebarStyle,
+  TabStyle,
+  TabItemEventOption,
+  MenuItemTrigger
+} from 'ele-admin-plus/es/ele-pro-layout/types'
 import { THEME_CACHE_NAME, TAB_KEEP_ALIVE } from '@/config/setting'
 
 /**

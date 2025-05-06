@@ -1,6 +1,11 @@
 import request from '@/utils/request'
 import type { ApiResult, PageResult } from '@/api'
-import type { Publication, CreatePublicationParams, UpdatePublicationParams, PublicationQueryParams } from './model'
+import type {
+  Publication,
+  CreatePublicationParams,
+  UpdatePublicationParams,
+  PublicationQueryParams
+} from './model'
 
 /**
  * 新增出版著作

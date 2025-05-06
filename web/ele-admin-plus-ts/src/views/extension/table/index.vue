@@ -11,7 +11,12 @@
         :collapse-style="{ marginLeft: '4px' }"
         style="min-height: 708px; border-radius: var(--ele-card-radius)"
       >
-        <ele-menus :items="items as any" :default-active="active" class="demo-menu" @itemClick="handleMenuItemClick" />
+        <ele-menus
+          :items="items as any"
+          :default-active="active"
+          class="demo-menu"
+          @itemClick="handleMenuItemClick"
+        />
         <template #body>
           <transition name="slide-right" mode="out-in">
             <demo-base v-if="active == 'base'" />

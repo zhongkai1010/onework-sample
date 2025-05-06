@@ -18,8 +18,12 @@
       <el-button class="ele-btn-icon" @click="handleCallViewer('zoomIn')"> 放大 </el-button>
       <el-button class="ele-btn-icon" @click="handleCallViewer('zoomOut')"> 缩小 </el-button>
       <el-button class="ele-btn-icon" @click="handleCallViewer('rotateLeft')"> 向左旋转 </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('rotateRight')"> 向右旋转 </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('autoIntoView')"> 自适应缩放 </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('rotateRight')">
+        向右旋转
+      </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('autoIntoView')">
+        自适应缩放
+      </el-button>
       <el-button class="ele-btn-icon" @click="handleCallViewer('reset')"> 重置 </el-button>
     </div>
   </ele-card>

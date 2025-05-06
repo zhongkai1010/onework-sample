@@ -1,7 +1,14 @@
 <template>
   <ele-card header="用于试卷批阅">
     <div style="margin-bottom: 12px">点击鼠标右键评分</div>
-    <ele-viewer ref="viewerRef" src="https://cdn.eleadmin.com/20200610/pECunlF.jpg" :markers="paperMarkers" :image-style="{ filter: 'contrast(120%)' }" style="height: 560px; max-width: 900px" @contentContextmenu="handleContentContextmenu">
+    <ele-viewer
+      ref="viewerRef"
+      src="https://cdn.eleadmin.com/20200610/pECunlF.jpg"
+      :markers="paperMarkers"
+      :image-style="{ filter: 'contrast(120%)' }"
+      style="height: 560px; max-width: 900px"
+      @contentContextmenu="handleContentContextmenu"
+    >
       <template #markerItem="{ item }">
         <div v-if="item.isPanel" class="paper-score">
           <div class="paper-score-content">
@@ -10,18 +17,35 @@
               <span>分</span>
             </template>
           </div>
-          <div :class="['paper-score-panel', { 'is-top-left': item.placement === 'topLeft' }, { 'is-top-right': item.placement === 'topRight' }, { 'is-bottom-left': item.placement === 'bottomLeft' }]" @contextmenu.stop.prevent="">
+          <div
+            :class="[
+              'paper-score-panel',
+              { 'is-top-left': item.placement === 'topLeft' },
+              { 'is-top-right': item.placement === 'topRight' },
+              { 'is-bottom-left': item.placement === 'bottomLeft' }
+            ]"
+            @contextmenu.stop.prevent=""
+          >
             <div class="paper-score-panel-list">
-              <div v-for="num in 11" :key="num" :class="[{ 'is-active': item.selected === num - 1 }]" @click="handleScoreClick(num - 1)">
+              <div
+                v-for="num in 11"
+                :key="num"
+                :class="[{ 'is-active': item.selected === num - 1 }]"
+                @click="handleScoreClick(num - 1)"
+              >
                 {{ num - 1 }}
               </div>
             </div>
             <div class="paper-score-panel-list">
-              <div :class="[{ 'is-active': item.selectedDecimal }]" @click="handleDecimalClick"> 0.5 </div>
+              <div :class="[{ 'is-active': item.selectedDecimal }]" @click="handleDecimalClick">
+                0.5
+              </div>
             </div>
             <div class="paper-score-panel-footer">
               <el-button size="small" class="ele-btn-icon" @click="handleCancel"> 取消 </el-button>
-              <el-button type="primary" size="small" class="ele-btn-icon" @click="handleSave"> 确定 </el-button>
+              <el-button type="primary" size="small" class="ele-btn-icon" @click="handleSave">
+                确定
+              </el-button>
             </div>
           </div>
         </div>
@@ -40,8 +64,12 @@
       <el-button class="ele-btn-icon" @click="handleCallViewer('zoomIn')"> 放大 </el-button>
       <el-button class="ele-btn-icon" @click="handleCallViewer('zoomOut')"> 缩小 </el-button>
       <el-button class="ele-btn-icon" @click="handleCallViewer('rotateLeft')"> 向左旋转 </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('rotateRight')"> 向右旋转 </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('autoIntoView')"> 自适应缩放 </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('rotateRight')">
+        向右旋转
+      </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('autoIntoView')">
+        自适应缩放
+      </el-button>
       <el-button class="ele-btn-icon" @click="handleCallViewer('reset')"> 重置 </el-button>
     </div>
   </ele-card>

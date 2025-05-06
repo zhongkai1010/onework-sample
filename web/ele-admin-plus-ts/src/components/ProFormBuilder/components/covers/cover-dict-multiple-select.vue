@@ -43,5 +43,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { IconInput, IconSkeleton, SvgIcon, IconPanel, IconCheckbox } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
+  import {
+    IconInput,
+    IconSkeleton,
+    SvgIcon,
+    IconPanel,
+    IconCheckbox
+  } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
 </script>

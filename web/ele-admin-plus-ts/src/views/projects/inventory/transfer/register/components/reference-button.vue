@@ -9,11 +9,19 @@
       </el-descriptions-item>
       <el-descriptions-item label="搜索条件"> 藏品编号 藏品名称 库房 </el-descriptions-item>
       <el-descriptions-item label="操作栏">选择拨库藏品 取消选择 </el-descriptions-item>
-      <el-descriptions-item label="表格字段" :span="24"> 编号 藏品编号 藏品名称 库房 年代 质地类型 质地 数量 单位 具体尺寸 完残程度</el-descriptions-item>
+      <el-descriptions-item label="表格字段" :span="24">
+        编号 藏品编号 藏品名称 库房 年代 质地类型 质地 数量 单位 具体尺寸
+        完残程度</el-descriptions-item
+      >
       <el-descriptions-item label="表格操作"> 确认选择 </el-descriptions-item>
     </el-descriptions>
   </el-drawer>
-  <ele-image-viewer v-model="showImageViewer" :urlList="viewerImages" :initialIndex="viewerIndex" :infinite="false" />
+  <ele-image-viewer
+    v-model="showImageViewer"
+    :urlList="viewerImages"
+    :initialIndex="viewerIndex"
+    :infinite="false"
+  />
 </template>
 
 <script setup lang="ts">

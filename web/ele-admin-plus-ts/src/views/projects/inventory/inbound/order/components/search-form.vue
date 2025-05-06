@@ -14,13 +14,23 @@
       </el-select>
     </el-form-item>
     <el-form-item label="藏品选择" prop="collectionId">
-      <el-input v-model.number="form.collectionId" placeholder="请输入藏品ID" clearable style="width: 200px" />
+      <el-input
+        v-model.number="form.collectionId"
+        placeholder="请输入藏品ID"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="经办人" prop="operator">
       <el-input v-model="form.operator" placeholder="请输入经办人" clearable style="width: 200px" />
     </el-form-item>
     <el-form-item label="接收库房" prop="warehouseId">
-      <el-input v-model.number="form.warehouseId" placeholder="请输入接收库房" clearable style="width: 200px" />
+      <el-input
+        v-model.number="form.warehouseId"
+        placeholder="请输入接收库房"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="备注" prop="remarks">
       <el-input v-model="form.remarks" placeholder="请输入备注" clearable style="width: 200px" />
@@ -53,7 +63,9 @@
   /** 搜索 */
   const search = () => {
     // 过滤掉 undefined 和空字符串的值
-    const params = Object.fromEntries(Object.entries(form).filter(([_, value]) => value !== undefined && value !== '')) as InboundQueryParams
+    const params = Object.fromEntries(
+      Object.entries(form).filter(([_, value]) => value !== undefined && value !== '')
+    ) as InboundQueryParams
     emit('search', params)
   }
 

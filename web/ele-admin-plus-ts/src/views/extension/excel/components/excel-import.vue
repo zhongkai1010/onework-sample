@@ -29,13 +29,21 @@
           <tr v-for="(item, index) in importData" :key="index">
             <td style="text-align: center">{{ index + 1 }}</td>
             <template v-for="key in importTitle">
-              <td v-if="item[key].colspan !== 0 && item[key].rowspan !== 0" :key="key" :colspan="item[key].colspan" :rowspan="item[key].rowspan" style="text-align: center">
+              <td
+                v-if="item[key].colspan !== 0 && item[key].rowspan !== 0"
+                :key="key"
+                :colspan="item[key].colspan"
+                :rowspan="item[key].rowspan"
+                style="text-align: center"
+              >
                 {{ item[key].value }}
               </td>
             </template>
           </tr>
           <tr v-if="!importData.length">
-            <td :colspan="importTitle.length + 1" style="text-align: center; background: none"> 暂无数据 </td>
+            <td :colspan="importTitle.length + 1" style="text-align: center; background: none">
+              暂无数据
+            </td>
           </tr>
         </tbody>
       </ele-table>
@@ -56,7 +64,10 @@
 
   /** 验证文件类型和大小 */
   const validateFile = (file: File): boolean => {
-    const validTypes = ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
+    const validTypes = [
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ]
 
     if (!validTypes.includes(file.type)) {
       EleMessage.error('只能选择 excel 文件')

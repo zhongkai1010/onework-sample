@@ -1,6 +1,15 @@
 <template>
   <div>
-    <ele-pro-table ref="tableRef" row-key="userId" :columns="columns" :datasource="datasource" :default-sort="{ prop: 'createTime', order: 'descending' }" :show-overflow-tooltip="true" :export-config="{ fileName: '用户数据', datasource: exportSource }" :print-config="{ datasource: exportSource }">
+    <ele-pro-table
+      ref="tableRef"
+      row-key="userId"
+      :columns="columns"
+      :datasource="datasource"
+      :default-sort="{ prop: 'createTime', order: 'descending' }"
+      :show-overflow-tooltip="true"
+      :export-config="{ fileName: '用户数据', datasource: exportSource }"
+      :print-config="{ datasource: exportSource }"
+    >
       <template #toolbar>
         <el-button type="primary" class="ele-btn-icon" @click="setSorter"> 改为账号排序 </el-button>
         <el-button type="primary" class="ele-btn-icon" @click="resetAll"> 重置排序筛选 </el-button>

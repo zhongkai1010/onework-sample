@@ -1,13 +1,33 @@
 <template>
   <el-form :model="formData" @keyup.enter="handleSubmit" @submit.prevent :inline="true">
     <el-form-item label="单据状态" prop="status">
-      <el-select v-model="formData.status" placeholder="请选择单据状态" clearable style="width: 200px">
-        <el-option v-for="item in statusOptions" :key="item.value" :label="item.label" :value="item.value" />
+      <el-select
+        v-model="formData.status"
+        placeholder="请选择单据状态"
+        clearable
+        style="width: 200px"
+      >
+        <el-option
+          v-for="item in statusOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
       </el-select>
     </el-form-item>
     <el-form-item label="调拨仓库" prop="warehouseId">
-      <el-select v-model="formData.warehouseId" placeholder="请选择调拨仓库" clearable style="width: 200px">
-        <el-option v-for="item in warehouseOptions" :key="item.value" :label="item.label" :value="item.value" />
+      <el-select
+        v-model="formData.warehouseId"
+        placeholder="请选择调拨仓库"
+        clearable
+        style="width: 200px"
+      >
+        <el-option
+          v-for="item in warehouseOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
       </el-select>
     </el-form-item>
     <el-form-item>
@@ -48,7 +68,9 @@
   // 提交表单
   const handleSubmit = () => {
     // 过滤掉 undefined 和空字符串的值
-    const params = Object.fromEntries(Object.entries(formData).filter(([_, value]) => value !== undefined && value !== '')) as TransferQueryParams
+    const params = Object.fromEntries(
+      Object.entries(formData).filter(([_, value]) => value !== undefined && value !== '')
+    ) as TransferQueryParams
     emit('search', params)
   }
 

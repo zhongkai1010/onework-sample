@@ -56,7 +56,16 @@
             <span>Console</span>
           </div>
           <div ref="consoleBodyRef" class="console-body">
-            <pre v-for="(item, index) in consoleCodes" :key="index" :class="['console-item', { 'is-error': item.type === 'error' }, { 'is-warn': item.type === 'warn' }]">{{ item.code }}</pre>
+            <pre
+              v-for="(item, index) in consoleCodes"
+              :key="index"
+              :class="[
+                'console-item',
+                { 'is-error': item.type === 'error' },
+                { 'is-warn': item.type === 'warn' }
+              ]"
+              >{{ item.code }}</pre
+            >
           </div>
         </div>
       </div>

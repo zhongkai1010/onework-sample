@@ -1,6 +1,10 @@
 <template>
   <div>
-    <ele-alert show-icon title="确认转账后，资金将直接打入对方账户，无法退回。" style="margin-bottom: 18px" />
+    <ele-alert
+      show-icon
+      title="确认转账后，资金将直接打入对方账户，无法退回。"
+      style="margin-bottom: 18px"
+    />
     <el-descriptions :border="true" :column="1" size="large" class="detail-table">
       <el-descriptions-item label="付款账户">
         <div>{{ data.account }}</div>
@@ -19,7 +23,12 @@
       </el-descriptions-item>
       <el-descriptions-item label="支付密码">
         <div style="max-width: 220px">
-          <el-input type="password" v-model="form.password" placeholder="请输入支付密码" show-password />
+          <el-input
+            type="password"
+            v-model="form.password"
+            placeholder="请输入支付密码"
+            show-password
+          />
         </div>
       </el-descriptions-item>
     </el-descriptions>

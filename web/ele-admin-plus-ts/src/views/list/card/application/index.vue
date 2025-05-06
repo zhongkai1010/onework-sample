@@ -28,7 +28,12 @@
             </ele-tooltip>
             <el-divider direction="vertical" style="margin: 0; opacity: 0.8" />
             <ele-tooltip placement="top" content="设置" :offset="-8">
-              <ele-text :icon="Tools" type="secondary" class="list-item-tool" :icon-props="{ style: { opacity: 0.88 } }" />
+              <ele-text
+                :icon="Tools"
+                type="secondary"
+                class="list-item-tool"
+                :icon-props="{ style: { opacity: 0.88 } }"
+              />
             </ele-tooltip>
             <el-divider direction="vertical" style="margin: 0; opacity: 0.8" />
             <ele-tooltip placement="top" content="删除" :offset="-8">

@@ -6,7 +6,13 @@
           <ElButton type="primary" class="ele-btn-icon" :icon="UploadOutlined"> 上传 </ElButton>
         </ElUpload>
         <div class="file-picker-search">
-          <ElInput :clearable="true" v-model="searchKeyword" placeholder="请输入文件名" @clear="handleSearch" @change="handleSearch" />
+          <ElInput
+            :clearable="true"
+            v-model="searchKeyword"
+            placeholder="请输入文件名"
+            @clear="handleSearch"
+            @change="handleSearch"
+          />
           <ElButton type="primary" @click="handleSearch">搜索</ElButton>
         </div>
         <EleSegmented v-model="isGridMode" :items="modeSegmentedItems" :validateEvent="false" />
@@ -47,18 +53,38 @@
       </template>
       <ElEmpty v-else :imageSize="80" description="无数据" v-bind="emptyProps || {}" />
     </div>
-    <FileSelections ref="fileSelectionsRef" :fileSelections="limit === 1 ? (fileCurrent ? [fileCurrent] : []) : fileSelections" :limit="limit" :selectionListProps="selectionListProps" :baseIndex="baseIndex" @clearSelections="clearSelections" @removeItem="removeItem" />
+    <FileSelections
+      ref="fileSelectionsRef"
+      :fileSelections="limit === 1 ? (fileCurrent ? [fileCurrent] : []) : fileSelections"
+      :limit="limit"
+      :selectionListProps="selectionListProps"
+      :baseIndex="baseIndex"
+      @clearSelections="clearSelections"
+      @removeItem="removeItem"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
   import { ref, reactive, watch, markRaw } from 'vue'
   import type { ElEmptyProps } from 'ele-admin-plus/es/ele-app/el'
-  import type { EleFileListProps, EleUploadListProps, EleDropdownProps, ElePaginationProps } from 'ele-admin-plus/es/ele-app/plus'
+  import type {
+    EleFileListProps,
+    EleUploadListProps,
+    EleDropdownProps,
+    ElePaginationProps
+  } from 'ele-admin-plus/es/ele-app/plus'
   import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types'
   import type { FileItem, ItemContextMenuOption } from 'ele-admin-plus/es/ele-file-list/types'
   import { localIcons, localSmallIcons } from 'ele-admin-plus/es/ele-file-list/icons'
-  import { UploadOutlined, MenuOutlined, AppstoreOutlined, EditOutlined, DragOutlined, DeleteOutlined } from '@/components/icons'
+  import {
+    UploadOutlined,
+    MenuOutlined,
+    AppstoreOutlined,
+    EditOutlined,
+    DragOutlined,
+    DeleteOutlined
+  } from '@/components/icons'
   import { uploadFile } from '@/api/system/file'
   import { pageUserFiles, addUserFile } from '@/api/system/user-file'
   import type { UserFile } from '@/api/system/user-file/model'
@@ -155,7 +181,11 @@
 
   /** 校验最大选择数量 */
   const checkLimit = (selections: FileItem[], isAdd?: boolean) => {
-    if (props.limit && props.limit > 1 && (isAdd ? selections.length >= props.limit : selections.length > props.limit)) {
+    if (
+      props.limit &&
+      props.limit > 1 &&
+      (isAdd ? selections.length >= props.limit : selections.length > props.limit)
+    ) {
       props.messageIns?.error?.(`最多只能选择 ${props.limit} 个`)
       return false
     }
@@ -312,7 +342,12 @@
         return
       }
     } else if (props.accept === '.xls,.xlsx') {
-      if (!['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(file.type)) {
+      if (
+        ![
+          'application/vnd.ms-excel',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        ].includes(file.type)
+      ) {
         props.messageIns?.error?.('只能选择 excel 文件')
         return
       }

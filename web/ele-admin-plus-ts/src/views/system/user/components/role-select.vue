@@ -1,7 +1,19 @@
 <!-- 角色选择下拉框 -->
 <template>
-  <el-select multiple clearable :model-value="roleIds" :placeholder="placeholder" class="ele-fluid" @update:modelValue="updateValue">
-    <el-option v-for="item in data" :key="item.roleId" :value="(item as any).roleId" :label="item.roleName" />
+  <el-select
+    multiple
+    clearable
+    :model-value="roleIds"
+    :placeholder="placeholder"
+    class="ele-fluid"
+    @update:modelValue="updateValue"
+  >
+    <el-option
+      v-for="item in data"
+      :key="item.roleId"
+      :value="(item as any).roleId"
+      :label="item.roleName"
+    />
   </el-select>
 </template>
 

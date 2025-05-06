@@ -16,9 +16,11 @@
   import { ref } from 'vue'
   import type Player from 'xgplayer'
   const url1 = 'https://s1.pstatp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4'
-  const poster1 = 'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/1.png'
+  const poster1 =
+    'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/1.png'
   const url2 = 'https://tianyu.v.netease.com/2024/0617/745cbbaa15464f6c191a10a4c7fb9a30.mp4'
-  const poster2 = 'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png'
+  const poster2 =
+    'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png'
 
   /** 视频播放器配置 */
   const config = ref({

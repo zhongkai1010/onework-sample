@@ -19,16 +19,39 @@
             style="margin-bottom: 18px"
             @change="handleTabChange"
           />
-          <el-form v-if="tabActive == 1" ref="formRef" size="large" :model="form" :rules="rules" @keyup.enter="submit" @submit.prevent="">
+          <el-form
+            v-if="tabActive == 1"
+            ref="formRef"
+            size="large"
+            :model="form"
+            :rules="rules"
+            @keyup.enter="submit"
+            @submit.prevent=""
+          >
             <el-form-item prop="username">
-              <el-input clearable v-model="form.username" :placeholder="t('login.username')" :prefix-icon="UserOutlined" />
+              <el-input
+                clearable
+                v-model="form.username"
+                :placeholder="t('login.username')"
+                :prefix-icon="UserOutlined"
+              />
             </el-form-item>
             <el-form-item prop="password">
-              <el-input show-password v-model="form.password" :placeholder="t('login.password')" :prefix-icon="LockOutlined" />
+              <el-input
+                show-password
+                v-model="form.password"
+                :placeholder="t('login.password')"
+                :prefix-icon="LockOutlined"
+              />
             </el-form-item>
             <el-form-item prop="code">
               <div class="login-captcha-group">
-                <el-input clearable v-model="form.code" :placeholder="t('login.code')" :prefix-icon="ProtectOutlined" />
+                <el-input
+                  clearable
+                  v-model="form.code"
+                  :placeholder="t('login.code')"
+                  :prefix-icon="ProtectOutlined"
+                />
                 <div class="login-captcha" @click="changeCaptcha">
                   <img v-if="captcha" :src="captcha" />
                 </div>
@@ -40,14 +63,25 @@
               </el-checkbox>
             </el-form-item>
             <el-form-item>
-              <el-button size="large" type="primary" :loading="loading" style="width: 100%" @click="submit">
+              <el-button
+                size="large"
+                type="primary"
+                :loading="loading"
+                style="width: 100%"
+                @click="submit"
+              >
                 {{ t('login.login') }}
               </el-button>
             </el-form-item>
           </el-form>
           <div v-else class="login-qrcode-group">
             <ele-qr-code-svg :size="180" :margin="2" :value="qrcode" class="login-qrcode" />
-            <el-link type="primary" :underline="false" style="margin-top: 16px; user-select: none" @click="refreshQrCode">
+            <el-link
+              type="primary"
+              :underline="false"
+              style="margin-top: 16px; user-select: none"
+              @click="refreshQrCode"
+            >
               <el-icon :size="15" style="transform: translateY(-1px); margin-right: 6px">
                 <ReloadOutlined />
               </el-icon>
@@ -310,7 +344,9 @@
     margin: 0 0 6px 0;
     font-weight: normal;
     letter-spacing: 1.2px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+      'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+      'Noto Color Emoji';
   }
 
   .login-subtitle {

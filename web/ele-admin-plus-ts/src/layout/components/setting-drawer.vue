@@ -1,15 +1,32 @@
 <!-- 主题设置抽屉 -->
 <template>
-  <ele-drawer :size="268" style="max-width: 100%" :append-to-body="true" v-model="visible" :title="t('layout.setting.title')" :z-index="2002">
+  <ele-drawer
+    :size="268"
+    style="max-width: 100%"
+    :append-to-body="true"
+    v-model="visible"
+    :title="t('layout.setting.title')"
+    :z-index="2002"
+  >
     <div :class="['setting-wrapper', { 'setting-dark': darkMode }]">
       <!-- 侧栏风格 -->
       <div class="setting-theme">
-        <ele-tooltip :content="t('layout.setting.sideStyles.dark')" placement="top" :hide-after="0" :offset="9">
+        <ele-tooltip
+          :content="t('layout.setting.sideStyles.dark')"
+          placement="top"
+          :hide-after="0"
+          :offset="9"
+        >
           <div class="setting-side-dark" @click="updateSidebarStyle('dark')">
             <ele-text v-if="sidebarStyle === 'dark'" type="primary" :icon="CheckOutlined" />
           </div>
         </ele-tooltip>
-        <ele-tooltip :content="t('layout.setting.sideStyles.light')" placement="top" :hide-after="0" :offset="9">
+        <ele-tooltip
+          :content="t('layout.setting.sideStyles.light')"
+          placement="top"
+          :hide-after="0"
+          :offset="9"
+        >
           <div class="setting-side-light" @click="updateSidebarStyle('light')">
             <ele-text v-if="sidebarStyle === 'light'" type="primary" :icon="CheckOutlined" />
           </div>
@@ -17,17 +34,32 @@
       </div>
       <!-- 顶栏风格 -->
       <div class="setting-theme">
-        <ele-tooltip :content="t('layout.setting.headStyles.light')" placement="top" :hide-after="0" :offset="9">
+        <ele-tooltip
+          :content="t('layout.setting.headStyles.light')"
+          placement="top"
+          :hide-after="0"
+          :offset="9"
+        >
           <div class="setting-head-light" @click="updateHeaderStyle('light')">
             <ele-text v-if="headerStyle === 'light'" type="primary" :icon="CheckOutlined" />
           </div>
         </ele-tooltip>
-        <ele-tooltip :content="t('layout.setting.headStyles.dark')" placement="top" :hide-after="0" :offset="9">
+        <ele-tooltip
+          :content="t('layout.setting.headStyles.dark')"
+          placement="top"
+          :hide-after="0"
+          :offset="9"
+        >
           <div class="setting-head-dark" @click="updateHeaderStyle('dark')">
             <ele-text v-if="headerStyle === 'dark'" type="primary" :icon="CheckOutlined" />
           </div>
         </ele-tooltip>
-        <ele-tooltip :content="t('layout.setting.headStyles.primary')" placement="top" :hide-after="0" :offset="9">
+        <ele-tooltip
+          :content="t('layout.setting.headStyles.primary')"
+          placement="top"
+          :hide-after="0"
+          :offset="9"
+        >
           <div class="setting-head-primary" @click="updateHeaderStyle('primary')">
             <ele-text v-if="headerStyle === 'primary'" type="primary" :icon="CheckOutlined" />
           </div>
@@ -35,16 +67,34 @@
       </div>
       <!-- 主题色 -->
       <div class="setting-colors">
-        <div v-for="item in themes" :key="item.name" :style="{ 'background-color': item.color || item.value }" class="setting-color-item" @click="updateColor(item.value)">
+        <div
+          v-for="item in themes"
+          :key="item.name"
+          :style="{ 'background-color': item.color || item.value }"
+          class="setting-color-item"
+          @click="updateColor(item.value)"
+        >
           <el-icon v-if="item.value ? item.value === color : !color">
             <CheckOutlined />
           </el-icon>
-          <ele-tooltip :content="t('layout.setting.colors.' + item.name)" placement="top" :hide-after="0" :offset="9">
+          <ele-tooltip
+            :content="t('layout.setting.colors.' + item.name)"
+            placement="top"
+            :hide-after="0"
+            :offset="9"
+          >
             <div class="setting-color-tooltip"></div>
           </ele-tooltip>
         </div>
         <!-- 颜色选择器 -->
-        <el-color-picker ref="colorPickerRef" v-model="colorValue" :predefine="predefineColors" class="setting-color-picker" @change="updateColor" @activeChange="handleColorChange" />
+        <el-color-picker
+          ref="colorPickerRef"
+          v-model="colorValue"
+          :predefine="predefineColors"
+          class="setting-color-picker"
+          @change="updateColor"
+          @activeChange="handleColorChange"
+        />
       </div>
       <!-- 暗黑模式 -->
       <div class="setting-item">
@@ -59,7 +109,11 @@
           {{ t('layout.setting.roundedTheme') }}
         </div>
         <div class="setting-item-control">
-          <el-switch size="small" :model-value="roundedTheme" @update:modelValue="updateRoundedTheme" />
+          <el-switch
+            size="small"
+            :model-value="roundedTheme"
+            @update:modelValue="updateRoundedTheme"
+          />
         </div>
       </div>
       <el-divider />
@@ -68,17 +122,32 @@
         {{ t('layout.setting.layout') }}
       </ele-text>
       <div class="setting-theme hidden-xs-only">
-        <ele-tooltip :content="t('layout.setting.layoutStyles.side')" placement="top" :hide-after="0" :offset="9">
+        <ele-tooltip
+          :content="t('layout.setting.layoutStyles.side')"
+          placement="top"
+          :hide-after="0"
+          :offset="9"
+        >
           <div class="setting-side-dark setting-layout-side" @click="updateLayout('default')">
             <ele-text v-if="layout === 'default'" type="primary" :icon="CheckOutlined" />
           </div>
         </ele-tooltip>
-        <ele-tooltip :content="t('layout.setting.layoutStyles.top')" placement="top" :hide-after="0" :offset="9">
+        <ele-tooltip
+          :content="t('layout.setting.layoutStyles.top')"
+          placement="top"
+          :hide-after="0"
+          :offset="9"
+        >
           <div class="setting-head-dark setting-layout-top" @click="updateLayout('top')">
             <ele-text v-if="layout === 'top'" type="primary" :icon="CheckOutlined" />
           </div>
         </ele-tooltip>
-        <ele-tooltip :content="t('layout.setting.layoutStyles.mix')" placement="top" :hide-after="0" :offset="9">
+        <ele-tooltip
+          :content="t('layout.setting.layoutStyles.mix')"
+          placement="top"
+          :hide-after="0"
+          :offset="9"
+        >
           <div class="setting-layout-mix" @click="updateLayout('mix')">
             <ele-text v-if="layout === 'mix'" type="primary" :icon="CheckOutlined" />
           </div>
@@ -90,7 +159,12 @@
           {{ t('layout.setting.sidebarLayout') }}
         </div>
         <div class="setting-item-control">
-          <el-switch size="small" :disabled="layout === 'top'" :model-value="sidebarLayout === 'mix'" @update:modelValue="updateSidebarLayout" />
+          <el-switch
+            size="small"
+            :disabled="layout === 'top'"
+            :model-value="sidebarLayout === 'mix'"
+            @update:modelValue="updateSidebarLayout"
+          />
         </div>
       </div>
       <!-- 混合菜单分割 -->
@@ -99,7 +173,13 @@
           {{ t('layout.setting.menuItemTrigger') }}
         </div>
         <div class="setting-item-control" style="width: 72px">
-          <el-select size="small" :disabled="layout === 'top' || (sidebarLayout !== 'mix' && layout !== 'mix')" :model-value="menuItemTrigger" @update:modelValue="updateMenuItemTrigger" :popper-options="{ strategy: 'fixed' }">
+          <el-select
+            size="small"
+            :disabled="layout === 'top' || (sidebarLayout !== 'mix' && layout !== 'mix')"
+            :model-value="menuItemTrigger"
+            @update:modelValue="updateMenuItemTrigger"
+            :popper-options="{ strategy: 'fixed' }"
+          >
             <el-option value="route" label="Route" />
             <el-option value="click" label="Click" />
             <el-option value="hover" label="Hover" />
@@ -125,7 +205,12 @@
           {{ t('layout.setting.fixedHeader') }}
         </div>
         <div class="setting-item-control">
-          <el-switch size="small" :disabled="fixedBody" :model-value="fixedHeader" @update:modelValue="updateFixedHeader" />
+          <el-switch
+            size="small"
+            :disabled="fixedBody"
+            :model-value="fixedHeader"
+            @update:modelValue="updateFixedHeader"
+          />
         </div>
       </div>
       <!-- 固定侧栏 -->
@@ -134,7 +219,12 @@
           {{ t('layout.setting.fixedSidebar') }}
         </div>
         <div class="setting-item-control">
-          <el-switch size="small" :model-value="fixedSidebar" :disabled="fixedBody || layout === 'top'" @update:modelValue="updateFixedSidebar" />
+          <el-switch
+            size="small"
+            :model-value="fixedSidebar"
+            :disabled="fixedBody || layout === 'top'"
+            @update:modelValue="updateFixedSidebar"
+          />
         </div>
       </div>
       <!-- 图标是否置于顶栏 -->
@@ -143,7 +233,12 @@
           {{ t('layout.setting.logoInHeader') }}
         </div>
         <div class="setting-item-control">
-          <el-switch size="small" :model-value="logoInHeader" :disabled="layout === 'top'" @update:modelValue="updateLogoInHeader" />
+          <el-switch
+            size="small"
+            :model-value="logoInHeader"
+            :disabled="layout === 'top'"
+            @update:modelValue="updateLogoInHeader"
+          />
         </div>
       </div>
       <!-- 侧栏彩色图标 -->
@@ -152,7 +247,12 @@
           {{ t('layout.setting.colorfulIcon') }}
         </div>
         <div class="setting-item-control">
-          <el-switch size="small" :model-value="colorfulIcon" :disabled="layout === 'top'" @update:modelValue="updateColorfulIcon" />
+          <el-switch
+            size="small"
+            :model-value="colorfulIcon"
+            :disabled="layout === 'top'"
+            @update:modelValue="updateColorfulIcon"
+          />
         </div>
       </div>
       <!-- 侧栏排它展开 -->
@@ -161,7 +261,11 @@
           {{ t('layout.setting.uniqueOpened') }}
         </div>
         <div class="setting-item-control">
-          <el-switch size="small" :model-value="uniqueOpened" @update:modelValue="updateUniqueOpened" />
+          <el-switch
+            size="small"
+            :model-value="uniqueOpened"
+            @update:modelValue="updateUniqueOpened"
+          />
         </div>
       </div>
       <!-- 内容区域铺满 -->
@@ -190,7 +294,12 @@
           {{ t('layout.setting.fixedHome') }}
         </div>
         <div class="setting-item-control">
-          <el-switch size="small" :disabled="!tabBar" :model-value="fixedHome" @update:modelValue="updateFixedHome" />
+          <el-switch
+            size="small"
+            :disabled="!tabBar"
+            :model-value="fixedHome"
+            @update:modelValue="updateFixedHome"
+          />
         </div>
       </div>
       <!-- 页签置于顶栏 -->
@@ -199,14 +308,25 @@
           {{ t('layout.setting.tabInHeader') }}
         </div>
         <div class="setting-item-control">
-          <el-switch size="small" :disabled="!tabBar" :model-value="tabInHeader" @update:modelValue="updateTabInHeader" />
+          <el-switch
+            size="small"
+            :disabled="!tabBar"
+            :model-value="tabInHeader"
+            @update:modelValue="updateTabInHeader"
+          />
         </div>
       </div>
       <!-- 页签风格 -->
       <div class="setting-item">
         <div class="setting-item-title">{{ t('layout.setting.tabStyle') }}</div>
         <div class="setting-item-control" style="width: 90px">
-          <el-select size="small" :disabled="!tabBar" :model-value="tabStyle" @update:modelValue="updateTabStyle" :popper-options="{ strategy: 'fixed' }">
+          <el-select
+            size="small"
+            :disabled="!tabBar"
+            :model-value="tabStyle"
+            @update:modelValue="updateTabStyle"
+            :popper-options="{ strategy: 'fixed' }"
+          >
             <el-option value="simple" :label="t('layout.setting.tabStyles.default')" />
             <el-option value="indicator" :label="t('layout.setting.tabStyles.dot')" />
             <el-option value="tag" :label="t('layout.setting.tabStyles.tag')" />
@@ -240,7 +360,12 @@
           {{ t('layout.setting.transitionName') }}
         </div>
         <div class="setting-item-control" style="width: 110px">
-          <el-select size="small" :model-value="transitionName" @update:modelValue="updateTransitionName" :popper-options="{ strategy: 'fixed' }">
+          <el-select
+            size="small"
+            :model-value="transitionName"
+            @update:modelValue="updateTransitionName"
+            :popper-options="{ strategy: 'fixed' }"
+          >
             <el-option value="slide-right" :label="t('layout.setting.transitions.slideRight')" />
             <el-option value="slide-bottom" :label="t('layout.setting.transitions.slideBottom')" />
             <el-option value="zoom-in" :label="t('layout.setting.transitions.zoomIn')" />
@@ -264,7 +389,13 @@
   import { ref, nextTick } from 'vue'
   import { useI18n } from 'vue-i18n'
   import { storeToRefs } from 'pinia'
-  import type { Layout, HeaderStyle, SidebarStyle, TabStyle, MenuItemTrigger } from 'ele-admin-plus/es/ele-pro-layout/types'
+  import type {
+    Layout,
+    HeaderStyle,
+    SidebarStyle,
+    TabStyle,
+    MenuItemTrigger
+  } from 'ele-admin-plus/es/ele-pro-layout/types'
   import { CheckOutlined } from '@/components/icons'
   import { useThemeStore } from '@/store/modules/theme'
   import { doWithTransition } from '@/utils/common'
@@ -284,8 +415,30 @@
   const { t } = useI18n()
   const themeStore = useThemeStore()
 
-  const { tabBar, layout, sidebarLayout, headerStyle, sidebarStyle, tabStyle, fixedHeader, fixedSidebar, fixedBody, fluid, logoInHeader, transitionName, colorfulIcon, uniqueOpened, fixedHome, tabInHeader, menuItemTrigger, weakMode, darkMode, color, roundedTheme, responsive } =
-    storeToRefs(themeStore)
+  const {
+    tabBar,
+    layout,
+    sidebarLayout,
+    headerStyle,
+    sidebarStyle,
+    tabStyle,
+    fixedHeader,
+    fixedSidebar,
+    fixedBody,
+    fluid,
+    logoInHeader,
+    transitionName,
+    colorfulIcon,
+    uniqueOpened,
+    fixedHome,
+    tabInHeader,
+    menuItemTrigger,
+    weakMode,
+    darkMode,
+    color,
+    roundedTheme,
+    responsive
+  } = storeToRefs(themeStore)
 
   /** 预设主题颜色 */
   const themes = ref<ThemeItem[]>([
@@ -299,7 +452,18 @@
   ])
 
   /** 颜色选择器预设颜色 */
-  const predefineColors = ref<string[]>(['#f5222d', '#fa541c', '#fa8c16', '#faad14', '#a0d911', '#52c41a', '#13c2c2', '#2f54eb', '#722ed1', '#eb2f96'])
+  const predefineColors = ref<string[]>([
+    '#f5222d',
+    '#fa541c',
+    '#fa8c16',
+    '#faad14',
+    '#a0d911',
+    '#52c41a',
+    '#13c2c2',
+    '#2f54eb',
+    '#722ed1',
+    '#eb2f96'
+  ])
 
   /** 颜色选择器选中颜色 */
   const colorValue = ref<string | undefined>(void 0)
@@ -380,7 +544,12 @@
   }
 
   const updateWeakMode = (isWeak: boolean) => {
-    doWithTransition(async () => themeStore.setWeakMode(isWeak), weakSwitchRef.value?.querySelector?.('.el-switch__action'), !isWeak, true)
+    doWithTransition(
+      async () => themeStore.setWeakMode(isWeak),
+      weakSwitchRef.value?.querySelector?.('.el-switch__action'),
+      !isWeak,
+      true
+    )
   }
 
   const updateTransitionName = (value: string) => {
@@ -392,7 +561,11 @@
   }
 
   const updateDarkMode = (isDark: boolean) => {
-    doWithTransition(() => themeStore.setDarkMode(isDark), darkSwitchRef.value?.querySelector?.('.el-switch__action'), !isDark)
+    doWithTransition(
+      () => themeStore.setDarkMode(isDark),
+      darkSwitchRef.value?.querySelector?.('.el-switch__action'),
+      !isDark
+    )
   }
 
   const updateColor = async (value?: string | null) => {

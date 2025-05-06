@@ -1,6 +1,12 @@
 <template>
   <ele-modal v-model="visible" title="出库单详情" width="1200px" :destroy-on-close="true">
-    <ele-pro-table ref="tableRef" :columns="columns" :datasource="datasource" :loading="loading" row-key="id">
+    <ele-pro-table
+      ref="tableRef"
+      :columns="columns"
+      :datasource="datasource"
+      :loading="loading"
+      row-key="id"
+    >
       <template #toolbar>
         <el-button type="primary" @click="handlePrint">单据打印</el-button>
       </template>

@@ -27,9 +27,27 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd"> 添加 </el-button>
-          <el-button type="success" class="ele-btn-icon" :icon="CheckOutlined" @click="handleApprove" :disabled="!selections.length"> 审核通过 </el-button>
-          <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="() => handleRemove()" :disabled="!selections.length"> 删除 </el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd">
+            添加
+          </el-button>
+          <el-button
+            type="success"
+            class="ele-btn-icon"
+            :icon="CheckOutlined"
+            @click="handleApprove"
+            :disabled="!selections.length"
+          >
+            审核通过
+          </el-button>
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            @click="() => handleRemove()"
+            :disabled="!selections.length"
+          >
+            删除
+          </el-button>
         </template>
 
         <!-- 藏品状态列 -->
@@ -43,13 +61,22 @@
         <template #action="{ row }">
           <el-space :size="4">
             <el-button type="primary" @click="handleEdit(row)" size="small">修改</el-button>
-            <el-button type="danger" @click="() => handleRemove([row])" size="small">删除</el-button>
+            <el-button type="danger" @click="() => handleRemove([row])" size="small"
+              >删除</el-button
+            >
           </el-space>
         </template>
 
         <!-- 图片信息列 -->
         <template #imageInfo="{ row }">
-          <el-image v-if="row.imageInfo" :src="row.imageInfo" :preview-src-list="[row.imageInfo]" fit="cover" class="w-20 h-20" :title="row.collectionName || '图书图片'" />
+          <el-image
+            v-if="row.imageInfo"
+            :src="row.imageInfo"
+            :preview-src-list="[row.imageInfo]"
+            fit="cover"
+            class="w-20 h-20"
+            :title="row.collectionName || '图书图片'"
+          />
           <el-empty v-else description="暂无图片" :image-size="40" style="padding: 0" />
         </template>
       </ele-pro-table>

@@ -9,11 +9,18 @@
       </el-descriptions-item>
       <el-descriptions-item label="搜索条件">注销单号 藏品编号 藏品名称 状态</el-descriptions-item>
       <el-descriptions-item label="操作栏">无</el-descriptions-item>
-      <el-descriptions-item label="表格字段">编号 注销单号 藏品编号 藏品名称 注销日期 状态 操作</el-descriptions-item>
+      <el-descriptions-item label="表格字段"
+        >编号 注销单号 藏品编号 藏品名称 注销日期 状态 操作</el-descriptions-item
+      >
       <el-descriptions-item label="表格操作">/</el-descriptions-item>
     </el-descriptions>
   </el-drawer>
-  <ele-image-viewer v-model="showImageViewer" :urlList="viewerImages" :initialIndex="viewerIndex" :infinite="false" />
+  <ele-image-viewer
+    v-model="showImageViewer"
+    :urlList="viewerImages"
+    :initialIndex="viewerIndex"
+    :infinite="false"
+  />
 </template>
 
 <script setup lang="ts">

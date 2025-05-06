@@ -1,6 +1,9 @@
 <template>
   <ele-card header="自定义侧栏样式" :body-style="{ padding: '12px' }">
-    <div style="margin-bottom: 8px"> 通过 sidebarCustomStyle 属性设置圆角和外间距，通过 sidebarMenuProps 属性设置在折叠时菜单风格改为双侧栏一级的风格 </div>
+    <div style="margin-bottom: 8px">
+      通过 sidebarCustomStyle 属性设置圆角和外间距，通过 sidebarMenuProps
+      属性设置在折叠时菜单风格改为双侧栏一级的风格
+    </div>
     <frame-card>
       <ele-admin-layout
         :height="520"
@@ -64,8 +67,22 @@
               borderBottom: '1px solid var(--el-border-color-lighter)'
             }"
           >
-            <el-button v-if="collapse && !mobile" type="primary" :icon="UploadOutlined" :round="true" :style="{ width: '100%' }" />
-            <el-button v-else type="primary" :icon="UploadOutlined" :round="true" :style="{ width: '100%', fontSize: '13px', overflow: 'hidden' }"> 发布作品 </el-button>
+            <el-button
+              v-if="collapse && !mobile"
+              type="primary"
+              :icon="UploadOutlined"
+              :round="true"
+              :style="{ width: '100%' }"
+            />
+            <el-button
+              v-else
+              type="primary"
+              :icon="UploadOutlined"
+              :round="true"
+              :style="{ width: '100%', fontSize: '13px', overflow: 'hidden' }"
+            >
+              发布作品
+            </el-button>
           </div>
         </template>
         <template v-if="!mobile" #bottom>
@@ -115,7 +132,9 @@
             </el-col>
           </el-row>
         </div>
-        <div style="padding: 4px 0 16px 0; text-align: center; opacity: 0.4"> 页脚页脚&emsp;页脚页脚&emsp;页脚页脚 </div>
+        <div style="padding: 4px 0 16px 0; text-align: center; opacity: 0.4">
+          页脚页脚&emsp;页脚页脚&emsp;页脚页脚
+        </div>
       </ele-admin-layout>
     </frame-card>
   </ele-card>
@@ -125,8 +144,20 @@
   import { ref, computed, markRaw } from 'vue'
   import { LayoutTool } from 'ele-admin-plus/es'
   import type { MenuItem } from 'ele-admin-plus/es/ele-menus/types'
-  import { HomeFilled, VideoCameraFilled, WalletFilled, UserFilled, Promotion } from '@element-plus/icons-vue'
-  import { BellOutlined, ArrowDown, UploadOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@/components/icons'
+  import {
+    HomeFilled,
+    VideoCameraFilled,
+    WalletFilled,
+    UserFilled,
+    Promotion
+  } from '@element-plus/icons-vue'
+  import {
+    BellOutlined,
+    ArrowDown,
+    UploadOutlined,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined
+  } from '@/components/icons'
   import { useMobile } from '@/utils/use-mobile'
   import FrameCard from './frame-card.vue'
 

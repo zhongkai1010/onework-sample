@@ -14,8 +14,12 @@
     cache-key="systemDictDataTable"
   >
     <template #toolbar>
-      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()"> 新建 </el-button>
-      <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove()"> 删除 </el-button>
+      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()">
+        新建
+      </el-button>
+      <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove()">
+        删除
+      </el-button>
     </template>
     <template #action="{ row }">
       <el-link type="primary" :underline="false" @click="openEdit(row)"> 修改 </el-link>
@@ -35,7 +39,11 @@
   import { PlusOutlined, DeleteOutlined } from '@/components/icons'
   import DictDataSearch from './dict-data-search.vue'
   import DictDataEdit from './dict-data-edit.vue'
-  import { pageDictionaryData, removeDictionaryDataBatch, listDictionaryData } from '@/api/system/dictionary-data'
+  import {
+    pageDictionaryData,
+    removeDictionaryDataBatch,
+    listDictionaryData
+  } from '@/api/system/dictionary-data'
   import type { DictionaryData, DictionaryDataParam } from '@/api/system/dictionary-data/model'
 
   const props = defineProps<{
@@ -132,7 +140,11 @@
       EleMessage.error('请至少选择一条数据')
       return
     }
-    ElMessageBox.confirm('确定要删除“' + rows.map((d) => d.dictDataName).join(', ') + '”吗?', '系统提示', { type: 'warning', draggable: true })
+    ElMessageBox.confirm(
+      '确定要删除“' + rows.map((d) => d.dictDataName).join(', ') + '”吗?',
+      '系统提示',
+      { type: 'warning', draggable: true }
+    )
       .then(() => {
         const loading = EleMessage.loading({
           message: '请求中..',

@@ -10,7 +10,13 @@
     </ele-card>
     <ele-card header="省市级联选择">
       <div style="max-width: 280px">
-        <regions-select v-model="provinceCity" :filterable="false" placeholder="请选择省市" type="provinceCity" :teleported="false" />
+        <regions-select
+          v-model="provinceCity"
+          :filterable="false"
+          placeholder="请选择省市"
+          type="provinceCity"
+          :teleported="false"
+        />
       </div>
       <div style="margin-top: 12px">
         <el-button type="primary" @click="setProvinceCity">回显数据</el-button>
@@ -18,7 +24,13 @@
     </ele-card>
     <ele-card header="省选择">
       <div style="max-width: 280px">
-        <regions-select v-model="province" :filterable="false" placeholder="请选择省" type="province" :teleported="false" />
+        <regions-select
+          v-model="province"
+          :filterable="false"
+          placeholder="请选择省"
+          type="province"
+          :teleported="false"
+        />
       </div>
       <div style="margin-top: 12px">
         <el-button type="primary" @click="setProvince">回显数据</el-button>
@@ -26,18 +38,38 @@
     </ele-card>
     <ele-card header="可多选">
       <div style="max-width: 280px">
-        <regions-select v-model="citys" :filterable="false" placeholder="请选择省市区" :cascader-props="cascaderProps" :teleported="false" />
+        <regions-select
+          v-model="citys"
+          :filterable="false"
+          placeholder="请选择省市区"
+          :cascader-props="cascaderProps"
+          :teleported="false"
+        />
       </div>
       <div style="margin-top: 12px">
         <el-button type="primary" @click="setCitys">回显数据</el-button>
       </div>
       <div style="margin-top: 28px">省市多选：</div>
       <div style="max-width: 280px; margin-top: 12px">
-        <regions-select v-model="provinceCitys" :filterable="false" placeholder="请选择省市" type="provinceCity" :cascader-props="cascaderProps" :teleported="false" />
+        <regions-select
+          v-model="provinceCitys"
+          :filterable="false"
+          placeholder="请选择省市"
+          type="provinceCity"
+          :cascader-props="cascaderProps"
+          :teleported="false"
+        />
       </div>
       <div style="margin-top: 28px">省多选：</div>
       <div style="max-width: 280px; margin-top: 12px">
-        <regions-select v-model="provinces" :filterable="false" placeholder="请选择省" type="province" :cascader-props="cascaderProps" :teleported="false" />
+        <regions-select
+          v-model="provinces"
+          :filterable="false"
+          placeholder="请选择省"
+          type="province"
+          :cascader-props="cascaderProps"
+          :teleported="false"
+        />
       </div>
     </ele-card>
     <ele-card header="翻译">

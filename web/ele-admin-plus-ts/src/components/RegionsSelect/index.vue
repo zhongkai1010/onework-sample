@@ -3,7 +3,13 @@
   <template v-if="component === 'text'">
     <span v-if="typeof valueLabels === 'string'">{{ valueLabels }}</span>
     <el-space v-else :wrap="true">
-      <el-tag v-for="label in valueLabels" :key="label" :disable-transitions="true" size="small" type="info">
+      <el-tag
+        v-for="label in valueLabels"
+        :key="label"
+        :disable-transitions="true"
+        size="small"
+        type="info"
+      >
         {{ label }}
       </el-tag>
     </el-space>
@@ -128,7 +134,19 @@
     () => props.cascaderProps,
     (cascaderProps) => {
       const cProps = cascaderProps || {}
-      ;['expandTrigger', 'checkStrictly', 'emitPath', 'lazy', 'lazyLoad', 'value', 'label', 'children', 'disabled', 'leaf', 'hoverThreshold'].forEach((k) => {
+      ;[
+        'expandTrigger',
+        'checkStrictly',
+        'emitPath',
+        'lazy',
+        'lazyLoad',
+        'value',
+        'label',
+        'children',
+        'disabled',
+        'leaf',
+        'hoverThreshold'
+      ].forEach((k) => {
         if (regionCascaderProps[k] == null && cProps[k] == null) {
           return
         }

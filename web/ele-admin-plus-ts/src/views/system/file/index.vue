@@ -2,12 +2,35 @@
   <ele-page>
     <file-search @search="reload" />
     <ele-card :body-style="{ paddingTop: '8px' }">
-      <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" v-model:selections="selections" :highlight-current-row="true" :export-config="{ fileName: '文件数据' }" cache-key="systemFileTable">
+      <ele-pro-table
+        ref="tableRef"
+        row-key="id"
+        :columns="columns"
+        :datasource="datasource"
+        :show-overflow-tooltip="true"
+        v-model:selections="selections"
+        :highlight-current-row="true"
+        :export-config="{ fileName: '文件数据' }"
+        cache-key="systemFileTable"
+      >
         <template #toolbar>
-          <el-upload action="" :show-file-list="false" :before-upload="handleUpload" style="display: inline-block; vertical-align: middle">
+          <el-upload
+            action=""
+            :show-file-list="false"
+            :before-upload="handleUpload"
+            style="display: inline-block; vertical-align: middle"
+          >
             <el-button type="primary" class="ele-btn-icon" :icon="UploadOutlined"> 上传 </el-button>
           </el-upload>
-          <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" style="margin-left: 12px" @click="remove()"> 删除 </el-button>
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            style="margin-left: 12px"
+            @click="remove()"
+          >
+            删除
+          </el-button>
         </template>
         <template #path="{ row }">
           <el-link type="primary" :href="row.url" target="_blank" :underline="false">
@@ -15,7 +38,9 @@
           </el-link>
         </template>
         <template #action="{ row }">
-          <el-link type="primary" :underline="false" :href="row.downloadUrl" target="_blank"> 下载 </el-link>
+          <el-link type="primary" :underline="false" :href="row.downloadUrl" target="_blank">
+            下载
+          </el-link>
           <el-divider direction="vertical" />
           <el-link type="danger" :underline="false" @click="remove(row)"> 删除 </el-link>
         </template>
@@ -133,7 +158,10 @@
       EleMessage.error('请至少选择一条数据')
       return
     }
-    ElMessageBox.confirm('确定要删除“' + rows.map((d) => d.name).join(', ') + '”吗?', '系统提示', { type: 'warning', draggable: true })
+    ElMessageBox.confirm('确定要删除“' + rows.map((d) => d.name).join(', ') + '”吗?', '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
       .then(() => {
         const loading = EleMessage.loading({
           message: '请求中..',

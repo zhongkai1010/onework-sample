@@ -7,7 +7,9 @@ import type { BookCollection, AddBookParams, BookQueryParams } from './model'
  * @param params 查询参数
  */
 export async function getBookList(params: BookQueryParams) {
-  const res = await request.get<ApiResult<PageResult<BookCollection>>>('/api/collection/book', { params })
+  const res = await request.get<ApiResult<PageResult<BookCollection>>>('/api/collection/book', {
+    params
+  })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -69,7 +71,9 @@ export async function approveBooks(ids: number[]) {
  * @param id 图书ID
  */
 export async function getBookDetails(id: string) {
-  const res = await request.get<ApiResult<BookCollection>>('/api/collection/book/details', { params: { id } })
+  const res = await request.get<ApiResult<BookCollection>>('/api/collection/book/details', {
+    params: { id }
+  })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

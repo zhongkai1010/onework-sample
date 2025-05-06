@@ -14,9 +14,13 @@
       @done="handleDone"
     >
       <template #action="{ row }">
-        <el-link type="primary" :underline="false" @click="reloadChild(row, $event)"> 刷新我的子级 </el-link>
+        <el-link type="primary" :underline="false" @click="reloadChild(row, $event)">
+          刷新我的子级
+        </el-link>
         <el-divider v-if="row.parentId" direction="vertical" />
-        <el-link v-if="row.parentId" type="primary" :underline="false" @click="reloadParent(row)"> 刷新我父级的子级 </el-link>
+        <el-link v-if="row.parentId" type="primary" :underline="false" @click="reloadParent(row)">
+          刷新我父级的子级
+        </el-link>
       </template>
     </ele-pro-table>
   </div>
@@ -27,7 +31,12 @@
   import { EleMessage, toTree } from 'ele-admin-plus/es'
   import dayjs from 'dayjs'
   import type { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, Columns, DataItem, DoneFunction } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    Columns,
+    DataItem,
+    DoneFunction
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import { pageMenus, listMenus } from '@/api/system/menu'
 
   /** 表格实例 */

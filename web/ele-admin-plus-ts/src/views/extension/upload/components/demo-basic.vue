@@ -1,6 +1,17 @@
 <template>
   <ele-card header="基础示例">
-    <ele-upload-list :limit="8" :drag="true" :tools="true" v-model="images" :readonly="readonly" :sortable="{ forceFallback: true }" @upload="handleUpload" @retry="(item) => handleUpload(item, true)" @remove="handleRemove" @editUpload="handleEditUpload" />
+    <ele-upload-list
+      :limit="8"
+      :drag="true"
+      :tools="true"
+      v-model="images"
+      :readonly="readonly"
+      :sortable="{ forceFallback: true }"
+      @upload="handleUpload"
+      @retry="(item) => handleUpload(item, true)"
+      @remove="handleRemove"
+      @editUpload="handleEditUpload"
+    />
     <div style="display: flex; align-items: center; margin-top: 12px">
       <el-button type="primary" @click="getData">获取数据</el-button>
       <div style="line-height: 22px; margin-left: 22px">只读:</div>

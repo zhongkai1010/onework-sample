@@ -1,5 +1,15 @@
 <template>
-  <EleModal :form="true" :width="460" title="添加分组" :zIndex="baseIndex" :appendToBody="false" v-bind="modalProps || {}" v-model="visible" @open="handleOpen" @closed="handleClosed">
+  <EleModal
+    :form="true"
+    :width="460"
+    title="添加分组"
+    :zIndex="baseIndex"
+    :appendToBody="false"
+    v-bind="modalProps || {}"
+    v-model="visible"
+    @open="handleOpen"
+    @closed="handleClosed"
+  >
     <ElForm ref="formRef" :model="form" labelWidth="82px" @submit.prevent="">
       <ElFormItem label="上级分组" prop="parentId">
         <ElTreeSelect
@@ -36,7 +46,12 @@
           }
         ]"
       >
-        <ElInput :maxlength="20" :clearable="true" v-model="form.name" placeholder="请输入分组名称" />
+        <ElInput
+          :maxlength="20"
+          :clearable="true"
+          v-model="form.name"
+          placeholder="请输入分组名称"
+        />
       </ElFormItem>
     </ElForm>
     <template #footer>

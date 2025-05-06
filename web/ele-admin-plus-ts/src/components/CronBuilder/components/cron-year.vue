@@ -7,11 +7,25 @@
           <div>范围，</div>
           <div>从&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber v-model="start" :min="minValue" :max="maxValue - 1" placeholder="" controlsPosition="right" class="ele-fluid" />
+            <ElInputNumber
+              v-model="start"
+              :min="minValue"
+              :max="maxValue - 1"
+              placeholder=""
+              controlsPosition="right"
+              class="ele-fluid"
+            />
           </div>
           <div>&emsp;年到&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber v-model="end" :min="endMin" :max="maxValue" placeholder="" controlsPosition="right" class="ele-fluid" />
+            <ElInputNumber
+              v-model="end"
+              :min="endMin"
+              :max="maxValue"
+              placeholder=""
+              controlsPosition="right"
+              class="ele-fluid"
+            />
           </div>
           <div>&emsp;年</div>
         </div>
@@ -21,11 +35,25 @@
           <div>间隔，</div>
           <div>从&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber v-model="intervalStart" :min="minValue" :max="maxValue - 1" placeholder="" controlsPosition="right" class="ele-fluid" />
+            <ElInputNumber
+              v-model="intervalStart"
+              :min="minValue"
+              :max="maxValue - 1"
+              placeholder=""
+              controlsPosition="right"
+              class="ele-fluid"
+            />
           </div>
           <div>&emsp;年开始，每&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber v-model="intervalStep" :min="1" :max="intervalStepMax" placeholder="" controlsPosition="right" class="ele-fluid" />
+            <ElInputNumber
+              v-model="intervalStep"
+              :min="1"
+              :max="intervalStepMax"
+              placeholder=""
+              controlsPosition="right"
+              class="ele-fluid"
+            />
           </div>
           <div>&emsp;年执行一次</div>
         </div>
@@ -61,7 +89,18 @@
   /** year */
   const model = defineModel<string>({ type: String })
 
-  const { type, start, end, endMin, intervalStart, intervalStep, intervalStepMax, selections, getValue, parseValue } = useCron(minValue, maxValue, 'unset')
+  const {
+    type,
+    start,
+    end,
+    endMin,
+    intervalStart,
+    intervalStep,
+    intervalStepMax,
+    selections,
+    getValue,
+    parseValue
+  } = useCron(minValue, maxValue, 'unset')
 
   watch(
     [type, start, end, intervalStart, intervalStep, selections],

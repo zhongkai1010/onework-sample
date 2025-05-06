@@ -1,8 +1,16 @@
 <template>
-  <ele-modal v-model="modelValue" title="调拨记录" width="800px" :destroy-on-close="true" @close="onClose">
+  <ele-modal
+    v-model="modelValue"
+    title="调拨记录"
+    width="800px"
+    :destroy-on-close="true"
+    @close="onClose"
+  >
     <ele-pro-table :columns="columns" :datasource="datasource">
       <template #transferStatus="{ row }">
-        <el-tag :type="getStatusType(row.transferStatus)">{{ getStatusText(row.transferStatus) }}</el-tag>
+        <el-tag :type="getStatusType(row.transferStatus)">{{
+          getStatusText(row.transferStatus)
+        }}</el-tag>
       </template>
     </ele-pro-table>
     <template #footer>
@@ -39,7 +47,13 @@
     { prop: 'transferDate', label: '调拨日期', minWidth: 120, showOverflowTooltip: true },
     { prop: 'transferType', label: '调拨类型', minWidth: 120, showOverflowTooltip: true },
     { prop: 'transferReason', label: '调拨原因', minWidth: 120, showOverflowTooltip: true },
-    { prop: 'transferStatus', label: '调拨状态', minWidth: 120, showOverflowTooltip: true, slot: 'transferStatus' },
+    {
+      prop: 'transferStatus',
+      label: '调拨状态',
+      minWidth: 120,
+      showOverflowTooltip: true,
+      slot: 'transferStatus'
+    },
     { prop: 'transferPerson', label: '调拨人', minWidth: 120, showOverflowTooltip: true },
     { prop: 'transferNotes', label: '备注', minWidth: 120, showOverflowTooltip: true }
   ]

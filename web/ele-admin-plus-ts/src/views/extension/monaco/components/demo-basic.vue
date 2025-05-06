@@ -12,7 +12,12 @@
       </div>
       <div>&emsp;语言：</div>
       <div style="flex: 1">
-        <el-select v-model="language" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" @change="handleLanguageChange">
+        <el-select
+          v-model="language"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+          @change="handleLanguageChange"
+        >
           <el-option v-for="item in languageNames" :key="item" :value="item" :label="item" />
         </el-select>
       </div>

@@ -1,8 +1,33 @@
 <!-- 文件选择器 -->
 <template>
-  <EleModal :width="988" :title="title" position="center" :zIndex="baseIndex" v-bind="modalProps || {}" v-model="visible" class="file-picker-modal" @open="handleOpen" @close="handleClose">
-    <EleSplitPanel ref="splitRef" space="0px" size="186px" :flexTable="true" :allowCollapse="mobile" :customStyle="{ borderWidth: '0 1px 0 0' }" class="file-picker-wrapper">
-      <FileGroup ref="fileGroupRef" :groupData="groupData" @groupSelect="handleGroupSelect" @addBtnClick="openGroupAdd()" @moreIconClick="openCtxMenuDropdown" @hideGroupCtxMenu="hideGroupContextmenu()" />
+  <EleModal
+    :width="988"
+    :title="title"
+    position="center"
+    :zIndex="baseIndex"
+    v-bind="modalProps || {}"
+    v-model="visible"
+    class="file-picker-modal"
+    @open="handleOpen"
+    @close="handleClose"
+  >
+    <EleSplitPanel
+      ref="splitRef"
+      space="0px"
+      size="186px"
+      :flexTable="true"
+      :allowCollapse="mobile"
+      :customStyle="{ borderWidth: '0 1px 0 0' }"
+      class="file-picker-wrapper"
+    >
+      <FileGroup
+        ref="fileGroupRef"
+        :groupData="groupData"
+        @groupSelect="handleGroupSelect"
+        @addBtnClick="openGroupAdd()"
+        @moreIconClick="openCtxMenuDropdown"
+        @hideGroupCtxMenu="hideGroupContextmenu()"
+      />
       <template #body>
         <FileList
           ref="fileListRef"
@@ -27,11 +52,34 @@
     </EleSplitPanel>
     <EleLoading :loading="loading" class="file-picker-loading" />
     <!-- 添加分组弹窗 -->
-    <FileGroupAdd v-model="showGroupAdd" :parentId="groupParentId" :groupData="groupData" :modalProps="groupAddModalProps" :baseIndex="componentIndex" :messageIns="messageIns" @done="handleReloadData" />
+    <FileGroupAdd
+      v-model="showGroupAdd"
+      :parentId="groupParentId"
+      :groupData="groupData"
+      :modalProps="groupAddModalProps"
+      :baseIndex="componentIndex"
+      :messageIns="messageIns"
+      @done="handleReloadData"
+    />
     <!-- 分组或文件重命名弹窗 -->
-    <FileRename v-model="showRename" :data="renameData" :modalProps="renameModalProps" :baseIndex="componentIndex" :messageIns="messageIns" @done="handleReloadData" />
+    <FileRename
+      v-model="showRename"
+      :data="renameData"
+      :modalProps="renameModalProps"
+      :baseIndex="componentIndex"
+      :messageIns="messageIns"
+      @done="handleReloadData"
+    />
     <!-- 文件移动弹窗 -->
-    <FileMove v-model="showMove" :data="moveData" :groupData="groupData" :modalProps="moveModalProps" :baseIndex="componentIndex" :messageIns="messageIns" @done="handleReloadData" />
+    <FileMove
+      v-model="showMove"
+      :data="moveData"
+      :groupData="groupData"
+      :modalProps="moveModalProps"
+      :baseIndex="componentIndex"
+      :messageIns="messageIns"
+      @done="handleReloadData"
+    />
     <!-- 分组项右键菜单 -->
     <EleDropdown
       :triggerKeys="[]"
@@ -55,8 +103,16 @@
       @command="handleItemCommand"
     />
     <!-- 消息提示容器 -->
-    <div ref="messageWrapRef" class="ele-message-wrapper" :style="{ position: 'fixed', zIndex: messageIndex }"></div>
-    <div ref="messageBoxWrapRef" class="ele-message-box-wrapper" :style="{ position: 'fixed', zIndex: messageIndex }"></div>
+    <div
+      ref="messageWrapRef"
+      class="ele-message-wrapper"
+      :style="{ position: 'fixed', zIndex: messageIndex }"
+    ></div>
+    <div
+      ref="messageBoxWrapRef"
+      class="ele-message-box-wrapper"
+      :style="{ position: 'fixed', zIndex: messageIndex }"
+    ></div>
     <template #footer>
       <ElButton @click="handleCancel">取消</ElButton>
       <ElButton type="primary" @click="handleConfirm">确定</ElButton>
@@ -69,7 +125,14 @@
   import { useMessage, useMessageBox, toTree, findTree } from 'ele-admin-plus/es'
   import type { EleSplitPanel } from 'ele-admin-plus/es'
   import type { ElEmptyProps } from 'ele-admin-plus/es/ele-app/el'
-  import type { EleModalProps, EleDropdownInstance, EleDropdownProps, EleFileListProps, EleUploadListProps, ElePaginationProps } from 'ele-admin-plus/es/ele-app/plus'
+  import type {
+    EleModalProps,
+    EleDropdownInstance,
+    EleDropdownProps,
+    EleFileListProps,
+    EleUploadListProps,
+    ElePaginationProps
+  } from 'ele-admin-plus/es/ele-app/plus'
   import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types'
   import { EditOutlined, FolderOutlined, DeleteOutlined } from '@/components/icons'
   import { useMobile } from '@/utils/use-mobile'
@@ -370,7 +433,10 @@
           })
         ]
         groupData.value = result
-        const oldSelected = groupSelected.value == null ? void 0 : findTree(result, (d) => d.id === groupSelected.value?.id)
+        const oldSelected =
+          groupSelected.value == null
+            ? void 0
+            : findTree(result, (d) => d.id === groupSelected.value?.id)
         groupSelected.value = null
         nextTick(() => {
           handleGroupSelect(oldSelected || result[0])

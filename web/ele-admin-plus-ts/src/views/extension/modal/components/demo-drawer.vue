@@ -21,7 +21,18 @@
       <el-button class="ele-btn-icon" @click="openDrawer">打开抽屉</el-button>
     </div>
   </ele-card>
-  <ele-drawer :direction="direction" :withHeader="withHeader" :inner="inner" :size="430" title="表单项配置" :append-to-body="true" style="max-width: 100%" v-model="visible" :body-style="{ paddingBottom: '8px' }" @closed="cancelDrawer">
+  <ele-drawer
+    :direction="direction"
+    :withHeader="withHeader"
+    :inner="inner"
+    :size="430"
+    title="表单项配置"
+    :append-to-body="true"
+    style="max-width: 100%"
+    v-model="visible"
+    :body-style="{ paddingBottom: '8px' }"
+    @closed="cancelDrawer"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="70px" @submit.prevent="">
       <el-form-item label="用户名" prop="nickname">
         <el-input clearable v-model="form.nickname" placeholder="请输入用户名" />
@@ -39,7 +50,12 @@
         <el-input clearable v-model="form.email" placeholder="请输入邮箱" />
       </el-form-item>
       <el-form-item label="个人简介">
-        <el-input :rows="4" type="textarea" v-model="form.introduction" placeholder="请输入个人简介" />
+        <el-input
+          :rows="4"
+          type="textarea"
+          v-model="form.introduction"
+          placeholder="请输入个人简介"
+        />
       </el-form-item>
     </el-form>
     <template v-if="withFooter" #footer>

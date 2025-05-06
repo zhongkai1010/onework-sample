@@ -1,6 +1,11 @@
 import request from '@/utils/request'
 import type { ApiResult, PageResult } from '@/api'
-import type { ArtistWork, CreateArtistWorkParams, UpdateArtistWorkParams, ArtistWorkQueryParams } from './model'
+import type {
+  ArtistWork,
+  CreateArtistWorkParams,
+  UpdateArtistWorkParams,
+  ArtistWorkQueryParams
+} from './model'
 
 /**
  * 添加艺术家作品

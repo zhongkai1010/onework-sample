@@ -1,18 +1,47 @@
 <!-- 字典数据编辑弹窗 -->
 <template>
-  <ele-modal form :width="460" v-model="visible" :title="isUpdate ? '修改字典数据' : '添加字典数据'" @open="handleOpen">
+  <ele-modal
+    form
+    :width="460"
+    v-model="visible"
+    :title="isUpdate ? '修改字典数据' : '添加字典数据'"
+    @open="handleOpen"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="94px" @submit.prevent="">
       <el-form-item label="字典数据名" prop="dictDataName">
-        <el-input clearable :maxlength="20" v-model="form.dictDataName" placeholder="请输入字典数据名" />
+        <el-input
+          clearable
+          :maxlength="20"
+          v-model="form.dictDataName"
+          placeholder="请输入字典数据名"
+        />
       </el-form-item>
       <el-form-item label="字典数据值" prop="dictDataCode">
-        <el-input clearable :maxlength="20" v-model="form.dictDataCode" placeholder="请输入字典数据值" />
+        <el-input
+          clearable
+          :maxlength="20"
+          v-model="form.dictDataCode"
+          placeholder="请输入字典数据值"
+        />
       </el-form-item>
       <el-form-item label="排序号" prop="sortNumber">
-        <el-input-number :min="0" :max="9999" v-model="form.sortNumber" placeholder="请输入排序号" controls-position="right" class="ele-fluid" />
+        <el-input-number
+          :min="0"
+          :max="9999"
+          v-model="form.sortNumber"
+          placeholder="请输入排序号"
+          controls-position="right"
+          class="ele-fluid"
+        />
       </el-form-item>
       <el-form-item label="备注">
-        <el-input :rows="4" type="textarea" :maxlength="200" v-model="form.comments" placeholder="请输入备注" />
+        <el-input
+          :rows="4"
+          type="textarea"
+          :maxlength="200"
+          v-model="form.comments"
+          placeholder="请输入备注"
+        />
       </el-form-item>
     </el-form>
     <template #footer>

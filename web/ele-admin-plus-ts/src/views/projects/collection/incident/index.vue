@@ -21,12 +21,48 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd">添加</el-button>
-          <el-button type="success" class="ele-btn-icon" :icon="UploadOutlined" @click="handleUpload">上传图片</el-button>
-          <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="() => handleRemove()" :disabled="!selections.length">删除</el-button>
-          <el-button type="info" class="ele-btn-icon" :icon="EyeOutlined" @click="handleViewDetails" :disabled="selections.length !== 1">查看详情</el-button>
-          <el-button type="warning" class="ele-btn-icon" :icon="SettingOutlined" @click="handleProcessAccident" :disabled="selections.length !== 1">处理</el-button>
-          <el-button type="primary" class="ele-btn-icon" :icon="PrinterOutlined" @click="handlePrintAccident" :disabled="selections.length !== 1">单据打印</el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd"
+            >添加</el-button
+          >
+          <el-button
+            type="success"
+            class="ele-btn-icon"
+            :icon="UploadOutlined"
+            @click="handleUpload"
+            >上传图片</el-button
+          >
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            @click="() => handleRemove()"
+            :disabled="!selections.length"
+            >删除</el-button
+          >
+          <el-button
+            type="info"
+            class="ele-btn-icon"
+            :icon="EyeOutlined"
+            @click="handleViewDetails"
+            :disabled="selections.length !== 1"
+            >查看详情</el-button
+          >
+          <el-button
+            type="warning"
+            class="ele-btn-icon"
+            :icon="SettingOutlined"
+            @click="handleProcessAccident"
+            :disabled="selections.length !== 1"
+            >处理</el-button
+          >
+          <el-button
+            type="primary"
+            class="ele-btn-icon"
+            :icon="PrinterOutlined"
+            @click="handlePrintAccident"
+            :disabled="selections.length !== 1"
+            >单据打印</el-button
+          >
         </template>
 
         <!-- 操作列 -->
@@ -66,7 +102,14 @@
   import { EleMessage } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { PlusOutlined, DeleteOutlined, UploadOutlined, EyeOutlined, SettingOutlined, PrinterOutlined } from '@/components/icons'
+  import {
+    PlusOutlined,
+    DeleteOutlined,
+    UploadOutlined,
+    EyeOutlined,
+    SettingOutlined,
+    PrinterOutlined
+  } from '@/components/icons'
   import type { Accident, AccidentQueryParams } from '@/api/collection/accident/model'
   import { getAccidentList, deleteAccidents } from '@/api/collection/accident'
   import SearchForm from './components/search-form.vue'

@@ -1,10 +1,18 @@
 <!-- 藏品详情弹框 -->
 <template>
-  <ele-modal v-model="modelValue" title="藏品详情" width="800px" :destroy-on-close="true" @close="onClose">
+  <ele-modal
+    v-model="modelValue"
+    title="藏品详情"
+    width="800px"
+    :destroy-on-close="true"
+    @close="onClose"
+  >
     <el-descriptions :column="2" border>
       <el-descriptions-item label="藏品编号">{{ row?.collectionCode }}</el-descriptions-item>
       <el-descriptions-item label="藏品状态">
-        <el-tag :type="getStatusType(row?.collectionStatus)">{{ getStatusText(row?.collectionStatus) }}</el-tag>
+        <el-tag :type="getStatusType(row?.collectionStatus)">{{
+          getStatusText(row?.collectionStatus)
+        }}</el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="藏品名称">{{ row?.collectionName }}</el-descriptions-item>
       <el-descriptions-item label="藏品类别">{{ row?.categoryName }}</el-descriptions-item>

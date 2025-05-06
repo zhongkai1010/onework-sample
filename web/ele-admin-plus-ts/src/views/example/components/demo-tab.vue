@@ -3,24 +3,53 @@
     <div style="display: flex; align-items: center; padding-bottom: 8px">
       <div style="flex-shrink: 0; padding-right: 12px">操作指定页签:</div>
       <div style="flex: 1; max-width: 160px">
-        <el-select clearable v-model="tabPath" placeholder="请选择页签" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
-          <el-option v-for="(item, index) in tabs" :key="item.key" :label="item.title" :value="item.fullPath || index" />
+        <el-select
+          clearable
+          v-model="tabPath"
+          placeholder="请选择页签"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        >
+          <el-option
+            v-for="(item, index) in tabs"
+            :key="item.key"
+            :label="item.title"
+            :value="item.fullPath || index"
+          />
         </el-select>
       </div>
     </div>
     <div style="display: flex; flex-wrap: wrap; width: 460px; max-width: 100%">
-      <el-button type="primary" style="margin: 16px 12px 0 0" @click="handleUpdate2"> 修改页签标题 </el-button>
-      <el-button type="primary" style="margin: 16px 12px 0 0" @click="handleUpdate3"> 修改页签为不可关闭 </el-button>
-      <el-button type="primary" style="margin: 16px 12px 0 0" @click="handleClose2"> 关闭页签 </el-button>
-      <el-button type="primary" style="margin: 16px 12px 0 0" @click="handleClose3"> 关闭当前页签并切换至此页签 </el-button>
-      <el-button type="primary" style="margin: 16px 12px 0 0" @click="handleCloseAndRefresh"> 关闭当前页签并刷新至此页签 </el-button>
+      <el-button type="primary" style="margin: 16px 12px 0 0" @click="handleUpdate2">
+        修改页签标题
+      </el-button>
+      <el-button type="primary" style="margin: 16px 12px 0 0" @click="handleUpdate3">
+        修改页签为不可关闭
+      </el-button>
+      <el-button type="primary" style="margin: 16px 12px 0 0" @click="handleClose2">
+        关闭页签
+      </el-button>
+      <el-button type="primary" style="margin: 16px 12px 0 0" @click="handleClose3">
+        关闭当前页签并切换至此页签
+      </el-button>
+      <el-button type="primary" style="margin: 16px 12px 0 0" @click="handleCloseAndRefresh">
+        关闭当前页签并刷新至此页签
+      </el-button>
     </div>
     <div style="margin: 42px 0 16px 0">操作当前页签:</div>
     <div style="display: flex; flex-wrap: wrap">
-      <el-button type="primary" style="margin: 0 12px 16px 0" @click="handleRefresh"> 刷新当前页签 </el-button>
-      <el-button type="primary" style="margin: 0 12px 16px 0" @click="handleUpdate"> 修改当前页签标题 </el-button>
-      <el-button type="primary" style="margin: 0 12px 16px 0" @click="handleClose"> 关闭当前页签 </el-button>
-      <el-button type="primary" style="margin: 0 12px 16px 0" @click="handleCloseAll"> 关闭全部页签 </el-button>
+      <el-button type="primary" style="margin: 0 12px 16px 0" @click="handleRefresh">
+        刷新当前页签
+      </el-button>
+      <el-button type="primary" style="margin: 0 12px 16px 0" @click="handleUpdate">
+        修改当前页签标题
+      </el-button>
+      <el-button type="primary" style="margin: 0 12px 16px 0" @click="handleClose">
+        关闭当前页签
+      </el-button>
+      <el-button type="primary" style="margin: 0 12px 16px 0" @click="handleCloseAll">
+        关闭全部页签
+      </el-button>
     </div>
   </ele-card>
 </template>
@@ -33,7 +62,16 @@
   import { useThemeStore } from '@/store/modules/theme'
   import { usePageTab } from '@/utils/use-page-tab'
 
-  const { reloadPageTab, setPageTabTitle, finishPageTab, removeAllPageTab, getRouteTabKey, setPageTab, removePageTab, routeTabKey } = usePageTab()
+  const {
+    reloadPageTab,
+    setPageTabTitle,
+    finishPageTab,
+    removeAllPageTab,
+    getRouteTabKey,
+    setPageTab,
+    removePageTab,
+    routeTabKey
+  } = usePageTab()
 
   const { currentRoute, push } = useRouter()
 

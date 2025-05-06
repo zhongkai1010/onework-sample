@@ -14,8 +14,12 @@
     cache-key="systemUserTable"
   >
     <template #toolbar>
-      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()"> 新建 </el-button>
-      <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove()"> 删除 </el-button>
+      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()">
+        新建
+      </el-button>
+      <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove()">
+        删除
+      </el-button>
       <el-button class="ele-btn-icon" :icon="UploadOutlined" @click="openImport"> 导入 </el-button>
     </template>
     <template #nickname="{ row }">
@@ -29,7 +33,11 @@
       </el-tag>
     </template>
     <template #status="{ row }">
-      <el-switch size="small" :model-value="row.status === 0" @change="(checked: boolean) => editStatus(checked, row)" />
+      <el-switch
+        size="small"
+        :model-value="row.status === 0"
+        @change="(checked: boolean) => editStatus(checked, row)"
+      />
     </template>
     <template #action="{ row }">
       <el-link type="primary" :underline="false" @click="openEdit(row)"> 修改 </el-link>
@@ -67,7 +75,13 @@
   import UserSearch from './user-search.vue'
   import UserEdit from './user-edit.vue'
   import UserImport from './user-import.vue'
-  import { pageUsers, removeUsers, updateUserStatus, updateUserPassword, listUsers } from '@/api/system/user'
+  import {
+    pageUsers,
+    removeUsers,
+    updateUserStatus,
+    updateUserPassword,
+    listUsers
+  } from '@/api/system/user'
   import type { User, UserParam } from '@/api/system/user/model'
 
   const props = defineProps<{
@@ -201,7 +215,11 @@
       EleMessage.error('请至少选择一条数据')
       return
     }
-    ElMessageBox.confirm('确定要删除“' + rows.map((d) => d.nickname).join(', ') + '”吗?', '系统提示', { type: 'warning', draggable: true })
+    ElMessageBox.confirm(
+      '确定要删除“' + rows.map((d) => d.nickname).join(', ') + '”吗?',
+      '系统提示',
+      { type: 'warning', draggable: true }
+    )
       .then(() => {
         const loading = EleMessage.loading({
           message: '请求中..',

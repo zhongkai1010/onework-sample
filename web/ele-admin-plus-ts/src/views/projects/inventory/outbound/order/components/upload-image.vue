@@ -2,8 +2,21 @@
   <ele-modal v-model="visible" title="上传图片" width="500px" :destroy-on-close="true">
     <el-form :model="form" label-width="80px">
       <el-form-item label="单据图片">
-        <el-upload class="upload-demo" action="/api/inventory/outbound/upload" :show-file-list="false" :on-success="handleUploadSuccess" :on-error="handleUploadError" :before-upload="beforeUpload" :data="{ id: form.id }">
-          <el-image v-if="form.documentImage" :src="form.documentImage" fit="cover" style="width: 200px; height: 200px" />
+        <el-upload
+          class="upload-demo"
+          action="/api/inventory/outbound/upload"
+          :show-file-list="false"
+          :on-success="handleUploadSuccess"
+          :on-error="handleUploadError"
+          :before-upload="beforeUpload"
+          :data="{ id: form.id }"
+        >
+          <el-image
+            v-if="form.documentImage"
+            :src="form.documentImage"
+            fit="cover"
+            style="width: 200px; height: 200px"
+          />
           <el-button v-else type="primary">点击上传</el-button>
         </el-upload>
         <div class="el-upload__tip">支持 jpg、png 格式，建议尺寸 800x800 像素</div>

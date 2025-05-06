@@ -2,7 +2,13 @@
   <ele-modal v-model="visible" title="确认调拨" width="600px" :destroy-on-close="true">
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
       <el-form-item label="调拨日期" prop="transferDate">
-        <el-date-picker v-model="form.transferDate" type="date" placeholder="请选择调拨日期" value-format="YYYY-MM-DD" style="width: 100%" />
+        <el-date-picker
+          v-model="form.transferDate"
+          type="date"
+          placeholder="请选择调拨日期"
+          value-format="YYYY-MM-DD"
+          style="width: 100%"
+        />
       </el-form-item>
       <el-form-item label="调拨仓库" prop="warehouseId">
         <el-input v-model.number="form.warehouseId" placeholder="请输入调拨仓库ID" clearable />

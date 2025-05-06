@@ -2,7 +2,12 @@
 <template>
   <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true">
     <el-form-item label="藏品状态" prop="collectionStatus">
-      <el-select clearable v-model="form.collectionStatus" placeholder="请选择" style="width: 200px">
+      <el-select
+        clearable
+        v-model="form.collectionStatus"
+        placeholder="请选择"
+        style="width: 200px"
+      >
         <el-option label="在藏" :value="1" />
         <el-option label="修复中" :value="2" />
         <el-option label="待出库" :value="3" />

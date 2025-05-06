@@ -122,13 +122,16 @@ function formatMenus(data: Menu[], childField = 'children') {
   const menus = mapTree<Menu, MenuItem>(
     data,
     (item) => {
-      const meta: MenuItem['meta'] = typeof item.meta === 'string' ? JSON.parse(item.meta || '{}') : item.meta
+      const meta: MenuItem['meta'] =
+        typeof item.meta === 'string' ? JSON.parse(item.meta || '{}') : item.meta
       const menu: MenuItem = {
         path: item.path,
         component: item.component,
         meta: { title: item.title, icon: item.icon, hide: !!item.hide, ...meta }
       }
-      const children = item[childField] ? item[childField].filter((d: any) => !(d.meta?.hide ?? d.hide)) : void 0
+      const children = item[childField]
+        ? item[childField].filter((d: any) => !(d.meta?.hide ?? d.hide))
+        : void 0
       if (!children?.length) {
         if (!homePath && menu.path && !isExternalLink(menu.path)) {
           homePath = menu.path

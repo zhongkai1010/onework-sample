@@ -10,7 +10,11 @@
         </el-col>
         <el-col :lg="6" :md="8" :sm="12" :xs="24">
           <el-form-item label="机构类型">
-            <dict-data code="organization_type" v-model="form.organizationType" placeholder="请选择" />
+            <dict-data
+              code="organization_type"
+              v-model="form.organizationType"
+              placeholder="请选择"
+            />
           </el-form-item>
         </el-col>
         <el-col :lg="12" :md="8" :sm="24" :xs="24">

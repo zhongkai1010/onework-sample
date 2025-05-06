@@ -9,7 +9,10 @@
         </el-radio-group>
       </option-item>
       <div style="width: 520px; max-width: 100%; margin-top: 8px">
-        <ele-ellipsis :tooltip="tooltipProps"> 文本省略组件 `ele-ellipsis` 支持单行和多行省略, 当鼠标移入时会提示全部内容, 且支持使用 Tooltip 组件进行提示. </ele-ellipsis>
+        <ele-ellipsis :tooltip="tooltipProps">
+          文本省略组件 `ele-ellipsis` 支持单行和多行省略, 当鼠标移入时会提示全部内容, 且支持使用
+          Tooltip 组件进行提示.
+        </ele-ellipsis>
       </div>
     </ele-card>
     <ele-card header="多行文本省略">
@@ -22,7 +25,9 @@
       </option-item>
       <div style="width: 520px; max-width: 100%; margin-top: 8px">
         <ele-ellipsis :tooltip="tooltipProps" :max-line="maxLine">
-          文本省略组件 `ele-ellipsis` 支持单行和多行省略, 当鼠标移入时会提示全部内容, 且支持使用 Tooltip 组件进行提示, 并且支持设置 Tooltip 组件的其它属性, 如提示位置和主题等, 还可以单独设置提示的内容与展示的内容完全不一样, 默认会获取展示的文本内容为提示内容.
+          文本省略组件 `ele-ellipsis` 支持单行和多行省略, 当鼠标移入时会提示全部内容, 且支持使用
+          Tooltip 组件进行提示, 并且支持设置 Tooltip 组件的其它属性, 如提示位置和主题等,
+          还可以单独设置提示的内容与展示的内容完全不一样, 默认会获取展示的文本内容为提示内容.
         </ele-ellipsis>
       </div>
     </ele-card>
@@ -57,7 +62,10 @@
       </div>
       <div style="margin: 16px 0">
         <ele-copyable style="width: 100%; max-width: 520px">
-          <ele-ellipsis :tooltip="tooltipProps"> 文本省略组件 `ele-ellipsis` 支持单行和多行省略, 当鼠标移入时会提示全部内容, 且支持使用 Tooltip 组件进行提示. </ele-ellipsis>
+          <ele-ellipsis :tooltip="tooltipProps">
+            文本省略组件 `ele-ellipsis` 支持单行和多行省略, 当鼠标移入时会提示全部内容, 且支持使用
+            Tooltip 组件进行提示.
+          </ele-ellipsis>
         </ele-copyable>
       </div>
       <div style="display: flex; align-items: center; max-width: 280px">

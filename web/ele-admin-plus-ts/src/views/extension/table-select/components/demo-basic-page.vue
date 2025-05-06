@@ -1,10 +1,27 @@
 <template>
   <ele-card header="表格后端分页">
     <div style="max-width: 260px">
-      <ele-table-select clearable placeholder="请选择" value-key="userId" label-key="nickname" v-model="selectedValue" :table-props="tableProps" :popper-width="580" :disabled="disabled" :cache-data="cacheData" @select="handleSelect" :popper-options="{ strategy: 'fixed' }">
+      <ele-table-select
+        clearable
+        placeholder="请选择"
+        value-key="userId"
+        label-key="nickname"
+        v-model="selectedValue"
+        :table-props="tableProps"
+        :popper-width="580"
+        :disabled="disabled"
+        :cache-data="cacheData"
+        @select="handleSelect"
+        :popper-options="{ strategy: 'fixed' }"
+      >
         <!-- 角色列 -->
         <template #roles="{ row }">
-          <el-tag v-for="item in row.roles" :key="item.roleId" size="small" :disable-transitions="true">
+          <el-tag
+            v-for="item in row.roles"
+            :key="item.roleId"
+            size="small"
+            :disable-transitions="true"
+          >
             {{ item.roleName }}
           </el-tag>
         </template>

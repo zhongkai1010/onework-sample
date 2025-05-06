@@ -1,10 +1,27 @@
 <template>
   <ele-card header="虚拟滚动表格">
     <div style="max-width: 260px">
-      <ele-table-select multiple clearable placeholder="请选择" value-key="userId" label-key="nickname" v-model="selectedValue" :table-props="tableProps" :popper-width="580" :max-tag-count="5" :popper-options="{ strategy: 'fixed' }">
+      <ele-table-select
+        multiple
+        clearable
+        placeholder="请选择"
+        value-key="userId"
+        label-key="nickname"
+        v-model="selectedValue"
+        :table-props="tableProps"
+        :popper-width="580"
+        :max-tag-count="5"
+        :popper-options="{ strategy: 'fixed' }"
+      >
         <template #status="{ row }">
           <ele-dot v-if="row.status == 0" text="正常" size="8px" />
-          <ele-dot v-else-if="row.status == 1" text="冻结" type="danger" :ripple="false" size="8px" />
+          <ele-dot
+            v-else-if="row.status == 1"
+            text="冻结"
+            type="danger"
+            :ripple="false"
+            size="8px"
+          />
         </template>
       </ele-table-select>
     </div>

@@ -21,9 +21,24 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd">新增</el-button>
-          <el-button type="primary" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport">导出</el-button>
-          <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="() => handleRemove()" :disabled="!selections.length">删除</el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd"
+            >新增</el-button
+          >
+          <el-button
+            type="primary"
+            class="ele-btn-icon"
+            :icon="DownloadOutlined"
+            @click="handleExport"
+            >导出</el-button
+          >
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            @click="() => handleRemove()"
+            :disabled="!selections.length"
+            >删除</el-button
+          >
         </template>
 
         <!-- 操作列 -->
@@ -31,7 +46,9 @@
           <el-space :size="4">
             <el-button type="primary" @click="handleEdit(row)" size="small"> 编辑</el-button>
             <el-button type="info" @click="handleDetails(row)" size="small">查看详情</el-button>
-            <el-button type="danger" @click="() => handleRemove([row])" size="small">删除</el-button>
+            <el-button type="danger" @click="() => handleRemove([row])" size="small"
+              >删除</el-button
+            >
           </el-space>
         </template>
       </ele-pro-table>
@@ -50,7 +67,11 @@
   import { ElMessageBox } from 'element-plus/es'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, Columns, ExportConfig } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    Columns,
+    ExportConfig
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import { PlusOutlined, DeleteOutlined, DownloadOutlined } from '@/components/icons'
   import type { Publication, PublicationQueryParams } from '@/api/artist/published-work/model'
   import { getPublicationList, deletePublication } from '@/api/artist/published-work'

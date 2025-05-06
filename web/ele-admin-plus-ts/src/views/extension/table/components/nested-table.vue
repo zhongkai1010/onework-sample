@@ -1,8 +1,16 @@
 <template>
   <div>
-    <ele-pro-table row-key="dictId" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :export-config="{ fileName: '字典数据' }">
+    <ele-pro-table
+      row-key="dictId"
+      :columns="columns"
+      :datasource="datasource"
+      :show-overflow-tooltip="true"
+      :export-config="{ fileName: '字典数据' }"
+    >
       <template #toolbar>
-        <el-button type="primary" @click="getChildSelections" class="ele-btn-icon"> 获取所有选中 </el-button>
+        <el-button type="primary" @click="getChildSelections" class="ele-btn-icon">
+          获取所有选中
+        </el-button>
       </template>
       <template #action="{ row }">
         <el-link type="primary" :underline="false" @click="editDict(row)"> 修改 </el-link>
@@ -10,7 +18,11 @@
         <el-link type="danger" :underline="false" @click="removeDict(row)"> 删除 </el-link>
       </template>
       <template #expand="{ row }">
-        <child-table :dictId="row.dictId" v-model:selections="childSelections[row.dictId]" @setDictionaryData="handleSetDictionaryData" />
+        <child-table
+          :dictId="row.dictId"
+          v-model:selections="childSelections[row.dictId]"
+          @setDictionaryData="handleSetDictionaryData"
+        />
       </template>
       <template #expandPrint="{ row }">
         <child-print-table :data="dictionaryDatas[row.dictId]" />
@@ -42,9 +54,17 @@
       printSlot: 'expandPrint',
       // 用于导出
       formatter: (row) => {
-        const rows: (string | number)[][] = [['#', '字典数据名称', '字典数据代码', '排序号', '创建时间']]
+        const rows: (string | number)[][] = [
+          ['#', '字典数据名称', '字典数据代码', '排序号', '创建时间']
+        ]
         dictionaryDatas[row.dictId]?.forEach?.((d, i) => {
-          rows.push([i + 1, d.dictDataName ?? '', d.dictDataCode ?? '', d.sortNumber ?? '', d.createTime ?? ''])
+          rows.push([
+            i + 1,
+            d.dictDataName ?? '',
+            d.dictDataCode ?? '',
+            d.sortNumber ?? '',
+            d.createTime ?? ''
+          ])
         })
         return rows.map((cells) => cells.join(',')).join('\n')
       }

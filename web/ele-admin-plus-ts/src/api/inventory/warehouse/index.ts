@@ -1,6 +1,19 @@
 import request from '@/utils/request'
 import type { ApiResult, PageResult } from '@/api'
-import type { Warehouse, WarehouseQueryParams, AddWarehouseParams, UpdateWarehouseParams, DeleteWarehouseParams, WarehouseCollection, WarehouseCollectionQueryParams, Barcode, BarcodeQueryParams, Location, LocationQueryParams, BindLocationParams } from './model'
+import type {
+  Warehouse,
+  WarehouseQueryParams,
+  AddWarehouseParams,
+  UpdateWarehouseParams,
+  DeleteWarehouseParams,
+  WarehouseCollection,
+  WarehouseCollectionQueryParams,
+  Barcode,
+  BarcodeQueryParams,
+  Location,
+  LocationQueryParams,
+  BindLocationParams
+} from './model'
 
 /**
  * 查询库房&展区（树形结构）
@@ -64,9 +77,12 @@ export async function deleteWarehouse(data: DeleteWarehouseParams) {
  * @returns 库房藏品分页数据
  */
 export async function getWarehouseCollectionPage(params: WarehouseCollectionQueryParams) {
-  const res = await request.get<ApiResult<PageResult<WarehouseCollection>>>('/api/inventory/warehouse/collection', {
-    params
-  })
+  const res = await request.get<ApiResult<PageResult<WarehouseCollection>>>(
+    '/api/inventory/warehouse/collection',
+    {
+      params
+    }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -79,9 +95,12 @@ export async function getWarehouseCollectionPage(params: WarehouseCollectionQuer
  * @returns 地址条码分页数据
  */
 export async function getBarcodePage(params: BarcodeQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Barcode>>>('/api/inventory/warehouse/barcode', {
-    params
-  })
+  const res = await request.get<ApiResult<PageResult<Barcode>>>(
+    '/api/inventory/warehouse/barcode',
+    {
+      params
+    }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -94,9 +113,12 @@ export async function getBarcodePage(params: BarcodeQueryParams) {
  * @returns 藏品定位分页数据
  */
 export async function getLocationPage(params: LocationQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Location>>>('/api/inventory/warehouse/location', {
-    params
-  })
+  const res = await request.get<ApiResult<PageResult<Location>>>(
+    '/api/inventory/warehouse/location',
+    {
+      params
+    }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

@@ -8,16 +8,39 @@
       <el-button class="ele-btn-icon" @click="openDialog2"> 打开弹窗2 </el-button>
       <el-button class="ele-btn-icon" @click="openDialog3"> 打开弹窗3 </el-button>
     </div>
-    <ele-text block type="secondary" style="margin-top: 20px"> 同时打开多个弹窗时点击会自动置顶 </ele-text>
+    <ele-text block type="secondary" style="margin-top: 20px">
+      同时打开多个弹窗时点击会自动置顶
+    </ele-text>
   </ele-card>
-  <ele-modal :inner="inner" :width="460" title="弹窗1" v-model="visible1" :resizable="true" :maxable="true" :multiple="true" :destroy-on-close="false" :move-out="['right', 'bottom']" position="center">
+  <ele-modal
+    :inner="inner"
+    :width="460"
+    title="弹窗1"
+    v-model="visible1"
+    :resizable="true"
+    :maxable="true"
+    :multiple="true"
+    :destroy-on-close="false"
+    :move-out="['right', 'bottom']"
+    position="center"
+  >
     <div style="padding: 40px 0">弹窗1</div>
     <template #footer>
       <el-button @click="visible1 = false">取消</el-button>
       <el-button type="primary">确定</el-button>
     </template>
   </ele-modal>
-  <ele-modal :inner="inner" :width="460" title="弹窗2" v-model="visible2" :resizable="true" :maxable="true" :multiple="true" :destroy-on-close="false" position="leftBottom">
+  <ele-modal
+    :inner="inner"
+    :width="460"
+    title="弹窗2"
+    v-model="visible2"
+    :resizable="true"
+    :maxable="true"
+    :multiple="true"
+    :destroy-on-close="false"
+    position="leftBottom"
+  >
     <div style="padding: 40px 0">弹窗2</div>
     <template #footer>
       <el-button @click="visible2 = false">取消</el-button>

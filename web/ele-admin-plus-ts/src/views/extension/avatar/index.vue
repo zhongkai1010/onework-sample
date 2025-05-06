@@ -1,7 +1,12 @@
 <template>
   <ele-page>
     <ele-card header="基础用法">
-      <ele-avatar-group :data="data" :max-count="4" :overflow-popover="false" :item-style="{ borderWidth: '2px' }" />
+      <ele-avatar-group
+        :data="data"
+        :max-count="4"
+        :overflow-popover="false"
+        :item-style="{ borderWidth: '2px' }"
+      />
     </ele-card>
     <ele-card header="超出显示">
       <ele-avatar-group :data="data" :max-count="4" :item-style="{ borderWidth: '2px' }" />

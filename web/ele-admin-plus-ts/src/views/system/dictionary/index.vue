@@ -1,16 +1,51 @@
 <template>
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
     <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
-      <ele-split-panel ref="splitRef" flex-table size="256px" allow-collapse :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }" :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }" :style="{ height: '100%', overflow: 'visible' }">
+      <ele-split-panel
+        ref="splitRef"
+        flex-table
+        size="256px"
+        allow-collapse
+        :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }"
+        :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }"
+        :style="{ height: '100%', overflow: 'visible' }"
+      >
         <div style="padding: 0 16px 12px 0">
-          <el-input clearable :maxlength="20" v-model="keywords" placeholder="输入字典名称搜索" :prefix-icon="SearchOutlined" />
+          <el-input
+            clearable
+            :maxlength="20"
+            v-model="keywords"
+            placeholder="输入字典名称搜索"
+            :prefix-icon="SearchOutlined"
+          />
         </div>
         <div style="margin-bottom: 12px">
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()"> 新建 </el-button>
-          <el-button type="warning" :disabled="!current" class="ele-btn-icon" :icon="EditOutlined" @click="openEdit(current)"> 修改 </el-button>
-          <el-button type="danger" :disabled="!current" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove"> 删除 </el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()">
+            新建
+          </el-button>
+          <el-button
+            type="warning"
+            :disabled="!current"
+            class="ele-btn-icon"
+            :icon="EditOutlined"
+            @click="openEdit(current)"
+          >
+            修改
+          </el-button>
+          <el-button
+            type="danger"
+            :disabled="!current"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            @click="remove"
+          >
+            删除
+          </el-button>
         </div>
-        <ele-loading :loading="loading" :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }">
+        <ele-loading
+          :loading="loading"
+          :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }"
+        >
           <el-tree
             ref="treeRef"
             :data="data"
@@ -30,7 +65,9 @@
             <template #default="{ data: d }">
               <div class="el-tree-node__label" style="display: flex; align-items: center">
                 <div style="margin-right: 4px">{{ d.dictName }}</div>
-                <div style="font-size: 12px; opacity: 0.8; font-weight: normal"> ({{ d.dictCode }}) </div>
+                <div style="font-size: 12px; opacity: 0.8; font-weight: normal">
+                  ({{ d.dictCode }})
+                </div>
               </div>
             </template>
           </el-tree>

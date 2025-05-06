@@ -20,15 +20,43 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="success" class="ele-btn-icon" :icon="UploadOutlined" @click="handleUpload">上传图片</el-button>
-          <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="handleDelete" :disabled="!selections.length">删除</el-button>
-          <el-button type="info" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport">导出</el-button>
-          <el-button type="warning" class="ele-btn-icon" :icon="PrinterOutlined" @click="handlePrint" :disabled="selections.length !== 1">单据打印</el-button>
+          <el-button
+            type="success"
+            class="ele-btn-icon"
+            :icon="UploadOutlined"
+            @click="handleUpload"
+            >上传图片</el-button
+          >
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            @click="handleDelete"
+            :disabled="!selections.length"
+            >删除</el-button
+          >
+          <el-button type="info" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport"
+            >导出</el-button
+          >
+          <el-button
+            type="warning"
+            class="ele-btn-icon"
+            :icon="PrinterOutlined"
+            @click="handlePrint"
+            :disabled="selections.length !== 1"
+            >单据打印</el-button
+          >
         </template>
 
         <!-- 单据图片列 -->
         <template #documentImage="{ row }">
-          <el-image v-if="row.documentImage" :src="row.documentImage" :preview-src-list="[row.documentImage]" fit="cover" style="width: 50px; height: 50px" />
+          <el-image
+            v-if="row.documentImage"
+            :src="row.documentImage"
+            :preview-src-list="[row.documentImage]"
+            fit="cover"
+            style="width: 50px; height: 50px"
+          />
           <span v-else>无图片</span>
         </template>
 
@@ -42,11 +70,31 @@
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
-            <el-button type="primary" size="small" @click="handleViewDetails(row)">查看详情</el-button>
-            <el-button type="success" size="small" @click="handleUploadImage(row)" v-if="Number(row.status) === 0">上传图片</el-button>
-            <el-button type="warning" size="small" @click="handleApprove(row)" v-if="Number(row.status) === 0">审核</el-button>
+            <el-button type="primary" size="small" @click="handleViewDetails(row)"
+              >查看详情</el-button
+            >
+            <el-button
+              type="success"
+              size="small"
+              @click="handleUploadImage(row)"
+              v-if="Number(row.status) === 0"
+              >上传图片</el-button
+            >
+            <el-button
+              type="warning"
+              size="small"
+              @click="handleApprove(row)"
+              v-if="Number(row.status) === 0"
+              >审核</el-button
+            >
             <el-button type="danger" size="small" @click="handleDelete(row)">删除</el-button>
-            <el-button type="success" size="small" @click="handleConfirm(row)" v-if="Number(row.status) === 1">确认</el-button>
+            <el-button
+              type="success"
+              size="small"
+              @click="handleConfirm(row)"
+              v-if="Number(row.status) === 1"
+              >确认</el-button
+            >
           </el-space>
         </template>
       </ele-pro-table>
@@ -62,8 +110,18 @@
   import { ElMessage, ElMessageBox } from 'element-plus'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { UploadOutlined, DeleteOutlined, DownloadOutlined, PrinterOutlined } from '@/components/icons'
-  import { listTransfers, approveTransfer, removeTransfers, confirmTransfer } from '@/api/inventory/transfer'
+  import {
+    UploadOutlined,
+    DeleteOutlined,
+    DownloadOutlined,
+    PrinterOutlined
+  } from '@/components/icons'
+  import {
+    listTransfers,
+    approveTransfer,
+    removeTransfers,
+    confirmTransfer
+  } from '@/api/inventory/transfer'
   import SearchForm from './components/search-form.vue'
   import OrderDetails from './components/order-details.vue'
 

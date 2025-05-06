@@ -11,7 +11,11 @@
       }"
     >
       <!-- 提示信息 -->
-      <ele-alert show-icon :closable="false" :style="{ marginBottom: toolDefault ? '12px' : '4px' }">
+      <ele-alert
+        show-icon
+        :closable="false"
+        :style="{ marginBottom: toolDefault ? '12px' : '4px' }"
+      >
         <template #title>
           <span>已选择&nbsp;</span>
           <ele-text strong type="primary" tag="span">
@@ -20,7 +24,14 @@
           <span>&nbsp;项数据&emsp;</span>
           <span>其中冻结状态的用户有 </span>
           <b>{{ selections.filter((d) => d.status === 1).length }} 个 &emsp;</b>
-          <el-link type="primary" :underline="false" style="vertical-align: 0px" @click="clearChoose"> 清空 </el-link>
+          <el-link
+            type="primary"
+            :underline="false"
+            style="vertical-align: 0px"
+            @click="clearChoose"
+          >
+            清空
+          </el-link>
         </template>
       </ele-alert>
       <!-- 表格 -->
@@ -45,7 +56,9 @@
         @done="handleDone"
       >
         <template #toolbar>
-          <el-button type="primary" :icon="PlusOutlined" class="ele-btn-icon" @click="openEdit()"> 新建 </el-button>
+          <el-button type="primary" :icon="PlusOutlined" class="ele-btn-icon" @click="openEdit()">
+            新建
+          </el-button>
           <ele-dropdown
             :disabled="!selections.length"
             :items="[
@@ -96,19 +109,46 @@
         </template>
         <!-- 头像列 -->
         <template #avatar="{ row }">
-          <el-avatar v-if="row.avatar" :src="row.avatar" :size="32" @click.stop="" style="vertical-align: -16px" />
-          <el-avatar v-else :size="32" style="background: var(--el-color-primary); vertical-align: -2px" @click.stop="">
-            {{ row.nickname && row.nickname.length > 2 ? row.nickname.substring(row.nickname.length - 2) : row.nickname }}
+          <el-avatar
+            v-if="row.avatar"
+            :src="row.avatar"
+            :size="32"
+            @click.stop=""
+            style="vertical-align: -16px"
+          />
+          <el-avatar
+            v-else
+            :size="32"
+            style="background: var(--el-color-primary); vertical-align: -2px"
+            @click.stop=""
+          >
+            {{
+              row.nickname && row.nickname.length > 2
+                ? row.nickname.substring(row.nickname.length - 2)
+                : row.nickname
+            }}
           </el-avatar>
         </template>
         <!-- 状态列 -->
         <template #status="{ row }">
           <ele-dot v-if="row.status === 0" text="正常" size="8px" />
-          <ele-dot v-else-if="row.status === 1" text="冻结" type="danger" :ripple="false" size="8px" />
+          <ele-dot
+            v-else-if="row.status === 1"
+            text="冻结"
+            type="danger"
+            :ripple="false"
+            size="8px"
+          />
         </template>
         <!-- 角色列 -->
         <template #roles="{ row }">
-          <el-tag v-for="item in row.roles" :key="item.roleId" size="small" :disable-transitions="true" style="margin-right: 6px">
+          <el-tag
+            v-for="item in row.roles"
+            :key="item.roleId"
+            size="small"
+            :disable-transitions="true"
+            style="margin-right: 6px"
+          >
             {{ item.roleName }}
           </el-tag>
         </template>
@@ -148,9 +188,20 @@
   import { ElMessageBox } from 'element-plus/es'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, Columns, DoneFunction, ExportConfig } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    Columns,
+    DoneFunction,
+    ExportConfig
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import { useI18n } from 'vue-i18n'
-  import { PlusOutlined, ArrowDown, EditOutlined, MinusCircleOutlined, DeleteOutlined } from '@/components/icons'
+  import {
+    PlusOutlined,
+    ArrowDown,
+    EditOutlined,
+    MinusCircleOutlined,
+    DeleteOutlined
+  } from '@/components/icons'
   import { getExportWorkbook } from '@/config/use-global-config'
   import { download } from '@/utils/common'
   import request from '@/utils/request'

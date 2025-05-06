@@ -1,6 +1,15 @@
 <template>
   <div>
-    <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" v-model:selections="selections" :highlight-current-row="true" :export-config="{ fileName: '用户私信数据' }">
+    <ele-pro-table
+      ref="tableRef"
+      row-key="id"
+      :columns="columns"
+      :datasource="datasource"
+      :show-overflow-tooltip="true"
+      v-model:selections="selections"
+      :highlight-current-row="true"
+      :export-config="{ fileName: '用户私信数据' }"
+    >
       <template #toolbar>
         <el-button type="primary" class="ele-btn-icon" @click="readBatch"> 标记已读 </el-button>
         <el-button type="danger" class="ele-btn-icon" @click="remove()"> 删除消息 </el-button>

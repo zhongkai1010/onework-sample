@@ -1,5 +1,12 @@
 <template>
-  <ele-modal v-model="visible" title="打印入库单" width="800px" :destroy-on-close="true" @closed="reset" position="center">
+  <ele-modal
+    v-model="visible"
+    title="打印入库单"
+    width="800px"
+    :destroy-on-close="true"
+    @closed="reset"
+    position="center"
+  >
     <div class="print-content" ref="printContent">
       <div class="print-header">
         <h2>入库单</h2>
@@ -32,7 +39,12 @@
           <el-table :data="data?.collections" border style="width: 100%">
             <el-table-column type="index" label="序号" width="50" align="center" />
             <el-table-column prop="collectionCode" label="藏品编号" width="120" />
-            <el-table-column prop="collectionName" label="藏品名称" min-width="200" show-overflow-tooltip />
+            <el-table-column
+              prop="collectionName"
+              label="藏品名称"
+              min-width="200"
+              show-overflow-tooltip
+            />
             <el-table-column prop="categoryName" label="藏品类别" width="120" />
             <el-table-column prop="warehouseName" label="存放位置" width="120" />
             <el-table-column prop="status" label="状态" width="100">
@@ -47,7 +59,13 @@
 
         <div class="print-section">
           <h3>单据图片</h3>
-          <el-image v-if="data?.documentImage" :src="data.documentImage" :preview-src-list="[data.documentImage]" fit="contain" style="width: 200px; height: 200px" />
+          <el-image
+            v-if="data?.documentImage"
+            :src="data.documentImage"
+            :preview-src-list="[data.documentImage]"
+            fit="contain"
+            style="width: 200px; height: 200px"
+          />
           <span v-else>暂无图片</span>
         </div>
       </div>

@@ -21,7 +21,17 @@
           <el-radio-button value="4" label="本年" />
         </el-radio-group>
         <div class="hidden-md-and-down" style="width: 320px; margin-left: 12px">
-          <el-date-picker unlink-panels type="datetimerange" v-model="saleSearch.datetime" range-separator="-" format="YYYY-MM-DD HH:mm" value-format="YYYY-MM-DD HH:mm" start-placeholder="开始时间" end-placeholder="结束时间" class="ele-fluid" />
+          <el-date-picker
+            unlink-panels
+            type="datetimerange"
+            v-model="saleSearch.datetime"
+            range-separator="-"
+            format="YYYY-MM-DD HH:mm"
+            value-format="YYYY-MM-DD HH:mm"
+            start-placeholder="开始时间"
+            end-placeholder="结束时间"
+            class="ele-fluid"
+          />
         </div>
       </div>
     </template>
@@ -31,13 +41,25 @@
           <div class="sale-body-title">
             {{ saleSearch.type === 'saleroom' ? '销售量趋势' : '访问量趋势' }}
           </div>
-          <v-chart ref="saleChartRef" :option="saleChartOption" style="height: 320px" @click="handleSaleChartClick" />
+          <v-chart
+            ref="saleChartRef"
+            :option="saleChartOption"
+            style="height: 320px"
+            @click="handleSaleChartClick"
+          />
         </el-col>
         <el-col :md="7" :sm="9" :xs="24">
           <div v-if="saleSearch.type === 'saleroom'" style="padding: 0 0 8px 0">
             <div class="sale-body-title">门店销售额排名</div>
             <div v-for="(item, index) in saleroomRankData" :key="index" class="sale-rank-item">
-              <el-tag size="small" :disable-transitions="true" :type="index < 3 ? void 0 : 'info'" :effect="index < 3 ? 'dark' : 'light'" :color="index < 3 ? '#314659' : void 0" style="border: none; border-radius: 50%; width: 20px">
+              <el-tag
+                size="small"
+                :disable-transitions="true"
+                :type="index < 3 ? void 0 : 'info'"
+                :effect="index < 3 ? 'dark' : 'light'"
+                :color="index < 3 ? '#314659' : void 0"
+                style="border: none; border-radius: 50%; width: 20px"
+              >
                 {{ index + 1 }}
               </el-tag>
               <ele-ellipsis class="sale-rank-item-text">
@@ -49,7 +71,14 @@
           <div v-else style="padding: 0 0 8px 0">
             <div class="sale-body-title">门店访问量排名</div>
             <div v-for="(item, index) in visitsRankData" :key="index" class="sale-rank-item">
-              <el-tag size="small" :disable-transitions="true" :type="index < 3 ? void 0 : 'info'" :effect="index < 3 ? 'dark' : 'light'" :color="index < 3 ? '#314659' : void 0" style="border: none; border-radius: 50%; width: 20px">
+              <el-tag
+                size="small"
+                :disable-transitions="true"
+                :type="index < 3 ? void 0 : 'info'"
+                :effect="index < 3 ? 'dark' : 'light'"
+                :color="index < 3 ? '#314659' : void 0"
+                style="border: none; border-radius: 50%; width: 20px"
+              >
                 {{ index + 1 }}
               </el-tag>
               <ele-ellipsis class="sale-rank-item-text">

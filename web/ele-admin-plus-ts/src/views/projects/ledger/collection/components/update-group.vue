@@ -1,10 +1,27 @@
 <!-- 编入藏品组弹框表单 -->
 <template>
-  <ele-modal v-model="modelValue" title="编入藏品组" width="500px" :destroy-on-close="true" @close="onClose">
+  <ele-modal
+    v-model="modelValue"
+    title="编入藏品组"
+    width="500px"
+    :destroy-on-close="true"
+    @close="onClose"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent>
       <el-form-item label="藏品组" prop="groupId">
-        <el-select v-model="form.groupId" placeholder="请选择藏品组" clearable filterable style="width: 100%">
-          <el-option v-for="item in groupOptions" :key="item.id" :label="item.name" :value="item.id" />
+        <el-select
+          v-model="form.groupId"
+          placeholder="请选择藏品组"
+          clearable
+          filterable
+          style="width: 100%"
+        >
+          <el-option
+            v-for="item in groupOptions"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
         </el-select>
       </el-form-item>
     </el-form>

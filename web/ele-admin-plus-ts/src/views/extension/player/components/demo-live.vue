@@ -16,9 +16,11 @@
   import type Player from 'xgplayer'
   import HlsPlugin from 'xgplayer-hls'
   const url1 = 'https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8'
-  const poster1 = 'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png'
+  const poster1 =
+    'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png'
   const url2 = 'https://ali-m-l.cztv.com/channels/lantian/channel008/1080p.m3u8'
-  const poster2 = 'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/1.png'
+  const poster2 =
+    'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/1.png'
 
   /** 视频播放器配置 */
   const config = ref({

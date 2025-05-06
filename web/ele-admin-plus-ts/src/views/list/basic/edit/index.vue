@@ -2,7 +2,9 @@
   <div>
     <ele-card style="border-radius: 0">
       <ele-text type="heading" size="lg">修改用户</ele-text>
-      <ele-text type="placeholder" style="margin-top: 6px"> 修改用户基本信息后点击保存按钮 </ele-text>
+      <ele-text type="placeholder" style="margin-top: 6px">
+        修改用户基本信息后点击保存按钮
+      </ele-text>
     </ele-card>
     <ele-page>
       <ele-card>

@@ -1,5 +1,12 @@
 <template>
-  <ele-modal v-model="visible" :title="isUpdate ? '修改影像' : '添加影像'" width="600px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
+  <ele-modal
+    v-model="visible"
+    :title="isUpdate ? '修改影像' : '添加影像'"
+    width="600px"
+    :destroy-on-close="true"
+    @open="handleOpen"
+    @closed="reset"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
       <el-form-item label="藏品编号" prop="collectionCode">
         <el-input v-model="form.collectionCode" placeholder="请输入藏品编号" clearable />
@@ -14,7 +21,13 @@
         <el-input v-model="form.fileSize" placeholder="请输入容量大小" clearable />
       </el-form-item>
       <el-form-item label="文件" prop="file">
-        <el-upload class="upload-demo" action="/api/upload" :on-success="handleUploadSuccess" :on-error="handleUploadError" :before-upload="beforeUpload">
+        <el-upload
+          class="upload-demo"
+          action="/api/upload"
+          :on-success="handleUploadSuccess"
+          :on-error="handleUploadError"
+          :before-upload="beforeUpload"
+        >
           <el-button type="primary">点击上传</el-button>
           <template #tip>
             <div class="el-upload__tip"> 请上传影像文件 </div>

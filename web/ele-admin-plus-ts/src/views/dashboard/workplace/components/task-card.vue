@@ -8,13 +8,24 @@
       <ele-table size="large" :class="['task-table', { 'is-ping-left': isPingLeft }]">
         <thead style="position: sticky; top: 0; z-index: 2">
           <tr>
-            <th style="position: sticky; left: 0; z-index: 1; width: 38px" class="task-table-index"></th>
+            <th
+              style="position: sticky; left: 0; z-index: 1; width: 38px"
+              class="task-table-index"
+            ></th>
             <th style="text-align: center; width: 78px">优先级</th>
             <th>任务名称</th>
             <th style="text-align: center; width: 80px">状态</th>
           </tr>
         </thead>
-        <vue-draggable tag="tbody" item-key="id" v-model="taskList" handle=".sort-handle" :animation="300" :set-data="() => void 0" :force-fallback="true">
+        <vue-draggable
+          tag="tbody"
+          item-key="id"
+          v-model="taskList"
+          handle=".sort-handle"
+          :animation="300"
+          :set-data="() => void 0"
+          :force-fallback="true"
+        >
           <template #item="{ element }">
             <tr>
               <td
@@ -29,13 +40,22 @@
                 }"
                 class="task-table-index"
               >
-                <ele-text :icon="DragOutlined" :icon-style="{ transform: 'scale(1.15)' }" type="placeholder" class="sort-handle" />
+                <ele-text
+                  :icon="DragOutlined"
+                  :icon-style="{ transform: 'scale(1.15)' }"
+                  type="placeholder"
+                  class="sort-handle"
+                />
               </td>
               <td style="text-align: center; width: 78px">
                 <el-tag v-if="element.priority === 1" type="danger" :disable-transitions="true">
                   {{ element.priority }}
                 </el-tag>
-                <el-tag v-else-if="element.priority === 2" type="warning" :disable-transitions="true">
+                <el-tag
+                  v-else-if="element.priority === 2"
+                  type="warning"
+                  :disable-transitions="true"
+                >
                   {{ element.priority }}
                 </el-tag>
                 <el-tag v-else :disable-transitions="true">

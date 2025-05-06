@@ -1,6 +1,12 @@
 <!-- 修复单据打印 -->
 <template>
-  <ele-modal v-model="visible" title="打印单据" width="900px" :destroy-on-close="true" @close="reset">
+  <ele-modal
+    v-model="visible"
+    title="打印单据"
+    width="900px"
+    :destroy-on-close="true"
+    @close="reset"
+  >
     <div class="print-content" v-loading="loading">
       <div class="document-content">
         <template v-if="data">
@@ -50,7 +56,9 @@
             </div>
             <div class="info-item">
               <span class="label">工单状态：</span>
-              <span class="value">{{ data.status === 0 ? '待修复' : data.status === 1 ? '修复中' : '已完成' }}</span>
+              <span class="value">{{
+                data.status === 0 ? '待修复' : data.status === 1 ? '修复中' : '已完成'
+              }}</span>
             </div>
             <div class="info-item">
               <span class="label">承担机构：</span>
@@ -132,7 +140,9 @@
             </div>
             <div class="info-item">
               <span class="label">工单状态：</span>
-              <span class="value">{{ data?.status === 0 ? '待修复' : data?.status === 1 ? '修复中' : '已完成' }}</span>
+              <span class="value">{{
+                data?.status === 0 ? '待修复' : data?.status === 1 ? '修复中' : '已完成'
+              }}</span>
             </div>
             <div class="info-item">
               <span class="label">承担机构：</span>

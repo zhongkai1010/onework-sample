@@ -95,9 +95,12 @@ export async function getDetails(id: number) {
  * 查询藏品预备帐分页列表
  */
 export async function getPreparation(params: CollectionQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Collection>>>('/api/collection/catalog/preparation', {
-    params
-  })
+  const res = await request.get<ApiResult<PageResult<Collection>>>(
+    '/api/collection/catalog/preparation',
+    {
+      params
+    }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -130,7 +133,10 @@ export async function bindRfid(data: { ids: number[]; rfidCode: string }) {
  * 批量修改分类
  */
 export async function updateCategory(data: { ids: number[]; categoryId: number }) {
-  const res = await request.post<ApiResult<unknown>>('/api/collection/catalog/update-category', data)
+  const res = await request.post<ApiResult<unknown>>(
+    '/api/collection/catalog/update-category',
+    data
+  )
   if (res.data.code === 0) {
     return res.data.message
   }

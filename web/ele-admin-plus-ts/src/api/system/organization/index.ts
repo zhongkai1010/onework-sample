@@ -6,7 +6,9 @@ import type { Organization, OrganizationParam } from './model'
  * 分页查询机构
  */
 export async function pageOrganizations(params: OrganizationParam) {
-  const res = await request.get<ApiResult<PageResult<Organization>>>('/system/organization/page', { params })
+  const res = await request.get<ApiResult<PageResult<Organization>>>('/system/organization/page', {
+    params
+  })
   if (res.data.code === 0) {
     return res.data.data
   }

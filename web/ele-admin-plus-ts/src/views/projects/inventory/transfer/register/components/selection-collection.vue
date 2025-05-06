@@ -16,11 +16,22 @@
         <el-button @click="reset">重置</el-button>
       </el-form-item>
     </el-form>
-    <ele-pro-table ref="tableRef" :tools="false" :columns="columns" :datasource="datasource" :loading="loading" row-key="id" @selection-change="handleSelectionChange" @row-click="handleRowClick" />
+    <ele-pro-table
+      ref="tableRef"
+      :tools="false"
+      :columns="columns"
+      :datasource="datasource"
+      :loading="loading"
+      row-key="id"
+      @selection-change="handleSelectionChange"
+      @row-click="handleRowClick"
+    />
 
     <template #footer>
       <el-button @click="handleCancel">取消</el-button>
-      <el-button type="primary" @click="confirmSelection" :disabled="!selectedRows.length">确定</el-button>
+      <el-button type="primary" @click="confirmSelection" :disabled="!selectedRows.length"
+        >确定</el-button
+      >
     </template>
   </ele-modal>
 </template>
@@ -28,7 +39,10 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import type { EleProTable } from 'ele-admin-plus/es'
-  import type { InboundCollection, InboundCollectionQueryParams } from '@/api/inventory/inbound/model'
+  import type {
+    InboundCollection,
+    InboundCollectionQueryParams
+  } from '@/api/inventory/inbound/model'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import { getInboundCollectionList } from '@/api/inventory/inbound'
   import { useFormData } from '@/utils/use-form-data'

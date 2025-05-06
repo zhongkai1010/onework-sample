@@ -1,6 +1,14 @@
 <template>
   <ele-card header="基础用法">
-    <ele-viewer ref="viewerRef" src="https://cdn.eleadmin.com/20200610/pECHMJU.webp" :markers="markers" :rotate-step="45" :zoom-min="10" :image-style="{ filter: 'grayscale(60%) contrast(120%) saturate(200%)' }" style="height: 560px; max-width: 900px">
+    <ele-viewer
+      ref="viewerRef"
+      src="https://cdn.eleadmin.com/20200610/pECHMJU.webp"
+      :markers="markers"
+      :rotate-step="45"
+      :zoom-min="10"
+      :image-style="{ filter: 'grayscale(60%) contrast(120%) saturate(200%)' }"
+      style="height: 560px; max-width: 900px"
+    >
       <template #markerItem="{ item }">
         <div v-if="item.key === 3" class="marker-watermark">
           <div>{{ item.text }}</div>
@@ -10,13 +18,19 @@
         </div>
       </template>
     </ele-viewer>
-    <div style="margin-top: 12px"> 可缩放、拖动、旋转等，可添加跟随缩放旋转和不跟随缩放旋转的标记点 </div>
+    <div style="margin-top: 12px">
+      可缩放、拖动、旋转等，可添加跟随缩放旋转和不跟随缩放旋转的标记点
+    </div>
     <div style="margin-top: 12px">
       <el-button class="ele-btn-icon" @click="handleCallViewer('zoomIn')"> 放大 </el-button>
       <el-button class="ele-btn-icon" @click="handleCallViewer('zoomOut')"> 缩小 </el-button>
       <el-button class="ele-btn-icon" @click="handleCallViewer('rotateLeft')"> 向左旋转 </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('rotateRight')"> 向右旋转 </el-button>
-      <el-button class="ele-btn-icon" @click="handleCallViewer('autoIntoView')"> 自适应缩放 </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('rotateRight')">
+        向右旋转
+      </el-button>
+      <el-button class="ele-btn-icon" @click="handleCallViewer('autoIntoView')">
+        自适应缩放
+      </el-button>
       <el-button class="ele-btn-icon" @click="handleCallViewer('reset')"> 重置 </el-button>
     </div>
   </ele-card>

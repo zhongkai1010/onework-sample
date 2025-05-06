@@ -10,14 +10,31 @@
       }"
     >
       <template #reference>
-        <ele-text :type="isFiltered ? 'primary' : 'placeholder'" :icon="SearchOutlined" class="demo-filter-icon" />
+        <ele-text
+          :type="isFiltered ? 'primary' : 'placeholder'"
+          :icon="SearchOutlined"
+          class="demo-filter-icon"
+        />
       </template>
       <div style="margin-bottom: 12px">
-        <el-input size="small" v-model="nickname" placeholder="请输入关键字" @change="handleSearch" />
+        <el-input
+          size="small"
+          v-model="nickname"
+          placeholder="请输入关键字"
+          @change="handleSearch"
+        />
       </div>
       <div style="text-align: right">
         <el-button size="small" @click="handleReset">重置</el-button>
-        <el-button size="small" type="primary" :icon="SearchOutlined" class="ele-btn-icon" @click="handleSearch"> 搜索 </el-button>
+        <el-button
+          size="small"
+          type="primary"
+          :icon="SearchOutlined"
+          class="ele-btn-icon"
+          @click="handleSearch"
+        >
+          搜索
+        </el-button>
       </div>
     </ele-popover>
   </div>

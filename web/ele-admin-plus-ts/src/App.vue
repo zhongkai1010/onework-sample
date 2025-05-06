@@ -1,6 +1,11 @@
 <template>
   <el-config-provider :locale="elLocale">
-    <ele-config-provider :locale="eleLocale" :table="tableConfig" :map-key="MAP_KEY" :license="LICENSE_CODE">
+    <ele-config-provider
+      :locale="eleLocale"
+      :table="tableConfig"
+      :map-key="MAP_KEY"
+      :license="LICENSE_CODE"
+    >
       <ele-app>
         <router-view />
       </ele-app>

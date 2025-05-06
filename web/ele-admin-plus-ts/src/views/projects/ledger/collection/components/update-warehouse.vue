@@ -1,6 +1,12 @@
 <!-- 位置变更弹框表单 -->
 <template>
-  <ele-modal v-model="modelValue" title="位置变更" width="500px" :destroy-on-close="true" @close="onClose">
+  <ele-modal
+    v-model="modelValue"
+    title="位置变更"
+    width="500px"
+    :destroy-on-close="true"
+    @close="onClose"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent>
       <el-form-item label="位置" prop="warehouseId">
         <warehouse-select v-model="form.warehouseId" placeholder="请选择位置" style="width: 100%" />

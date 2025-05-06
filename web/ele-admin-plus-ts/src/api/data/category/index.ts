@@ -1,6 +1,11 @@
 import request from '@/utils/request'
 import type { ApiResult } from '@/api'
-import type { Category, CategoryEditParams, DeleteCategoryParams, CategoryQueryParams } from './model'
+import type {
+  Category,
+  CategoryEditParams,
+  DeleteCategoryParams,
+  CategoryQueryParams
+} from './model'
 
 /**
  * 新增藏品分类

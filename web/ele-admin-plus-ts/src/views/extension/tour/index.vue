@@ -35,7 +35,10 @@
         <template #text="{ step, current }">
           <template v-if="current === 0">
             <div style="margin-bottom: 10px">
-              <img src="https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*P0S-QIRUbsUAAAAAAAAAAABkARQnAQ" style="height: 184px; width: 100%; object-fit: cover" />
+              <img
+                src="https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*P0S-QIRUbsUAAAAAAAAAAABkARQnAQ"
+                style="height: 184px; width: 100%; object-fit: cover"
+              />
             </div>
             <div>{{ step.description }}</div>
           </template>
@@ -131,7 +134,8 @@
   const steps3 = ref<TourStep[]>([
     {
       title: '欢迎使用 EleAdminPlus 系统',
-      description: '下面将为您介绍一些常用功能的操作说明, 如果之前已经为您介绍过, 您可以直接点击跳过结束指引.'
+      description:
+        '下面将为您介绍一些常用功能的操作说明, 如果之前已经为您介绍过, 您可以直接点击跳过结束指引.'
     },
     {
       target: () => uploadRef3.value?.$el,

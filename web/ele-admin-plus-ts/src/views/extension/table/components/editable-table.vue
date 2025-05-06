@@ -2,10 +2,18 @@
   <div>
     <el-form ref="formRef" :model="form" label-width="0px" @submit.prevent="">
       <div style="padding: 6px 0 12px 0">
-        <el-button :icon="PlusOutlined" type="primary" class="ele-btn-icon" @click="add"> 新增一行 </el-button>
+        <el-button :icon="PlusOutlined" type="primary" class="ele-btn-icon" @click="add">
+          新增一行
+        </el-button>
         <el-button type="primary" @click="submit">提交</el-button>
       </div>
-      <ele-data-table row-key="key" :columns="columns" :data="form.users" cell-class-name="editable-table-cell" class="editable-table">
+      <ele-data-table
+        row-key="key"
+        :columns="columns"
+        :data="form.users"
+        cell-class-name="editable-table-cell"
+        class="editable-table"
+      >
         <template #name="{ row, $index }">
           <el-form-item
             :prop="'users.' + $index + '.name'"
@@ -50,7 +58,13 @@
             class="form-error-popper"
             style="margin-bottom: 0"
           >
-            <el-select v-if="row.isEdit" clearable v-model="row.department" placeholder="请选择部门" class="ele-fluid">
+            <el-select
+              v-if="row.isEdit"
+              clearable
+              v-model="row.department"
+              placeholder="请选择部门"
+              class="ele-fluid"
+            >
               <el-option value="研发部" label="研发部" />
               <el-option value="测试部" label="测试部" />
               <el-option value="产品部" label="产品部" />
@@ -60,7 +74,9 @@
         </template>
         <template #action="{ row, $index }">
           <div style="display: inline; align-items: center">
-            <el-link v-if="row.isEdit" type="success" :underline="false" @click="done(row)"> 完成 </el-link>
+            <el-link v-if="row.isEdit" type="success" :underline="false" @click="done(row)">
+              完成
+            </el-link>
             <el-link v-else type="primary" :underline="false" @click="edit(row)"> 编辑 </el-link>
             <el-divider direction="vertical" style="margin: 0 8px" />
             <el-link type="danger" :underline="false" @click="remove(row, $index)"> 删除 </el-link>

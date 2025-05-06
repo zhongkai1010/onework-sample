@@ -9,11 +9,18 @@
       </el-descriptions-item>
       <el-descriptions-item label="搜索条件">注销藏品 批准部门 注销原因 状态</el-descriptions-item>
       <el-descriptions-item label="操作栏">上传图片 审核 恢复 单据打印</el-descriptions-item>
-      <el-descriptions-item label="表格字段">编号 单据图片 注销单号 注销时间 批准部门 注销原因 状态 操作</el-descriptions-item>
+      <el-descriptions-item label="表格字段"
+        >编号 单据图片 注销单号 注销时间 批准部门 注销原因 状态 操作</el-descriptions-item
+      >
       <el-descriptions-item label="表格操作">上传图片 删除</el-descriptions-item>
     </el-descriptions>
   </el-drawer>
-  <ele-image-viewer v-model="showImageViewer" :urlList="viewerImages" :initialIndex="viewerIndex" :infinite="false" />
+  <ele-image-viewer
+    v-model="showImageViewer"
+    :urlList="viewerImages"
+    :initialIndex="viewerIndex"
+    :infinite="false"
+  />
 </template>
 
 <script setup lang="ts">

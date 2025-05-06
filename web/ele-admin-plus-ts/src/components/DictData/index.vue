@@ -6,18 +6,48 @@
     </span>
   </template>
   <template v-else-if="type === 'tag'">
-    <el-tag v-for="item in valueData" :key="item.dictDataCode" :disable-transitions="true" size="small">
+    <el-tag
+      v-for="item in valueData"
+      :key="item.dictDataCode"
+      :disable-transitions="true"
+      size="small"
+    >
       {{ item.dictDataName }}
     </el-tag>
   </template>
   <el-radio-group v-else-if="type === 'radio'" :disabled="disabled" v-model="model as SingleValue">
-    <el-radio v-for="item in data" :key="item.dictDataCode" :value="item.dictDataCode" :label="item.dictDataName" />
+    <el-radio
+      v-for="item in data"
+      :key="item.dictDataCode"
+      :value="item.dictDataCode"
+      :label="item.dictDataName"
+    />
   </el-radio-group>
   <el-checkbox-group v-else-if="type === 'checkbox'" :disabled="disabled" v-model="model as any">
-    <el-checkbox v-for="item in data" :key="item.dictDataCode" :value="item.dictDataCode" :label="item.dictDataName" />
+    <el-checkbox
+      v-for="item in data"
+      :key="item.dictDataCode"
+      :value="item.dictDataCode"
+      :label="item.dictDataName"
+    />
   </el-checkbox-group>
-  <el-select v-else v-model="model" :clearable="clearable" :disabled="disabled" :placeholder="placeholder" :multiple="type === 'multipleSelect'" :teleported="teleported" :filterable="filterable" class="ele-fluid">
-    <el-option v-for="item in data" :key="item.dictDataCode" :value="item.dictDataCode" :label="item.dictDataName" />
+  <el-select
+    v-else
+    v-model="model"
+    :clearable="clearable"
+    :disabled="disabled"
+    :placeholder="placeholder"
+    :multiple="type === 'multipleSelect'"
+    :teleported="teleported"
+    :filterable="filterable"
+    class="ele-fluid"
+  >
+    <el-option
+      v-for="item in data"
+      :key="item.dictDataCode"
+      :value="item.dictDataCode"
+      :label="item.dictDataName"
+    />
   </el-select>
 </template>
 

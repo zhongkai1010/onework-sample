@@ -1,7 +1,15 @@
 <template>
   <ele-card header="进阶用法">
     <div style="max-width: 260px">
-      <ele-icon-select clearable filterable :data="icons" v-model="selectedIcon" :hide-on-single-tab="true" placeholder="请选择" :popper-options="{ strategy: 'fixed' }">
+      <ele-icon-select
+        clearable
+        filterable
+        :data="icons"
+        v-model="selectedIcon"
+        :hide-on-single-tab="true"
+        placeholder="请选择"
+        :popper-options="{ strategy: 'fixed' }"
+      >
         <template #icon="{ icon, prefix }">
           <img
             :src="`/ele-file-list/ic_file_${icon}.png`"
@@ -36,7 +44,23 @@
       children: [
         {
           title: '文档',
-          icons: ['folder', 'word', 'excel', 'ppt', 'pdf', 'visio', 'text', 'code', 'htm', 'fonts', 'zip', 'ps', 'cad', 'bt', 'misc']
+          icons: [
+            'folder',
+            'word',
+            'excel',
+            'ppt',
+            'pdf',
+            'visio',
+            'text',
+            'code',
+            'htm',
+            'fonts',
+            'zip',
+            'ps',
+            'cad',
+            'bt',
+            'misc'
+          ]
         },
         {
           title: '媒体',

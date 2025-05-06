@@ -18,14 +18,50 @@
         @row-click="onRowClick"
       >
         <template #toolbar>
-          <el-button type="danger" class="ele-btn-icon" @click="onReturn" :disabled="!selectedRows.length">退回编目</el-button>
-          <el-button type="warning" class="ele-btn-icon" @click="onChangeWarehouse" :disabled="!selectedRows.length">位置变更</el-button>
-          <el-button type="warning" class="ele-btn-icon" @click="onUpdateGroup" :disabled="!selectedRows.length">编入藏品组</el-button>
-          <el-button type="primary" class="ele-btn-icon" @click="onBindRfid" :disabled="!selectedRows.length">绑定RFID</el-button>
-          <el-button type="primary" class="ele-btn-icon" @click="onBatchImage" :disabled="!selectedRows.length">批量导入图片</el-button>
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            @click="onReturn"
+            :disabled="!selectedRows.length"
+            >退回编目</el-button
+          >
+          <el-button
+            type="warning"
+            class="ele-btn-icon"
+            @click="onChangeWarehouse"
+            :disabled="!selectedRows.length"
+            >位置变更</el-button
+          >
+          <el-button
+            type="warning"
+            class="ele-btn-icon"
+            @click="onUpdateGroup"
+            :disabled="!selectedRows.length"
+            >编入藏品组</el-button
+          >
+          <el-button
+            type="primary"
+            class="ele-btn-icon"
+            @click="onBindRfid"
+            :disabled="!selectedRows.length"
+            >绑定RFID</el-button
+          >
+          <el-button
+            type="primary"
+            class="ele-btn-icon"
+            @click="onBatchImage"
+            :disabled="!selectedRows.length"
+            >批量导入图片</el-button
+          >
           <el-button type="success" class="ele-btn-icon" @click="onImport">导入数据</el-button>
           <el-button type="success" class="ele-btn-icon" @click="onExport">导出数据</el-button>
-          <el-button type="info" class="ele-btn-icon" @click="onPrint" :disabled="selectedRows.length !== 1">标签打印</el-button>
+          <el-button
+            type="info"
+            class="ele-btn-icon"
+            @click="onPrint"
+            :disabled="selectedRows.length !== 1"
+            >标签打印</el-button
+          >
         </template>
         <!-- 状态列 -->
         <template #collectionStatus="{ row }">
@@ -58,9 +94,19 @@
     <!-- 调拨记录弹窗 -->
     <transfer-table v-model="showTransfer" :row="currentRow" @close="showTransfer = false" />
     <!-- 编入藏品组弹窗 -->
-    <update-group v-model="showUpdateGroup" :rows="selectedRows" @close="showUpdateGroup = false" @done="reload" />
+    <update-group
+      v-model="showUpdateGroup"
+      :rows="selectedRows"
+      @close="showUpdateGroup = false"
+      @done="reload"
+    />
     <!-- 位置变更弹窗 -->
-    <update-warehouse v-model="showUpdateWarehouse" :rows="selectedRows" @close="showUpdateWarehouse = false" @done="reload" />
+    <update-warehouse
+      v-model="showUpdateWarehouse"
+      :rows="selectedRows"
+      @close="showUpdateWarehouse = false"
+      @done="reload"
+    />
     <!-- 批量导入图片弹窗 -->
     <batch-image v-model="showBatchImage" :rows="selectedRows" @close="showBatchImage = false" />
   </ele-page>
@@ -82,7 +128,11 @@
   import type { CollectionLedger } from '@/api/collection/ledger/model'
   import { ElMessage } from 'element-plus'
   import { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, ExportConfig, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    ExportConfig,
+    Columns
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import { getExportWorkbook } from '@/config/use-global-config'
   import { download } from '@/utils/common'
   import request from '@/utils/request'

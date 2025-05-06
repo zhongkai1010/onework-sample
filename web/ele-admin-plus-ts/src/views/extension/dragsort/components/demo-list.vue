@@ -2,7 +2,13 @@
   <el-row :gutter="16">
     <el-col :md="8" :sm="24" :xs="24">
       <ele-card header="列表拖拽排序">
-        <vue-draggable v-model="list" item-key="id" :animation="300" :set-data="() => void 0" class="demo-list">
+        <vue-draggable
+          v-model="list"
+          item-key="id"
+          :animation="300"
+          :set-data="() => void 0"
+          class="demo-list"
+        >
           <template #item="{ element }">
             <div class="demo-list-item">{{ element.name }}</div>
           </template>
@@ -12,12 +18,27 @@
     <el-col :md="16" :sm="24" :xs="24">
       <ele-card header="列表相互拖拽">
         <div style="display: flex; align-items: flex-start">
-          <vue-draggable v-model="list1" item-key="id" :animation="300" group="demoDragList" :set-data="() => void 0" class="demo-list">
+          <vue-draggable
+            v-model="list1"
+            item-key="id"
+            :animation="300"
+            group="demoDragList"
+            :set-data="() => void 0"
+            class="demo-list"
+          >
             <template #item="{ element }">
               <div class="demo-list-item">{{ element.name }}</div>
             </template>
           </vue-draggable>
-          <vue-draggable v-model="list2" item-key="id" :animation="300" group="demoDragList" :set-data="() => void 0" class="demo-list" style="margin-left: 12px">
+          <vue-draggable
+            v-model="list2"
+            item-key="id"
+            :animation="300"
+            group="demoDragList"
+            :set-data="() => void 0"
+            class="demo-list"
+            style="margin-left: 12px"
+          >
             <template #item="{ element }">
               <div class="demo-list-item">{{ element.name }}</div>
             </template>

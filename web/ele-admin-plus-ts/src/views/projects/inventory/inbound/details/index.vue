@@ -5,7 +5,18 @@
       <search-form ref="searchRef" @search="reload" />
 
       <!-- 数据表格 -->
-      <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :highlight-current-row="true" :style="{ paddingBottom: '16px' }" cache-key="inboundDetailsTable" :tools="['reload', 'size', 'columns', 'maximized']" :stripe="true">
+      <ele-pro-table
+        ref="tableRef"
+        row-key="id"
+        :columns="columns"
+        :datasource="datasource"
+        :show-overflow-tooltip="true"
+        :highlight-current-row="true"
+        :style="{ paddingBottom: '16px' }"
+        cache-key="inboundDetailsTable"
+        :tools="['reload', 'size', 'columns', 'maximized']"
+        :stripe="true"
+      >
         <!-- 单据状态列 -->
         <template #status="{ row }">
           <el-tag :type="getStatusType(row.status)">

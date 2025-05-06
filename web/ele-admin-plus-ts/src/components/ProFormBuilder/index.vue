@@ -15,10 +15,19 @@
     @previewFormSubmit="handlePreviewFormSubmit"
   >
     <template v-if="!$slots.headerTools" #headerTools>
-      <ElButton :text="true" type="primary" :icon="CodeOutlined" @click="handlePreviewCode"> 生成代码 </ElButton>
-      <CodePreview v-model="showCodePreview" :config="modelValue" :componentData="defaultComponentData" />
+      <ElButton :text="true" type="primary" :icon="CodeOutlined" @click="handlePreviewCode">
+        生成代码
+      </ElButton>
+      <CodePreview
+        v-model="showCodePreview"
+        :config="modelValue"
+        :componentData="defaultComponentData"
+      />
     </template>
-    <template v-if="!$slots.proFormBuilderIconInput" #proFormBuilderIconInput="{ modelValue, updateValue }">
+    <template
+      v-if="!$slots.proFormBuilderIconInput"
+      #proFormBuilderIconInput="{ modelValue, updateValue }"
+    >
       <IconEditer :modelValue="modelValue" @update:modelValue="updateValue" />
     </template>
     <template v-for="name in Object.keys($slots)" #[name]="slotProps">
@@ -31,7 +40,10 @@
   import { ref } from 'vue'
   import type { TemplateFormConfig } from 'ele-admin-plus/es/ele-pro-form-builder/types'
   import { proFormBuilderProps } from 'ele-admin-plus/es/ele-pro-form-builder/props'
-  import { defaultConfigFormItems, defaultConfigFormPresetProps as formPresetProps } from 'ele-admin-plus/es/ele-pro-form-builder/util'
+  import {
+    defaultConfigFormItems,
+    defaultConfigFormPresetProps as formPresetProps
+  } from 'ele-admin-plus/es/ele-pro-form-builder/util'
   import { CodeOutlined } from '@/components/icons'
   import ProForm from '@/components/ProForm/index.vue'
   import { defaultComponentData } from './components/component-data'

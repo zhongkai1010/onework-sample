@@ -1,6 +1,15 @@
 <!-- 图标选择器 -->
 <template>
-  <EleIconSelect v-bind="$props" :data="iconData" @update:modelValue="emitMethods['update:modelValue']" @change="emitMethods['change']" @visibleChange="emitMethods['visibleChange']" @clear="emitMethods['clear']" @focus="emitMethods['focus']" @blur="emitMethods['blur']">
+  <EleIconSelect
+    v-bind="$props"
+    :data="iconData"
+    @update:modelValue="emitMethods['update:modelValue']"
+    @change="emitMethods['change']"
+    @visibleChange="emitMethods['visibleChange']"
+    @clear="emitMethods['clear']"
+    @focus="emitMethods['focus']"
+    @blur="emitMethods['blur']"
+  >
     <template #icon="{ icon }">
       <ElIcon>
         <component :is="icon" />

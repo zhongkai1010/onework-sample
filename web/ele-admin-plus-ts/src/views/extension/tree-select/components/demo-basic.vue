@@ -2,7 +2,16 @@
   <ele-card header="基础用法">
     <div>基于 ElTreeV2 虚拟滚动树组件封装, 大量数据也毫无压力</div>
     <div style="max-width: 240px; margin-top: 12px">
-      <ele-tree-select ref="treeSelectRef" clearable placeholder="请选择" v-model="selectedValue" :popper-width="240" :tree-props="treeProps" :disabled="disabled" :popper-options="{ strategy: 'fixed' }" />
+      <ele-tree-select
+        ref="treeSelectRef"
+        clearable
+        placeholder="请选择"
+        v-model="selectedValue"
+        :popper-width="240"
+        :tree-props="treeProps"
+        :disabled="disabled"
+        :popper-options="{ strategy: 'fixed' }"
+      />
     </div>
     <option-item label="整体禁用" :responsive="false" style="margin-top: 16px">
       <el-radio-group v-model="disabled">

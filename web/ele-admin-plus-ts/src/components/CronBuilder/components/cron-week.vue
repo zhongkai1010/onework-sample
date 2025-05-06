@@ -7,11 +7,25 @@
           <div>范围，</div>
           <div>从星期&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber v-model="start" :min="minValue" :max="maxValue - 1" placeholder="" controlsPosition="right" class="ele-fluid" />
+            <ElInputNumber
+              v-model="start"
+              :min="minValue"
+              :max="maxValue - 1"
+              placeholder=""
+              controlsPosition="right"
+              class="ele-fluid"
+            />
           </div>
           <div>&emsp;到星期&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber v-model="end" :min="endMin" :max="maxValue" placeholder="" controlsPosition="right" class="ele-fluid" />
+            <ElInputNumber
+              v-model="end"
+              :min="endMin"
+              :max="maxValue"
+              placeholder=""
+              controlsPosition="right"
+              class="ele-fluid"
+            />
           </div>
         </div>
       </ElRadio>
@@ -20,11 +34,25 @@
           <div>间隔，</div>
           <div>第&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber v-model="intervalStart" :min="minValue" :max="4" placeholder="" controlsPosition="right" class="ele-fluid" />
+            <ElInputNumber
+              v-model="intervalStart"
+              :min="minValue"
+              :max="4"
+              placeholder=""
+              controlsPosition="right"
+              class="ele-fluid"
+            />
           </div>
           <div>&emsp;周的每星期&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber v-model="intervalStep" :min="minValue" :max="maxValue" placeholder="" controlsPosition="right" class="ele-fluid" />
+            <ElInputNumber
+              v-model="intervalStep"
+              :min="minValue"
+              :max="maxValue"
+              placeholder=""
+              controlsPosition="right"
+              class="ele-fluid"
+            />
           </div>
           <div>&emsp;执行一次</div>
         </div>
@@ -41,7 +69,12 @@
         <div class="cron-panel-options">
           <ElCheckboxGroup v-model="selections">
             <template v-for="item in maxValue + 1" :key="item">
-              <ElCheckbox v-if="item - 1 >= minValue" :value="item - 1" :label="weekNames[item - 1 - 1]" :style="{ width: '98px' }" />
+              <ElCheckbox
+                v-if="item - 1 >= minValue"
+                :value="item - 1"
+                :label="weekNames[item - 1 - 1]"
+                :style="{ width: '98px' }"
+              />
             </template>
           </ElCheckboxGroup>
         </div>
@@ -50,7 +83,14 @@
         <div :style="{ display: 'flex', alignItems: 'center' }">
           <div>每月最后一个星期&emsp;</div>
           <div :style="{ width: '98px' }">
-            <ElInputNumber v-model="lastWeek" :min="minValue" :max="maxValue" placeholder="" controlsPosition="right" class="ele-fluid" />
+            <ElInputNumber
+              v-model="lastWeek"
+              :min="minValue"
+              :max="maxValue"
+              placeholder=""
+              controlsPosition="right"
+              class="ele-fluid"
+            />
           </div>
         </div>
       </ElRadio>
@@ -64,12 +104,30 @@
   import { useCron } from './util'
   const minValue = 1
   const maxValue = 7
-  const weekNames = ['1 星期日', '2 星期一', '3 星期二', '4 星期三', '5 星期四', '6 星期五', '7 星期六']
+  const weekNames = [
+    '1 星期日',
+    '2 星期一',
+    '3 星期二',
+    '4 星期三',
+    '5 星期四',
+    '6 星期五',
+    '7 星期六'
+  ]
 
   /** week */
   const model = defineModel<string>({ type: String })
 
-  const { type, start, end, endMin, intervalStart, intervalStep, selections, getValue, parseValue } = useCron(minValue, maxValue, 'unset')
+  const {
+    type,
+    start,
+    end,
+    endMin,
+    intervalStart,
+    intervalStep,
+    selections,
+    getValue,
+    parseValue
+  } = useCron(minValue, maxValue, 'unset')
 
   /** 最后一个星期几 */
   const lastWeek = ref(1)

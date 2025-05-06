@@ -22,16 +22,46 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd">入库登记</el-button>
-          <el-button type="success" class="ele-btn-icon" :icon="UploadOutlined" @click="handleUpload">上传图片</el-button>
-          <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="handleDelete" :disabled="!selections.length">删除</el-button>
-          <el-button type="info" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport">导出</el-button>
-          <el-button type="warning" class="ele-btn-icon" :icon="PrinterOutlined" @click="handlePrint" :disabled="selections.length !== 1">单据打印</el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd"
+            >入库登记</el-button
+          >
+          <el-button
+            type="success"
+            class="ele-btn-icon"
+            :icon="UploadOutlined"
+            @click="handleUpload"
+            >上传图片</el-button
+          >
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            @click="handleDelete"
+            :disabled="!selections.length"
+            >删除</el-button
+          >
+          <el-button type="info" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport"
+            >导出</el-button
+          >
+          <el-button
+            type="warning"
+            class="ele-btn-icon"
+            :icon="PrinterOutlined"
+            @click="handlePrint"
+            :disabled="selections.length !== 1"
+            >单据打印</el-button
+          >
         </template>
 
         <!-- 单据图片列 -->
         <template #documentImage="{ row }">
-          <el-image v-if="row.documentImage" :src="row.documentImage" :preview-src-list="[row.documentImage]" fit="cover" style="width: 40px; height: 40px; border-radius: 4px" />
+          <el-image
+            v-if="row.documentImage"
+            :src="row.documentImage"
+            :preview-src-list="[row.documentImage]"
+            fit="cover"
+            style="width: 40px; height: 40px; border-radius: 4px"
+          />
           <span v-else>-</span>
         </template>
 
@@ -52,9 +82,15 @@
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
-            <el-button type="success" size="small" @click="handleUploadImage(row)">上传图片</el-button>
-            <el-button type="primary" size="small" @click="handleViewDetails(row)">查看详情</el-button>
-            <el-button v-if="row.status === 0" type="warning" size="small" @click="handleAudit(row)">审核</el-button>
+            <el-button type="success" size="small" @click="handleUploadImage(row)"
+              >上传图片</el-button
+            >
+            <el-button type="primary" size="small" @click="handleViewDetails(row)"
+              >查看详情</el-button
+            >
+            <el-button v-if="row.status === 0" type="warning" size="small" @click="handleAudit(row)"
+              >审核</el-button
+            >
           </el-space>
         </template>
       </ele-pro-table>
@@ -76,8 +112,18 @@
   import { ElMessageBox } from 'element-plus/es'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, Columns, ExportConfig } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { PlusOutlined, UploadOutlined, DeleteOutlined, DownloadOutlined, PrinterOutlined } from '@/components/icons'
+  import type {
+    DatasourceFunction,
+    Columns,
+    ExportConfig
+  } from 'ele-admin-plus/es/ele-pro-table/types'
+  import {
+    PlusOutlined,
+    UploadOutlined,
+    DeleteOutlined,
+    DownloadOutlined,
+    PrinterOutlined
+  } from '@/components/icons'
   import type { InboundOrder } from '@/api/inventory/inbound/model'
   import { getInboundList, deleteInboundList } from '@/api/inventory/inbound'
   import { getExportWorkbook } from '@/config/use-global-config'

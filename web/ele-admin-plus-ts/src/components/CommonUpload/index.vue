@@ -39,7 +39,15 @@
   import { EleMessage } from 'ele-admin-plus/es'
   import type { ElProgressProps, ElImageProps } from 'ele-admin-plus/es/ele-app/el'
   import type { EleImageViewerProps } from 'ele-admin-plus/es/ele-app/plus'
-  import type { UploadItem, EditUploadResult, ListType, BeforeUploadClick, BeforeItemEdit, BeforePreview, UploadLocale } from 'ele-admin-plus/es/ele-upload-list/types'
+  import type {
+    UploadItem,
+    EditUploadResult,
+    ListType,
+    BeforeUploadClick,
+    BeforeItemEdit,
+    BeforePreview,
+    UploadLocale
+  } from 'ele-admin-plus/es/ele-upload-list/types'
   import { uploadFile } from '@/api/system/file'
 
   defineOptions({ name: 'CommonUpload' })
@@ -119,7 +127,12 @@
         return
       }
     } else if (props.accept === '.xls,.xlsx') {
-      if (!['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(file.type)) {
+      if (
+        ![
+          'application/vnd.ms-excel',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        ].includes(file.type)
+      ) {
         EleMessage.error('只能选择 excel 文件')
         return
       }

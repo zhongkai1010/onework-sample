@@ -1,6 +1,11 @@
 import request from '@/utils/request'
 import type { ApiResult, PageResult } from '@/api'
-import type { Accident, AddAccidentParams, AccidentQueryParams, HandleAccidentParams } from './model'
+import type {
+  Accident,
+  AddAccidentParams,
+  AccidentQueryParams,
+  HandleAccidentParams
+} from './model'
 
 /**
  * 添加事故记录
@@ -19,7 +24,9 @@ export async function addAccident(data: AddAccidentParams) {
  * @param params 查询参数
  */
 export async function getAccidentList(params: AccidentQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Accident>>>('/api/collection/accident', { params })
+  const res = await request.get<ApiResult<PageResult<Accident>>>('/api/collection/accident', {
+    params
+  })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -31,7 +38,9 @@ export async function getAccidentList(params: AccidentQueryParams) {
  * @param id 事故记录ID
  */
 export async function getAccidentDetails(id: number) {
-  const res = await request.get<ApiResult<Accident>>('/api/collection/accident/details', { params: { id } })
+  const res = await request.get<ApiResult<Accident>>('/api/collection/accident/details', {
+    params: { id }
+  })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

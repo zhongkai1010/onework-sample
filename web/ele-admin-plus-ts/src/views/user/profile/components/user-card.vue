@@ -68,7 +68,13 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue'
-  import { CloudUploadOutlined, UserOutlined, CityOutlined, EnvironmentOutlined, TagOutlined } from '@/components/icons'
+  import {
+    CloudUploadOutlined,
+    UserOutlined,
+    CityOutlined,
+    EnvironmentOutlined,
+    TagOutlined
+  } from '@/components/icons'
   //import { EleMessage } from 'ele-admin-plus/es';
   //import { updateUserInfo } from '@/api/layout';
   import type { User } from '@/api/system/user/model'

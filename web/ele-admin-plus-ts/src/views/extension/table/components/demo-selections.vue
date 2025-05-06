@@ -27,12 +27,24 @@
     >
       <template #toolbar>
         <el-space :size="12" wrap>
-          <el-button type="primary" class="ele-btn-icon" @click="getSelections"> 获取多选 </el-button>
-          <el-button type="warning" class="ele-btn-icon" @click="setSelections"> 修改多选 </el-button>
-          <el-button type="danger" class="ele-btn-icon" @click="clearSelections"> 清空多选 </el-button>
-          <el-button plain type="primary" class="ele-btn-icon" @click="getCurrent"> 获取单选 </el-button>
-          <el-button plain type="warning" class="ele-btn-icon" @click="setCurrent"> 修改单选 </el-button>
-          <el-button plain type="danger" class="ele-btn-icon" @click="removeCurrent"> 清空单选 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="getSelections">
+            获取多选
+          </el-button>
+          <el-button type="warning" class="ele-btn-icon" @click="setSelections">
+            修改多选
+          </el-button>
+          <el-button type="danger" class="ele-btn-icon" @click="clearSelections">
+            清空多选
+          </el-button>
+          <el-button plain type="primary" class="ele-btn-icon" @click="getCurrent">
+            获取单选
+          </el-button>
+          <el-button plain type="warning" class="ele-btn-icon" @click="setCurrent">
+            修改单选
+          </el-button>
+          <el-button plain type="danger" class="ele-btn-icon" @click="removeCurrent">
+            清空单选
+          </el-button>
         </el-space>
       </template>
     </ele-pro-table>

@@ -43,7 +43,13 @@
       </ele-watermark>
     </ele-card>
     <ele-card header="图片水印" style="z-index: 1; position: relative">
-      <ele-watermark :height="30" :width="130" image="https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*lkAoRbywo0oAAAAAAAAAAAAADrJ8AQ/original" :gap="[60, 40]" :custom-style="darkMode ? { filter: 'invert(1) !important' } : void 0">
+      <ele-watermark
+        :height="30"
+        :width="130"
+        image="https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*lkAoRbywo0oAAAAAAAAAAAAADrJ8AQ/original"
+        :gap="[60, 40]"
+        :custom-style="darkMode ? { filter: 'invert(1) !important' } : void 0"
+      >
         <div style="height: 200px">
           <div>
             <el-button>我是内容</el-button>
@@ -64,9 +70,21 @@
       </ele-watermark>
     </ele-card>
     <ele-card header="结合其它组件" style="z-index: 1; position: relative">
-      <ele-alert show-icon :closable="false" title="水印组件还实现了防止删除和篡改样式的功能, 当检测到节点被删除或默认的样式被修改都会再重新生成水印" style="margin-bottom: 12px" />
+      <ele-alert
+        show-icon
+        :closable="false"
+        title="水印组件还实现了防止删除和篡改样式的功能, 当检测到节点被删除或默认的样式被修改都会再重新生成水印"
+        style="margin-bottom: 12px"
+      />
       <ele-watermark content="Ele Admin Plus" :gap="[60, 40]">
-        <ele-pro-table row-key="id" :columns="columns" :datasource="datasource" :pagination="false" :toolbar="false" :cell-style="tableCellStyle">
+        <ele-pro-table
+          row-key="id"
+          :columns="columns"
+          :datasource="datasource"
+          :pagination="false"
+          :toolbar="false"
+          :cell-style="tableCellStyle"
+        >
           <template #money="{ row }">
             <el-input v-model="row.money" style="margin: 4px 0" />
           </template>

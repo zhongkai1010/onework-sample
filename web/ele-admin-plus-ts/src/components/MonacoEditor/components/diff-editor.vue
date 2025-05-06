@@ -63,7 +63,10 @@
       })
     }
     if (originalModel == null) {
-      originalModel = monaco.editor.createModel(props.original || '', props.originalLanguage || props.language)
+      originalModel = monaco.editor.createModel(
+        props.original || '',
+        props.originalLanguage || props.language
+      )
       originalModel.onDidChangeContent(() => {
         updateOriginal(originalModel?.getValue?.())
       })
@@ -100,24 +103,37 @@
   }
 
   /** 更新代码语言和编辑器内容 */
-  watch([() => props.modelValue, () => props.language, () => props.original, () => props.originalLanguage], () => {
-    if (modifiedModel == null || originalModel == null || modifiedModel.getLanguageId() !== props.language || originalModel.getLanguageId() !== props.originalLanguage) {
-      destoryModel()
-      destory()
-      nextTick(() => {
-        render()
-      })
-      return
+  watch(
+    [
+      () => props.modelValue,
+      () => props.language,
+      () => props.original,
+      () => props.originalLanguage
+    ],
+    () => {
+      if (
+        modifiedModel == null ||
+        originalModel == null ||
+        modifiedModel.getLanguageId() !== props.language ||
+        originalModel.getLanguageId() !== props.originalLanguage
+      ) {
+        destoryModel()
+        destory()
+        nextTick(() => {
+          render()
+        })
+        return
+      }
+      const content = props.modelValue || ''
+      if (content !== modifiedModel.getValue()) {
+        modifiedModel.setValue(content)
+      }
+      const originalContent = props.original || ''
+      if (originalContent !== originalModel.getValue()) {
+        originalModel.setValue(originalContent)
+      }
     }
-    const content = props.modelValue || ''
-    if (content !== modifiedModel.getValue()) {
-      modifiedModel.setValue(content)
-    }
-    const originalContent = props.original || ''
-    if (originalContent !== originalModel.getValue()) {
-      originalModel.setValue(originalContent)
-    }
-  })
+  )
 
   /** 更新主题和配置 */
   watch(

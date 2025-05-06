@@ -14,8 +14,12 @@
     cache-key="listUserTable"
   >
     <template #toolbar>
-      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()"> 新建 </el-button>
-      <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove()"> 删除 </el-button>
+      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()">
+        新建
+      </el-button>
+      <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove()">
+        删除
+      </el-button>
     </template>
     <template #roles="{ row }">
       <el-tag v-for="item in row.roles" :key="item.roleId" size="small" :disable-transitions="true">
@@ -23,12 +27,20 @@
       </el-tag>
     </template>
     <template #status="{ row }">
-      <el-switch size="small" :model-value="row.status === 0" @change="(checked: boolean) => editStatus(checked, row)" />
+      <el-switch
+        size="small"
+        :model-value="row.status === 0"
+        @change="(checked: boolean) => editStatus(checked, row)"
+      />
     </template>
     <template #action="{ row }">
       <el-link type="primary" :underline="false" @click="openEdit(row)"> 修改 </el-link>
       <el-divider direction="vertical" />
-      <el-link type="primary" :underline="false" @mouseenter="(e: MouseEvent) => openMoreDropdown(e.currentTarget, row)">
+      <el-link
+        type="primary"
+        :underline="false"
+        @mouseenter="(e: MouseEvent) => openMoreDropdown(e.currentTarget, row)"
+      >
         <span>更多</span>
         <el-icon :size="12" style="vertical-align: -1px; margin-left: 2px">
           <ArrowDown />
@@ -36,8 +48,25 @@
       </el-link>
     </template>
   </ele-pro-table>
-  <user-edit :data="current" v-model="showEdit" :organization-id="organizationId" :organization-data="organizationData" @done="reload" />
-  <ele-dropdown ref="moreDropdownRef" trigger="hover" :triggerKeys="[]" :persistent="false" componentType="pro" :virtualTriggering="true" :virtualRef="moreDropdownVirtualRef" :disabled="!moreDropdownItems.length" :items="moreDropdownItems" @command="handleItemCommand" />
+  <user-edit
+    :data="current"
+    v-model="showEdit"
+    :organization-id="organizationId"
+    :organization-data="organizationData"
+    @done="reload"
+  />
+  <ele-dropdown
+    ref="moreDropdownRef"
+    trigger="hover"
+    :triggerKeys="[]"
+    :persistent="false"
+    componentType="pro"
+    :virtualTriggering="true"
+    :virtualRef="moreDropdownVirtualRef"
+    :disabled="!moreDropdownItems.length"
+    :items="moreDropdownItems"
+    @command="handleItemCommand"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -52,7 +81,13 @@
   import UserSearch from './user-search.vue'
   import UserEdit from './user-edit.vue'
   import type { Organization } from '@/api/system/organization/model'
-  import { pageUsers, removeUsers, updateUserStatus, updateUserPassword, listUsers } from '@/api/system/user'
+  import {
+    pageUsers,
+    removeUsers,
+    updateUserStatus,
+    updateUserPassword,
+    listUsers
+  } from '@/api/system/user'
   import type { User, UserParam } from '@/api/system/user/model'
 
   const props = defineProps<{
@@ -175,7 +210,11 @@
       EleMessage.error('请至少选择一条数据')
       return
     }
-    ElMessageBox.confirm('确定要删除“' + rows.map((d) => d.nickname).join(', ') + '”吗?', '系统提示', { type: 'warning', draggable: true })
+    ElMessageBox.confirm(
+      '确定要删除“' + rows.map((d) => d.nickname).join(', ') + '”吗?',
+      '系统提示',
+      { type: 'warning', draggable: true }
+    )
       .then(() => {
         const loading = EleMessage.loading({
           message: '请求中..',
@@ -248,7 +287,11 @@
 
   /** 打开下拉菜单 */
   const openMoreDropdown = (triggerEl: any, item: User) => {
-    if (triggerEl == null || moreDropdownVirtualRef.value === triggerEl || (moreDropdownCurrentData != null && moreDropdownCurrentData === item)) {
+    if (
+      triggerEl == null ||
+      moreDropdownVirtualRef.value === triggerEl ||
+      (moreDropdownCurrentData != null && moreDropdownCurrentData === item)
+    ) {
       return
     }
     moreDropdownRef.value && moreDropdownRef.value.handleClose()

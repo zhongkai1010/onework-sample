@@ -1,7 +1,25 @@
 <!-- 代码编辑器 -->
 <template>
-  <DiffEditor v-if="diff" ref="editorRef" v-model="model" :language="language" :theme="theme" v-model:original="original" :originalLanguage="originalLanguage" :config="config" style="height: 600px" />
-  <BaseEditor v-else ref="editorRef" v-model="model" :language="language" :theme="theme" :config="config" style="height: 600px" />
+  <DiffEditor
+    v-if="diff"
+    ref="editorRef"
+    v-model="model"
+    :language="language"
+    :theme="theme"
+    v-model:original="original"
+    :originalLanguage="originalLanguage"
+    :config="config"
+    style="height: 600px"
+  />
+  <BaseEditor
+    v-else
+    ref="editorRef"
+    v-model="model"
+    :language="language"
+    :theme="theme"
+    :config="config"
+    style="height: 600px"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -24,7 +42,9 @@
       /** 原始内容语言 */
       originalLanguage?: string
       /** 配置 */
-      config?: editor.IStandaloneEditorConstructionOptions | editor.IStandaloneDiffEditorConstructionOptions
+      config?:
+        | editor.IStandaloneEditorConstructionOptions
+        | editor.IStandaloneDiffEditorConstructionOptions
     }>(),
     { language: 'typescript' }
   )
@@ -36,10 +56,16 @@
   const original = defineModel('original', { type: String })
 
   /** 组件实例 */
-  const editorRef = ref<InstanceType<typeof BaseEditor> | InstanceType<typeof DiffEditor> | null>(null)
+  const editorRef = ref<InstanceType<typeof BaseEditor> | InstanceType<typeof DiffEditor> | null>(
+    null
+  )
 
   /** 获取编辑器实例 */
-  const getEditorIns = (): editor.IStandaloneCodeEditor | editor.IStandaloneDiffEditor | null | undefined => {
+  const getEditorIns = ():
+    | editor.IStandaloneCodeEditor
+    | editor.IStandaloneDiffEditor
+    | null
+    | undefined => {
     return editorRef.value?.getEditorIns?.()
   }
 

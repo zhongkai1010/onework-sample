@@ -10,15 +10,35 @@
         </template>
         <span v-else> 个</span>
       </div>
-      <ElLink type="danger" :underline="false" class="file-picker-right-clear" @click="clearSelections"> 清空 </ElLink>
+      <ElLink
+        type="danger"
+        :underline="false"
+        class="file-picker-right-clear"
+        @click="clearSelections"
+      >
+        清空
+      </ElLink>
     </div>
-    <EleUploadList :limit="limit" :previewProps="previewProps" v-bind="selectionListProps || {}" ref="uploadListRef" v-model="images" :buttonStyle="false" :sortable="!mobileDevice" @remove="handleRemove" />
+    <EleUploadList
+      :limit="limit"
+      :previewProps="previewProps"
+      v-bind="selectionListProps || {}"
+      ref="uploadListRef"
+      v-model="images"
+      :buttonStyle="false"
+      :sortable="!mobileDevice"
+      @remove="handleRemove"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
   import { ref, reactive, watch } from 'vue'
-  import type { EleUploadListInstance, EleUploadListProps, EleImageViewerProps } from 'ele-admin-plus/es/ele-app/plus'
+  import type {
+    EleUploadListInstance,
+    EleUploadListProps,
+    EleImageViewerProps
+  } from 'ele-admin-plus/es/ele-app/plus'
   import { valueIsChanged } from 'ele-admin-plus/es/ele-basic-select/util'
   import type { FileItem } from 'ele-admin-plus/es/ele-file-list/types'
   import type { UploadItem } from 'ele-admin-plus/es/ele-upload-list/types'
@@ -104,7 +124,9 @@
           })
         }
       })
-      if (valueIsChanged(images.value.map((d) => d.key) as any, temp.map((d) => d.key) as any, true)) {
+      if (
+        valueIsChanged(images.value.map((d) => d.key) as any, temp.map((d) => d.key) as any, true)
+      ) {
         images.value = temp
       }
     },

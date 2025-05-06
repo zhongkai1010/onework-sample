@@ -13,7 +13,9 @@
         </ele-ellipsis>
       </div>
       <div style="flex-shrink: 0">
-        <el-tag v-if="item.status === 0" size="small" type="success" :disable-transitions="true"> 在线 </el-tag>
+        <el-tag v-if="item.status === 0" size="small" type="success" :disable-transitions="true">
+          在线
+        </el-tag>
         <el-tag v-else size="small" type="danger" :disable-transitions="true"> 离线 </el-tag>
       </div>
     </div>

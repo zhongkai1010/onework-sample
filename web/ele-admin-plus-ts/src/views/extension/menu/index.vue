@@ -14,14 +14,27 @@
       </div>
       <div style="display: flex; flex-wrap: wrap">
         <div style="margin: 0 12px 12px 0">
-          <el-button type="primary" class="ele-btn-icon" @click="changeData()"> 一级菜单分组形式 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="changeData()">
+            一级菜单分组形式
+          </el-button>
         </div>
         <div style="margin: 0 12px 12px 0">
-          <el-button type="primary" class="ele-btn-icon" @click="changeColor()"> 更改菜单图标颜色 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="changeColor()">
+            更改菜单图标颜色
+          </el-button>
         </div>
       </div>
       <div style="max-width: 240px">
-        <ele-menus mode="vertical" :items="menuItems" :collapse="collapse" :collapse-transition="true" :default-active="menuActive" :theme="dark ? 'dark' : 'light'" :colorful="colorful" :text-ellipsis-tooltip="true" />
+        <ele-menus
+          mode="vertical"
+          :items="menuItems"
+          :collapse="collapse"
+          :collapse-transition="true"
+          :default-active="menuActive"
+          :theme="dark ? 'dark' : 'light'"
+          :colorful="colorful"
+          :text-ellipsis-tooltip="true"
+        />
       </div>
     </ele-card>
     <ele-card header="水平菜单">
@@ -35,11 +48,20 @@
       </div>
       <div style="display: flex; flex-wrap: wrap">
         <div style="margin: 0 12px 12px 0">
-          <el-button type="primary" class="ele-btn-icon" @click="changeColor('nav')"> 更改菜单图标颜色 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="changeColor('nav')">
+            更改菜单图标颜色
+          </el-button>
         </div>
       </div>
       <div style="max-width: 800px">
-        <ele-menus mode="horizontal" :items="navItems" :default-active="navActive" :theme="navDark ? 'dark' : 'light'" :colorful="navColorful" :text-ellipsis-tooltip="true" />
+        <ele-menus
+          mode="horizontal"
+          :items="navItems"
+          :default-active="navActive"
+          :theme="navDark ? 'dark' : 'light'"
+          :colorful="navColorful"
+          :text-ellipsis-tooltip="true"
+        />
       </div>
     </ele-card>
     <ele-card header="紧凑菜单">
@@ -56,10 +78,14 @@
       </div>
       <div style="display: flex; flex-wrap: wrap">
         <div style="margin: 0 12px 12px 0">
-          <el-button type="primary" class="ele-btn-icon" @click="changeData('box')"> 一级菜单分组形式 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="changeData('box')">
+            一级菜单分组形式
+          </el-button>
         </div>
         <div style="margin: 0 12px 12px 0">
-          <el-button type="primary" class="ele-btn-icon" @click="changeColor('box')"> 更改菜单图标颜色 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="changeColor('box')">
+            更改菜单图标颜色
+          </el-button>
         </div>
       </div>
       <div
@@ -68,7 +94,15 @@
           transition: 'width 0.2s'
         }"
       >
-        <ele-menus mode="compact" :items="boxItems" :collapse="boxCollapse" :default-active="boxActive" :theme="boxDark ? 'dark' : 'light'" :colorful="boxColorful" :text-ellipsis-tooltip="true" />
+        <ele-menus
+          mode="compact"
+          :items="boxItems"
+          :collapse="boxCollapse"
+          :default-active="boxActive"
+          :theme="boxDark ? 'dark' : 'light'"
+          :colorful="boxColorful"
+          :text-ellipsis-tooltip="true"
+        />
       </div>
     </ele-card>
   </ele-page>
@@ -77,7 +111,13 @@
 <script lang="ts" setup>
   import { ref, markRaw } from 'vue'
   import type { MenuItem } from 'ele-admin-plus/es/ele-menus/types'
-  import { SettingOutlined, CalendarOutlined, LogOutlined, LinkOutlined, UserOutlined } from '@/components/icons'
+  import {
+    SettingOutlined,
+    CalendarOutlined,
+    LogOutlined,
+    LinkOutlined,
+    UserOutlined
+  } from '@/components/icons'
   import OptionItem from '@/views/extension/avatar/components/option-item.vue'
 
   defineOptions({ name: 'ExtensionMenu' })

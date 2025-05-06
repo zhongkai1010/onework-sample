@@ -1,16 +1,56 @@
 <template>
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
     <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
-      <ele-split-panel ref="splitRef" flex-table size="256px" allow-collapse :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }" :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }" :style="{ height: '100%', overflow: 'visible' }">
+      <ele-split-panel
+        ref="splitRef"
+        flex-table
+        size="256px"
+        allow-collapse
+        :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }"
+        :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }"
+        :style="{ height: '100%', overflow: 'visible' }"
+      >
         <div style="padding: 0 16px 12px 0">
-          <el-input clearable :maxlength="20" v-model="keywords" placeholder="左侧树还支持鼠标右键" :prefix-icon="SearchOutlined" />
+          <el-input
+            clearable
+            :maxlength="20"
+            v-model="keywords"
+            placeholder="左侧树还支持鼠标右键"
+            :prefix-icon="SearchOutlined"
+          />
         </div>
         <div style="margin-bottom: 12px">
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit(void 0, current?.organizationId)"> 新建 </el-button>
-          <el-button type="warning" :disabled="!current" class="ele-btn-icon" :icon="EditOutlined" @click="openEdit(current)"> 修改 </el-button>
-          <el-button type="danger" :disabled="!current" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove(current)"> 删除 </el-button>
+          <el-button
+            type="primary"
+            class="ele-btn-icon"
+            :icon="PlusOutlined"
+            @click="openEdit(void 0, current?.organizationId)"
+          >
+            新建
+          </el-button>
+          <el-button
+            type="warning"
+            :disabled="!current"
+            class="ele-btn-icon"
+            :icon="EditOutlined"
+            @click="openEdit(current)"
+          >
+            修改
+          </el-button>
+          <el-button
+            type="danger"
+            :disabled="!current"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            @click="remove(current)"
+          >
+            删除
+          </el-button>
         </div>
-        <ele-loading :loading="loading" :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }">
+        <ele-loading
+          :loading="loading"
+          :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }"
+        >
           <el-tree
             ref="treeRef"
             :data="data"
@@ -27,7 +67,10 @@
             <template #default="scope">
               <el-icon style="margin-right: 6px; color: #ffd659; font-size: 16px">
                 <FolderOutlined v-if="scope.data.children?.length" style="fill: currentColor" />
-                <FileOutlined v-else style="transform: scale(0.9) translateY(1px); color: #faad14" />
+                <FileOutlined
+                  v-else
+                  style="transform: scale(0.9) translateY(1px); color: #faad14"
+                />
               </el-icon>
               <span class="el-tree-node__label" style="margin-top: 2px">
                 {{ scope.data.organizationName }}
@@ -36,11 +79,21 @@
           </el-tree>
         </ele-loading>
         <template #body>
-          <user-list v-if="current" :organization-id="current.organizationId" :organization-data="data" />
+          <user-list
+            v-if="current"
+            :organization-id="current.organizationId"
+            :organization-data="data"
+          />
         </template>
       </ele-split-panel>
     </ele-card>
-    <organization-edit v-model="showEdit" :data="editData" :organization-id="organizationId" :organization-data="data" @done="query" />
+    <organization-edit
+      v-model="showEdit"
+      :data="editData"
+      :organization-id="organizationId"
+      :organization-data="data"
+      @done="query"
+    />
     <ele-dropdown
       ref="ctxMenuDropdownRef"
       trigger="contextmenu"
@@ -71,7 +124,14 @@
   import type { EleSplitPanel } from 'ele-admin-plus/es'
   import type { EleDropdownInstance } from 'ele-admin-plus/es/ele-app/plus'
   import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types'
-  import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, FolderOutlined, FileOutlined } from '@/components/icons'
+  import {
+    PlusOutlined,
+    EditOutlined,
+    DeleteOutlined,
+    SearchOutlined,
+    FolderOutlined,
+    FileOutlined
+  } from '@/components/icons'
   import { useMobile } from '@/utils/use-mobile'
   import UserList from './components/user-list.vue'
   import OrganizationEdit from '@/views/system/organization/components/organization-edit.vue'
@@ -257,7 +317,10 @@
 
   /** 树组件右键事件 */
   const handleTreeContextmenu = (e: MouseEvent, item: Organization) => {
-    const triggerEl = queryChild(e.currentTarget as HTMLElement, 'el-tree-node__content') as HTMLElement
+    const triggerEl = queryChild(
+      e.currentTarget as HTMLElement,
+      'el-tree-node__content'
+    ) as HTMLElement
     const rect = triggerEl.getBoundingClientRect()
     ctxMenuDropdownStyle.marginLeft = `${e.clientX - rect.left - rect.width / 2}px`
     openCtxMenuDropdown(triggerEl, item)

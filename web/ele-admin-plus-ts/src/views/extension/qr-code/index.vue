@@ -3,7 +3,14 @@
     <ele-card header="基础用法">
       <el-form label-width="88px" style="max-width: 420px" @submit.prevent="">
         <div style="text-align: center; margin-bottom: 8px">
-          <ele-qr-code :value="text" :size="size" :level="level" :margin="margin" :image-settings="image" :tag="tag" />
+          <ele-qr-code
+            :value="text"
+            :size="size"
+            :level="level"
+            :margin="margin"
+            :image-settings="image"
+            :tag="tag"
+          />
         </div>
         <el-form-item label="渲染方式">
           <el-radio-group v-model="tag">

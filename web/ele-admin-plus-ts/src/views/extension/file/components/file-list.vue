@@ -29,7 +29,13 @@
     </div>
   </div>
   <!-- 图片预览 -->
-  <ele-image-viewer v-model="showImageViewer" :urlList="viewerImages" :initialIndex="viewerIndex" :infinite="false" :hide-on-click-modal="true" />
+  <ele-image-viewer
+    v-model="showImageViewer"
+    :urlList="viewerImages"
+    :initialIndex="viewerIndex"
+    :infinite="false"
+    :hide-on-click-modal="true"
+  />
   <!-- 文件重命名弹窗 -->
   <name-edit v-model="nameEditVisible" :data="nameEditData" @done="handleDone" />
   <!-- 文件移动弹窗 -->
@@ -42,7 +48,11 @@
   import { EleMessage } from 'ele-admin-plus/es'
   import type { DropdownItem } from 'ele-admin-plus/es/ele-dropdown/types'
   import { localIcons, localSmallIcons } from 'ele-admin-plus/es/ele-file-list/icons'
-  import type { FileItem, SortValue, ItemContextMenuOption } from 'ele-admin-plus/es/ele-file-list/types'
+  import type {
+    FileItem,
+    SortValue,
+    ItemContextMenuOption
+  } from 'ele-admin-plus/es/ele-file-list/types'
   import { DownloadOutlined, EditOutlined, DragOutlined, DeleteOutlined } from '@/components/icons'
   import { removeUserFile } from '@/api/system/user-file'
   import type { UserFile } from '@/api/system/user-file/model'
@@ -113,7 +123,11 @@
       previewItemImage(item)
     } else {
       // 选中或取消选中文件
-      updateSelections(props.selections.includes(item) ? props.selections.filter((d) => d !== item) : [...props.selections, item])
+      updateSelections(
+        props.selections.includes(item)
+          ? props.selections.filter((d) => d !== item)
+          : [...props.selections, item]
+      )
     }
   }
 
@@ -221,7 +235,12 @@
       menus.unshift({ title: '打开', command: 'open' })
     } else if (
       isImageFile(item) ||
-      (typeof item.contentType === 'string' && (item.contentType.startsWith('video/') || item.contentType.startsWith('text/') || item.contentType.startsWith('application/pdf') || item.contentType.startsWith('application/json') || item.contentType.startsWith('application/javascript')))
+      (typeof item.contentType === 'string' &&
+        (item.contentType.startsWith('video/') ||
+          item.contentType.startsWith('text/') ||
+          item.contentType.startsWith('application/pdf') ||
+          item.contentType.startsWith('application/json') ||
+          item.contentType.startsWith('application/javascript')))
     ) {
       menus[0].divided = false
       menus.unshift({

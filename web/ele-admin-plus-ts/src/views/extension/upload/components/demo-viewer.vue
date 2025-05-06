@@ -18,8 +18,20 @@
         <el-radio :value="true" label="是" />
       </el-radio-group>
     </option-item>
-    <option-item label="初始打开的图片" :responsive="false" :label-style="{ textAlign: 'left', marginBottom: '8px' }" :body-style="{ padding: 0 }" style="margin-top: 4px; display: block">
-      <ele-check-card v-model="initialIndex" :items="checkCardItems" :row="{ gutter: 8 }" :item-style="{ display: 'flex', padding: '6px', marginBottom: '8px' }" style="max-width: 652px">
+    <option-item
+      label="初始打开的图片"
+      :responsive="false"
+      :label-style="{ textAlign: 'left', marginBottom: '8px' }"
+      :body-style="{ padding: 0 }"
+      style="margin-top: 4px; display: block"
+    >
+      <ele-check-card
+        v-model="initialIndex"
+        :items="checkCardItems"
+        :row="{ gutter: 8 }"
+        :item-style="{ display: 'flex', padding: '6px', marginBottom: '8px' }"
+        style="max-width: 652px"
+      >
         <template #item="{ item }">
           <img
             :src="item?.url"
@@ -36,7 +48,14 @@
     <div style="margin-top: 6px">
       <el-button type="primary" @click="openImageViewer"> 打开图片预览 </el-button>
     </div>
-    <EleImageViewer v-model="showImageViewer" :urlList="urlList" :infinite="infinite" :hideOnClickModal="hideOnClickModal" :closeOnPressEscape="closeOnPressEscape" :initialIndex="initialIndex" />
+    <EleImageViewer
+      v-model="showImageViewer"
+      :urlList="urlList"
+      :infinite="infinite"
+      :hideOnClickModal="hideOnClickModal"
+      :closeOnPressEscape="closeOnPressEscape"
+      :initialIndex="initialIndex"
+    />
   </ele-card>
 </template>
 
@@ -77,5 +96,7 @@
   const initialIndex = ref(0)
 
   /** 可选卡片数据 */
-  const checkCardItems = ref(urlList.value.map((url, value) => ({ value, url, col: { sm: 3, xs: 6 } })))
+  const checkCardItems = ref(
+    urlList.value.map((url, value) => ({ value, url, col: { sm: 3, xs: 6 } }))
+  )
 </script>

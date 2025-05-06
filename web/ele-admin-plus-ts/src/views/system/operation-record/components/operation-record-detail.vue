@@ -24,8 +24,17 @@
         <div>{{ data.requestMethod }}</div>
       </el-descriptions-item>
       <el-descriptions-item label="请求状态">
-        <el-tag v-if="data.status === 0" size="small" type="success" :disable-transitions="true"> 正常 </el-tag>
-        <el-tag v-else-if="data.status === 1" size="small" type="danger" :disable-transitions="true"> 异常 </el-tag>
+        <el-tag v-if="data.status === 0" size="small" type="success" :disable-transitions="true">
+          正常
+        </el-tag>
+        <el-tag
+          v-else-if="data.status === 1"
+          size="small"
+          type="danger"
+          :disable-transitions="true"
+        >
+          异常
+        </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="请求地址" :span="2">
         <div style="word-break: break-all">{{ data.url }}</div>

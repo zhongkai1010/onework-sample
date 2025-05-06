@@ -2,7 +2,16 @@
   <ele-card header="修改菜单徽章">
     <el-form label-width="80px" style="max-width: 360px" @submit.prevent="">
       <el-form-item label="菜单">
-        <el-tree-select clearable :data="treeData" check-strictly default-expand-all placeholder="请选择菜单" v-model="path" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+        <el-tree-select
+          clearable
+          :data="treeData"
+          check-strictly
+          default-expand-all
+          placeholder="请选择菜单"
+          v-model="path"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        >
           <template #default="{ data }">
             <el-icon v-if="data.meta?.icon" style="margin-right: 4px; transform: translateY(-1px)">
               <component :is="data.meta?.icon" />
@@ -20,7 +29,13 @@
         <el-input clearable v-model="badge" placeholder="请输入徽章值" />
       </el-form-item>
       <el-form-item label="徽章类型">
-        <el-select clearable v-model="type" placeholder="请选择徽章类型" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+        <el-select
+          clearable
+          v-model="type"
+          placeholder="请选择徽章类型"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        >
           <el-option label="primary" value="primary" />
           <el-option label="success" value="success" />
           <el-option label="warning" value="warning" />
@@ -80,6 +95,10 @@
       EleMessage.error('请选择菜单')
       return
     }
-    userStore.setMenuBadge(path.value, !badge.value || isNaN(Number(badge.value)) ? badge.value : Number(badge.value), type.value)
+    userStore.setMenuBadge(
+      path.value,
+      !badge.value || isNaN(Number(badge.value)) ? badge.value : Number(badge.value),
+      type.value
+    )
   }
 </script>

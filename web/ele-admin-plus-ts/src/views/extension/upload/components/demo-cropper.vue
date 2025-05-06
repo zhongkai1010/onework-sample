@@ -5,8 +5,24 @@
       <el-badge value="New" style="display: inline-flex; font-weight: normal; margin-left: 4px" />
     </template>
     <div style="margin-bottom: 12px"> 与文件选择和图片裁剪一起三者结合使用。 </div>
-    <ele-upload-list :limit="8" :tools="true" v-model="images" :beforeUploadClick="beforeUploadClick" :beforeItemEdit="beforeItemEdit" @remove="handleRemove" />
-    <file-picker title="图片选择" :limit="1" :fileLimit="2" accept="image/*" :params="{ contentType: 'image/' }" v-model="showFilePicker" @done="handleFilePickerDone" @close="handleFilePickerClose" />
+    <ele-upload-list
+      :limit="8"
+      :tools="true"
+      v-model="images"
+      :beforeUploadClick="beforeUploadClick"
+      :beforeItemEdit="beforeItemEdit"
+      @remove="handleRemove"
+    />
+    <file-picker
+      title="图片选择"
+      :limit="1"
+      :fileLimit="2"
+      accept="image/*"
+      :params="{ contentType: 'image/' }"
+      v-model="showFilePicker"
+      @done="handleFilePickerDone"
+      @close="handleFilePickerClose"
+    />
     <ele-cropper-modal
       v-model="showCropperModal"
       :src="cropperSrc"

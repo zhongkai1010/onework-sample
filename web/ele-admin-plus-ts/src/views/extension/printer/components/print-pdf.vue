@@ -7,7 +7,10 @@
       <el-button type="primary" @click="handleViewPdf">预览pdf</el-button>
     </div>
     <div v-if="pdfUrl">
-      <iframe :src="pdfUrl" style="width: 100%; height: 880px; border: none; display: block"></iframe>
+      <iframe
+        :src="pdfUrl"
+        style="width: 100%; height: 880px; border: none; display: block"
+      ></iframe>
     </div>
   </ele-card>
 </template>

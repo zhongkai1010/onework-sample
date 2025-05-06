@@ -2,8 +2,15 @@
   <ele-card header="显示弹幕">
     <!-- 操作按钮 -->
     <el-space style="margin-bottom: 16px">
-      <el-input style="width: 160px" v-model="text" placeholder="请输入弹幕内容" :disabled="!ready" />
-      <el-button type="primary" :disabled="!ready" class="ele-btn-icon" @click="shoot"> 发射 </el-button>
+      <el-input
+        style="width: 160px"
+        v-model="text"
+        placeholder="请输入弹幕内容"
+        :disabled="!ready"
+      />
+      <el-button type="primary" :disabled="!ready" class="ele-btn-icon" @click="shoot">
+        发射
+      </el-button>
     </el-space>
     <!-- 播放器 -->
     <ele-xg-player :config="config" @player="handlePlayer" />
@@ -23,7 +30,8 @@
     fluid: true,
     volume: 1,
     url: 'https://tianyu.v.netease.com/2024/0617/745cbbaa15464f6c191a10a4c7fb9a30.mp4',
-    poster: 'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png',
+    poster:
+      'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png',
     plugins: [Danmu],
     danmu: {
       comments: [

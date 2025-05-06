@@ -1,7 +1,23 @@
 <template>
-  <EleModal :width="460" title="移动到" :zIndex="baseIndex" :appendToBody="false" v-bind="modalProps || {}" v-model="visible" @open="handleOpen">
+  <EleModal
+    :width="460"
+    title="移动到"
+    :zIndex="baseIndex"
+    :appendToBody="false"
+    v-bind="modalProps || {}"
+    v-model="visible"
+    @open="handleOpen"
+  >
     <div class="file-picker-move-wrapper">
-      <ElTree :data="groupData.filter((d) => d.id !== -1)" nodeKey="id" :props="{ label: 'name' }" :expandOnClickNode="false" :defaultExpandAll="true" class="file-picker-move-tree" @node-click="handleGroupSelect">
+      <ElTree
+        :data="groupData.filter((d) => d.id !== -1)"
+        nodeKey="id"
+        :props="{ label: 'name' }"
+        :expandOnClickNode="false"
+        :defaultExpandAll="true"
+        class="file-picker-move-tree"
+        @node-click="handleGroupSelect"
+      >
         <template #default="scope">
           <img src="/ele-file-list/ic_file_folder.png" class="file-picker-tree-icon" />
           <span :class="['el-tree-node__label', { 'is-active': scope.data.id === selectedId }]">

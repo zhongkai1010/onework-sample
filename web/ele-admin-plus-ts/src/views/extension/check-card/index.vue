@@ -34,9 +34,19 @@
         <div>已选中：{{ checked2 }}</div>
       </div>
     </ele-card>
-    <ele-card header="禁用" collapsable="header" :header-style="{ cursor: 'pointer', userSelect: 'none' }" :body-style="{ padding: 0 }">
+    <ele-card
+      header="禁用"
+      collapsable="header"
+      :header-style="{ cursor: 'pointer', userSelect: 'none' }"
+      :body-style="{ padding: 0 }"
+    >
       <div style="padding: 20px">
-        <ele-check-card :items="items2" v-model="checked2" :disabled="disabled" :row="{ gutter: 12 }">
+        <ele-check-card
+          :items="items2"
+          v-model="checked2"
+          :disabled="disabled"
+          :row="{ gutter: 12 }"
+        >
           <template #item="{ item }">
             <div style="display: flex; padding: 18px 12px; height: 87px">
               <el-avatar :size="46" shape="square" :src="item?.avatar" />
@@ -55,15 +65,34 @@
         </div>
       </div>
     </ele-card>
-    <ele-card header="标签风格" collapsable="header" :header-style="{ cursor: 'pointer', userSelect: 'none' }" :body-style="{ padding: 0 }" :collapse-icon-style="{ order: -1, margin: '1px 6px 0 -10px' }">
+    <ele-card
+      header="标签风格"
+      collapsable="header"
+      :header-style="{ cursor: 'pointer', userSelect: 'none' }"
+      :body-style="{ padding: 0 }"
+      :collapse-icon-style="{ order: -1, margin: '1px 6px 0 -10px' }"
+    >
       <div style="padding: 28px 20px">
         <div style="display: flex">
           <div style="flex-shrink: 0">个人爱好:</div>
-          <ele-check-card :arrow="false" :bordered="false" v-model="checked3" :items="items4" class="check-tag" />
+          <ele-check-card
+            :arrow="false"
+            :bordered="false"
+            v-model="checked3"
+            :items="items4"
+            class="check-tag"
+          />
         </div>
         <div style="display: flex; margin-top: 12px">
           <div style="flex-shrink: 0">多选模式:</div>
-          <ele-check-card multiple :arrow="false" :bordered="false" v-model="checked4" :items="items4" class="check-tag" />
+          <ele-check-card
+            multiple
+            :arrow="false"
+            :bordered="false"
+            v-model="checked4"
+            :items="items4"
+            class="check-tag"
+          />
         </div>
       </div>
       <template #footer>
@@ -73,7 +102,12 @@
     <ele-card header="自定义内容">
       <div style="display: flex">
         <div style="flex-shrink: 0; margin-top: 20px">支付方式:&emsp;</div>
-        <ele-check-card v-model="checked5" :items="items5" :item-style="{ margin: '8px', padding: '8px 12px', display: 'flex' }" style="display: flex; flex-wrap: wrap">
+        <ele-check-card
+          v-model="checked5"
+          :items="items5"
+          :item-style="{ margin: '8px', padding: '8px 12px', display: 'flex' }"
+          style="display: flex; flex-wrap: wrap"
+        >
           <template #item="{ item }">
             <div
               :style="{
@@ -136,7 +170,12 @@
   const checked4 = ref(['看电影'])
 
   /** 个人爱好数据 */
-  const items4 = ref([{ value: '看电影' }, { value: '听音乐' }, { value: '打篮球' }, { value: '阅读' }])
+  const items4 = ref([
+    { value: '看电影' },
+    { value: '听音乐' },
+    { value: '打篮球' },
+    { value: '阅读' }
+  ])
 
   /** 支付方式 */
   const checked5 = ref()

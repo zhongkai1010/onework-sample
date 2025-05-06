@@ -51,8 +51,12 @@
     >
       <template #toolbar>
         <el-space :size="12" wrap>
-          <el-button type="primary" class="ele-btn-icon" @click="openExport"> 打开导出弹窗 </el-button>
-          <el-button type="primary" class="ele-btn-icon" @click="openPrint"> 打开打印弹窗 </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="openExport">
+            打开导出弹窗
+          </el-button>
+          <el-button type="primary" class="ele-btn-icon" @click="openPrint">
+            打开打印弹窗
+          </el-button>
           <el-button type="primary" class="ele-btn-icon" @click="exportData"> 直接导出 </el-button>
           <el-button type="primary" class="ele-btn-icon" @click="printData"> 直接打印 </el-button>
         </el-space>
@@ -128,7 +132,11 @@
   import { ref, reactive, nextTick } from 'vue'
   import { EleMessage, random } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, Column, BeforeExportParams } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    Column,
+    BeforeExportParams
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import OptionItem from '@/views/extension/avatar/components/option-item.vue'
 
   /** 案卷 */
@@ -423,7 +431,11 @@
   /** 直接打印 */
   const printData = () => {
     const printData = tableRef.value?.getData?.() || []
-    isPrintCheckAll.value = selections.value.length ? (printData.length === selections.value.length ? true : 'indeterminate') : false
+    isPrintCheckAll.value = selections.value.length
+      ? printData.length === selections.value.length
+        ? true
+        : 'indeterminate'
+      : false
     tableRef.value?.printData?.({
       data: printData,
       columns: columns.value,
@@ -436,7 +448,11 @@
   /** 直接导出 */
   const exportData = () => {
     const printData = tableRef.value?.getData?.() || []
-    isPrintCheckAll.value = selections.value.length ? (printData.length === selections.value.length ? true : 'indeterminate') : false
+    isPrintCheckAll.value = selections.value.length
+      ? printData.length === selections.value.length
+        ? true
+        : 'indeterminate'
+      : false
     tableRef.value?.exportData?.({
       data: printData,
       columns: [
@@ -446,8 +462,10 @@
           width: 50,
           align: 'center',
           fixed: 'left',
-          formatter: (row) => (selections.value.some((d) => d.pieceId === row.pieceId) ? '☑' : '☐'),
-          label: isPrintCheckAll.value === 'indeterminate' ? '☐' : isPrintCheckAll.value ? '☑' : '☐'
+          formatter: (row) =>
+            selections.value.some((d) => d.pieceId === row.pieceId) ? '☑' : '☐',
+          label:
+            isPrintCheckAll.value === 'indeterminate' ? '☐' : isPrintCheckAll.value ? '☑' : '☐'
         },
         ...columns.value.filter((c) => c.columnKey !== 'action' && c.columnKey !== 'selection')
       ],

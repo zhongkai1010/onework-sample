@@ -10,11 +10,26 @@
               <th style="text-align: center; width: 80px">状态</th>
             </tr>
           </thead>
-          <vue-draggable tag="tbody" item-key="id" :animation="300" :modelValue="item" :force-fallback="true" group="demoDragTable" handle=".demo-table-handle" :set-data="() => void 0" @update:modelValue="(value) => updateModelValue(value, index)">
+          <vue-draggable
+            tag="tbody"
+            item-key="id"
+            :animation="300"
+            :modelValue="item"
+            :force-fallback="true"
+            group="demoDragTable"
+            handle=".demo-table-handle"
+            :set-data="() => void 0"
+            @update:modelValue="(value) => updateModelValue(value, index)"
+          >
             <template #item="{ element }">
               <tr>
                 <td style="text-align: center; width: 40px">
-                  <ele-text :icon="DragOutlined" type="placeholder" class="demo-table-handle" style="cursor: move" />
+                  <ele-text
+                    :icon="DragOutlined"
+                    type="placeholder"
+                    class="demo-table-handle"
+                    style="cursor: move"
+                  />
                 </td>
                 <td>{{ element.taskName }}</td>
                 <td style="text-align: center; width: 80px">

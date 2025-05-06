@@ -1,7 +1,14 @@
 <template>
   <ele-card header="代码差异对比" :body-style="{ padding: '12px' }">
     <div style="border: 1px solid var(--el-border-color)">
-      <monaco-editor v-model="code" :language="language" v-model:original="original" :original-language="originalLanguage" :diff="true" style="height: 460px" />
+      <monaco-editor
+        v-model="code"
+        :language="language"
+        v-model:original="original"
+        :original-language="originalLanguage"
+        :diff="true"
+        style="height: 460px"
+      />
     </div>
   </ele-card>
 </template>

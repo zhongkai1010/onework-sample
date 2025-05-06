@@ -14,7 +14,9 @@ export async function getUnreadNotice(): Promise<NoticeResult> {
  * 分页查询通知
  */
 export async function pageNotices(_params: any) {
-  const res = await request.get<PageResult<Message>>('https://cdn.eleadmin.com/20200610/notices.json')
+  const res = await request.get<PageResult<Message>>(
+    'https://cdn.eleadmin.com/20200610/notices.json'
+  )
   return res.data
 }
 
@@ -22,7 +24,9 @@ export async function pageNotices(_params: any) {
  * 分页查询私信
  */
 export async function pageLetters(_params: any) {
-  const res = await request.get<PageResult<Message>>('https://cdn.eleadmin.com/20200610/letters.json')
+  const res = await request.get<PageResult<Message>>(
+    'https://cdn.eleadmin.com/20200610/letters.json'
+  )
   return res.data
 }
 
@@ -72,7 +76,9 @@ export async function listAddedUsers() {
  * 获取成绩
  */
 export async function pageUserScores() {
-  const res = await request.get<ApiResult<PageResult<UserScore>>>('https://cdn.eleadmin.com/20200610/example-table-merge.json')
+  const res = await request.get<ApiResult<PageResult<UserScore>>>(
+    'https://cdn.eleadmin.com/20200610/example-table-merge.json'
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -83,7 +89,10 @@ export async function pageUserScores() {
  * 获取案卷列表
  */
 export async function getPieceList(params: PieceParam) {
-  const res = await request.get<ApiResult<PageResult<Piece>>>('https://cdn.eleadmin.com/20200610/document.json', { params })
+  const res = await request.get<ApiResult<PageResult<Piece>>>(
+    'https://cdn.eleadmin.com/20200610/document.json',
+    { params }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -114,19 +123,22 @@ export async function getDemoCardData() {
     {
       value: 1,
       title: 'ElementUI',
-      content: 'Element, 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的组件库, 提供了配套设计资源, 帮助你的网站快速成型。',
+      content:
+        'Element, 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的组件库, 提供了配套设计资源, 帮助你的网站快速成型。',
       avatar: 'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg'
     },
     {
       value: 2,
       title: 'Vue.js',
-      content: 'Vue 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是, Vue 被设计为可以自底向上逐层应用。',
+      content:
+        'Vue 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是, Vue 被设计为可以自底向上逐层应用。',
       avatar: 'https://cdn.eleadmin.com/20200609/b6a811873e704db49db994053a5019b2.jpg'
     },
     {
       value: 3,
       title: 'Vue Router',
-      content: 'Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成, 让构建单页面应用变得易如反掌。',
+      content:
+        'Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成, 让构建单页面应用变得易如反掌。',
       avatar: 'https://cdn.eleadmin.com/20200609/f6bc05af944a4f738b54128717952107.jpg'
     }
   ]

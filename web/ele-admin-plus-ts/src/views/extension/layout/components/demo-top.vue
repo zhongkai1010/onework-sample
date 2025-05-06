@@ -52,7 +52,11 @@
             <layout-tool>注册</layout-tool>
           </template>
           <div :style="{ flex: 'auto' }">
-            <el-carousel height="320px" arrow="never" style="margin-top: calc(0px - var(--ele-header-height) - 1px)">
+            <el-carousel
+              height="320px"
+              arrow="never"
+              style="margin-top: calc(0px - var(--ele-header-height) - 1px)"
+            >
               <el-carousel-item v-for="item in banner" :key="item">
                 <img
                   :src="item"
@@ -89,7 +93,8 @@
               :style="{
                 textAlign: 'center',
                 padding: '26px 0',
-                backgroundImage: 'url(https://cdn2.weimob.com/saas/@assets/saas-fe-website-web-stc/_next/static/media/ZhuceBg.d0ce1f1c.png)',
+                backgroundImage:
+                  'url(https://cdn2.weimob.com/saas/@assets/saas-fe-website-web-stc/_next/static/media/ZhuceBg.d0ce1f1c.png)',
                 backgroundSize: '100% 100%'
               }"
             >

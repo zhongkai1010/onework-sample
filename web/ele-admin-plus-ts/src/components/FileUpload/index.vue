@@ -29,7 +29,13 @@
   import { ref, watch } from 'vue'
   import type { ElProgressProps, ElImageProps } from 'ele-admin-plus/es/ele-app/el'
   import type { EleImageViewerProps } from 'ele-admin-plus/es/ele-app/plus'
-  import type { UploadItem, ListType, BeforeUploadClick, BeforeItemEdit, UploadLocale } from 'ele-admin-plus/es/ele-upload-list/types'
+  import type {
+    UploadItem,
+    ListType,
+    BeforeUploadClick,
+    BeforeItemEdit,
+    UploadLocale
+  } from 'ele-admin-plus/es/ele-upload-list/types'
   import CommonUpload from '../CommonUpload/index.vue'
 
   defineOptions({ name: 'FileUpload' })
@@ -105,7 +111,10 @@
   /** 判断是否是图片 */
   const isImage = (url?: string) => {
     const parts = url ? url.split('.') : []
-    const suffix = parts.length <= 1 || (parts[0] === '' && parts.length === 2) ? '' : parts.pop()?.toLowerCase?.()
+    const suffix =
+      parts.length <= 1 || (parts[0] === '' && parts.length === 2)
+        ? ''
+        : parts.pop()?.toLowerCase?.()
     return suffix && ['png', 'jpg', 'jpeg', 'gif', 'svg'].includes(suffix)
   }
 
@@ -234,7 +243,12 @@
     for (let i = 0; i < newFiles.length; i++) {
       const newItem = newFiles[i]
       const oldItem = oldFiles[i]
-      if (newItem.key !== oldItem.key || newItem.name !== oldItem.name || newItem.url !== oldItem.url || newItem.status !== oldItem.status) {
+      if (
+        newItem.key !== oldItem.key ||
+        newItem.name !== oldItem.name ||
+        newItem.url !== oldItem.url ||
+        newItem.status !== oldItem.status
+      ) {
         return true
       }
     }

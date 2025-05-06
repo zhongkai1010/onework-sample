@@ -1,13 +1,32 @@
 <template>
   <ele-toolbar theme="plain" class="demo-file-toolbar">
-    <el-upload action="" :show-file-list="false" :before-upload="handleUpload" style="display: inline-block; vertical-align: middle">
+    <el-upload
+      action=""
+      :show-file-list="false"
+      :before-upload="handleUpload"
+      style="display: inline-block; vertical-align: middle"
+    >
       <el-button type="primary" class="ele-btn-icon" :icon="UploadOutlined"> 上传 </el-button>
     </el-upload>
-    <el-button class="ele-btn-icon" :icon="FolderAddOutlined" style="margin-left: 12px" @click="openFolderAdd">
+    <el-button
+      class="ele-btn-icon"
+      :icon="FolderAddOutlined"
+      style="margin-left: 12px"
+      @click="openFolderAdd"
+    >
       <span>新建</span>
       <span class="hidden-sm-and-down">文件夹</span>
     </el-button>
-    <el-button plain type="danger" :icon="DeleteOutlined" :disabled="!selections.length" class="ele-btn-icon hidden-xs-only" @click="removeBatch"> 删除 </el-button>
+    <el-button
+      plain
+      type="danger"
+      :icon="DeleteOutlined"
+      :disabled="!selections.length"
+      class="ele-btn-icon hidden-xs-only"
+      @click="removeBatch"
+    >
+      删除
+    </el-button>
     <el-button class="ele-btn-icon" style="margin-left: 12px" @click="openFilePicker">
       <span class="hidden-sm-and-down">打开</span>
       <span>文件选择</span>
@@ -35,7 +54,14 @@
   import { ElMessageBox } from 'element-plus/es'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { FileItem } from 'ele-admin-plus/es/ele-file-list/types'
-  import { UploadOutlined, FolderAddOutlined, DeleteOutlined, SearchOutlined, TableOutlined, AppstoreOutlined } from '@/components/icons'
+  import {
+    UploadOutlined,
+    FolderAddOutlined,
+    DeleteOutlined,
+    SearchOutlined,
+    TableOutlined,
+    AppstoreOutlined
+  } from '@/components/icons'
   import { uploadFile } from '@/api/system/file'
   import { addUserFile, removeUserFiles } from '@/api/system/user-file'
   import FolderEdit from './folder-edit.vue'
@@ -107,7 +133,10 @@
   /** 批量删除 */
   const removeBatch = () => {
     const rows = props.selections
-    ElMessageBox.confirm('确定要删除“' + rows.map((d) => d.name).join(', ') + '”吗?', '系统提示', { type: 'warning', draggable: true })
+    ElMessageBox.confirm('确定要删除“' + rows.map((d) => d.name).join(', ') + '”吗?', '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
       .then(() => {
         const loading = EleMessage.loading({
           message: '请求中..',

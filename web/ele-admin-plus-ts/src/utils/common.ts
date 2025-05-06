@@ -135,7 +135,12 @@ export function isBlobFile(obj: any) {
  * @param isOut 是否是退出方向
  * @param isBody 是否在 body 上执行动画
  */
-export function doWithTransition(callback: () => Promise<void>, el?: HTMLElement | null, isOut?: boolean, isBody?: boolean) {
+export function doWithTransition(
+  callback: () => Promise<void>,
+  el?: HTMLElement | null,
+  isOut?: boolean,
+  isBody?: boolean
+) {
   // @ts-ignore
   if (!el || typeof document.startViewTransition !== 'function') {
     callback().then(() => {})
@@ -159,7 +164,9 @@ export function doWithTransition(callback: () => Promise<void>, el?: HTMLElement
       {
         duration: 400,
         easing: 'ease-in',
-        pseudoElement: isOut ? `::view-transition-old(${isBody ? 'body' : 'root'})` : `::view-transition-new(${isBody ? 'body' : 'root'})`
+        pseudoElement: isOut
+          ? `::view-transition-old(${isBody ? 'body' : 'root'})`
+          : `::view-transition-new(${isBody ? 'body' : 'root'})`
       }
     )
     anim.onfinish = () => {

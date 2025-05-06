@@ -1,5 +1,11 @@
 <template>
-  <ele-modal v-model="visible" title="入库单详情" width="1000px" :destroy-on-close="true" @closed="reset">
+  <ele-modal
+    v-model="visible"
+    title="入库单详情"
+    width="1000px"
+    :destroy-on-close="true"
+    @closed="reset"
+  >
     <div class="details-header">
       <div class="details-header-item">
         <span class="details-header-label">入库单号：</span>
@@ -32,12 +38,28 @@
     </div>
 
     <!-- 搜索表单 -->
-    <el-form :model="queryParams" @keyup.enter="handleQuery" @submit.prevent :inline="true" class="details-filter">
+    <el-form
+      :model="queryParams"
+      @keyup.enter="handleQuery"
+      @submit.prevent
+      :inline="true"
+      class="details-filter"
+    >
       <el-form-item label="藏品编号" prop="collectionCode">
-        <el-input v-model="queryParams.collectionCode" placeholder="请输入藏品编号" clearable style="width: 200px" />
+        <el-input
+          v-model="queryParams.collectionCode"
+          placeholder="请输入藏品编号"
+          clearable
+          style="width: 200px"
+        />
       </el-form-item>
       <el-form-item label="藏品名称" prop="collectionName">
-        <el-input v-model="queryParams.collectionName" placeholder="请输入藏品名称" clearable style="width: 200px" />
+        <el-input
+          v-model="queryParams.collectionName"
+          placeholder="请输入藏品名称"
+          clearable
+          style="width: 200px"
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleQuery">查询</el-button>
@@ -46,7 +68,18 @@
     </el-form>
 
     <!-- 数据表格 -->
-    <ele-pro-table ref="tableRef" :tools="false" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :highlight-current-row="true" :style="{ paddingBottom: '16px' }" :stripe="true" v-loading="loading">
+    <ele-pro-table
+      ref="tableRef"
+      :tools="false"
+      row-key="id"
+      :columns="columns"
+      :datasource="datasource"
+      :show-overflow-tooltip="true"
+      :highlight-current-row="true"
+      :style="{ paddingBottom: '16px' }"
+      :stripe="true"
+      v-loading="loading"
+    >
       <!-- 藏品状态列 -->
       <template #collectionStatus="{ row }">
         <el-tag :type="getCollectionStatusType(row.collectionStatus)" effect="light">
@@ -145,10 +178,14 @@
 
       // 根据查询条件过滤
       if (queryParams.value.collectionCode) {
-        list = list.filter((item) => item.collectionCode?.includes(queryParams.value.collectionCode))
+        list = list.filter((item) =>
+          item.collectionCode?.includes(queryParams.value.collectionCode)
+        )
       }
       if (queryParams.value.collectionName) {
-        list = list.filter((item) => item.collectionName?.includes(queryParams.value.collectionName))
+        list = list.filter((item) =>
+          item.collectionName?.includes(queryParams.value.collectionName)
+        )
       }
 
       // 分页处理

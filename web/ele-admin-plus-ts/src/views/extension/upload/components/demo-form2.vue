@@ -1,6 +1,13 @@
 <template>
   <ele-card header="使用案例二">
-    <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" style="max-width: 380px" @submit.prevent="">
+    <el-form
+      ref="formRef"
+      :model="form"
+      :rules="rules"
+      label-width="100px"
+      style="max-width: 380px"
+      @submit.prevent=""
+    >
       <el-form-item label="真实姓名" prop="realName">
         <el-input clearable :maxlength="20" v-model="form.realName" placeholder="请输入真实姓名" />
       </el-form-item>

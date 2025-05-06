@@ -1,6 +1,12 @@
 <!-- 绑定 RFID 弹框表单 -->
 <template>
-  <ele-modal v-model="modelValue" title="绑定RFID" width="500px" :destroy-on-close="true" @close="onClose">
+  <ele-modal
+    v-model="modelValue"
+    title="绑定RFID"
+    width="500px"
+    :destroy-on-close="true"
+    @close="onClose"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent>
       <el-form-item label="RFID 编码" prop="rfidCode">
         <el-input v-model="form.rfidCode" placeholder="请输入 RFID 编码" clearable />

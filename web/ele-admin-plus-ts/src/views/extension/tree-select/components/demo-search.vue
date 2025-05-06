@@ -2,12 +2,29 @@
   <ele-card header="可搜索">
     <option-item label="单选">
       <div style="max-width: 240px">
-        <ele-tree-select clearable filterable placeholder="请选择" v-model="selectedValue" :popper-width="240" :tree-props="treeProps" :popper-options="{ strategy: 'fixed' }" />
+        <ele-tree-select
+          clearable
+          filterable
+          placeholder="请选择"
+          v-model="selectedValue"
+          :popper-width="240"
+          :tree-props="treeProps"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </div>
     </option-item>
     <option-item label="多选" style="margin-top: 18px">
       <div style="max-width: 240px">
-        <ele-tree-select clearable multiple filterable placeholder="请选择" v-model="selectedValue2" :popper-width="240" :tree-props="treeProps2" :popper-options="{ strategy: 'fixed' }" />
+        <ele-tree-select
+          clearable
+          multiple
+          filterable
+          placeholder="请选择"
+          v-model="selectedValue2"
+          :popper-width="240"
+          :tree-props="treeProps2"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </div>
     </option-item>
   </ele-card>

@@ -1,6 +1,12 @@
 <!-- 出库记录弹框表格 -->
 <template>
-  <ele-modal v-model="show" title="出库记录" width="1000px" :destroy-on-close="true" @close="onClose">
+  <ele-modal
+    v-model="show"
+    title="出库记录"
+    width="1000px"
+    :destroy-on-close="true"
+    @close="onClose"
+  >
     <ele-pro-table :columns="columns" :datasource="datasource" />
     <template #footer>
       <el-button @click="onClose">关闭</el-button>

@@ -1,6 +1,13 @@
 <!-- 角色权限分配弹窗 -->
 <template>
-  <ele-modal :width="460" title="分配权限" position="center" v-model="visible" :body-style="{ padding: '12px 0 12px 22px' }" @open="handleOpen">
+  <ele-modal
+    :width="460"
+    title="分配权限"
+    position="center"
+    v-model="visible"
+    :body-style="{ padding: '12px 0 12px 22px' }"
+    @open="handleOpen"
+  >
     <ele-loading
       :loading="authLoading"
       :spinner-style="{ background: 'transparent' }"
@@ -12,10 +19,23 @@
         overflow: 'auto'
       }"
     >
-      <el-tree ref="treeRef" show-checkbox :data="authData" node-key="menuId" :default-expand-all="true" :props="{ label: 'title' }" :default-checked-keys="checkedKeys" :style="{ '--ele-tree-item-height': '28px' }">
+      <el-tree
+        ref="treeRef"
+        show-checkbox
+        :data="authData"
+        node-key="menuId"
+        :default-expand-all="true"
+        :props="{ label: 'title' }"
+        :default-checked-keys="checkedKeys"
+        :style="{ '--ele-tree-item-height': '28px' }"
+      >
         <template #default="scope">
           <div>
-            <el-icon v-if="scope.data.icon" :size="16" style="margin-right: 6px; vertical-align: -5px">
+            <el-icon
+              v-if="scope.data.icon"
+              :size="16"
+              style="margin-right: 6px; vertical-align: -5px"
+            >
               <component :is="scope.data.icon" />
             </el-icon>
             <span style="vertical-align: -2px">{{ scope.data.title }}</span>
@@ -103,7 +123,10 @@
   /** 保存权限分配 */
   const save = () => {
     loading.value = true
-    const ids = (treeRef.value?.getCheckedKeys?.() ?? []).concat(treeRef.value?.getHalfCheckedKeys?.() ?? []) ?? []
+    const ids =
+      (treeRef.value?.getCheckedKeys?.() ?? []).concat(
+        treeRef.value?.getHalfCheckedKeys?.() ?? []
+      ) ?? []
     updateRoleMenus(props.data?.roleId, ids as unknown as number[])
       .then((msg) => {
         loading.value = false

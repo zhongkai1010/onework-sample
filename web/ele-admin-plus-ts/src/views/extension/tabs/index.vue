@@ -21,7 +21,16 @@
           </el-select>
         </div>
       </option-item>
-      <ele-tabs ref="tabRef" :items="items" v-model="active" :size="size" :type="type" :mousewheel="true" style="margin-top: 24px" :class="{ 'demo-card-button': type === 'button' }">
+      <ele-tabs
+        ref="tabRef"
+        :items="items"
+        v-model="active"
+        :size="size"
+        :type="type"
+        :mousewheel="true"
+        style="margin-top: 24px"
+        :class="{ 'demo-card-button': type === 'button' }"
+      >
         <template #user>
           <div style="padding: 20px 0">User</div>
         </template>

@@ -6,7 +6,9 @@ import type { PayNumData, SaleroomResult, VisitData, CloudData } from './model'
  * 获取支付笔数数据
  */
 export async function getPayNumList() {
-  const res = await request.get<ApiResult<PayNumData[]>>('https://cdn.eleadmin.com/20200610/analysis-pay-num.json')
+  const res = await request.get<ApiResult<PayNumData[]>>(
+    'https://cdn.eleadmin.com/20200610/analysis-pay-num.json'
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -17,7 +19,9 @@ export async function getPayNumList() {
  * 获取销售量数据
  */
 export async function getSaleroomList() {
-  const res = await request.get<ApiResult<SaleroomResult>>('https://cdn.eleadmin.com/20200610/analysis-saleroom.json')
+  const res = await request.get<ApiResult<SaleroomResult>>(
+    'https://cdn.eleadmin.com/20200610/analysis-saleroom.json'
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -29,7 +33,9 @@ export async function getSaleroomList() {
  * @returns {Promise<Object>}
  */
 export async function getVisitHourList() {
-  const res = await request.get<ApiResult<VisitData[]>>('https://cdn.eleadmin.com/20200610/analysis-visits.json')
+  const res = await request.get<ApiResult<VisitData[]>>(
+    'https://cdn.eleadmin.com/20200610/analysis-visits.json'
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -40,7 +46,9 @@ export async function getVisitHourList() {
  * 获取词云数据
  */
 export async function getWordCloudList() {
-  const res = await request.get<ApiResult<CloudData[]>>('https://cdn.eleadmin.com/20200610/analysis-hot-search.json')
+  const res = await request.get<ApiResult<CloudData[]>>(
+    'https://cdn.eleadmin.com/20200610/analysis-hot-search.json'
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

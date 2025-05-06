@@ -1,7 +1,18 @@
 <template>
   <ele-card header="多选">
     <div style="max-width: 240px">
-      <ele-tree-select ref="treeSelectRef" clearable multiple placeholder="请选择" v-model="selectedValue" :popper-width="240" :tree-props="treeProps" :max-tag-count="1" :disabled="disabled" :popper-options="{ strategy: 'fixed' }" />
+      <ele-tree-select
+        ref="treeSelectRef"
+        clearable
+        multiple
+        placeholder="请选择"
+        v-model="selectedValue"
+        :popper-width="240"
+        :tree-props="treeProps"
+        :max-tag-count="1"
+        :disabled="disabled"
+        :popper-options="{ strategy: 'fixed' }"
+      />
     </div>
     <option-item label="整体禁用" :responsive="false" style="margin-top: 16px">
       <el-radio-group v-model="disabled">
@@ -16,7 +27,10 @@
       </el-radio-group>
     </option-item>
     <option-item label="父子联动" :responsive="false" style="margin-top: 0">
-      <el-radio-group :model-value="treeProps.checkStrictly" @update:modelValue="updateCheckStrictly">
+      <el-radio-group
+        :model-value="treeProps.checkStrictly"
+        @update:modelValue="updateCheckStrictly"
+      >
         <el-radio :value="true" label="否" />
         <el-radio :value="false" label="是" />
       </el-radio-group>

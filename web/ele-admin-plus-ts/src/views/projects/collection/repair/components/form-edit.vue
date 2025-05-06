@@ -1,5 +1,12 @@
 <template>
-  <ele-modal v-model="visible" title="添加修复" width="800px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
+  <ele-modal
+    v-model="visible"
+    title="添加修复"
+    width="800px"
+    :destroy-on-close="true"
+    @open="handleOpen"
+    @closed="reset"
+  >
     <el-form ref="formRef" :model="form" label-width="100px" @submit.prevent="">
       <el-form-item label="藏品编码">
         <el-input v-model="form.collectionCode" placeholder="请输入藏品编码" clearable />
@@ -23,10 +30,21 @@
         <el-input v-model="form.remarks" type="textarea" placeholder="请输入备注" clearable />
       </el-form-item>
       <el-form-item label="送修日期">
-        <el-date-picker v-model="form.sendRepairDate" type="date" placeholder="请选择送修日期" clearable />
+        <el-date-picker
+          v-model="form.sendRepairDate"
+          type="date"
+          placeholder="请选择送修日期"
+          clearable
+        />
       </el-form-item>
       <el-form-item label="单据图片">
-        <el-upload class="upload-demo" action="/api/upload" :on-success="handleUploadSuccess" :on-error="handleUploadError" :before-upload="beforeUpload">
+        <el-upload
+          class="upload-demo"
+          action="/api/upload"
+          :on-success="handleUploadSuccess"
+          :on-error="handleUploadError"
+          :before-upload="beforeUpload"
+        >
           <el-button type="primary">点击上传</el-button>
           <template #tip>
             <div class="el-upload__tip">请上传单据图片</div>

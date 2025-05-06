@@ -27,19 +27,36 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="danger" class="ele-btn-icon" :icon="ArrowLeftOutlined" @click="handleReturn" :disabled="!selections.length"> 退回编目 </el-button>
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="ArrowLeftOutlined"
+            @click="handleReturn"
+            :disabled="!selections.length"
+          >
+            退回编目
+          </el-button>
         </template>
 
         <!-- 图片信息列 -->
         <template #imageInfo="{ row }">
-          <el-image v-if="row.imageInfo" :src="row.imageInfo" :preview-src-list="[row.imageInfo]" fit="cover" class="w-20 h-20" :title="row.collectionName || '藏品图片'" />
+          <el-image
+            v-if="row.imageInfo"
+            :src="row.imageInfo"
+            :preview-src-list="[row.imageInfo]"
+            fit="cover"
+            class="w-20 h-20"
+            :title="row.collectionName || '藏品图片'"
+          />
           <el-empty v-else description="暂无图片" :image-size="40" />
         </template>
 
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
-            <el-button type="primary" size="small" @click="handleViewDetails(row)">查看详情</el-button>
+            <el-button type="primary" size="small" @click="handleViewDetails(row)"
+              >查看详情</el-button
+            >
           </el-space>
         </template>
       </ele-pro-table>

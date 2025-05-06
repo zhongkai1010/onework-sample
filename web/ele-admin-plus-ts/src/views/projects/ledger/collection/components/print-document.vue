@@ -1,6 +1,13 @@
 <!-- 标签打印弹框 -->
 <template>
-  <ele-modal v-model="show" title="标签打印" width="800px" :destroy-on-close="true" @close="onClose" position="center">
+  <ele-modal
+    v-model="show"
+    title="标签打印"
+    width="800px"
+    :destroy-on-close="true"
+    @close="onClose"
+    position="center"
+  >
     <div class="print-content" ref="printContent">
       <div class="print-header">
         <h2>藏品标签</h2>
@@ -24,12 +31,20 @@
             <el-descriptions-item label="存放位置">{{ row?.warehouseName }}</el-descriptions-item>
             <el-descriptions-item label="年代">{{ row?.era }}</el-descriptions-item>
             <el-descriptions-item label="实际质地">{{ row?.material }}</el-descriptions-item>
-            <el-descriptions-item label="数量">{{ row?.quantity }} {{ row?.unit }}</el-descriptions-item>
-            <el-descriptions-item label="具体尺寸">{{ row?.specificDimensions }}</el-descriptions-item>
+            <el-descriptions-item label="数量"
+              >{{ row?.quantity }} {{ row?.unit }}</el-descriptions-item
+            >
+            <el-descriptions-item label="具体尺寸">{{
+              row?.specificDimensions
+            }}</el-descriptions-item>
             <el-descriptions-item label="完残状况">{{ row?.condition }}</el-descriptions-item>
-            <el-descriptions-item label="保存状态">{{ row?.preservationStatus }}</el-descriptions-item>
+            <el-descriptions-item label="保存状态">{{
+              row?.preservationStatus
+            }}</el-descriptions-item>
             <el-descriptions-item label="文物级别">{{ row?.culturalLevel }}</el-descriptions-item>
-            <el-descriptions-item label="藏品来源">{{ row?.collectionSource }}</el-descriptions-item>
+            <el-descriptions-item label="藏品来源">{{
+              row?.collectionSource
+            }}</el-descriptions-item>
             <el-descriptions-item label="入藏日期">{{ row?.collectionDate }}</el-descriptions-item>
             <el-descriptions-item label="备注" :span="2">{{ row?.notes }}</el-descriptions-item>
           </el-descriptions>
@@ -37,7 +52,12 @@
 
         <div class="print-section" v-if="row?.imageInfo">
           <h3>藏品图片</h3>
-          <el-image :src="row.imageInfo" :preview-src-list="[row.imageInfo]" fit="contain" style="width: 200px; height: 200px" />
+          <el-image
+            :src="row.imageInfo"
+            :preview-src-list="[row.imageInfo]"
+            fit="contain"
+            style="width: 200px; height: 200px"
+          />
         </div>
       </div>
 

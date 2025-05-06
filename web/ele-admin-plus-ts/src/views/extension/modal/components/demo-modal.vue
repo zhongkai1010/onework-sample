@@ -2,7 +2,14 @@
   <ele-card header="拖拽、拉伸、全屏">
     <el-form label-width="120px" style="max-width: 380px" @submit.prevent="">
       <el-form-item label="是否可拖出边界">
-        <el-select multiple clearable v-model="moveOut" placeholder="不可拖出边界" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+        <el-select
+          multiple
+          clearable
+          v-model="moveOut"
+          placeholder="不可拖出边界"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        >
           <el-option value="top" label="top" />
           <el-option value="bottom" label="bottom" />
           <el-option value="left" label="left" />
@@ -27,7 +34,14 @@
         <el-switch v-model="inner" size="small" @change="handleConfigChange" />
       </el-form-item>
       <el-form-item label="默认打开位置">
-        <el-select clearable v-model="position" placeholder="请选择" class="ele-fluid" @change="handleConfigChange" :popper-options="{ strategy: 'fixed' }">
+        <el-select
+          clearable
+          v-model="position"
+          placeholder="请选择"
+          class="ele-fluid"
+          @change="handleConfigChange"
+          :popper-options="{ strategy: 'fixed' }"
+        >
           <el-option value="top" label="顶部" />
           <el-option value="bottom" label="底部" />
           <el-option value="left" label="左边" />
@@ -44,7 +58,22 @@
       </el-form-item>
     </el-form>
   </ele-card>
-  <ele-modal :key="modalKey" form :width="400" title="高级弹窗" v-model="visible" :move-out="moveOut" :resizable="modalResizable" :maxable="maxable" :inner="inner" :reset-on-close="resetOnClose" :position="position" :append-to-body="true" :z-index="2001" @closed="cancelDialog">
+  <ele-modal
+    :key="modalKey"
+    form
+    :width="400"
+    title="高级弹窗"
+    v-model="visible"
+    :move-out="moveOut"
+    :resizable="modalResizable"
+    :maxable="maxable"
+    :inner="inner"
+    :reset-on-close="resetOnClose"
+    :position="position"
+    :append-to-body="true"
+    :z-index="2001"
+    @closed="cancelDialog"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="70px" @submit.prevent="">
       <el-form-item label="用户名" prop="nickname">
         <el-input clearable v-model="form.nickname" placeholder="请输入用户名" />
@@ -62,7 +91,12 @@
         <el-input clearable v-model="form.email" placeholder="请输入邮箱" />
       </el-form-item>
       <el-form-item label="个人简介">
-        <el-input :rows="4" type="textarea" v-model="form.introduction" placeholder="请输入个人简介" />
+        <el-input
+          :rows="4"
+          type="textarea"
+          v-model="form.introduction"
+          placeholder="请输入个人简介"
+        />
       </el-form-item>
     </el-form>
     <template #footer>

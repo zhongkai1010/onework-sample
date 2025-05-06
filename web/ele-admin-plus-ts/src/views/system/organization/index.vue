@@ -2,14 +2,34 @@
   <ele-page>
     <organization-search @search="reload" />
     <ele-card :body-style="{ paddingTop: '8px' }">
-      <ele-pro-table sticky ref="tableRef" row-key="organizationId" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :highlight-current-row="true" :export-config="{ fileName: '机构数据' }" :default-expand-all="true" :pagination="false" cache-key="systemOrganizationTable">
+      <ele-pro-table
+        sticky
+        ref="tableRef"
+        row-key="organizationId"
+        :columns="columns"
+        :datasource="datasource"
+        :show-overflow-tooltip="true"
+        :highlight-current-row="true"
+        :export-config="{ fileName: '机构数据' }"
+        :default-expand-all="true"
+        :pagination="false"
+        cache-key="systemOrganizationTable"
+      >
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()"> 新建 </el-button>
-          <el-button class="ele-btn-icon" :icon="ColumnHeightOutlined" @click="expandAll"> 展开全部 </el-button>
-          <el-button class="ele-btn-icon" :icon="VerticalAlignMiddleOutlined" @click="foldAll"> 折叠全部 </el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()">
+            新建
+          </el-button>
+          <el-button class="ele-btn-icon" :icon="ColumnHeightOutlined" @click="expandAll">
+            展开全部
+          </el-button>
+          <el-button class="ele-btn-icon" :icon="VerticalAlignMiddleOutlined" @click="foldAll">
+            折叠全部
+          </el-button>
         </template>
         <template #action="{ row }">
-          <el-link type="primary" :underline="false" @click="openEdit(null, row.organizationId)"> 添加 </el-link>
+          <el-link type="primary" :underline="false" @click="openEdit(null, row.organizationId)">
+            添加
+          </el-link>
           <el-divider direction="vertical" />
           <el-link type="primary" :underline="false" @click="openEdit(row)"> 修改 </el-link>
           <el-divider direction="vertical" />
@@ -17,7 +37,13 @@
         </template>
       </ele-pro-table>
     </ele-card>
-    <organization-edit v-model="showEdit" :data="current" :organization-id="parentId" :organization-data="organizationData" @done="reload" />
+    <organization-edit
+      v-model="showEdit"
+      :data="current"
+      :organization-id="parentId"
+      :organization-data="organizationData"
+      @done="reload"
+    />
   </ele-page>
 </template>
 
@@ -27,7 +53,11 @@
   import { EleMessage, toTree } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { PlusOutlined, ColumnHeightOutlined, VerticalAlignMiddleOutlined } from '@/components/icons'
+  import {
+    PlusOutlined,
+    ColumnHeightOutlined,
+    VerticalAlignMiddleOutlined
+  } from '@/components/icons'
   import OrganizationSearch from './components/organization-search.vue'
   import OrganizationEdit from './components/organization-edit.vue'
   import { listOrganizations, removeOrganization } from '@/api/system/organization'
@@ -124,7 +154,10 @@
       EleMessage.error('请先删除子节点')
       return
     }
-    ElMessageBox.confirm('确定要删除“' + row.organizationName + '”吗?', '系统提示', { type: 'warning', draggable: true })
+    ElMessageBox.confirm('确定要删除“' + row.organizationName + '”吗?', '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
       .then(() => {
         const loading = EleMessage.loading({
           message: '请求中..',

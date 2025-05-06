@@ -1,6 +1,12 @@
 <!-- 角色编辑弹窗 -->
 <template>
-  <ele-modal form :width="460" v-model="visible" :title="isUpdate ? '修改角色' : '添加角色'" @open="handleOpen">
+  <ele-modal
+    form
+    :width="460"
+    v-model="visible"
+    :title="isUpdate ? '修改角色' : '添加角色'"
+    @open="handleOpen"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="80px" @submit.prevent="">
       <el-form-item label="角色名称" prop="roleName">
         <el-input clearable :maxlength="20" v-model="form.roleName" placeholder="请输入角色名称" />

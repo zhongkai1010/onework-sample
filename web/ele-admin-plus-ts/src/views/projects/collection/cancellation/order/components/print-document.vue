@@ -1,5 +1,11 @@
 <template>
-  <ele-modal v-model="visible" title="注销单打印" width="800px" :destroy-on-close="true" @close="handleClose">
+  <ele-modal
+    v-model="visible"
+    title="注销单打印"
+    width="800px"
+    :destroy-on-close="true"
+    @close="handleClose"
+  >
     <div v-if="details" class="print-content">
       <!-- 头部信息 -->
       <div class="header">
@@ -29,9 +35,24 @@
         <h3>藏品列表</h3>
         <el-table :data="details.collections" border style="width: 100%">
           <el-table-column type="index" label="序号" width="60" align="center" />
-          <el-table-column prop="collectionCode" label="藏品编号" width="120" show-overflow-tooltip />
-          <el-table-column prop="collectionName" label="藏品名称" min-width="200" show-overflow-tooltip />
-          <el-table-column prop="cancellationTime" label="注销日期" width="120" show-overflow-tooltip />
+          <el-table-column
+            prop="collectionCode"
+            label="藏品编号"
+            width="120"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="collectionName"
+            label="藏品名称"
+            min-width="200"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            prop="cancellationTime"
+            label="注销日期"
+            width="120"
+            show-overflow-tooltip
+          />
           <el-table-column prop="status" label="状态" width="100" align="center">
             <template #default="{ row }">
               <el-tag :type="getStatusType(row.status)" effect="light">

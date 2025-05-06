@@ -1,5 +1,12 @@
 <template>
-  <ele-modal form :width="460" title="重命名" v-model="visible" @open="handleOpen" @closed="handleClosed">
+  <ele-modal
+    form
+    :width="460"
+    title="重命名"
+    v-model="visible"
+    @open="handleOpen"
+    @closed="handleClosed"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
       <el-form-item label="文件/夹名称" prop="name">
         <el-input clearable :maxlength="20" v-model="form.name" placeholder="请输入文件/夹名称" />

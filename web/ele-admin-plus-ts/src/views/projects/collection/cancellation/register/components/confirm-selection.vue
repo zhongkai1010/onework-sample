@@ -2,13 +2,24 @@
   <ele-modal v-model="visible" title="确认注销" width="600px" :destroy-on-close="true">
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
       <el-form-item label="注销时间" prop="cancellationTime">
-        <el-date-picker v-model="form.cancellationTime" type="date" placeholder="请选择注销时间" value-format="YYYY-MM-DD" style="width: 100%" />
+        <el-date-picker
+          v-model="form.cancellationTime"
+          type="date"
+          placeholder="请选择注销时间"
+          value-format="YYYY-MM-DD"
+          style="width: 100%"
+        />
       </el-form-item>
       <el-form-item label="批准部门" prop="approvalDepartment">
         <el-input v-model="form.approvalDepartment" placeholder="请输入批准部门" clearable />
       </el-form-item>
       <el-form-item label="注销原因" prop="cancellationReason">
-        <el-input v-model="form.cancellationReason" type="textarea" placeholder="请输入注销原因" :rows="3" />
+        <el-input
+          v-model="form.cancellationReason"
+          type="textarea"
+          placeholder="请输入注销原因"
+          :rows="3"
+        />
       </el-form-item>
     </el-form>
     <template #footer>

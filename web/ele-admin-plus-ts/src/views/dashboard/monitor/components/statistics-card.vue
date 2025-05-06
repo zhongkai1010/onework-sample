@@ -22,7 +22,9 @@
         </el-tag>
         <ele-text size="xxl" class="monitor-count-value">1.6 k</ele-text>
         <ele-text type="placeholder" class="monitor-count-text"> 点击量(近30天) </ele-text>
-        <ele-text strong type="success" :icon="ArrowUpBold" class="monitor-count-trend"> &nbsp;110.5% </ele-text>
+        <ele-text strong type="success" :icon="ArrowUpBold" class="monitor-count-trend">
+          &nbsp;110.5%
+        </ele-text>
         <ele-tooltip content="指标说明" placement="top" :offset="3">
           <ele-text :icon="QuestionCircleOutlined" type="placeholder" class="monitor-count-tip" />
         </ele-tooltip>
@@ -37,7 +39,9 @@
         </el-tag>
         <ele-text size="xxl" class="monitor-count-value">826.0</ele-text>
         <ele-text type="placeholder" class="monitor-count-text"> 到达量(近30天) </ele-text>
-        <ele-text strong type="danger" :icon="ArrowDownBold" class="monitor-count-trend"> &nbsp;15.5% </ele-text>
+        <ele-text strong type="danger" :icon="ArrowDownBold" class="monitor-count-trend">
+          &nbsp;15.5%
+        </ele-text>
       </ele-card>
     </el-col>
     <el-col :md="6" :sm="12" :xs="24">
@@ -49,7 +53,9 @@
         </el-tag>
         <ele-text size="xxl" class="monitor-count-value">28.8 %</ele-text>
         <ele-text type="placeholder" class="monitor-count-text"> 转化率(近30天) </ele-text>
-        <ele-text strong type="success" :icon="ArrowUpBold" class="monitor-count-trend"> &nbsp;65.8% </ele-text>
+        <ele-text strong type="success" :icon="ArrowUpBold" class="monitor-count-trend">
+          &nbsp;65.8%
+        </ele-text>
         <ele-tooltip content="指标说明" placement="top" :offset="3">
           <ele-text :icon="QuestionCircleOutlined" type="placeholder" class="monitor-count-tip" />
         </ele-tooltip>
@@ -61,7 +67,14 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import type { AvatarItem } from 'ele-admin-plus/es/ele-avatar-group/types'
-  import { UserFilled, Opportunity, Flag, Share, ArrowUpBold, ArrowDownBold } from '@element-plus/icons-vue'
+  import {
+    UserFilled,
+    Opportunity,
+    Flag,
+    Share,
+    ArrowUpBold,
+    ArrowDownBold
+  } from '@element-plus/icons-vue'
   import { QuestionCircleOutlined } from '@/components/icons'
 
   /** 访问人数 */

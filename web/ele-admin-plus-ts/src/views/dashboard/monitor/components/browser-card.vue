@@ -1,6 +1,11 @@
 <template>
   <ele-card header="浏览器分布" :body-style="{ padding: 0 }">
-    <v-chart ref="browserChartRef" :option="browserChartOption" style="height: 236px" @click="handleBrowserChartClick" />
+    <v-chart
+      ref="browserChartRef"
+      :option="browserChartOption"
+      style="height: 236px"
+      @click="handleBrowserChartClick"
+    />
   </ele-card>
 </template>
 

@@ -1,7 +1,14 @@
 <template>
   <ele-card header="附件上传">
     <div style="margin-bottom: 24px"> 不仅仅能用于图片上传的场景, 还可用于文件上传的场景 </div>
-    <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" style="max-width: 460px" @submit.prevent="">
+    <el-form
+      ref="formRef"
+      :model="form"
+      :rules="rules"
+      label-width="100px"
+      style="max-width: 460px"
+      @submit.prevent=""
+    >
       <el-form-item label="投诉内容" prop="content">
         <el-input :rows="4" type="textarea" v-model="form.content" placeholder="请输入投诉内容" />
       </el-form-item>

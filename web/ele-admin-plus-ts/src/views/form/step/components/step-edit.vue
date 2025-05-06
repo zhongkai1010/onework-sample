@@ -1,5 +1,12 @@
 <template>
-  <el-form ref="formRef" :model="form" :rules="rules" label-width="108px" style="padding-right: 60px" @submit.prevent="">
+  <el-form
+    ref="formRef"
+    :model="form"
+    :rules="rules"
+    label-width="108px"
+    style="padding-right: 60px"
+    @submit.prevent=""
+  >
     <el-form-item label="付款账户" prop="account">
       <el-select clearable v-model="form.account" placeholder="请选择付款账户" class="ele-fluid">
         <el-option value="plus@eleadmin.com" label="plus@eleadmin.com" />
@@ -20,7 +27,12 @@
       <el-input clearable v-model="form.name" placeholder="请输入收款人姓名" />
     </el-form-item>
     <el-form-item label="转账金额" prop="amount">
-      <el-input clearable v-model="form.amount" placeholder="请输入转账金额" :prefix-icon="prefixIcon" />
+      <el-input
+        clearable
+        v-model="form.amount"
+        placeholder="请输入转账金额"
+        :prefix-icon="prefixIcon"
+      />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" :loading="loading" @click="submit"> 下一步 </el-button>

@@ -6,7 +6,9 @@ import type { UserFile, UserFileParam } from './model'
  * 分页查询用户文件
  */
 export async function pageUserFiles(params: UserFileParam) {
-  const res = await request.get<ApiResult<PageResult<UserFile>>>('/system/user-file/page', { params })
+  const res = await request.get<ApiResult<PageResult<UserFile>>>('/system/user-file/page', {
+    params
+  })
   if (res.data.code === 0) {
     return res.data.data
   }

@@ -4,7 +4,19 @@
     <template #extra>
       <more-icon @command="handleCommand" />
     </template>
-    <ele-pro-table :height="352" row-key="id" :columns="columns" :datasource="projectList" :show-overflow-tooltip="true" highlight-current-row :pagination="false" :toolbar="false" :bottom-line="false" size="large" class="project-table">
+    <ele-pro-table
+      :height="352"
+      row-key="id"
+      :columns="columns"
+      :datasource="projectList"
+      :show-overflow-tooltip="true"
+      highlight-current-row
+      :pagination="false"
+      :toolbar="false"
+      :bottom-line="false"
+      size="large"
+      class="project-table"
+    >
       <template #projectName="{ row }">
         <el-link type="primary" :underline="false">
           {{ row.projectName }}

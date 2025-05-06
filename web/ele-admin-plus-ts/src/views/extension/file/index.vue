@@ -2,11 +2,30 @@
   <ele-page :multi-card="false">
     <ele-card :body-style="{ padding: 0 }">
       <div style="padding: 8px 16px">
-        <file-toolbar v-model:grid="grid" :selections="selections" :parentId="parentId" @done="handleDone" />
-        <file-header :total="total" :directorys="directorys" @update:directorys="updateDirectorys" />
+        <file-toolbar
+          v-model:grid="grid"
+          :selections="selections"
+          :parentId="parentId"
+          @done="handleDone"
+        />
+        <file-header
+          :total="total"
+          :directorys="directorys"
+          @update:directorys="updateDirectorys"
+        />
       </div>
       <ele-loading :loading="loading">
-        <file-list :grid="grid" :data="data" :sort="sort" :order="order" :parentId="parentId" v-model:selections="selections" @sort-change="handleSortChange" @go-directory="handleGoDirectory" @done="handleDone" />
+        <file-list
+          :grid="grid"
+          :data="data"
+          :sort="sort"
+          :order="order"
+          :parentId="parentId"
+          v-model:selections="selections"
+          @sort-change="handleSortChange"
+          @go-directory="handleGoDirectory"
+          @done="handleDone"
+        />
       </ele-loading>
     </ele-card>
   </ele-page>

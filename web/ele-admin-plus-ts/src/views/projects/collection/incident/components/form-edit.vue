@@ -1,19 +1,41 @@
 <template>
-  <ele-modal v-model="visible" title="添加事故记录" width="600px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
+  <ele-modal
+    v-model="visible"
+    title="添加事故记录"
+    width="600px"
+    :destroy-on-close="true"
+    @open="handleOpen"
+    @closed="reset"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="120px" @submit.prevent="">
       <el-form-item label="藏品选择" prop="collectionId">
         <el-select v-model="form.collectionId" placeholder="请选择藏品" clearable>
-          <el-option v-for="item in collectionOptions" :key="item.value" :label="item.label" :value="item.value" />
+          <el-option
+            v-for="item in collectionOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
         </el-select>
       </el-form-item>
       <el-form-item label="事故时间" prop="incidentTime">
-        <el-date-picker v-model="form.incidentTime" type="datetime" placeholder="请选择事故时间" style="width: 100%" />
+        <el-date-picker
+          v-model="form.incidentTime"
+          type="datetime"
+          placeholder="请选择事故时间"
+          style="width: 100%"
+        />
       </el-form-item>
       <el-form-item label="事故地点" prop="incidentLocation">
         <el-input v-model="form.incidentLocation" placeholder="请输入事故地点" clearable />
       </el-form-item>
       <el-form-item label="事故原因" prop="incidentCause">
-        <el-input v-model="form.incidentCause" type="textarea" :rows="3" placeholder="请输入事故原因" />
+        <el-input
+          v-model="form.incidentCause"
+          type="textarea"
+          :rows="3"
+          placeholder="请输入事故原因"
+        />
       </el-form-item>
       <el-form-item label="事故责任人" prop="responsiblePerson">
         <el-input v-model="form.responsiblePerson" placeholder="请输入事故责任人" clearable />
@@ -33,11 +55,27 @@
         </el-select>
       </el-form-item>
       <el-form-item label="处理结果" prop="processingResult">
-        <el-input v-model="form.processingResult" type="textarea" :rows="3" placeholder="请输入处理结果" />
+        <el-input
+          v-model="form.processingResult"
+          type="textarea"
+          :rows="3"
+          placeholder="请输入处理结果"
+        />
       </el-form-item>
       <el-form-item label="单据图片" prop="documentImage">
-        <el-upload class="upload-demo" action="/api/upload" :on-success="handleUploadSuccess" :on-error="handleUploadError" :before-upload="beforeUpload" :show-file-list="false">
-          <el-image v-if="form.documentImage" :src="form.documentImage" style="width: 100px; height: 100px; margin-right: 10px" />
+        <el-upload
+          class="upload-demo"
+          action="/api/upload"
+          :on-success="handleUploadSuccess"
+          :on-error="handleUploadError"
+          :before-upload="beforeUpload"
+          :show-file-list="false"
+        >
+          <el-image
+            v-if="form.documentImage"
+            :src="form.documentImage"
+            style="width: 100px; height: 100px; margin-right: 10px"
+          />
           <el-button type="primary">点击上传</el-button>
           <template #tip>
             <div class="el-upload__tip">请上传事故单据图片</div>

@@ -5,7 +5,11 @@
       <div style="margin-bottom: 16px">
         <el-button type="primary" class="ele-btn-icon" @click="setContent"> 修改内容 </el-button>
         <el-button type="primary" class="ele-btn-icon" @click="showHtml"> 获取内容 </el-button>
-        <el-button class="ele-btn-icon" :type="disabled ? 'primary' : 'danger'" @click="toggleDisabled">
+        <el-button
+          class="ele-btn-icon"
+          :type="disabled ? 'primary' : 'danger'"
+          @click="toggleDisabled"
+        >
           {{ disabled ? '启用' : '禁用' }}
         </el-button>
       </div>

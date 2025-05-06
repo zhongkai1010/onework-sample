@@ -4,12 +4,30 @@
   <textarea v-else :id="elementId"></textarea>
   <!-- 文件选择弹窗 -->
   <FormItemRest>
-    <FilePicker title="文件选择" :limit="1" :accept="filePickerAccept ? filePickerAccept + '*' : void 0" :params="{ contentType: filePickerAccept }" :base-index="19990099" v-model="showFilePicker" @done="handleFilePickerDone" @close="handleFilePickerClose" />
+    <FilePicker
+      title="文件选择"
+      :limit="1"
+      :accept="filePickerAccept ? filePickerAccept + '*' : void 0"
+      :params="{ contentType: filePickerAccept }"
+      :base-index="19990099"
+      v-model="showFilePicker"
+      @done="handleFilePickerDone"
+      @close="handleFilePickerClose"
+    />
   </FormItemRest>
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch, onMounted, onBeforeUnmount, onActivated, onDeactivated, nextTick, useAttrs } from 'vue'
+  import {
+    ref,
+    watch,
+    onMounted,
+    onBeforeUnmount,
+    onActivated,
+    onDeactivated,
+    nextTick,
+    useAttrs
+  } from 'vue'
   import FormItemRest from 'ele-admin-plus/es/ele-app/components/form-item-rest'
   import FilePicker from '@/components/FilePicker/index.vue'
   import type { UserFile } from '@/api/system/user-file/model'

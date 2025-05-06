@@ -163,7 +163,10 @@
                 </el-radio-group>
               </option-item>
               <option-item label="Logo 位置">
-                <el-radio-group :disabled="layout === 'top' || layout === 'side' || mobile" v-model="logoInHeader">
+                <el-radio-group
+                  :disabled="layout === 'top' || layout === 'side' || mobile"
+                  v-model="logoInHeader"
+                >
                   <el-radio :value="true" label="顶栏" />
                   <el-radio :value="false" label="侧栏" />
                 </el-radio-group>
@@ -176,13 +179,19 @@
                 </el-radio-group>
               </option-item>
               <option-item label="折叠侧栏">
-                <el-radio-group :disabled="(layout === 'top' || sidebarLayout === 'box') && !mobile" v-model="collapse">
+                <el-radio-group
+                  :disabled="(layout === 'top' || sidebarLayout === 'box') && !mobile"
+                  v-model="collapse"
+                >
                   <el-radio :value="false" label="否" />
                   <el-radio :value="true" label="是" />
                 </el-radio-group>
               </option-item>
               <option-item label="折叠双侧栏一级">
-                <el-radio-group :disabled="layout === 'top' || sidebarLayout === 'default'" v-model="compact">
+                <el-radio-group
+                  :disabled="layout === 'top' || sidebarLayout === 'default'"
+                  v-model="compact"
+                >
                   <el-radio :value="false" label="否" />
                   <el-radio :value="true" label="是" />
                 </el-radio-group>
@@ -215,7 +224,9 @@
               </option-item>
             </ele-card>
           </div>
-          <div style="padding: 16px 0; text-align: center; opacity: 0.6"> 我是页脚&emsp;我是页脚&emsp;我是页脚 </div>
+          <div style="padding: 16px 0; text-align: center; opacity: 0.6">
+            我是页脚&emsp;我是页脚&emsp;我是页脚
+          </div>
         </ele-admin-layout>
       </div>
     </frame-card>
@@ -226,8 +237,27 @@
   import { ref, watch, markRaw } from 'vue'
   import { LayoutTool } from 'ele-admin-plus/es'
   import { useTimer } from 'ele-admin-plus/es/utils/hook'
-  import { SettingOutlined, UserOutlined, IdcardOutlined, LogOutlined, CalendarOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ReloadOutlined, ExpandOutlined, MoreOutlined } from '@/components/icons'
-  import type { Layout, SidebarLayout, TabBar, HeaderStyle, SidebarStyle, TabStyle, Maximized } from 'ele-admin-plus/es/ele-admin-layout/types'
+  import {
+    SettingOutlined,
+    UserOutlined,
+    IdcardOutlined,
+    LogOutlined,
+    CalendarOutlined,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    ReloadOutlined,
+    ExpandOutlined,
+    MoreOutlined
+  } from '@/components/icons'
+  import type {
+    Layout,
+    SidebarLayout,
+    TabBar,
+    HeaderStyle,
+    SidebarStyle,
+    TabStyle,
+    Maximized
+  } from 'ele-admin-plus/es/ele-admin-layout/types'
   import type { MenuItem } from 'ele-admin-plus/es/ele-menus/types'
   import type { TabPaneItem } from 'ele-admin-plus/es/ele-tabs/types'
   import type { BreadcrumbItem } from 'ele-admin-plus/es/ele-breadcrumb/types'
@@ -336,7 +366,11 @@
 
   const tabActive = ref('/system/user')
 
-  const levels = ref<BreadcrumbItem[]>([{ title: '首页' }, { title: '系统管理' }, { title: '用户管理' }])
+  const levels = ref<BreadcrumbItem[]>([
+    { title: '首页' },
+    { title: '系统管理' },
+    { title: '用户管理' }
+  ])
 
   const layout = ref<Layout>('default')
 

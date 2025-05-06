@@ -1,6 +1,16 @@
 import type { ApiResult } from '@/api'
 import request from '@/utils/request'
-import type { InboundOrder, InboundCollection, InboundRegisterParams, InboundApproveParams, InboundConfirmParams, InboundQueryParams, InboundDetailsQueryParams, InboundCollectionQueryParams, InboundOrderDetail } from './model'
+import type {
+  InboundOrder,
+  InboundCollection,
+  InboundRegisterParams,
+  InboundApproveParams,
+  InboundConfirmParams,
+  InboundQueryParams,
+  InboundDetailsQueryParams,
+  InboundCollectionQueryParams,
+  InboundOrderDetail
+} from './model'
 
 /**
  * 根据入库类型查询藏品列表
@@ -11,7 +21,10 @@ export async function getCollectionsByType(type: number) {
   if (!type) {
     return Promise.reject(new Error('入库类型不能为空'))
   }
-  const res = await request.get<ApiResult<InboundCollection[]>>('/api/inventory/inbound/type/collection', { params: { type } })
+  const res = await request.get<ApiResult<InboundCollection[]>>(
+    '/api/inventory/inbound/type/collection',
+    { params: { type } }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -125,7 +138,9 @@ export async function getInboundOrderDetail(params: InboundDetailsQueryParams) {
   if (!params.id) {
     return Promise.reject(new Error('入库单ID不能为空'))
   }
-  const res = await request.get<ApiResult<InboundOrderDetail>>('/api/inventory/inbound/details', { params })
+  const res = await request.get<ApiResult<InboundOrderDetail>>('/api/inventory/inbound/details', {
+    params
+  })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

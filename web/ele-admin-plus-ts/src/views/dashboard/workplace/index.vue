@@ -3,23 +3,57 @@
     <profile-card />
     <link-card ref="linkCardRef" />
     <el-row :gutter="16" ref="wrapRef">
-      <el-col v-for="(item, index) in data" :key="item.name" :md="item.md" :sm="item.sm" :xs="item.xs">
-        <component :is="item.name" :title="item.title" @command="(command: Command) => handleCommand(command, index)" />
+      <el-col
+        v-for="(item, index) in data"
+        :key="item.name"
+        :md="item.md"
+        :sm="item.sm"
+        :xs="item.xs"
+      >
+        <component
+          :is="item.name"
+          :title="item.title"
+          @command="(command: Command) => handleCommand(command, index)"
+        />
       </el-col>
     </el-row>
     <ele-card :body-style="{ padding: 0 }">
       <div class="workplace-bottom">
-        <el-link type="primary" :icon="PlusCircleOutlined" :underline="false" class="workplace-button" @click="add"> 添加卡片 </el-link>
+        <el-link
+          type="primary"
+          :icon="PlusCircleOutlined"
+          :underline="false"
+          class="workplace-button"
+          @click="add"
+        >
+          添加卡片
+        </el-link>
         <el-divider direction="vertical" style="margin: 0" />
-        <el-link type="primary" :icon="UndoOutlined" :underline="false" class="workplace-button" @click="reset"> 重置布局 </el-link>
+        <el-link
+          type="primary"
+          :icon="UndoOutlined"
+          :underline="false"
+          class="workplace-button"
+          @click="reset"
+        >
+          重置布局
+        </el-link>
       </div>
     </ele-card>
     <!-- 添加卡片弹窗 -->
     <ele-modal :width="680" v-model="visible" title="未添加的卡片">
       <el-row :gutter="16" style="margin-top: -16px">
         <el-col v-for="item in notAddedData" :key="item.name" :md="8" :sm="12" :xs="24">
-          <ele-card bordered :header="item.title" :header-style="{ padding: '8px 14px', fontSize: '14px' }" :body-style="{ padding: '32px 0', textAlign: 'center' }" style="margin-top: 16px">
-            <el-button plain round size="small" type="primary" @click="addView(item)"> 添加 </el-button>
+          <ele-card
+            bordered
+            :header="item.title"
+            :header-style="{ padding: '8px 14px', fontSize: '14px' }"
+            :body-style="{ padding: '32px 0', textAlign: 'center' }"
+            style="margin-top: 16px"
+          >
+            <el-button plain round size="small" type="primary" @click="addView(item)">
+              添加
+            </el-button>
           </ele-card>
         </el-col>
       </el-row>
@@ -162,7 +196,10 @@
         EleMessage.info({ message: '点击了编辑', plain: true })
         break
       case 'remove': // 删除
-        ElMessageBox.confirm(`确定要删除“${data.value[index].title}”卡片吗?`, '系统提示', { type: 'warning', draggable: true })
+        ElMessageBox.confirm(`确定要删除“${data.value[index].title}”卡片吗?`, '系统提示', {
+          type: 'warning',
+          draggable: true
+        })
           .then(() => {
             data.value = data.value.filter((_d, i) => i !== index)
             cacheData()

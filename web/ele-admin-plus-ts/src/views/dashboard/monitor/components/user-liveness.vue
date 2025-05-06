@@ -2,9 +2,30 @@
   <ele-card header="用户活跃度" :body-style="{ padding: '64px 0' }">
     <div class="progress-body">
       <div class="progress-group">
-        <el-progress type="circle" color="#52c41a" :percentage="70" :show-text="false" :stroke-width="8" :width="136" />
-        <el-progress type="circle" color="#1890ff" :percentage="60" :show-text="false" :stroke-width="6" :width="98" />
-        <el-progress type="circle" color="#f5222d" :percentage="35" :show-text="false" :stroke-width="4" :width="66" />
+        <el-progress
+          type="circle"
+          color="#52c41a"
+          :percentage="70"
+          :show-text="false"
+          :stroke-width="8"
+          :width="136"
+        />
+        <el-progress
+          type="circle"
+          color="#1890ff"
+          :percentage="60"
+          :show-text="false"
+          :stroke-width="6"
+          :width="98"
+        />
+        <el-progress
+          type="circle"
+          color="#f5222d"
+          :percentage="35"
+          :show-text="false"
+          :stroke-width="4"
+          :width="66"
+        />
       </div>
       <div class="progress-legend">
         <div class="progress-legend-item">

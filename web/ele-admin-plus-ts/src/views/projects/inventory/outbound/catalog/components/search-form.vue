@@ -1,22 +1,53 @@
 <template>
   <el-form :model="formData" @keyup.enter="handleSubmit" @submit.prevent :inline="true">
     <el-form-item label="藏品选择" prop="collectionId">
-      <el-select v-model="formData.collectionId" placeholder="请选择藏品" clearable filterable style="width: 200px">
-        <el-option v-for="item in collectionOptions" :key="item.value" :label="item.label" :value="item.value" />
+      <el-select
+        v-model="formData.collectionId"
+        placeholder="请选择藏品"
+        clearable
+        filterable
+        style="width: 200px"
+      >
+        <el-option
+          v-for="item in collectionOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
       </el-select>
     </el-form-item>
     <el-form-item label="出库单号" prop="outboundCode">
-      <el-input v-model="formData.outboundCode" placeholder="请输入出库单号" clearable style="width: 200px" />
+      <el-input
+        v-model="formData.outboundCode"
+        placeholder="请输入出库单号"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="藏品编号" prop="collectionCode">
-      <el-input v-model="formData.collectionCode" placeholder="请输入藏品编号" clearable style="width: 200px" />
+      <el-input
+        v-model="formData.collectionCode"
+        placeholder="请输入藏品编号"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="藏品名称" prop="collectionName">
-      <el-input v-model="formData.collectionName" placeholder="请输入藏品名称" clearable style="width: 200px" />
+      <el-input
+        v-model="formData.collectionName"
+        placeholder="请输入藏品名称"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="状态" prop="status">
       <el-select v-model="formData.status" placeholder="请选择状态" clearable style="width: 200px">
-        <el-option v-for="item in statusOptions" :key="item.value" :label="item.label" :value="item.value" />
+        <el-option
+          v-for="item in statusOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
       </el-select>
     </el-form-item>
     <el-form-item>
@@ -63,7 +94,9 @@
     formRef.value?.validate((valid) => {
       if (valid) {
         // 过滤掉 undefined 和空字符串的值
-        const params = Object.fromEntries(Object.entries(formData).filter(([_, value]) => value !== undefined && value !== ''))
+        const params = Object.fromEntries(
+          Object.entries(formData).filter(([_, value]) => value !== undefined && value !== '')
+        )
         emit('search', params)
       }
     })

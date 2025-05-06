@@ -1,7 +1,16 @@
 <template>
   <ele-card header="二次封装简化使用">
-    <div style="margin-bottom: 24px"> 二次封装后无需再处理上传事件及转换数据格式，使用起来就像一个普通输入框一样简单 </div>
-    <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" style="max-width: 460px" @submit.prevent="">
+    <div style="margin-bottom: 24px">
+      二次封装后无需再处理上传事件及转换数据格式，使用起来就像一个普通输入框一样简单
+    </div>
+    <el-form
+      ref="formRef"
+      :model="form"
+      :rules="rules"
+      label-width="100px"
+      style="max-width: 460px"
+      @submit.prevent=""
+    >
       <el-form-item label="投诉内容" prop="content">
         <el-input :rows="4" type="textarea" v-model="form.content" placeholder="请输入投诉内容" />
       </el-form-item>
@@ -155,7 +164,8 @@
       idCardImg1: 'https://cdn.eleadmin.com/20200610/CyrCNmTJfv7D6GFAg39bjT3eRkkRm5dI.jpg',
       idCardImg2: 'https://cdn.eleadmin.com/20200610/ttkIjNPlVDuv4lUTvRX8GIlM2QqSe0jg.jpg',
       content: '2栋楼下的路灯已经坏了几天了都没人来维修一下',
-      images: '["https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg","https://cdn.eleadmin.com/20200610/WLXm7gp1EbLDtvVQgkeQeyq5OtDm00Jd.jpg"]'
+      images:
+        '["https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg","https://cdn.eleadmin.com/20200610/WLXm7gp1EbLDtvVQgkeQeyq5OtDm00Jd.jpg"]'
     }
     assignFields(data)
     formRef.value?.clearValidate?.()

@@ -2,7 +2,13 @@
   <el-row :gutter="16">
     <el-col :md="8" :sm="24" :xs="24">
       <ele-card header="宫格拖拽排序">
-        <vue-draggable v-model="grid" item-key="id" :animation="300" :set-data="() => void 0" class="demo-grid">
+        <vue-draggable
+          v-model="grid"
+          item-key="id"
+          :animation="300"
+          :set-data="() => void 0"
+          class="demo-grid"
+        >
           <template #item="{ element }">
             <div class="demo-grid-item">{{ element.name }}</div>
           </template>
@@ -12,12 +18,27 @@
     <el-col :md="16" :sm="24" :xs="24">
       <ele-card header="宫格相互拖拽">
         <div style="display: flex; align-items: flex-start">
-          <vue-draggable v-model="grid1" item-key="id" :animation="300" group="demoDragGrid" :set-data="() => void 0" class="demo-grid">
+          <vue-draggable
+            v-model="grid1"
+            item-key="id"
+            :animation="300"
+            group="demoDragGrid"
+            :set-data="() => void 0"
+            class="demo-grid"
+          >
             <template #item="{ element }">
               <div class="demo-grid-item">{{ element.name }}</div>
             </template>
           </vue-draggable>
-          <vue-draggable v-model="grid2" item-key="id" :animation="300" group="demoDragGrid" :set-data="() => void 0" class="demo-grid" style="margin-left: 12px">
+          <vue-draggable
+            v-model="grid2"
+            item-key="id"
+            :animation="300"
+            group="demoDragGrid"
+            :set-data="() => void 0"
+            class="demo-grid"
+            style="margin-left: 12px"
+          >
             <template #item="{ element }">
               <div class="demo-grid-item">{{ element.name }}</div>
             </template>

@@ -1,13 +1,31 @@
 <template>
   <ele-card header="可搜索">
     <div style="max-width: 260px">
-      <ele-table-select ref="selectRef" multiple clearable placeholder="请选择" value-key="userId" label-key="nickname" v-model="selectedValue" :table-props="tableProps" :popper-width="580" :cache-data="cacheData" @select="handleSelect" :popper-options="{ strategy: 'fixed' }">
+      <ele-table-select
+        ref="selectRef"
+        multiple
+        clearable
+        placeholder="请选择"
+        value-key="userId"
+        label-key="nickname"
+        v-model="selectedValue"
+        :table-props="tableProps"
+        :popper-width="580"
+        :cache-data="cacheData"
+        @select="handleSelect"
+        :popper-options="{ strategy: 'fixed' }"
+      >
         <template #topExtra>
           <demo-advanced-search @search="handleSearch" />
         </template>
         <!-- 角色列 -->
         <template #roles="{ row }">
-          <el-tag v-for="item in row.roles" :key="item.roleId" size="small" :disable-transitions="true">
+          <el-tag
+            v-for="item in row.roles"
+            :key="item.roleId"
+            size="small"
+            :disable-transitions="true"
+          >
             {{ item.roleName }}
           </el-tag>
         </template>
@@ -18,10 +36,27 @@
     </div>
     <div style="margin: 22px 0 8px 0">使用默认的搜索框:</div>
     <div style="max-width: 260px">
-      <ele-table-select filterable clearable placeholder="请选择" value-key="userId" label-key="nickname" v-model="selectedValue2" :table-props="tableProps2" :popper-width="580" @filterChange="handleFilterChange" @visibleChange="handleVisibleChange" :popper-options="{ strategy: 'fixed' }">
+      <ele-table-select
+        filterable
+        clearable
+        placeholder="请选择"
+        value-key="userId"
+        label-key="nickname"
+        v-model="selectedValue2"
+        :table-props="tableProps2"
+        :popper-width="580"
+        @filterChange="handleFilterChange"
+        @visibleChange="handleVisibleChange"
+        :popper-options="{ strategy: 'fixed' }"
+      >
         <!-- 角色列 -->
         <template #roles="{ row }">
-          <el-tag v-for="item in row.roles" :key="item.roleId" size="small" :disable-transitions="true">
+          <el-tag
+            v-for="item in row.roles"
+            :key="item.roleId"
+            size="small"
+            :disable-transitions="true"
+          >
             {{ item.roleName }}
           </el-tag>
         </template>
@@ -190,7 +225,12 @@
   /** 筛选输入框值改变事件 */
   const handleFilterChange = (keyword: string) => {
     tableProps2.datasource = allData.filter((d) => {
-      return d.username?.includes?.(keyword) || d.nickname?.includes?.(keyword) || d.sexName?.includes?.(keyword) || d.roles?.some?.((r) => r.roleName?.includes?.(keyword))
+      return (
+        d.username?.includes?.(keyword) ||
+        d.nickname?.includes?.(keyword) ||
+        d.sexName?.includes?.(keyword) ||
+        d.roles?.some?.((r) => r.roleName?.includes?.(keyword))
+      )
     })
   }
 

@@ -2,7 +2,11 @@
   <ele-card header="音乐播放功能演示">
     <div class="demo-music-wrap">
       <div class="music-wrapper">
-        <div :key="current.vid" class="music-body" :style="{ backgroundImage: `url('${current.poster}')` }">
+        <div
+          :key="current.vid"
+          class="music-body"
+          :style="{ backgroundImage: `url('${current.poster}')` }"
+        >
           <div ref="lrcRef" class="lrc-wrap" style="height: 100%"></div>
           <canvas ref="analyzeRef" class="analyze-wrap"></canvas>
         </div>
@@ -19,7 +23,12 @@
               <StepForwardFilled @click="playNext" />
             </el-icon>
           </div>
-          <ele-xg-player :key="current.vid" :config="config" @player="handlePlayer" style="flex: 1; overflow: visible" />
+          <ele-xg-player
+            :key="current.vid"
+            :config="config"
+            @player="handlePlayer"
+            style="flex: 1; overflow: visible"
+          />
         </div>
       </div>
     </div>
@@ -30,7 +39,12 @@
   import { ref } from 'vue'
   import type Player from 'xgplayer'
   import MusicPreset, { Analyze, Lyric } from 'xgplayer-music'
-  import { PlayFilled, PauseFilled, StepForwardFilled, StepBackwardFilled } from '@/components/icons'
+  import {
+    PlayFilled,
+    PauseFilled,
+    StepForwardFilled,
+    StepBackwardFilled
+  } from '@/components/icons'
   /** 歌词 */
   const lyrics = [
     {
@@ -47,12 +61,14 @@
     {
       vid: '000001',
       src: '//sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/music/audio.mp3',
-      poster: 'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/1.png'
+      poster:
+        'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/1.png'
     },
     {
       vid: '000002',
       src: '//sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/music/audio-en.mp3',
-      poster: 'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png'
+      poster:
+        'https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/solution/general-video/css/img/scene/6.png'
     }
   ]
 
@@ -66,7 +82,17 @@
     mediaType: 'audio',
     marginControls: true,
     controls: { initShow: true, mode: 'flex' },
-    ignores: ['play', 'mobile', 'playbackrate', 'musicbackward', 'musicforward', 'musiccover', 'musicmeta', 'musicnext', 'musicprev'],
+    ignores: [
+      'play',
+      'mobile',
+      'playbackrate',
+      'musicbackward',
+      'musicforward',
+      'musiccover',
+      'musicmeta',
+      'musicnext',
+      'musicprev'
+    ],
     presets: ['default', MusicPreset],
     videoConfig: { crossOrigin: 'anonymous' }
   })

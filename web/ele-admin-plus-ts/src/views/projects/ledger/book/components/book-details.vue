@@ -1,5 +1,11 @@
 <template>
-  <ele-modal v-model="modelValue" title="图书详情" width="800px" :destroy-on-close="true" @close="onClose">
+  <ele-modal
+    v-model="modelValue"
+    title="图书详情"
+    width="800px"
+    :destroy-on-close="true"
+    @close="onClose"
+  >
     <el-descriptions :column="2" border>
       <el-descriptions-item label="编号类别">{{ row?.numberCategory }}</el-descriptions-item>
       <el-descriptions-item label="藏品名称">{{ row?.collectionName }}</el-descriptions-item>

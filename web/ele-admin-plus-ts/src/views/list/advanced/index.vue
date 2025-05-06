@@ -93,7 +93,14 @@
           <el-divider style="margin: 0; opacity: 0.6" />
         </div>
       </ele-loading>
-      <ele-pagination :total="count" v-model:page-size="limit" v-model:current-page="page" layout="prev, pager, next, sizes, jumper" :pageSizes="[5, 10, 20]" style="margin-top: 10px; justify-content: center" />
+      <ele-pagination
+        :total="count"
+        v-model:page-size="limit"
+        v-model:current-page="page"
+        layout="prev, pager, next, sizes, jumper"
+        :pageSizes="[5, 10, 20]"
+        style="margin-top: 10px; justify-content: center"
+      />
     </ele-card>
     <!-- 编辑弹窗 -->
     <ele-modal form :width="460" v-model="visible" :title="form.id ? '任务编辑' : '任务添加'">
@@ -102,7 +109,14 @@
           <el-input clearable :maxlength="20" v-model="form.title" placeholder="请输入任务名称" />
         </el-form-item>
         <el-form-item label="开始时间" prop="time">
-          <el-date-picker type="datetime" v-model="form.time" format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" class="ele-fluid" />
+          <el-date-picker
+            type="datetime"
+            v-model="form.time"
+            format="YYYY-MM-DD HH:mm:ss"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            placeholder="请选择开始时间"
+            class="ele-fluid"
+          />
         </el-form-item>
         <el-form-item label="负责人" prop="user">
           <el-select clearable v-model="form.user" placeholder="请选择负责人" class="ele-fluid">
@@ -226,7 +240,8 @@
           time: '2020-06-13 08:33:12',
           user: 'SunSmile',
           progress: 87,
-          content: 'Element, 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的组件库, 提供了配套设计资源, 帮助你的网站快速成型。',
+          content:
+            'Element, 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的组件库, 提供了配套设计资源, 帮助你的网站快速成型。',
           cover: 'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg'
         },
         {
@@ -236,7 +251,8 @@
           user: 'Pojin',
           progress: 100,
           status: 'success',
-          content: 'Vue 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是, Vue 被设计为可以自底向上逐层应用。',
+          content:
+            'Vue 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是, Vue 被设计为可以自底向上逐层应用。',
           cover: 'https://cdn.eleadmin.com/20200609/b6a811873e704db49db994053a5019b2.jpg'
         },
         {
@@ -245,7 +261,8 @@
           time: '2020-06-13 04:40:20',
           user: 'SuperWill',
           progress: 75,
-          content: 'Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态, 并以相应的规则保证状态以一种可预测的方式发生变化。',
+          content:
+            'Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态, 并以相应的规则保证状态以一种可预测的方式发生变化。',
           cover: 'https://cdn.eleadmin.com/20200609/948344a2a77c47a7a7b332fe12ff749a.jpg'
         },
         {
@@ -254,7 +271,8 @@
           time: '2020-06-13 02:40:05',
           user: 'Jasmine',
           progress: 65,
-          content: 'Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成, 让构建单页面应用变得易如反掌。',
+          content:
+            'Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成, 让构建单页面应用变得易如反掌。',
           cover: 'https://cdn.eleadmin.com/20200609/f6bc05af944a4f738b54128717952107.jpg'
         },
         {

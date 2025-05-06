@@ -1,8 +1,18 @@
 <template>
   <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true">
     <el-form-item label="藏品选择" prop="collectionId">
-      <el-select v-model="form.collectionId" placeholder="请选择藏品" clearable style="width: 200px">
-        <el-option v-for="item in collectionOptions" :key="item.value" :label="item.label" :value="item.value" />
+      <el-select
+        v-model="form.collectionId"
+        placeholder="请选择藏品"
+        clearable
+        style="width: 200px"
+      >
+        <el-option
+          v-for="item in collectionOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
       </el-select>
     </el-form-item>
     <el-form-item label="事故地点" prop="accidentLocation">
@@ -15,7 +25,12 @@
       <el-input v-model="form.responsiblePerson" placeholder="请输入事故责任人" clearable />
     </el-form-item>
     <el-form-item label="藏品损坏情况" prop="collectionDamageStatus">
-      <el-select v-model="form.collectionDamageStatus" placeholder="请选择损坏情况" clearable style="width: 200px">
+      <el-select
+        v-model="form.collectionDamageStatus"
+        placeholder="请选择损坏情况"
+        clearable
+        style="width: 200px"
+      >
         <el-option label="轻微损坏" value="轻微损坏" />
         <el-option label="中度损坏" value="中度损坏" />
         <el-option label="严重损坏" value="严重损坏" />

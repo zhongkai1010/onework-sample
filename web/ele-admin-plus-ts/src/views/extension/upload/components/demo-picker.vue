@@ -4,12 +4,34 @@
       <span>调用文件选择器</span>
       <el-badge value="New" style="display: inline-flex; font-weight: normal; margin-left: 4px" />
     </template>
-    <div style="margin-bottom: 12px"> 可自定义上传按钮和修改按钮的逻辑，例如弹出文件选择弹窗进行选择。 </div>
-    <ele-upload-list :drag="true" :tools="true" :limit="limit" :multiple="true" v-model="images" :sortable="{ forceFallback: true }" :beforeUploadClick="beforeUploadClick" :beforeItemEdit="beforeItemEdit" @upload="handleUpload" @retry="(item) => handleUpload(item, true)" @remove="handleRemove" />
+    <div style="margin-bottom: 12px">
+      可自定义上传按钮和修改按钮的逻辑，例如弹出文件选择弹窗进行选择。
+    </div>
+    <ele-upload-list
+      :drag="true"
+      :tools="true"
+      :limit="limit"
+      :multiple="true"
+      v-model="images"
+      :sortable="{ forceFallback: true }"
+      :beforeUploadClick="beforeUploadClick"
+      :beforeItemEdit="beforeItemEdit"
+      @upload="handleUpload"
+      @retry="(item) => handleUpload(item, true)"
+      @remove="handleRemove"
+    />
     <div style="display: flex; align-items: center; margin-top: 12px">
       <el-button type="primary" @click="getData" class="ele-btn-icon"> 获取数据 </el-button>
     </div>
-    <file-picker title="图片选择" :fileLimit="2" accept="image/*" :params="{ contentType: 'image/' }" v-model="showFilePicker" :limit="filePickerLimit" @done="handleFilePickerDone" />
+    <file-picker
+      title="图片选择"
+      :fileLimit="2"
+      accept="image/*"
+      :params="{ contentType: 'image/' }"
+      v-model="showFilePicker"
+      :limit="filePickerLimit"
+      @done="handleFilePickerDone"
+    />
   </ele-card>
 </template>
 

@@ -1,9 +1,23 @@
 <!-- 批量导入图片弹框表单 -->
 <template>
-  <ele-modal v-model="modelValue" title="批量导入图片" width="500px" :destroy-on-close="true" @close="onClose">
+  <ele-modal
+    v-model="modelValue"
+    title="批量导入图片"
+    width="500px"
+    :destroy-on-close="true"
+    @close="onClose"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent>
       <el-form-item label="图片" prop="files">
-        <el-upload class="upload-demo" drag multiple :auto-upload="false" :on-change="handleChange" :on-remove="handleRemove" :file-list="fileList">
+        <el-upload
+          class="upload-demo"
+          drag
+          multiple
+          :auto-upload="false"
+          :on-change="handleChange"
+          :on-remove="handleRemove"
+          :file-list="fileList"
+        >
           <el-icon class="el-icon--upload"><upload-filled /></el-icon>
           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
           <template #tip>

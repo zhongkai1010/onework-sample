@@ -1,6 +1,18 @@
 <!-- 机构选择下拉框 -->
 <template>
-  <el-tree-select clearable filterable :data="data" check-strictly default-expand-all node-key="organizationId" :props="{ label: 'organizationName' }" :placeholder="placeholder" v-model="model" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+  <el-tree-select
+    clearable
+    filterable
+    :data="data"
+    check-strictly
+    default-expand-all
+    node-key="organizationId"
+    :props="{ label: 'organizationName' }"
+    :placeholder="placeholder"
+    v-model="model"
+    class="ele-fluid"
+    :popper-options="{ strategy: 'fixed' }"
+  />
 </template>
 
 <script lang="ts" setup>

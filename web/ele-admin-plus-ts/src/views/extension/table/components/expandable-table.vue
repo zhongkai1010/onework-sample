@@ -1,6 +1,13 @@
 <template>
   <div>
-    <ele-pro-table row-key="userId" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :export-config="{ fileName: '用户数据', datasource: exportSource }" :print-config="{ datasource: exportSource }">
+    <ele-pro-table
+      row-key="userId"
+      :columns="columns"
+      :datasource="datasource"
+      :show-overflow-tooltip="true"
+      :export-config="{ fileName: '用户数据', datasource: exportSource }"
+      :print-config="{ datasource: exportSource }"
+    >
       <template #expand="{ row }">
         <div style="padding: 12px 16px 12px 32px">
           <div>
@@ -14,7 +21,12 @@
           <div style="margin-top: 12px">
             <span>角&emsp;&emsp;色：</span>
             <span>
-              <el-tag v-for="item in row.roles" :key="item.roleId" size="small" :disable-transitions="true">
+              <el-tag
+                v-for="item in row.roles"
+                :key="item.roleId"
+                size="small"
+                :disable-transitions="true"
+              >
                 {{ item.roleName }}
               </el-tag>
             </span>
@@ -23,7 +35,13 @@
             <span>状&emsp;&emsp;态：</span>
             <span>
               <ele-dot v-if="row.status === 0" text="正常" size="8px" />
-              <ele-dot v-else-if="row.status === 1" text="冻结" type="danger" :ripple="false" size="8px" />
+              <ele-dot
+                v-else-if="row.status === 1"
+                text="冻结"
+                type="danger"
+                :ripple="false"
+                size="8px"
+              />
             </span>
           </div>
         </div>
@@ -46,7 +64,12 @@
       align: 'center',
       slot: 'expand',
       formatter: (row) => {
-        return [`手机号码：${row.phone}`, `所属机构：${row.organizationName}`, `角色：${row.roles.map((r) => r.roleName).join()}`, `状态：${row.status == 0 ? '正常' : '冻结'}`].join('\n')
+        return [
+          `手机号码：${row.phone}`,
+          `所属机构：${row.organizationName}`,
+          `角色：${row.roles.map((r) => r.roleName).join()}`,
+          `状态：${row.status == 0 ? '正常' : '冻结'}`
+        ].join('\n')
       }
     },
     {

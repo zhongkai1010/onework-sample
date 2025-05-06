@@ -2,11 +2,29 @@
   <ele-page>
     <menu-search @search="reload" />
     <ele-card :body-style="{ paddingTop: '8px' }">
-      <ele-pro-table sticky ref="tableRef" row-key="menuId" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :highlight-current-row="true" :export-config="{ fileName: '菜单数据' }" :default-expand-all="false" :pagination="false" cache-key="systemMenuTable">
+      <ele-pro-table
+        sticky
+        ref="tableRef"
+        row-key="menuId"
+        :columns="columns"
+        :datasource="datasource"
+        :show-overflow-tooltip="true"
+        :highlight-current-row="true"
+        :export-config="{ fileName: '菜单数据' }"
+        :default-expand-all="false"
+        :pagination="false"
+        cache-key="systemMenuTable"
+      >
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()"> 新建 </el-button>
-          <el-button class="ele-btn-icon" :icon="ColumnHeightOutlined" @click="expandAll"> 展开全部 </el-button>
-          <el-button class="ele-btn-icon" :icon="VerticalAlignMiddleOutlined" @click="foldAll"> 折叠全部 </el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()">
+            新建
+          </el-button>
+          <el-button class="ele-btn-icon" :icon="ColumnHeightOutlined" @click="expandAll">
+            展开全部
+          </el-button>
+          <el-button class="ele-btn-icon" :icon="VerticalAlignMiddleOutlined" @click="foldAll">
+            折叠全部
+          </el-button>
         </template>
         <template #title="{ row }">
           <el-icon v-if="row.icon" :size="15" style="margin-right: 8px; vertical-align: -2px">
@@ -15,14 +33,46 @@
           <span>{{ row.title }}</span>
         </template>
         <template #menuType="{ row }">
-          <el-tag v-if="isExternalLink(row.path)" size="small" type="danger" :disable-transitions="true"> 外链 </el-tag>
-          <el-tag v-else-if="isExternalLink(row.component)" size="small" type="warning" :disable-transitions="true"> 内嵌 </el-tag>
-          <el-tag v-else-if="isDirectory(row)" size="small" :disable-transitions="true"> 目录 </el-tag>
-          <el-tag v-else-if="row.menuType === 0" size="small" type="success" :disable-transitions="true"> 菜单 </el-tag>
-          <el-tag v-else-if="row.menuType === 1" size="small" type="info" :disable-transitions="true"> 按钮 </el-tag>
+          <el-tag
+            v-if="isExternalLink(row.path)"
+            size="small"
+            type="danger"
+            :disable-transitions="true"
+          >
+            外链
+          </el-tag>
+          <el-tag
+            v-else-if="isExternalLink(row.component)"
+            size="small"
+            type="warning"
+            :disable-transitions="true"
+          >
+            内嵌
+          </el-tag>
+          <el-tag v-else-if="isDirectory(row)" size="small" :disable-transitions="true">
+            目录
+          </el-tag>
+          <el-tag
+            v-else-if="row.menuType === 0"
+            size="small"
+            type="success"
+            :disable-transitions="true"
+          >
+            菜单
+          </el-tag>
+          <el-tag
+            v-else-if="row.menuType === 1"
+            size="small"
+            type="info"
+            :disable-transitions="true"
+          >
+            按钮
+          </el-tag>
         </template>
         <template #action="{ row }">
-          <el-link type="primary" :underline="false" @click="openEdit(null, row.menuId)"> 添加 </el-link>
+          <el-link type="primary" :underline="false" @click="openEdit(null, row.menuId)">
+            添加
+          </el-link>
           <el-divider direction="vertical" />
           <el-link type="primary" :underline="false" @click="openEdit(row)"> 修改 </el-link>
           <el-divider direction="vertical" />
@@ -30,7 +80,13 @@
         </template>
       </ele-pro-table>
     </ele-card>
-    <menu-edit ref="menuEditRef" v-model="showEdit" :data="current" :parent-id="parentId" @done="handleMenuEditDone" />
+    <menu-edit
+      ref="menuEditRef"
+      v-model="showEdit"
+      :data="current"
+      :parent-id="parentId"
+      @done="handleMenuEditDone"
+    />
   </ele-page>
 </template>
 
@@ -40,7 +96,11 @@
   import { EleMessage, isExternalLink, toTree } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { PlusOutlined, ColumnHeightOutlined, VerticalAlignMiddleOutlined } from '@/components/icons'
+  import {
+    PlusOutlined,
+    ColumnHeightOutlined,
+    VerticalAlignMiddleOutlined
+  } from '@/components/icons'
   import MenuSearch from './components/menu-search.vue'
   import MenuEdit from './components/menu-edit.vue'
   import { listMenus, removeMenu } from '@/api/system/menu'
@@ -90,7 +150,16 @@
       width: 100,
       align: 'center',
       slot: 'menuType',
-      formatter: (row) => ['菜单', '按钮', '外链', '内嵌', '目录'][isExternalLink(row.path) ? 2 : isExternalLink(row.component) ? 3 : isDirectory(row) ? 4 : row.menuType]
+      formatter: (row) =>
+        ['菜单', '按钮', '外链', '内嵌', '目录'][
+          isExternalLink(row.path)
+            ? 2
+            : isExternalLink(row.component)
+              ? 3
+              : isDirectory(row)
+                ? 4
+                : row.menuType
+        ]
     },
     {
       columnKey: 'action',

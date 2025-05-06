@@ -1,6 +1,13 @@
 <!-- 添加和修改的表单 -->
 <template>
-  <el-form ref="formRef" :model="form" :rules="rules" label-width="80px" style="max-width: 600px; margin: 10px auto" @submit.prevent="">
+  <el-form
+    ref="formRef"
+    :model="form"
+    :rules="rules"
+    label-width="80px"
+    style="max-width: 600px; margin: 10px auto"
+    @submit.prevent=""
+  >
     <el-form-item label="用户账号" prop="username">
       <el-input clearable :maxlength="20" v-model="form.username" placeholder="请输入用户账号" />
     </el-form-item>
@@ -20,13 +27,30 @@
       <el-input clearable :maxlength="11" v-model="form.phone" placeholder="请输入手机号" />
     </el-form-item>
     <el-form-item label="出生日期">
-      <el-date-picker v-model="form.birthday" value-format="YYYY-MM-DD" placeholder="请选择出生日期" class="ele-fluid" />
+      <el-date-picker
+        v-model="form.birthday"
+        value-format="YYYY-MM-DD"
+        placeholder="请选择出生日期"
+        class="ele-fluid"
+      />
     </el-form-item>
     <el-form-item v-if="!isUpdate" label="登录密码" prop="password">
-      <el-input show-password type="password" :maxlength="20" v-model="form.password" placeholder="请输入登录密码" />
+      <el-input
+        show-password
+        type="password"
+        :maxlength="20"
+        v-model="form.password"
+        placeholder="请输入登录密码"
+      />
     </el-form-item>
     <el-form-item label="个人简介">
-      <el-input type="textarea" :rows="4" v-model="form.introduction" :maxlength="200" placeholder="请输入个人简介" />
+      <el-input
+        type="textarea"
+        :rows="4"
+        v-model="form.introduction"
+        :maxlength="200"
+        placeholder="请输入个人简介"
+      />
     </el-form-item>
     <el-form-item>
       <el-button @click="handleClose">关闭</el-button>

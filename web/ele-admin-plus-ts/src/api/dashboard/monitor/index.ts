@@ -18,7 +18,9 @@ export async function getChinaMapData() {
  * 获取用户分布数据
  */
 export async function getUserCountList() {
-  const res = await request.get<ApiResult<UserCount[]>>('https://cdn.eleadmin.com/20200610/monitor-user-count.json')
+  const res = await request.get<ApiResult<UserCount[]>>(
+    'https://cdn.eleadmin.com/20200610/monitor-user-count.json'
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -29,7 +31,9 @@ export async function getUserCountList() {
  * 获取用户浏览器分布数据
  */
 export async function getBrowserCountList() {
-  const res = await request.get<ApiResult<BrowserCount[]>>('https://cdn.eleadmin.com/20200610/monitor-browser-count.json')
+  const res = await request.get<ApiResult<BrowserCount[]>>(
+    'https://cdn.eleadmin.com/20200610/monitor-browser-count.json'
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

@@ -12,9 +12,15 @@
       <el-button @click="showNotification('info')">信息</el-button>
     </option-item>
     <option-item label="位置">
-      <el-button @click="showNotification('info', null, 'top-left')" class="ele-btn-icon"> TopLeft </el-button>
-      <el-button @click="showNotification('info', null, 'bottom-left')" class="ele-btn-icon"> BottomLeft </el-button>
-      <el-button @click="showNotification('info', null, 'bottom-right')" class="ele-btn-icon"> BottomRight </el-button>
+      <el-button @click="showNotification('info', null, 'top-left')" class="ele-btn-icon">
+        TopLeft
+      </el-button>
+      <el-button @click="showNotification('info', null, 'bottom-left')" class="ele-btn-icon">
+        BottomLeft
+      </el-button>
+      <el-button @click="showNotification('info', null, 'bottom-right')" class="ele-btn-icon">
+        BottomRight
+      </el-button>
     </option-item>
   </ele-card>
 </template>
@@ -25,7 +31,11 @@
   import OptionItem from '@/views/extension/avatar/components/option-item.vue'
 
   /** 打开消息通知 */
-  const showNotification = (type?: NotificationProps['type'] | null, duration?: number | null, position?: NotificationProps['position'] | null) => {
+  const showNotification = (
+    type?: NotificationProps['type'] | null,
+    duration?: number | null,
+    position?: NotificationProps['position'] | null
+  ) => {
     ElNotification({
       title: 'Notification Title',
       message: 'This is the content of the notification. This is the content of the notification. ',

@@ -18,7 +18,16 @@
   import { ref, onMounted, onBeforeUnmount } from 'vue'
   import SortableJs from 'sortablejs'
   import type { ElRow } from 'element-plus'
-  import { UserOutlined, AnalysisOutlined, ShoppingOutlined, LogOutlined, CopyOutlined, MailOutlined, TagOutlined, ControlOutlined } from '@/components/icons'
+  import {
+    UserOutlined,
+    AnalysisOutlined,
+    ShoppingOutlined,
+    LogOutlined,
+    CopyOutlined,
+    MailOutlined,
+    TagOutlined,
+    ControlOutlined
+  } from '@/components/icons'
 
   defineOptions({
     components: {

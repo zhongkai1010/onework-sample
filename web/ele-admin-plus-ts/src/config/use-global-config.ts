@@ -74,7 +74,12 @@ export function getExportWorkbook(params: BeforeExportParams) {
       })
       // 单元格合并
       if ((d.rowspan && d.rowspan > 1) || (d.colspan && d.colspan > 1)) {
-        sheetMerges.push([index + 1, colIndex + 1, index + (d.rowspan || 1), colIndex + (d.colspan || 1)])
+        sheetMerges.push([
+          index + 1,
+          colIndex + 1,
+          index + (d.rowspan || 1),
+          colIndex + (d.colspan || 1)
+        ])
       }
     })
     sheetRows.push(sheetCols)

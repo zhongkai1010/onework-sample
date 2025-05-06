@@ -1,6 +1,16 @@
 import type { ApiResult, PageResult } from '@/api'
 import request from '@/utils/request'
-import type { TransferOrder, AddTransferParams, ApproveTransferParams, ConfirmTransferParams, TransferQueryParams, TransferDetailQueryParams, TransferCatalogQueryParams, TransferDetailInfo, TransferCatalogItem } from './model'
+import type {
+  TransferOrder,
+  AddTransferParams,
+  ApproveTransferParams,
+  ConfirmTransferParams,
+  TransferQueryParams,
+  TransferDetailQueryParams,
+  TransferCatalogQueryParams,
+  TransferDetailInfo,
+  TransferCatalogItem
+} from './model'
 
 /**
  * 新增藏品拨库单
@@ -31,7 +41,9 @@ export async function addTransfer(data: AddTransferParams) {
  * @param params 查询参数
  */
 export async function listTransfers(params?: TransferQueryParams) {
-  const res = await request.get<ApiResult<PageResult<TransferOrder>>>('/api/inventory/transfer', { params })
+  const res = await request.get<ApiResult<PageResult<TransferOrder>>>('/api/inventory/transfer', {
+    params
+  })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -93,7 +105,9 @@ export async function getTransferDetails(params: TransferDetailQueryParams) {
   if (!params.id) {
     return Promise.reject(new Error('拨库单ID不能为空'))
   }
-  const res = await request.get<ApiResult<TransferDetailInfo>>('/api/inventory/transfer/details', { params })
+  const res = await request.get<ApiResult<TransferDetailInfo>>('/api/inventory/transfer/details', {
+    params
+  })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -105,7 +119,10 @@ export async function getTransferDetails(params: TransferDetailQueryParams) {
  * @param params 查询参数
  */
 export async function getTransferCatalog(params?: TransferCatalogQueryParams) {
-  const res = await request.get<ApiResult<PageResult<TransferCatalogItem>>>('/api/inventory/transfer/catalog', { params })
+  const res = await request.get<ApiResult<PageResult<TransferCatalogItem>>>(
+    '/api/inventory/transfer/catalog',
+    { params }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

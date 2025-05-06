@@ -9,11 +9,18 @@
       </el-descriptions-item>
       <el-descriptions-item label="搜索条件"> 无 </el-descriptions-item>
       <el-descriptions-item label="操作栏">无 </el-descriptions-item>
-      <el-descriptions-item label="表格字段" :span="24">编号 拨库单号 拨库日期 藏品编号 藏品名称 原仓库 现仓库 状态</el-descriptions-item>
+      <el-descriptions-item label="表格字段" :span="24"
+        >编号 拨库单号 拨库日期 藏品编号 藏品名称 原仓库 现仓库 状态</el-descriptions-item
+      >
       <el-descriptions-item label="表格操作"> 无 </el-descriptions-item>
     </el-descriptions>
   </el-drawer>
-  <ele-image-viewer v-model="showImageViewer" :urlList="viewerImages" :initialIndex="viewerIndex" :infinite="false" />
+  <ele-image-viewer
+    v-model="showImageViewer"
+    :urlList="viewerImages"
+    :initialIndex="viewerIndex"
+    :infinite="false"
+  />
 </template>
 
 <script setup lang="ts">

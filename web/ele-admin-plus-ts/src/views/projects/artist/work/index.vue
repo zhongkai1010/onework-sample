@@ -20,15 +20,21 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd"> 新增 </el-button>
-          <el-button type="success" class="ele-btn-icon" :icon="Download" @click="handleExport"> 导出 </el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd">
+            新增
+          </el-button>
+          <el-button type="success" class="ele-btn-icon" :icon="Download" @click="handleExport">
+            导出
+          </el-button>
         </template>
 
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
             <el-button type="primary" @click="handleEdit(row)" size="small">编辑</el-button>
-            <el-button type="danger" @click="() => handleRemove([row])" size="small">删除</el-button>
+            <el-button type="danger" @click="() => handleRemove([row])" size="small"
+              >删除</el-button
+            >
             <el-button type="info" @click="handleView(row)" size="small">查看详情</el-button>
           </el-space>
         </template>
@@ -47,7 +53,11 @@
   import { ElMessageBox } from 'element-plus/es'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, Columns, ExportConfig } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    Columns,
+    ExportConfig
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import { PlusOutlined } from '@/components/icons'
   import { Download } from '@element-plus/icons-vue'
   import type { ArtistWork, ArtistWorkQueryParams } from '@/api/artist/work/model'
@@ -247,7 +257,10 @@
 
     const names = data.map((item) => item.workTitle).join('、')
     const count = data.length
-    const message = count === 1 ? `确定要删除作品"${names}"吗？` : `确定要删除选中的 ${count} 个作品吗？\n${names}`
+    const message =
+      count === 1
+        ? `确定要删除作品"${names}"吗？`
+        : `确定要删除选中的 ${count} 个作品吗？\n${names}`
 
     ElMessageBox.confirm(message, '系统提示', {
       type: 'warning',

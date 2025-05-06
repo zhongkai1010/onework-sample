@@ -1,7 +1,12 @@
 <!-- 复选框组 -->
 <template>
   <div class="print-checkbox-group">
-    <div v-for="item in items" :key="item.value" :class="['print-checkbox', { 'is-checked': model && model.includes(item.value) }]" @click="handleItemClick(item)">
+    <div
+      v-for="item in items"
+      :key="item.value"
+      :class="['print-checkbox', { 'is-checked': model && model.includes(item.value) }]"
+      @click="handleItemClick(item)"
+    >
       <div class="print-checkbox-icon"></div>
       <div>{{ item.label }}</div>
     </div>

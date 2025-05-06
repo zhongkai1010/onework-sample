@@ -1,7 +1,20 @@
 <!-- 编辑弹窗 -->
 <template>
-  <ele-modal form :width="740" v-model="visible" :title="isUpdate ? '修改菜单' : '新建菜单'" @open="handleOpen">
-    <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" :validate-on-rule-change="false" @submit.prevent="">
+  <ele-modal
+    form
+    :width="740"
+    v-model="visible"
+    :title="isUpdate ? '修改菜单' : '新建菜单'"
+    @open="handleOpen"
+  >
+    <el-form
+      ref="formRef"
+      :model="form"
+      :rules="rules"
+      label-width="100px"
+      :validate-on-rule-change="false"
+      @submit.prevent=""
+    >
       <el-row :gutter="16">
         <el-col :sm="12" :xs="24">
           <el-form-item label="上级菜单" prop="parentId">
@@ -20,7 +33,11 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="打开方式">
-            <el-radio-group v-model="form.openType" :disabled="form.menuType === 0 || form.menuType === 2" @change="handleOpenTypeChange">
+            <el-radio-group
+              v-model="form.openType"
+              :disabled="form.menuType === 0 || form.menuType === 2"
+              @change="handleOpenTypeChange"
+            >
               <el-radio :value="0" label="组件" />
               <el-radio :value="1" label="内嵌" />
               <el-radio :value="2" label="外链" />
@@ -32,7 +49,16 @@
       <el-row :gutter="16">
         <el-col :sm="12" :xs="24">
           <el-form-item label="菜单图标" prop="icon">
-            <icon-select clearable filterable="popper" :popper-width="460" :popper-height="388" :popper-options="{ strategy: 'fixed' }" placeholder="请选择图标" v-model="form.icon" :disabled="form.menuType === 2" />
+            <icon-select
+              clearable
+              filterable="popper"
+              :popper-width="460"
+              :popper-height="388"
+              :popper-options="{ strategy: 'fixed' }"
+              placeholder="请选择图标"
+              v-model="form.icon"
+              :disabled="form.menuType === 2"
+            />
           </el-form-item>
           <el-form-item prop="path">
             <template #label>
@@ -50,7 +76,13 @@
               </ele-tooltip>
               <span>{{ form.openType === 2 ? '外链地址' : '路由地址' }}</span>
             </template>
-            <el-input clearable :maxlength="100" v-model="form.path" :disabled="form.menuType === 2" :placeholder="form.openType === 2 ? '请输入外链地址' : '请输入路由地址'" />
+            <el-input
+              clearable
+              :maxlength="100"
+              v-model="form.path"
+              :disabled="form.menuType === 2"
+              :placeholder="form.openType === 2 ? '请输入外链地址' : '请输入路由地址'"
+            />
           </el-form-item>
           <el-form-item prop="component">
             <template #label>
@@ -68,19 +100,47 @@
               </ele-tooltip>
               <span>{{ form.openType === 1 ? '内嵌地址' : '组件路径' }}</span>
             </template>
-            <el-input clearable :maxlength="100" v-model="form.component" :disabled="form.menuType === 0 || form.menuType === 2 || form.openType === 2" :placeholder="form.openType === 1 ? '请输入内嵌地址' : '请输入组件路径'" />
+            <el-input
+              clearable
+              :maxlength="100"
+              v-model="form.component"
+              :disabled="form.menuType === 0 || form.menuType === 2 || form.openType === 2"
+              :placeholder="form.openType === 1 ? '请输入内嵌地址' : '请输入组件路径'"
+            />
           </el-form-item>
         </el-col>
         <el-col :sm="12" :xs="24">
           <el-form-item label="权限标识" prop="authority">
-            <el-input clearable v-model="form.authority" placeholder="请输入权限标识" :disabled="form.menuType === 0 || (form.menuType === 1 && form.openType === 2)" />
+            <el-input
+              clearable
+              v-model="form.authority"
+              placeholder="请输入权限标识"
+              :disabled="form.menuType === 0 || (form.menuType === 1 && form.openType === 2)"
+            />
           </el-form-item>
           <el-form-item label="排序号" prop="sortNumber">
-            <el-input-number :min="0" :max="99999" v-model="form.sortNumber" placeholder="请输入排序号" controls-position="right" class="ele-fluid" />
+            <el-input-number
+              :min="0"
+              :max="99999"
+              v-model="form.sortNumber"
+              placeholder="请输入排序号"
+              controls-position="right"
+              class="ele-fluid"
+            />
           </el-form-item>
           <el-form-item label="是否展示">
-            <el-switch inline-prompt active-text="是" inactive-text="否" :model-value="form.hide === 0" :disabled="form.menuType === 2" @change="updateHideValue" />
-            <ele-tooltip content="选择不展示只注册路由不展示在侧边栏, 比如添加页面应该选择不展示" :popper-style="{ maxWidth: '240px' }">
+            <el-switch
+              inline-prompt
+              active-text="是"
+              inactive-text="否"
+              :model-value="form.hide === 0"
+              :disabled="form.menuType === 2"
+              @change="updateHideValue"
+            />
+            <ele-tooltip
+              content="选择不展示只注册路由不展示在侧边栏, 比如添加页面应该选择不展示"
+              :popper-style="{ maxWidth: '240px' }"
+            >
               <el-icon :size="15" style="margin-left: 16px; cursor: help">
                 <QuestionCircleOutlined style="opacity: 0.6" />
               </el-icon>
@@ -89,7 +149,13 @@
         </el-col>
       </el-row>
       <el-form-item label="路由元数据" prop="meta">
-        <el-input :rows="4" type="textarea" :maxlength="200" v-model="form.meta" placeholder="请输入JSON格式的路由元数据" />
+        <el-input
+          :rows="4"
+          type="textarea"
+          :maxlength="200"
+          v-model="form.meta"
+          placeholder="请输入JSON格式的路由元数据"
+        />
       </el-form-item>
     </el-form>
     <template #footer>

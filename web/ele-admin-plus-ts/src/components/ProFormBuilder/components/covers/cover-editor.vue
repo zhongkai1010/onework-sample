@@ -16,5 +16,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { IconInput, IconSkeleton, IconCursor, IconImage } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
+  import {
+    IconInput,
+    IconSkeleton,
+    IconCursor,
+    IconImage
+  } from 'ele-admin-plus/es/ele-pro-form-builder/components/icons/index'
 </script>

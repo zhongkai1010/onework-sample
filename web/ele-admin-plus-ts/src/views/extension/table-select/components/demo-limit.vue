@@ -1,7 +1,18 @@
 <template>
   <ele-card header="限制选择数量">
     <div style="max-width: 260px">
-      <ele-table-select multiple clearable placeholder="请选择" value-key="userId" label-key="nickname" :model-value="selectedValue" :table-props="tableProps" :popper-width="580" :popper-options="{ strategy: 'fixed' }" @update:modelValue="updateModelValue" />
+      <ele-table-select
+        multiple
+        clearable
+        placeholder="请选择"
+        value-key="userId"
+        label-key="nickname"
+        :model-value="selectedValue"
+        :table-props="tableProps"
+        :popper-width="580"
+        :popper-options="{ strategy: 'fixed' }"
+        @update:modelValue="updateModelValue"
+      />
     </div>
   </ele-card>
 </template>

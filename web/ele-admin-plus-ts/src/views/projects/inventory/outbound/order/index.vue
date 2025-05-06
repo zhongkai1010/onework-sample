@@ -2,15 +2,33 @@
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
     <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
       <search-form @search="handleSearch" />
-      <ele-pro-table ref="tableRef" :columns="columns" :datasource="datasource" :loading="loading" row-key="id" @selection-change="handleSelectionChange" @row-click="handleRowClick" v-model:selections="selectedRows" :highlight-current-row="true">
+      <ele-pro-table
+        ref="tableRef"
+        :columns="columns"
+        :datasource="datasource"
+        :loading="loading"
+        row-key="id"
+        @selection-change="handleSelectionChange"
+        @row-click="handleRowClick"
+        v-model:selections="selectedRows"
+        :highlight-current-row="true"
+      >
         <template #toolbar>
           <el-button type="primary" @click="handleUpload()">上传图片</el-button>
-          <el-button type="danger" @click="handleDelete" :disabled="!selectedRows.length">删除</el-button>
+          <el-button type="danger" @click="handleDelete" :disabled="!selectedRows.length"
+            >删除</el-button
+          >
           <el-button type="success" @click="handleExport">导出</el-button>
           <el-button type="primary" @click="handlePrint">单据打印</el-button>
         </template>
         <template #documentImage="{ row }">
-          <el-image v-if="row.documentImage" style="width: 50px; height: 50px" :src="row.documentImage" :preview-src-list="[row.documentImage]" fit="cover" />
+          <el-image
+            v-if="row.documentImage"
+            style="width: 50px; height: 50px"
+            :src="row.documentImage"
+            :preview-src-list="[row.documentImage]"
+            fit="cover"
+          />
           <span v-else>-</span>
         </template>
         <template #status="{ row }">
@@ -21,8 +39,12 @@
         <template #action="{ row }">
           <el-space :size="4">
             <el-button type="success" size="small" @click="handleUpload(row)">上传图片</el-button>
-            <el-button type="primary" size="small" @click="handleViewDetails(row)">查看详情</el-button>
-            <el-button v-if="row.status === 0" type="warning" size="small" @click="handleAudit(row)">审核</el-button>
+            <el-button type="primary" size="small" @click="handleViewDetails(row)"
+              >查看详情</el-button
+            >
+            <el-button v-if="row.status === 0" type="warning" size="small" @click="handleAudit(row)"
+              >审核</el-button
+            >
           </el-space>
         </template>
       </ele-pro-table>
@@ -93,14 +115,21 @@
   }
 
   // 获取状态类型
-  const getStatusType = (status?: number): 'success' | 'warning' | 'info' | 'primary' | 'danger' => {
+  const getStatusType = (
+    status?: number
+  ): 'success' | 'warning' | 'info' | 'primary' | 'danger' => {
     const typeMap = {
       0: 'info',
       1: 'warning',
       2: 'success',
       3: 'primary'
     }
-    return (typeMap[status as keyof typeof typeMap] || 'info') as 'success' | 'warning' | 'info' | 'primary' | 'danger'
+    return (typeMap[status as keyof typeof typeMap] || 'info') as
+      | 'success'
+      | 'warning'
+      | 'info'
+      | 'primary'
+      | 'danger'
   }
 
   // 表格列配置

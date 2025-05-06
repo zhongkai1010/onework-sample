@@ -15,7 +15,16 @@
         </el-col>
         <el-col :lg="6" :md="12" :sm="12" :xs="24">
           <el-form-item label="操作时间">
-            <el-date-picker unlink-panels type="datetimerange" v-model="dateRange" range-separator="-" value-format="YYYY-MM-DD HH:mm:ss" start-placeholder="开始时间" end-placeholder="结束时间" class="ele-fluid" />
+            <el-date-picker
+              unlink-panels
+              type="datetimerange"
+              v-model="dateRange"
+              range-separator="-"
+              value-format="YYYY-MM-DD HH:mm:ss"
+              start-placeholder="开始时间"
+              end-placeholder="结束时间"
+              class="ele-fluid"
+            />
           </el-form-item>
         </el-col>
         <el-col :lg="6" :md="12" :sm="12" :xs="24">

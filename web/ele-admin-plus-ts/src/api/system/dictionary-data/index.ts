@@ -6,7 +6,10 @@ import type { DictionaryData, DictionaryDataParam } from './model'
  * 分页查询字典数据
  */
 export async function pageDictionaryData(params: DictionaryDataParam) {
-  const res = await request.get<ApiResult<PageResult<DictionaryData>>>('/system/dictionary-data/page', { params })
+  const res = await request.get<ApiResult<PageResult<DictionaryData>>>(
+    '/system/dictionary-data/page',
+    { params }
+  )
   if (res.data.code === 0) {
     return res.data.data
   }

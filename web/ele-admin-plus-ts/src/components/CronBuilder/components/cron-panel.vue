@@ -100,7 +100,12 @@
     <!-- 常用列表 -->
     <div :class="['cron-list-mask', { 'is-show': cronListVisible }]" @click="hideCronList">
       <div class="cron-list-wrapper" @click.stop="">
-        <div v-for="item in cronList" :key="item.cron" class="cron-list-item" @click="handleItemClick(item)">
+        <div
+          v-for="item in cronList"
+          :key="item.cron"
+          class="cron-list-item"
+          @click="handleItemClick(item)"
+        >
           <div class="cron-list-item-value">{{ item.cron }}</div>
           <div class="cron-list-item-label">{{ item.label }}</div>
         </div>

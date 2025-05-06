@@ -15,14 +15,60 @@
     :export-config="exportConfig"
   >
     <template #toolbar>
-      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleRegister"> 藏品登记 </el-button>
-      <el-button type="default" class="ele-btn-icon" :icon="PlusOutlined" @click="handleBind" :disabled="!selections.length"> 绑定RFID </el-button>
-      <el-button type="default" class="ele-btn-icon" :icon="EditOutlined" @click="handleBatchModify" :disabled="!selections.length"> 批量修改分类 </el-button>
-      <el-button type="success" class="ele-btn-icon" :icon="CheckOutlined" @click="handleApprove" :disabled="!selections.length"> 审核通过 </el-button>
-      <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove" :disabled="!selections.length"> 删除藏品 </el-button>
-      <el-button type="success" class="ele-btn-icon" :icon="UploadOutlined" @click="handleImport"> 导入 </el-button>
-      <el-button type="success" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport"> 导出 </el-button>
-      <el-button type="default" class="ele-btn-icon" :icon="PrinterOutlined" @click="handlePrint" :disabled="!selections.length"> 标签打印 </el-button>
+      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleRegister">
+        藏品登记
+      </el-button>
+      <el-button
+        type="default"
+        class="ele-btn-icon"
+        :icon="PlusOutlined"
+        @click="handleBind"
+        :disabled="!selections.length"
+      >
+        绑定RFID
+      </el-button>
+      <el-button
+        type="default"
+        class="ele-btn-icon"
+        :icon="EditOutlined"
+        @click="handleBatchModify"
+        :disabled="!selections.length"
+      >
+        批量修改分类
+      </el-button>
+      <el-button
+        type="success"
+        class="ele-btn-icon"
+        :icon="CheckOutlined"
+        @click="handleApprove"
+        :disabled="!selections.length"
+      >
+        审核通过
+      </el-button>
+      <el-button
+        type="danger"
+        class="ele-btn-icon"
+        :icon="DeleteOutlined"
+        @click="remove"
+        :disabled="!selections.length"
+      >
+        删除藏品
+      </el-button>
+      <el-button type="success" class="ele-btn-icon" :icon="UploadOutlined" @click="handleImport">
+        导入
+      </el-button>
+      <el-button type="success" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport">
+        导出
+      </el-button>
+      <el-button
+        type="default"
+        class="ele-btn-icon"
+        :icon="PrinterOutlined"
+        @click="handlePrint"
+        :disabled="!selections.length"
+      >
+        标签打印
+      </el-button>
     </template>
     <template #collectionStatus="{ row }">
       <el-tag :type="getStatusType(row.collectionStatus)" effect="light">
@@ -32,13 +78,22 @@
     <template #action="{ row }">
       <el-space :size="4">
         <el-button type="primary" size="small" @click="openEdit(row)">编辑</el-button>
-        <el-button type="success" size="small" @click="() => handleSingleBind(row)"> 绑定 </el-button>
+        <el-button type="success" size="small" @click="() => handleSingleBind(row)">
+          绑定
+        </el-button>
         <el-button type="info" size="small" @click="handleViewDetails(row)"> 查看详情 </el-button>
         <el-button type="warning" size="small" @click="handlePrintLabel(row)"> 铭牌打印 </el-button>
       </el-space>
     </template>
     <template #imageInfo="{ row }">
-      <el-image v-if="row.imageInfo" :src="row.imageInfo" :preview-src-list="[row.imageInfo]" fit="cover" class="w-20 h-20" :title="row.collectionName || '藏品图片'" />
+      <el-image
+        v-if="row.imageInfo"
+        :src="row.imageInfo"
+        :preview-src-list="[row.imageInfo]"
+        fit="cover"
+        class="w-20 h-20"
+        :title="row.collectionName || '藏品图片'"
+      />
       <el-empty v-else description="暂无图片" :image-size="40" />
     </template>
   </ele-pro-table>
@@ -47,10 +102,19 @@
   <form-edit v-model="showEdit" :data="current" @done="reload" />
 
   <!-- 批量修改分类弹窗 -->
-  <update-category v-model="showUpdateCategory" :collection-ids="selectedCollectionIds" @done="reload" />
+  <update-category
+    v-model="showUpdateCategory"
+    :collection-ids="selectedCollectionIds"
+    @done="reload"
+  />
 
   <!-- RFID绑定弹窗 -->
-  <bind-rfid v-model="showBindRfid" :collection-ids="selectedCollectionIds" :is-batch="isBatchBind" @done="reload" />
+  <bind-rfid
+    v-model="showBindRfid"
+    :collection-ids="selectedCollectionIds"
+    :is-batch="isBatchBind"
+    @done="reload"
+  />
 
   <!-- 藏品详情弹窗 -->
   <collection-details v-model="showDetails" :id="currentDetailsId" @done="reload" />
@@ -67,8 +131,20 @@
   import { ElMessageBox } from 'element-plus/es'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, Columns, ExportConfig } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { PlusOutlined, DeleteOutlined, EditOutlined, CheckOutlined, UploadOutlined, DownloadOutlined, PrinterOutlined } from '@/components/icons'
+  import type {
+    DatasourceFunction,
+    Columns,
+    ExportConfig
+  } from 'ele-admin-plus/es/ele-pro-table/types'
+  import {
+    PlusOutlined,
+    DeleteOutlined,
+    EditOutlined,
+    CheckOutlined,
+    UploadOutlined,
+    DownloadOutlined,
+    PrinterOutlined
+  } from '@/components/icons'
   import SearchForm from './search-form.vue'
   import FormEdit from './form-edit.vue'
   import UpdateCategory from './update-category.vue'
@@ -552,7 +628,8 @@
   }
 
   const remove = () => {
-    const rows = selections.value.length > 0 ? selections.value : current.value ? [current.value] : []
+    const rows =
+      selections.value.length > 0 ? selections.value : current.value ? [current.value] : []
     if (!rows.length) {
       EleMessage.error('请至少选择一条数据')
       return

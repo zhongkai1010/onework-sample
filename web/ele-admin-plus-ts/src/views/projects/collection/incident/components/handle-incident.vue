@@ -1,5 +1,12 @@
 <template>
-  <ele-modal v-model="visible" title="处理事故" width="600px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
+  <ele-modal
+    v-model="visible"
+    title="处理事故"
+    width="600px"
+    :destroy-on-close="true"
+    @open="handleOpen"
+    @closed="reset"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="120px" @submit.prevent="">
       <el-form-item label="处理状态" prop="status">
         <el-select v-model="form.status" placeholder="请选择处理状态" clearable>
@@ -8,7 +15,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="处理结果" prop="processingResult">
-        <el-input v-model="form.processingResult" type="textarea" :rows="3" placeholder="请输入处理结果" />
+        <el-input
+          v-model="form.processingResult"
+          type="textarea"
+          :rows="3"
+          placeholder="请输入处理结果"
+        />
       </el-form-item>
     </el-form>
     <template #footer>

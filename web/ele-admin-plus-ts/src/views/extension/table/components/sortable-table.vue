@@ -1,12 +1,28 @@
 <template>
   <div style="padding-top: 8px">
-    <ele-pro-table ref="tableRef" row-key="userId" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :pagination="false" v-model:selections="selections" class="sortable-table" :export-config="{ fileName: '用户数据' }">
+    <ele-pro-table
+      ref="tableRef"
+      row-key="userId"
+      :columns="columns"
+      :datasource="datasource"
+      :show-overflow-tooltip="true"
+      :pagination="false"
+      v-model:selections="selections"
+      class="sortable-table"
+      :export-config="{ fileName: '用户数据' }"
+    >
       <template #handle>
         <ele-text :icon="HolderOutlined" type="placeholder" class="sort-handle" />
       </template>
       <template #status="{ row }">
         <ele-dot v-if="row.status === 0" text="正常" size="8px" />
-        <ele-dot v-else-if="row.status === 1" text="冻结" type="danger" :ripple="false" size="8px" />
+        <ele-dot
+          v-else-if="row.status === 1"
+          text="冻结"
+          type="danger"
+          :ripple="false"
+          size="8px"
+        />
       </template>
       <template #toolbar>
         <el-button type="primary" @click="getSelections" class="ele-btn-icon"> 获取选中 </el-button>
@@ -104,7 +120,9 @@
     if (!tableEl) {
       return
     }
-    const tbodyEl = tableEl.querySelector('.el-table__inner-wrapper > .el-table__body-wrapper .el-table__body > tbody') as HTMLElement
+    const tbodyEl = tableEl.querySelector(
+      '.el-table__inner-wrapper > .el-table__body-wrapper .el-table__body > tbody'
+    ) as HTMLElement
     sortableIns = new SortableJs(tbodyEl, {
       animation: 300,
       draggable: '.el-table__row',

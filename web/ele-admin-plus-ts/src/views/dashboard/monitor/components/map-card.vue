@@ -2,7 +2,12 @@
   <ele-card header="用户分布">
     <el-row>
       <el-col :sm="18" :xs="24">
-        <v-chart ref="userMapChartRef" :option="userCountMapOption" style="height: 468px" @click="handleUserCountMapClick" />
+        <v-chart
+          ref="userMapChartRef"
+          :option="userCountMapOption"
+          style="height: 468px"
+          @click="handleUserCountMapClick"
+        />
       </el-col>
       <el-col :sm="6" :xs="24">
         <div v-for="item in userCountDataRank" :key="item.name" class="user-item">

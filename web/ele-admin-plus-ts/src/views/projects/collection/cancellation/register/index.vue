@@ -1,21 +1,47 @@
 <template>
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
     <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
-      <ele-pro-table ref="tableRef" :columns="columns" :datasource="datasource" :loading="loading" :pagination="false" row-key="id" @selection-change="handleSelectionChange" @row-click="handleRowClick">
+      <ele-pro-table
+        ref="tableRef"
+        :columns="columns"
+        :datasource="datasource"
+        :loading="loading"
+        :pagination="false"
+        row-key="id"
+        @selection-change="handleSelectionChange"
+        @row-click="handleRowClick"
+      >
         <template #toolbar>
           <el-button type="primary" @click="openSelectionDialog">选择藏品</el-button>
-          <el-button @click="cancelSelection" :disabled="!selectedCollections.length">取消选择</el-button>
-          <el-button type="success" @click="openConfirmDialog" :disabled="!selectedCollections.length">确认选择</el-button>
-          <el-button type="danger" @click="removeSelected" :disabled="!selectedRows.length">删除选中</el-button>
+          <el-button @click="cancelSelection" :disabled="!selectedCollections.length"
+            >取消选择</el-button
+          >
+          <el-button
+            type="success"
+            @click="openConfirmDialog"
+            :disabled="!selectedCollections.length"
+            >确认选择</el-button
+          >
+          <el-button type="danger" @click="removeSelected" :disabled="!selectedRows.length"
+            >删除选中</el-button
+          >
         </template>
       </ele-pro-table>
     </ele-card>
 
     <!-- 选择藏品弹框 -->
-    <selection-collection ref="selectionRef" v-model="selectionDialogVisible" @confirm="handleSelectionConfirm" />
+    <selection-collection
+      ref="selectionRef"
+      v-model="selectionDialogVisible"
+      @confirm="handleSelectionConfirm"
+    />
 
     <!-- 确认选择弹框 -->
-    <confirm-selection ref="confirmRef" v-model="confirmDialogVisible" @success="handleConfirmSuccess" />
+    <confirm-selection
+      ref="confirmRef"
+      v-model="confirmDialogVisible"
+      @success="handleConfirmSuccess"
+    />
   </ele-page>
 </template>
 
@@ -185,7 +211,9 @@
   // 处理选择藏品确认
   const handleSelectionConfirm = (collections: InboundCollection[]) => {
     // 将新选择的藏品添加到已选列表中
-    const newCollections = collections.filter((collection) => !selectedCollections.value.some((item) => item.id === collection.id))
+    const newCollections = collections.filter(
+      (collection) => !selectedCollections.value.some((item) => item.id === collection.id)
+    )
     selectedCollections.value = [...selectedCollections.value, ...newCollections]
     selectionDialogVisible.value = false
     // 手动刷新表格数据

@@ -2,7 +2,9 @@
   <ele-page plain :multi-card="false">
     <ele-card style="border-radius: 0">
       <ele-text type="heading" size="lg">复杂表单</ele-text>
-      <ele-text type="placeholder" style="margin-top: 6px"> 复杂表单常见于一次性输入和提交大批量数据的场景。 </ele-text>
+      <ele-text type="placeholder" style="margin-top: 6px">
+        复杂表单常见于一次性输入和提交大批量数据的场景。
+      </ele-text>
     </ele-card>
     <ele-page>
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
@@ -23,7 +25,13 @@
             </el-col>
             <el-col :lg="8" :md="12" :sm="12" :xs="24">
               <el-form-item label="仓库管理员" prop="administrator">
-                <el-select clearable v-model="form.administrator" placeholder="请选择仓库管理员" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+                <el-select
+                  clearable
+                  v-model="form.administrator"
+                  placeholder="请选择仓库管理员"
+                  class="ele-fluid"
+                  :popper-options="{ strategy: 'fixed' }"
+                >
                   <el-option value="1" label="SunSmile" />
                   <el-option value="2" label="Jasmine" />
                 </el-select>
@@ -31,7 +39,13 @@
             </el-col>
             <el-col :lg="8" :md="12" :sm="12" :xs="24">
               <el-form-item label="审批人" prop="approver">
-                <el-select clearable v-model="form.approver" placeholder="请选择审批人" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+                <el-select
+                  clearable
+                  v-model="form.approver"
+                  placeholder="请选择审批人"
+                  class="ele-fluid"
+                  :popper-options="{ strategy: 'fixed' }"
+                >
                   <el-option value="1" label="SunSmile" />
                   <el-option value="2" label="Jasmine" />
                 </el-select>
@@ -39,12 +53,25 @@
             </el-col>
             <el-col :lg="8" :md="12" :sm="12" :xs="24">
               <el-form-item label="生效时间" prop="datetime">
-                <el-date-picker type="datetime" v-model="form.datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="请选择生效时间" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+                <el-date-picker
+                  type="datetime"
+                  v-model="form.datetime"
+                  value-format="YYYY-MM-DD HH:mm:ss"
+                  placeholder="请选择生效时间"
+                  class="ele-fluid"
+                  :popper-options="{ strategy: 'fixed' }"
+                />
               </el-form-item>
             </el-col>
             <el-col :lg="8" :md="12" :sm="12" :xs="24">
               <el-form-item label="仓库类型" prop="type">
-                <el-select clearable v-model="form.type" placeholder="请选择仓库类型" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+                <el-select
+                  clearable
+                  v-model="form.type"
+                  placeholder="请选择仓库类型"
+                  class="ele-fluid"
+                  :popper-options="{ strategy: 'fixed' }"
+                >
                   <el-option value="private" label="私密" />
                   <el-option value="public" label="公开" />
                 </el-select>
@@ -66,7 +93,13 @@
             </el-col>
             <el-col :lg="8" :md="12" :sm="12" :xs="24">
               <el-form-item label="执行人" prop="executor">
-                <el-select clearable v-model="form.executor" placeholder="请选择执行人" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+                <el-select
+                  clearable
+                  v-model="form.executor"
+                  placeholder="请选择执行人"
+                  class="ele-fluid"
+                  :popper-options="{ strategy: 'fixed' }"
+                >
                   <el-option value="1" label="SunSmile" />
                   <el-option value="2" label="Jasmine" />
                 </el-select>
@@ -74,7 +107,13 @@
             </el-col>
             <el-col :lg="8" :md="12" :sm="12" :xs="24">
               <el-form-item label="责任人" prop="officer">
-                <el-select clearable v-model="form.officer" placeholder="请选择责任人" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+                <el-select
+                  clearable
+                  v-model="form.officer"
+                  placeholder="请选择责任人"
+                  class="ele-fluid"
+                  :popper-options="{ strategy: 'fixed' }"
+                >
                   <el-option value="1" label="SunSmile" />
                   <el-option value="2" label="Jasmine" />
                 </el-select>
@@ -82,12 +121,27 @@
             </el-col>
             <el-col :lg="8" :md="12" :sm="12" :xs="24">
               <el-form-item label="提醒时间" prop="reminder">
-                <el-time-picker is-range range-separator="-" v-model="form.reminder" start-placeholder="开始时间" end-placeholder="结束时间" value-format="HH:mm:ss" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+                <el-time-picker
+                  is-range
+                  range-separator="-"
+                  v-model="form.reminder"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                  value-format="HH:mm:ss"
+                  class="ele-fluid"
+                  :popper-options="{ strategy: 'fixed' }"
+                />
               </el-form-item>
             </el-col>
             <el-col :lg="8" :md="12" :sm="12" :xs="24">
               <el-form-item label="任务类型" prop="taskType">
-                <el-select clearable v-model="form.taskType" placeholder="请选择任务类型" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+                <el-select
+                  clearable
+                  v-model="form.taskType"
+                  placeholder="请选择任务类型"
+                  class="ele-fluid"
+                  :popper-options="{ strategy: 'fixed' }"
+                >
                   <el-option value="1" label="私密" />
                   <el-option value="2" label="公开" />
                 </el-select>
@@ -96,7 +150,16 @@
           </el-row>
         </ele-card>
         <ele-card header="选择成员">
-          <div ref="userTableWrapRef" style="overflow: auto" :class="['user-table-wrap', { 'is-ping-left': isPingLeft }, { 'is-ping-right': isPingRight }]" @scroll="handleUserTableScroll">
+          <div
+            ref="userTableWrapRef"
+            style="overflow: auto"
+            :class="[
+              'user-table-wrap',
+              { 'is-ping-left': isPingLeft },
+              { 'is-ping-right': isPingRight }
+            ]"
+            @scroll="handleUserTableScroll"
+          >
             <ele-table style="min-width: 580px; table-layout: fixed">
               <colgroup>
                 <col width="60px" />
@@ -182,7 +245,13 @@
                       class="pro-form-error-popper"
                       style="margin-bottom: 0"
                     >
-                      <el-select clearable v-model="row.department" placeholder="请选择部门" class="ele-fluid" :popper-options="{ strategy: 'fixed' }">
+                      <el-select
+                        clearable
+                        v-model="row.department"
+                        placeholder="请选择部门"
+                        class="ele-fluid"
+                        :popper-options="{ strategy: 'fixed' }"
+                      >
                         <el-option value="研发部" label="研发部" />
                         <el-option value="测试部" label="测试部" />
                         <el-option value="产品部" label="产品部" />
@@ -198,7 +267,9 @@
                     }"
                     class="user-table-action"
                   >
-                    <el-link type="danger" :underline="false" @click="removeUser(row, index)"> 删除 </el-link>
+                    <el-link type="danger" :underline="false" @click="removeUser(row, index)">
+                      删除
+                    </el-link>
                   </td>
                 </tr>
                 <tr v-if="!form.users || !form.users.length">

@@ -10,7 +10,15 @@
         <el-button type="primary">返回修改</el-button>
         <el-button>重新提交</el-button>
       </div>
-      <div style="max-width: 760px; padding: 18px 24px; background: hsla(0, 0%, 60%, 0.1); border-radius: var(--el-border-radius-base); margin: 26px auto">
+      <div
+        style="
+          max-width: 760px;
+          padding: 18px 24px;
+          background: hsla(0, 0%, 60%, 0.1);
+          border-radius: var(--el-border-radius-base);
+          margin: 26px auto;
+        "
+      >
         <div>您提交的内容有如下错误:</div>
         <div style="margin-top: 12px">
           <ele-text type="danger" :icon="CloseCircleOutlined" tag="span" />

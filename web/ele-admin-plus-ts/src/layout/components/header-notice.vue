@@ -96,9 +96,20 @@
                 {{ item.description }}
               </ele-ellipsis>
             </div>
-            <el-tag v-if="item.status === 0" type="info" size="small" :disable-transitions="true"> 未开始 </el-tag>
-            <el-tag v-else-if="item.status === 1" type="danger" size="small" :disable-transitions="true"> 即将到期 </el-tag>
-            <el-tag v-else-if="item.status === 2" size="small" :disable-transitions="true"> 进行中 </el-tag>
+            <el-tag v-if="item.status === 0" type="info" size="small" :disable-transitions="true">
+              未开始
+            </el-tag>
+            <el-tag
+              v-else-if="item.status === 1"
+              type="danger"
+              size="small"
+              :disable-transitions="true"
+            >
+              即将到期
+            </el-tag>
+            <el-tag v-else-if="item.status === 2" size="small" :disable-transitions="true">
+              进行中
+            </el-tag>
           </div>
         </div>
         <div v-if="todo.length" class="bottom-tools">

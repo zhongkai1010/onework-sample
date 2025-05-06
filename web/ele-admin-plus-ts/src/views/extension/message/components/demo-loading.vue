@@ -22,7 +22,15 @@
         <el-radio value="circle" label="圆圈" />
       </el-radio-group>
     </option-item>
-    <ele-loading :key="loadingKey" :loading="loading" :size="loadingSize" :type="loadingType" :text="loadingText" :blur="true" style="padding: 20px 16px; max-width: 520px; position: relative">
+    <ele-loading
+      :key="loadingKey"
+      :loading="loading"
+      :size="loadingSize"
+      :type="loadingType"
+      :text="loadingText"
+      :blur="true"
+      style="padding: 20px 16px; max-width: 520px; position: relative"
+    >
       <div style="font-size: 17px; max-height: 100%">Alert message title</div>
       <div style="word-break: break-all; margin-top: 4px; max-height: 100%">
         <span>Further details about the context of this alert.</span>

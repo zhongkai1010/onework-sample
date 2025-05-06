@@ -12,38 +12,97 @@
     @reset="emitMethods['reset']"
     @validate="emitMethods['validate']"
   >
-    <template v-for="name in Object.keys($slots).filter((k) => !ownSlots.includes(k))" #[name]="slotProps">
+    <template
+      v-for="name in Object.keys($slots).filter((k) => !ownSlots.includes(k))"
+      #[name]="slotProps"
+    >
       <slot :name="name" v-bind="slotProps || {}"></slot>
     </template>
     <template #dictRadio="{ item, modelValue, updateValue }">
-      <DictData code="" v-bind="item.props || {}" type="radio" :modelValue="modelValue" @update:modelValue="updateValue" />
+      <DictData
+        code=""
+        v-bind="item.props || {}"
+        type="radio"
+        :modelValue="modelValue"
+        @update:modelValue="updateValue"
+      />
     </template>
     <template #dictCheckbox="{ item, modelValue, updateValue }">
-      <DictData code="" v-bind="item.props || {}" type="checkbox" :modelValue="modelValue" @update:modelValue="updateValue" />
+      <DictData
+        code=""
+        v-bind="item.props || {}"
+        type="checkbox"
+        :modelValue="modelValue"
+        @update:modelValue="updateValue"
+      />
     </template>
     <template #dictSelect="{ item, modelValue, updateValue }">
-      <DictData code="" :placeholder="'请选择' + item.label" v-bind="item.props || {}" type="select" :modelValue="modelValue" @update:modelValue="updateValue" />
+      <DictData
+        code=""
+        :placeholder="'请选择' + item.label"
+        v-bind="item.props || {}"
+        type="select"
+        :modelValue="modelValue"
+        @update:modelValue="updateValue"
+      />
     </template>
     <template #dictMultipleSelect="{ item, modelValue, updateValue }">
-      <DictData code="" :placeholder="'请选择' + item.label" v-bind="item.props || {}" type="multipleSelect" :modelValue="modelValue" @update:modelValue="updateValue" />
+      <DictData
+        code=""
+        :placeholder="'请选择' + item.label"
+        v-bind="item.props || {}"
+        type="multipleSelect"
+        :modelValue="modelValue"
+        @update:modelValue="updateValue"
+      />
     </template>
     <template #imageUpload="{ item, modelValue, updateValue, itemComponentRef }">
-      <ImageUpload v-bind="item.props || {}" :ref="itemComponentRef" :modelValue="modelValue" @update:modelValue="updateValue" />
+      <ImageUpload
+        v-bind="item.props || {}"
+        :ref="itemComponentRef"
+        :modelValue="modelValue"
+        @update:modelValue="updateValue"
+      />
     </template>
     <template #fileUpload="{ item, modelValue, updateValue, itemComponentRef }">
-      <FileUpload v-bind="item.props || {}" :ref="itemComponentRef" :modelValue="modelValue" @update:modelValue="updateValue" />
+      <FileUpload
+        v-bind="item.props || {}"
+        :ref="itemComponentRef"
+        :modelValue="modelValue"
+        @update:modelValue="updateValue"
+      />
     </template>
     <template #regions="{ item, modelValue, updateValue }">
-      <RegionsSelect :placeholder="'请选择' + item.label" v-bind="item.props || {}" :modelValue="modelValue" @update:modelValue="updateValue" />
+      <RegionsSelect
+        :placeholder="'请选择' + item.label"
+        v-bind="item.props || {}"
+        :modelValue="modelValue"
+        @update:modelValue="updateValue"
+      />
     </template>
     <template #multipleRegions="{ item, modelValue, updateValue }">
-      <RegionsSelect :placeholder="'请选择' + item.label" v-bind="item.props || {}" :multiple="true" :modelValue="modelValue" @update:modelValue="updateValue" />
+      <RegionsSelect
+        :placeholder="'请选择' + item.label"
+        v-bind="item.props || {}"
+        :multiple="true"
+        :modelValue="modelValue"
+        @update:modelValue="updateValue"
+      />
     </template>
     <template #iconSelect="{ item, modelValue, updateValue }">
-      <IconSelect :placeholder="'请选择' + item.label" v-bind="item.props || {}" :modelValue="modelValue" @update:modelValue="updateValue" />
+      <IconSelect
+        :placeholder="'请选择' + item.label"
+        v-bind="item.props || {}"
+        :modelValue="modelValue"
+        @update:modelValue="updateValue"
+      />
     </template>
     <template #editor="{ item, modelValue, updateValue }">
-      <TinymceEditor v-bind="item.props || {}" :modelValue="modelValue" @update:modelValue="updateValue" />
+      <TinymceEditor
+        v-bind="item.props || {}"
+        :modelValue="modelValue"
+        @update:modelValue="updateValue"
+      />
     </template>
   </EleProForm>
 </template>
@@ -60,7 +119,19 @@
   import IconSelect from '@/components/IconSelect/index.vue'
   import TinymceEditor from '@/components/TinymceEditor/index.vue'
   import httpRequest from '@/utils/request'
-  const ownSlots = ['default', 'dictRadio', 'dictCheckbox', 'dictSelect', 'dictMultipleSelect', 'imageUpload', 'fileUpload', 'regions', 'multipleRegions', 'iconSelect', 'editor']
+  const ownSlots = [
+    'default',
+    'dictRadio',
+    'dictCheckbox',
+    'dictSelect',
+    'dictMultipleSelect',
+    'imageUpload',
+    'fileUpload',
+    'regions',
+    'multipleRegions',
+    'iconSelect',
+    'editor'
+  ]
 
   defineOptions({ name: 'ProForm' })
 

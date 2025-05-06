@@ -3,7 +3,11 @@
     <ele-card :body-style="{ padding: 0 }">
       <div :class="['message-wrapper', { 'is-mobile': mobile }]">
         <div class="message-side">
-          <ele-menus :items="menus" :default-active="active" :mode="mobile ? 'horizontal' : 'vertical'" />
+          <ele-menus
+            :items="menus"
+            :default-active="active"
+            :mode="mobile ? 'horizontal' : 'vertical'"
+          />
         </div>
         <div class="message-body">
           <transition name="slide-right" mode="out-in">

@@ -21,24 +21,54 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd">修复登记</el-button>
-          <el-button type="success" class="ele-btn-icon" :icon="UploadOutlined" @click="handleUpload">上传图片</el-button>
-          <el-button type="info" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport">导出</el-button>
-          <el-button type="warning" class="ele-btn-icon" :icon="PrinterOutlined" @click="handlePrint" :disabled="selections.length !== 1">单据打印</el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd"
+            >修复登记</el-button
+          >
+          <el-button
+            type="success"
+            class="ele-btn-icon"
+            :icon="UploadOutlined"
+            @click="handleUpload"
+            >上传图片</el-button
+          >
+          <el-button type="info" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport"
+            >导出</el-button
+          >
+          <el-button
+            type="warning"
+            class="ele-btn-icon"
+            :icon="PrinterOutlined"
+            @click="handlePrint"
+            :disabled="selections.length !== 1"
+            >单据打印</el-button
+          >
         </template>
 
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="8" alignment="center" style="width: 100%">
-            <el-button type="success" size="small" @click="handleUploadImage(row)">上传图片</el-button>
-            <el-button type="primary" size="small" @click="handleViewDetails(row)">查看详情</el-button>
-            <el-button v-if="row.status === 1" type="warning" size="small" @click="handleRepairInbound(row)">修复入藏</el-button>
+            <el-button type="success" size="small" @click="handleUploadImage(row)"
+              >上传图片</el-button
+            >
+            <el-button type="primary" size="small" @click="handleViewDetails(row)"
+              >查看详情</el-button
+            >
+            <el-button
+              v-if="row.status === 1"
+              type="warning"
+              size="small"
+              @click="handleRepairInbound(row)"
+              >修复入藏</el-button
+            >
           </el-space>
         </template>
 
         <!-- 工单状态列 -->
         <template #status="{ row }">
-          <el-tag :type="row.status === 0 ? 'warning' : row.status === 1 ? 'success' : 'info'" effect="light">
+          <el-tag
+            :type="row.status === 0 ? 'warning' : row.status === 1 ? 'success' : 'info'"
+            effect="light"
+          >
             {{ row.status === 0 ? '待修复' : row.status === 1 ? '修复中' : '已完成' }}
           </el-tag>
         </template>
@@ -64,7 +94,12 @@
   import { EleMessage } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { PlusOutlined, UploadOutlined, DownloadOutlined, PrinterOutlined } from '@/components/icons'
+  import {
+    PlusOutlined,
+    UploadOutlined,
+    DownloadOutlined,
+    PrinterOutlined
+  } from '@/components/icons'
   import type { Repair, RepairQueryParams } from '@/api/collection/repair/model'
   import { getRepairList } from '@/api/collection/repair'
   import SearchForm from './components/search-form.vue'

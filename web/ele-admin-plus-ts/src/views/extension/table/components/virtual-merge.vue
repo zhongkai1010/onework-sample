@@ -1,6 +1,17 @@
 <template>
   <div>
-    <ele-pro-table :height="370" :border="true" :virtual="true" row-key="userId" :columns="columns" :datasource="datasource" :span-method="spanMethod" :toolbar="{ theme: 'default' }" :show-overflow-tooltip="true" :export-config="{ fileName: '成绩数据' }" />
+    <ele-pro-table
+      :height="370"
+      :border="true"
+      :virtual="true"
+      row-key="userId"
+      :columns="columns"
+      :datasource="datasource"
+      :span-method="spanMethod"
+      :toolbar="{ theme: 'default' }"
+      :show-overflow-tooltip="true"
+      :export-config="{ fileName: '成绩数据' }"
+    />
   </div>
 </template>
 

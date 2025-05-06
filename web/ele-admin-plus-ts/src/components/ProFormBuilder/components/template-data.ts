@@ -608,7 +608,8 @@ export const defaultTemplateData: TemplateItem[] = [
         {
           key: 'fymxiudq58lask31',
           prop: 'description',
-          label: '为了感谢各位员工最近对公司发展做出的辛苦付出，也为了增强部门同事之间的凝聚力，开阔员工的视野，让大家在繁忙的工作中放松心情，以更饱满的精神状态迎接新一个月的工作，本部门计划于 06 月 01 日组织团建活动，现在开始征集部门团建活动方案的投票啦~ 请各位同事积极参与，认真填写。',
+          label:
+            '为了感谢各位员工最近对公司发展做出的辛苦付出，也为了增强部门同事之间的凝聚力，开阔员工的视野，让大家在繁忙的工作中放松心情，以更饱满的精神状态迎接新一个月的工作，本部门计划于 06 月 01 日组织团建活动，现在开始征集部门团建活动方案的投票啦~ 请各位同事积极参与，认真填写。',
           type: 'label',
           props: {
             style: {
@@ -1222,7 +1223,8 @@ export const defaultTemplateData: TemplateItem[] = [
                   prop: 'careerJobDescription',
                   type: 'textarea',
                   props: {
-                    placeholder: '工作内容：\n负责了什么项目，运用了什么技术，解决了什么难题，取得了什么成果'
+                    placeholder:
+                      '工作内容：\n负责了什么项目，运用了什么技术，解决了什么难题，取得了什么成果'
                   },
                   itemProps: {
                     labelWidth: 0
@@ -1336,7 +1338,8 @@ export const defaultTemplateData: TemplateItem[] = [
                       label: '',
                       type: 'textarea',
                       props: {
-                        placeholder: '工作内容：\n负责了什么项目，运用了什么技术，解决了什么难题，取得了什么成果'
+                        placeholder:
+                          '工作内容：\n负责了什么项目，运用了什么技术，解决了什么难题，取得了什么成果'
                       },
                       itemProps: {
                         labelWidth: 0
@@ -1522,7 +1525,8 @@ export const defaultTemplateData: TemplateItem[] = [
                       label: '',
                       type: 'textarea',
                       props: {
-                        placeholder: '工作内容：\n负责了什么项目，运用了什么技术，解决了什么难题，取得了什么成果'
+                        placeholder:
+                          '工作内容：\n负责了什么项目，运用了什么技术，解决了什么难题，取得了什么成果'
                       },
                       itemProps: {
                         labelWidth: 0
@@ -1726,7 +1730,8 @@ export const defaultTemplateData: TemplateItem[] = [
                   type: 'textarea',
                   props: {
                     rows: 8,
-                    placeholder: '技术栈：框架、数据库、中间件、工具\n团队规模：前端 XX 人、后端 XX 人\n项目简介：\n用于什么行业，包含什么功能，解决什么需求\n工作内容：\n主要负责哪些模块，遇到了什么难题，是如何解决的，从中汲取了什么经验'
+                    placeholder:
+                      '技术栈：框架、数据库、中间件、工具\n团队规模：前端 XX 人、后端 XX 人\n项目简介：\n用于什么行业，包含什么功能，解决什么需求\n工作内容：\n主要负责哪些模块，遇到了什么难题，是如何解决的，从中汲取了什么经验'
                   },
                   itemProps: {
                     labelWidth: 0
@@ -1999,7 +2004,8 @@ export const defaultTemplateData: TemplateItem[] = [
                         style: { margin: '0 auto', width: 'max-content' },
                         labelPosition: 'right'
                       },
-                      initValue: 'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg'
+                      initValue:
+                        'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg'
                     }
                   ]
                 }
@@ -2160,7 +2166,8 @@ export const defaultTemplateData: TemplateItem[] = [
                   label: '',
                   type: 'text',
                   itemProps: { labelWidth: 0, style: { marginTop: '6px' } },
-                  initValue: '工作内容：\n负责 XXX 业务相关服务的开发和重构以及维护工作，负责线上产品端服务的同步，负责 SSO 单点登录系统后端的架构与开发。',
+                  initValue:
+                    '工作内容：\n负责 XXX 业务相关服务的开发和重构以及维护工作，负责线上产品端服务的同步，负责 SSO 单点登录系统后端的架构与开发。',
                   props: {
                     style: {
                       padding: '0 10px',
@@ -2255,7 +2262,8 @@ export const defaultTemplateData: TemplateItem[] = [
                   label: '',
                   type: 'text',
                   itemProps: { labelWidth: 0, style: { marginTop: '6px' } },
-                  initValue: '工作内容：\n负责了什么项目，运用了什么技术，解决了什么难题，取得了什么成果',
+                  initValue:
+                    '工作内容：\n负责了什么项目，运用了什么技术，解决了什么难题，取得了什么成果',
                   props: {
                     style: {
                       flex: '1',
@@ -4269,7 +4277,8 @@ export const defaultTemplateData: TemplateItem[] = [
                               cursor: 'pointer',
                               marginLeft: '12px'
                             },
-                            onClick: '/*__PRO_FORM__*/(enent) => {\n    form.fsubrbvz39c3eiqv = !form.fsubrbvz39c3eiqv;\n}'
+                            onClick:
+                              '/*__PRO_FORM__*/(enent) => {\n    form.fsubrbvz39c3eiqv = !form.fsubrbvz39c3eiqv;\n}'
                           }
                         }
                       ]
@@ -4383,7 +4392,8 @@ export const defaultTemplateData: TemplateItem[] = [
                               cursor: 'pointer',
                               marginLeft: '12px'
                             },
-                            onClick: '/*__PRO_FORM__*/(enent) => {\n    form.fsubrbvz39c3eiqv = !form.fsubrbvz39c3eiqv;\n}'
+                            onClick:
+                              '/*__PRO_FORM__*/(enent) => {\n    form.fsubrbvz39c3eiqv = !form.fsubrbvz39c3eiqv;\n}'
                           }
                         }
                       ]
@@ -4697,7 +4707,8 @@ export const defaultTemplateData: TemplateItem[] = [
               type: 'carouselItem',
               props: {
                 style: {
-                  background: 'top left/100% url(https://cdn.eleadmin.com/20200610/yeKvhT20lMU0f1T3Y743UlGEOLLnZSnp.jpg)'
+                  background:
+                    'top left/100% url(https://cdn.eleadmin.com/20200610/yeKvhT20lMU0f1T3Y743UlGEOLLnZSnp.jpg)'
                 }
               },
               children: [
@@ -4726,7 +4737,8 @@ export const defaultTemplateData: TemplateItem[] = [
                           objectFit: 'contain',
                           display: 'block',
                           margin: '0 auto',
-                          maskImage: 'linear-gradient(to right, transparent 4%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 96%)'
+                          maskImage:
+                            'linear-gradient(to right, transparent 4%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 96%)'
                         }
                       }
                     }
@@ -4741,7 +4753,8 @@ export const defaultTemplateData: TemplateItem[] = [
               type: 'carouselItem',
               props: {
                 style: {
-                  background: 'bottom left/76% url(https://cdn.eleadmin.com/20200610/4Z0QR2L0J1XStxBh99jVJ8qLfsGsOgjU.jpg)'
+                  background:
+                    'bottom left/76% url(https://cdn.eleadmin.com/20200610/4Z0QR2L0J1XStxBh99jVJ8qLfsGsOgjU.jpg)'
                 }
               },
               children: [
@@ -4771,7 +4784,8 @@ export const defaultTemplateData: TemplateItem[] = [
                           objectFit: 'contain',
                           display: 'block',
                           margin: '0 auto',
-                          maskImage: 'linear-gradient(to right, transparent 4%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 96%)'
+                          maskImage:
+                            'linear-gradient(to right, transparent 4%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 96%)'
                         }
                       }
                     }
@@ -4786,7 +4800,8 @@ export const defaultTemplateData: TemplateItem[] = [
               type: 'carouselItem',
               props: {
                 style: {
-                  background: 'left bottom/100% url(https://cdn.eleadmin.com/20200610/fAenQ8nvRjL7x0i0jEfuDBZHvJfHf3v6.jpg)'
+                  background:
+                    'left bottom/100% url(https://cdn.eleadmin.com/20200610/fAenQ8nvRjL7x0i0jEfuDBZHvJfHf3v6.jpg)'
                 }
               },
               children: [
@@ -4816,7 +4831,8 @@ export const defaultTemplateData: TemplateItem[] = [
                           objectFit: 'contain',
                           display: 'block',
                           margin: '0 auto',
-                          maskImage: 'linear-gradient(to right, transparent 4%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 96%)'
+                          maskImage:
+                            'linear-gradient(to right, transparent 4%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 96%)'
                         }
                       }
                     }
@@ -5225,7 +5241,8 @@ export const defaultTemplateData: TemplateItem[] = [
               type: 'button',
               props: {
                 type: 'default',
-                onClick: '/*__PRO_FORM__*/() => {\r\n    if (form.demoSteps > 0) {\r\n        form.demoSteps--;\r\n    }\r\n}'
+                onClick:
+                  '/*__PRO_FORM__*/() => {\r\n    if (form.demoSteps > 0) {\r\n        form.demoSteps--;\r\n    }\r\n}'
               }
             },
             {
@@ -5234,7 +5251,8 @@ export const defaultTemplateData: TemplateItem[] = [
               label: '下一步',
               type: 'button',
               props: {
-                onClick: '/*__PRO_FORM__*/() => {\r\n    if (!form.demoSteps) {\r\n        form.demoSteps = 1;\r\n    } else if (form.demoSteps < 3) {\r\n        form.demoSteps++;\r\n    }\r\n}'
+                onClick:
+                  '/*__PRO_FORM__*/() => {\r\n    if (!form.demoSteps) {\r\n        form.demoSteps = 1;\r\n    } else if (form.demoSteps < 3) {\r\n        form.demoSteps++;\r\n    }\r\n}'
               }
             }
           ],
@@ -5320,7 +5338,8 @@ export const defaultTemplateData: TemplateItem[] = [
                   type: 'button',
                   required: false,
                   props: {
-                    onClick: '/*__PRO_FORM__*/(enent) => {\n    getProFormRefs().fawnh9xd81lytli3Ref?.reload?.({ page: 1 });\n}'
+                    onClick:
+                      '/*__PRO_FORM__*/(enent) => {\n    getProFormRefs().fawnh9xd81lytli3Ref?.reload?.({ page: 1 });\n}'
                   }
                 }
               ],
@@ -5337,7 +5356,8 @@ export const defaultTemplateData: TemplateItem[] = [
           required: false,
           props: {
             showOverflowTooltip: true,
-            datasource: "/*__PRO_FORM__*/async ({ pages, orders }) => {\n    const res = await httpRequest.get('/system/user/page', {\n        params: {\n            ...pages,\n            ...orders,\n            nickname: form.ft5a9dzi73asjpmg\n        }\n    });\n    return res.data.data;\n}",
+            datasource:
+              "/*__PRO_FORM__*/async ({ pages, orders }) => {\n    const res = await httpRequest.get('/system/user/page', {\n        params: {\n            ...pages,\n            ...orders,\n            nickname: form.ft5a9dzi73asjpmg\n        }\n    });\n    return res.data.data;\n}",
             columns: [
               {
                 type: 'index',
@@ -5396,8 +5416,10 @@ export const defaultTemplateData: TemplateItem[] = [
           type: 'radio',
           required: false,
           props: {
-            options: "/*__PRO_FORM__*/async () => {\n    const res = await httpRequest.get('/system/organization');\n    return res.data.data.map(d => ({ label: d.organizationName, value: d.organizationId }));\n}\n",
-            onChange: '/*__PRO_FORM__*/(value) => {\n    form.f4g1toqz8p51675j = void 0;\n    getProFormRefs().f4g1toqz8p51675jRef?.reloadOptions?.();\n}'
+            options:
+              "/*__PRO_FORM__*/async () => {\n    const res = await httpRequest.get('/system/organization');\n    return res.data.data.map(d => ({ label: d.organizationName, value: d.organizationId }));\n}\n",
+            onChange:
+              '/*__PRO_FORM__*/(value) => {\n    form.f4g1toqz8p51675j = void 0;\n    getProFormRefs().f4g1toqz8p51675jRef?.reloadOptions?.();\n}'
           },
           itemProps: {
             labelWidth: 56

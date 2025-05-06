@@ -234,11 +234,45 @@ export const elementIconData = [
   },
   {
     title: 'Media',
-    icons: ['Microphone', 'Mute', 'Mic', 'VideoPause', 'VideoCamera', 'VideoPlay', 'Headset', 'Monitor', 'Film', 'Camera', 'Picture', 'PictureRounded', 'Iphone', 'Cellphone', 'VideoCameraFilled', 'PictureFilled', 'Platform', 'CameraFilled', 'BellFilled']
+    icons: [
+      'Microphone',
+      'Mute',
+      'Mic',
+      'VideoPause',
+      'VideoCamera',
+      'VideoPlay',
+      'Headset',
+      'Monitor',
+      'Film',
+      'Camera',
+      'Picture',
+      'PictureRounded',
+      'Iphone',
+      'Cellphone',
+      'VideoCameraFilled',
+      'PictureFilled',
+      'Platform',
+      'CameraFilled',
+      'BellFilled'
+    ]
   },
   {
     title: 'Traffic',
-    icons: ['Location', 'LocationInformation', 'DeleteLocation', 'Coordinate', 'Bicycle', 'OfficeBuilding', 'School', 'Guide', 'AddLocation', 'MapLocation', 'Place', 'LocationFilled', 'Van']
+    icons: [
+      'Location',
+      'LocationInformation',
+      'DeleteLocation',
+      'Coordinate',
+      'Bicycle',
+      'OfficeBuilding',
+      'School',
+      'Guide',
+      'AddLocation',
+      'MapLocation',
+      'Place',
+      'LocationFilled',
+      'Van'
+    ]
   },
   {
     title: 'Food',
@@ -343,10 +377,31 @@ export const elementIconData = [
   },
   {
     title: 'Weather',
-    icons: ['Sunrise', 'Sunny', 'Ship', 'MostlyCloudy', 'PartlyCloudy', 'Sunset', 'Drizzling', 'Pouring', 'Cloudy', 'Moon', 'MoonNight', 'Lightning']
+    icons: [
+      'Sunrise',
+      'Sunny',
+      'Ship',
+      'MostlyCloudy',
+      'PartlyCloudy',
+      'Sunset',
+      'Drizzling',
+      'Pouring',
+      'Cloudy',
+      'Moon',
+      'MoonNight',
+      'Lightning'
+    ]
   },
   {
     title: 'Other',
-    icons: ['ChromeFilled', 'Eleme', 'ElemeFilled', 'ElementPlus', 'Shop', 'SwitchFilled', 'WindPower']
+    icons: [
+      'ChromeFilled',
+      'Eleme',
+      'ElemeFilled',
+      'ElementPlus',
+      'Shop',
+      'SwitchFilled',
+      'WindPower'
+    ]
   }
 ]

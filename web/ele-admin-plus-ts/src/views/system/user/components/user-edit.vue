@@ -1,6 +1,12 @@
 <!-- 用户编辑弹窗 -->
 <template>
-  <ele-modal form :width="680" v-model="visible" :title="isUpdate ? '修改用户' : '新建用户'" @open="handleOpen">
+  <ele-modal
+    form
+    :width="680"
+    v-model="visible"
+    :title="isUpdate ? '修改用户' : '新建用户'"
+    @open="handleOpen"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="80px" @submit.prevent="">
       <el-row :gutter="16">
         <el-col :sm="12" :xs="24">
@@ -8,10 +14,21 @@
             <organization-select v-model="form.organizationId" />
           </el-form-item>
           <el-form-item label="用户账号" prop="username">
-            <el-input clearable :maxlength="20" v-model="form.username" placeholder="请输入用户账号" :disabled="isUpdate" />
+            <el-input
+              clearable
+              :maxlength="20"
+              v-model="form.username"
+              placeholder="请输入用户账号"
+              :disabled="isUpdate"
+            />
           </el-form-item>
           <el-form-item label="用户名" prop="nickname">
-            <el-input clearable :maxlength="20" v-model="form.nickname" placeholder="请输入用户名" />
+            <el-input
+              clearable
+              :maxlength="20"
+              v-model="form.nickname"
+              placeholder="请输入用户名"
+            />
           </el-form-item>
           <el-form-item label="性别" prop="sex">
             <dict-data code="sex" v-model="form.sex" placeholder="请选择性别" />
@@ -28,10 +45,21 @@
             <el-input clearable :maxlength="11" v-model="form.phone" placeholder="请输入手机号" />
           </el-form-item>
           <el-form-item label="出生日期">
-            <el-date-picker v-model="form.birthday" value-format="YYYY-MM-DD" placeholder="请选择出生日期" class="ele-fluid" />
+            <el-date-picker
+              v-model="form.birthday"
+              value-format="YYYY-MM-DD"
+              placeholder="请选择出生日期"
+              class="ele-fluid"
+            />
           </el-form-item>
           <el-form-item v-if="!isUpdate" label="登录密码" prop="password">
-            <el-input show-password type="password" :maxlength="20" v-model="form.password" placeholder="请输入登录密码" />
+            <el-input
+              show-password
+              type="password"
+              :maxlength="20"
+              v-model="form.password"
+              placeholder="请输入登录密码"
+            />
           </el-form-item>
           <el-form-item label="状态">
             <el-radio-group v-model="form.status">
@@ -40,7 +68,13 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="个人简介">
-            <el-input type="textarea" :rows="3" :maxlength="200" v-model="form.introduction" placeholder="请输入个人简介" />
+            <el-input
+              type="textarea"
+              :rows="3"
+              :maxlength="200"
+              v-model="form.introduction"
+              placeholder="请输入个人简介"
+            />
           </el-form-item>
         </el-col>
       </el-row>

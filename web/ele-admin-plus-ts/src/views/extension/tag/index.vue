@@ -1,7 +1,19 @@
 <template>
   <ele-page>
     <ele-card header="基础用法">
-      <ele-edit-tag v-model="tags" :size="size" :type="type" :effect="effect" :validator="validator" :tooltip-props="{ effect: 'danger' }" style="margin-top: 0" :readonly="readonly" :disabled="disabled" :round="round" :hit="hit" />
+      <ele-edit-tag
+        v-model="tags"
+        :size="size"
+        :type="type"
+        :effect="effect"
+        :validator="validator"
+        :tooltip-props="{ effect: 'danger' }"
+        style="margin-top: 0"
+        :readonly="readonly"
+        :disabled="disabled"
+        :round="round"
+        :hit="hit"
+      />
       <ele-text type="secondary" style="padding: 8px 0">{{ JSON.stringify(tags) }}</ele-text>
       <option-item label="尺寸选择">
         <el-radio-group v-model="size">
@@ -67,7 +79,15 @@
         :hit="hit"
       />
       <div style="margin: 22px 0 12px 0">输入 `,` 自动分割为多个:</div>
-      <ele-edit-tag :model-value="tags3" @update:modelValue="updateModelValue3" :size="size" :type="type" :effect="effect" :round="round" :hit="hit" />
+      <ele-edit-tag
+        :model-value="tags3"
+        @update:modelValue="updateModelValue3"
+        :size="size"
+        :type="type"
+        :effect="effect"
+        :round="round"
+        :hit="hit"
+      />
     </ele-card>
   </ele-page>
 </template>

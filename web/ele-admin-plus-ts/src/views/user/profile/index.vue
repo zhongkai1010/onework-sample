@@ -2,7 +2,11 @@
   <ele-page :multi-card="false">
     <div class="user-wrapper">
       <user-card :data="loginUser" @done="updateLoginUser" class="user-side" />
-      <ele-card :header-style="{ padding: '0 24px' }" :body-style="{ padding: 0, minHeight: '462px' }" class="user-body">
+      <ele-card
+        :header-style="{ padding: '0 24px' }"
+        :body-style="{ padding: 0, minHeight: '462px' }"
+        class="user-body"
+      >
         <template #header>
           <ele-tabs
             type="plain"

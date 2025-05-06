@@ -7,7 +7,13 @@
       <ele-tooltip content="EleAdminPlus" placement="top" effect="light" :offset="8">
         <el-button>Light</el-button>
       </ele-tooltip>
-      <ele-tooltip content="EleAdminPlus" placement="top" :offset="8" transition="el-zoom-in-bottom" :gpu-acceleration="false">
+      <ele-tooltip
+        content="EleAdminPlus"
+        placement="top"
+        :offset="8"
+        transition="el-zoom-in-bottom"
+        :gpu-acceleration="false"
+      >
         <el-button>进入动画</el-button>
       </ele-tooltip>
     </option-item>
@@ -91,7 +97,13 @@
       <ele-tooltip content="EleAdminPlus" placement="top" effect="success" :offset="8">
         <el-button class="ele-btn-icon">成功</el-button>
       </ele-tooltip>
-      <ele-tooltip content="EleAdminPlus" placement="top" bg="linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%)" arrow-bg="#7556E0" :offset="8">
+      <ele-tooltip
+        content="EleAdminPlus"
+        placement="top"
+        bg="linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%)"
+        arrow-bg="#7556E0"
+        :offset="8"
+      >
         <el-button class="ele-btn-icon">Custom</el-button>
       </ele-tooltip>
     </option-item>

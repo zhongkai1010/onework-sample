@@ -2,7 +2,13 @@
   <ele-modal v-model="visible" title="确认出库" width="600px" :destroy-on-close="true">
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
       <el-form-item label="出库日期" prop="outboundDate">
-        <el-date-picker v-model="form.outboundDate" type="date" placeholder="请选择出库日期" value-format="YYYY-MM-DD" style="width: 100%" />
+        <el-date-picker
+          v-model="form.outboundDate"
+          type="date"
+          placeholder="请选择出库日期"
+          value-format="YYYY-MM-DD"
+          style="width: 100%"
+        />
       </el-form-item>
       <el-form-item label="经办人" prop="operator">
         <el-input v-model="form.operator" placeholder="请输入经办人" clearable />
@@ -17,7 +23,13 @@
         <el-input v-model="form.borrowType" placeholder="请输入提借类型" clearable />
       </el-form-item>
       <el-form-item label="拟归日期" prop="proposedReturnDate">
-        <el-date-picker v-model="form.proposedReturnDate" type="date" placeholder="请选择拟归日期" value-format="YYYY-MM-DD" style="width: 100%" />
+        <el-date-picker
+          v-model="form.proposedReturnDate"
+          type="date"
+          placeholder="请选择拟归日期"
+          value-format="YYYY-MM-DD"
+          style="width: 100%"
+        />
       </el-form-item>
       <el-form-item label="备注" prop="remarks">
         <el-input v-model="form.remarks" type="textarea" placeholder="请输入备注" :rows="3" />

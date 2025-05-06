@@ -6,7 +6,13 @@
     </template>
     <el-scrollbar :view-style="{ padding: '20px 20px 0 20px' }">
       <el-timeline :reverse="false" class="demo-timeline">
-        <el-timeline-item v-for="item in activities" :key="item.id" :timestamp="item.time" :type="item.type" :hollow="true">
+        <el-timeline-item
+          v-for="item in activities"
+          :key="item.id"
+          :timestamp="item.time"
+          :type="item.type"
+          :hollow="true"
+        >
           {{ item.title }}
         </el-timeline-item>
       </el-timeline>

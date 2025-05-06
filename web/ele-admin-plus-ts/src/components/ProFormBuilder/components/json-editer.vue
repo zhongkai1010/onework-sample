@@ -1,6 +1,13 @@
 <!-- JSON 编辑器 -->
 <template>
-  <MonacoEditor theme="vs-dark" language="json" :modelValue="modelValue" @update:modelValue="updateModelValue" :config="editorConfig" :style="{ height: '100%' }" />
+  <MonacoEditor
+    theme="vs-dark"
+    language="json"
+    :modelValue="modelValue"
+    @update:modelValue="updateModelValue"
+    :config="editorConfig"
+    :style="{ height: '100%' }"
+  />
 </template>
 
 <script lang="ts" setup>

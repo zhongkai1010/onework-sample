@@ -58,7 +58,13 @@
         </ele-text>
         <ele-text size="xxl" class="statistics-value">78%</ele-text>
         <div class="statistics-body">
-          <el-progress color="#13c2c2" :percentage="78" :show-text="false" :stroke-width="8" style="width: 100%" />
+          <el-progress
+            color="#13c2c2"
+            :percentage="78"
+            :show-text="false"
+            :stroke-width="8"
+            style="width: 100%"
+          />
         </div>
         <el-divider />
         <div class="statistics-footer">

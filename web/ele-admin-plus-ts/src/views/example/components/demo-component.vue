@@ -2,60 +2,201 @@
   <ele-card header="组件美化">
     <div style="max-width: 480px">
       <option-item label="日期选择器" label-width="90px">
-        <el-date-picker type="date" v-model="value1" :shortcuts="shortcuts" :disabled-date="disabledDate" placeholder="Pick A Day" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="date"
+          v-model="value1"
+          :shortcuts="shortcuts"
+          :disabled-date="disabledDate"
+          placeholder="Pick A Day"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="周选择器" label-width="90px">
-        <el-date-picker type="week" v-model="value2" format="[Week] ww" placeholder="Pick a week" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="week"
+          v-model="value2"
+          format="[Week] ww"
+          placeholder="Pick a week"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="月选择器" label-width="90px">
-        <el-date-picker type="month" v-model="value3" placeholder="Pick a month" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="month"
+          v-model="value3"
+          placeholder="Pick a month"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="年选择器" label-width="90px">
-        <el-date-picker type="year" v-model="value4" placeholder="Pick a year" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="year"
+          v-model="value4"
+          placeholder="Pick a year"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="日期多选" label-width="90px">
-        <el-date-picker type="dates" v-model="value5" placeholder="Pick one or more dates" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="dates"
+          v-model="value5"
+          placeholder="Pick one or more dates"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="年多选" label-width="90px">
-        <el-date-picker type="years" v-model="value16" placeholder="Pick one or more years" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="years"
+          v-model="value16"
+          placeholder="Pick one or more years"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="月多选" label-width="90px">
-        <el-date-picker type="months" v-model="value17" placeholder="Pick one or more months" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="months"
+          v-model="value17"
+          placeholder="Pick one or more months"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="日期范围选择" label-width="90px">
-        <el-date-picker type="daterange" v-model="value6" unlink-panels range-separator="-" start-placeholder="Start date" end-placeholder="End date" :shortcuts="shortcuts2" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="daterange"
+          v-model="value6"
+          unlink-panels
+          range-separator="-"
+          start-placeholder="Start date"
+          end-placeholder="End date"
+          :shortcuts="shortcuts2"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="月份范围选择" label-width="90px">
-        <el-date-picker type="monthrange" v-model="value7" unlink-panels range-separator="-" start-placeholder="Start month" end-placeholder="End month" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="monthrange"
+          v-model="value7"
+          unlink-panels
+          range-separator="-"
+          start-placeholder="Start month"
+          end-placeholder="End month"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="年范围选择" label-width="90px">
-        <el-date-picker type="yearrange" v-model="value18" unlink-panels range-separator="-" start-placeholder="Start year" end-placeholder="End year" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="yearrange"
+          v-model="value18"
+          unlink-panels
+          range-separator="-"
+          start-placeholder="Start year"
+          end-placeholder="End year"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="日期时间选择" label-width="90px">
-        <el-date-picker type="datetime" v-model="value8" placeholder="Select date and time" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="datetime"
+          v-model="value8"
+          placeholder="Select date and time"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="带快捷选项" label-width="90px">
-        <el-date-picker type="datetime" v-model="value9" :shortcuts="shortcuts3" placeholder="Select date and time" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="datetime"
+          v-model="value9"
+          :shortcuts="shortcuts3"
+          placeholder="Select date and time"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="日期时间范围" label-width="90px">
-        <el-date-picker type="datetimerange" v-model="value10" unlink-panels range-separator="-" start-placeholder="Start date" end-placeholder="End date" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="datetimerange"
+          v-model="value10"
+          unlink-panels
+          range-separator="-"
+          start-placeholder="Start date"
+          end-placeholder="End date"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="带快捷选项" label-width="90px">
-        <el-date-picker type="datetimerange" v-model="value11" unlink-panels :shortcuts="shortcuts4" range-separator="-" start-placeholder="Start date" end-placeholder="End date" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-date-picker
+          type="datetimerange"
+          v-model="value11"
+          unlink-panels
+          :shortcuts="shortcuts4"
+          range-separator="-"
+          start-placeholder="Start date"
+          end-placeholder="End date"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="时间选择器" label-width="90px">
-        <el-time-picker v-model="value12" :disabled-hours="disabledHours" :disabled-minutes="disabledMinutes" :disabled-seconds="disabledSeconds" placeholder="Arbitrary time" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-time-picker
+          v-model="value12"
+          :disabled-hours="disabledHours"
+          :disabled-minutes="disabledMinutes"
+          :disabled-seconds="disabledSeconds"
+          placeholder="Arbitrary time"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="时间选择器" label-width="90px">
-        <el-time-picker arrow-control v-model="value13" placeholder="Arbitrary time" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-time-picker
+          arrow-control
+          v-model="value13"
+          placeholder="Arbitrary time"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="时间范围选择" label-width="90px">
-        <el-time-picker v-model="value14" is-range range-separator="-" start-placeholder="Start time" end-placeholder="End time" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-time-picker
+          v-model="value14"
+          is-range
+          range-separator="-"
+          start-placeholder="Start time"
+          end-placeholder="End time"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
       <option-item label="时间范围选择" label-width="90px">
-        <el-time-picker v-model="value15" is-range arrow-control range-separator="-" start-placeholder="Start time" end-placeholder="End time" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" />
+        <el-time-picker
+          v-model="value15"
+          is-range
+          arrow-control
+          range-separator="-"
+          start-placeholder="Start time"
+          end-placeholder="End time"
+          class="ele-fluid"
+          :popper-options="{ strategy: 'fixed' }"
+        />
       </option-item>
-      <option-item label="单选框" label-width="90px" style="align-items: flex-start" :label-style="{ paddingTop: '10px' }">
+      <option-item
+        label="单选框"
+        label-width="90px"
+        style="align-items: flex-start"
+        :label-style="{ paddingTop: '10px' }"
+      >
         <div>
           <el-radio-group v-model="radio" size="large">
             <el-radio :value="1" label="Apple" />
@@ -81,7 +222,12 @@
           </el-radio-group>
         </div>
       </option-item>
-      <option-item label="多选框" label-width="90px" style="align-items: flex-start" :label-style="{ paddingTop: '10px' }">
+      <option-item
+        label="多选框"
+        label-width="90px"
+        style="align-items: flex-start"
+        :label-style="{ paddingTop: '10px' }"
+      >
         <div>
           <el-checkbox-group v-model="checkbox" size="large">
             <el-checkbox :value="1" label="Apple" />

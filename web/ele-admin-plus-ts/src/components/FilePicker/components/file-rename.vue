@@ -1,5 +1,15 @@
 <template>
-  <EleModal :form="true" :width="460" title="重命名" :zIndex="baseIndex" :appendToBody="false" v-bind="modalProps || {}" v-model="visible" @open="handleOpen" @closed="handleClosed">
+  <EleModal
+    :form="true"
+    :width="460"
+    title="重命名"
+    :zIndex="baseIndex"
+    :appendToBody="false"
+    v-bind="modalProps || {}"
+    v-model="visible"
+    @open="handleOpen"
+    @closed="handleClosed"
+  >
     <ElForm ref="formRef" :model="form" labelWidth="82px" @submit.prevent="">
       <ElFormItem
         :label="`${data && data.isDirectory ? '分组' : '文件'}名称`"
@@ -13,7 +23,12 @@
           }
         ]"
       >
-        <ElInput :maxlength="20" :clearable="true" v-model="form.name" :placeholder="`请输入${data && data.isDirectory ? '分组' : '文件'}名称`" />
+        <ElInput
+          :maxlength="20"
+          :clearable="true"
+          v-model="form.name"
+          :placeholder="`请输入${data && data.isDirectory ? '分组' : '文件'}名称`"
+        />
       </ElFormItem>
     </ElForm>
     <template #footer>

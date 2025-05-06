@@ -327,7 +327,19 @@ export function getResultItems(cron: string) {
     const week = time.getDay()
     // 如果传递了type的话
     if (type == null) {
-      return Y + '-' + (M < 10 ? '0' + M : M) + '-' + (D < 10 ? '0' + D : D) + ' ' + (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s)
+      return (
+        Y +
+        '-' +
+        (M < 10 ? '0' + M : M) +
+        '-' +
+        (D < 10 ? '0' + D : D) +
+        ' ' +
+        (h < 10 ? '0' + h : h) +
+        ':' +
+        (m < 10 ? '0' + m : m) +
+        ':' +
+        (s < 10 ? '0' + s : s)
+      )
     } else if (type == 'week') {
       // 在quartz中 1为星期日
       return week + 1
@@ -466,7 +478,12 @@ export function getResultItems(cron: string) {
         }
 
         // 判断日期的合法性，不合法的话也是跳出当前循环
-        if (checkDate(YY + '-' + MM + '-' + thisDD + ' 00:00:00') !== true && dayRule !== 'workDay' && dayRule !== 'lastWeek' && dayRule !== 'lastDay') {
+        if (
+          checkDate(YY + '-' + MM + '-' + thisDD + ' 00:00:00') !== true &&
+          dayRule !== 'workDay' &&
+          dayRule !== 'lastWeek' &&
+          dayRule !== 'lastDay'
+        ) {
           resetDay()
           continue goMonth
         }
@@ -544,7 +561,10 @@ export function getResultItems(cron: string) {
             }
           }
           // 获取月末最后一天是星期几
-          const thisWeek = formatDate(new Date(YY + '-' + MM + '-' + thisDD + ' 00:00:00'), 'week') as number
+          const thisWeek = formatDate(
+            new Date(YY + '-' + MM + '-' + thisDD + ' 00:00:00'),
+            'week'
+          ) as number
           // 找到要求中最近的那个星期几
           if ((dayRuleSup as unknown as number) < thisWeek) {
             DD -= thisWeek - (dayRuleSup as unknown as number)
@@ -643,6 +663,8 @@ export function getResultItems(cron: string) {
   if (resultArr.length == 0) {
     return ['没有达到条件的结果！']
   } else {
-    return resultArr.length !== 5 ? [...resultArr, '近100年内只有' + resultArr.length + '条结果'] : resultArr
+    return resultArr.length !== 5
+      ? [...resultArr, '近100年内只有' + resultArr.length + '条结果']
+      : resultArr
   }
 }

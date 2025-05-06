@@ -48,7 +48,10 @@
       <div style="margin: 8px 0 4px 0">二、房屋使用费用</div>
       <div>1、乙方承担租赁期间的水费、电费、燃气费、物业管理费等使用费用。</div>
       <div> 2、乙方在入住前应一次性向甲方支付押金______元，用于租赁期内的房屋维修和卫生保洁。 </div>
-      <div> 3、乙方在租赁期间应妥善保管房屋及其设备设施，不得人为损坏。 如因乙方过错导致房屋设备设施损坏，乙方应承担维修或更换费用。 </div>
+      <div>
+        3、乙方在租赁期间应妥善保管房屋及其设备设施，不得人为损坏。
+        如因乙方过错导致房屋设备设施损坏，乙方应承担维修或更换费用。
+      </div>
       <div style="margin: 8px 0 4px 0">三、房屋使用要求</div>
       <div>1、乙方应遵守国家相关法律法规，不得将房屋用于违法活动。</div>
       <div>2、乙方应爱护房屋及其设备设施，不得随意改造和拆除。</div>
@@ -65,7 +68,10 @@
       <div>（1）甲方将房屋擅自出租他人；</div>
       <div>（2）甲方将房屋用于违法活动；</div>
       <div>（3）甲方未按时提供房屋及其设备设施的正常使用。</div>
-      <div> 3、合同期满后，如果乙方不再续租，则甲方有权在3日内收回房屋。如果乙方需要继续租赁， 则应在本合同期满前3个月内向甲方提出书面申请，并双方重新签订租赁合同。 </div>
+      <div>
+        3、合同期满后，如果乙方不再续租，则甲方有权在3日内收回房屋。如果乙方需要继续租赁，
+        则应在本合同期满前3个月内向甲方提出书面申请，并双方重新签订租赁合同。
+      </div>
       <div style="margin: 8px 0 4px 0">六、其他事项</div>
       <div>1、本合同自双方签字盖章之日起生效。</div>
       <div>2、本合同一式两份，甲、乙双方各执一份，具有同等法律效力。</div>
@@ -100,7 +106,12 @@
       </div>
     </div>
     <div class="demo-title">表格打印示例：</div>
-    <ele-table v-if="data && data.projects" size="large" :border="true" style="page-break-after: always">
+    <ele-table
+      v-if="data && data.projects"
+      size="large"
+      :border="true"
+      style="page-break-after: always"
+    >
       <colgroup>
         <col width="60px" />
         <col width="200px" />
@@ -139,7 +150,10 @@
       </tbody>
     </ele-table>
     <div class="demo-title">图片打印示例：</div>
-    <img src="https://cdn.eleadmin.com/20200610/4Z0QR2L0J1XStxBh99jVJ8qLfsGsOgjU.jpg" style="width: 100%; display: block; page-break-after: always" />
+    <img
+      src="https://cdn.eleadmin.com/20200610/4Z0QR2L0J1XStxBh99jVJ8qLfsGsOgjU.jpg"
+      style="width: 100%; display: block; page-break-after: always"
+    />
     <div class="demo-title">表格颜色修改：</div>
     <ele-table
       v-if="data && data.projects"

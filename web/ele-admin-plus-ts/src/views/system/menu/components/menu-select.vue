@@ -1,6 +1,19 @@
 <!-- 上级菜单选择下拉框 -->
 <template>
-  <el-tree-select clearable filterable :data="menuData" check-strictly default-expand-all node-key="menuId" :props="{ label: 'title' }" :placeholder="placeholder" :model-value="modelValue || void 0" class="ele-fluid" :popper-options="{ strategy: 'fixed' }" @update:modelValue="updateValue">
+  <el-tree-select
+    clearable
+    filterable
+    :data="menuData"
+    check-strictly
+    default-expand-all
+    node-key="menuId"
+    :props="{ label: 'title' }"
+    :placeholder="placeholder"
+    :model-value="modelValue || void 0"
+    class="ele-fluid"
+    :popper-options="{ strategy: 'fixed' }"
+    @update:modelValue="updateValue"
+  >
     <template #default="{ data }">
       <el-icon v-if="data.icon" style="margin-right: 4px; transform: translateY(-1px)">
         <component :is="data.icon" />

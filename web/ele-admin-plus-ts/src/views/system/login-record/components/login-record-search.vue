@@ -15,7 +15,16 @@
         </el-col>
         <el-col :lg="6" :md="12" :sm="12" :xs="24">
           <el-form-item label="登录时间">
-            <el-date-picker unlink-panels type="daterange" v-model="dateRange" range-separator="-" value-format="YYYY-MM-DD" start-placeholder="开始日期" end-placeholder="结束日期" class="ele-fluid" />
+            <el-date-picker
+              unlink-panels
+              type="daterange"
+              v-model="dateRange"
+              range-separator="-"
+              value-format="YYYY-MM-DD"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              class="ele-fluid"
+            />
           </el-form-item>
         </el-col>
         <el-col :lg="6" :md="12" :sm="12" :xs="24">

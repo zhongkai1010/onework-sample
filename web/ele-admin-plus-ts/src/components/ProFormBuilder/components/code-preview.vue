@@ -16,7 +16,12 @@
     <div class="form-builder-code-view">
       <div class="form-builder-code-header">
         <div class="form-builder-code-tabs">
-          <div v-for="item in tabs" :key="item.value" :class="['form-builder-code-tab', { 'is-active': active === item.value }]" @click="handleTabClick(item.value)">
+          <div
+            v-for="item in tabs"
+            :key="item.value"
+            :class="['form-builder-code-tab', { 'is-active': active === item.value }]"
+            @click="handleTabClick(item.value)"
+          >
             {{ item.label }}
           </div>
         </div>
@@ -31,7 +36,14 @@
               hideAfter: 0
             }"
           />
-          <EleTooltip content="下载" placement="bottom" bg="#383838" arrowBg="#383838" :hideAfter="0" :offset="6">
+          <EleTooltip
+            content="下载"
+            placement="bottom"
+            bg="#383838"
+            arrowBg="#383838"
+            :hideAfter="0"
+            :offset="6"
+          >
             <ElIcon class="form-builder-code-icon-tool" @click="handleDownload">
               <DownloadOutlined />
             </ElIcon>
@@ -53,8 +65,14 @@
   import hljs from 'highlight.js'
   import 'highlight.js/styles/github-dark.css'
   import xml from 'highlight.js/lib/languages/xml'
-  import type { TemplateFormConfig, ComponentGroup } from 'ele-admin-plus/es/ele-pro-form-builder/types'
-  import { generateProFormCode, generateElFormCode } from 'ele-admin-plus/es/ele-pro-form-builder/components/code-generator'
+  import type {
+    TemplateFormConfig,
+    ComponentGroup
+  } from 'ele-admin-plus/es/ele-pro-form-builder/types'
+  import {
+    generateProFormCode,
+    generateElFormCode
+  } from 'ele-admin-plus/es/ele-pro-form-builder/components/code-generator'
   import { DownloadOutlined } from '@/components/icons'
   import { download } from '@/utils/common'
   import { useFormData } from '@/utils/use-form-data'

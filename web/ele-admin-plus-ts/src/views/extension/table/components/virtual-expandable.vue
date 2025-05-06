@@ -23,7 +23,13 @@
           <div>
             <span>角&emsp;&emsp;色：</span>
             <span>
-              <el-tag v-for="item in row.roles" :key="item" size="small" :disable-transitions="true" style="margin-right: 6px">
+              <el-tag
+                v-for="item in row.roles"
+                :key="item"
+                size="small"
+                :disable-transitions="true"
+                style="margin-right: 6px"
+              >
                 {{ item }}
               </el-tag>
             </span>
@@ -72,7 +78,11 @@
       slot: 'expand',
       fixed: 'left',
       formatter: (row) => {
-        return [`角色：${row.roles.join()}`, `出生日期：${row.birthday}`, `邮箱账户：${row.email}`].join('\n')
+        return [
+          `角色：${row.roles.join()}`,
+          `出生日期：${row.birthday}`,
+          `邮箱账户：${row.email}`
+        ].join('\n')
       }
     },
     {

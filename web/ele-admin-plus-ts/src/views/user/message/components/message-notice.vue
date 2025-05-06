@@ -1,6 +1,15 @@
 <template>
   <div>
-    <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" v-model:selections="selections" :highlight-current-row="true" :export-config="{ fileName: '系统通知数据' }">
+    <ele-pro-table
+      ref="tableRef"
+      row-key="id"
+      :columns="columns"
+      :datasource="datasource"
+      :show-overflow-tooltip="true"
+      v-model:selections="selections"
+      :highlight-current-row="true"
+      :export-config="{ fileName: '系统通知数据' }"
+    >
       <template #toolbar>
         <el-button type="primary" class="ele-btn-icon" @click="confirm()"> 批量确认 </el-button>
         <el-button type="danger" class="ele-btn-icon" @click="remove()"> 删除通知 </el-button>

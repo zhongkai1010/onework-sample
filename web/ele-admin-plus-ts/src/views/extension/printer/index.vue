@@ -38,7 +38,16 @@
           </el-button>
         </el-form-item>
       </el-form>
-      <ele-printer v-model="printing" :direction="option.direction" :orientation="option.orientation" :margin="option.margin" :title="option.title" :target="option.target" :static="option.static" :body-style="{ overflow: 'hidden' }">
+      <ele-printer
+        v-model="printing"
+        :direction="option.direction"
+        :orientation="option.orientation"
+        :margin="option.margin"
+        :title="option.title"
+        :target="option.target"
+        :static="option.static"
+        :body-style="{ overflow: 'hidden' }"
+      >
         <div style="overflow: auto">
           <ele-table has-footer style="min-width: 600px" size="large">
             <colgroup>
@@ -66,7 +75,14 @@
                 <td style="text-align: center">{{ index + 1 }}</td>
                 <td>{{ row.projectName }}</td>
                 <td>
-                  <el-input-number :min="0" :max="999" v-model="row.money" placeholder="请输入" controls-position="right" class="ele-fluid" />
+                  <el-input-number
+                    :min="0"
+                    :max="999"
+                    v-model="row.money"
+                    placeholder="请输入"
+                    controls-position="right"
+                    class="ele-fluid"
+                  />
                 </td>
                 <td>{{ row.startDate }}</td>
                 <td>{{ row.endDate }}</td>
@@ -152,7 +168,12 @@
           <el-button type="primary" @click="handlePrint2">打印</el-button>
         </el-form-item>
       </el-form>
-      <print-contract ref="contractRef" :data="contractData" :is-static="option2.static" :target="option2.target" />
+      <print-contract
+        ref="contractRef"
+        :data="contractData"
+        :is-static="option2.static"
+        :target="option2.target"
+      />
     </ele-card>
     <print-pdf />
   </ele-page>
@@ -160,7 +181,11 @@
 
 <script lang="ts" setup>
   import { ref, reactive, computed, nextTick } from 'vue'
-  import type { PrintDirection, PrintOrientation, PrintTarget } from 'ele-admin-plus/es/ele-printer/types'
+  import type {
+    PrintDirection,
+    PrintOrientation,
+    PrintTarget
+  } from 'ele-admin-plus/es/ele-printer/types'
   import type { Project, Contract } from '@/api/example/model'
   import PrintCheckbox from './components/print-checkbox.vue'
   import PrintContract from './components/print-contract.vue'
@@ -293,7 +318,12 @@
     return {
       ...form,
       date: dayjs().format('YYYY-MM-DD'),
-      projects: [...projectList.value, ...projectList.value, ...projectList.value, ...projectList.value].map((d, i) => {
+      projects: [
+        ...projectList.value,
+        ...projectList.value,
+        ...projectList.value,
+        ...projectList.value
+      ].map((d, i) => {
         return { ...d, id: d.id + '_' + i, projectName: d.projectName + i }
       })
     }

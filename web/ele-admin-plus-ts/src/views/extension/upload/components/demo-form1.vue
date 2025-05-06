@@ -1,11 +1,28 @@
 <template>
   <ele-card header="使用案例一">
-    <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" style="max-width: 460px" @submit.prevent="">
+    <el-form
+      ref="formRef"
+      :model="form"
+      :rules="rules"
+      label-width="100px"
+      style="max-width: 460px"
+      @submit.prevent=""
+    >
       <el-form-item label="投诉内容" prop="content">
         <el-input :rows="4" type="textarea" v-model="form.content" placeholder="请输入投诉内容" />
       </el-form-item>
       <el-form-item label="现场照片" prop="images">
-        <ele-upload-list :limit="3" :drag="true" :tools="true" v-model="form.images" :sortable="{ forceFallback: true }" @upload="handleUpload" @retry="(item) => handleUpload(item, true)" @remove="handleRemove" @editUpload="handleEditUpload" />
+        <ele-upload-list
+          :limit="3"
+          :drag="true"
+          :tools="true"
+          v-model="form.images"
+          :sortable="{ forceFallback: true }"
+          @upload="handleUpload"
+          @retry="(item) => handleUpload(item, true)"
+          @remove="handleRemove"
+          @editUpload="handleEditUpload"
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="save">提交</el-button>
@@ -166,7 +183,10 @@
     const data: Complaint = {
       id: 1,
       content: '2栋楼下的路灯已经坏了几天了都没人来维修一下',
-      images: ['https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg', 'https://cdn.eleadmin.com/20200610/WLXm7gp1EbLDtvVQgkeQeyq5OtDm00Jd.jpg']
+      images: [
+        'https://cdn.eleadmin.com/20200609/c184eef391ae48dba87e3057e70238fb.jpg',
+        'https://cdn.eleadmin.com/20200610/WLXm7gp1EbLDtvVQgkeQeyq5OtDm00Jd.jpg'
+      ]
     }
     // 图片url转为上传组件需要的格式
     const images = data.images

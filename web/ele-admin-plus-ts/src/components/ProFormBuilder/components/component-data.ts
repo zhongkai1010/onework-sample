@@ -1,5 +1,8 @@
 import { defaultComponentData as componentData } from 'ele-admin-plus/es/ele-pro-form-builder/util'
-import { codeTips, vIfCodeTips } from 'ele-admin-plus/es/ele-pro-form-builder/components/component-data'
+import {
+  codeTips,
+  vIfCodeTips
+} from 'ele-admin-plus/es/ele-pro-form-builder/components/component-data'
 import CoverDictCheckbox from './covers/cover-dict-checkbox.vue'
 import CoverDictMultipleSelect from './covers/cover-dict-multiple-select.vue'
 import CoverDictRadio from './covers/cover-dict-radio.vue'

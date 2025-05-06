@@ -18,7 +18,13 @@
         @row-click="onRowClick"
       >
         <template #toolbar>
-          <el-button type="danger" class="ele-btn-icon" @click="onReturn" :disabled="!selectedRows.length">退回编目</el-button>
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            @click="onReturn"
+            :disabled="!selectedRows.length"
+            >退回编目</el-button
+          >
           <el-button type="success" class="ele-btn-icon" @click="onExport">导出数据</el-button>
         </template>
         <!-- 状态列 -->
@@ -47,7 +53,11 @@
   import type { BooksLedger } from '@/api/collection/ledger/model/index'
   import { ElMessage } from 'element-plus'
   import { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, ExportConfig, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    ExportConfig,
+    Columns
+  } from 'ele-admin-plus/es/ele-pro-table/types'
 
   // 组件引用
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)

@@ -4,7 +4,11 @@
       <byte-md-editor v-model="content" height="520px" :config="config" />
     </ele-card>
     <ele-card header="解析器">
-      <byte-md-viewer :value="content" :config="{ plugins: [gfm(), highlight()] }" style="max-width: 880px; margin: 0 auto; padding: 24px" />
+      <byte-md-viewer
+        :value="content"
+        :config="{ plugins: [gfm(), highlight()] }"
+        style="max-width: 880px; margin: 0 auto; padding: 24px"
+      />
     </ele-card>
   </ele-page>
 </template>

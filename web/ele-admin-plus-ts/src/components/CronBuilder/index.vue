@@ -1,6 +1,14 @@
 <!-- Cron 表达式生成器 -->
 <template>
-  <EleModal :width="832" :title="title" position="center" :bodyStyle="{ padding: '8px 12px 12px 12px' }" v-bind="modalProps || {}" v-model="visible" @closed="handleClosed">
+  <EleModal
+    :width="832"
+    :title="title"
+    position="center"
+    :bodyStyle="{ padding: '8px 12px 12px 12px' }"
+    v-bind="modalProps || {}"
+    v-model="visible"
+    @closed="handleClosed"
+  >
     <CronPanel ref="cronPanelRef" v-model="cron" />
     <template #footer>
       <ElButton @click="handleCancel">取消</ElButton>

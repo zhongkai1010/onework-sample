@@ -1,5 +1,12 @@
 <template>
-  <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" style="max-width: 580px; padding: 34px 16px 12px 0; box-sizing: border-box" @submit.prevent="">
+  <el-form
+    ref="formRef"
+    :model="form"
+    :rules="rules"
+    label-width="100px"
+    style="max-width: 580px; padding: 34px 16px 12px 0; box-sizing: border-box"
+    @submit.prevent=""
+  >
     <el-form-item label="昵称" prop="nickname">
       <el-input clearable :maxlength="20" v-model="form.nickname" placeholder="请输入昵称" />
     </el-form-item>
@@ -13,7 +20,13 @@
       <el-input clearable :maxlength="100" v-model="form.email" placeholder="请输入邮箱" />
     </el-form-item>
     <el-form-item label="个人简介">
-      <el-input type="textarea" :rows="4" :maxlength="200" v-model="form.introduction" placeholder="请输入个人简介" />
+      <el-input
+        type="textarea"
+        :rows="4"
+        :maxlength="200"
+        v-model="form.introduction"
+        placeholder="请输入个人简介"
+      />
     </el-form-item>
     <el-form-item label="街道地址">
       <el-input clearable :maxlength="200" v-model="form.address" placeholder="请输入街道地址" />

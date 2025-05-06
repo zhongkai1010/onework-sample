@@ -1,6 +1,17 @@
 <template>
   <div>
-    <ele-pro-table :height="378" :virtual="true" row-key="menuId" :columns="columns" :datasource="datasource" :lazy="true" :pagination="false" :show-overflow-tooltip="true" :export-config="{ fileName: '菜单数据', datasource: exportSource }" :print-config="{ datasource: exportSource }" />
+    <ele-pro-table
+      :height="378"
+      :virtual="true"
+      row-key="menuId"
+      :columns="columns"
+      :datasource="datasource"
+      :lazy="true"
+      :pagination="false"
+      :show-overflow-tooltip="true"
+      :export-config="{ fileName: '菜单数据', datasource: exportSource }"
+      :print-config="{ datasource: exportSource }"
+    />
   </div>
 </template>
 

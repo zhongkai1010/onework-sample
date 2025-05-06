@@ -1,7 +1,12 @@
 import { reactive } from 'vue'
 import type { UnwrapNestedRefs } from 'vue'
 import { cloneDeep, set as setValue } from 'lodash-es'
-type Result<T> = [UnwrapNestedRefs<T>, (field?: string, excludes?: string[]) => void, (data: object, excludes?: string[]) => void, (field: string, value: unknown) => void] & {
+type Result<T> = [
+  UnwrapNestedRefs<T>,
+  (field?: string, excludes?: string[]) => void,
+  (data: object, excludes?: string[]) => void,
+  (field: string, value: unknown) => void
+] & {
   form: UnwrapNestedRefs<T>
   resetFields: (field?: string, excludes?: string[]) => void
   assignFields: (data: object, excludes?: string[]) => void

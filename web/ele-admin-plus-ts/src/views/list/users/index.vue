@@ -1,7 +1,10 @@
 <template>
   <ele-page>
     <ele-card>
-      <div> “男用户”页面和“女用户”页面是共用的同一个页面, 通过获取路由参数展示不同的数据, 并且会各自KeepAlive. </div>
+      <div>
+        “男用户”页面和“女用户”页面是共用的同一个页面, 通过获取路由参数展示不同的数据,
+        并且会各自KeepAlive.
+      </div>
       <div style="display: flex; align-items: center; margin-top: 16px">
         <div style="padding-right: 16px">路由参数</div>
         <div>sex: {{ userType }}</div>
@@ -30,7 +33,9 @@
         :cache-key="'listUsersTable-' + userType"
       >
         <template #action="{ row }">
-          <el-link type="primary" :underline="false" @click="openDetail(row)"> 查看用户详情 </el-link>
+          <el-link type="primary" :underline="false" @click="openDetail(row)">
+            查看用户详情
+          </el-link>
         </template>
       </ele-pro-table>
     </ele-card>
