@@ -31,7 +31,7 @@
     </template>
     <template #operation="{ row }">
       <el-space :size="4">
-        <el-button type="primary" @click="handleViewDetails(row)">查看详情</el-button>
+        <el-button type="primary" @click="handleViewDetails(row)" size="small">查看详情</el-button>
       </el-space>
     </template>
   </ele-pro-table>

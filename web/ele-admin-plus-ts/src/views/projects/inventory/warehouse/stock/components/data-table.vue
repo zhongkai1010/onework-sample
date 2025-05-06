@@ -14,7 +14,15 @@
     v-model:selections="selections"
   >
     <template #toolbar>
-      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleUpdateWarehouse" :disabled="!selections.length"> 位置变更 </el-button>
+      <el-button
+        type="primary"
+        class="ele-btn-icon"
+        :icon="PlusOutlined"
+        @click="handleUpdateWarehouse"
+        :disabled="!selections.length"
+      >
+        位置变更
+      </el-button>
     </template>
     <template #status="{ row }">
       <el-tag :type="row.collectionStatus === 1 ? 'success' : 'info'" effect="light">
@@ -23,7 +31,7 @@
     </template>
     <template #operation="{ row }">
       <el-space :size="4">
-        <el-button type="primary" @click="handleViewDetails(row)">查看详情</el-button>
+        <el-button type="primary" @click="handleViewDetails(row)" size="small">查看详情</el-button>
       </el-space>
     </template>
   </ele-pro-table>

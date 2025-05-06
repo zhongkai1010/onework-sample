@@ -39,9 +39,11 @@
         </template>
         <template #action="{ row }">
           <el-space :size="4">
-            <el-button type="info" @click="openEdit(undefined, row.id)">插入</el-button>
-            <el-button type="primary" @click="openEdit(row)">修改</el-button>
-            <el-button type="danger" @click="remove(row)">删除</el-button>
+            <el-button size="small" type="info" @click="openEdit(undefined, row.id)"
+              >插入</el-button
+            >
+            <el-button size="small" type="primary" @click="openEdit(row)">修改</el-button>
+            <el-button size="small" type="danger" @click="remove(row)">删除</el-button>
           </el-space>
         </template>
       </ele-pro-table>

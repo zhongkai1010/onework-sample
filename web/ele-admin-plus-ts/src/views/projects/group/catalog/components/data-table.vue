@@ -1,6 +1,16 @@
 <template>
   <search-form ref="searchRef" style="margin-bottom: -14px" @search="reload" />
-  <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :style="{ paddingBottom: '16px' }" cache-key="groupCollectionTable" :tools="['reload', 'size', 'columns', 'maximized']" :stripe="true">
+  <ele-pro-table
+    ref="tableRef"
+    row-key="id"
+    :columns="columns"
+    :datasource="datasource"
+    :show-overflow-tooltip="true"
+    :style="{ paddingBottom: '16px' }"
+    cache-key="groupCollectionTable"
+    :tools="['reload', 'size', 'columns', 'maximized']"
+    :stripe="true"
+  >
     <template #collectionStatus="{ row }">
       <el-tag :type="getStatusType(row.collectionStatus)" effect="light">
         {{ row.collectionStatus }}
