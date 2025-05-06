@@ -5,7 +5,11 @@
       <div class="label-grid">
         <div v-for="(item, index) in props.data" :key="index" class="label-item">
           <div class="label-barcode">
-            <ele-bar-code :value="item.collectionCode" :display-value="false" :options="{ height: 60 }" />
+            <ele-bar-code
+              :value="item.collectionCode"
+              :display-value="false"
+              :options="{ height: 60 }"
+            />
           </div>
           <div class="label-name">{{ item.collectionName }}</div>
         </div>
@@ -20,7 +24,11 @@
         <div class="label-grid">
           <div v-for="(item, index) in props.data" :key="index" class="label-item">
             <div class="label-barcode">
-              <ele-bar-code :value="item.collectionCode" :display-value="false" :options="{ height: 60 }" />
+              <ele-bar-code
+                :value="item.collectionCode"
+                :display-value="false"
+                :options="{ height: 60 }"
+              />
             </div>
             <div class="label-name">{{ item.collectionName }}</div>
           </div>

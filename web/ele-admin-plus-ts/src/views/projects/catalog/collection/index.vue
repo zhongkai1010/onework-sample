@@ -39,7 +39,7 @@
               <el-icon
                 style="margin-right: 6px; font-size: 16px"
                 :style="{
-                  color: scope.data.children?.length ? '#409EFF' : '#67C23A'
+                  color: scope.data.children?.length ? '#909399' : '#909399'
                 }"
               >
                 <FolderOutlined v-if="scope.data.children?.length" style="fill: currentColor" />
@@ -140,6 +140,4 @@
   })
 </script>
 
-<style lang="scss" scoped>
-  /* No changes to the existing styles */
-</style>
+<style lang="scss" scoped></style>

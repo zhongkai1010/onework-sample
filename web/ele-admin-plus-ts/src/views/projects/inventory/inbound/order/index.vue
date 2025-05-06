@@ -103,6 +103,16 @@
 
       <!-- 单据打印弹窗 -->
       <print-document ref="printDocumentRef" v-model="showPrint" />
+
+      <!-- 参考按钮 -->
+      <reference-button
+        title="入库单管理"
+        :imageUrl="pageImage"
+        searchText="单据图片 入库单号 单据状态 入库类型 经办人 接收库房 入库日期 备注"
+        operationText="入库登记 上传图片 删除 导出 单据打印"
+        tableFieldsText="单据图片 入库单号 单据状态 入库类型 经办人 接收库房 入库日期 备注 操作"
+        tableOperationsText="上传图片 查看详情 审核"
+      />
     </ele-card>
   </ele-page>
 </template>
@@ -133,6 +143,8 @@
   import FormEdit from './components/form-edit.vue'
   import OrderDetails from './components/order-details.vue'
   import PrintDocument from './components/print-document.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)

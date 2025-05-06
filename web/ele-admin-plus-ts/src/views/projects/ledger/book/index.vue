@@ -42,6 +42,16 @@
 
     <!-- 详情弹窗 -->
     <book-details v-model="showDetails" :row="currentRow" @close="showDetails = false" />
+
+    <!-- 参考按钮 -->
+    <reference-button
+      title="图书台账"
+      :imageUrl="pageImage"
+      searchText="藏品状态 编号类别 藏品编号 RFID编号 藏品名称 藏品分类 作者 藏品来源 图书价值 保存状态 征集日期 入藏年度 备注 地址码 所属库房"
+      operationText="退回编目 导出数据"
+      tableFieldsText="藏品状态 编号类别 藏品编号 RFID编号 藏品名称 藏品分类 作者 藏品来源 图书价值 保存状态 征集日期 入藏年度 备注 地址码 所属库房 操作"
+      tableOperationsText="查看详情"
+    />
   </ele-page>
 </template>
 
@@ -58,6 +68,8 @@
     ExportConfig,
     Columns
   } from 'ele-admin-plus/es/ele-pro-table/types'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   // 组件引用
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)

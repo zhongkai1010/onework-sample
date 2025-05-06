@@ -1,6 +1,6 @@
 <template>
   <div class="reference-button">
-    <el-button type="primary" :icon="Search" circle @click="open = true" />
+    <el-button :icon="Search" circle @click="open = true" />
   </div>
   <el-drawer v-model="open" :title="title" direction="rtl" size="50%" :destroy-on-close="true">
     <el-descriptions :column="1" size="large" :border="true" :label-width="labelWidth">
@@ -124,20 +124,50 @@
       box-shadow 0.2s;
     border-radius: 50%;
     box-shadow:
-      0 4px 16px rgba(0, 0, 0, 0.15),
-      0 1.5px 4px rgba(0, 0, 0, 0.08);
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      0 1px 2px rgba(0, 0, 0, 0.05);
+
+    :deep(.el-button) {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-color: #dcdfe6;
+      color: #606266;
+
+      &:hover {
+        background-color: #f5f7fa;
+        border-color: #c0c4cc;
+        color: #606266;
+      }
+    }
 
     &:hover {
-      transform: scale(1.08) translateY(-2px);
+      transform: scale(1.05);
       box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.18),
-        0 2px 8px rgba(0, 0, 0, 0.1);
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.06);
     }
 
     @media (prefers-color-scheme: dark) {
       box-shadow:
-        0 4px 16px rgba(0, 0, 0, 0.45),
-        0 1.5px 4px rgba(0, 0, 0, 0.25);
+        0 2px 8px rgba(0, 0, 0, 0.25),
+        0 1px 2px rgba(0, 0, 0, 0.15);
+
+      :deep(.el-button) {
+        background-color: rgba(48, 48, 48, 0.9);
+        border-color: #4c4d4f;
+        color: #909399;
+
+        &:hover {
+          background-color: #363637;
+          border-color: #5c5d5f;
+          color: #909399;
+        }
+      }
+
+      &:hover {
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.35),
+          0 2px 4px rgba(0, 0, 0, 0.25);
+      }
     }
   }
 

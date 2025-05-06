@@ -3,12 +3,19 @@
   <ele-modal form :width="'500px'" v-model="visible" title="批量修改分类" @open="handleOpen">
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
       <el-form-item label="藏品分类" prop="categoryId">
-        <category-select v-model="form.categoryId" placeholder="请选择藏品分类" clearable style="width: 100%" />
+        <category-select
+          v-model="form.categoryId"
+          placeholder="请选择藏品分类"
+          clearable
+          style="width: 100%"
+        />
       </el-form-item>
     </el-form>
     <template #footer>
       <el-button @click="handleCancel">取消</el-button>
-      <el-button type="primary" :loading="loading" @click="save" :disabled="!form.categoryId"> 保存 </el-button>
+      <el-button type="primary" :loading="loading" @click="save" :disabled="!form.categoryId">
+        保存
+      </el-button>
     </template>
   </ele-modal>
 </template>

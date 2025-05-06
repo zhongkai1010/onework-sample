@@ -1,13 +1,6 @@
 <template>
-  <ele-page :flex-table="fixedHeight">
-    <ele-card
-      :flex-table="fixedHeight"
-      :body-style="{ paddingBottom: '4px' }"
-      :style="{
-        minHeight: fixedHeight ? '380px' : void 0,
-        marginBottom: fixedHeight ? '0px' : void 0
-      }"
-    >
+  <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
+    <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
       <!-- 搜索表单 -->
       <search-form ref="searchRef" @search="reload" />
 
@@ -66,7 +59,14 @@
     </ele-card>
 
     <!-- 参考按钮 -->
-    <reference-button />
+    <reference-button
+      title="藏品入库"
+      :imageUrl="pageImage"
+      searchText="藏品编号 藏品名称 藏品分类 地域类型 地域 请输入地域 藏品来源 入藏日期范围 类型"
+      operationText="退回编目"
+      tableFieldsText="藏品状态 图片信息 编号类别 藏品编号 藏品名称 藏品类别 编号 数量 数量单位 年代类型 年代 艺术家 地域类型 地域 质地类型 质地 通长 底径 通宽 口径 通高 具体尺寸 质量范围 具体质量 质量单位 文物级别 藏品来源 完残状况 保存状态 征集日期 入藏日期范围 入藏年度 类型 人文类型 藏品介绍 文本类型 声像载体类型 声像载体存放位置 计算机磁盘路径 颜色类别 颜色描述 存放位置 备注 入馆时间 入藏时间 登录时间 入柜时间 操作"
+      tableOperationsText="查看详情"
+    />
   </ele-page>
 </template>
 
@@ -81,7 +81,8 @@
   import { getPreparation, returnCollections } from '@/api/collection/catalog'
   import SearchForm from './components/search-form.vue'
   import CollectionDetails from '../collection/components/collection-details.vue'
-  import ReferenceButton from './components/reference-button.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -90,7 +91,6 @@
   /* ==================== 状态管理 ==================== */
   const currentId = ref<number>() // 当前查看详情的藏品ID
   const showDetails = ref(false) // 是否显示详情弹窗
-  const fixedHeight = ref(false) // 是否固定高度
   const selections = ref<Collection[]>([]) // 表格选中的行
 
   /* ==================== 表格配置 ==================== */

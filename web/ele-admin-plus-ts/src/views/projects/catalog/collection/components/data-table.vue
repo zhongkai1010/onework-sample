@@ -15,12 +15,10 @@
     :export-config="exportConfig"
   >
     <template #toolbar>
-      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleRegister">
-        藏品登记
-      </el-button>
+      <!-- 工具栏按钮组 -->
+      <el-button type="primary" :icon="PlusOutlined" @click="handleRegister"> 藏品登记 </el-button>
       <el-button
         type="default"
-        class="ele-btn-icon"
         :icon="PlusOutlined"
         @click="handleBind"
         :disabled="!selections.length"
@@ -29,7 +27,6 @@
       </el-button>
       <el-button
         type="default"
-        class="ele-btn-icon"
         :icon="EditOutlined"
         @click="handleBatchModify"
         :disabled="!selections.length"
@@ -38,7 +35,6 @@
       </el-button>
       <el-button
         type="success"
-        class="ele-btn-icon"
         :icon="CheckOutlined"
         @click="handleApprove"
         :disabled="!selections.length"
@@ -47,22 +43,16 @@
       </el-button>
       <el-button
         type="danger"
-        class="ele-btn-icon"
         :icon="DeleteOutlined"
         @click="remove"
         :disabled="!selections.length"
       >
         删除藏品
       </el-button>
-      <el-button type="success" class="ele-btn-icon" :icon="UploadOutlined" @click="handleImport">
-        导入
-      </el-button>
-      <el-button type="success" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport">
-        导出
-      </el-button>
+      <el-button type="success" :icon="UploadOutlined" @click="handleImport"> 导入 </el-button>
+      <el-button type="success" :icon="DownloadOutlined" @click="handleExport"> 导出 </el-button>
       <el-button
         type="default"
-        class="ele-btn-icon"
         :icon="PrinterOutlined"
         @click="handlePrint"
         :disabled="!selections.length"
@@ -604,6 +594,11 @@
   })
 
   /* 工具函数 */
+  /**
+   * 获取状态标签类型
+   * @param status 状态文本
+   * @returns 标签类型
+   */
   const getStatusType = (status: string) => {
     switch (status) {
       case '待审核':
@@ -618,15 +613,26 @@
   }
 
   /* 表格操作 */
+  /**
+   * 重新加载表格数据
+   * @param where 查询条件
+   */
   const reload = (where?: CollectionQueryParams) => {
     tableRef.value?.reload?.({ page: 1, where })
   }
 
+  /**
+   * 打开编辑弹窗
+   * @param row 行数据
+   */
   const openEdit = (row: Collection) => {
     current.value = row
     showEdit.value = true
   }
 
+  /**
+   * 删除藏品
+   */
   const remove = () => {
     const rows =
       selections.value.length > 0 ? selections.value : current.value ? [current.value] : []
@@ -658,11 +664,17 @@
   }
 
   /* 业务处理函数 */
+  /**
+   * 处理藏品登记
+   */
   const handleRegister = () => {
     current.value = undefined
     showEdit.value = true
   }
 
+  /**
+   * 处理批量绑定RFID
+   */
   const handleBind = (_evt: MouseEvent) => {
     if (!selections.value.length) {
       EleMessage.error('请至少选择一条数据')
@@ -672,12 +684,19 @@
     showBindRfid.value = true
   }
 
+  /**
+   * 处理单个藏品绑定RFID
+   * @param row 行数据
+   */
   const handleSingleBind = (row: Collection) => {
     isBatchBind.value = false
     selections.value = [row]
     showBindRfid.value = true
   }
 
+  /**
+   * 处理批量修改分类
+   */
   const handleBatchModify = () => {
     if (!selections.value.length) {
       EleMessage.error('请至少选择一条数据')
@@ -686,6 +705,9 @@
     showUpdateCategory.value = true
   }
 
+  /**
+   * 处理审核通过
+   */
   const handleApprove = () => {
     if (!selections.value.length) {
       EleMessage.error('请至少选择一条数据')
@@ -714,15 +736,24 @@
       .catch(() => {})
   }
 
+  /**
+   * 处理导入
+   */
   const handleImport = () => {
     // TODO: Implement import functionality
     console.log('Import collections')
   }
 
+  /**
+   * 处理导出
+   */
   const handleExport = () => {
     tableRef.value?.openExportModal?.()
   }
 
+  /**
+   * 处理标签打印
+   */
   const handlePrint = () => {
     if (!selections.value.length) {
       EleMessage.error('请至少选择一条数据')
@@ -731,11 +762,19 @@
     showPrintLabel.value = true
   }
 
+  /**
+   * 处理查看详情
+   * @param row 行数据
+   */
   const handleViewDetails = (row: Collection) => {
     currentDetailsId.value = row.id
     showDetails.value = true
   }
 
+  /**
+   * 处理铭牌打印
+   * @param row 行数据
+   */
   const handlePrintLabel = (row: Collection) => {
     currentNameplateId.value = row.id
     showNameplate.value = true
@@ -750,3 +789,5 @@
     }
   )
 </script>
+
+<style lang="scss" scoped></style>

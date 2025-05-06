@@ -4,13 +4,31 @@
       <!-- 搜索表单 -->
       <search-form @search="handleSearch" />
       <!-- 表格 -->
-      <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :highlight-current-row="true" :style="{ paddingBottom: '16px' }" cache-key="locationTable" :tools="['reload', 'size', 'columns', 'maximized']">
+      <ele-pro-table
+        ref="tableRef"
+        row-key="id"
+        :columns="columns"
+        :datasource="datasource"
+        :show-overflow-tooltip="true"
+        :highlight-current-row="true"
+        :style="{ paddingBottom: '16px' }"
+        cache-key="locationTable"
+        :tools="['reload', 'size', 'columns', 'maximized']"
+      >
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleBind">绑定</el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleBind">
+            绑定
+          </el-button>
         </template>
       </ele-pro-table>
       <!-- 参考按钮 -->
-      <reference-button />
+      <reference-button
+        title="位置绑定"
+        :imageUrl="pageImage"
+        searchText="藏品编号 地址条码 绑定时间"
+        operationText="绑定"
+        tableFieldsText="藏品编号 地址条码 绑定时间"
+      />
     </ele-card>
     <!-- 绑定弹框 -->
     <bind-code v-model="showBind" @done="reload" />
@@ -24,7 +42,8 @@
   import { getLocationPage } from '@/api/inventory/warehouse'
   import type { LocationQueryParams } from '@/api/inventory/warehouse/model'
   import { PlusOutlined } from '@/components/icons'
-  import ReferenceButton from './components/reference-button.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
   import SearchForm from './components/search-form.vue'
   import BindCode from './components/bind-code.vue'
 

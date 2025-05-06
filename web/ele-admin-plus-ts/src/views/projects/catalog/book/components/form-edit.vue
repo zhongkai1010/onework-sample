@@ -1,5 +1,12 @@
 <template>
-  <ele-modal v-model="visible" :title="isUpdate ? '修改图书' : '添加图书'" width="680px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
+  <ele-modal
+    v-model="visible"
+    :title="isUpdate ? '修改图书' : '添加图书'"
+    width="680px"
+    :destroy-on-close="true"
+    @open="handleOpen"
+    @closed="reset"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
       <el-form-item label="编号" prop="code">
         <el-input v-model="form.code" placeholder="请输入编号" clearable />

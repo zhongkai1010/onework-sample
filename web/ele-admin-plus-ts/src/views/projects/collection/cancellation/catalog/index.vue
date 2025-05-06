@@ -25,6 +25,13 @@
         </template>
       </ele-pro-table>
     </ele-card>
+    <!-- 参考按钮 -->
+    <reference-button
+      title="注销编目"
+      :imageUrl="pageImage"
+      searchText="注销单号 藏品编号 藏品名称 注销日期"
+      tableFieldsText="注销单号 藏品编号 藏品名称 注销日期 状态"
+    />
   </ele-page>
 </template>
 
@@ -33,6 +40,8 @@
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import { getCancellationCatalog } from '@/api/collection/cancellation'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
   import SearchForm from './components/search-form.vue'
 
   /* ==================== 组件引用 ==================== */

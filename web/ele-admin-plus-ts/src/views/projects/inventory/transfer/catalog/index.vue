@@ -25,6 +25,13 @@
           </el-tag>
         </template>
       </ele-pro-table>
+      <!-- 参考按钮 -->
+      <reference-button
+        title="拨库编目"
+        :imageUrl="pageImage"
+        searchText="拨库单号 拨库日期 藏品编号 藏品名称 原仓库 现仓库 状态"
+        tableFieldsText="拨库单号 拨库日期 藏品编号 藏品名称 原仓库 现仓库 状态"
+      />
     </ele-card>
   </ele-page>
 </template>
@@ -35,6 +42,8 @@
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import { getTransferCatalog } from '@/api/inventory/transfer'
   import SearchForm from './components/search-form.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)

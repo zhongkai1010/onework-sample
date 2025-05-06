@@ -86,6 +86,15 @@
       <!-- 修复入藏弹窗 -->
       <update-status v-if="current" v-model="showRepairInbound" :data="current" @done="reload" />
     </ele-card>
+    <!-- 参考按钮 -->
+    <reference-button
+      title="修复记录"
+      :imageUrl="pageImage"
+      searchText="修复单号 登记日期 藏品编码 藏品名称 藏品分类 送修部门 送修人 修复原因 备注 送修日期 工单状态 承担机构 修复人 资质证书 修完日期"
+      operationText="修复登记 上传图片 导出 单据打印"
+      tableFieldsText="单据图片 修复单号 登记日期 藏品编码 藏品名称 藏品分类 送修部门 送修人 修复原因 备注 送修日期 工单状态 承担机构 修复人 资质证书 修完日期"
+      tableOperationsText="上传图片 查看详情 修复入藏"
+    />
   </ele-page>
 </template>
 
@@ -102,6 +111,8 @@
   } from '@/components/icons'
   import type { Repair, RepairQueryParams } from '@/api/collection/repair/model'
   import { getRepairList } from '@/api/collection/repair'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
   import SearchForm from './components/search-form.vue'
   import FormEdit from './components/form-edit.vue'
   import RepairDetails from './components/repair-details.vue'

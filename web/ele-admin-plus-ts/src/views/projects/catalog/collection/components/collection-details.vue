@@ -1,6 +1,13 @@
 <!-- 藏品详情弹窗 -->
 <template>
-  <ele-modal :width="'900px'" v-model="visible" title="藏品详情" position="center" @open="handleOpen" class="details-modal">
+  <ele-modal
+    :width="'900px'"
+    v-model="visible"
+    title="藏品详情"
+    position="center"
+    @open="handleOpen"
+    class="details-modal"
+  >
     <div class="details-content">
       <el-descriptions v-if="data" :column="2" border>
         <!-- 基本信息 -->
@@ -30,7 +37,13 @@
 
         <!-- 图片信息 -->
         <el-descriptions-item label="图片信息" :span="2">
-          <el-image v-if="data.imageInfo" :src="data.imageInfo" :preview-src-list="[data.imageInfo]" fit="cover" class="w-40 h-40" />
+          <el-image
+            v-if="data.imageInfo"
+            :src="data.imageInfo"
+            :preview-src-list="[data.imageInfo]"
+            fit="cover"
+            class="w-40 h-40"
+          />
           <el-empty v-else description="暂无图片" :image-size="40" />
         </el-descriptions-item>
 

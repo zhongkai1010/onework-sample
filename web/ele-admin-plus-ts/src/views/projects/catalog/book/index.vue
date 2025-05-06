@@ -1,13 +1,6 @@
 <template>
-  <ele-page :flex-table="fixedHeight">
-    <ele-card
-      :flex-table="fixedHeight"
-      :body-style="{ paddingBottom: '4px' }"
-      :style="{
-        minHeight: fixedHeight ? '380px' : void 0,
-        marginBottom: fixedHeight ? '0px' : void 0
-      }"
-    >
+  <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
+    <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
       <!-- 搜索表单 -->
       <search-form ref="searchRef" @search="reload" />
 
@@ -85,7 +78,14 @@
       <form-edit v-model="showEdit" :data="current" @done="reload" />
 
       <!-- 参考按钮 -->
-      <reference-button />
+      <reference-button
+        title="图书管理"
+        :imageUrl="pageImage"
+        searchText="藏品编号 藏品名称 藏品分类 ISBN 作者 所属仓库 藏品来源 图书价值 保存状态 征集日期 入藏年度 备注 藏品状态 地址码 类型"
+        operationText="添加 审核通过 删除"
+        tableFieldsText="图片信息 编号类别 藏品编号 藏品名称 ISBN 藏品分类 作者 所属仓库 藏品来源 图书价值 保存状态 征集日期 入藏年度 备注 藏品状态 地址码 类型 操作"
+        tableOperationsText="修改 删除"
+      />
     </ele-card>
   </ele-page>
 </template>
@@ -101,7 +101,8 @@
   import { getBookList, deleteBooks, approveBooks } from '@/api/collection/book'
   import SearchForm from './components/search-form.vue'
   import FormEdit from './components/form-edit.vue'
-  import ReferenceButton from './components/reference-button.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -110,7 +111,6 @@
   /* ==================== 状态管理 ==================== */
   const current = ref<BookCollection | undefined>(undefined) // 当前编辑的图书
   const showEdit = ref(false) // 是否显示编辑弹窗
-  const fixedHeight = ref(false) // 是否固定高度
   const selections = ref<BookCollection[]>([]) // 表格选中的行
 
   /* ==================== 表格配置 ==================== */

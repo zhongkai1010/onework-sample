@@ -46,6 +46,15 @@
       <!-- 影像编辑弹窗 -->
       <form-edit v-model="showEdit" :data="current" @done="reload" />
     </ele-card>
+    <!-- 参考按钮 -->
+    <reference-button
+      title="影像管理"
+      :imageUrl="pageImage"
+      searchText="藏品编号 藏品名称 标题 容量大小 文件 添加人 添加时间"
+      operationText="添加 删除"
+      tableFieldsText="藏品编号 藏品名称 标题 容量大小 文件 添加人 添加时间"
+      tableOperationsText="编辑 删除"
+    />
   </ele-page>
 </template>
 
@@ -58,6 +67,8 @@
   import { PlusOutlined, DeleteOutlined } from '@/components/icons'
   import type { Image, ImageQueryParams } from '@/api/collection/image/model'
   import { getImageList, deleteImage } from '@/api/collection/image'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
   import SearchForm from './components/search-form.vue'
   import FormEdit from './components/form-edit.vue'
 

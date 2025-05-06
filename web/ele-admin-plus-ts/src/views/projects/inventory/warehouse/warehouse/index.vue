@@ -18,10 +18,24 @@
         :tools="['reload', 'size', 'columns', 'maximized']"
       >
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()"> 新建库房 </el-button>
-          <el-button class="ele-btn-icon" :icon="ColumnHeightOutlined" @click="expandAll"> 展开全部 </el-button>
-          <el-button class="ele-btn-icon" :icon="VerticalAlignMiddleOutlined" @click="foldAll"> 折叠全部 </el-button>
-          <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" :disabled="!selections.length" @click="batchRemove"> 删除库房 </el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="openEdit()">
+            新建库房
+          </el-button>
+          <el-button class="ele-btn-icon" :icon="ColumnHeightOutlined" @click="expandAll">
+            展开全部
+          </el-button>
+          <el-button class="ele-btn-icon" :icon="VerticalAlignMiddleOutlined" @click="foldAll">
+            折叠全部
+          </el-button>
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            :disabled="!selections.length"
+            @click="batchRemove"
+          >
+            删除库房
+          </el-button>
         </template>
         <template #action="{ row }">
           <el-space :size="4">
@@ -32,8 +46,22 @@
         </template>
       </ele-pro-table>
     </ele-card>
-    <form-edit v-model="showEdit" :data="current" @done="reload" :parent-id="parentId" :select-data="treeData" />
-    <reference-button />
+    <form-edit
+      v-model="showEdit"
+      :data="current"
+      @done="reload"
+      :parent-id="parentId"
+      :select-data="treeData"
+    />
+    <!-- 参考按钮 -->
+    <reference-button
+      title="库房管理"
+      :imageUrl="pageImage"
+      searchText="名称 编号 级别 备注"
+      operationText="新建库房 展开全部 折叠全部 删除库房"
+      tableFieldsText="名称 编号 级别 备注"
+      tableOperationsText="插入 修改 删除"
+    />
   </ele-page>
 </template>
 
@@ -43,10 +71,16 @@
   import { ElMessageBox } from 'element-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
   import type { Columns, DatasourceFunction } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { PlusOutlined, ColumnHeightOutlined, VerticalAlignMiddleOutlined, DeleteOutlined } from '@/components/icons'
+  import {
+    PlusOutlined,
+    ColumnHeightOutlined,
+    VerticalAlignMiddleOutlined,
+    DeleteOutlined
+  } from '@/components/icons'
   import { getWarehouseTree, deleteWarehouse } from '@/api/inventory/warehouse'
   import type { Warehouse, WarehouseQueryParams } from '@/api/inventory/warehouse/model'
-  import ReferenceButton from './components/reference-button.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
   import FormEdit from './components/form-edit.vue'
   import SearchForm from './components/search-form.vue'
 
@@ -216,7 +250,9 @@
     const hasUnselectedChildren = selections.value.some((item) => {
       if (!item.children?.length) return false
       // 检查所有子库房是否都被选中
-      return !item.children.every((child) => selections.value.some((selected) => selected.id === child.id))
+      return !item.children.every((child) =>
+        selections.value.some((selected) => selected.id === child.id)
+      )
     })
 
     if (hasUnselectedChildren) {

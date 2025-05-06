@@ -1,10 +1,20 @@
 <template>
   <el-form :model="form" :inline="true" class="search-form" @submit.prevent>
     <el-form-item label="藏品编号" prop="collectionCode">
-      <el-input v-model="form.collectionCode" placeholder="请输入藏品编号" clearable @keyup.enter="handleSearch" />
+      <el-input
+        v-model="form.collectionCode"
+        placeholder="请输入藏品编号"
+        clearable
+        @keyup.enter="handleSearch"
+      />
     </el-form-item>
     <el-form-item label="藏品名称" prop="collectionName">
-      <el-input v-model="form.collectionName" placeholder="请输入藏品名称" clearable @keyup.enter="handleSearch" />
+      <el-input
+        v-model="form.collectionName"
+        placeholder="请输入藏品名称"
+        clearable
+        @keyup.enter="handleSearch"
+      />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">搜索</el-button>
@@ -39,10 +49,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .search-form {
-    margin-bottom: 0;
-    :deep(.el-form-item) {
-      margin-bottom: 16px;
-    }
+  .el-form {
+    padding: 16px 0px 0px 0px;
   }
 </style>

@@ -25,7 +25,12 @@
         </template>
       </ele-pro-table>
       <!-- 参考按钮 -->
-      <reference-button />
+      <reference-button
+        title="入库单详情"
+        :imageUrl="pageImage"
+        searchText="入库单号 藏品编号 藏品名称 接收库房 入库日期 状态"
+        tableFieldsText="入库单号 藏品编号 藏品名称 接收库房 入库日期 状态"
+      />
     </ele-card>
   </ele-page>
 </template>
@@ -37,6 +42,8 @@
 
   import { getInboundCollectionList } from '@/api/inventory/inbound'
   import SearchForm from './components/search-form.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)

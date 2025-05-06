@@ -93,6 +93,15 @@
       <!-- 单据打印弹窗 -->
       <print-document v-model="showPrint" :id="current?.id" />
     </ele-card>
+    <!-- 参考按钮 -->
+    <reference-button
+      title="事故记录"
+      :imageUrl="pageImage"
+      searchText="编号 藏品编码 藏品名称 事故时间 事故地点 事故原因 事故责任人 藏品损坏情况"
+      operationText="添加 上传图片 删除 查看详情 处理 单据打印"
+      tableFieldsText="编号 单据图片 藏品编码 藏品名称 事故时间 事故地点 事故原因 事故责任人 藏品损坏情况 处理状态 处理结果"
+      tableOperationsText="上传图片 删除"
+    />
   </ele-page>
 </template>
 
@@ -112,6 +121,8 @@
   } from '@/components/icons'
   import type { Accident, AccidentQueryParams } from '@/api/collection/accident/model'
   import { getAccidentList, deleteAccidents } from '@/api/collection/accident'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
   import SearchForm from './components/search-form.vue'
   import FormEdit from './components/form-edit.vue'
   import AccidentDetails from './components/accident-details.vue'

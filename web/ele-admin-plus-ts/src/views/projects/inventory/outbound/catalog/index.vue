@@ -26,7 +26,12 @@
         </template>
       </ele-pro-table>
       <!-- 参考按钮 -->
-      <reference-button />
+      <reference-button
+        title="出库编目"
+        :imageUrl="pageImage"
+        searchText="出库单号 出库日期 藏品编号 藏品名称 入库日期 状态"
+        tableFieldsText="出库单号 出库日期 藏品编号 藏品名称 入库日期 状态"
+      />
     </ele-card>
   </ele-page>
 </template>
@@ -37,6 +42,8 @@
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import { getOutboundCatalog } from '@/api/inventory/outbound'
   import SearchForm from './components/search-form.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)

@@ -102,6 +102,16 @@
 
     <!-- 详情弹窗 -->
     <order-details ref="detailsRef" />
+
+    <!-- 参考按钮 -->
+    <reference-button
+      title="拨库单管理"
+      :imageUrl="pageImage"
+      searchText="调拨单号 单据状态 调拨日期 调拨仓库 接收人 调拨原因 备注"
+      operationText="上传图片 删除 导出 单据打印"
+      tableFieldsText="单据图片 调拨单号 单据状态 调拨日期 调拨仓库 接收人 调拨原因 备注"
+      tableOperationsText="查看详情 上传图片 审核 删除 确认"
+    />
   </ele-page>
 </template>
 
@@ -124,6 +134,8 @@
   } from '@/api/inventory/transfer'
   import SearchForm from './components/search-form.vue'
   import OrderDetails from './components/order-details.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)

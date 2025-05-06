@@ -1,12 +1,40 @@
 <template>
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
     <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
-      <ele-split-panel ref="splitRef" flex-table size="256px" allow-collapse :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }" :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }" :style="{ height: '100%', overflow: 'visible' }">
+      <ele-split-panel
+        ref="splitRef"
+        flex-table
+        size="256px"
+        allow-collapse
+        :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }"
+        :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }"
+        :style="{ height: '100%', overflow: 'visible' }"
+      >
         <div style="padding: 0 16px 12px 0">
-          <el-input clearable :maxlength="20" v-model="keywords" placeholder="请输入搜索关键字" :prefix-icon="SearchOutlined" />
+          <el-input
+            clearable
+            :maxlength="20"
+            v-model="keywords"
+            placeholder="请输入搜索关键字"
+            :prefix-icon="SearchOutlined"
+          />
         </div>
-        <ele-loading :loading="treeLoading" :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }">
-          <el-tree ref="treeRef" :data="treeData" highlight-current node-key="id" :props="{ label: 'name', children: 'children' }" :expand-on-click-node="false" :default-expand-all="true" :filter-node-method="filterNode" :style="{ '--ele-tree-item-height': '34px' }" @node-click="handleNodeClick">
+        <ele-loading
+          :loading="treeLoading"
+          :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }"
+        >
+          <el-tree
+            ref="treeRef"
+            :data="treeData"
+            highlight-current
+            node-key="id"
+            :props="{ label: 'name', children: 'children' }"
+            :expand-on-click-node="false"
+            :default-expand-all="true"
+            :filter-node-method="filterNode"
+            :style="{ '--ele-tree-item-height': '34px' }"
+            @node-click="handleNodeClick"
+          >
             <template #default="scope">
               <el-icon
                 style="margin-right: 6px; font-size: 16px"
@@ -28,14 +56,20 @@
         </template>
       </ele-split-panel>
     </ele-card>
-    <reference-button />
+    <reference-button
+      title="展区藏品"
+      :imageUrl="pageImage"
+      searchText="展区名称 藏品名称 藏品编号"
+      tableFieldsText="展区名称 藏品名称 藏品编号"
+    />
   </ele-page>
 </template>
 
 <script lang="ts" setup>
   import { ref, onMounted, watch } from 'vue'
   import { toTree } from 'ele-admin-plus/es'
-  import ReferenceButton from './components/reference-button.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
   import { SearchOutlined, FolderOutlined, TagOutlined } from '@/components/icons'
   import DataTable from './components/data-table.vue'
   import { getWarehouseTree } from '@/api/inventory/warehouse'
@@ -52,7 +86,7 @@
   /** 树形数据 */
   const treeData = ref<(Warehouse & { children?: Warehouse[] })[]>([])
   /** 当前选中的库房ID */
-  const currentWarehouseId = ref<number>()
+  const currentWarehouseId = ref<number | undefined>()
 
   /** 树过滤方法 */
   const filterNode = (value: string, data: Warehouse) => {

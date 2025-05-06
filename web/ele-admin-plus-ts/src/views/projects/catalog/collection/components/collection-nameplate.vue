@@ -1,6 +1,13 @@
 <!-- 藏品铭牌打印 -->
 <template>
-  <ele-modal v-model="visible" title="铭牌打印" position="center" :width="'auto'" :min-width="400" class="nameplate-modal">
+  <ele-modal
+    v-model="visible"
+    title="铭牌打印"
+    position="center"
+    :width="'auto'"
+    :min-width="400"
+    class="nameplate-modal"
+  >
     <div class="print-content">
       <div class="nameplate-grid">
         <div class="nameplate-item">
@@ -11,16 +18,24 @@
           <div class="nameplate-body">
             <div class="collection-name">{{ nameplateData[0]?.collectionName }}</div>
             <div class="collection-info">
-              <div v-if="nameplateData[0]?.categoryName">类别：{{ nameplateData[0]?.categoryName }}</div>
+              <div v-if="nameplateData[0]?.categoryName"
+                >类别：{{ nameplateData[0]?.categoryName }}</div
+              >
               <div v-if="nameplateData[0]?.era">年代：{{ nameplateData[0]?.era }}</div>
               <div v-if="nameplateData[0]?.region">地域：{{ nameplateData[0]?.region }}</div>
               <div v-if="nameplateData[0]?.material">质地：{{ nameplateData[0]?.material }}</div>
-              <div v-if="nameplateData[0]?.warehouseName">存放位置：{{ nameplateData[0]?.warehouseName }}</div>
+              <div v-if="nameplateData[0]?.warehouseName"
+                >存放位置：{{ nameplateData[0]?.warehouseName }}</div
+              >
             </div>
           </div>
           <div class="nameplate-footer">
             <div class="barcode">
-              <ele-bar-code :value="nameplateData[0]?.collectionCode" :display-value="false" :options="{ height: 40 }" />
+              <ele-bar-code
+                :value="nameplateData[0]?.collectionCode"
+                :display-value="false"
+                :options="{ height: 40 }"
+              />
             </div>
           </div>
         </div>
@@ -41,16 +56,24 @@
             <div class="nameplate-body">
               <div class="collection-name">{{ nameplateData[0]?.collectionName }}</div>
               <div class="collection-info">
-                <div v-if="nameplateData[0]?.categoryName">类别：{{ nameplateData[0]?.categoryName }}</div>
+                <div v-if="nameplateData[0]?.categoryName"
+                  >类别：{{ nameplateData[0]?.categoryName }}</div
+                >
                 <div v-if="nameplateData[0]?.era">年代：{{ nameplateData[0]?.era }}</div>
                 <div v-if="nameplateData[0]?.region">地域：{{ nameplateData[0]?.region }}</div>
                 <div v-if="nameplateData[0]?.material">质地：{{ nameplateData[0]?.material }}</div>
-                <div v-if="nameplateData[0]?.warehouseName">存放位置：{{ nameplateData[0]?.warehouseName }}</div>
+                <div v-if="nameplateData[0]?.warehouseName"
+                  >存放位置：{{ nameplateData[0]?.warehouseName }}</div
+                >
               </div>
             </div>
             <div class="nameplate-footer">
               <div class="barcode">
-                <ele-bar-code :value="nameplateData[0]?.collectionCode" :display-value="false" :options="{ height: 40 }" />
+                <ele-bar-code
+                  :value="nameplateData[0]?.collectionCode"
+                  :display-value="false"
+                  :options="{ height: 40 }"
+                />
               </div>
             </div>
           </div>

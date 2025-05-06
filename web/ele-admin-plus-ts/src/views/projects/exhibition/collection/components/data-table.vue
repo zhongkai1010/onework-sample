@@ -14,7 +14,15 @@
     v-model:selections="selections"
   >
     <template #toolbar>
-      <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleUpdateWarehouse" :disabled="!selections.length"> 位置变更 </el-button>
+      <el-button
+        type="primary"
+        class="ele-btn-icon"
+        :icon="PlusOutlined"
+        @click="handleUpdateWarehouse"
+        :disabled="!selections.length"
+      >
+        位置变更
+      </el-button>
     </template>
     <template #status="{ row }">
       <el-tag :type="row.collectionStatus === 1 ? 'success' : 'info'" effect="light">
@@ -50,7 +58,7 @@
   /* Props 定义 */
   const props = defineProps<{
     /** 仓库ID */
-    warehouseId: number
+    warehouseId: number | undefined
   }>()
 
   /* 组件引用 */

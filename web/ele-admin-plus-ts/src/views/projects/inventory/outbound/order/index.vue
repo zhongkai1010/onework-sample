@@ -58,6 +58,16 @@
 
     <!-- 上传图片弹框 -->
     <upload-image ref="uploadRef" v-model="uploadVisible" @success="handleUploadSuccess" />
+
+    <!-- 参考按钮 -->
+    <reference-button
+      title="出库单管理"
+      :imageUrl="pageImage"
+      searchText="单据图片 单据状态 出库单号 出库日期 经办人 提借部门 提借人 提借类型 拟归日期 备注"
+      operationText="上传图片 删除 导出 单据打印"
+      tableFieldsText="单据图片 单据状态 出库单号 出库日期 经办人 提借部门 提借人 提借类型 拟归日期 备注 操作"
+      tableOperationsText="上传图片 查看详情 审核"
+    />
   </ele-page>
 </template>
 
@@ -72,6 +82,8 @@
   import OrderDetails from './components/order-details.vue'
   import PrintDocument from './components/print-document.vue'
   import UploadImage from './components/upload-image.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   // 表格实例
   const tableRef = ref<InstanceType<typeof EleProTable>>()

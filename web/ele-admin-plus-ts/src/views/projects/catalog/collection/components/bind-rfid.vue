@@ -61,7 +61,9 @@
   const title = computed(() => (props.isBatch ? '批量绑定RFID' : '绑定RFID'))
 
   /** 输入框占位符 */
-  const placeholder = computed(() => (props.isBatch ? '请输入RFID编号，多个藏品将绑定相同的RFID' : '请输入RFID编号'))
+  const placeholder = computed(() =>
+    props.isBatch ? '请输入RFID编号，多个藏品将绑定相同的RFID' : '请输入RFID编号'
+  )
 
   /** 关闭弹窗 */
   const handleCancel = () => {

@@ -32,7 +32,12 @@
       </el-col>
       <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
         <el-form-item label="藏品来源" label-width="auto">
-          <el-select clearable v-model="form.collectionSource" placeholder="请选择" style="width: 100%">
+          <el-select
+            clearable
+            v-model="form.collectionSource"
+            placeholder="请选择"
+            style="width: 100%"
+          >
             <el-option label="征集" value="征集" />
             <el-option label="捐赠" value="捐赠" />
             <el-option label="考古发掘" value="考古发掘" />
@@ -41,7 +46,12 @@
       </el-col>
       <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
         <el-form-item label="入藏日期" label-width="auto">
-          <el-date-picker v-model="form.collectionTime" type="date" placeholder="请选择" style="width: 100%" />
+          <el-date-picker
+            v-model="form.collectionTime"
+            type="date"
+            placeholder="请选择"
+            style="width: 100%"
+          />
         </el-form-item>
       </el-col>
       <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
@@ -90,13 +100,7 @@
 </script>
 
 <style lang="scss" scoped>
-  :deep(.el-form) {
-    margin-bottom: 0;
-  }
-  :deep(.el-form-item) {
-    margin-bottom: 16px;
-  }
-  :deep(.el-form-item__label) {
-    text-align: left;
+  .el-form {
+    padding: 16px 0px 0px 0px;
   }
 </style>

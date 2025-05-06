@@ -96,6 +96,15 @@
 
     <!-- 单据打印组件 -->
     <print-document ref="printRef" />
+    <!-- 参考按钮 -->
+    <reference-button
+      title="注销单管理"
+      :imageUrl="pageImage"
+      searchText="注销单号 注销时间 批准部门 注销原因"
+      operationText="上传图片 删除 单据打印"
+      tableFieldsText="单据图片 注销单号 注销时间 批准部门 注销原因 状态"
+      tableOperationsText="上传图片 审核 删除 恢复"
+    />
   </ele-page>
 </template>
 
@@ -111,6 +120,8 @@
     recoverCancellation
   } from '@/api/collection/cancellation'
   import type { Cancellation } from '@/api/collection/cancellation/model'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
   import SearchForm from './components/search-form.vue'
   import PrintDocument from './components/print-document.vue'
 

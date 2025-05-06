@@ -1,6 +1,14 @@
 <!-- 藏品编辑弹窗 -->
 <template>
-  <ele-modal form :width="'80%'" v-model="visible" :title="isUpdate ? '修改藏品' : '添加藏品'" @open="handleOpen" class="form-modal" position="center">
+  <ele-modal
+    form
+    :width="'80%'"
+    v-model="visible"
+    :title="isUpdate ? '修改藏品' : '添加藏品'"
+    @open="handleOpen"
+    class="form-modal"
+    position="center"
+  >
     <div class="form-content">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="120px" @submit.prevent="">
         <el-row :gutter="16">
@@ -12,7 +20,12 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="藏品类别" prop="categoryId">
-              <category-select v-model="form.categoryId" placeholder="请选择藏品类别" clearable style="width: 100%" />
+              <category-select
+                v-model="form.categoryId"
+                placeholder="请选择藏品类别"
+                clearable
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -41,7 +54,12 @@
           <!-- 数量信息 -->
           <el-col :span="8">
             <el-form-item label="数量" prop="quantity">
-              <el-input-number v-model="form.quantity" :min="0" placeholder="请输入数量" style="width: 100%" />
+              <el-input-number
+                v-model="form.quantity"
+                :min="0"
+                placeholder="请输入数量"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -89,17 +107,32 @@
           <!-- 尺寸信息 -->
           <el-col :span="8">
             <el-form-item label="通长(底径cm)" prop="overallLength">
-              <el-input-number v-model="form.overallLength" :min="0" placeholder="请输入通长" style="width: 100%" />
+              <el-input-number
+                v-model="form.overallLength"
+                :min="0"
+                placeholder="请输入通长"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="通宽(口径cm)" prop="overallWidth">
-              <el-input-number v-model="form.overallWidth" :min="0" placeholder="请输入通宽" style="width: 100%" />
+              <el-input-number
+                v-model="form.overallWidth"
+                :min="0"
+                placeholder="请输入通宽"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="通高(cm)" prop="totalHeight">
-              <el-input-number v-model="form.totalHeight" :min="0" placeholder="请输入通高" style="width: 100%" />
+              <el-input-number
+                v-model="form.totalHeight"
+                :min="0"
+                placeholder="请输入通高"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -116,7 +149,12 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="具体质量" prop="specificWeight">
-              <el-input-number v-model="form.specificWeight" :min="0" placeholder="请输入具体质量" style="width: 100%" />
+              <el-input-number
+                v-model="form.specificWeight"
+                :min="0"
+                placeholder="请输入具体质量"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -164,12 +202,24 @@
           <!-- 日期信息 -->
           <el-col :span="8">
             <el-form-item label="征集日期" prop="collectionDate">
-              <el-date-picker v-model="form.collectionDate" type="date" placeholder="请选择征集日期" style="width: 100%" />
+              <el-date-picker
+                v-model="form.collectionDate"
+                type="date"
+                placeholder="请选择征集日期"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="入藏日期范围" prop="collectionDateRange">
-              <el-date-picker v-model="form.collectionDateRange" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width: 100%" />
+              <el-date-picker
+                v-model="form.collectionDateRange"
+                type="daterange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -181,22 +231,42 @@
           <!-- 时间信息 -->
           <el-col :span="8">
             <el-form-item label="入馆时间" prop="museumEntryTime">
-              <el-date-picker v-model="form.museumEntryTime" type="datetime" placeholder="请选择入馆时间" style="width: 100%" />
+              <el-date-picker
+                v-model="form.museumEntryTime"
+                type="datetime"
+                placeholder="请选择入馆时间"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="入藏时间" prop="collectionTime">
-              <el-date-picker v-model="form.collectionTime" type="datetime" placeholder="请选择入藏时间" style="width: 100%" />
+              <el-date-picker
+                v-model="form.collectionTime"
+                type="datetime"
+                placeholder="请选择入藏时间"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="登录时间" prop="loginTime">
-              <el-date-picker v-model="form.loginTime" type="datetime" placeholder="请选择登录时间" style="width: 100%" />
+              <el-date-picker
+                v-model="form.loginTime"
+                type="datetime"
+                placeholder="请选择登录时间"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="入柜时间" prop="cabinetEntryTime">
-              <el-date-picker v-model="form.cabinetEntryTime" type="datetime" placeholder="请选择入柜时间" style="width: 100%" />
+              <el-date-picker
+                v-model="form.cabinetEntryTime"
+                type="datetime"
+                placeholder="请选择入柜时间"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
 
@@ -220,12 +290,20 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="声像载体类型" prop="audioVisualCarrierType">
-              <el-input v-model="form.audioVisualCarrierType" placeholder="请输入声像载体类型" clearable />
+              <el-input
+                v-model="form.audioVisualCarrierType"
+                placeholder="请输入声像载体类型"
+                clearable
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="声像载体存放位置" prop="audioVisualStorageLocation">
-              <el-input v-model="form.audioVisualStorageLocation" placeholder="请输入声像载体存放位置" clearable />
+              <el-input
+                v-model="form.audioVisualStorageLocation"
+                placeholder="请输入声像载体存放位置"
+                clearable
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -237,7 +315,12 @@
           <!-- 文本信息 -->
           <el-col :span="24">
             <el-form-item label="藏品介绍" prop="collectionIntroduction">
-              <el-input v-model="form.collectionIntroduction" type="textarea" placeholder="请输入藏品介绍" :rows="3" />
+              <el-input
+                v-model="form.collectionIntroduction"
+                type="textarea"
+                placeholder="请输入藏品介绍"
+                :rows="3"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -249,7 +332,12 @@
           <!-- 图片信息 -->
           <el-col :span="24">
             <el-form-item label="图片信息" prop="imageInfo">
-              <el-upload class="avatar-uploader" action="#" :show-file-list="false" :before-upload="beforeImageUpload">
+              <el-upload
+                class="avatar-uploader"
+                action="#"
+                :show-file-list="false"
+                :before-upload="beforeImageUpload"
+              >
                 <img v-if="form.imageInfo" :src="form.imageInfo" class="avatar" />
                 <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
               </el-upload>
@@ -429,7 +517,8 @@
           collectionIntroduction: form.collectionIntroduction ?? props.data.collectionIntroduction,
           textType: form.textType ?? props.data.textType,
           audioVisualCarrierType: form.audioVisualCarrierType ?? props.data.audioVisualCarrierType,
-          audioVisualStorageLocation: form.audioVisualStorageLocation ?? props.data.audioVisualStorageLocation,
+          audioVisualStorageLocation:
+            form.audioVisualStorageLocation ?? props.data.audioVisualStorageLocation,
           diskPath: form.diskPath ?? props.data.diskPath,
           colorCategory: form.colorCategory ?? props.data.colorCategory,
           colorDescription: form.colorDescription ?? props.data.colorDescription,

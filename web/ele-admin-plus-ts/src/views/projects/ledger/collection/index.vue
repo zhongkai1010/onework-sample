@@ -109,6 +109,16 @@
     />
     <!-- 批量导入图片弹窗 -->
     <batch-image v-model="showBatchImage" :rows="selectedRows" @close="showBatchImage = false" />
+
+    <!-- 参考按钮 -->
+    <reference-button
+      title="藏品台账"
+      :imageUrl="pageImage"
+      searchText="藏品状态 图片信息 藏品编号 藏品名称 藏品类别 仓存位置 年代 实际质地 数量 单位 具体尺寸 完残状况 保存状态 文物级别 藏品来源 入藏日期 入藏年度 备注"
+      operationText="退回编目 位置变更 编入藏品组 绑定RFID 批量导入图片 导入数据 导出数据 标签打印"
+      tableFieldsText="藏品状态 图片信息 藏品编号 藏品名称 藏品类别 仓存位置 年代 实际质地 数量 单位 具体尺寸 完残状况 保存状态 文物级别 藏品来源 入藏日期 入藏年度 备注 操作"
+      tableOperationsText="查看详情 修复记录 出库记录 调拨记录 上传图片"
+    />
   </ele-page>
 </template>
 
@@ -136,6 +146,8 @@
   import { getExportWorkbook } from '@/config/use-global-config'
   import { download } from '@/utils/common'
   import request from '@/utils/request'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   // 组件引用
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)

@@ -4,13 +4,35 @@
       <!-- 搜索表单 -->
       <search-form @search="handleSearch" />
       <!-- 表格 -->
-      <ele-pro-table ref="tableRef" row-key="id" :columns="columns" :datasource="datasource" :show-overflow-tooltip="true" :highlight-current-row="true" :style="{ paddingBottom: '16px' }" cache-key="barcodeTable" :tools="['reload', 'size', 'columns', 'maximized']">
+      <ele-pro-table
+        ref="tableRef"
+        row-key="id"
+        :columns="columns"
+        :datasource="datasource"
+        :show-overflow-tooltip="true"
+        :highlight-current-row="true"
+        :style="{ paddingBottom: '16px' }"
+        cache-key="barcodeTable"
+        :tools="['reload', 'size', 'columns', 'maximized']"
+      >
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PrinterOutlined" @click="handlePrint">标签打印</el-button>
+          <el-button
+            type="primary"
+            class="ele-btn-icon"
+            :icon="PrinterOutlined"
+            @click="handlePrint"
+            >标签打印</el-button
+          >
         </template>
       </ele-pro-table>
       <!-- 参考按钮 -->
-      <reference-button />
+      <reference-button
+        title="地址码管理"
+        :imageUrl="pageImage"
+        searchText="地址信息 地址码"
+        operationText="标签打印"
+        tableFieldsText="地址信息 地址码"
+      />
     </ele-card>
   </ele-page>
 </template>
@@ -22,7 +44,8 @@
   import { getBarcodePage } from '@/api/inventory/warehouse'
   import type { BarcodeQueryParams } from '@/api/inventory/warehouse/model'
   import { PrinterOutlined } from '@/components/icons'
-  import ReferenceButton from './components/reference-button.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
   import SearchForm from './components/search-form.vue'
 
   defineOptions({ name: 'Barcode' })

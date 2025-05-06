@@ -20,8 +20,17 @@
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
-          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd">新增</el-button>
-          <el-button type="success" class="ele-btn-icon" :icon="CheckOutlined" @click="handleAudit" :disabled="!selections.length">审核</el-button>
+          <el-button type="primary" class="ele-btn-icon" :icon="PlusOutlined" @click="handleAdd"
+            >新增</el-button
+          >
+          <el-button
+            type="success"
+            class="ele-btn-icon"
+            :icon="CheckOutlined"
+            @click="handleAudit"
+            :disabled="!selections.length"
+            >审核</el-button
+          >
         </template>
 
         <!-- 操作列 -->
@@ -45,7 +54,14 @@
     </ele-card>
 
     <!-- 参考按钮 -->
-    <reference-button />
+    <reference-button
+      title="藏品组管理"
+      :imageUrl="pageImage"
+      searchText="藏品组名称 负责人 备注说明 排序 状态"
+      operationText="新增 审核"
+      tableFieldsText="藏品组名称 负责人 备注说明 排序 状态"
+      tableOperationsText="编辑 删除"
+    />
   </ele-page>
 </template>
 
@@ -60,7 +76,8 @@
   import { getGroupPage, removeGroups, approveGroups } from '@/api/data/group'
   import SearchForm from './components/search-form.vue'
   import FormEdit from './components/form-edit.vue'
-  import ReferenceButton from './components/reference-button.vue'
+  import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -208,10 +225,14 @@
       EleMessage.warning('选中的藏品组都已审核')
       return
     }
-    ElMessageBox.confirm(`确定要审核选中的 ${unapprovedItems.length} 个未审核藏品组吗？`, '系统提示', {
-      type: 'warning',
-      draggable: true
-    })
+    ElMessageBox.confirm(
+      `确定要审核选中的 ${unapprovedItems.length} 个未审核藏品组吗？`,
+      '系统提示',
+      {
+        type: 'warning',
+        draggable: true
+      }
+    )
       .then(() => {
         const loading = EleMessage.loading({
           message: '请求中..',
