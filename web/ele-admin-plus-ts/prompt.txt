@@ -1,0 +1,32 @@
+完成一下页面功能开发：
+D:\projects\onework-sample\web\ele-admin-plus-ts\src\views\projects\inventory\transfer\order\index.vue - 主页面
+D:\projects\onework-sample\web\ele-admin-plus-ts\src\views\projects\inventory\transfer\order\components\search-form.vue - 搜索条件组件
+D:\projects\onework-sample\web\ele-admin-plus-ts\src\views\projects\inventory\transfer\order\components\order-details.vue - 查看详情
+搜索条件：单据状态 调拨仓库
+操作栏：审核 上传图片 删除 导出
+表格字段：编号 单据图片 调拨单号 单据状态 调拨日期 调拨仓库 接收人 调拨原因 备注 操作
+表格操作：上传图片 删除 查看详情 确认
+
+主页面表格调用接口：D:\projects\onework-sample\web\ele-admin-plus-ts\src\api\inventory\transfer\index.ts的listTransfers
+查看详情调用接口：D:\projects\onework-sample\web\ele-admin-plus-ts\src\api\inventory\transfer\index.ts的getTransferDetails
+审核调用接口：D:\projects\onework-sample\web\ele-admin-plus-ts\src\api\inventory\transfer\index.ts的approveTransfer
+删除调用接口：D:\projects\onework-sample\web\ele-admin-plus-ts\src\api\inventory\transfer\index.ts的removeTransfers
+确认调用接口：D:\projects\onework-sample\web\ele-admin-plus-ts\src\api\inventory\transfer\index.ts的confirmTransfer
+表格状态为已审核，表格操作显示确认按钮
+上传图片都写好事件函数，具体逻辑不实现
+
+
+主页面参考：D:\projects\onework-sample\web\ele-admin-plus-ts\src\views\projects\inventory\outbound\catalog\index.vue 进行开发
+const columns = ref<Columns>
+const datasource: DatasourceFunction
+
+搜索条件组件参考：D:\projects\onework-sample\web\ele-admin-plus-ts\src\views\projects\inventory\outbound\catalog\components\search-form.vue 进行开发
+const [formData, resetForm] = useFormData
+
+
+
+
+    
+
+
+ 

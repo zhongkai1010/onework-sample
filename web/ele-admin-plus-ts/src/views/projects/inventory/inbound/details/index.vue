@@ -13,6 +13,8 @@
           </el-tag>
         </template>
       </ele-pro-table>
+      <!-- 参考按钮 -->
+      <reference-button />
     </ele-card>
   </ele-page>
 </template>

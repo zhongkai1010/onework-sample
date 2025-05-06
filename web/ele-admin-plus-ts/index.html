@@ -2,41 +2,33 @@
 <html lang="zh">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, no-store, must-revalidate"
-    />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <link rel="icon" href="/favicon.ico" />
     <script>
-      (function () {
-        var metaEl = document.createElement('meta');
-        metaEl.setAttribute('name', 'viewport');
-        var responsive = true;
+      ;(function () {
+        var metaEl = document.createElement('meta')
+        metaEl.setAttribute('name', 'viewport')
+        var responsive = true
         try {
-          responsive = JSON.parse(
-            localStorage.getItem('theme') || '{}'
-          ).responsive;
+          responsive = JSON.parse(localStorage.getItem('theme') || '{}').responsive
         } catch (e) {
-          console.error(e);
+          console.error(e)
         }
         if (responsive === false) {
-          metaEl.setAttribute('content', 'width=1200, initial-scale=1.0');
+          metaEl.setAttribute('content', 'width=1200, initial-scale=1.0')
         } else {
-          metaEl.setAttribute(
-            'content',
-            'width=device-width, initial-scale=1.0'
-          );
-          document.documentElement.style.overflowX = 'hidden';
+          metaEl.setAttribute('content', 'width=device-width, initial-scale=1.0')
+          document.documentElement.style.overflowX = 'hidden'
         }
-        document.head.appendChild(metaEl);
+        document.head.appendChild(metaEl)
         if (navigator.userAgent.includes('WebKit')) {
-          document.documentElement.classList.add('is-webkit');
+          document.documentElement.classList.add('is-webkit')
         }
-      })();
+      })()
     </script>
-    <title>OneWork</title>
+    <title>藏品管理软件</title>
     <style>
       .ele-admin-loading {
         width: 28px;

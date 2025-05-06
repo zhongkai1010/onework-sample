@@ -1,18 +1,18 @@
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
-import Compression from 'vite-plugin-compression';
-import Components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import { EleAdminResolver } from 'ele-admin-plus/es/utils/resolvers';
-import { viteMockServe } from 'vite-plugin-mock';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
+import Compression from 'vite-plugin-compression'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { EleAdminResolver } from 'ele-admin-plus/es/utils/resolvers'
+import { viteMockServe } from 'vite-plugin-mock'
 
 export default defineConfig(({ command }) => {
-  const isBuild = command === 'build';
+  const isBuild = command === 'build'
   const alias = {
     '@/': resolve('src') + '/',
     'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
-  };
+  }
   const plugins = [
     vue(),
     viteMockServe({
@@ -24,7 +24,7 @@ export default defineConfig(({ command }) => {
         setupProdMockServer();
       `
     })
-  ];
+  ]
   if (isBuild) {
     // 组件按需引入
     plugins.push(
@@ -39,7 +39,7 @@ export default defineConfig(({ command }) => {
           })
         ]
       })
-    );
+    )
     // gzip压缩
     plugins.push(
       Compression({
@@ -48,10 +48,10 @@ export default defineConfig(({ command }) => {
         algorithm: 'gzip',
         ext: '.gz'
       })
-    );
+    )
   } else {
     // 开发环境全局安装
-    alias['./as-needed'] = './global-import';
+    alias['./as-needed'] = './global-import'
   }
   return {
     resolve: { alias },
@@ -75,20 +75,11 @@ export default defineConfig(({ command }) => {
       watch: { usePolling: true }
     },
     optimizeDeps: {
-      include: [
-        'echarts/core',
-        'echarts/charts',
-        'echarts/renderers',
-        'echarts/components',
-        'vue-echarts',
-        'echarts-wordcloud',
-        'sortablejs',
-        'vuedraggable'
-      ]
+      include: ['echarts/core', 'echarts/charts', 'echarts/renderers', 'echarts/components', 'vue-echarts', 'echarts-wordcloud', 'sortablejs', 'vuedraggable']
     },
     build: {
       target: 'chrome63',
       chunkSizeWarningLimit: 2000
     }
-  };
-});
+  }
+})

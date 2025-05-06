@@ -3,7 +3,6 @@
     <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
       <!-- 搜索表单 -->
       <search-form ref="searchRef" @search="reload" />
-
       <!-- 数据表格 -->
       <ele-pro-table
         ref="tableRef"
@@ -40,10 +39,8 @@
           </el-space>
         </template>
       </ele-pro-table>
-
       <!-- 艺术家编辑弹窗 -->
       <form-edit v-model="showEdit" :data="current" @done="reload" />
-
       <!-- 艺术家详情弹窗 -->
       <artist-details v-model="detailVisible" :id="current?.id" />
     </ele-card>

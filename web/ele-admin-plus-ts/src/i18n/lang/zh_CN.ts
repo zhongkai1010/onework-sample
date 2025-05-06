@@ -10,7 +10,7 @@ export const zh_CN = {
       website: '官网',
       document: '文档',
       authorization: '授权',
-      copyright: 'Copyright © 2025 OneWork'
+      copyright: 'Copyright © 2025 藏品管理软件'
     },
     logout: {
       title: '系统提示',
