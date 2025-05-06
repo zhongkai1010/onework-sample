@@ -1,14 +1,31 @@
 <template>
-  <ele-modal v-model="visible" :title="isUpdate ? '修改展览' : '添加展览'" width="600px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
+  <ele-modal
+    v-model="visible"
+    :title="isUpdate ? '修改展览' : '添加展览'"
+    width="600px"
+    :destroy-on-close="true"
+    @open="handleOpen"
+    @closed="reset"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
       <el-form-item label="展览标题" prop="exhibitionTitle">
         <el-input v-model="form.exhibitionTitle" placeholder="请输入展览标题" clearable />
       </el-form-item>
       <el-form-item label="开始日期" prop="exhibitionStartDate">
-        <el-date-picker v-model="form.exhibitionStartDate" type="date" placeholder="请选择开始日期" style="width: 100%" />
+        <el-date-picker
+          v-model="form.exhibitionStartDate"
+          type="date"
+          placeholder="请选择开始日期"
+          style="width: 100%"
+        />
       </el-form-item>
       <el-form-item label="结束日期" prop="exhibitionEndDate">
-        <el-date-picker v-model="form.exhibitionEndDate" type="date" placeholder="请选择结束日期" style="width: 100%" />
+        <el-date-picker
+          v-model="form.exhibitionEndDate"
+          type="date"
+          placeholder="请选择结束日期"
+          style="width: 100%"
+        />
       </el-form-item>
       <el-form-item label="展览机构" prop="exhibitionInstitution">
         <el-input v-model="form.exhibitionInstitution" placeholder="请输入展览机构" clearable />
@@ -38,7 +55,11 @@
   import type { FormInstance, FormRules } from 'element-plus'
   import { EleMessage } from 'ele-admin-plus/es'
   import { useFormData } from '@/utils/use-form-data'
-  import type { Exhibition, CreateExhibitionParams, UpdateExhibitionParams } from '@/api/artist/exhibition/model'
+  import type {
+    Exhibition,
+    CreateExhibitionParams,
+    UpdateExhibitionParams
+  } from '@/api/artist/exhibition/model'
   import { addExhibition, updateExhibition } from '@/api/artist/exhibition'
 
   const props = defineProps<{

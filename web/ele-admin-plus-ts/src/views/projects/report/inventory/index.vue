@@ -11,7 +11,12 @@
         <el-descriptions-item label="表格操作">无 </el-descriptions-item>
       </el-descriptions>
     </ele-card>
-    <ele-image-viewer v-model="showImageViewer" :urlList="viewerImages" :initialIndex="viewerIndex" :infinite="false" />
+    <ele-image-viewer
+      v-model="showImageViewer"
+      :urlList="viewerImages"
+      :initialIndex="viewerIndex"
+      :infinite="false"
+    />
   </ele-page>
 </template>
 

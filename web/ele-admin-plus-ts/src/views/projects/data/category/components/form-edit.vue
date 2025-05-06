@@ -1,6 +1,12 @@
 <!-- 分类编辑弹窗 -->
 <template>
-  <ele-modal form :width="620" v-model="visible" :title="isUpdate ? '修改分类' : '添加分类'" @open="handleOpen">
+  <ele-modal
+    form
+    :width="620"
+    v-model="visible"
+    :title="isUpdate ? '修改分类' : '添加分类'"
+    @open="handleOpen"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="80px" @submit.prevent="">
       <el-row :gutter="16">
         <el-col :span="24">
@@ -20,7 +26,12 @@
         </el-col>
         <el-col :span="24">
           <el-form-item label="描述" prop="description">
-            <el-input v-model="form.description" type="textarea" placeholder="请输入描述" :rows="3" />
+            <el-input
+              v-model="form.description"
+              type="textarea"
+              placeholder="请输入描述"
+              :rows="3"
+            />
           </el-form-item>
         </el-col>
       </el-row>

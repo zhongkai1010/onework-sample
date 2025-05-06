@@ -1,7 +1,12 @@
 <template>
   <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true">
     <el-form-item label="展览标题" prop="exhibitionTitle">
-      <el-input v-model="form.exhibitionTitle" placeholder="请输入展览标题" clearable @keyup.enter="search" />
+      <el-input
+        v-model="form.exhibitionTitle"
+        placeholder="请输入展览标题"
+        clearable
+        @keyup.enter="search"
+      />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="search">搜索</el-button>
@@ -38,6 +43,5 @@
 
 <style lang="scss" scoped>
   .el-form {
-    padding: 16px 0px 0px 0px;
   }
 </style>

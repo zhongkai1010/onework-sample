@@ -1,5 +1,12 @@
 <template>
-  <ele-modal v-model="visible" :title="isUpdate ? '修改出版著作' : '添加出版著作'" width="680px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
+  <ele-modal
+    v-model="visible"
+    :title="isUpdate ? '修改出版著作' : '添加出版著作'"
+    width="680px"
+    :destroy-on-close="true"
+    @open="handleOpen"
+    @closed="reset"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
       <el-form-item label="出版物题名" prop="bookTitle">
         <el-input v-model="form.bookTitle" placeholder="请输入出版物题名" clearable />
@@ -23,7 +30,13 @@
         <el-input v-model="form.coverImage" placeholder="请输入出版物封面" clearable />
       </el-form-item>
       <el-form-item label="定价" prop="price">
-        <el-input-number v-model="form.price" :min="0" :precision="2" :step="0.1" style="width: 100%" />
+        <el-input-number
+          v-model="form.price"
+          :min="0"
+          :precision="2"
+          :step="0.1"
+          style="width: 100%"
+        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -38,7 +51,11 @@
   import type { FormInstance, FormRules } from 'element-plus'
   import { EleMessage } from 'ele-admin-plus/es'
   import { useFormData } from '@/utils/use-form-data'
-  import type { Publication, CreatePublicationParams, UpdatePublicationParams } from '@/api/artist/published-work/model'
+  import type {
+    Publication,
+    CreatePublicationParams,
+    UpdatePublicationParams
+  } from '@/api/artist/published-work/model'
   import { addPublication, updatePublication } from '@/api/artist/published-work'
 
   const props = defineProps<{

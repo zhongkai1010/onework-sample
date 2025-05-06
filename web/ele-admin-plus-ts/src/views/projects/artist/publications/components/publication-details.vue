@@ -1,5 +1,11 @@
 <template>
-  <ele-modal v-model="visible" title="出版著作详情" width="680px" :destroy-on-close="true" @open="handleOpen">
+  <ele-modal
+    v-model="visible"
+    title="出版著作详情"
+    width="680px"
+    :destroy-on-close="true"
+    @open="handleOpen"
+  >
     <el-descriptions :column="1" size="large" :border="true" :label-width="120">
       <el-descriptions-item label="出版物题名">{{ details?.bookTitle }}</el-descriptions-item>
       <el-descriptions-item label="艺术家名称">{{ details?.artistName }}</el-descriptions-item>
@@ -10,7 +16,12 @@
       <el-descriptions-item label="定价">¥{{ details?.price?.toFixed(2) }}</el-descriptions-item>
       <el-descriptions-item label="出版物封面">
         <div v-if="details?.coverImage" class="cover-image">
-          <el-image :src="details.coverImage" :preview-src-list="[details.coverImage]" fit="cover" style="width: 200px; height: 280px; cursor: pointer" />
+          <el-image
+            :src="details.coverImage"
+            :preview-src-list="[details.coverImage]"
+            fit="cover"
+            style="width: 200px; height: 280px; cursor: pointer"
+          />
         </div>
         <span v-else>暂无封面</span>
       </el-descriptions-item>

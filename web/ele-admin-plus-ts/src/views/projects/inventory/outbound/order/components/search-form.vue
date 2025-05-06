@@ -54,6 +54,5 @@
 
 <style lang="scss" scoped>
   .el-form {
-    padding: 16px 0px 0px 0px;
   }
 </style>

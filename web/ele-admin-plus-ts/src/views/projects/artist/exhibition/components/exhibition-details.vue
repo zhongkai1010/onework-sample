@@ -1,12 +1,20 @@
 <!-- 展览详情弹窗 -->
 <template>
-  <ele-modal :width="'900px'" v-model="visible" title="展览详情" position="center" @open="handleOpen">
+  <ele-modal
+    :width="'900px'"
+    v-model="visible"
+    title="展览详情"
+    position="center"
+    @open="handleOpen"
+  >
     <el-descriptions v-if="data" :column="2" border class="exhibition-details">
       <!-- 基本信息 -->
       <el-descriptions-item label="展览标题" :span="2">
         <span class="text-lg font-bold">{{ data.exhibitionTitle }}</span>
       </el-descriptions-item>
-      <el-descriptions-item label="展览时间"> {{ data.exhibitionStartDate }} 至 {{ data.exhibitionEndDate }} </el-descriptions-item>
+      <el-descriptions-item label="展览时间">
+        {{ data.exhibitionStartDate }} 至 {{ data.exhibitionEndDate }}
+      </el-descriptions-item>
       <el-descriptions-item label="展览机构">
         {{ data.exhibitionInstitution }}
       </el-descriptions-item>
@@ -22,7 +30,13 @@
 
       <!-- 封面图片 -->
       <el-descriptions-item label="封面" :span="2">
-        <el-image v-if="data.coverImage" :src="data.coverImage" :preview-src-list="[data.coverImage]" fit="cover" class="w-40 h-40" />
+        <el-image
+          v-if="data.coverImage"
+          :src="data.coverImage"
+          :preview-src-list="[data.coverImage]"
+          fit="cover"
+          class="w-40 h-40"
+        />
         <el-empty v-else description="暂无封面" :image-size="40" />
       </el-descriptions-item>
     </el-descriptions>

@@ -1,29 +1,22 @@
 <!-- 搜索表单 -->
 <template>
-  <el-form label-width="100px" @keyup.enter="search" @submit.prevent="">
-    <el-row :gutter="8">
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="藏品编号" label-width="auto">
-          <el-input clearable v-model.trim="form.collectionCode" placeholder="请输入藏品编号" />
-        </el-form-item>
-      </el-col>
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="藏品名称" label-width="auto">
-          <el-input clearable v-model.trim="form.collectionName" placeholder="请输入藏品名称" />
-        </el-form-item>
-      </el-col>
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="藏品分类" label-width="auto">
-          <CategorySelect v-model="form.categoryId" placeholder="请选择藏品分类" />
-        </el-form-item>
-      </el-col>
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label-width="16px">
-          <el-button type="primary" @click="search">查询</el-button>
-          <el-button @click="reset">重置</el-button>
-        </el-form-item>
-      </el-col>
-    </el-row>
+  <el-form label-width="100px" @keyup.enter="search" @submit.prevent="" :inline="true">
+    <el-form-item label="藏品编号" label-width="auto">
+      <el-input clearable v-model.trim="form.collectionCode" placeholder="请输入藏品编号" />
+    </el-form-item>
+
+    <el-form-item label="藏品名称" label-width="auto">
+      <el-input clearable v-model.trim="form.collectionName" placeholder="请输入藏品名称" />
+    </el-form-item>
+
+    <el-form-item label="藏品分类" label-width="auto">
+      <CategorySelect v-model="form.categoryId" placeholder="请选择藏品分类" />
+    </el-form-item>
+
+    <el-form-item label-width="16px">
+      <el-button type="primary" @click="search">查询</el-button>
+      <el-button @click="reset">重置</el-button>
+    </el-form-item>
   </el-form>
 </template>
 

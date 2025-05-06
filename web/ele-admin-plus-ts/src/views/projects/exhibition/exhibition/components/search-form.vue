@@ -1,32 +1,41 @@
 <!-- 搜索表单 -->
 <template>
   <el-form :model="form" :inline="true" class="search-form" @submit.prevent>
-    <el-row :gutter="8">
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="库房名称" label-width="auto">
-          <el-input v-model="form.name" placeholder="请输入库房名称" clearable @keyup.enter="handleSearch" />
-        </el-form-item>
-      </el-col>
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="库房编号" label-width="auto">
-          <el-input v-model="form.code" placeholder="请输入库房编号" clearable @keyup.enter="handleSearch" />
-        </el-form-item>
-      </el-col>
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="类型" label-width="auto">
-          <el-select v-model="form.type" placeholder="请选择类型" clearable @keyup.enter="handleSearch" style="width: 200px">
-            <el-option label="库房" :value="1" />
-            <el-option label="展区" :value="2" />
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label-width="16px">
-          <el-button type="primary" @click="handleSearch">查询</el-button>
-          <el-button @click="handleReset">重置</el-button>
-        </el-form-item>
-      </el-col>
-    </el-row>
+    <el-form-item label="库房名称" label-width="auto">
+      <el-input
+        v-model="form.name"
+        placeholder="请输入库房名称"
+        clearable
+        @keyup.enter="handleSearch"
+      />
+    </el-form-item>
+
+    <el-form-item label="库房编号" label-width="auto">
+      <el-input
+        v-model="form.code"
+        placeholder="请输入库房编号"
+        clearable
+        @keyup.enter="handleSearch"
+      />
+    </el-form-item>
+
+    <el-form-item label="类型" label-width="auto">
+      <el-select
+        v-model="form.type"
+        placeholder="请选择类型"
+        clearable
+        @keyup.enter="handleSearch"
+        style="width: 200px"
+      >
+        <el-option label="库房" :value="1" />
+        <el-option label="展区" :value="2" />
+      </el-select>
+    </el-form-item>
+
+    <el-form-item label-width="16px">
+      <el-button type="primary" @click="handleSearch">查询</el-button>
+      <el-button @click="handleReset">重置</el-button>
+    </el-form-item>
   </el-form>
 </template>
 

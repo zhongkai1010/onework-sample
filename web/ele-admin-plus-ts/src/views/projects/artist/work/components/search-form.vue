@@ -4,7 +4,12 @@
       <el-input v-model="form.workTitle" placeholder="请输入作品名称" clearable @clear="search" />
     </el-form-item>
     <el-form-item label="艺术家名称">
-      <el-input v-model="form.artistName" placeholder="请输入艺术家名称" clearable @clear="search" />
+      <el-input
+        v-model="form.artistName"
+        placeholder="请输入艺术家名称"
+        clearable
+        @clear="search"
+      />
     </el-form-item>
 
     <el-form-item class="ele-form-actions">
@@ -41,6 +46,5 @@
 
 <style lang="scss" scoped>
   .el-form {
-    padding: 16px 0px 0px 0px;
   }
 </style>

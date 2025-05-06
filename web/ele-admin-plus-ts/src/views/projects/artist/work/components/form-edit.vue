@@ -1,5 +1,12 @@
 <template>
-  <ele-modal v-model="visible" :title="isUpdate ? '修改艺术家作品' : '添加艺术家作品'" width="600px" :destroy-on-close="true" @open="handleOpen" @closed="reset">
+  <ele-modal
+    v-model="visible"
+    :title="isUpdate ? '修改艺术家作品' : '添加艺术家作品'"
+    width="600px"
+    :destroy-on-close="true"
+    @open="handleOpen"
+    @closed="reset"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
       <el-form-item label="作品名称" prop="workTitle">
         <el-input v-model="form.workTitle" placeholder="请输入作品名称" clearable />
@@ -38,7 +45,11 @@
   import type { FormInstance, FormRules } from 'element-plus'
   import { EleMessage } from 'ele-admin-plus/es'
   import { useFormData } from '@/utils/use-form-data'
-  import type { ArtistWork, CreateArtistWorkParams, UpdateArtistWorkParams } from '@/api/artist/work/model'
+  import type {
+    ArtistWork,
+    CreateArtistWorkParams,
+    UpdateArtistWorkParams
+  } from '@/api/artist/work/model'
   import { addArtistWork, updateArtistWork } from '@/api/artist/work'
 
   const props = defineProps<{
