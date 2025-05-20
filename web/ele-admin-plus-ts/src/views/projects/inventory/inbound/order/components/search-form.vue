@@ -14,23 +14,13 @@
       </el-select>
     </el-form-item>
     <el-form-item label="藏品选择" prop="collectionId">
-      <el-input
-        v-model.number="form.collectionId"
-        placeholder="请输入藏品ID"
-        clearable
-        style="width: 200px"
-      />
+      <collection-select v-model="form.collectionId" />
     </el-form-item>
     <el-form-item label="经办人" prop="operator">
       <el-input v-model="form.operator" placeholder="请输入经办人" clearable style="width: 200px" />
     </el-form-item>
     <el-form-item label="接收库房" prop="warehouseId">
-      <el-input
-        v-model.number="form.warehouseId"
-        placeholder="请输入接收库房"
-        clearable
-        style="width: 200px"
-      />
+      <warehouse-select v-model="form.warehouseId" />
     </el-form-item>
     <el-form-item label="备注" prop="remarks">
       <el-input v-model="form.remarks" placeholder="请输入备注" clearable style="width: 200px" />
@@ -45,6 +35,8 @@
 <script setup lang="ts">
   import type { InboundQueryParams } from '@/api/inventory/inbound/model'
   import { useFormData } from '@/utils/use-form-data'
+  import CollectionSelect from '@/components/CustomForm/CollectionSelect.vue'
+  import WarehouseSelect from '@/components/CustomForm/WarehouseSelect.vue'
 
   const emit = defineEmits<{
     (e: 'search', params: InboundQueryParams): void
@@ -76,7 +68,8 @@
   }
 
   defineExpose({
-    resetFields
+    resetFields,
+    form
   })
 </script>
 

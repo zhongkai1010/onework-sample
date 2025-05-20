@@ -5,7 +5,7 @@ import { PageParam } from '@/api'
  */
 export interface DictionaryData {
   /** 字典数据id */
-  dictDataId?: number
+  id?: number
   /** 字典id */
   dictId?: number
   /** 字典数据标识 */

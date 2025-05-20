@@ -56,7 +56,7 @@
 
   /** 表单数据 */
   const [form, resetFields, assignFields] = useFormData<Role>({
-    roleId: void 0,
+    id: void 0,
     roleName: '',
     roleCode: '',
     comments: ''

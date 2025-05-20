@@ -14,22 +14,22 @@
         :highlight-current-row="true"
       >
         <template #toolbar>
-          <el-button type="primary" @click="handleUpload()">上传图片</el-button>
+          <el-button type="primary" @click="handleUpload()" :disabled="!selectedRows.length"
+            >上传图片</el-button
+          >
           <el-button type="danger" @click="handleDelete" :disabled="!selectedRows.length"
             >删除</el-button
           >
           <el-button type="success" @click="handleExport">导出</el-button>
-          <el-button type="primary" @click="handlePrint">单据打印</el-button>
         </template>
         <template #documentImage="{ row }">
-          <el-image
+          <img
             v-if="row.documentImage"
-            style="width: 50px; height: 50px"
             :src="row.documentImage"
-            :preview-src-list="[row.documentImage]"
-            fit="cover"
+            style="width: 60px; height: 60px; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.documentImage)"
           />
-          <span v-else>-</span>
+          <div v-else>暂无数据</div>
         </template>
         <template #status="{ row }">
           <el-tag :type="getStatusType(row.status)">
@@ -45,6 +45,13 @@
             <el-button v-if="row.status === 0" type="warning" size="small" @click="handleAudit(row)"
               >审核</el-button
             >
+            <el-button
+              v-if="row.status === 1"
+              type="success"
+              size="small"
+              @click="handleConfirm(row)"
+              >确认出库</el-button
+            >
           </el-space>
         </template>
       </ele-pro-table>
@@ -53,20 +60,25 @@
     <!-- 详情弹框 -->
     <order-details ref="detailsRef" v-model="detailsVisible" />
 
-    <!-- 打印单据弹框 -->
-    <print-document ref="printRef" v-model="printVisible" />
-
     <!-- 上传图片弹框 -->
-    <upload-image ref="uploadRef" v-model="uploadVisible" @success="handleUploadSuccess" />
+    <upload-image v-model="uploadVisible" :id="selectedId" @success="handleUploadSuccess" />
 
     <!-- 参考按钮 -->
     <reference-button
       title="出库单管理"
       :imageUrl="pageImage"
       searchText="单据图片 单据状态 出库单号 出库日期 经办人 提借部门 提借人 提借类型 拟归日期 备注"
-      operationText="上传图片 删除 导出 单据打印"
+      operationText="上传图片 删除 导出"
       tableFieldsText="单据图片 单据状态 出库单号 出库日期 经办人 提借部门 提借人 提借类型 拟归日期 备注 操作"
       tableOperationsText="上传图片 查看详情 审核"
+    />
+
+    <!-- 图片预览组件 -->
+    <ele-image-viewer
+      v-model="showImageViewer"
+      :urlList="viewerImages"
+      :initialIndex="viewerIndex"
+      :infinite="false"
     />
   </ele-page>
 </template>
@@ -76,11 +88,15 @@
   import type { EleProTable } from 'ele-admin-plus/es'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import type { OutboundOrder, OutboundQueryParams } from '@/api/inventory/outbound/model'
-  import { listOutbounds, deleteOutbound } from '@/api/inventory/outbound'
+  import {
+    listOutbounds,
+    deleteOutbound,
+    approveOutbounds,
+    confirmOutbound
+  } from '@/api/inventory/outbound'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import SearchForm from './components/search-form.vue'
   import OrderDetails from './components/order-details.vue'
-  import PrintDocument from './components/print-document.vue'
   import UploadImage from './components/upload-image.vue'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
@@ -88,14 +104,13 @@
   // 表格实例
   const tableRef = ref<InstanceType<typeof EleProTable>>()
 
+  // 图片预览相关状态
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
+
   // 详情弹框实例
   const detailsRef = ref<InstanceType<typeof OrderDetails>>()
-
-  // 打印单据实例
-  const printRef = ref<InstanceType<typeof PrintDocument>>()
-
-  // 上传图片实例
-  const uploadRef = ref<InstanceType<typeof UploadImage>>()
 
   // 加载状态
   const loading = ref(false)
@@ -106,11 +121,11 @@
   // 详情弹框显示状态
   const detailsVisible = ref(false)
 
-  // 打印单据弹框显示状态
-  const printVisible = ref(false)
-
   // 上传图片弹框显示状态
   const uploadVisible = ref(false)
+
+  // 当前选中的出库单ID
+  const selectedId = ref<number>()
 
   // 搜索参数
   const searchParams = ref<OutboundQueryParams>({})
@@ -154,9 +169,9 @@
       fixed: 'left'
     },
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 80,
       align: 'center',
       fixed: 'left'
     },
@@ -168,57 +183,67 @@
       slot: 'documentImage'
     },
     {
-      prop: 'status',
-      label: '单据状态',
-      width: 100,
-      slot: 'status'
-    },
-    {
       prop: 'code',
       label: '出库单号',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'operator',
+      label: '经办人',
       width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'borrowDepartment',
+      label: '提借部门',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'borrower',
+      label: '提借人',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'borrowType',
+      label: '提借类型',
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'outboundDate',
       label: '出库日期',
       width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'operator',
-      label: '经办人',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'borrowDepartment',
-      label: '提借部门',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'borrower',
-      label: '提借人',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'borrowType',
-      label: '提借类型',
-      width: 100,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'proposedReturnDate',
       label: '拟归日期',
       width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'status',
+      label: '单据状态',
+      width: 120,
+      align: 'center',
+      slot: 'status',
       showOverflowTooltip: true
     },
     {
       prop: 'remarks',
       label: '备注',
       minWidth: 200,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
@@ -264,33 +289,26 @@
 
   // 处理上传图片
   const handleUpload = (row?: OutboundOrder) => {
-    if (!row && !selectedRows.value.length) {
-      ElMessage.warning('请选择要上传图片的出库单')
+    if (row) {
+      selectedId.value = row.id
+    } else if (selectedRows.value.length === 1) {
+      selectedId.value = selectedRows.value[0].id
+    } else {
+      ElMessage.warning('一次只能上传一个出库单的图片')
       return
     }
-    if (uploadRef.value) {
-      if (row) {
-        uploadRef.value.setRowData(row)
-      } else if (selectedRows.value.length === 1) {
-        uploadRef.value.setRowData(selectedRows.value[0])
-      } else {
-        ElMessage.warning('一次只能上传一个出库单的图片')
-        return
-      }
-      uploadVisible.value = true
-    }
+    uploadVisible.value = true
   }
 
   // 处理上传成功
   const handleUploadSuccess = () => {
     tableRef.value?.reload()
+    selectedId.value = undefined
   }
 
   // 处理查看详情
   const handleViewDetails = (row: OutboundOrder) => {
-    if (row.code) {
-      detailsRef.value?.setOutboundId(row.code)
-    }
+    detailsRef.value?.open(row.id)
   }
 
   // 处理删除
@@ -319,26 +337,55 @@
     console.log('导出数据')
   }
 
-  // 处理打印
-  const handlePrint = () => {
-    if (!selectedRows.value.length) {
-      ElMessage.warning('请选择要打印的出库单')
-      return
-    }
-    if (selectedRows.value.length > 1) {
-      ElMessage.warning('一次只能打印一个出库单')
-      return
-    }
-    const row = selectedRows.value[0]
-    if (row.code) {
-      printRef.value?.setOutboundId(row.code)
-    }
-  }
-
   // 处理审核
   const handleAudit = (row: OutboundOrder) => {
-    // TODO: 实现审核功能
-    console.log('审核出库单', row)
+    if (row.status !== 0) {
+      ElMessage.warning('只能审核未审核状态的单据')
+      return
+    }
+    ElMessageBox.confirm('确定要审核通过该出库单吗？', '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
+      .then(async () => {
+        try {
+          await approveOutbounds([row.id])
+          ElMessage.success('审核成功')
+          tableRef.value?.reload()
+        } catch (error: any) {
+          ElMessage.error(error.message || '审核失败')
+        }
+      })
+      .catch(() => {})
+  }
+
+  // 处理确认出库
+  const handleConfirm = (row: OutboundOrder) => {
+    if (row.status !== 1) {
+      ElMessage.warning('只能确认待出库状态的单据')
+      return
+    }
+    ElMessageBox.confirm('确定要确认该出库单已完成出库吗？', '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
+      .then(async () => {
+        try {
+          await confirmOutbound(row.id)
+          ElMessage.success('确认出库成功')
+          tableRef.value?.reload()
+        } catch (error: any) {
+          ElMessage.error(error.message || '确认出库失败')
+        }
+      })
+      .catch(() => {})
+  }
+
+  // 处理图片预览
+  const openPreview = (url: string) => {
+    viewerImages.value = [url]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 </script>
 

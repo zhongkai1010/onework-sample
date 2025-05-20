@@ -31,7 +31,7 @@
             />
           </el-form-item>
           <el-form-item label="性别" prop="sex">
-            <dict-data code="sex" v-model="form.sex" placeholder="请选择性别" />
+            <dict-data :code="DIC_KEY_SEX" v-model="form.sex" placeholder="请选择性别" />
           </el-form-item>
           <el-form-item label="角色" prop="roles">
             <role-select v-model="form.roles" />
@@ -93,8 +93,9 @@
   import { useFormData } from '@/utils/use-form-data'
   import RoleSelect from './role-select.vue'
   import OrganizationSelect from '@/views/system/organization/components/organization-select.vue'
-  import { addUser, updateUser, checkExistence } from '@/api/system/user'
+  import { addUser, checkExistence, updateUser } from '@/api/system/user'
   import type { User } from '@/api/system/user/model'
+  import { DIC_KEY_SEX } from '@/config/setting'
 
   const props = defineProps<{
     /** 修改回显的数据 */
@@ -121,7 +122,7 @@
 
   /** 表单数据 */
   const [form, resetFields, assignFields] = useFormData<User>({
-    userId: void 0,
+    id: void 0,
     username: '',
     nickname: '',
     sex: void 0,
@@ -159,8 +160,12 @@
             return
           }
           checkExistence('username', value)
-            .then(() => {
-              callback(new Error('账号已经存在'))
+            .then((exists) => {
+              if (exists) {
+                callback(new Error('账号已经存在'))
+              } else {
+                callback()
+              }
             })
             .catch(() => {
               callback()
@@ -247,7 +252,10 @@
       }
       loading.value = true
       const saveOrUpdate = isUpdate.value ? updateUser : addUser
-      saveOrUpdate(form)
+      const params: any = { ...form }
+      params.roleIds = params.roles.map((t) => t.id)
+      params.roles = undefined
+      saveOrUpdate(params)
         .then((msg) => {
           loading.value = false
           EleMessage.success(msg)

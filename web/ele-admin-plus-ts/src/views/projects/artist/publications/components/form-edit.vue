@@ -27,7 +27,14 @@
         <el-input v-model="form.edition" placeholder="请输入印次" clearable />
       </el-form-item>
       <el-form-item label="出版物封面" prop="coverImage">
-        <el-input v-model="form.coverImage" placeholder="请输入出版物封面" clearable />
+        <CommonUpload
+          v-model="form.coverImage"
+          :limit="1"
+          :drag="true"
+          :tools="true"
+          accept="image/*"
+          :sortable="false"
+        />
       </el-form-item>
       <el-form-item label="定价" prop="price">
         <el-input-number
@@ -57,6 +64,8 @@
     UpdatePublicationParams
   } from '@/api/artist/published-work/model'
   import { addPublication, updatePublication } from '@/api/artist/published-work'
+  import CommonUpload from '@/components/CommonUpload/index.vue'
+  import type { UploadItem } from 'ele-admin-plus/es/ele-upload-list/types'
 
   const props = defineProps<{
     /** 修改回显的数据 */
@@ -80,14 +89,16 @@
   const formRef = ref<FormInstance>()
 
   /** 表单数据 */
-  const [form, resetFields, assignFields] = useFormData<CreatePublicationParams>({
+  const [form, resetFields, assignFields] = useFormData<
+    Omit<CreatePublicationParams, 'coverImage'> & { coverImage: UploadItem[] }
+  >({
     bookTitle: '',
     artistName: '',
     publisher: '',
     format: '',
     author: '',
     edition: '',
-    coverImage: '',
+    coverImage: [],
     price: 0
   })
 
@@ -108,10 +119,14 @@
         return
       }
       loading.value = true
+      const apiData = {
+        ...form,
+        coverImage: form.coverImage[0]?.url || ''
+      }
       if (isUpdate.value && props.data) {
         const updateData: UpdatePublicationParams = {
           id: props.data.id,
-          ...form
+          ...apiData
         }
         updatePublication(updateData)
           .then((msg) => {
@@ -125,7 +140,7 @@
             EleMessage.error(e.message)
           })
       } else {
-        addPublication(form)
+        addPublication(apiData)
           .then((msg) => {
             loading.value = false
             EleMessage.success(msg)
@@ -150,7 +165,9 @@
         format: props.data.format,
         author: props.data.author,
         edition: props.data.edition,
-        coverImage: props.data.coverImage,
+        coverImage: props.data.coverImage
+          ? [{ key: String(Date.now()), url: props.data.coverImage, status: 'done' }]
+          : [],
         price: props.data.price
       })
       isUpdate.value = true

@@ -19,7 +19,7 @@ export async function pageOrganizations(params: OrganizationParam) {
  * 查询机构列表
  */
 export async function listOrganizations(params?: OrganizationParam) {
-  const res = await request.get<ApiResult<Organization[]>>('/system/organization', { params })
+  const res = await request.get<ApiResult<Organization[]>>('/Organization/list', { params })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -30,7 +30,7 @@ export async function listOrganizations(params?: OrganizationParam) {
  * 添加机构
  */
 export async function addOrganization(data: Organization) {
-  const res = await request.post<ApiResult<unknown>>('/system/organization', data)
+  const res = await request.post<ApiResult<unknown>>('/organization/add', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -41,7 +41,7 @@ export async function addOrganization(data: Organization) {
  * 修改机构
  */
 export async function updateOrganization(data: Organization) {
-  const res = await request.put<ApiResult<unknown>>('/system/organization', data)
+  const res = await request.put<ApiResult<unknown>>('/organization/update', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -52,7 +52,7 @@ export async function updateOrganization(data: Organization) {
  * 删除机构
  */
 export async function removeOrganization(id?: number) {
-  const res = await request.delete<ApiResult<unknown>>('/system/organization/' + id)
+  const res = await request.delete<ApiResult<unknown>>('/organization/delete', { data: { id } })
   if (res.data.code === 0) {
     return res.data.message
   }

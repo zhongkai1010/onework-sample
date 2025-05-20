@@ -10,8 +10,8 @@
   >
     <el-option
       v-for="item in data"
-      :key="item.roleId"
-      :value="(item as any).roleId"
+      :key="item.id"
+      :value="(item as any).id"
       :label="item.roleName"
     />
   </el-select>
@@ -40,7 +40,7 @@
   }>()
 
   /** 选中的角色id */
-  const roleIds = computed(() => props.modelValue?.map?.((d) => d.roleId as number))
+  const roleIds = computed(() => props.modelValue?.map?.((d) => d.id as number))
 
   /** 角色数据 */
   const data = ref<Role[]>([])
@@ -49,7 +49,7 @@
   const updateValue = (value: number[]) => {
     emit(
       'update:modelValue',
-      value.map((v) => ({ roleId: v }))
+      value.map((v) => ({ id: v }))
     )
   }
 

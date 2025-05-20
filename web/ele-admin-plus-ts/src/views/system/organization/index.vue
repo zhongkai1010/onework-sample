@@ -1,11 +1,11 @@
 <template>
-  <ele-page>
+  <ele-page :footer="false">
     <organization-search @search="reload" />
     <ele-card :body-style="{ paddingTop: '8px' }">
       <ele-pro-table
         sticky
         ref="tableRef"
-        row-key="organizationId"
+        row-key="id"
         :columns="columns"
         :datasource="datasource"
         :show-overflow-tooltip="true"
@@ -27,7 +27,7 @@
           </el-button>
         </template>
         <template #action="{ row }">
-          <el-link type="primary" :underline="false" @click="openEdit(null, row.organizationId)">
+          <el-link type="primary" :underline="false" @click="openEdit(null, row.id)">
             添加
           </el-link>
           <el-divider direction="vertical" />
@@ -71,20 +71,19 @@
   /** 表格列配置 */
   const columns = ref<Columns>([
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 80,
       align: 'center',
       fixed: 'left'
     },
     {
       prop: 'organizationName',
       label: '机构名称',
-      sortable: 'custom',
-      minWidth: 160
+      sortable: 'custom'
     },
     {
-      prop: 'organizationTypeName',
+      prop: 'organizationType',
       label: '机构类型',
       minWidth: 100,
       align: 'center'
@@ -130,7 +129,7 @@
     const data = await listOrganizations({ ...where, ...orders })
     organizationData.value = toTree({
       data,
-      idField: 'organizationId',
+      idField: 'id',
       parentIdField: 'parentId'
     })
     return organizationData.value
@@ -163,10 +162,10 @@
           message: '请求中..',
           plain: true
         })
-        removeOrganization(row.organizationId)
-          .then((msg) => {
+        removeOrganization(row.id)
+          .then(() => {
             loading.close()
-            EleMessage.success(msg)
+            EleMessage.success('操作成功')
             reload()
           })
           .catch((e) => {

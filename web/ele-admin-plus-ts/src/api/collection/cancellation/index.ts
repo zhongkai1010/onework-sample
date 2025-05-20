@@ -16,10 +16,7 @@ import type {
  * @param data 注销记录信息
  */
 export async function addCancellation(data: AddCancellationParams) {
-  if (!data.collectionIds || data.collectionIds.length === 0) {
-    return Promise.reject(new Error('藏品ID集合不能为空'))
-  }
-  const res = await request.post<ApiResult<unknown>>('/api/collection/cancellation', data)
+  const res = await request.post<ApiResult<unknown>>('/CollectionCancellation/add', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -32,7 +29,7 @@ export async function addCancellation(data: AddCancellationParams) {
  */
 export async function getCancellationList(params: CancellationQueryParams) {
   const res = await request.get<ApiResult<PageResult<Cancellation>>>(
-    '/api/collection/cancellation',
+    '/CollectionCancellation/page',
     {
       params
     }
@@ -48,10 +45,7 @@ export async function getCancellationList(params: CancellationQueryParams) {
  * @param data 审核参数
  */
 export async function approveCancellation(data: ApproveCancellationParams) {
-  if (!data.ids || data.ids.length === 0) {
-    return Promise.reject(new Error('注销单ID集合不能为空'))
-  }
-  const res = await request.post<ApiResult<unknown>>('/api/collection/cancellation/approve', data)
+  const res = await request.post<ApiResult<unknown>>('/CollectionCancellation/confirm', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -66,7 +60,7 @@ export async function recoverCancellation(data: RecoverCancellationParams) {
   if (!data.ids || data.ids.length === 0) {
     return Promise.reject(new Error('注销单ID集合不能为空'))
   }
-  const res = await request.post<ApiResult<unknown>>('/api/collection/cancellation/recover', data)
+  const res = await request.post<ApiResult<unknown>>('/Collection/restoreCollection', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -78,11 +72,8 @@ export async function recoverCancellation(data: RecoverCancellationParams) {
  * @param id 单据ID
  */
 export async function getCancellationDetails(id: number) {
-  if (!id) {
-    return Promise.reject(new Error('注销单ID不能为空'))
-  }
   const res = await request.get<ApiResult<CancellationDetailInfo>>(
-    '/api/collection/cancellation/details',
+    '/CollectionCancellation/details',
     {
       params: { id }
     }
@@ -99,7 +90,7 @@ export async function getCancellationDetails(id: number) {
  */
 export async function getCancellationCatalog(params?: CancellationCatalogQueryParams) {
   const res = await request.get<ApiResult<PageResult<CancellationCatalogItem>>>(
-    '/api/collection/cancellation/catalog',
+    '/CollectionCancellation/collection_cancellation_detail',
     {
       params
     }

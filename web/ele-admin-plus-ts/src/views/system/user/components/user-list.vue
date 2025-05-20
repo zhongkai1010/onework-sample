@@ -2,7 +2,7 @@
   <user-search ref="searchRef" style="margin-bottom: -14px" @search="reload" />
   <ele-pro-table
     ref="tableRef"
-    row-key="userId"
+    row-key="id"
     :columns="columns"
     :datasource="datasource"
     :show-overflow-tooltip="true"
@@ -28,9 +28,16 @@
       </el-link>
     </template>
     <template #roles="{ row }">
-      <el-tag v-for="item in row.roles" :key="item.roleId" size="small" :disable-transitions="true">
-        {{ item.roleName }}
-      </el-tag>
+      <el-space wrap>
+        <el-tag
+          v-for="item in row.roles"
+          :key="item.roleId"
+          size="small"
+          :disable-transitions="true"
+        >
+          {{ item.roleName }}
+        </el-tag>
+      </el-space>
     </template>
     <template #status="{ row }">
       <el-switch
@@ -128,7 +135,7 @@
       slot: 'nickname'
     },
     {
-      prop: 'sexName',
+      prop: 'sex',
       label: '性别',
       sortable: 'custom',
       width: 90,
@@ -225,7 +232,7 @@
           message: '请求中..',
           plain: true
         })
-        removeUsers(rows.map((d) => d.userId))
+        removeUsers(rows.map((d) => d.id))
           .then((msg) => {
             loading.close()
             EleMessage.success(msg)
@@ -242,7 +249,7 @@
   /** 修改用户状态 */
   const editStatus = (checked: boolean, row: User) => {
     const status = checked ? 0 : 1
-    updateUserStatus(row.userId, status)
+    updateUserStatus(row.id, status)
       .then((msg) => {
         row.status = status
         EleMessage.success(msg)
@@ -265,7 +272,7 @@
             message: '请求中..',
             plain: true
           })
-          updateUserPassword(row.userId, value)
+          updateUserPassword(row.id, value)
             .then((msg) => {
               loading.close()
               EleMessage.success(msg)
@@ -301,7 +308,7 @@
 
   /** 查看详情 */
   const openDetail = (row: User) => {
-    const path = `/system/user/details/${row.userId}`
+    const path = `/system/user/details/${row.id}`
     addPageTab({
       title: `用户详情[${row.nickname}]`,
       key: path,

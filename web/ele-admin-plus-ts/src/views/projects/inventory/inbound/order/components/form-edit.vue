@@ -15,29 +15,24 @@
         </el-select>
       </el-form-item>
       <el-form-item label="藏品选择" prop="collectionIds">
-        <el-select
-          v-model="form.collectionIds"
+        <ele-table-select
           multiple
-          filterable
-          remote
-          :remote-method="handleCollectionSearch"
-          :loading="loading"
-          placeholder="请选择藏品"
-          style="width: 100%"
-        >
-          <el-option
-            v-for="item in collectionOptions"
-            :key="item.id"
-            :label="item.collectionName"
-            :value="item.id"
-          />
-        </el-select>
+          clearable
+          placeholder="请选择"
+          value-key="id"
+          label-key="collectionName"
+          v-model="form.collectionIds"
+          :table-props="tableProps"
+          :popper-width="580"
+          :max-tag-text-length="3"
+          :max-tag-count="5"
+        />
       </el-form-item>
       <el-form-item label="经办人" prop="operator">
         <el-input v-model="form.operator" placeholder="请输入经办人" clearable />
       </el-form-item>
       <el-form-item label="接收库房" prop="warehouseId">
-        <el-input v-model.number="form.warehouseId" placeholder="请输入接收库房" clearable />
+        <warehouse-select v-model="form.warehouseId" :type="1" />
       </el-form-item>
       <el-form-item label="入库日期" prop="storageDate">
         <el-date-picker
@@ -51,19 +46,7 @@
         <el-input v-model="form.remarks" type="textarea" placeholder="请输入备注" clearable />
       </el-form-item>
       <el-form-item label="单据图片" prop="documentImage">
-        <el-upload
-          class="upload-demo"
-          action="/api/upload"
-          :on-success="handleUploadSuccess"
-          :on-error="handleUploadError"
-          :before-upload="beforeUpload"
-          :limit="1"
-        >
-          <el-button type="primary">点击上传</el-button>
-          <template #tip>
-            <div class="el-upload__tip">请上传单据图片</div>
-          </template>
-        </el-upload>
+        <image-upload v-model="documentImage" :limit="1" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -74,12 +57,14 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, nextTick } from 'vue'
+  import { ref, nextTick, watch, reactive } from 'vue'
   import type { FormInstance } from 'element-plus'
   import { EleMessage } from 'ele-admin-plus/es'
   import { useFormData } from '@/utils/use-form-data'
-  import type { InboundCollection, InboundRegisterParams } from '@/api/inventory/inbound/model'
+  import type { InboundRegisterParams } from '@/api/inventory/inbound/model'
   import { createInbound, getCollectionsByType } from '@/api/inventory/inbound'
+  import WarehouseSelect from '@/components/CustomForm/WarehouseSelect.vue'
+  import ImageUpload from '@/components/ImageUpload/index.vue'
 
   const emit = defineEmits<{
     (e: 'done'): void
@@ -95,8 +80,50 @@
   const formRef = ref<FormInstance>()
 
   /** 藏品选项 */
-  const collectionOptions = ref<InboundCollection[]>([])
+
   const loading = ref(false)
+
+  // 表格配置
+  const tableProps = reactive({
+    datasource: [],
+    columns: [
+      {
+        type: 'selection',
+        columnKey: 'selection',
+        width: 48,
+        align: 'center',
+        fixed: 'left',
+        reserveSelection: true
+      },
+      {
+        type: 'index',
+        columnKey: 'index',
+        width: 48,
+        align: 'center',
+        showOverflowTooltip: true,
+        fixed: 'left'
+      },
+      {
+        prop: 'code',
+        label: '藏品编号',
+        sortable: 'custom',
+        showOverflowTooltip: true
+      },
+      {
+        prop: 'collectionName',
+        label: '藏品名称',
+        sortable: 'custom',
+        showOverflowTooltip: true
+      }
+    ],
+    toolbar: false,
+    pagination: {
+      pageSize: 6,
+      layout: 'total, prev, pager, next, jumper'
+    },
+    footerStyle: { padding: '0px' },
+    rowClickChecked: true
+  })
 
   /** 表单数据 */
   const [form, resetFields] = useFormData<InboundRegisterParams>({
@@ -119,6 +146,20 @@
     warehouseId: [{ required: true, message: '请输入接收库房', trigger: 'blur' }],
     storageDate: [{ required: true, message: '请选择入库日期', trigger: 'change' }]
   }
+
+  /** 监听入库类型变化 */
+  watch(
+    () => form.type,
+    (newType) => {
+      // 清空已选择的藏品
+      form.collectionIds = []
+      if (newType) {
+        handleCollectionSearch()
+      } else {
+        tableProps.datasource = []
+      }
+    }
+  )
 
   /** 关闭弹窗 */
   const handleCancel = () => {
@@ -154,6 +195,10 @@
     resetFields()
     nextTick(() => {
       formRef.value?.clearValidate?.()
+      // 加载藏品选项数据
+      if (form.type) {
+        handleCollectionSearch()
+      }
     })
   }
 
@@ -163,53 +208,20 @@
   }
 
   /** 藏品搜索 */
-  const handleCollectionSearch = (query: string) => {
-    if (query) {
-      loading.value = true
-      const type = form.type || 1 // 确保 type 不为 undefined
-      getCollectionsByType(type)
-        .then((data) => {
-          collectionOptions.value = data
-        })
-        .catch((e) => {
-          EleMessage.error(e.message)
-        })
-        .finally(() => {
-          loading.value = false
-        })
-    } else {
-      collectionOptions.value = []
-    }
-  }
-
-  /** 上传成功回调 */
-  const handleUploadSuccess = (response: any) => {
-    if (response.code === 0) {
-      documentImage.value = response.data.url
-      EleMessage.success('上传成功')
-    } else {
-      EleMessage.error(response.message || '上传失败')
-    }
-  }
-
-  /** 上传失败回调 */
-  const handleUploadError = () => {
-    EleMessage.error('上传失败')
-  }
-
-  /** 上传前校验 */
-  const beforeUpload = (file: File) => {
-    const isImage = file.type.startsWith('image/')
-    if (!isImage) {
-      EleMessage.error('只能上传图片文件')
-      return false
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2
-    if (!isLt2M) {
-      EleMessage.error('图片大小不能超过 2MB')
-      return false
-    }
-    return true
+  const handleCollectionSearch = () => {
+    loading.value = true
+    const type = form.type || 1 // 确保 type 不为 undefined
+    getCollectionsByType(type)
+      .then((res) => {
+        console.log('11111111', res)
+        tableProps.datasource = res as any
+      })
+      .catch((e) => {
+        EleMessage.error(e.message)
+      })
+      .finally(() => {
+        loading.value = false
+      })
   }
 </script>
 

@@ -7,7 +7,7 @@ import type { BookCollection, AddBookParams, BookQueryParams } from './model'
  * @param params 查询参数
  */
 export async function getBookList(params: BookQueryParams) {
-  const res = await request.get<ApiResult<PageResult<BookCollection>>>('/api/collection/book', {
+  const res = await request.get<ApiResult<PageResult<BookCollection>>>('/CollectionBook/page', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -21,7 +21,7 @@ export async function getBookList(params: BookQueryParams) {
  * @param data 图书信息
  */
 export async function addBook(data: AddBookParams) {
-  const res = await request.post<ApiResult<unknown>>('/api/collection/book', data)
+  const res = await request.post<ApiResult<unknown>>('/CollectionBook/add', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -33,7 +33,7 @@ export async function addBook(data: AddBookParams) {
  * @param data 图书信息
  */
 export async function updateBook(data: BookCollection) {
-  const res = await request.put<ApiResult<unknown>>('/api/collection/book', data)
+  const res = await request.put<ApiResult<unknown>>('/CollectionBook/update', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -45,8 +45,8 @@ export async function updateBook(data: BookCollection) {
  * @param ids 图书ID集合
  */
 export async function deleteBooks(ids: number[]) {
-  const res = await request.delete<ApiResult<unknown>>('/api/collection/book', {
-    data: { ids }
+  const res = await request.post<ApiResult<unknown>>('/CollectionBook/delete', {
+    ids
   })
   if (res.data.code === 0) {
     return res.data.message
@@ -59,7 +59,7 @@ export async function deleteBooks(ids: number[]) {
  * @param ids 图书ID集合
  */
 export async function approveBooks(ids: number[]) {
-  const res = await request.post<ApiResult<unknown>>('/api/collection/book/approve', { ids })
+  const res = await request.post<ApiResult<unknown>>('/CollectionBook/approve', { ids })
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -71,7 +71,7 @@ export async function approveBooks(ids: number[]) {
  * @param id 图书ID
  */
 export async function getBookDetails(id: string) {
-  const res = await request.get<ApiResult<BookCollection>>('/api/collection/book/details', {
+  const res = await request.get<ApiResult<BookCollection>>('/CollectionBook/details', {
     params: { id }
   })
   if (res.data.code === 0 && res.data.data) {

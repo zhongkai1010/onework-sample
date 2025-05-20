@@ -2,7 +2,7 @@
   <el-form label-width="100px" @keyup.enter="search" @submit.prevent="">
     <el-row :gutter="8">
       <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="藏品类别" label-width="auto">
+        <el-form-item label="藏品类别">
           <category-select
             v-model="form.categoryId"
             placeholder="请选择藏品类别"
@@ -11,7 +11,7 @@
         </el-form-item>
       </el-col>
       <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="所属藏品组" label-width="auto">
+        <el-form-item label="所属藏品组">
           <group-select v-model="form.groupId" placeholder="请选择所属藏品组" style="width: 100%" />
         </el-form-item>
       </el-col>

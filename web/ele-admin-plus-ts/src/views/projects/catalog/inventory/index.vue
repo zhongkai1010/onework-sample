@@ -33,15 +33,13 @@
 
         <!-- 图片信息列 -->
         <template #imageInfo="{ row }">
-          <el-image
+          <img
             v-if="row.imageInfo"
             :src="row.imageInfo"
-            :preview-src-list="[row.imageInfo]"
-            fit="cover"
-            class="w-20 h-20"
-            :title="row.collectionName || '藏品图片'"
+            style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.imageInfo)"
           />
-          <el-empty v-else description="暂无图片" :image-size="40" />
+          <div v-else> 暂无数据 </div>
         </template>
 
         <!-- 操作列 -->
@@ -56,6 +54,14 @@
 
       <!-- 详情弹窗 -->
       <collection-details v-model="showDetails" :id="currentId" />
+
+      <!-- 图片预览组件 -->
+      <ele-image-viewer
+        v-model="showImageViewer"
+        :urlList="viewerImages"
+        :initialIndex="viewerIndex"
+        :infinite="false"
+      />
     </ele-card>
 
     <!-- 参考按钮 -->
@@ -92,6 +98,9 @@
   const currentId = ref<number>() // 当前查看详情的藏品ID
   const showDetails = ref(false) // 是否显示详情弹窗
   const selections = ref<Collection[]>([]) // 表格选中的行
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -103,80 +112,129 @@
       fixed: 'left'
     },
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 80,
       align: 'center',
       fixed: 'left'
     },
     {
-      prop: 'numberCategory',
-      label: '编号类别',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
+      prop: 'imageInfo',
+      label: '图片信息',
+      width: 220,
+      align: 'center',
+      slot: 'imageInfo'
     },
     {
-      prop: 'collectionCode',
+      prop: 'code',
       label: '藏品编号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'eraType',
-      label: '年代',
+      prop: 'numberCategory',
+      label: '编号类别',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'categoryName',
+      label: '藏品分类',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'era',
-      label: '具体年代',
+      label: '年代',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'artist',
       label: '艺术家',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'author',
+      label: '作者',
+      sortable: 'custom',
+      width: 120,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'materialType',
       label: '质地类型',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'material',
       label: '质地',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'warehouseName',
+      label: '所属仓库',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'addressCode',
+      label: '地址码',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionSource',
+      label: '藏品来源',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'quantity',
       label: '数量',
       sortable: 'custom',
-      width: 80,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'unit',
       label: '单位',
       sortable: 'custom',
-      width: 80,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -184,6 +242,7 @@
       label: '通长(底径cm)',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -191,62 +250,87 @@
       label: '通宽(口径cm)',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'totalHeight',
       label: '通高(cm)',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'specificDimensions',
       label: '具体尺寸',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'weightRange',
       label: '质量范围',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'specificWeight',
       label: '具体质量',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'weightUnit',
       label: '质量单位',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'type',
+      label: '类型',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'culturalLevel',
       label: '文物级别',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'collectionSource',
-      label: '藏品来源',
+      prop: 'condition',
+      label: '完残程度',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'preservationStatus',
       label: '保存状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionStatus',
+      label: '审批状态',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -254,6 +338,7 @@
       label: '征集日期',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -261,90 +346,38 @@
       label: '入藏日期范围',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionYear',
       label: '入藏年度',
       sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'notes',
-      label: '备注',
-      sortable: 'custom',
-      width: 150,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'imageInfo',
-      label: '图片信息',
-      width: 100,
-      align: 'center',
-      slot: 'imageInfo'
-    },
-    {
-      prop: 'condition',
-      label: '完残程度',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionStatus',
-      label: '审批状态',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'categoryName',
-      label: '藏品分类',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'addressCode',
-      label: '地址码',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'warehouseName',
-      label: '所属仓库',
-      sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'type',
-      label: '类型',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'author',
-      label: '作者',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'approver',
+      prop: 'approveName',
       label: '审核人',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'approveTime',
       label: '审核时间',
       sortable: 'custom',
-      width: 150,
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'notes',
+      label: '备注',
+      sortable: 'custom',
+      align: 'left',
       showOverflowTooltip: true
     },
     {
@@ -412,6 +445,16 @@
           })
       })
       .catch(() => {})
+  }
+
+  /**
+   * 处理图片预览
+   * @param url 图片 URL
+   */
+  const openPreview = (url: string) => {
+    viewerImages.value = [url]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 
   /* ==================== 暴露方法 ==================== */

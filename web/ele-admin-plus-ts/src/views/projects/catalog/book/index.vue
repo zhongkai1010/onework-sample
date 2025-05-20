@@ -44,9 +44,9 @@
         </template>
 
         <!-- 藏品状态列 -->
-        <template #collectionStatus="{ row }">
-          <el-tag :type="getStatusType(row.collectionStatus)" effect="light">
-            {{ row.collectionStatus }}
+        <template #status="{ row }">
+          <el-tag :type="getStatusType(getStatusText(row.status))" effect="light">
+            {{ getStatusText(row.status) }}
           </el-tag>
         </template>
 
@@ -62,15 +62,13 @@
 
         <!-- 图片信息列 -->
         <template #imageInfo="{ row }">
-          <el-image
+          <img
             v-if="row.imageInfo"
             :src="row.imageInfo"
-            :preview-src-list="[row.imageInfo]"
-            fit="cover"
-            class="w-20 h-20"
-            :title="row.collectionName || '图书图片'"
+            style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.imageInfo)"
           />
-          <el-empty v-else description="暂无图片" :image-size="40" style="padding: 0" />
+          <div v-else> 暂无数据 </div>
         </template>
       </ele-pro-table>
 
@@ -85,6 +83,13 @@
         operationText="添加 审核通过 删除"
         tableFieldsText="图片信息 编号类别 藏品编号 藏品名称 ISBN 藏品分类 作者 所属仓库 藏品来源 图书价值 保存状态 征集日期 入藏年度 备注 藏品状态 地址码 类型 操作"
         tableOperationsText="修改 删除"
+      />
+
+      <ele-image-viewer
+        v-model="showImageViewer"
+        :urlList="viewerImages"
+        :initialIndex="viewerIndex"
+        :infinite="false"
       />
     </ele-card>
   </ele-page>
@@ -112,6 +117,9 @@
   const current = ref<BookCollection | undefined>(undefined) // 当前编辑的图书
   const showEdit = ref(false) // 是否显示编辑弹窗
   const selections = ref<BookCollection[]>([]) // 表格选中的行
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -123,130 +131,138 @@
       fixed: 'left'
     },
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      width: 80,
       align: 'center',
+      label: '编号',
       fixed: 'left'
     },
     {
       prop: 'imageInfo',
       label: '图片信息',
-      width: 100,
+      width: 220,
       align: 'center',
       slot: 'imageInfo'
     },
     {
-      prop: 'numberCategory',
-      label: '编号类别',
+      prop: 'status',
+      label: '藏品状态',
       sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'status'
     },
     {
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'isbn',
       label: 'ISBN',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'categoryName',
       label: '藏品分类',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'author',
       label: '作者',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'warehouseName',
       label: '所属仓库',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionSource',
       label: '藏品来源',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'bookValue',
-      label: '图书价值',
+      prop: 'addressCode',
+      label: '地址码',
       sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'preservationStatus',
-      label: '保存状态',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionDate',
-      label: '征集日期',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionYear',
-      label: '入藏年度',
-      sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'notes',
       label: '备注',
       sortable: 'custom',
-      width: 150,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'collectionStatus',
-      label: '藏品状态',
+      prop: 'bookValue',
+      label: '图书价值',
       sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true,
-      slot: 'collectionStatus'
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
     },
     {
-      prop: 'addressCode',
-      label: '地址码',
+      prop: 'preservationStatus',
+      label: '保存状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+
+    {
+      prop: 'collectionDate',
+      label: '征集日期',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionYear',
+      label: '入藏年度',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'type',
       label: '类型',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -276,14 +292,40 @@
    */
   const getStatusType = (status: string) => {
     switch (status) {
-      case '待审核':
+      case '未审核':
         return 'warning'
-      case '已审核':
+      case '在藏':
         return 'success'
-      case '已退回':
+      case '修复中':
+        return 'warning'
+      case '出库中':
+        return 'info'
+      case '已注销':
         return 'danger'
       default:
         return 'info'
+    }
+  }
+
+  /**
+   * 获取状态中文显示
+   * @param status 状态码
+   * @returns 状态中文描述
+   */
+  const getStatusText = (status: number) => {
+    switch (status) {
+      case 0:
+        return '未审核'
+      case 1:
+        return '在藏'
+      case 2:
+        return '修复中'
+      case 3:
+        return '出库中'
+      case 4:
+        return '已注销'
+      default:
+        return '未知状态'
     }
   }
 
@@ -373,6 +415,12 @@
           })
       })
       .catch(() => {})
+  }
+
+  const openPreview = (image: string) => {
+    viewerImages.value = [image]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 
   /* ==================== 暴露方法 ==================== */

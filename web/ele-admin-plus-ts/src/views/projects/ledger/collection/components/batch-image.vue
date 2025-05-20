@@ -2,28 +2,21 @@
 <template>
   <ele-modal
     v-model="modelValue"
-    title="批量导入图片"
+    :title="title"
     width="500px"
     :destroy-on-close="true"
     @close="onClose"
   >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent>
-      <el-form-item label="图片" prop="files">
-        <el-upload
-          class="upload-demo"
-          drag
-          multiple
-          :auto-upload="false"
-          :on-change="handleChange"
-          :on-remove="handleRemove"
-          :file-list="fileList"
-        >
-          <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-          <template #tip>
-            <div class="el-upload__tip">支持 jpg/png 格式文件</div>
-          </template>
-        </el-upload>
+      <el-form-item label="图片" prop="images">
+        <common-upload
+          v-model="images"
+          accept="image/*"
+          :multiple="false"
+          :drag="true"
+          :limit="1"
+          :fileLimit="10"
+        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -34,15 +27,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
   import { ElMessage } from 'element-plus'
-  import type { FormInstance, UploadFile } from 'element-plus'
-  import { UploadFilled } from '@element-plus/icons-vue'
+  import type { FormInstance } from 'element-plus'
   import { useFormData } from '@/utils/use-form-data'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
+  import CommonUpload from '@/components/CommonUpload/index.vue'
+  import type { UploadItem } from 'ele-admin-plus/es/ele-upload-list/types'
+  import { imgsbatch } from '@/api/collection/ledger'
 
   const props = defineProps<{
     rows: CollectionLedger[]
+    /** 进入方式：batch-批量导入，single-单个导入 */
+    mode?: 'batch' | 'single'
   }>()
 
   const emit = defineEmits<{
@@ -53,43 +50,47 @@
   // 使用 defineModel
   const modelValue = defineModel<boolean>('modelValue')
 
+  // 计算标题
+  const title = computed(() => {
+    return props.mode === 'single' ? '导入图片' : '批量导入图片'
+  })
+
   // 表单实例
   const formRef = ref<FormInstance>()
 
   // 加载状态
   const loading = ref(false)
 
-  // 文件列表
-  const fileList = ref<UploadFile[]>([])
+  // 图片列表
+  const images = ref<UploadItem[]>([])
 
   // 表单数据
   const [form] = useFormData({
-    files: []
+    images: []
   })
 
   // 表单校验规则
   const rules = {
-    files: [{ required: true, message: '请选择图片文件', trigger: 'change' }]
-  }
-
-  // 文件变更事件
-  const handleChange = (file: UploadFile) => {
-    fileList.value.push(file)
-  }
-
-  // 文件移除事件
-  const handleRemove = (file: UploadFile) => {
-    const index = fileList.value.indexOf(file)
-    if (index !== -1) {
-      fileList.value.splice(index, 1)
-    }
+    images: [
+      {
+        required: true,
+        validator: (rule: any, value: any, callback: any) => {
+          if (!images.value.length) {
+            callback(new Error('请选择图片文件'))
+          } else {
+            callback()
+          }
+        },
+        trigger: 'change'
+      }
+    ]
   }
 
   // 关闭弹窗
   const onClose = () => {
     modelValue.value = false
     formRef.value?.resetFields()
-    fileList.value = []
+    images.value = []
   }
 
   // 提交表单
@@ -97,14 +98,34 @@
     formRef.value?.validate((valid) => {
       if (valid) {
         loading.value = true
-        // TODO: 实现图片上传功能
-        console.log('上传图片:', {
-          collectionIds: props.rows.map((row) => Number(row.id)),
-          files: fileList.value
+        // 获取上传的图片URL
+        const imageUrl = images.value[0]?.url
+        if (!imageUrl) {
+          ElMessage.error('请先上传图片')
+          loading.value = false
+          return
+        }
+
+        console.log('props.rows:', props.rows)
+        const ids = props.rows.map((row) => row.id)
+        console.log('ids:', ids)
+
+        // 调用批量上传图片接口
+        imgsbatch({
+          id: ids,
+          documentImage: imageUrl
         })
-        ElMessage.success('上传成功')
-        emit('done')
-        onClose()
+          .then(() => {
+            ElMessage.success('上传成功')
+            emit('done')
+            onClose()
+          })
+          .catch((error) => {
+            ElMessage.error(error.message || '上传失败')
+          })
+          .finally(() => {
+            loading.value = false
+          })
       }
     })
   }

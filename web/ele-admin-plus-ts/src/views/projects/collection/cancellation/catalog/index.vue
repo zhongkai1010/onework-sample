@@ -53,9 +53,10 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'code',
@@ -75,7 +76,6 @@
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      minWidth: 200,
       showOverflowTooltip: true
     },
     {
@@ -83,13 +83,15 @@
       label: '注销日期',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'status',
       label: '状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true,
       slot: 'status'
     }

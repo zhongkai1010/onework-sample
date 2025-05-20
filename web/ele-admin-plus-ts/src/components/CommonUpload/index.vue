@@ -159,6 +159,10 @@
     item.status = 'uploading'
     item.progress = 0
     uploadFile(data.file, {
+      data: {
+        route: 'imgs',
+        routeId: 1
+      },
       onUploadProgress: (e: AxiosProgressEvent) => {
         if (e.total != null && item.status !== 'done') {
           item.progress = (e.loaded / e.total) * 100
@@ -168,7 +172,7 @@
       .then((res) => {
         item.progress = 100
         item.status = 'done'
-        item.url = res.url
+        item.url = res as any
       })
       .catch((e) => {
         item.status = 'exception'

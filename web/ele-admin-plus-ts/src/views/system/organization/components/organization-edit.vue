@@ -45,7 +45,7 @@
         <el-col :sm="12" :xs="24">
           <el-form-item label="机构类型" prop="organizationType">
             <dict-data
-              code="organization_type"
+              :code="DIC_KEY_ORGANIZATION_TYPE"
               v-model="form.organizationType"
               placeholder="请选择机构类型"
             />
@@ -87,6 +87,7 @@
   import OrganizationSelect from './organization-select.vue'
   import { addOrganization, updateOrganization } from '@/api/system/organization'
   import type { Organization } from '@/api/system/organization/model'
+  import { DIC_KEY_ORGANIZATION_TYPE } from '@/config/setting'
 
   const props = defineProps<{
     /** 修改回显的数据 */
@@ -115,14 +116,15 @@
 
   /** 表单数据 */
   const [form, resetFields, assignFields] = useFormData<Organization>({
-    organizationId: void 0,
     parentId: void 0,
     organizationName: '',
     organizationFullName: '',
     organizationCode: '',
-    organizationType: void 0,
-    sortNumber: void 0,
-    comments: ''
+    organizationType: '',
+    sortNumber: 999,
+    comments: '',
+    organizationTypeName: '',
+    sortNumber: 999
   })
 
   /** 表单验证规则 */
@@ -132,30 +134,6 @@
         required: true,
         message: '请输入机构名称',
         type: 'string',
-        trigger: 'blur'
-      }
-    ],
-    organizationFullName: [
-      {
-        required: true,
-        message: '请输入机构全称',
-        type: 'string',
-        trigger: 'blur'
-      }
-    ],
-    organizationType: [
-      {
-        required: true,
-        message: '请选择机构类型',
-        type: 'string',
-        trigger: 'change'
-      }
-    ],
-    sortNumber: [
-      {
-        required: true,
-        message: '请输入排序号',
-        type: 'number',
         trigger: 'blur'
       }
     ]
@@ -174,7 +152,8 @@
       }
       loading.value = true
       const saveOrUpdate = isUpdate.value ? updateOrganization : addOrganization
-      saveOrUpdate({ ...form, parentId: form.parentId || 0 })
+      const params = { ...props.data, ...form, parentId: form.parentId || 0 }
+      saveOrUpdate(params)
         .then((msg) => {
           loading.value = false
           EleMessage.success(msg)
@@ -195,6 +174,7 @@
         ...props.data,
         parentId: props.data.parentId || void 0
       })
+
       isUpdate.value = true
     } else {
       resetFields()

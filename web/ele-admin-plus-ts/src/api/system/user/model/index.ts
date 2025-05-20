@@ -7,7 +7,7 @@ import type { Menu } from '../../menu/model'
  */
 export interface User {
   /** 用户id */
-  userId?: number
+  id?: number
   /** 账号 */
   username?: string
   /** 密码 */

@@ -40,7 +40,14 @@
         <el-input v-model="form.artistName" placeholder="请输入艺术家" clearable />
       </el-form-item>
       <el-form-item label="封面图片" prop="coverImage">
-        <el-input v-model="form.coverImage" placeholder="请输入封面图片URL" clearable />
+        <CommonUpload
+          v-model="form.coverImage"
+          :limit="1"
+          :drag="true"
+          :tools="true"
+          accept="image/*"
+          :sortable="false"
+        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -61,6 +68,8 @@
     UpdateExhibitionParams
   } from '@/api/artist/exhibition/model'
   import { addExhibition, updateExhibition } from '@/api/artist/exhibition'
+  import CommonUpload from '@/components/CommonUpload/index.vue'
+  import type { UploadItem } from 'ele-admin-plus/es/ele-upload-list/types'
 
   const props = defineProps<{
     /** 修改回显的数据 */
@@ -84,7 +93,9 @@
   const formRef = ref<FormInstance>()
 
   /** 表单数据 */
-  const [form, resetFields, assignFields] = useFormData<CreateExhibitionParams>({
+  const [form, resetFields, assignFields] = useFormData<
+    Omit<CreateExhibitionParams, 'coverImage'> & { coverImage: UploadItem[] }
+  >({
     exhibitionTitle: '',
     exhibitionStartDate: '',
     exhibitionEndDate: '',
@@ -92,18 +103,12 @@
     exhibitionCity: '',
     exhibitionAddress: '',
     artistName: '',
-    coverImage: ''
+    coverImage: []
   })
 
   /** 表单验证规则 */
   const rules = reactive<FormRules>({
-    exhibitionTitle: [{ required: true, message: '请输入展览标题', trigger: 'blur' }],
-    exhibitionStartDate: [{ required: true, message: '请选择开始日期', trigger: 'change' }],
-    exhibitionEndDate: [{ required: true, message: '请选择结束日期', trigger: 'change' }],
-    exhibitionInstitution: [{ required: true, message: '请输入展览机构', trigger: 'blur' }],
-    exhibitionCity: [{ required: true, message: '请输入所在城市', trigger: 'blur' }],
-    exhibitionAddress: [{ required: true, message: '请输入详细地址', trigger: 'blur' }],
-    artistName: [{ required: true, message: '请输入艺术家', trigger: 'blur' }]
+    exhibitionTitle: [{ required: true, message: '请输入展览标题', trigger: 'blur' }]
   })
 
   /** 关闭弹窗 */
@@ -118,10 +123,14 @@
         return
       }
       loading.value = true
+      const apiData = {
+        ...form,
+        coverImage: form.coverImage[0]?.url || ''
+      }
       if (isUpdate.value && props.data) {
         const updateData: UpdateExhibitionParams = {
           id: props.data.id,
-          ...form
+          ...apiData
         }
         updateExhibition(updateData)
           .then((msg) => {
@@ -135,7 +144,7 @@
             EleMessage.error(e.message)
           })
       } else {
-        addExhibition(form)
+        addExhibition(apiData)
           .then((msg) => {
             loading.value = false
             EleMessage.success(msg)
@@ -162,6 +171,8 @@
         exhibitionAddress: props.data.exhibitionAddress,
         artistName: props.data.artistName,
         coverImage: props.data.coverImage
+          ? [{ key: String(Date.now()), url: props.data.coverImage, status: 'done' }]
+          : []
       })
       isUpdate.value = true
     } else {

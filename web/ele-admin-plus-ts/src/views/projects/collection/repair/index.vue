@@ -143,15 +143,17 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'documentImage',
       label: '单据图片',
       width: 100,
-      showOverflowTooltip: true
+      align: 'center',
+      slot: 'documentImage'
     },
     {
       prop: 'repairCode',
@@ -165,6 +167,7 @@
       label: '登记日期',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -178,7 +181,6 @@
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      width: 150,
       showOverflowTooltip: true
     },
     {
@@ -199,21 +201,21 @@
       prop: 'sentBy',
       label: '送修人',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'repairReason',
       label: '修复原因',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'remarks',
       label: '备注',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -221,13 +223,15 @@
       label: '送修日期',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'status',
       label: '工单状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true,
       slot: 'status'
     },
@@ -235,14 +239,14 @@
       prop: 'undertakingOrganization',
       label: '承担机构',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'repairPerson',
       label: '修复人',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -257,31 +261,34 @@
       label: '修完日期',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'repairStatusAndResults',
       label: '修复情况及结果',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'beforeRepairImage',
       label: '修复前图片',
-      width: 120,
-      showOverflowTooltip: true
+      width: 100,
+      align: 'center',
+      slot: 'beforeRepairImage'
     },
     {
       prop: 'afterRepairImage',
       label: '修复后图片',
-      width: 120,
-      showOverflowTooltip: true
+      width: 100,
+      align: 'center',
+      slot: 'afterRepairImage'
     },
     {
       columnKey: 'action',
       label: '操作',
-      width: 280,
+      width: 220,
       align: 'center',
       slot: 'action',
       fixed: 'right'

@@ -15,7 +15,7 @@ import type {
  * @returns 藏品组分页数据
  */
 export async function getGroupPage(params: GroupQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Group>>>('/api/data/group', {
+  const res = await request.get<ApiResult<PageResult<Group>>>('/CollectionGroup/page', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -30,7 +30,7 @@ export async function getGroupPage(params: GroupQueryParams) {
  * @returns 藏品组列表
  */
 export async function getAllGroups(groupName?: string) {
-  const res = await request.get<ApiResult<Group[]>>('/api/data/group/all', {
+  const res = await request.get<ApiResult<Group[]>>('/CollectionGroup/list', {
     params: { groupName }
   })
   if (res.data.code === 0 && res.data.data) {
@@ -46,7 +46,7 @@ export async function getAllGroups(groupName?: string) {
  */
 export async function getGroupCollections(params: GroupCollectionQueryParams) {
   const res = await request.get<ApiResult<PageResult<GroupCollection>>>(
-    '/api/data/group/collection',
+    '/CollectionGroup/collection',
     {
       params
     }
@@ -63,7 +63,7 @@ export async function getGroupCollections(params: GroupCollectionQueryParams) {
  * @returns 藏品组详情
  */
 export async function getGroupDetails(id: number) {
-  const res = await request.get<ApiResult<Group>>('/api/data/group/details', {
+  const res = await request.get<ApiResult<Group>>('/CollectionGroup/details', {
     params: { id }
   })
   if (res.data.code === 0 && res.data.data) {
@@ -78,7 +78,7 @@ export async function getGroupDetails(id: number) {
  * @returns 操作结果消息
  */
 export async function addGroup(data: Omit<GroupEditParams, 'id'>) {
-  const res = await request.post<ApiResult<null>>('/api/data/group', data)
+  const res = await request.post<ApiResult<null>>('/CollectionGroup/add', data)
   if (res.data.code === 0) {
     return res.data.message || '新增成功'
   }
@@ -91,7 +91,7 @@ export async function addGroup(data: Omit<GroupEditParams, 'id'>) {
  * @returns 操作结果消息
  */
 export async function updateGroup(data: GroupEditParams) {
-  const res = await request.put<ApiResult<null>>('/api/data/group', data)
+  const res = await request.put<ApiResult<null>>('/CollectionGroup/update', data)
   if (res.data.code === 0) {
     return res.data.message || '修改成功'
   }
@@ -104,7 +104,7 @@ export async function updateGroup(data: GroupEditParams) {
  * @returns 操作结果消息
  */
 export async function removeGroups(data: DeleteGroupParams) {
-  const res = await request.delete<ApiResult<null>>('/api/data/group', {
+  const res = await request.delete<ApiResult<null>>('/CollectionGroup/delete', {
     data
   })
   if (res.data.code === 0) {
@@ -119,7 +119,7 @@ export async function removeGroups(data: DeleteGroupParams) {
  * @returns 操作结果消息
  */
 export async function approveGroups(data: DeleteGroupParams) {
-  const res = await request.post<ApiResult<null>>('/api/data/group/approve', data)
+  const res = await request.post<ApiResult<null>>('/CollectionGroup/approve', data)
   if (res.data.code === 0) {
     return res.data.message || '审核成功'
   }

@@ -118,26 +118,30 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      label: '编号',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'name',
       label: '展区名称',
-      sortable: 'custom'
+      sortable: 'custom',
+      showOverflowTooltip: true
     },
     {
       prop: 'pingying',
       label: '拼音',
       sortable: 'custom',
-      width: 200
+      width: 120,
+      showOverflowTooltip: true
     },
     {
       prop: 'remark',
       label: '备注',
-      sortable: 'custom'
+      sortable: 'custom',
+      width: 120,
+      showOverflowTooltip: true
     },
     {
       columnKey: 'action',

@@ -5,7 +5,7 @@ import type { PageParam } from '@/api'
  */
 export interface Role {
   /** 角色id */
-  roleId?: number
+  id?: number
   /** 角色标识 */
   roleCode?: string
   /** 角色名称 */

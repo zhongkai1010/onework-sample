@@ -1,4 +1,4 @@
-import type { ApiResult } from '@/api'
+import type { ApiResult, PageResult } from '@/api'
 import request from '@/utils/request'
 import type {
   InboundOrder,
@@ -18,11 +18,8 @@ import type {
  * @param type 入库类型,1:初次入库，2：归还入库
  */
 export async function getCollectionsByType(type: number) {
-  if (!type) {
-    return Promise.reject(new Error('入库类型不能为空'))
-  }
   const res = await request.get<ApiResult<InboundCollection[]>>(
-    '/api/inventory/inbound/type/collection',
+    '/WarehouseCollection/warehouseCollectionList',
     { params: { type } }
   )
   if (res.data.code === 0 && res.data.data) {
@@ -46,7 +43,7 @@ export async function createInbound(data: InboundRegisterParams) {
   if (!data.collectionIds || data.collectionIds.length === 0) {
     return Promise.reject(new Error('藏品ID集合不能为空'))
   }
-  const res = await request.post<ApiResult<unknown>>('/api/inventory/inbound/register', data)
+  const res = await request.post<ApiResult<unknown>>('/WarehouseCollection/inbound', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -69,12 +66,12 @@ export async function createInbound(data: InboundRegisterParams) {
  * @param params.sort 排序字段
  */
 export async function getInboundList(params?: InboundQueryParams) {
-  const res = await request.get<
-    ApiResult<{
-      count: number
-      list: InboundOrder[]
-    }>
-  >('/api/inventory/inbound', { params })
+  const res = await request.get<ApiResult<PageResult<InboundOrder>>>(
+    '/WarehouseCollection/warehouseCollection',
+    {
+      params
+    }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -86,11 +83,10 @@ export async function getInboundList(params?: InboundQueryParams) {
  * 用于删除指定的入库单
  * @param ids 入库单ID集合
  */
-export async function deleteInboundList(ids: number[]) {
-  if (!ids || ids.length === 0) {
-    return Promise.reject(new Error('入库单ID集合不能为空'))
-  }
-  const res = await request.delete<ApiResult<unknown>>('/api/inventory/inbound', { data: { ids } })
+export async function deleteInboundList(id: number[]) {
+  const res = await request.delete<ApiResult<unknown>>('/WarehouseCollection/delete', {
+    data: { id }
+  })
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -104,7 +100,7 @@ export async function deleteInboundList(ids: number[]) {
  * @param data.ids 需要审核的入库单ID集合
  */
 export async function approveInboundList(data: InboundApproveParams) {
-  const res = await request.post<ApiResult<unknown>>('/api/inventory/inbound/approve', data)
+  const res = await request.post<ApiResult<unknown>>('/WarehouseCollection/inboundStatus', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -121,7 +117,15 @@ export async function confirmInboundOrder(data: InboundConfirmParams) {
   if (!data.id) {
     return Promise.reject(new Error('入库单ID不能为空'))
   }
-  const res = await request.post<ApiResult<unknown>>('/api/inventory/inbound/confirm', data)
+  const res = await request.post<ApiResult<unknown>>('/WarehouseCollection/inboundConfirm', data)
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+export async function warehouseCollectionImgs(data: { id: number; imgs: string }) {
+  const res = await request.post<ApiResult<unknown>>('/WarehouseCollection/imgs', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -138,9 +142,12 @@ export async function getInboundOrderDetail(params: InboundDetailsQueryParams) {
   if (!params.id) {
     return Promise.reject(new Error('入库单ID不能为空'))
   }
-  const res = await request.get<ApiResult<InboundOrderDetail>>('/api/inventory/inbound/details', {
-    params
-  })
+  const res = await request.get<ApiResult<InboundOrderDetail>>(
+    '/WarehouseCollection/warehouseCollectionInfo',
+    {
+      params
+    }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -157,12 +164,10 @@ export async function getInboundOrderDetail(params: InboundDetailsQueryParams) {
  * @param params.sort 排序字段
  */
 export async function getInboundCollectionList(params?: InboundCollectionQueryParams) {
-  const res = await request.get<
-    ApiResult<{
-      count: number
-      list: InboundCollection[]
-    }>
-  >('/api/inventory/inbound/collection', { params })
+  const res = await request.get<ApiResult<PageResult<InboundCollection>>>(
+    '/WarehouseCollection/collectionList',
+    { params }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -183,12 +188,10 @@ export async function getInboundCollectionList(params?: InboundCollectionQueryPa
  * @param params.sort 排序字段
  */
 export async function getInboundCollectionCatalog(params?: InboundCollectionQueryParams) {
-  const res = await request.get<
-    ApiResult<{
-      count: number
-      list: InboundCollection[]
-    }>
-  >('/api/inventory/inbound/catalog', { params })
+  const res = await request.get<ApiResult<PageResult<InboundCollection>>>(
+    '/WarehouseCollection/warehouseCollectionDetails',
+    { params }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

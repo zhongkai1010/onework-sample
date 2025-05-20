@@ -19,7 +19,7 @@ export async function addOutbound(data: AddOutboundParams) {
   if (!data.collectionIds || data.collectionIds.length === 0) {
     return Promise.reject(new Error('藏品ID集合不能为空'))
   }
-  const res = await request.post<ApiResult<unknown>>('/api/inventory/outbound/', data)
+  const res = await request.post<ApiResult<unknown>>('/WarehouseCollectionOutbound/outbound', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -31,9 +31,12 @@ export async function addOutbound(data: AddOutboundParams) {
  * @param params 查询参数
  */
 export async function listOutbounds(params?: OutboundQueryParams) {
-  const res = await request.get<ApiResult<PageResult<OutboundOrder>>>('/api/inventory/outbound', {
-    params
-  })
+  const res = await request.get<ApiResult<PageResult<OutboundOrder>>>(
+    '/WarehouseCollectionOutbound/list',
+    {
+      params
+    }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -45,12 +48,7 @@ export async function listOutbounds(params?: OutboundQueryParams) {
  * @param id 出库单ID
  */
 export async function deleteOutbound(id: number) {
-  if (!id) {
-    return Promise.reject(new Error('出库单ID不能为空'))
-  }
-  const res = await request.delete<ApiResult<unknown>>('/api/inventory/outbound', {
-    params: { id }
-  })
+  const res = await request.post<ApiResult<unknown>>('/WarehouseCollectionOutbound/delete', { id })
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -62,10 +60,7 @@ export async function deleteOutbound(id: number) {
  * @param id 出库单ID
  */
 export async function confirmOutbound(id: number) {
-  if (!id) {
-    return Promise.reject(new Error('出库单ID不能为空'))
-  }
-  const res = await request.post<ApiResult<unknown>>('/api/inventory/outbound/confirm', { id })
+  const res = await request.post<ApiResult<unknown>>('/WarehouseCollectionOutbound/confirm', { id })
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -77,10 +72,9 @@ export async function confirmOutbound(id: number) {
  * @param ids 出库单ID集合
  */
 export async function approveOutbounds(ids: number[]) {
-  if (!ids || ids.length === 0) {
-    return Promise.reject(new Error('出库单ID集合不能为空'))
-  }
-  const res = await request.post<ApiResult<unknown>>('/api/inventory/outbound/approve', { ids })
+  const res = await request.post<ApiResult<unknown>>('/WarehouseCollectionOutbound/approve', {
+    ids
+  })
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -92,12 +86,12 @@ export async function approveOutbounds(ids: number[]) {
  * @param params 查询参数
  */
 export async function getOutboundDetails(params: OutboundDetailQueryParams) {
-  if (!params.id) {
-    return Promise.reject(new Error('出库单ID不能为空'))
-  }
-  const res = await request.get<ApiResult<OutboundDetailInfo>>('/api/inventory/outbound/details', {
-    params
-  })
+  const res = await request.get<ApiResult<OutboundDetailInfo>>(
+    '/WarehouseCollectionOutbound/details',
+    {
+      params
+    }
+  )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -110,11 +104,19 @@ export async function getOutboundDetails(params: OutboundDetailQueryParams) {
  */
 export async function getOutboundCatalog(params?: OutboundCatalogQueryParams) {
   const res = await request.get<ApiResult<PageResult<OutboundCatalogItem>>>(
-    '/api/inventory/outbound/catalog',
+    '/WarehouseCollectionOutbound/catalog',
     { params }
   )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+export async function WarehouseCollectionOutboundImgs(data: { id: number; imgs: string }) {
+  const res = await request.post<ApiResult<unknown>>('/WarehouseCollectionOutbound/imgs', data)
+  if (res.data.code === 0) {
+    return res.data.message
   }
   return Promise.reject(new Error(res.data.message))
 }

@@ -20,7 +20,13 @@
         <el-input v-model="form.borrower" placeholder="请输入提借人" clearable />
       </el-form-item>
       <el-form-item label="提借类型" prop="borrowType">
-        <el-input v-model="form.borrowType" placeholder="请输入提借类型" clearable />
+        <dict-data
+          v-model="form.borrowType"
+          :code="DIC_KEY_BORROW_TYPE"
+          placeholder="请选择提借类型"
+          clearable
+          style="width: 100%"
+        />
       </el-form-item>
       <el-form-item label="拟归日期" prop="proposedReturnDate">
         <el-date-picker
@@ -50,6 +56,8 @@
   import { ElMessage } from 'element-plus'
   import { useFormData } from '@/utils/use-form-data'
   import type { InboundCollection } from '@/api/inventory/inbound/model'
+  import { DIC_KEY_BORROW_TYPE } from '@/config/setting'
+  import DictData from '@/components/DictData/index.vue'
 
   const emit = defineEmits<{
     (e: 'success'): void

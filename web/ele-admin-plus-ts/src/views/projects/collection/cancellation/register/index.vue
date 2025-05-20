@@ -99,9 +99,10 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'collectionCode',
@@ -114,7 +115,6 @@
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      minWidth: 200,
       showOverflowTooltip: true
     },
     {
@@ -128,35 +128,37 @@
       prop: 'era',
       label: '年代',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'materialType',
       label: '质地类型',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'material',
       label: '质地',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'quantity',
       label: '数量',
       sortable: 'custom',
-      width: 80,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'unit',
       label: '单位',
       sortable: 'custom',
-      width: 80,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -170,7 +172,7 @@
       prop: 'condition',
       label: '完残程度',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     }
   ])

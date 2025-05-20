@@ -1,13 +1,13 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "藏品管理软件",
+    "title": "藏品管理系统",
     "description": "",
     "version": "1.0.0"
   },
   "tags": [],
   "paths": {
-    "/api/collection/books": {
+    "/api/CollectionBook/page": {
       "get": {
         "summary": "查看图书分页列表",
         "deprecated": false,
@@ -98,10 +98,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE"
             }
           }
         ],
@@ -232,7 +232,9 @@
           }
         },
         "security": []
-      },
+      }
+    },
+    "/api/CollectionBook/add": {
       "post": {
         "summary": "添加图书",
         "deprecated": false,
@@ -243,10 +245,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE"
             }
           }
         ],
@@ -327,7 +329,9 @@
                     "description": "类型"
                   }
                 },
-                "required": ["isbn"]
+                "required": [
+                  "isbn"
+                ]
               },
               "examples": {}
             }
@@ -367,7 +371,9 @@
           }
         },
         "security": []
-      },
+      }
+    },
+    "/api/CollectionBook/update": {
       "put": {
         "summary": "修改图书",
         "deprecated": false,
@@ -378,10 +384,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE"
             }
           }
         ],
@@ -456,79 +462,10 @@
                     "description": "类型"
                   }
                 },
-                "required": ["isbn", "id"]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      },
-      "delete": {
-        "summary": "删除图书",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "description": "ID集合"
-                  }
-                },
-                "required": ["ids"]
+                "required": [
+                  "isbn",
+                  "id"
+                ]
               },
               "examples": {}
             }
@@ -570,7 +507,83 @@
         "security": []
       }
     },
-    "/api/collection/books/approve": {
+    "/api/CollectionBook/delete": {
+      "post": {
+        "summary": "删除图书",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
+                  }
+                },
+                "required": [
+                  "ids"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/CollectionBook/approve": {
       "post": {
         "summary": "审核通过图书",
         "deprecated": false,
@@ -581,10 +594,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE"
             }
           }
         ],
@@ -602,7 +615,9 @@
                     "description": "ID集合"
                   }
                 },
-                "required": ["ids"]
+                "required": [
+                  "ids"
+                ]
               },
               "examples": {}
             }
@@ -644,7 +659,7 @@
         "security": []
       }
     },
-    "/api/collection/books/details": {
+    "/api/CollectionBook/details": {
       "get": {
         "summary": "查看图书详情",
         "deprecated": false,
@@ -664,10 +679,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDY4ODcwODcsImV4cCI6MTc0NzQ5MTg4NywibmJmIjoxNzQ2ODg3MDkwLCJzdWIiOjEsImp0aSI6IjE3NDY4ODcwODcxIn0.fez-3JyZD0qdpRvETm5KPdnx4HqKZvcqwVOw1JJL5oE"
             }
           }
         ],
@@ -752,7 +767,12 @@
                       "description": "类型"
                     }
                   },
-                  "required": ["isbn", "id", "categoryName", "warehouseName"]
+                  "required": [
+                    "isbn",
+                    "id",
+                    "categoryName",
+                    "warehouseName"
+                  ]
                 }
               }
             },

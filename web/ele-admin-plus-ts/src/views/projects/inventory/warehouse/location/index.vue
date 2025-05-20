@@ -58,9 +58,9 @@
   /** 表格列配置 */
   const columns = ref<Columns>([
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 80,
       align: 'center',
       fixed: 'left'
     },
@@ -68,18 +68,24 @@
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 200
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
     },
     {
       prop: 'code',
       label: '地址条码',
-      sortable: 'custom'
+      sortable: 'custom',
+      align: 'left',
+      showOverflowTooltip: true
     },
     {
       prop: 'bindingTime',
       label: '绑定时间',
       sortable: 'custom',
-      width: 180
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
     }
   ])
 

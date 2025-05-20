@@ -5,6 +5,7 @@
     :width="620"
     v-model="visible"
     :title="isUpdate ? '修改分类' : '添加分类'"
+    destroy-on-close
     @open="handleOpen"
   >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="80px" @submit.prevent="">
@@ -93,22 +94,6 @@
         type: 'string',
         trigger: 'blur'
       }
-    ],
-    code: [
-      {
-        required: true,
-        message: '请输入分类码',
-        type: 'string',
-        trigger: 'blur'
-      }
-    ],
-    description: [
-      {
-        required: true,
-        message: '请输入描述',
-        type: 'string',
-        trigger: 'blur'
-      }
     ]
   })
 
@@ -125,7 +110,10 @@
       }
       loading.value = true
       const saveOrUpdate = isUpdate.value ? updateCategory : addCategory
-      saveOrUpdate(form)
+      saveOrUpdate({
+        ...(isUpdate.value ? props.data : {}),
+        ...form
+      })
         .then((msg) => {
           loading.value = false
           EleMessage.success(msg)
@@ -143,9 +131,9 @@
   const handleOpen = () => {
     if (props.data) {
       assignFields({
-        ...props.data,
-        parentId: props.data.parentId
+        ...props.data
       })
+      form.parentId = props.data.parentId == 0 ? undefined : props.data.parentId
       isUpdate.value = true
     } else {
       resetFields()

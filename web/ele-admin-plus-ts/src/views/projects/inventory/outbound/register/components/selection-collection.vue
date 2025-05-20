@@ -97,7 +97,6 @@
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      minWidth: 200,
       showOverflowTooltip: true
     },
     {

@@ -12,7 +12,7 @@ import type {
  * @param data 事故记录信息
  */
 export async function addAccident(data: AddAccidentParams) {
-  const res = await request.post<ApiResult<unknown>>('/api/collection/accident', data)
+  const res = await request.post<ApiResult<unknown>>('/CollectionAccident/add', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -24,7 +24,7 @@ export async function addAccident(data: AddAccidentParams) {
  * @param params 查询参数
  */
 export async function getAccidentList(params: AccidentQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Accident>>>('/api/collection/accident', {
+  const res = await request.get<ApiResult<PageResult<Accident>>>('/CollectionAccident/page', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -38,7 +38,7 @@ export async function getAccidentList(params: AccidentQueryParams) {
  * @param id 事故记录ID
  */
 export async function getAccidentDetails(id: number) {
-  const res = await request.get<ApiResult<Accident>>('/api/collection/accident/details', {
+  const res = await request.get<ApiResult<Accident>>('/CollectionAccident/details', {
     params: { id }
   })
   if (res.data.code === 0 && res.data.data) {
@@ -52,8 +52,8 @@ export async function getAccidentDetails(id: number) {
  * @param ids 事故记录ID集合
  */
 export async function deleteAccidents(ids: number[]) {
-  const res = await request.delete<ApiResult<unknown>>('/api/collection/accident', {
-    data: { ids }
+  const res = await request.post<ApiResult<unknown>>('/CollectionAccident/delete', {
+    ids
   })
   if (res.data.code === 0) {
     return res.data.message
@@ -66,7 +66,7 @@ export async function deleteAccidents(ids: number[]) {
  * @param data 处理信息
  */
 export async function handleAccident(data: HandleAccidentParams) {
-  const res = await request.post<ApiResult<unknown>>('/api/collection/accident/handle', data)
+  const res = await request.post<ApiResult<unknown>>('/CollectionAccident/process', data)
   if (res.data.code === 0) {
     return res.data.message
   }

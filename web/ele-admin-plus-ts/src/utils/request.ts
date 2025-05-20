@@ -53,14 +53,10 @@ service.interceptors.response.use(
  */
 export function requestInterceptor(config: InternalAxiosRequestConfig<any>) {
   // 添加token到header
-
-  if (config.url?.includes('/artist') || config.url?.includes('/data') || config.url?.includes('/collection') || config.url?.includes('/inventory')) {
-    config.baseURL = undefined
-  }
-
   const token = getToken()
   if (token && config.headers) {
     config.headers['Authorization'] = token
+    config.headers['token'] = token
   }
   // get请求处理数组和对象类型参数
   if (config.method === 'get' && config.params) {

@@ -1,15 +1,43 @@
 <template>
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
     <ele-card flex-table :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }">
-      <ele-split-panel ref="splitRef" flex-table size="256px" allow-collapse :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }" :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }" :style="{ height: '100%', overflow: 'visible' }">
+      <ele-split-panel
+        ref="splitRef"
+        flex-table
+        size="256px"
+        allow-collapse
+        :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }"
+        :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }"
+        :style="{ height: '100%', overflow: 'visible' }"
+      >
         <div style="padding: 0 16px 12px 0">
-          <el-input clearable :maxlength="20" v-model="keywords" placeholder="输入机构名称搜索" :prefix-icon="SearchOutlined" />
+          <el-input
+            clearable
+            :maxlength="20"
+            v-model="keywords"
+            placeholder="输入机构名称搜索"
+            :prefix-icon="SearchOutlined"
+          />
         </div>
-        <ele-loading :loading="loading" :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }">
-          <el-tree ref="treeRef" :data="data" highlight-current node-key="organizationId" :props="{ label: 'organizationName' }" :expand-on-click-node="false" :default-expand-all="true" :filter-node-method="filterNode" :style="{ '--ele-tree-item-height': '34px' }" @node-click="handleNodeClick" />
+        <ele-loading
+          :loading="loading"
+          :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }"
+        >
+          <el-tree
+            ref="treeRef"
+            :data="data"
+            highlight-current
+            node-key="id"
+            :props="{ label: 'organizationName' }"
+            :expand-on-click-node="false"
+            :default-expand-all="true"
+            :filter-node-method="filterNode"
+            :style="{ '--ele-tree-item-height': '34px' }"
+            @node-click="handleNodeClick"
+          />
         </ele-loading>
         <template #body>
-          <user-list v-if="current && current.organizationId" :organization-id="current.organizationId" />
+          <user-list v-if="current && current.id" :organization-id="current.id" />
         </template>
       </ele-split-panel>
     </ele-card>
@@ -58,7 +86,7 @@
         loading.value = false
         data.value = toTree({
           data: list,
-          idField: 'organizationId',
+          idField: 'id',
           parentIdField: 'parentId'
         })
         nextTick(() => {
@@ -77,9 +105,9 @@
     if (current.value != null && mobile.value) {
       splitRef.value?.toggleCollapse?.(true)
     }
-    if (row && row.organizationId) {
+    if (row && row.id) {
       current.value = row
-      treeRef.value?.setCurrentKey?.(row.organizationId)
+      treeRef.value?.setCurrentKey?.(row.id)
     } else {
       current.value = null
     }

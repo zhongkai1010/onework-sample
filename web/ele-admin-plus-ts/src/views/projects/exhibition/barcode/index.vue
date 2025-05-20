@@ -58,20 +58,24 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'name',
       label: '地址信息',
       sortable: 'custom',
-      width: 200
+      width: 120,
+      showOverflowTooltip: true
     },
     {
       prop: 'code',
       label: '地址码',
-      sortable: 'custom'
+      sortable: 'custom',
+      width: 120,
+      showOverflowTooltip: true
     }
   ])
 

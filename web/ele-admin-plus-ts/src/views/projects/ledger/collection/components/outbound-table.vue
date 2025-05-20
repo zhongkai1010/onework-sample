@@ -16,9 +16,9 @@
 
 <script lang="ts" setup>
   import { ref, watch } from 'vue'
-  import { getOutboundList } from '@/api/collection/ledger'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
+  import { getCollectionOutboundList } from '@/api/collection/ledger'
 
   const props = defineProps<{
     modelValue: boolean
@@ -62,7 +62,7 @@
 
   const datasource: DatasourceFunction = ({ pages }) => {
     if (!props.row?.id) return Promise.resolve({ list: [], total: 0 })
-    return getOutboundList({
+    return getCollectionOutboundList({
       collectionId: props.row.id,
       page: pages.page,
       limit: pages.limit

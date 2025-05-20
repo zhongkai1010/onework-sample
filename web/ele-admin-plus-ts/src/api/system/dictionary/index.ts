@@ -17,7 +17,7 @@ export async function pageDictionaries(params: DictionaryParam) {
  * 查询字典列表
  */
 export async function listDictionaries(params?: DictionaryParam) {
-  const res = await request.get<ApiResult<Dictionary[]>>('/system/dictionary', {
+  const res = await request.get<ApiResult<Dictionary[]>>('/dictionary/list', {
     params
   })
   if (res.data.code === 0) {
@@ -30,7 +30,7 @@ export async function listDictionaries(params?: DictionaryParam) {
  * 添加字典
  */
 export async function addDictionary(data: Dictionary) {
-  const res = await request.post<ApiResult<unknown>>('/system/dictionary', data)
+  const res = await request.post<ApiResult<unknown>>('/dictionary/add', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -41,7 +41,7 @@ export async function addDictionary(data: Dictionary) {
  * 修改字典
  */
 export async function updateDictionary(data: Dictionary) {
-  const res = await request.put<ApiResult<unknown>>('/system/dictionary', data)
+  const res = await request.put<ApiResult<unknown>>('/dictionary/update', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -52,7 +52,9 @@ export async function updateDictionary(data: Dictionary) {
  * 删除字典
  */
 export async function removeDictionary(id?: number) {
-  const res = await request.delete<ApiResult<unknown>>('/system/dictionary/' + id)
+  const res = await request.post<ApiResult<unknown>>('/dictionary/delete', {
+    id
+  })
   if (res.data.code === 0) {
     return res.data.message
   }

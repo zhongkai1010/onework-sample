@@ -62,9 +62,9 @@
       fixed: 'left'
     },
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 80,
       align: 'center',
       fixed: 'left'
     },
@@ -72,7 +72,39 @@
       prop: 'code',
       label: '拨库单号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionCode',
+      label: '藏品编号',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionName',
+      label: '藏品名称',
+      sortable: 'custom',
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'originalWarehouse',
+      label: '原仓库',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'currentWarehouse',
+      label: '现仓库',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
@@ -80,40 +112,15 @@
       label: '拨库日期',
       sortable: 'custom',
       width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionCode',
-      label: '藏品编号',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionName',
-      label: '藏品名称',
-      sortable: 'custom',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'originalWarehouse',
-      label: '原仓库',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'currentWarehouse',
-      label: '现仓库',
-      sortable: 'custom',
-      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'status',
       label: '状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true,
       slot: 'status'
     }

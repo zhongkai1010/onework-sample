@@ -95,9 +95,10 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'collectionCode',
@@ -110,48 +111,49 @@
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'title',
       label: '标题',
       sortable: 'custom',
-
       showOverflowTooltip: true
     },
     {
       prop: 'fileSize',
       label: '容量大小',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'file',
       label: '文件',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'addedBy',
       label: '添加人',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'addTime',
       label: '添加时间',
       sortable: 'custom',
-      width: 160,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       columnKey: 'action',
       label: '操作',
-      width: 320,
+      width: 220,
       align: 'center',
       slot: 'action',
       fixed: 'right'

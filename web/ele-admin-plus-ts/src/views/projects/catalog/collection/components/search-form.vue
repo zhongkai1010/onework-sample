@@ -1,43 +1,44 @@
 <!-- 搜索表单 -->
 <template>
-  <el-form label-width="100px" @keyup.enter="search" @submit.prevent="" :inline="true">
-    <el-form-item label="藏品编号" label-width="auto">
+  <el-form
+    label-width="100px"
+    @keyup.enter="search"
+    @submit.prevent=""
+    :inline="true"
+    label-position="left"
+  >
+    <el-form-item label="藏品编号">
       <el-input clearable v-model.trim="form.collectionCode" placeholder="请输入" />
     </el-form-item>
 
-    <el-form-item label="藏品名称" label-width="auto">
+    <el-form-item label="藏品名称">
       <el-input clearable v-model.trim="form.collectionName" placeholder="请输入" />
     </el-form-item>
 
-    <el-form-item label="藏品分类" label-width="auto">
+    <el-form-item label="藏品分类">
       <category-select v-model="form.categoryId" placeholder="请选择" style="width: 192px" />
     </el-form-item>
 
-    <el-form-item label="地域类型" label-width="auto">
-      <el-select clearable v-model="form.regionType" placeholder="请选择" style="width: 192px">
-        <el-option label="国内" value="国内" />
-        <el-option label="国外" value="国外" />
-      </el-select>
+    <el-form-item label="地域类型">
+      <dict-data
+        :code="DIC_KEY_REGION_TYPE"
+        v-model="form.regionType"
+        style="width: 192px"
+        placeholder="请选择地域类型"
+      />
     </el-form-item>
-
-    <el-form-item label="地域" label-width="auto">
+    <el-form-item label="地域">
       <el-input clearable v-model.trim="form.region" placeholder="请输入地域" />
     </el-form-item>
-
-    <el-form-item label="藏品来源" label-width="auto">
-      <el-select
-        clearable
-        v-model="form.collectionSource"
-        placeholder="请选择"
+    <el-form-item label="藏品来源">
+      <dict-data
+        :code="DIC_KEY_COLLECTION_SOURCE"
         style="width: 192px"
-      >
-        <el-option label="征集" value="征集" />
-        <el-option label="捐赠" value="捐赠" />
-        <el-option label="考古发掘" value="考古发掘" />
-      </el-select>
+        v-model="form.collectionSource"
+        placeholder="请选择藏品来源"
+      />
     </el-form-item>
-
-    <el-form-item label="入藏日期" label-width="auto">
+    <el-form-item label="入藏日期">
       <el-date-picker
         v-model="form.collectionTime"
         type="date"
@@ -46,14 +47,14 @@
       />
     </el-form-item>
 
-    <el-form-item label="类型" label-width="auto">
-      <el-select clearable v-model="form.type" placeholder="请选择" style="width: 192px">
-        <el-option label="文物" value="文物" />
-        <el-option label="艺术品" value="艺术品" />
-        <el-option label="文献" value="文献" />
-      </el-select>
+    <el-form-item label="类型">
+      <dict-data
+        :code="DIC_KEY_COLLECTION_TYPE"
+        v-model="form.type"
+        style="width: 192px"
+        placeholder="请选择藏品类型"
+      />
     </el-form-item>
-
     <el-form-item label-width="16px">
       <el-button type="primary" @click="search">查询</el-button>
       <el-button @click="reset">重置</el-button>
@@ -65,6 +66,11 @@
   import { useFormData } from '@/utils/use-form-data'
   import type { CollectionQueryParams } from '@/api/collection/catalog/model'
   import { CategorySelect } from '@/components/CustomForm'
+  import {
+    DIC_KEY_REGION_TYPE,
+    DIC_KEY_COLLECTION_SOURCE,
+    DIC_KEY_COLLECTION_TYPE
+  } from '@/config/setting'
 
   const emit = defineEmits<{
     (e: 'search', where?: CollectionQueryParams): void

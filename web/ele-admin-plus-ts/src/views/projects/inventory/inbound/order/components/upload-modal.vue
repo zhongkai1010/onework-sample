@@ -18,7 +18,7 @@
   import { ref, watch } from 'vue'
   import { EleMessage } from 'ele-admin-plus/es'
   import ImageUpload from '@/components/ImageUpload/index.vue'
-  import { WarehouseCollectionOutboundImgs } from '@/api/inventory/outbound'
+  import { warehouseCollectionImgs } from '@/api/inventory/inbound'
 
   const props = defineProps<{
     modelValue: boolean
@@ -76,7 +76,7 @@
 
     uploading.value = true
     try {
-      await WarehouseCollectionOutboundImgs({
+      await warehouseCollectionImgs({
         id: props.id,
         imgs: uploadImage.value
       })

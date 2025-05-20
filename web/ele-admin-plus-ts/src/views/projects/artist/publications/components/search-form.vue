@@ -1,10 +1,10 @@
 <template>
   <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true">
-    <el-form-item label="出版物题名" label-width="auto">
+    <el-form-item label="出版物题名">
       <el-input v-model.trim="form.bookTitle" placeholder="请输入" clearable @clear="search" />
     </el-form-item>
 
-    <el-form-item label="艺术家名称" label-width="auto">
+    <el-form-item label="艺术家名称">
       <el-input v-model.trim="form.artistName" placeholder="请输入" clearable @clear="search" />
     </el-form-item>
 
@@ -40,7 +40,4 @@
   defineExpose({ resetFields })
 </script>
 
-<style lang="scss" scoped>
-  .el-form {
-  }
-</style>
+<style lang="scss" scoped></style>

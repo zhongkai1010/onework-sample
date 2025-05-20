@@ -50,7 +50,7 @@
             ref="treeRef"
             :data="data"
             highlight-current
-            node-key="dictId"
+            node-key="id"
             :props="{ label: 'dictName' }"
             :expand-on-click-node="false"
             :default-expand-all="true"
@@ -73,7 +73,7 @@
           </el-tree>
         </ele-loading>
         <template #body>
-          <dict-data-list v-if="current && current.dictId" :dict-id="current.dictId" />
+          <dict-data-list v-if="current && current.id" :dict-id="current.id" />
         </template>
       </ele-split-panel>
     </ele-card>
@@ -146,9 +146,9 @@
     if (current.value != null && mobile.value) {
       splitRef.value?.toggleCollapse?.(true)
     }
-    if (row && row.dictId) {
+    if (row && row.id) {
       current.value = row
-      treeRef.value?.setCurrentKey?.(row.dictId)
+      treeRef.value?.setCurrentKey?.(row.id)
     } else {
       current.value = null
     }
@@ -175,7 +175,7 @@
           message: '请求中..',
           plain: true
         })
-        removeDictionary(row.dictId)
+        removeDictionary(row.id)
           .then((msg) => {
             loading.close()
             EleMessage.success(msg)

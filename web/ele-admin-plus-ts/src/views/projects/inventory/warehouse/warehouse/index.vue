@@ -116,27 +116,32 @@
       fixed: 'left'
     },
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 80,
       align: 'center',
       fixed: 'left'
     },
     {
       prop: 'name',
       label: '名称',
-
-      width: 200
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
     },
     {
       prop: 'code',
-      label: '编号'
+      label: '编码',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
     },
     {
       prop: 'tier',
       label: '级别',
-
       width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
       formatter: (row) => {
         switch (row.tier) {
           case 1:
@@ -157,6 +162,8 @@
     {
       prop: 'remark',
       label: '备注',
+      align: 'left',
+      showOverflowTooltip: true,
       sortable: 'custom'
     },
     {
@@ -166,7 +173,8 @@
       align: 'center',
       slot: 'action',
       hideInPrint: true,
-      hideInExport: true
+      hideInExport: true,
+      fixed: 'right'
     }
   ])
 

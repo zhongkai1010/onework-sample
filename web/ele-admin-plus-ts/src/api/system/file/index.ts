@@ -12,7 +12,7 @@ import type { AxiosRequestConfig } from 'axios'
 export async function uploadFile(file: File, config?: AxiosRequestConfig, fileName?: string) {
   const formData = new FormData()
   formData.append('file', file, fileName)
-  const res = await request.post<ApiResult<FileRecord>>('/file/upload', formData, config)
+  const res = await request.post<ApiResult<FileRecord>>('/Personal/uploadPicture', formData, config)
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }

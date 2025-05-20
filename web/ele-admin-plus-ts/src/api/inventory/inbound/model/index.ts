@@ -187,7 +187,7 @@ export interface InboundOrderDetail {
   /** 单据状态 0：待审核，1：已审核、2：已入库 */
   status?: number
   /** 入库单号 */
-  code?: string
+  warehouseNumber?: string
   /** 入库类型 1:初次入库，2：归还入库 */
   type?: number
   /** 经办人 */

@@ -23,7 +23,7 @@
         ref="treeRef"
         show-checkbox
         :data="authData"
-        node-key="menuId"
+        node-key="id"
         :default-expand-all="true"
         :props="{ label: 'title' }"
         :default-checked-keys="checkedKeys"
@@ -89,21 +89,21 @@
       return
     }
     authLoading.value = true
-    listRoleMenus(props.data.roleId)
+    listRoleMenus(props.data.id)
       .then((data) => {
         authLoading.value = false
         // 转成树形结构的数据
         authData.value = toTree({
           data: data,
-          idField: 'menuId',
+          idField: 'id',
           parentIdField: 'parentId'
         })
         // 回显选中的数据
         nextTick(() => {
           const cks: number[] = []
           eachTree(authData.value, (d) => {
-            if (d.menuId && d.checked && !d.children?.length) {
-              cks.push(d.menuId)
+            if (d.id && d.checked && !d.children?.length) {
+              cks.push(d.id)
             }
           })
           checkedKeys.value = cks
@@ -127,7 +127,7 @@
       (treeRef.value?.getCheckedKeys?.() ?? []).concat(
         treeRef.value?.getHalfCheckedKeys?.() ?? []
       ) ?? []
-    updateRoleMenus(props.data?.roleId, ids as unknown as number[])
+    updateRoleMenus(props.data?.id, ids as unknown as number[])
       .then((msg) => {
         loading.value = false
         EleMessage.success(msg)

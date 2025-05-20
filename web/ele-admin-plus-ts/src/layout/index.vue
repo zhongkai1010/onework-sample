@@ -89,28 +89,28 @@
         <i18n-icon :icon-style="{ transform: 'scale(1.15)' }" />
       </layout-tool> -->
       <!-- 消息通知 -->
-      <layout-tool :class="{ 'hidden-sm-and-down': tabBar && tabInHeader }">
+      <!-- <layout-tool :class="{ 'hidden-sm-and-down': tabBar && tabInHeader }">
         <header-notice />
-      </layout-tool>
+      </layout-tool> -->
       <!-- 用户信息 -->
       <layout-tool>
         <header-user />
       </layout-tool>
       <!-- 夜间模式 -->
-      <layout-tool ref="darkSwitchRef" class="dark-switch">
+      <!-- <layout-tool ref="darkSwitchRef" class="dark-switch">
         <el-switch
           :active-action-icon="MoonOutlined"
           :inactive-action-icon="SunOutlined"
           :model-value="darkMode"
           @update:modelValue="updateDarkMode"
         />
-      </layout-tool>
+      </layout-tool> -->
       <!-- 主题设置 -->
-      <layout-tool @click="openSetting">
+      <!-- <layout-tool @click="openSetting">
         <el-icon>
           <MoreOutlined />
         </el-icon>
-      </layout-tool>
+      </layout-tool> -->
     </template>
     <!-- 页签栏右侧下拉菜单 -->
     <template v-if="tabBar && !tabInHeader" #tabExtra="{ active }">
@@ -184,24 +184,19 @@
     ReloadOutlined,
     ExpandOutlined,
     CompressOutlined,
-    MoreOutlined,
     CloseOutlined,
     ArrowLeftOutlined,
     ArrowRightOutlined,
     MinusCircleOutlined,
-    CloseCircleOutlined,
-    MoonOutlined,
-    SunOutlined
+    CloseCircleOutlined
   } from '@/components/icons'
   import { PROJECT_NAME, HOME_PATH, REDIRECT_PATH, TAB_KEEP_ALIVE } from '@/config/setting'
-  import { doWithTransition } from '@/utils/common'
   import { useUserStore } from '@/store/modules/user'
   import { useThemeStore } from '@/store/modules/theme'
   import { useMobileDevice } from '@/utils/use-mobile'
   import { usePageTab } from '@/utils/use-page-tab'
   import RouterLayout from '@/components/RouterLayout/index.vue'
   import HeaderUser from './components/header-user.vue'
-  import HeaderNotice from './components/header-notice.vue'
   import PageFooter from './components/page-footer.vue'
   import SettingDrawer from './components/setting-drawer.vue'
 
@@ -250,8 +245,7 @@
     tabInHeader,
     roundedTheme,
     menuItemTrigger,
-    responsive,
-    darkMode
+    responsive
   } = storeToRefs(themeStore)
 
   /** 是否全屏 */
@@ -398,23 +392,6 @@
       }
     }
     return menu?.meta?.title
-  }
-
-  /** 打开主题设置抽屉 */
-  const openSetting = () => {
-    settingVisible.value = true
-  }
-
-  /** 暗黑主题切换开关 */
-  const darkSwitchRef = ref<any>(null)
-
-  /** 切换暗黑模式 */
-  const updateDarkMode = (isDark) => {
-    doWithTransition(
-      () => themeStore.setDarkMode(isDark),
-      darkSwitchRef.value?.$el?.querySelector?.('.el-switch__action'),
-      !isDark
-    )
   }
 </script>
 

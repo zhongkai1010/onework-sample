@@ -2,7 +2,7 @@
   <el-form label-width="100px" @keyup.enter="search" @submit.prevent="">
     <el-row :gutter="8">
       <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="藏品组名称" label-width="auto">
+        <el-form-item label="藏品组名称">
           <el-input v-model="form.groupName" placeholder="请输入藏品组名称" clearable />
         </el-form-item>
       </el-col>

@@ -87,14 +87,6 @@
               v-if="Number(row.status) === 0"
               >审核</el-button
             >
-            <el-button type="danger" size="small" @click="handleDelete(row)">删除</el-button>
-            <el-button
-              type="success"
-              size="small"
-              @click="handleConfirm(row)"
-              v-if="Number(row.status) === 1"
-              >确认</el-button
-            >
           </el-space>
         </template>
       </ele-pro-table>
@@ -126,12 +118,7 @@
     DownloadOutlined,
     PrinterOutlined
   } from '@/components/icons'
-  import {
-    listTransfers,
-    approveTransfer,
-    removeTransfers,
-    confirmTransfer
-  } from '@/api/inventory/transfer'
+  import { listTransfers, approveTransfer, removeTransfers } from '@/api/inventory/transfer'
   import SearchForm from './components/search-form.vue'
   import OrderDetails from './components/order-details.vue'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
@@ -155,9 +142,9 @@
       fixed: 'left'
     },
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 80,
       align: 'center',
       fixed: 'left'
     },
@@ -172,29 +159,24 @@
       prop: 'code',
       label: '调拨单号',
       sortable: 'custom',
-
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'status',
-      label: '单据状态',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true,
-      slot: 'status'
-    },
-    {
-      prop: 'transferDate',
-      label: '调拨日期',
-      sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'warehouseName',
       label: '调拨仓库',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'transferReason',
+      label: '调拨原因',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
@@ -202,20 +184,30 @@
       label: '接收人',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'transferReason',
-      label: '调拨原因',
+      prop: 'transferDate',
+      label: '调拨日期',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
+    },
+    {
+      prop: 'status',
+      label: '单据状态',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'status'
     },
     {
       prop: 'remarks',
       label: '备注',
-      sortable: 'custom',
-      width: 120,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
@@ -314,20 +306,6 @@
       reload()
     } catch (error) {
       console.error('删除失败:', error)
-    }
-  }
-
-  // 确认
-  const handleConfirm = async (row: any) => {
-    try {
-      await ElMessageBox.confirm('确定要确认该调拨单吗?', '提示', {
-        type: 'warning'
-      })
-      await confirmTransfer({ id: row.id })
-      ElMessage.success('确认成功')
-      reload()
-    } catch (error) {
-      console.error('确认失败:', error)
     }
   }
 

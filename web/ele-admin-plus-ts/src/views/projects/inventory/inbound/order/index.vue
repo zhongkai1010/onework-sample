@@ -43,26 +43,17 @@
           <el-button type="info" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport"
             >导出</el-button
           >
-          <el-button
-            type="warning"
-            class="ele-btn-icon"
-            :icon="PrinterOutlined"
-            @click="handlePrint"
-            :disabled="selections.length !== 1"
-            >单据打印</el-button
-          >
         </template>
 
         <!-- 单据图片列 -->
-        <template #documentImage="{ row }">
-          <el-image
-            v-if="row.documentImage"
-            :src="row.documentImage"
-            :preview-src-list="[row.documentImage]"
-            fit="cover"
-            style="width: 40px; height: 40px; border-radius: 4px"
+        <template #imgs="{ row }">
+          <img
+            v-if="row.imgs"
+            :src="row.imgs"
+            style="width: 60px; height: 60px; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.imgs)"
           />
-          <span v-else>-</span>
+          <div v-else>暂无数据</div>
         </template>
 
         <!-- 单据状态列 -->
@@ -88,7 +79,16 @@
             <el-button type="primary" size="small" @click="handleViewDetails(row)"
               >查看详情</el-button
             >
-            <el-button type="success" size="small" @click="handleAudit(row)">审核</el-button>
+            <el-button v-if="row.status === 0" type="success" size="small" @click="handleAudit(row)"
+              >审核</el-button
+            >
+            <el-button
+              v-if="row.status === 1"
+              type="warning"
+              size="small"
+              @click="handleConfirm(row)"
+              >确认入库</el-button
+            >
           </el-space>
         </template>
       </ele-pro-table>
@@ -99,18 +99,26 @@
       <!-- 入库详情弹窗 -->
       <order-details ref="orderDetailsRef" v-model="showDetails" />
 
-      <!-- 单据打印弹窗 -->
-      <print-document ref="printDocumentRef" v-model="showPrint" />
-
       <!-- 参考按钮 -->
       <reference-button
         title="入库单管理"
         :imageUrl="pageImage"
         searchText="单据图片 入库单号 单据状态 入库类型 经办人 接收库房 入库日期 备注"
-        operationText="入库登记 上传图片 删除 导出 单据打印"
+        operationText="入库登记 上传图片 删除 导出"
         tableFieldsText="单据图片 入库单号 单据状态 入库类型 经办人 接收库房 入库日期 备注 操作"
         tableOperationsText="上传图片 查看详情 审核"
       />
+
+      <!-- 图片预览 -->
+      <ele-image-viewer
+        v-model="showImageViewer"
+        :urlList="viewerImages"
+        :initialIndex="viewerIndex"
+        :infinite="false"
+      />
+
+      <!-- 上传图片弹窗 -->
+      <upload-modal v-model="showUpload" :id="currentUploadId" @success="reload" />
     </ele-card>
   </ele-page>
 </template>
@@ -129,18 +137,23 @@
     PlusOutlined,
     UploadOutlined,
     DeleteOutlined,
-    DownloadOutlined,
-    PrinterOutlined
+    DownloadOutlined
   } from '@/components/icons'
-  import type { InboundOrder } from '@/api/inventory/inbound/model'
-  import { getInboundList, deleteInboundList } from '@/api/inventory/inbound'
+  import type { InboundOrder, InboundQueryParams } from '@/api/inventory/inbound/model'
+  import {
+    getInboundList,
+    deleteInboundList,
+    approveInboundList,
+    confirmInboundOrder
+  } from '@/api/inventory/inbound'
   import { getExportWorkbook } from '@/config/use-global-config'
   import { download } from '@/utils/common'
   import request from '@/utils/request'
+  import dayjs from 'dayjs'
   import SearchForm from './components/search-form.vue'
   import FormEdit from './components/form-edit.vue'
   import OrderDetails from './components/order-details.vue'
-  import PrintDocument from './components/print-document.vue'
+  import UploadModal from './components/upload-modal.vue'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
 
@@ -148,14 +161,17 @@
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
   const tableRef = ref<InstanceType<typeof EleProTable> & { export: () => void }>()
   const orderDetailsRef = ref<InstanceType<typeof OrderDetails> | null>(null)
-  const printDocumentRef = ref<InstanceType<typeof PrintDocument> | null>(null)
 
   /* ==================== 状态管理 ==================== */
   const current = ref<InboundOrder | undefined>(undefined) // 当前编辑的入库单
   const showEdit = ref(false) // 是否显示编辑弹窗
   const showDetails = ref(false) // 是否显示详情弹窗
-  const showPrint = ref(false) // 是否显示打印弹窗
   const selections = ref<InboundOrder[]>([]) // 表格选中的行
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
+  const showUpload = ref(false)
+  const currentUploadId = ref<number>()
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -167,75 +183,85 @@
       fixed: 'left'
     },
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 100,
       align: 'center',
       fixed: 'left'
     },
     {
-      prop: 'documentImage',
+      prop: 'imgs',
       label: '单据图片',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true,
-      slot: 'documentImage',
+      slot: 'imgs',
       align: 'center'
     },
     {
-      prop: 'code',
+      prop: 'warehouseNumber',
       label: '入库单号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
-    },
-    {
-      prop: 'status',
-      label: '单据状态',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true,
-      slot: 'status'
-    },
-    {
-      prop: 'type',
-      label: '入库类型',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true,
-      slot: 'type'
     },
     {
       prop: 'operator',
       label: '经办人',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'warehouseName',
       label: '接收库房',
       sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'storageDate',
-      label: '入库日期',
-      sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'remarks',
       label: '备注',
       sortable: 'custom',
-
+      align: 'left',
       showOverflowTooltip: true
+    },
+    {
+      prop: 'type',
+      label: '入库类型',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'type'
+    },
+    {
+      prop: 'status',
+      label: '单据状态',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'status'
+    },
+    {
+      prop: 'storageDate',
+      label: '入库日期',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      formatter: (row) => {
+        if (!row.storageDate) return '-'
+        return dayjs(row.storageDate).format('YYYY-MM-DD')
+      }
     },
     {
       columnKey: 'action',
       label: '操作',
-      width: 280,
+      width: 320,
       align: 'left',
       slot: 'action',
       fixed: 'right'
@@ -253,7 +279,17 @@
 
   /* 导出和打印全部数据的数据源 */
   const exportSource: DatasourceFunction = ({ where, orders, filters }) => {
-    return getInboundList({ ...where, ...orders, ...filters })
+    return getInboundList({
+      ...where,
+      ...orders,
+      ...filters,
+      status: where.status,
+      type: where.type,
+      collectionId: where.collectionId,
+      operator: where.operator,
+      warehouseId: where.warehouseId,
+      remarks: where.remarks
+    })
   }
 
   /* 导出配置 */
@@ -267,7 +303,7 @@
 
       const getBuffer = async () => {
         // 添加图片列图片
-        const imageColIndex = bodyCols.findIndex((c) => c.dataKey === 'documentImage')
+        const imageColIndex = bodyCols.findIndex((c) => c.dataKey === 'imgs')
         if (sheet != null && imageColIndex !== -1) {
           const imageBuffers = await Promise.all(
             bodyData.map(async (row) => {
@@ -325,7 +361,7 @@
       case 0:
         return '待审核'
       case 1:
-        return '已审核'
+        return '待入库'
       case 2:
         return '已入库'
       default:
@@ -359,8 +395,8 @@
   /**
    * 重新加载表格数据
    */
-  const reload = () => {
-    tableRef.value?.reload?.({ page: 1 })
+  const reload = (params?: InboundQueryParams) => {
+    tableRef.value?.reload?.({ page: 1, where: params })
   }
 
   /**
@@ -375,8 +411,20 @@
    * 处理上传图片
    */
   const handleUpload = () => {
-    // TODO: 实现上传图片功能
-    EleMessage.info('上传图片功能开发中...')
+    if (selections.value.length !== 1) {
+      EleMessage.warning('请选择一条记录')
+      return
+    }
+    currentUploadId.value = selections.value[0].id
+    showUpload.value = true
+  }
+
+  /**
+   * 处理上传图片
+   */
+  const handleUploadImage = (row: InboundOrder) => {
+    currentUploadId.value = row.id
+    showUpload.value = true
   }
 
   /**
@@ -412,14 +460,6 @@
   }
 
   /**
-   * 处理上传图片
-   */
-  const handleUploadImage = (_row: InboundOrder) => {
-    // TODO: 实现上传图片功能
-    EleMessage.info('上传图片功能开发中...')
-  }
-
-  /**
    * 处理查看详情
    */
   const handleViewDetails = (row: InboundOrder) => {
@@ -429,15 +469,63 @@
   }
 
   /**
-   * 处理打印
+   * 处理审核
    */
-  const handlePrint = () => {
-    if (selections.value.length !== 1) {
-      EleMessage.warning('请选择一条记录')
+  const handleAudit = (row: InboundOrder) => {
+    if (row.status !== 0) {
+      EleMessage.warning('只能审核待审核状态的单据')
       return
     }
-    showPrint.value = true
-    printDocumentRef.value?.open(selections.value[0].id)
+    ElMessageBox.confirm('确定要审核通过该入库单吗？', '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
+      .then(() => {
+        approveInboundList({ ids: [row.id] })
+          .then((msg) => {
+            EleMessage.success(msg)
+            reload()
+          })
+          .catch((e) => {
+            EleMessage.error(e.message)
+          })
+      })
+      .catch(() => {})
+  }
+
+  /**
+   * 处理确认入库
+   */
+  const handleConfirm = (row: InboundOrder) => {
+    if (row.status !== 1) {
+      EleMessage.warning('只能确认待入库状态的单据')
+      return
+    }
+    ElMessageBox.confirm('确定要确认该入库单已完成入库吗？', '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
+      .then(() => {
+        confirmInboundOrder({ id: row.id })
+          .then((msg) => {
+            EleMessage.success(msg)
+            reload()
+          })
+          .catch((e) => {
+            EleMessage.error(e.message)
+          })
+      })
+      .catch(() => {})
+  }
+
+  /**
+   * 打开图片预览
+   * @param image 图片URL
+   */
+  const openPreview = (image: string) => {
+    viewerImages.value = [image]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 
   /**
@@ -450,14 +538,6 @@
     } else {
       selections.value = []
     }
-  }
-
-  /**
-   * 处理审核
-   */
-  const handleAudit = (_row: InboundOrder) => {
-    // TODO: 实现审核功能
-    EleMessage.info('审核功能开发中...')
   }
 </script>
 

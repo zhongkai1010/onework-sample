@@ -8,6 +8,13 @@
     @close="onClose"
   >
     <ele-pro-table :columns="columns" :datasource="datasource" />
+    <!-- 图片预览组件 -->
+    <ele-image-viewer
+      v-model="showImageViewer"
+      :urlList="viewerImages"
+      :initialIndex="viewerIndex"
+      :infinite="false"
+    />
     <template #footer>
       <el-button @click="onClose">关闭</el-button>
     </template>
@@ -15,10 +22,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { watch } from 'vue'
-  import { getRepairList } from '@/api/collection/ledger'
+  import { watch, ref, h } from 'vue'
+  import { getCollectionRepairList } from '@/api/collection/ledger'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
+  import { EleImageViewer } from 'ele-admin-plus'
 
   const props = defineProps<{
     row: CollectionLedger | null
@@ -26,6 +34,18 @@
 
   // 使用 defineModel
   const modelValue = defineModel<boolean>('modelValue')
+
+  // 图片预览相关状态
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
+
+  // 处理图片预览
+  const openPreview = (url: string) => {
+    viewerImages.value = [url]
+    viewerIndex.value = 0
+    showImageViewer.value = true
+  }
 
   // 监听显示状态变化
   watch(modelValue, (val) => {
@@ -35,18 +55,73 @@
   })
 
   const columns: Columns = [
-    { prop: 'repairDate', label: '修复日期', width: 120 },
-    { prop: 'repairType', label: '修复类型', width: 120 },
-    { prop: 'repairPerson', label: '修复人员', width: 120 },
-    { prop: 'repairStatus', label: '修复状态', width: 120 },
-    { prop: 'repairDescription', label: '修复描述' },
-    { prop: 'repairResult', label: '修复结果' },
-    { prop: 'remark', label: '备注', width: 150 }
+    { type: 'index', label: '编号', width: 80, align: 'center' },
+    { prop: 'id', label: 'ID', width: 80, align: 'center' },
+    {
+      prop: 'beforeRepairImage',
+      label: '修复前图片',
+      width: 120,
+      align: 'center',
+      formatter: (row) => {
+        if (!row.beforeRepairImage) return '暂无图片'
+        return h('img', {
+          src: row.beforeRepairImage,
+          style: {
+            width: '60px',
+            height: '60px',
+            objectFit: 'cover',
+            cursor: 'pointer'
+          },
+          onClick: () => openPreview(row.beforeRepairImage)
+        })
+      }
+    },
+    {
+      prop: 'afterRepairImage',
+      label: '修复后图片',
+      width: 120,
+      align: 'center',
+      formatter: (row) => {
+        if (!row.afterRepairImage) return '暂无图片'
+        return h('img', {
+          src: row.afterRepairImage,
+          style: {
+            width: '60px',
+            height: '60px',
+            objectFit: 'cover',
+            cursor: 'pointer'
+          },
+          onClick: () => openPreview(row.afterRepairImage)
+        })
+      }
+    },
+    { prop: 'repairCode', label: '修复单号', width: 220 },
+    { prop: 'collectionCode', label: '藏品编号', width: 220 },
+    { prop: 'collectionName', label: '藏品名称', width: 220 },
+    { prop: 'collectionCategory', label: '藏品分类', width: 220 },
+    { prop: 'repairReason', label: '修复原因', width: 220 },
+    { prop: 'repairStatusAndResults', label: '修复情况及结果', width: 220 },
+    { prop: 'sendRepairDepartment', label: '送修部门', width: 220 },
+    { prop: 'undertakingOrganization', label: '承担机构', width: 220 },
+    { prop: 'qualificationCertificate', label: '资质证书', width: 220 },
+    { prop: 'sentBy', label: '送修人', width: 120 },
+    { prop: 'repairPerson', label: '修复人', width: 120 },
+    { prop: 'registrationDate', label: '登记日期', width: 120, align: 'center' },
+    { prop: 'sendRepairDate', label: '送修日期', width: 120, align: 'center' },
+    { prop: 'repairCompletionDate', label: '修完日期', width: 120, align: 'center' },
+    {
+      prop: 'status',
+      label: '工单状态',
+      width: 120,
+      align: 'center',
+      formatter: (row) => (row.status === 0 ? '修改中' : '已修复')
+    },
+    { prop: 'remarks', label: '备注' }
   ]
 
   const datasource: DatasourceFunction = ({ pages }) => {
     if (!props.row?.id) return Promise.resolve({ list: [], total: 0 })
-    return getRepairList({
+    return getCollectionRepairList({
       collectionId: props.row.id,
       page: pages.page,
       limit: pages.limit

@@ -42,14 +42,13 @@
 
         <!-- 封面列 -->
         <template #cover="{ row }">
-          <el-image
+          <img
             v-if="row.coverImage"
             :src="row.coverImage"
-            :preview-src-list="[row.coverImage]"
-            fit="cover"
-            class="w-12 h-12 rounded"
+            style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.coverImage)"
           />
-          <el-empty v-else description="暂无封面" :image-size="20" />
+          <div v-else>暂无数据</div>
         </template>
 
         <!-- 操作列 -->
@@ -69,6 +68,14 @@
 
       <!-- 展览详情弹窗 -->
       <exhibition-details v-model="showDetails" :id="current?.id" />
+
+      <!-- 图片预览 -->
+      <ele-image-viewer
+        v-model="showImageViewer"
+        :urlList="viewerImages"
+        :initialIndex="viewerIndex"
+        :infinite="false"
+      />
     </ele-card>
   </ele-page>
 </template>
@@ -95,6 +102,9 @@
   const showEdit = ref(false) // 是否显示编辑弹窗
   const showDetails = ref(false) // 是否显示详情弹窗
   const selections = ref<Exhibition[]>([]) // 表格选中的行
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -108,15 +118,10 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
-    },
-    {
-      prop: 'exhibitionTitle',
-      label: '展览标题',
-      sortable: 'custom',
-      showOverflowTooltip: true
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'coverImage',
@@ -126,24 +131,16 @@
       slot: 'cover'
     },
     {
-      prop: 'exhibitionStartDate',
-      label: '开始日期',
+      prop: 'exhibitionTitle',
+      label: '展览标题',
       sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'exhibitionEndDate',
-      label: '结束日期',
-      sortable: 'custom',
-      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'exhibitionInstitution',
       label: '展览机构',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -157,14 +154,23 @@
       prop: 'exhibitionAddress',
       label: '展览地址',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
-      prop: 'artistName',
-      label: '艺术家',
+      prop: 'exhibitionStartDate',
+      label: '开始日期',
       sortable: 'custom',
       width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'exhibitionEndDate',
+      label: '结束日期',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -251,6 +257,16 @@
   const handleView = (row: Exhibition) => {
     current.value = row
     showDetails.value = true
+  }
+
+  /**
+   * 打开图片预览
+   * @param image 图片URL
+   */
+  const openPreview = (image: string) => {
+    viewerImages.value = [image]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 
   /* ==================== 暴露方法 ==================== */

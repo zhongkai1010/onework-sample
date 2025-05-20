@@ -1,7 +1,7 @@
 <template>
   <el-form :inline="true" :model="form" @keyup.enter="search">
     <el-form-item label="单据状态">
-      <el-select v-model="form.status" placeholder="请选择单据状态" clearable>
+      <el-select v-model="form.status" placeholder="请选择单据状态" clearable style="width: 180px">
         <el-option label="未审核" :value="0" />
         <el-option label="待出库" :value="1" />
         <el-option label="已出库" :value="2" />
@@ -15,7 +15,13 @@
       <el-input v-model="form.operator" placeholder="请输入经办人" clearable />
     </el-form-item>
     <el-form-item label="提借类型">
-      <el-input v-model="form.borrowType" placeholder="请输入提借类型" clearable />
+      <dict-data
+        v-model="form.borrowType"
+        :code="DIC_KEY_BORROW_TYPE"
+        placeholder="请选择提借类型"
+        clearable
+        style="width: 100%"
+      />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="search">搜索</el-button>
@@ -27,6 +33,7 @@
 <script setup lang="ts">
   import { useFormData } from '@/utils/use-form-data'
   import type { OutboundQueryParams } from '@/api/inventory/outbound/model'
+  import { DIC_KEY_BORROW_TYPE } from '@/config/setting'
 
   const emit = defineEmits<{
     (e: 'search', params: OutboundQueryParams): void
@@ -52,7 +59,4 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .el-form {
-  }
-</style>
+<style lang="scss" scoped></style>

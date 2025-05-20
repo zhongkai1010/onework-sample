@@ -11,7 +11,11 @@
         />
       </el-form-item>
       <el-form-item label="调拨仓库" prop="warehouseId">
-        <el-input v-model.number="form.warehouseId" placeholder="请输入调拨仓库ID" clearable />
+        <warehouse-select
+          v-model="form.warehouseId"
+          placeholder="请选择调拨仓库"
+          style="width: 100%"
+        />
       </el-form-item>
       <el-form-item label="接收人" prop="receiver">
         <el-input v-model="form.receiver" placeholder="请输入接收人" clearable />
@@ -38,6 +42,7 @@
   import { addTransfer } from '@/api/inventory/transfer'
   import type { InboundCollection } from '@/api/inventory/inbound/model'
   import type { AddTransferParams } from '@/api/inventory/transfer/model'
+  import WarehouseSelect from '@/components/CustomForm/WarehouseSelect.vue'
 
   const emit = defineEmits<{
     (e: 'success'): void

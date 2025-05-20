@@ -39,7 +39,14 @@
         <el-input v-model="form.currentInstitution" placeholder="请输入任职单位或机构" clearable />
       </el-form-item>
       <el-form-item label="肖像" prop="portrait">
-        <el-input v-model="form.portrait" placeholder="请输入肖像图片URL" clearable />
+        <CommonUpload
+          v-model="form.portrait"
+          :limit="1"
+          :drag="true"
+          :tools="true"
+          accept="image/*"
+          :sortable="false"
+        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -56,6 +63,8 @@
   import { useFormData } from '@/utils/use-form-data'
   import type { Artist, CreateArtistParams, UpdateArtistParams } from '@/api/artist/artist/model'
   import { createArtist, updateArtist } from '@/api/artist/artist'
+  import CommonUpload from '@/components/CommonUpload/index.vue'
+  import type { UploadItem } from 'ele-admin-plus/es/ele-upload-list/types'
 
   const props = defineProps<{
     /** 修改回显的数据 */
@@ -79,7 +88,9 @@
   const formRef = ref<FormInstance>()
 
   /** 表单数据 */
-  const [form, resetFields, assignFields] = useFormData<CreateArtistParams>({
+  const [form, resetFields, assignFields] = useFormData<
+    Omit<CreateArtistParams, 'portrait'> & { portrait: UploadItem[] }
+  >({
     name: '',
     gender: '',
     ethnicity: '',
@@ -89,7 +100,7 @@
     graduation: '',
     education: '',
     currentInstitution: '',
-    portrait: ''
+    portrait: []
   })
 
   /** 表单验证规则 */
@@ -118,10 +129,14 @@
         return
       }
       loading.value = true
+      const apiData = {
+        ...form,
+        portrait: form.portrait[0]?.url || ''
+      }
       if (isUpdate.value && props.data) {
         const updateData: UpdateArtistParams = {
           id: props.data.id,
-          ...form
+          ...apiData
         }
         updateArtist(updateData)
           .then((msg) => {
@@ -135,7 +150,7 @@
             EleMessage.error(e.message)
           })
       } else {
-        createArtist(form)
+        createArtist(apiData)
           .then((msg) => {
             loading.value = false
             EleMessage.success(msg)
@@ -164,6 +179,8 @@
         education: props.data.education,
         currentInstitution: props.data.currentInstitution,
         portrait: props.data.portrait
+          ? [{ key: String(Date.now()), url: props.data.portrait, status: 'done' }]
+          : []
       })
       isUpdate.value = true
     } else {

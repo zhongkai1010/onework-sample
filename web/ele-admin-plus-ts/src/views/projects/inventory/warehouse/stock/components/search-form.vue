@@ -1,15 +1,15 @@
 <!-- 搜索表单 -->
 <template>
   <el-form label-width="100px" @keyup.enter="search" @submit.prevent="" :inline="true">
-    <el-form-item label="藏品编号" label-width="auto">
+    <el-form-item label="藏品编号">
       <el-input clearable v-model.trim="form.collectionCode" placeholder="请输入藏品编号" />
     </el-form-item>
 
-    <el-form-item label="藏品名称" label-width="auto">
+    <el-form-item label="藏品名称">
       <el-input clearable v-model.trim="form.collectionName" placeholder="请输入藏品名称" />
     </el-form-item>
 
-    <el-form-item label="藏品分类" label-width="auto">
+    <el-form-item label="藏品分类">
       <CategorySelect v-model="form.categoryId" placeholder="请选择藏品分类" />
     </el-form-item>
 

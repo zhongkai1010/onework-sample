@@ -6,7 +6,7 @@
     :data="data"
     check-strictly
     default-expand-all
-    node-key="organizationId"
+    node-key="id"
     :props="{ label: 'organizationName' }"
     :placeholder="placeholder"
     v-model="model"
@@ -61,7 +61,7 @@
       .then((list) => {
         data.value = toTree({
           data: list,
-          idField: 'organizationId',
+          idField: 'id',
           parentIdField: 'parentId'
         })
       })

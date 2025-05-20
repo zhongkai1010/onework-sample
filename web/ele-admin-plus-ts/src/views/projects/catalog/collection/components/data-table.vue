@@ -61,8 +61,8 @@
       </el-button>
     </template>
     <template #collectionStatus="{ row }">
-      <el-tag :type="getStatusType(row.collectionStatus)" effect="light">
-        {{ row.collectionStatus }}
+      <el-tag :type="row.status === 0 ? 'danger' : 'success'">
+        {{ row.status === 0 ? '未审核' : '已审核' }}
       </el-tag>
     </template>
     <template #action="{ row }">
@@ -76,15 +76,13 @@
       </el-space>
     </template>
     <template #imageInfo="{ row }">
-      <el-image
+      <img
         v-if="row.imageInfo"
         :src="row.imageInfo"
-        :preview-src-list="[row.imageInfo]"
-        fit="cover"
-        class="w-20 h-20"
-        :title="row.collectionName || '藏品图片'"
+        style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+        @click="openPreview(row.imageInfo)"
       />
-      <el-empty v-else description="暂无图片" :image-size="40" />
+      <div v-else> 暂无数据 </div>
     </template>
   </ele-pro-table>
 
@@ -114,6 +112,13 @@
 
   <!-- 铭牌打印弹窗 -->
   <collection-nameplate v-model="showNameplate" :id="currentNameplateId" />
+
+  <ele-image-viewer
+    v-model="showImageViewer"
+    :urlList="viewerImages"
+    :initialIndex="viewerIndex"
+    :infinite="false"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -170,6 +175,9 @@
   const showPrintLabel = ref(false)
   const showNameplate = ref(false)
   const currentNameplateId = ref<number>()
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
 
   /* 计算属性 */
   const selectedCollectionIds = computed(() =>
@@ -196,121 +204,128 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
+    },
+    {
+      prop: 'imageInfo',
+      label: '图片信息',
+      width: 220,
+      align: 'center',
+      slot: 'imageInfo'
     },
     {
       prop: 'collectionStatus',
       label: '藏品状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true,
       slot: 'collectionStatus'
     },
     {
-      prop: 'imageInfo',
-      label: '图片信息',
-      width: 100,
-      align: 'center',
-      slot: 'imageInfo'
-    },
-    {
-      prop: 'numberCategory',
-      label: '编号类别',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionCode',
+      prop: 'code',
       label: '藏品编号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'categoryName',
       label: '藏品类别',
       sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'rfidCode',
-      label: 'RFID编号',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'quantity',
-      label: '数量',
-      sortable: 'custom',
-      width: 80,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'unit',
-      label: '数量单位',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'eraType',
-      label: '年代类型',
-      sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'era',
       label: '年代',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'artist',
       label: '艺术家',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'regionType',
       label: '地域类型',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'region',
       label: '地域',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'materialType',
       label: '质地类型',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'material',
       label: '质地',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionSource',
+      label: '藏品来源',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'notes',
+      label: '备注',
+      sortable: 'custom',
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'quantity',
+      label: '数量',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'unit',
+      label: '数量单位',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -318,6 +333,7 @@
       label: '通长(底径cm)',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -325,205 +341,88 @@
       label: '通宽(口径cm)',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'totalHeight',
       label: '通高(cm)',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'specificDimensions',
       label: '具体尺寸',
       sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'weightRange',
-      label: '质量范围',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'specificWeight',
-      label: '具体质量',
-      sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'weightUnit',
       label: '质量单位',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'culturalLevel',
       label: '文物级别',
       sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionSource',
-      label: '藏品来源',
-      sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'condition',
       label: '完残状况',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'preservationStatus',
       label: '保存状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
+
     {
       prop: 'collectionDate',
-      label: '征集日期',
+      label: '入藏日期',
       sortable: 'custom',
       width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionDateRange',
-      label: '入藏日期范围',
-      sortable: 'custom',
-      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionYear',
       label: '入藏年度',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'type',
       label: '类型',
       sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'culturalType',
-      label: '人文类型',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionIntroduction',
-      label: '藏品介绍',
-      sortable: 'custom',
-      width: 150,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'textType',
-      label: '文本类型',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'audioVisualCarrierType',
-      label: '声像载体类型',
-      sortable: 'custom',
       width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'audioVisualStorageLocation',
-      label: '声像载体存放位置',
-      sortable: 'custom',
-      width: 150,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'diskPath',
-      label: '计算机磁盘路径',
-      sortable: 'custom',
-      width: 150,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'colorCategory',
-      label: '颜色类别',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'colorDescription',
-      label: '颜色描述',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'warehouseName',
-      label: '存放位置',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'notes',
-      label: '备注',
-      sortable: 'custom',
-      width: 150,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'museumEntryTime',
-      label: '入馆时间',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionTime',
-      label: '入藏时间',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'loginTime',
-      label: '登录时间',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'cabinetEntryTime',
-      label: '入柜时间',
-      sortable: 'custom',
-      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       columnKey: 'action',
       label: '操作',
       width: 280,
-      align: 'center',
+      align: 'left',
       slot: 'action',
-      hideInPrint: true,
-      hideInExport: true,
       fixed: 'right'
     }
   ])
@@ -592,25 +491,6 @@
       return false
     }
   })
-
-  /* 工具函数 */
-  /**
-   * 获取状态标签类型
-   * @param status 状态文本
-   * @returns 标签类型
-   */
-  const getStatusType = (status: string) => {
-    switch (status) {
-      case '待审核':
-        return 'warning'
-      case '已审核':
-        return 'success'
-      case '已退回':
-        return 'danger'
-      default:
-        return 'info'
-    }
-  }
 
   /* 表格操作 */
   /**
@@ -778,6 +658,16 @@
   const handlePrintLabel = (row: Collection) => {
     currentNameplateId.value = row.id
     showNameplate.value = true
+  }
+
+  /**
+   * 处理图片预览
+   * @param url 图片 URL
+   */
+  const openPreview = (url: string) => {
+    viewerImages.value = [url]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 
   /* 监听器 */

@@ -14,11 +14,7 @@
         <el-descriptions-item label="藏品名称" :span="2">
           <span class="text-lg font-bold">{{ data.collectionName }}</span>
         </el-descriptions-item>
-        <el-descriptions-item label="藏品状态">
-          <el-tag :type="getStatusType(data.collectionStatus)" effect="light">
-            {{ data.collectionStatus }}
-          </el-tag>
-        </el-descriptions-item>
+
         <el-descriptions-item label="藏品编号">
           {{ data.collectionCode }}
         </el-descriptions-item>
@@ -56,9 +52,6 @@
         </el-descriptions-item>
 
         <!-- 年代信息 -->
-        <el-descriptions-item label="年代类型">
-          {{ data.eraType }}
-        </el-descriptions-item>
         <el-descriptions-item label="年代">
           {{ data.era }}
         </el-descriptions-item>
@@ -206,20 +199,6 @@
 
   /** 藏品详情数据 */
   const data = ref<Collection>()
-
-  /** 获取状态类型对应的标签类型 */
-  const getStatusType = (status: string) => {
-    switch (status) {
-      case '待审核':
-        return 'warning'
-      case '已审核':
-        return 'success'
-      case '已退回':
-        return 'danger'
-      default:
-        return 'info'
-    }
-  }
 
   /** 弹窗打开事件 */
   const handleOpen = async () => {

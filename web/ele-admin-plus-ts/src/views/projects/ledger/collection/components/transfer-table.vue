@@ -23,7 +23,7 @@
   import { watch } from 'vue'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   // 假设你有 getTransferList API
-  import { getTransferList } from '@/api/collection/ledger'
+  import { getCollectionTransferList } from '@/api/collection/ledger'
   import { CollectionLedger } from '@/api/collection/ledger/model/index'
 
   const props = defineProps<{
@@ -60,7 +60,7 @@
 
   const datasource: DatasourceFunction = ({ pages }) => {
     if (!props.row?.id) return Promise.resolve({ list: [], total: 0 })
-    return getTransferList({
+    return getCollectionTransferList({
       collectionId: props.row.id,
       page: pages.page,
       limit: pages.limit

@@ -7,7 +7,7 @@ import type { Repair, AddRepairParams, RepairQueryParams } from './model'
  * @param data 修复记录信息
  */
 export async function addRepair(data: AddRepairParams) {
-  const res = await request.post<ApiResult<unknown>>('/api/collection/repair', data)
+  const res = await request.post<ApiResult<unknown>>('/CollectionRepair/add', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -19,7 +19,7 @@ export async function addRepair(data: AddRepairParams) {
  * @param params 查询参数
  */
 export async function getRepairList(params: RepairQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Repair>>>('/api/collection/repair', {
+  const res = await request.get<ApiResult<PageResult<Repair>>>('/CollectionRepair/page', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -33,7 +33,7 @@ export async function getRepairList(params: RepairQueryParams) {
  * @param id 修复记录ID
  */
 export async function getRepairDetails(id: number) {
-  const res = await request.get<ApiResult<Repair>>('/api/collection/repair/details', {
+  const res = await request.get<ApiResult<Repair>>('/CollectionRepair/details', {
     params: { id }
   })
   if (res.data.code === 0 && res.data.data) {
@@ -47,7 +47,7 @@ export async function getRepairDetails(id: number) {
  * @param data 修复记录信息
  */
 export async function repairInbound(data: Repair) {
-  const res = await request.post<ApiResult<unknown>>('/api/collection/repair/inbound', data)
+  const res = await request.post<ApiResult<unknown>>('/CollectionRepair/update', data)
   if (res.data.code === 0) {
     return res.data.message
   }

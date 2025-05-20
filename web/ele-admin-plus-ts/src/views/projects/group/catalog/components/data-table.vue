@@ -42,14 +42,17 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
-      align: 'center'
+      width: 80,
+      align: 'center',
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'collectionStatus',
       label: '藏品状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true,
       slot: 'collectionStatus'
     },
@@ -57,7 +60,7 @@
       prop: 'numberCategory',
       label: '编号类别',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -70,7 +73,8 @@
     {
       prop: 'collectionName',
       label: '藏品名称',
-      sortable: 'custom'
+      sortable: 'custom',
+      showOverflowTooltip: true
     },
     {
       prop: 'categoryName',
@@ -90,21 +94,23 @@
       prop: 'quantity',
       label: '数量',
       sortable: 'custom',
-      width: 80,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'unit',
       label: '数量单位',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'era',
       label: '年代',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -118,21 +124,21 @@
       prop: 'region',
       label: '地域',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'material',
       label: '质地',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'culturalRelicLevel',
       label: '文物级别',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     }
   ])

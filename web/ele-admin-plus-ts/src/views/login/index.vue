@@ -10,7 +10,7 @@
           <ele-text type="heading" style="font-size: 24px; margin-bottom: 18px">
             {{ t('login.title') }}
           </ele-text>
-          <ele-segmented
+          <!-- <ele-segmented
             v-model="tabActive"
             :items="[
               { label: t('login.passwordType'), value: 1 },
@@ -18,9 +18,8 @@
             ]"
             style="margin-bottom: 18px"
             @change="handleTabChange"
-          />
+          /> -->
           <el-form
-            v-if="tabActive == 1"
             ref="formRef"
             size="large"
             :model="form"
@@ -44,7 +43,7 @@
                 :prefix-icon="LockOutlined"
               />
             </el-form-item>
-            <el-form-item prop="code">
+            <!-- <el-form-item prop="code">
               <div class="login-captcha-group">
                 <el-input
                   clearable
@@ -56,7 +55,7 @@
                   <img v-if="captcha" :src="captcha" />
                 </div>
               </div>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
               <el-checkbox v-model="form.remember">
                 {{ t('login.remember') }}
@@ -74,7 +73,7 @@
               </el-button>
             </el-form-item>
           </el-form>
-          <div v-else class="login-qrcode-group">
+          <!-- <div v-else class="login-qrcode-group">
             <ele-qr-code-svg :size="180" :margin="2" :value="qrcode" class="login-qrcode" />
             <el-link
               type="primary"
@@ -87,7 +86,7 @@
               </el-icon>
               <span>{{ t('login.refreshQrcode') }}</span>
             </el-link>
-          </div>
+          </div> -->
         </div>
       </ele-card>
     </div>
@@ -100,10 +99,10 @@
   import { useRouter } from 'vue-router'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { FormInstance, FormRules } from 'element-plus'
-  import { UserOutlined, LockOutlined, ProtectOutlined, ReloadOutlined } from '@/components/icons'
+  import { UserOutlined, LockOutlined } from '@/components/icons'
   import { getToken } from '@/utils/token-util'
   import { usePageTab } from '@/utils/use-page-tab'
-  import { login, getCaptcha } from '@/api/login'
+  import { login } from '@/api/login'
   import PageFooter from '@/layout/components/page-footer.vue'
   import { useI18n } from 'vue-i18n'
 
@@ -112,7 +111,7 @@
   const { goHomeRoute, cleanPageTabs } = usePageTab()
 
   /** 页签选中 */
-  const tabActive = ref(1)
+  // const tabActive = ref(1)
 
   /** 表单 */
   const formRef = ref<FormInstance | null>(null)
@@ -122,10 +121,8 @@
 
   /** 表单数据 */
   const form = reactive({
-    tenantId: 4, // 租户id, 不需要可去掉
     username: 'admin',
-    password: 'admin',
-    code: '',
+    password: '123456',
     remember: true
   })
 
@@ -147,26 +144,26 @@
           type: 'string',
           trigger: 'blur'
         }
-      ],
-      code: [
-        {
-          required: true,
-          message: t('login.code'),
-          type: 'string',
-          trigger: 'blur'
-        }
       ]
+      // code: [
+      //   {
+      //     required: true,
+      //     message: t('login.code'),
+      //     type: 'string',
+      //     trigger: 'blur'
+      //   }
+      // ]
     }
   })
 
-  /** 图形验证码 */
-  const captcha = ref('')
+  // /** 图形验证码 */
+  // const captcha = ref('')
 
-  /** 验证码内容, 实际项目去掉 */
-  const text = ref('')
+  // /** 验证码内容, 实际项目去掉 */
+  // const text = ref('')
 
   /** 二维码 */
-  const qrcode = ref('')
+  // const qrcode = ref('')
 
   /** 提交 */
   const submit = () => {
@@ -174,10 +171,10 @@
       if (!valid) {
         return
       }
-      if (form.code.toLowerCase() !== text.value) {
-        EleMessage.error('验证码错误')
-        return
-      }
+      // if (form.code.toLowerCase() !== text.value) {
+      //   EleMessage.error('验证码错误')
+      //   return
+      // }
       loading.value = true
       login(form)
         .then((msg) => {
@@ -188,38 +185,38 @@
         .catch((e: Error) => {
           loading.value = false
           EleMessage.error(e.message)
-          changeCaptcha()
+          // changeCaptcha()
         })
     })
   }
 
-  /** 获取图形验证码 */
-  const changeCaptcha = () => {
-    getCaptcha()
-      .then((data) => {
-        captcha.value = data.base64
-        // 实际项目后端一般会返回验证码的key而不是直接返回验证码的内容, 登录用key去验证, 可以根据自己后端接口修改
-        text.value = data.text
-        // 自动回填验证码, 实际项目去掉
-        form.code = data.text
-        formRef.value?.clearValidate?.()
-      })
-      .catch((e) => {
-        EleMessage.error(e.message)
-      })
-  }
+  // /** 获取图形验证码 */
+  // const changeCaptcha = () => {
+  //   getCaptcha()
+  //     .then((data) => {
+  //       captcha.value = data.base64
+  //       // 实际项目后端一般会返回验证码的key而不是直接返回验证码的内容, 登录用key去验证, 可以根据自己后端接口修改
+  //       text.value = data.text
+  //       // 自动回填验证码, 实际项目去掉
+  //       form.code = data.text
+  //       formRef.value?.clearValidate?.()
+  //     })
+  //     .catch((e) => {
+  //       EleMessage.error(e.message)
+  //     })
+  // }
 
-  /** 刷新二维码 */
-  const refreshQrCode = () => {
-    qrcode.value = `https://api.eleadmin.com/v2/auth/login?code=${Date.now()}`
-  }
+  // /** 刷新二维码 */
+  // const refreshQrCode = () => {
+  //   qrcode.value = `https://api.eleadmin.com/v2/auth/login?code=${Date.now()}`
+  // }
 
-  /** 选项卡切换事件 */
-  const handleTabChange = (active: number) => {
-    if (active === 2) {
-      refreshQrCode()
-    }
-  }
+  // /** 选项卡切换事件 */
+  // const handleTabChange = (active: number) => {
+  //   if (active === 2) {
+  //     refreshQrCode()
+  //   }
+  // }
 
   /** 跳转到首页 */
   const goHome = () => {
@@ -230,8 +227,6 @@
   // 如果已登录直接进入首页
   if (getToken()) {
     goHome()
-  } else {
-    changeCaptcha()
   }
 </script>
 

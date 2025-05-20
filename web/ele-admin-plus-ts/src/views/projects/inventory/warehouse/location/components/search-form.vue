@@ -1,7 +1,7 @@
 <!-- 搜索表单 -->
 <template>
   <el-form :model="form" :inline="true" class="search-form" @submit.prevent>
-    <el-form-item label="藏品编号" label-width="auto">
+    <el-form-item label="藏品编号">
       <el-input
         v-model="form.collectionId"
         placeholder="请输入藏品编号"
@@ -10,7 +10,7 @@
       />
     </el-form-item>
 
-    <el-form-item label="地址条码" label-width="auto">
+    <el-form-item label="地址条码">
       <el-input
         v-model="form.code"
         placeholder="请输入地址条码"
@@ -19,7 +19,7 @@
       />
     </el-form-item>
 
-    <el-form-item label="绑定时间" label-width="auto">
+    <el-form-item label="绑定时间">
       <el-date-picker
         v-model="form.bindingTime"
         type="daterange"

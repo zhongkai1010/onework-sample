@@ -2,91 +2,96 @@
   <ele-modal
     v-model="visible"
     title="入库单详情"
-    width="1000px"
+    width="1200px"
     :destroy-on-close="true"
     @closed="reset"
+    :style="{ height: '80vh' }"
   >
-    <div class="details-header">
-      <div class="details-header-item">
-        <span class="details-header-label">入库单号：</span>
-        <span class="details-header-value">{{ data?.code }}</span>
+    <div class="details-container">
+      <div class="details-header">
+        <div class="details-header-item">
+          <span class="details-header-label">入库单号：</span>
+          <span class="details-header-value">{{ data?.warehouseNumber }}</span>
+        </div>
+        <div class="details-header-item">
+          <span class="details-header-label">入库类型：</span>
+          <el-tag :type="data?.type === 1 ? 'success' : 'warning'">
+            {{ data?.type === 1 ? '初次入库' : '归还入库' }}
+          </el-tag>
+        </div>
+        <div class="details-header-item">
+          <span class="details-header-label">单据状态：</span>
+          <el-tag :type="getStatusType(data?.status)">
+            {{ getStatusText(data?.status) }}
+          </el-tag>
+        </div>
+        <div class="details-header-item">
+          <span class="details-header-label">经办人：</span>
+          <span class="details-header-value">{{ data?.operator }}</span>
+        </div>
+        <div class="details-header-item">
+          <span class="details-header-label">接收库房：</span>
+          <span class="details-header-value">{{ data?.warehouseName }}</span>
+        </div>
+        <div class="details-header-item">
+          <span class="details-header-label">入库日期：</span>
+          <span class="details-header-value">{{
+            data?.storageDate ? dayjs(data.storageDate).format('YYYY-MM-DD') : '-'
+          }}</span>
+        </div>
       </div>
-      <div class="details-header-item">
-        <span class="details-header-label">入库类型：</span>
-        <el-tag :type="data?.type === 1 ? 'success' : 'warning'">
-          {{ data?.type === 1 ? '初次入库' : '归还入库' }}
-        </el-tag>
-      </div>
-      <div class="details-header-item">
-        <span class="details-header-label">单据状态：</span>
-        <el-tag :type="getStatusType(data?.status)">
-          {{ getStatusText(data?.status) }}
-        </el-tag>
-      </div>
-      <div class="details-header-item">
-        <span class="details-header-label">经办人：</span>
-        <span class="details-header-value">{{ data?.operator }}</span>
-      </div>
-      <div class="details-header-item">
-        <span class="details-header-label">接收库房：</span>
-        <span class="details-header-value">{{ data?.warehouseName }}</span>
-      </div>
-      <div class="details-header-item">
-        <span class="details-header-label">入库日期：</span>
-        <span class="details-header-value">{{ data?.storageDate }}</span>
-      </div>
+
+      <!-- 搜索表单 -->
+      <el-form
+        :model="queryParams"
+        @keyup.enter="handleQuery"
+        @submit.prevent
+        :inline="true"
+        class="details-filter"
+      >
+        <el-form-item label="藏品编号" prop="collectionCode">
+          <el-input
+            v-model="queryParams.collectionCode"
+            placeholder="请输入藏品编号"
+            clearable
+            style="width: 200px"
+          />
+        </el-form-item>
+        <el-form-item label="藏品名称" prop="collectionName">
+          <el-input
+            v-model="queryParams.collectionName"
+            placeholder="请输入藏品名称"
+            clearable
+            style="width: 200px"
+          />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleQuery">查询</el-button>
+          <el-button @click="handleReset">重置</el-button>
+        </el-form-item>
+      </el-form>
+
+      <!-- 数据表格 -->
+      <ele-pro-table
+        ref="tableRef"
+        :tools="false"
+        row-key="id"
+        :columns="columns"
+        :datasource="datasource"
+        :show-overflow-tooltip="true"
+        :highlight-current-row="true"
+        class="details-table"
+        :stripe="true"
+        v-loading="loading"
+      >
+        <!-- 藏品状态列 -->
+        <template #status="{ row }">
+          <el-tag :type="getCollectionStatusType(row.status)" effect="light">
+            {{ getCollectionStatusText(row.status) }}
+          </el-tag>
+        </template>
+      </ele-pro-table>
     </div>
-
-    <!-- 搜索表单 -->
-    <el-form
-      :model="queryParams"
-      @keyup.enter="handleQuery"
-      @submit.prevent
-      :inline="true"
-      class="details-filter"
-    >
-      <el-form-item label="藏品编号" prop="collectionCode">
-        <el-input
-          v-model="queryParams.collectionCode"
-          placeholder="请输入藏品编号"
-          clearable
-          style="width: 200px"
-        />
-      </el-form-item>
-      <el-form-item label="藏品名称" prop="collectionName">
-        <el-input
-          v-model="queryParams.collectionName"
-          placeholder="请输入藏品名称"
-          clearable
-          style="width: 200px"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="handleQuery">查询</el-button>
-        <el-button @click="handleReset">重置</el-button>
-      </el-form-item>
-    </el-form>
-
-    <!-- 数据表格 -->
-    <ele-pro-table
-      ref="tableRef"
-      :tools="false"
-      row-key="id"
-      :columns="columns"
-      :datasource="datasource"
-      :show-overflow-tooltip="true"
-      :highlight-current-row="true"
-      :style="{ paddingBottom: '16px' }"
-      :stripe="true"
-      v-loading="loading"
-    >
-      <!-- 藏品状态列 -->
-      <template #collectionStatus="{ row }">
-        <el-tag :type="getCollectionStatusType(row.collectionStatus)" effect="light">
-          {{ getCollectionStatusText(row.collectionStatus) }}
-        </el-tag>
-      </template>
-    </ele-pro-table>
 
     <template #footer>
       <el-button @click="handleCancel">关闭</el-button>
@@ -100,6 +105,7 @@
   import type { InboundOrderDetail } from '@/api/inventory/inbound/model'
   import { getInboundOrderDetail } from '@/api/inventory/inbound'
   import { ElMessage } from 'element-plus'
+  import dayjs from 'dayjs'
 
   /** 弹窗是否打开 */
   const visible = defineModel({ type: Boolean })
@@ -122,46 +128,55 @@
   /** 表格列配置 */
   const columns = ref([
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 80,
       align: 'center',
       fixed: 'left'
     },
     {
-      prop: 'code',
+      prop: 'warehouseNumber',
       label: '入库单号',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionCode',
       label: '藏品编号',
-      width: 120,
+
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
-      minWidth: 200,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'warehouseName',
       label: '库房名称',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'storageDate',
       label: '入库日期',
       width: 120,
-      showOverflowTooltip: true
+      align: 'center',
+      showOverflowTooltip: true,
+      formatter: (row) => {
+        return row.storageDate ? dayjs(row.storageDate).format('YYYY-MM-DD') : '-'
+      }
     },
     {
       prop: 'status',
       label: '状态',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true,
       slot: 'status'
     }
@@ -311,6 +326,13 @@
 </script>
 
 <style lang="scss" scoped>
+  .details-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+
   .details-header {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -319,6 +341,7 @@
     padding: 12px;
     background-color: var(--el-fill-color-light);
     border-radius: 4px;
+    flex-shrink: 0;
 
     &-item {
       display: flex;
@@ -339,11 +362,21 @@
   .details-filter {
     margin-bottom: 0;
     padding: 4px 0;
+    flex-shrink: 0;
+  }
+
+  .details-table {
+    flex: 1;
+    overflow: auto;
+    margin: 0 -20px;
+    padding: 0 20px;
   }
 
   :deep(.ele-pro-table) {
     .el-table {
+      height: 100%;
       .el-table__body-wrapper {
+        height: calc(100% - 40px);
         .el-table__row {
           td {
             padding: 8px 0;

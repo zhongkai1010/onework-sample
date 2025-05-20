@@ -32,7 +32,4 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .el-form {
-  }
-</style>
+<style lang="scss" scoped></style>

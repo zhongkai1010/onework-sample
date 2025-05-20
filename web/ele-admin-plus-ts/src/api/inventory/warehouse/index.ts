@@ -21,7 +21,7 @@ import type {
  * @returns 库房列表
  */
 export async function getWarehouseTree(params?: WarehouseQueryParams) {
-  const res = await request.get<ApiResult<Warehouse[]>>('/api/inventory/warehouse/all', {
+  const res = await request.get<ApiResult<Warehouse[]>>('/Warehouse/all', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -36,7 +36,7 @@ export async function getWarehouseTree(params?: WarehouseQueryParams) {
  * @returns 操作结果消息
  */
 export async function addWarehouse(data: AddWarehouseParams) {
-  const res = await request.post<ApiResult<null>>('/api/inventory/warehouse', data)
+  const res = await request.post<ApiResult<null>>('/warehouse/add', data)
   if (res.data.code === 0) {
     return res.data.message || '新增成功'
   }
@@ -49,7 +49,7 @@ export async function addWarehouse(data: AddWarehouseParams) {
  * @returns 操作结果消息
  */
 export async function updateWarehouse(data: UpdateWarehouseParams) {
-  const res = await request.put<ApiResult<null>>('/api/inventory/warehouse', data)
+  const res = await request.put<ApiResult<null>>('/warehouse/update', data)
   if (res.data.code === 0) {
     return res.data.message || '修改成功'
   }
@@ -62,9 +62,7 @@ export async function updateWarehouse(data: UpdateWarehouseParams) {
  * @returns 操作结果消息
  */
 export async function deleteWarehouse(data: DeleteWarehouseParams) {
-  const res = await request.delete<ApiResult<null>>('/api/inventory/warehouse', {
-    data
-  })
+  const res = await request.post<ApiResult<null>>('/warehouse/delete', data)
   if (res.data.code === 0) {
     return res.data.message || '删除成功'
   }
@@ -78,7 +76,7 @@ export async function deleteWarehouse(data: DeleteWarehouseParams) {
  */
 export async function getWarehouseCollectionPage(params: WarehouseCollectionQueryParams) {
   const res = await request.get<ApiResult<PageResult<WarehouseCollection>>>(
-    '/api/inventory/warehouse/collection',
+    '/warehouse/collection',
     {
       params
     }
@@ -95,12 +93,9 @@ export async function getWarehouseCollectionPage(params: WarehouseCollectionQuer
  * @returns 地址条码分页数据
  */
 export async function getBarcodePage(params: BarcodeQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Barcode>>>(
-    '/api/inventory/warehouse/barcode',
-    {
-      params
-    }
-  )
+  const res = await request.get<ApiResult<PageResult<Barcode>>>('/Warehouse/warehouseBarcode', {
+    params
+  })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -113,12 +108,9 @@ export async function getBarcodePage(params: BarcodeQueryParams) {
  * @returns 藏品定位分页数据
  */
 export async function getLocationPage(params: LocationQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Location>>>(
-    '/api/inventory/warehouse/location',
-    {
-      params
-    }
-  )
+  const res = await request.get<ApiResult<PageResult<Location>>>('/warehouse/location', {
+    params
+  })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -131,7 +123,7 @@ export async function getLocationPage(params: LocationQueryParams) {
  * @returns 操作结果消息
  */
 export async function bindLocation(params: BindLocationParams) {
-  const res = await request.post<ApiResult<null>>('/api/inventory/warehouse/location', params)
+  const res = await request.post<ApiResult<null>>('/warehouse/warechouseBangding', params)
   if (res.data.code === 0) {
     return res.data.message || '绑定成功'
   }

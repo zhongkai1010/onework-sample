@@ -95,5 +95,10 @@
       min-width: 80px;
       text-align: left;
     }
+
+    :deep(.el-descriptions__content) {
+      width: 100px;
+      min-width: 100px;
+    }
   }
 </style>

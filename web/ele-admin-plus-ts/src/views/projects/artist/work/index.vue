@@ -38,12 +38,31 @@
             <el-button type="info" @click="handleView(row)" size="small">查看详情</el-button>
           </el-space>
         </template>
+
+        <!-- 作品图片列 -->
+        <template #workImage="{ row }">
+          <img
+            v-if="row.workImage"
+            :src="row.workImage"
+            style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.workImage)"
+          />
+          <div v-else>暂无数据</div>
+        </template>
       </ele-pro-table>
 
       <!-- 艺术家作品编辑弹窗 -->
       <form-edit v-model="showEdit" :data="current" @done="reload" />
       <!-- 艺术家作品详情弹窗 -->
       <work-details v-model="showDetails" :data="current" />
+
+      <!-- 图片预览 -->
+      <ele-image-viewer
+        v-model="showImageViewer"
+        :urlList="viewerImages"
+        :initialIndex="viewerIndex"
+        :infinite="false"
+      />
     </ele-card>
   </ele-page>
 </template>
@@ -78,6 +97,9 @@
   const showEdit = ref(false) // 是否显示编辑弹窗
   const showDetails = ref(false) // 是否显示详情弹窗
   const selections = ref<ArtistWork[]>([]) // 表格选中的行
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -89,17 +111,23 @@
       fixed: 'left'
     },
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 80,
       align: 'center',
       fixed: 'left'
+    },
+    {
+      prop: 'workImage',
+      label: '作品图片',
+      width: 100,
+      align: 'center',
+      slot: 'workImage'
     },
     {
       prop: 'workTitle',
       label: '作品名称',
       sortable: 'custom',
-
       showOverflowTooltip: true
     },
     {
@@ -113,7 +141,8 @@
       prop: 'creationYear',
       label: '创作年代',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -142,6 +171,14 @@
       label: '装裱',
       sortable: 'custom',
       width: 120,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'operationTime',
+      label: '操作时间',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -304,6 +341,16 @@
   const handleView = (row: ArtistWork) => {
     current.value = row
     showDetails.value = true
+  }
+
+  /**
+   * 打开图片预览
+   * @param image 图片URL
+   */
+  const openPreview = (image: string) => {
+    viewerImages.value = [image]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 
   /* ==================== 暴露方法 ==================== */

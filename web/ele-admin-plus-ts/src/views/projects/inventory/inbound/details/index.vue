@@ -39,11 +39,12 @@
   import { ref } from 'vue'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
-
-  import { getInboundCollectionList } from '@/api/inventory/inbound'
+  import type { InboundCollectionQueryParams } from '@/api/inventory/inbound/model'
+  import { getInboundCollectionCatalog } from '@/api/inventory/inbound'
   import SearchForm from './components/search-form.vue'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
+  import dayjs from 'dayjs'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -52,38 +53,42 @@
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      label: '编号',
+      width: 80,
       align: 'center',
       fixed: 'left'
     },
     {
-      prop: 'code',
+      prop: 'warehouseNumber',
       label: '入库单号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      minWidth: 200,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'warehouseName',
       label: '接收库房',
       sortable: 'custom',
-      width: 120,
+
+      align: 'left',
       showOverflowTooltip: true
     },
     {
@@ -91,13 +96,16 @@
       label: '入库日期',
       sortable: 'custom',
       width: 120,
-      showOverflowTooltip: true
+      align: 'center',
+      showOverflowTooltip: true,
+      formatter: (row) => dayjs(row.storageDate).format('YYYY-MM-DD')
     },
     {
       prop: 'status',
       label: '状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true,
       slot: 'status'
     }
@@ -105,7 +113,7 @@
 
   /* ==================== 数据源 ==================== */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
-    return getInboundCollectionList({
+    return getInboundCollectionCatalog({
       ...where,
       ...orders,
       ...pages
@@ -115,9 +123,10 @@
   /* ==================== 表格操作 ==================== */
   /**
    * 重新加载表格数据
+   * @param where 查询条件
    */
-  const reload = () => {
-    tableRef.value?.reload?.({ page: 1 })
+  const reload = (where?: InboundCollectionQueryParams) => {
+    tableRef.value?.reload?.({ page: 1, where })
   }
 
   /**

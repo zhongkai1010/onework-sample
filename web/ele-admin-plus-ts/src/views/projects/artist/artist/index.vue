@@ -50,11 +50,30 @@
             >
           </el-space>
         </template>
+
+        <!-- 肖像列 -->
+        <template #portrait="{ row }">
+          <img
+            v-if="row.portrait"
+            :src="row.portrait"
+            style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.portrait)"
+          />
+          <div v-else>暂无数据</div>
+        </template>
       </ele-pro-table>
       <!-- 艺术家编辑弹窗 -->
       <form-edit v-model="showEdit" :data="current" @done="reload" />
       <!-- 艺术家详情弹窗 -->
       <artist-details v-model="detailVisible" :id="current?.id" />
+
+      <!-- 图片预览 -->
+      <ele-image-viewer
+        v-model="showImageViewer"
+        :urlList="viewerImages"
+        :initialIndex="viewerIndex"
+        :infinite="false"
+      />
     </ele-card>
   </ele-page>
 </template>
@@ -81,6 +100,9 @@
   const showEdit = ref(false) // 是否显示编辑弹窗
   const selections = ref<Artist[]>([]) // 表格选中的行
   const detailVisible = ref(false) // 是否显示艺术家详情弹窗
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -92,11 +114,18 @@
       fixed: 'left'
     },
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      prop: 'id',
+      width: 80,
       align: 'center',
+      label: '编号',
       fixed: 'left'
+    },
+    {
+      prop: 'portrait',
+      label: '肖像',
+      width: 100,
+      align: 'center',
+      slot: 'portrait'
     },
     {
       prop: 'name',
@@ -109,13 +138,14 @@
       prop: 'gender',
       label: '性别',
       sortable: 'custom',
-      width: 80,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'ethnicity',
       label: '民族',
       sortable: 'custom',
+      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -128,7 +158,7 @@
       prop: 'artStyle',
       label: '艺术风格',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -147,20 +177,13 @@
       prop: 'education',
       label: '学历',
       sortable: 'custom',
-      width: 100,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'currentInstitution',
       label: '任职单位或机构',
       sortable: 'custom',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'portrait',
-      label: '肖像',
-      sortable: 'custom',
-      width: 100,
       showOverflowTooltip: true
     },
     {
@@ -247,6 +270,16 @@
           })
       })
       .catch(() => {})
+  }
+
+  /**
+   * 打开图片预览
+   * @param image 图片URL
+   */
+  const openPreview = (image: string) => {
+    viewerImages.value = [image]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 
   /* ==================== 暴露方法 ==================== */

@@ -1,14 +1,20 @@
 <template>
-  <ele-modal v-model="show" :title="data ? '修改库房' : '新增库房'" width="500px" :destroy-on-close="true" @closed="onClosed">
+  <ele-modal
+    v-model="show"
+    :title="data ? '修改库房' : '新增库房'"
+    width="500px"
+    :destroy-on-close="true"
+    @closed="onClosed"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
       <el-form-item label="上级库房" v-if="!data">
         <warehouse-select v-model="form.parentId" :type="1" :disabled="!!parentId" />
       </el-form-item>
-      <el-form-item label="库房编号" prop="code">
-        <el-input v-model.trim="form.code" placeholder="请输入库房编号" clearable />
-      </el-form-item>
       <el-form-item label="库房名称" prop="name">
         <el-input v-model.trim="form.name" placeholder="请输入库房名称" clearable />
+      </el-form-item>
+      <el-form-item label="库房编号" prop="code">
+        <el-input v-model.trim="form.code" placeholder="请输入库房编号" clearable />
       </el-form-item>
       <template v-if="!data">
         <el-form-item label="级别" prop="tier">
@@ -19,16 +25,36 @@
         </el-form-item>
         <template v-if="form.tier === 2">
           <el-form-item label="列数" prop="columnCount">
-            <el-input-number v-model="form.columnCount" :min="0" :max="999" placeholder="请输入列数" />
+            <el-input-number
+              v-model="form.columnCount"
+              :min="0"
+              :max="999"
+              placeholder="请输入列数"
+            />
           </el-form-item>
           <el-form-item label="节数" prop="sectionCount">
-            <el-input-number v-model="form.sectionCount" :min="0" :max="999" placeholder="请输入节数" />
+            <el-input-number
+              v-model="form.sectionCount"
+              :min="0"
+              :max="999"
+              placeholder="请输入节数"
+            />
           </el-form-item>
           <el-form-item label="层数" prop="layerCount">
-            <el-input-number v-model="form.layerCount" :min="0" :max="999" placeholder="请输入层数" />
+            <el-input-number
+              v-model="form.layerCount"
+              :min="0"
+              :max="999"
+              placeholder="请输入层数"
+            />
           </el-form-item>
           <el-form-item label="固定列类型" prop="fixedColumnType">
-            <el-input v-model.trim="form.fixedColumnType" placeholder="请输入固定列类型" clearable />
+            <el-select v-model="form.fixedColumnType" placeholder="请选择固定列类型" clearable>
+              <el-option label="左列固定" value="左列固定" />
+              <el-option label="右列固定" value="右列固定" />
+              <el-option label="中间固定" value="中间固定" />
+              <el-option label="不分左右" value="不分左右" />
+            </el-select>
           </el-form-item>
         </template>
       </template>
@@ -47,7 +73,11 @@
   import { ref, watch } from 'vue'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { FormInstance } from 'element-plus'
-  import type { Warehouse, UpdateWarehouseParams, AddWarehouseParams } from '@/api/inventory/warehouse/model'
+  import type {
+    Warehouse,
+    UpdateWarehouseParams,
+    AddWarehouseParams
+  } from '@/api/inventory/warehouse/model'
   import { addWarehouse, updateWarehouse } from '@/api/inventory/warehouse'
   import { useFormData } from '@/utils/use-form-data'
   import WarehouseSelect from '@/components/CustomForm/WarehouseSelect.vue'

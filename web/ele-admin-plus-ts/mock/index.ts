@@ -5,4 +5,10 @@ import inventoryApi from './inventory'
 import collectionApi from './collection'
 import dataApi from './data'
 
-export default [...layoutApi, ...artistApi, ...inventoryApi, ...collectionApi, ...dataApi] as MockMethod[]
+export default [
+  ...layoutApi,
+  ...artistApi,
+  ...inventoryApi,
+  ...collectionApi,
+  ...dataApi
+] as MockMethod[]

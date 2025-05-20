@@ -30,7 +30,14 @@
         <el-input v-model="form.artistName" placeholder="请输入艺术家名称" clearable />
       </el-form-item>
       <el-form-item label="作品图片" prop="workImage">
-        <el-input v-model="form.workImage" placeholder="请输入作品图片URL" clearable />
+        <CommonUpload
+          v-model="form.workImage"
+          :limit="1"
+          :drag="true"
+          :tools="true"
+          accept="image/*"
+          :sortable="false"
+        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -51,6 +58,8 @@
     UpdateArtistWorkParams
   } from '@/api/artist/work/model'
   import { addArtistWork, updateArtistWork } from '@/api/artist/work'
+  import CommonUpload from '@/components/CommonUpload/index.vue'
+  import type { UploadItem } from 'ele-admin-plus/es/ele-upload-list/types'
 
   const props = defineProps<{
     /** 修改回显的数据 */
@@ -74,7 +83,9 @@
   const formRef = ref<FormInstance>()
 
   /** 表单数据 */
-  const [form, resetFields, assignFields] = useFormData<CreateArtistWorkParams>({
+  const [form, resetFields, assignFields] = useFormData<
+    Omit<CreateArtistWorkParams, 'workImage'> & { workImage: UploadItem[] }
+  >({
     workTitle: '',
     creationYear: '',
     dimensions: '',
@@ -82,7 +93,7 @@
     theme: '',
     framing: '',
     artistName: '',
-    workImage: ''
+    workImage: []
   })
 
   /** 表单验证规则 */
@@ -102,10 +113,14 @@
         return
       }
       loading.value = true
+      const apiData = {
+        ...form,
+        workImage: form.workImage[0]?.url || ''
+      }
       if (isUpdate.value && props.data) {
         const updateData: UpdateArtistWorkParams = {
           id: props.data.id,
-          ...form
+          ...apiData
         }
         updateArtistWork(updateData)
           .then((msg) => {
@@ -119,7 +134,7 @@
             EleMessage.error(e.message)
           })
       } else {
-        addArtistWork(form)
+        addArtistWork(apiData)
           .then((msg) => {
             loading.value = false
             EleMessage.success(msg)
@@ -146,6 +161,8 @@
         framing: props.data.framing,
         artistName: props.data.artistName,
         workImage: props.data.workImage
+          ? [{ key: String(Date.now()), url: props.data.workImage, status: 'done' }]
+          : []
       })
       isUpdate.value = true
     } else {

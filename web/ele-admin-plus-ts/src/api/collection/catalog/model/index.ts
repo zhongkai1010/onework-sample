@@ -115,7 +115,7 @@ export interface AddCollectionParams {
   /** 藏品名称 */
   collectionName?: string
   /** 藏品类别ID */
-  categoryId: number
+  categoryId?: number
   /** RFID编号 */
   rfidCode?: string
   /** 数量 */
@@ -135,7 +135,7 @@ export interface AddCollectionParams {
   /** 质地类型 */
   materialType?: string
   /** 质地 */
-  material: string
+  material?: string
   /** 通长(底径cm) */
   overallLength?: number
   /** 通宽(口径cm) */

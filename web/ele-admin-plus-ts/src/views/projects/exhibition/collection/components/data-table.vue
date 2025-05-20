@@ -72,32 +72,18 @@
   const selections = ref<WarehouseCollection[]>([])
 
   /* 表格列配置 */
-  const columns: Columns = [
-    {
-      type: 'selection',
-      columnKey: 'selection',
-      width: 50,
-      align: 'center',
-      fixed: 'left'
-    },
+  const columns = ref<Columns>([
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
     },
     {
-      prop: 'collectionStatus',
-      label: '藏品状态',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true,
-      slot: 'status'
-    },
-    {
-      prop: 'collectionCode',
-      label: '藏品编号',
+      prop: 'warehouseName',
+      label: '展区名称',
       sortable: 'custom',
       width: 120,
       showOverflowTooltip: true
@@ -109,84 +95,13 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'categoryName',
-      label: '藏品分类',
+      prop: 'collectionCode',
+      label: '藏品编号',
       sortable: 'custom',
       width: 120,
       showOverflowTooltip: true
-    },
-    {
-      prop: 'warehouseName',
-      label: '仓库位置',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'era',
-      label: '年代',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'quantity',
-      label: '数量',
-      sortable: 'custom',
-      width: 80,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'unit',
-      label: '单位',
-      sortable: 'custom',
-      width: 80,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'specificDimensions',
-      label: '具体尺寸',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'condition',
-      label: '完残程度',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'preservationStatus',
-      label: '完残状况',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'warehouseName',
-      label: '存放位置',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'rfidCode',
-      label: '地址码',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      columnKey: 'operation',
-      label: '操作',
-      width: 100,
-      align: 'center',
-      slot: 'operation',
-      fixed: 'right'
     }
-  ]
+  ])
 
   /* 数据源 */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {

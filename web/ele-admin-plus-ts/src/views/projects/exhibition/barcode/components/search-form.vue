@@ -1,7 +1,7 @@
 <!-- 搜索表单 -->
 <template>
   <el-form :model="form" :inline="true" class="search-form" @submit.prevent>
-    <el-form-item label="地址信息" label-width="auto">
+    <el-form-item label="地址信息">
       <el-input
         v-model="form.name"
         placeholder="请输入地址信息"
@@ -10,7 +10,7 @@
       />
     </el-form-item>
 
-    <el-form-item label="地址码" label-width="auto">
+    <el-form-item label="地址码">
       <el-input
         v-model="form.code"
         placeholder="请输入地址码"
@@ -19,7 +19,7 @@
       />
     </el-form-item>
 
-    <el-form-item label="类型" label-width="auto">
+    <el-form-item label="类型">
       <el-select
         v-model="form.type"
         placeholder="请选择类型"
@@ -32,7 +32,7 @@
       </el-select>
     </el-form-item>
 
-    <el-form-item label="级别" label-width="auto">
+    <el-form-item label="级别">
       <el-select
         v-model="form.tier"
         placeholder="请选择级别"

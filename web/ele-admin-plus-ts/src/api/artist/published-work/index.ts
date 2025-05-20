@@ -12,7 +12,7 @@ import type {
  * @param data 出版著作信息
  */
 export async function addPublication(data: CreatePublicationParams) {
-  const res = await request.post<ApiResult<unknown>>('/api/artist/published-work', data)
+  const res = await request.post<ApiResult<unknown>>('/ArtistPublishedWork/add', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -24,7 +24,7 @@ export async function addPublication(data: CreatePublicationParams) {
  * @param params 查询参数
  */
 export async function getPublicationList(params: PublicationQueryParams) {
-  const res = await request.get<ApiResult<PageResult<Publication>>>('/api/artist/published-work', {
+  const res = await request.get<ApiResult<PageResult<Publication>>>('/ArtistPublishedWork/page', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -38,7 +38,7 @@ export async function getPublicationList(params: PublicationQueryParams) {
  * @param id 出版著作ID
  */
 export async function getPublicationDetails(id: number) {
-  const res = await request.get<ApiResult<Publication>>('/api/artist/published-work/details', {
+  const res = await request.get<ApiResult<Publication>>('/ArtistPublishedWork/details', {
     params: { id }
   })
   if (res.data.code === 0 && res.data.data) {
@@ -52,7 +52,7 @@ export async function getPublicationDetails(id: number) {
  * @param data 出版著作信息
  */
 export async function updatePublication(data: UpdatePublicationParams) {
-  const res = await request.put<ApiResult<unknown>>('/api/artist/published-work', data)
+  const res = await request.put<ApiResult<unknown>>('/ArtistPublishedWork/update', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -64,7 +64,7 @@ export async function updatePublication(data: UpdatePublicationParams) {
  * @param ids 出版著作ID数组
  */
 export async function deletePublication(ids: number[]) {
-  const res = await request.delete<ApiResult<unknown>>('/api/artist/published-work', {
+  const res = await request.delete<ApiResult<unknown>>('/ArtistPublishedWork/delete', {
     data: ids
   })
   if (res.data.code === 0) {

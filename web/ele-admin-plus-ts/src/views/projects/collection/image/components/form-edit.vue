@@ -21,18 +21,7 @@
         <el-input v-model="form.fileSize" placeholder="请输入容量大小" clearable />
       </el-form-item>
       <el-form-item label="文件" prop="file">
-        <el-upload
-          class="upload-demo"
-          action="/api/upload"
-          :on-success="handleUploadSuccess"
-          :on-error="handleUploadError"
-          :before-upload="beforeUpload"
-        >
-          <el-button type="primary">点击上传</el-button>
-          <template #tip>
-            <div class="el-upload__tip"> 请上传影像文件 </div>
-          </template>
-        </el-upload>
+        <FileUpload v-model="form.file" :limit="1" :drag="true" :tools="true" :sortable="false" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -49,6 +38,7 @@
   import { useFormData } from '@/utils/use-form-data'
   import type { Image, AddImageParams, UpdateImageParams } from '@/api/collection/image/model'
   import { addImage, updateImage } from '@/api/collection/image'
+  import FileUpload from '@/components/FileUpload/index.vue'
 
   const props = defineProps<{
     /** 修改回显的数据 */
@@ -82,10 +72,7 @@
 
   /** 表单验证规则 */
   const rules = reactive<FormRules>({
-    collectionName: [{ required: true, message: '请输入藏品名称', trigger: 'blur' }],
-    collectionCode: [{ required: true, message: '请输入藏品编号', trigger: 'blur' }],
-    title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
-    file: [{ required: true, message: '请上传文件', trigger: 'change' }]
+    collectionName: [{ required: true, message: '请输入藏品名称', trigger: 'blur' }]
   })
 
   /** 关闭弹窗 */
@@ -156,45 +143,6 @@
   const reset = () => {
     resetFields()
   }
-
-  /** 上传成功回调 */
-  const handleUploadSuccess = (response: any) => {
-    if (response.code === 0) {
-      form.file = response.data.url
-      form.fileSize = response.data.size
-      EleMessage.success('上传成功')
-    } else {
-      EleMessage.error(response.message || '上传失败')
-    }
-  }
-
-  /** 上传失败回调 */
-  const handleUploadError = () => {
-    EleMessage.error('上传失败')
-  }
-
-  /** 上传前校验 */
-  const beforeUpload = (file: File) => {
-    const isImage = file.type.startsWith('image/')
-    if (!isImage) {
-      EleMessage.error('只能上传图片文件!')
-      return false
-    }
-    const isLt10M = file.size / 1024 / 1024 < 10
-    if (!isLt10M) {
-      EleMessage.error('图片大小不能超过 10MB!')
-      return false
-    }
-    return true
-  }
 </script>
 
-<style lang="scss" scoped>
-  .upload-demo {
-    :deep(.el-upload__tip) {
-      color: #909399;
-      font-size: 12px;
-      margin-top: 7px;
-    }
-  }
-</style>
+<style lang="scss" scoped></style>

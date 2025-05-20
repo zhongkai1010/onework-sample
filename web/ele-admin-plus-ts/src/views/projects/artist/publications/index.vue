@@ -51,6 +51,17 @@
             >
           </el-space>
         </template>
+
+        <!-- 封面图片列 -->
+        <template #coverImage="{ row }">
+          <img
+            v-if="row.coverImage"
+            :src="row.coverImage"
+            style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.coverImage)"
+          />
+          <div v-else>暂无数据</div>
+        </template>
       </ele-pro-table>
 
       <!-- 出版著作编辑弹窗 -->
@@ -58,6 +69,14 @@
 
       <!-- 出版著作详情弹窗 -->
       <publication-details v-model="showDetails" :data="current" />
+
+      <!-- 图片预览 -->
+      <ele-image-viewer
+        v-model="showImageViewer"
+        :urlList="viewerImages"
+        :initialIndex="viewerIndex"
+        :infinite="false"
+      />
     </ele-card>
   </ele-page>
 </template>
@@ -90,6 +109,9 @@
   const showEdit = ref(false) // 是否显示编辑弹窗
   const showDetails = ref(false) // 是否显示详情弹窗
   const selections = ref<Publication[]>([]) // 表格选中的行
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -103,33 +125,27 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
+    },
+    {
+      prop: 'coverImage',
+      label: '出版物封面',
+      width: 100,
+      align: 'center',
+      slot: 'coverImage'
     },
     {
       prop: 'bookTitle',
-      label: '著作标题',
+      label: '出版物题名',
       sortable: 'custom',
       showOverflowTooltip: true
     },
     {
       prop: 'artistName',
-      label: '作者',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'publisher',
-      label: '出版社',
-      sortable: 'custom',
-      width: 150,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'publishDate',
-      label: '出版日期',
+      label: '艺术家名称',
       sortable: 'custom',
       width: 120,
       showOverflowTooltip: true
@@ -138,7 +154,35 @@
       prop: 'isbn',
       label: 'ISBN',
       sortable: 'custom',
-      width: 150,
+      width: 120,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'publisher',
+      label: '出版社',
+      sortable: 'custom',
+      width: 120,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'format',
+      label: '开本',
+      sortable: 'custom',
+      width: 120,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'author',
+      label: '编著',
+      sortable: 'custom',
+      width: 120,
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'edition',
+      label: '印次',
+      sortable: 'custom',
+      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -256,6 +300,16 @@
   const handleDetails = (row: Publication) => {
     current.value = row
     showDetails.value = true
+  }
+
+  /**
+   * 打开图片预览
+   * @param image 图片URL
+   */
+  const openPreview = (image: string) => {
+    viewerImages.value = [image]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 
   /* ==================== 暴露方法 ==================== */

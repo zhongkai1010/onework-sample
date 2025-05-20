@@ -94,7 +94,7 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 100,
       align: 'center',
       fixed: 'left',
       label: '编号'
@@ -103,105 +103,120 @@
       prop: 'collectionStatus',
       label: '藏品状态',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'numberCategory',
       label: '编号类别',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'rfidCode',
       label: 'RFID编号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'categoryName',
       label: '藏品分类',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'author',
       label: '作者',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionSource',
       label: '藏品来源',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'bookValue',
       label: '图书价值',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'preservationStatus',
       label: '保存状态',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionDate',
       label: '征集日期',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionYear',
       label: '入藏年度',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'notes',
       label: '备注',
       sortable: 'custom',
-      width: 150,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'warehouseCode',
       label: '地址码',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'warehouseName',
       label: '所属库房',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {

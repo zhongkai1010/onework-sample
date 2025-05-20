@@ -1,6 +1,8 @@
 <template>
   <ele-tree-select
     v-model="value"
+    :popper-width="360"
+    filterable
     :tree-props="{
       data: filteredTreeData,
       props: {

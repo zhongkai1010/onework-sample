@@ -100,9 +100,10 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'groupName',
@@ -128,21 +129,23 @@
       prop: 'sortOrder',
       label: '排序',
       sortable: 'custom',
-      width: 80,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'status',
       label: '状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true,
       slot: 'status'
     },
     {
       columnKey: 'action',
       label: '操作',
-      width: 150,
+      width: 220,
       align: 'center',
       slot: 'action',
       fixed: 'right'

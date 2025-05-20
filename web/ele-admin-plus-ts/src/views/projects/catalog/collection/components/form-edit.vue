@@ -10,7 +10,13 @@
     position="center"
   >
     <div class="form-content">
-      <el-form ref="formRef" :model="form" :rules="rules" label-width="120px" @submit.prevent="">
+      <el-form
+        ref="formRef"
+        :model="form as any"
+        :rules="rules"
+        label-width="120px"
+        @submit.prevent=""
+      >
         <el-row :gutter="16">
           <!-- 基本信息 -->
           <el-col :span="8">
@@ -30,14 +36,22 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="文物级别" prop="culturalLevel">
-              <el-input v-model="form.culturalLevel" placeholder="请输入文物级别" clearable />
+              <dict-data
+                :code="DIC_KEY_CULTURAL_LEVEL"
+                v-model="form.culturalLevel"
+                placeholder="文物级别"
+              />
             </el-form-item>
           </el-col>
 
           <!-- 编号信息 -->
           <el-col :span="8">
-            <el-form-item label="编号类别" prop="numberCategory">
-              <el-input v-model="form.numberCategory" placeholder="请输入编号类别" clearable />
+            <el-form-item label="编号分类" prop="numberCategory">
+              <dict-data
+                :code="DIC_KEY_CODE_CATEGORY"
+                v-model="form.numberCategory"
+                placeholder="请选择编号分类"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -64,16 +78,14 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="数量单位" prop="unit">
-              <el-input v-model="form.unit" placeholder="请输入数量单位" clearable />
+              <dict-data
+                :code="DIC_KEY_QUANTITY_UNIT"
+                v-model="form.unit"
+                placeholder="请输入数量单位"
+              />
             </el-form-item>
           </el-col>
 
-          <!-- 年代信息 -->
-          <el-col :span="8">
-            <el-form-item label="年代类型" prop="eraType">
-              <el-input v-model="form.eraType" placeholder="请输入年代类型" clearable />
-            </el-form-item>
-          </el-col>
           <el-col :span="8">
             <el-form-item label="年代" prop="era">
               <el-input v-model="form.era" placeholder="请输入年代" clearable />
@@ -83,7 +95,11 @@
           <!-- 地域信息 -->
           <el-col :span="8">
             <el-form-item label="地域类型" prop="regionType">
-              <el-input v-model="form.regionType" placeholder="请输入地域类型" clearable />
+              <dict-data
+                :code="DIC_KEY_REGION_TYPE"
+                v-model="form.regionType"
+                placeholder="请输入地域类型"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -95,7 +111,11 @@
           <!-- 质地信息 -->
           <el-col :span="8">
             <el-form-item label="质地类型" prop="materialType">
-              <el-input v-model="form.materialType" placeholder="请输入质地类型" clearable />
+              <dict-data
+                :code="DIC_KEY_TEXTURE_TYPE"
+                v-model="form.materialType"
+                placeholder="请输入质地类型"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -144,7 +164,11 @@
           <!-- 质量信息 -->
           <el-col :span="8">
             <el-form-item label="质量范围" prop="weightRange">
-              <el-input v-model="form.weightRange" placeholder="请输入质量范围" clearable />
+              <dict-data
+                :code="DIC_KEY_QUALITY_RANGE"
+                v-model="form.weightRange"
+                placeholder="请输入质量范围"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -159,14 +183,22 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="质量单位" prop="weightUnit">
-              <el-input v-model="form.weightUnit" placeholder="请输入质量单位" clearable />
+              <dict-data
+                :code="DIC_KEY_QUALITY_UNIT"
+                v-model="form.weightUnit"
+                placeholder="请输入质量单位"
+              />
             </el-form-item>
           </el-col>
 
           <!-- 颜色信息 -->
           <el-col :span="8">
             <el-form-item label="颜色类别" prop="colorCategory">
-              <el-input v-model="form.colorCategory" placeholder="请输入颜色类别" clearable />
+              <dict-data
+                :code="DIC_KEY_COLOR_CATEGORY"
+                v-model="form.colorCategory"
+                placeholder="请输入颜色类别"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -178,19 +210,31 @@
           <!-- 状态信息 -->
           <el-col :span="8">
             <el-form-item label="完残状况" prop="condition">
-              <el-input v-model="form.condition" placeholder="请输入完残状况" clearable />
+              <dict-data
+                :code="DIC_KEY_COMPLETENESS"
+                v-model="form.condition"
+                placeholder="请输入完残状况"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="保存状态" prop="preservationStatus">
-              <el-input v-model="form.preservationStatus" placeholder="请输入保存状态" clearable />
+              <dict-data
+                :code="DIC_KEY_PRESERVATION_STATUS"
+                v-model="form.preservationStatus"
+                placeholder="请输入保存状态"
+              />
             </el-form-item>
           </el-col>
 
           <!-- 来源信息 -->
           <el-col :span="8">
             <el-form-item label="藏品来源" prop="collectionSource">
-              <el-input v-model="form.collectionSource" placeholder="请输入藏品来源" clearable />
+              <dict-data
+                :code="DIC_KEY_COLLECTION_SOURCE"
+                v-model="form.collectionSource"
+                placeholder="请输入藏品来源"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -205,6 +249,7 @@
               <el-date-picker
                 v-model="form.collectionDate"
                 type="date"
+                value-format="YYYY-MM-DD"
                 placeholder="请选择征集日期"
                 style="width: 100%"
               />
@@ -212,13 +257,10 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="入藏日期范围" prop="collectionDateRange">
-              <el-date-picker
+              <dict-data
+                :code="DIC_KEY_ACQUISITION_DATE_RANGE"
                 v-model="form.collectionDateRange"
-                type="daterange"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                style="width: 100%"
+                placeholder="请输入入藏日期范围"
               />
             </el-form-item>
           </el-col>
@@ -233,7 +275,8 @@
             <el-form-item label="入馆时间" prop="museumEntryTime">
               <el-date-picker
                 v-model="form.museumEntryTime"
-                type="datetime"
+                type="date"
+                value-format="YYYY-MM-DD"
                 placeholder="请选择入馆时间"
                 style="width: 100%"
               />
@@ -243,7 +286,8 @@
             <el-form-item label="入藏时间" prop="collectionTime">
               <el-date-picker
                 v-model="form.collectionTime"
-                type="datetime"
+                type="date"
+                value-format="YYYY-MM-DD"
                 placeholder="请选择入藏时间"
                 style="width: 100%"
               />
@@ -253,7 +297,8 @@
             <el-form-item label="登录时间" prop="loginTime">
               <el-date-picker
                 v-model="form.loginTime"
-                type="datetime"
+                type="date"
+                value-format="YYYY-MM-DD"
                 placeholder="请选择登录时间"
                 style="width: 100%"
               />
@@ -263,7 +308,8 @@
             <el-form-item label="入柜时间" prop="cabinetEntryTime">
               <el-date-picker
                 v-model="form.cabinetEntryTime"
-                type="datetime"
+                type="date"
+                value-format="YYYY-MM-DD"
                 placeholder="请选择入柜时间"
                 style="width: 100%"
               />
@@ -273,27 +319,39 @@
           <!-- 类型信息 -->
           <el-col :span="8">
             <el-form-item label="类型" prop="type">
-              <el-input v-model="form.type" placeholder="请输入类型" clearable />
+              <dict-data
+                :code="DIC_KEY_COLLECTION_TYPE"
+                v-model="form.type"
+                placeholder="请输入类型"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="人文类型" prop="culturalType">
-              <el-input v-model="form.culturalType" placeholder="请输入人文类型" clearable />
+              <dict-data
+                :code="DIC_KEY_HUMANITIES_TYPE"
+                v-model="form.culturalType"
+                placeholder="请输入人文类型"
+              />
             </el-form-item>
           </el-col>
 
           <!-- 多媒体信息 -->
           <el-col :span="8">
             <el-form-item label="文本类型" prop="textType">
-              <el-input v-model="form.textType" placeholder="请输入文本类型" clearable />
+              <dict-data
+                :code="DIC_KEY_TEXT_TYPE"
+                v-model="form.textType"
+                placeholder="请输入文本类型"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="声像载体类型" prop="audioVisualCarrierType">
-              <el-input
+              <dict-data
+                :code="DIC_KEY_AUDIOVISUAL_CARRIER_TYPE"
                 v-model="form.audioVisualCarrierType"
                 placeholder="请输入声像载体类型"
-                clearable
               />
             </el-form-item>
           </el-col>
@@ -332,15 +390,15 @@
           <!-- 图片信息 -->
           <el-col :span="24">
             <el-form-item label="图片信息" prop="imageInfo">
-              <el-upload
-                class="avatar-uploader"
-                action="#"
-                :show-file-list="false"
-                :before-upload="beforeImageUpload"
-              >
-                <img v-if="form.imageInfo" :src="form.imageInfo" class="avatar" />
-                <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-              </el-upload>
+              <CommonUpload
+                v-model="imageUploadValue"
+                :limit="1"
+                accept="image/*"
+                :multiple="false"
+                :drag="false"
+                listType="image"
+                style="width: 178px"
+              />
             </el-form-item>
           </el-col>
         </el-row>
@@ -355,13 +413,35 @@
 
 <script lang="ts" setup>
   import { ref, reactive, nextTick } from 'vue'
-  import { Plus } from '@element-plus/icons-vue'
-  import type { FormInstance, FormRules } from 'element-plus'
   import { EleMessage } from 'ele-admin-plus/es'
   import { useFormData } from '@/utils/use-form-data'
   import type { Collection, AddCollectionParams } from '@/api/collection/catalog/model'
   import { register, update } from '@/api/collection/catalog'
   import { CategorySelect } from '@/components/CustomForm'
+  import CommonUpload from '@/components/CommonUpload/index.vue'
+  import DictData from '@/components/DictData/index.vue'
+  import type { FormInstance, FormRules } from 'element-plus'
+  import {
+    DIC_KEY_CULTURAL_LEVEL,
+    DIC_KEY_QUALITY_UNIT,
+    DIC_KEY_CODE_CATEGORY,
+    DIC_KEY_PRESERVATION_STATUS,
+    DIC_KEY_QUANTITY_UNIT,
+    DIC_KEY_HUMANITIES_TYPE,
+    DIC_KEY_TEXT_TYPE,
+    DIC_KEY_AUDIOVISUAL_CARRIER_TYPE,
+    DIC_KEY_COLLECTION_TYPE,
+    DIC_KEY_COLLECTION_SOURCE,
+    DIC_KEY_COMPLETENESS,
+    DIC_KEY_COLOR_CATEGORY,
+    DIC_KEY_QUALITY_RANGE,
+    DIC_KEY_REGION_TYPE,
+    DIC_KEY_TEXTURE_TYPE,
+    DIC_KEY_ACQUISITION_DATE_RANGE
+  } from '@/config/setting'
+
+  /** 图片上传的值 */
+  const imageUploadValue = ref<any[]>([])
 
   const props = defineProps<{
     /** 修改回显的数据 */
@@ -386,17 +466,15 @@
 
   /** 表单数据 */
   const [form, resetFields, assignFields] = useFormData<AddCollectionParams>({
-    imageInfo: '',
+    collectionName: '',
+    categoryId: void 0,
+    culturalLevel: '',
     numberCategory: '',
     code: '',
-    collectionName: '',
-    categoryId: 0,
     rfidCode: '',
     quantity: 0,
     unit: '',
-    eraType: '',
     era: '',
-    artist: '',
     regionType: '',
     region: '',
     materialType: '',
@@ -408,13 +486,19 @@
     weightRange: '',
     specificWeight: 0,
     weightUnit: '',
-    culturalLevel: '',
-    collectionSource: '',
+    colorCategory: '',
+    colorDescription: '',
     condition: '',
     preservationStatus: '',
+    collectionSource: '',
+    artist: '',
     collectionDate: '',
-    collectionDateRange: '',
+    collectionDateRange: [] as any,
     collectionYear: '',
+    museumEntryTime: '',
+    collectionTime: '',
+    loginTime: '',
+    cabinetEntryTime: '',
     type: '',
     culturalType: '',
     collectionIntroduction: '',
@@ -422,13 +506,8 @@
     audioVisualCarrierType: '',
     audioVisualStorageLocation: '',
     diskPath: '',
-    colorCategory: '',
-    colorDescription: '',
     notes: '',
-    museumEntryTime: '',
-    collectionTime: '',
-    loginTime: '',
-    cabinetEntryTime: ''
+    imageInfo: ''
   })
 
   /** 表单验证规则 */
@@ -441,29 +520,15 @@
         trigger: 'blur'
       }
     ],
-    categoryId: [
+    code: [
       {
         required: true,
-        message: '请选择藏品类别',
-        type: 'number',
-        trigger: 'change'
-      }
-    ],
-    material: [
-      {
-        required: true,
-        message: '请输入质地',
+        message: '请输入藏品编号',
         type: 'string',
         trigger: 'blur'
       }
     ]
   })
-
-  /** 图片上传前的处理 */
-  const beforeImageUpload = (_file: File) => {
-    // TODO: Implement image upload logic
-    return false
-  }
 
   /** 关闭弹窗 */
   const handleCancel = () => {
@@ -477,13 +542,15 @@
         return
       }
       loading.value = true
+      // 取图片url
+      const imageUrl = imageUploadValue.value.length > 0 ? imageUploadValue.value[0].url : ''
       if (isUpdate.value && props.data) {
         // For update operation, we need to include all required fields from props.data
         const updateData: Collection = {
           ...props.data,
           ...form,
           // Ensure required fields are not undefined
-          imageInfo: form.imageInfo ?? props.data.imageInfo,
+          imageInfo: imageUrl,
           numberCategory: form.numberCategory ?? props.data.numberCategory,
           collectionCode: form.code ?? props.data.collectionCode,
           collectionName: form.collectionName ?? props.data.collectionName,
@@ -541,7 +608,10 @@
           })
       } else {
         // For register operation, we can use the form data directly
-        register(form)
+        register({
+          ...form,
+          imageInfo: imageUrl
+        })
           .then((msg) => {
             loading.value = false
             EleMessage.success(msg)
@@ -559,6 +629,12 @@
   /** 弹窗打开事件 */
   const handleOpen = () => {
     if (props.data) {
+      // 处理imageInfo为UploadItem[]
+      let imageArr: any = []
+      if (props.data.imageInfo && typeof props.data.imageInfo === 'string') {
+        imageArr = [{ url: props.data.imageInfo, name: '图片', status: 'done', key: Date.now() }]
+      }
+      imageUploadValue.value = imageArr
       assignFields({
         ...props.data,
         categoryId: props.data.categoryId
@@ -566,6 +642,7 @@
       isUpdate.value = true
     } else {
       resetFields()
+      imageUploadValue.value = []
       isUpdate.value = false
     }
     nextTick(() => {

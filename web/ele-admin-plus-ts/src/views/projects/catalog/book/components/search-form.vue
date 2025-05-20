@@ -1,19 +1,19 @@
 <!-- 搜索表单 -->
 <template>
   <el-form label-width="100px" @keyup.enter="search" @submit.prevent="" :inline="true">
-    <el-form-item label="ISBN" label-width="auto">
+    <el-form-item label="ISBN">
       <el-input clearable v-model.trim="form.ISBN" placeholder="请输入" maxlength="20" />
     </el-form-item>
 
-    <el-form-item label="作者" label-width="auto">
+    <el-form-item label="作者">
       <el-input clearable v-model.trim="form.author" placeholder="请输入" maxlength="50" />
     </el-form-item>
 
-    <el-form-item label="图书价值" label-width="auto">
+    <el-form-item label="图书价值">
       <el-input clearable v-model.trim="form.bookValue" placeholder="请输入" maxlength="20" />
     </el-form-item>
 
-    <el-form-item label="类型" label-width="auto">
+    <el-form-item label="类型">
       <el-input clearable v-model.trim="form.type" placeholder="请输入" maxlength="20" />
     </el-form-item>
 

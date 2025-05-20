@@ -7,7 +7,7 @@ import type { Menu } from '../menu/model'
  * 分页查询角色
  */
 export async function pageRoles(params: RoleParam) {
-  const res = await request.get<ApiResult<PageResult<Role>>>('/system/role/page', { params })
+  const res = await request.get<ApiResult<PageResult<Role>>>('/Role/page', { params })
   if (res.data.code === 0) {
     return res.data.data
   }
@@ -18,7 +18,7 @@ export async function pageRoles(params: RoleParam) {
  * 查询角色列表
  */
 export async function listRoles(params?: RoleParam) {
-  const res = await request.get<ApiResult<Role[]>>('/system/role', {
+  const res = await request.get<ApiResult<Role[]>>('/Role/list', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -31,7 +31,7 @@ export async function listRoles(params?: RoleParam) {
  * 添加角色
  */
 export async function addRole(data: Role) {
-  const res = await request.post<ApiResult<unknown>>('/system/role', data)
+  const res = await request.post<ApiResult<unknown>>('/Role/add', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -42,7 +42,7 @@ export async function addRole(data: Role) {
  * 修改角色
  */
 export async function updateRole(data: Role) {
-  const res = await request.put<ApiResult<unknown>>('/system/role', data)
+  const res = await request.put<ApiResult<unknown>>('/Role/update', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -53,7 +53,7 @@ export async function updateRole(data: Role) {
  * 删除角色
  */
 export async function removeRole(id?: number) {
-  const res = await request.delete<ApiResult<unknown>>('/system/role/' + id)
+  const res = await request.post<ApiResult<unknown>>('/Role/delete', { id })
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -64,8 +64,8 @@ export async function removeRole(id?: number) {
  * 批量删除角色
  */
 export async function removeRoles(data: (number | undefined)[]) {
-  const res = await request.delete<ApiResult<unknown>>('/system/role/batch', {
-    data
+  const res = await request.post<ApiResult<unknown>>('/Role/delete', {
+    id: data.join()
   })
   if (res.data.code === 0) {
     return res.data.message
@@ -77,7 +77,11 @@ export async function removeRoles(data: (number | undefined)[]) {
  * 获取角色分配的菜单
  */
 export async function listRoleMenus(roleId?: number) {
-  const res = await request.get<ApiResult<Menu[]>>('/system/role-menu/' + roleId)
+  const res = await request.get<ApiResult<Menu[]>>('/Role/getRoleMenu', {
+    params: {
+      roleId
+    }
+  })
   if (res.data.code === 0) {
     return res.data.data
   }
@@ -88,7 +92,10 @@ export async function listRoleMenus(roleId?: number) {
  * 修改角色菜单
  */
 export async function updateRoleMenus(roleId?: number, data?: number[]) {
-  const res = await request.put<ApiResult<unknown>>('/system/role-menu/' + roleId, data)
+  const res = await request.post<ApiResult<unknown>>('/Role/updateRoleMenu', {
+    roleId,
+    menuIds: data
+  })
   if (res.data.code === 0) {
     return res.data.message
   }

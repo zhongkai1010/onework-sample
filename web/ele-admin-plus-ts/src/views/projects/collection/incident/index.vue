@@ -157,9 +157,10 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
-      fixed: 'left'
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'code',
@@ -172,7 +173,8 @@
       prop: 'documentImage',
       label: '单据图片',
       width: 100,
-      showOverflowTooltip: true
+      align: 'center',
+      slot: 'documentImage'
     },
     {
       prop: 'collectionCode',
@@ -185,28 +187,28 @@
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-
       showOverflowTooltip: true
     },
     {
       prop: 'incidentTime',
       label: '事故时间',
       sortable: 'custom',
-      width: 160,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'incidentLocation',
       label: '事故地点',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'incidentCause',
       label: '事故原因',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -227,7 +229,8 @@
       prop: 'status',
       label: '处理状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true,
       slot: 'status'
     },
@@ -235,13 +238,13 @@
       prop: 'processingResult',
       label: '处理结果',
       sortable: 'custom',
-      width: 150,
+      width: 120,
       showOverflowTooltip: true
     },
     {
       columnKey: 'action',
       label: '操作',
-      width: 180,
+      width: 220,
       align: 'center',
       slot: 'action',
       fixed: 'right'

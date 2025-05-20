@@ -5,7 +5,7 @@
       <ele-pro-table
         sticky
         ref="tableRef"
-        row-key="menuId"
+        row-key="id"
         :columns="columns"
         :datasource="datasource"
         :show-overflow-tooltip="true"
@@ -26,12 +26,14 @@
             折叠全部
           </el-button>
         </template>
+
         <template #title="{ row }">
           <el-icon v-if="row.icon" :size="15" style="margin-right: 8px; vertical-align: -2px">
             <component :is="row.icon" />
           </el-icon>
           <span>{{ row.title }}</span>
         </template>
+
         <template #menuType="{ row }">
           <el-tag
             v-if="isExternalLink(row.path)"
@@ -70,7 +72,7 @@
           </el-tag>
         </template>
         <template #action="{ row }">
-          <el-link type="primary" :underline="false" @click="openEdit(null, row.menuId)">
+          <el-link type="primary" :underline="false" @click="openEdit(null, row.id)">
             添加
           </el-link>
           <el-divider direction="vertical" />
@@ -189,7 +191,7 @@
     const data = await listMenus({ ...where })
     return toTree({
       data,
-      idField: 'menuId',
+      idField: 'id',
       parentIdField: 'parentId'
     })
   }
@@ -226,7 +228,7 @@
           message: '请求中..',
           plain: true
         })
-        removeMenu(row.menuId)
+        removeMenu(row.id)
           .then((msg) => {
             loading.close()
             EleMessage.success(msg)

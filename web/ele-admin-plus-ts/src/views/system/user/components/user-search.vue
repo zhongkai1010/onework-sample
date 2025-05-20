@@ -14,7 +14,7 @@
       </el-col>
       <el-col :lg="6" :md="12" :sm="12" :xs="24">
         <el-form-item label="性别">
-          <dict-data code="sex" v-model="form.sex" placeholder="请选择" />
+          <dict-data :code="DIC_KEY_SEX" v-model="form.sex" placeholder="请选择" />
         </el-form-item>
       </el-col>
       <el-col :lg="6" :md="12" :sm="12" :xs="24">
@@ -30,6 +30,7 @@
 <script lang="ts" setup>
   import { useFormData } from '@/utils/use-form-data'
   import type { UserParam } from '@/api/system/user/model'
+  import { DIC_KEY_SEX } from '@/config/setting'
 
   const emit = defineEmits<{
     (e: 'search', where?: UserParam): void

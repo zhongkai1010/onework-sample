@@ -6,7 +6,7 @@
     :data="menuData"
     check-strictly
     default-expand-all
-    node-key="menuId"
+    node-key="id"
     :props="{ label: 'title' }"
     :placeholder="placeholder"
     :model-value="modelValue || void 0"
@@ -63,7 +63,7 @@
     if (!props.modelValue) {
       return
     }
-    return findTree(menuData.value, (d) => d.menuId == props.modelValue)?.icon
+    return findTree(menuData.value, (d) => d.id == props.modelValue)?.icon
   })
 
   /** 获取菜单数据 */
@@ -72,7 +72,7 @@
       .then((list) => {
         menuData.value = toTree({
           data: list,
-          idField: 'menuId',
+          idField: 'id',
           parentIdField: 'parentId'
         })
       })

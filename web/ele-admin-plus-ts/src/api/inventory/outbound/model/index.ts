@@ -2,6 +2,7 @@
  * 出库单
  */
 export interface OutboundOrder {
+  id: number
   /** 单据图片 */
   documentImage?: string
   /** 单据状态，0：未审核、1：待出库、2：已出库、3：已归还 */
@@ -127,7 +128,7 @@ export interface OutboundQueryParams {
  */
 export interface OutboundDetailQueryParams {
   /** 出库单ID */
-  id?: string
+  id?: number
   /** 分页查询每页数量 */
   limit?: number
   /** 分页查询页码 */

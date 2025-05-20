@@ -3,7 +3,7 @@
  */
 export interface Menu {
   /** 菜单id */
-  menuId?: number
+  id?: number
   /** 上级id, 0是顶级 */
   parentId?: number
   /** 菜单名称 */

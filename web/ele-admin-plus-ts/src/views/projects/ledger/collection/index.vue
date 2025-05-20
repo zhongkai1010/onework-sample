@@ -55,17 +55,10 @@
           >
           <el-button type="success" class="ele-btn-icon" @click="onImport">导入数据</el-button>
           <el-button type="success" class="ele-btn-icon" @click="onExport">导出数据</el-button>
-          <el-button
-            type="info"
-            class="ele-btn-icon"
-            @click="onPrint"
-            :disabled="selectedRows.length !== 1"
-            >标签打印</el-button
-          >
         </template>
         <!-- 状态列 -->
         <template #collectionStatus="{ row }">
-          <el-tag :type="getStatusType(row.collectionStatus)">{{ row.collectionStatus }}</el-tag>
+          <el-tag :type="getStatusType(row.status)">{{ getStatusText(row.status) }}</el-tag>
         </template>
         <!-- 操作列按钮 -->
         <template #action="{ row }">
@@ -77,14 +70,22 @@
             <el-button type="primary" size="small" @click="onUploadImage(row)">上传图片</el-button>
           </el-space>
         </template>
+        <!-- 图片信息列 -->
+        <template #imageInfo="{ row }">
+          <img
+            v-if="row.imageInfo"
+            :src="row.imageInfo"
+            style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.imageInfo)"
+          />
+          <div v-else>暂无数据</div>
+        </template>
       </ele-pro-table>
     </ele-card>
 
     <!-- 各弹框组件引用 -->
     <!-- RFID绑定弹窗 -->
     <bind-rfid v-model="showBindRfid" :rows="selectedRows" @close="showBindRfid = false" />
-    <!-- 标签打印弹窗 -->
-    <print-document v-model="showPrint" :rows="selectedRows" @close="showPrint = false" />
     <!-- 藏品详情弹窗 -->
     <collection-details v-model="showDetails" :row="currentRow" @close="showDetails = false" />
     <!-- 出库记录弹窗 -->
@@ -108,16 +109,30 @@
       @done="reload"
     />
     <!-- 批量导入图片弹窗 -->
-    <batch-image v-model="showBatchImage" :rows="selectedRows" @close="showBatchImage = false" />
+    <batch-image
+      v-model="showBatchImage"
+      :rows="selectedRows"
+      :mode="batchImageMode"
+      @close="showBatchImage = false"
+      @done="reload"
+    />
 
     <!-- 参考按钮 -->
     <reference-button
       title="藏品台账"
       :imageUrl="pageImage"
       searchText="藏品状态 图片信息 藏品编号 藏品名称 藏品类别 仓存位置 年代 实际质地 数量 单位 具体尺寸 完残状况 保存状态 文物级别 藏品来源 入藏日期 入藏年度 备注"
-      operationText="退回编目 位置变更 编入藏品组 绑定RFID 批量导入图片 导入数据 导出数据 标签打印"
+      operationText="退回编目 位置变更 编入藏品组 绑定RFID 批量导入图片 导入数据 导出数据"
       tableFieldsText="藏品状态 图片信息 藏品编号 藏品名称 藏品类别 仓存位置 年代 实际质地 数量 单位 具体尺寸 完残状况 保存状态 文物级别 藏品来源 入藏日期 入藏年度 备注 操作"
       tableOperationsText="查看详情 修复记录 出库记录 调拨记录 上传图片"
+    />
+
+    <!-- 图片预览组件 -->
+    <ele-image-viewer
+      v-model="showImageViewer"
+      :urlList="viewerImages"
+      :initialIndex="viewerIndex"
+      :infinite="false"
     />
   </ele-page>
 </template>
@@ -125,7 +140,6 @@
 <script lang="ts" setup>
   import { ref, reactive } from 'vue'
   import BindRfid from './components/bind-rfid.vue'
-  import PrintDocument from './components/print-document.vue'
   import CollectionDetails from './components/collection-details.vue'
   import OutboundTable from './components/outbound-table.vue'
   import RepairTable from './components/repair-table.vue'
@@ -148,6 +162,7 @@
   import request from '@/utils/request'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
+  import { EleImageViewer } from 'ele-admin-plus'
 
   // 组件引用
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -162,11 +177,16 @@
   const showUpdateGroup = ref(false) // 编入藏品组弹窗显示状态
   const showBindRfid = ref(false) // RFID绑定弹窗显示状态
   const showBatchImage = ref(false) // 批量导入图片弹窗显示状态
-  const showPrint = ref(false) // 标签打印弹窗显示状态
+  const batchImageMode = ref<'batch' | 'single'>('batch') // 图片导入模式
   const showDetails = ref(false) // 藏品详情弹窗显示状态
   const showRepair = ref(false) // 修复记录弹窗显示状态
   const showOutbound = ref(false) // 出库记录弹窗显示状态
   const showTransfer = ref(false) // 调拨记录弹窗显示状态
+
+  // 图片预览相关状态
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
 
   // 表格列配置
   const columns = ref<Columns>([
@@ -180,78 +200,104 @@
     {
       type: 'index',
       columnKey: 'index',
-      width: 50,
+      width: 80,
       align: 'center',
       fixed: 'left',
       label: '编号'
     },
     {
-      prop: 'collectionStatus',
-      label: '藏品状态',
-      sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
       prop: 'imageInfo',
       label: '图片信息',
-      width: 100,
-      align: 'center'
+      width: 220,
+      align: 'center',
+      slot: 'imageInfo'
+    },
+    {
+      prop: 'status',
+      label: '藏品状态',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'collectionStatus'
     },
     {
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'categoryName',
       label: '藏品类别',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'warehouseName',
       label: '仓存位置',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'era',
       label: '年代',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'material',
       label: '实际质地',
       sortable: 'custom',
-      width: 100,
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionSource',
+      label: '藏品来源',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'notes',
+      label: '备注',
+      sortable: 'custom',
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'quantity',
       label: '数量',
       sortable: 'custom',
-      width: 80,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'unit',
       label: '单位',
       sortable: 'custom',
-      width: 80,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -259,55 +305,48 @@
       label: '具体尺寸',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'condition',
       label: '完残状况',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'preservationStatus',
       label: '保存状态',
       sortable: 'custom',
-      width: 100,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'culturalLevel',
       label: '文物级别',
       sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionSource',
-      label: '藏品来源',
-      sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
+
     {
       prop: 'collectionDate',
       label: '入藏日期',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionYear',
       label: '入藏年度',
       sortable: 'custom',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'notes',
-      label: '备注',
-      sortable: 'custom',
-      width: 150,
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -388,28 +427,42 @@
    * 表格行点击事件
    */
   const onRowClick = (row: CollectionLedger) => {
-    const index = selectedRows.value.findIndex((item) => item.id === row.id)
-    if (index === -1) {
-      selectedRows.value = [row]
-    } else {
-      selectedRows.value = []
-    }
+    selectedRows.value = [row]
     currentRow.value = row
   }
 
   /**
    * 获取状态类型
    */
-  const getStatusType = (status: string): 'success' | 'warning' | 'danger' | 'info' | 'primary' => {
-    const statusMap: Record<string, 'success' | 'warning' | 'danger' | 'info' | 'primary'> = {
-      在库: 'success',
-      出库: 'warning',
-      修复中: 'danger',
-      调拨中: 'info',
-      已注销: 'primary',
-      其他: 'primary'
+  const getStatusType = (status: number): 'success' | 'warning' | 'danger' | 'info' | 'primary' => {
+    const statusMap: Record<number, 'success' | 'warning' | 'danger' | 'info' | 'primary'> = {
+      0: 'danger', // 未审核
+      1: 'success', // 在藏
+      2: 'warning', // 待出库
+      3: 'danger', // 已出库
+      4: 'warning', // 待拨库
+      5: 'danger', // 修复中
+      6: 'warning', // 待注销
+      7: 'primary' // 已注销
     }
     return statusMap[status] || 'primary'
+  }
+
+  /**
+   * 获取状态文本
+   */
+  const getStatusText = (status: number): string => {
+    const statusMap: Record<number, string> = {
+      0: '未审核',
+      1: '在藏',
+      2: '待出库',
+      3: '已出库',
+      4: '待拨库',
+      5: '修复中',
+      6: '待注销',
+      7: '已注销'
+    }
+    return statusMap[status] || '其他'
   }
 
   /**
@@ -472,6 +525,8 @@
       ElMessage.warning('请选择要导入图片的藏品')
       return
     }
+    console.log('选中的藏品:', selectedRows.value)
+    batchImageMode.value = 'batch'
     showBatchImage.value = true
   }
 
@@ -488,17 +543,6 @@
    */
   const onExport = () => {
     tableRef.value?.openExportModal?.()
-  }
-
-  /**
-   * 标签打印
-   */
-  const onPrint = () => {
-    if (selectedRows.value.length !== 1) {
-      ElMessage.warning('请选择一条记录进行打印')
-      return
-    }
-    showPrint.value = true
   }
 
   /**
@@ -538,7 +582,19 @@
    */
   const onUploadImage = (row: CollectionLedger) => {
     currentRow.value = row
+    selectedRows.value = [row]
+    batchImageMode.value = 'single'
     showBatchImage.value = true
+  }
+
+  /**
+   * 处理图片预览
+   * @param url 图片 URL
+   */
+  const openPreview = (url: string) => {
+    viewerImages.value = [url]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 
   /**

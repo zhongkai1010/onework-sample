@@ -14,7 +14,7 @@ import type {
  * @param params 查询参数
  */
 export async function getLedgerList(params: LedgerQueryParams) {
-  const res = await request.get<ApiResult<PageResult<CollectionLedger>>>('/api/collection/ledger', {
+  const res = await request.get<ApiResult<PageResult<CollectionLedger>>>('/CollectionLedger/list', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -27,7 +27,7 @@ export async function getLedgerList(params: LedgerQueryParams) {
  * 查询藏品修复记录分页列表
  * @param params 查询参数
  */
-export async function getRepairList(params: {
+export async function getCollectionRepairList(params: {
   collectionId: number
   page: number
   limit: number
@@ -35,7 +35,7 @@ export async function getRepairList(params: {
   order?: string
 }) {
   const res = await request.get<ApiResult<PageResult<RepairRecord>>>(
-    '/api/collection/ledger/repair',
+    '/CollectionLedger/ledgerRepair',
     { params }
   )
   if (res.data.code === 0 && res.data.data) {
@@ -48,7 +48,7 @@ export async function getRepairList(params: {
  * 查询藏品出库记录分页列表
  * @param params 查询参数
  */
-export async function getOutboundList(params: {
+export async function getCollectionOutboundList(params: {
   collectionId: number
   page: number
   limit: number
@@ -56,7 +56,7 @@ export async function getOutboundList(params: {
   order?: string
 }) {
   const res = await request.get<ApiResult<PageResult<OutboundRecord>>>(
-    '/api/collection/ledger/outbound',
+    '/CollectionLedger/ledgerOutbound',
     { params }
   )
   if (res.data.code === 0 && res.data.data) {
@@ -69,7 +69,7 @@ export async function getOutboundList(params: {
  * 查询藏品调拨记录分页列表
  * @param params 查询参数
  */
-export async function getTransferList(params: {
+export async function getCollectionTransferList(params: {
   collectionId: number
   page: number
   limit: number
@@ -77,7 +77,7 @@ export async function getTransferList(params: {
   order?: string
 }) {
   const res = await request.get<ApiResult<PageResult<TransferRecord>>>(
-    '/api/collection/ledger/transfer',
+    '/CollectionLedger/ledgerTransfer',
     { params }
   )
   if (res.data.code === 0 && res.data.data) {
@@ -98,7 +98,7 @@ export async function getBooksLedgerList(params: {
   order?: string
 }) {
   const res = await request.get<ApiResult<PageResult<BooksLedger>>>(
-    '/api/collection/books/ledger',
+    '/CollectionLedger/booksLedger',
     { params }
   )
   if (res.data.code === 0 && res.data.data) {
@@ -118,7 +118,7 @@ export async function changeWarehouse(data: { collectionIds: number[]; warehouse
   if (!data.warehouseId) {
     return Promise.reject(new Error('仓库ID不能为空'))
   }
-  const res = await request.put<ApiResult<unknown>>('/api/collection/changeWarehouse', data)
+  const res = await request.put<ApiResult<unknown>>('/CollectionLedger/changeWarehouse', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -136,7 +136,7 @@ export async function changeClassification(data: { collectionIds: number[]; grou
   if (!data.groupId) {
     return Promise.reject(new Error('分组ID不能为空'))
   }
-  const res = await request.put<ApiResult<unknown>>('/api/collection/changeClassification', data)
+  const res = await request.put<ApiResult<unknown>>('/CollectionLedger/changeClassification', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -148,12 +148,9 @@ export async function changeClassification(data: { collectionIds: number[]; grou
  * @param file 文件对象
  */
 export async function importLedgers(file: File) {
-  if (!file) {
-    return Promise.reject(new Error('文件不能为空'))
-  }
   const formData = new FormData()
   formData.append('file', file)
-  const res = await request.post<ApiResult<unknown>>('/api/collection/ledger/import', formData, {
+  const res = await request.post<ApiResult<unknown>>('/CollectionLedger/import', formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -169,10 +166,7 @@ export async function importLedgers(file: File) {
  * @param data 退回数据
  */
 export async function returnBooks(data: { collectionIds: number[] }) {
-  if (!data.collectionIds || data.collectionIds.length === 0) {
-    return Promise.reject(new Error('藏品ID集合不能为空'))
-  }
-  const res = await request.post<ApiResult<unknown>>('/api/collection/books/return', data)
+  const res = await request.post<ApiResult<unknown>>('/CollectionLedger/books/return', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -184,10 +178,15 @@ export async function returnBooks(data: { collectionIds: number[] }) {
  * @param data 退回数据
  */
 export async function returnLedgers(data: { collectionIds: number[] }) {
-  if (!data.collectionIds || data.collectionIds.length === 0) {
-    return Promise.reject(new Error('藏品ID集合不能为空'))
+  const res = await request.post<ApiResult<unknown>>('/CollectionLedger/return', data)
+  if (res.data.code === 0) {
+    return res.data.message
   }
-  const res = await request.post<ApiResult<unknown>>('/api/collection/ledger/return', data)
+  return Promise.reject(new Error(res.data.message))
+}
+
+export async function imgsbatch(data: { id: number[]; documentImage: string }) {
+  const res = await request.post<ApiResult<unknown>>('/CollectionLedger/imgsbatch', data)
   if (res.data.code === 0) {
     return res.data.message
   }

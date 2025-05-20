@@ -2,30 +2,19 @@
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
     <ele-card flex-table>
       <!---搜索条件--->
-      <el-form label-width="72px" @keyup.enter="search" @submit.prevent="">
-        <el-row :gutter="8">
-          <el-col :lg="6" :md="12" :sm="12" :xs="24">
-            <el-form-item label="分类名称">
-              <el-input clearable v-model.trim="form.name" placeholder="请输入分类名称" />
-            </el-form-item>
-          </el-col>
-          <el-col :lg="6" :md="12" :sm="12" :xs="24">
-            <el-form-item label="分类码">
-              <el-input clearable v-model.trim="form.code" placeholder="请输入分类码" />
-            </el-form-item>
-          </el-col>
-          <el-col :lg="6" :md="12" :sm="12" :xs="24">
-            <el-form-item label="上级分类">
-              <category-select v-model="form.parentId" />
-            </el-form-item>
-          </el-col>
-          <el-col :lg="6" :md="12" :sm="12" :xs="24">
-            <el-form-item label-width="16px">
-              <el-button type="primary" @click="search">查询</el-button>
-              <el-button @click="reset">重置</el-button>
-            </el-form-item>
-          </el-col>
-        </el-row>
+      <el-form label-width="72px" @keyup.enter="search" @submit.prevent="" :inline="true">
+        <el-form-item label="分类名称">
+          <el-input clearable v-model.trim="form.name" placeholder="请输入分类名称" />
+        </el-form-item>
+
+        <el-form-item label="分类码">
+          <el-input clearable v-model.trim="form.code" placeholder="请输入分类码" />
+        </el-form-item>
+
+        <el-form-item label-width="16px">
+          <el-button type="primary" @click="search">查询</el-button>
+          <el-button @click="reset">重置</el-button>
+        </el-form-item>
       </el-form>
       <!---表格--->
       <ele-pro-table
@@ -60,7 +49,7 @@
           >
             删除分类
           </el-button>
-          <el-button type="warning" class="ele-btn-icon" :icon="DeleteOutlined"> 导入 </el-button>
+          <!-- <el-button type="warning" class="ele-btn-icon" :icon="DeleteOutlined"> 导入 </el-button> -->
         </template>
         <template #action="{ row }">
           <el-space :size="4">
@@ -109,7 +98,6 @@
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
   import FormEdit from './components/form-edit.vue'
-  import CategorySelect from '@/components/CustomForm/CategorySelect.vue'
 
   defineOptions({ name: 'Classification' })
 
@@ -135,11 +123,11 @@
       fixed: 'left'
     },
     {
-      type: 'index',
-      columnKey: 'index',
-      width: 50,
+      width: 100,
       align: 'center',
-      fixed: 'left'
+      prop: 'id',
+      fixed: 'left',
+      label: '编号'
     },
     {
       prop: 'name',
