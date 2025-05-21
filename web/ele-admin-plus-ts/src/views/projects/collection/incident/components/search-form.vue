@@ -1,19 +1,7 @@
 <template>
   <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true">
     <el-form-item label="藏品选择" prop="collectionId">
-      <el-select
-        v-model="form.collectionId"
-        placeholder="请选择藏品"
-        clearable
-        style="width: 200px"
-      >
-        <el-option
-          v-for="item in collectionOptions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
+      <collection-select v-model="form.collectionId" />
     </el-form-item>
     <el-form-item label="事故地点" prop="accidentLocation">
       <el-input v-model="form.accidentLocation" placeholder="请输入事故地点" clearable />
@@ -25,17 +13,7 @@
       <el-input v-model="form.responsiblePerson" placeholder="请输入事故责任人" clearable />
     </el-form-item>
     <el-form-item label="藏品损坏情况" prop="collectionDamageStatus">
-      <el-select
-        v-model="form.collectionDamageStatus"
-        placeholder="请选择损坏情况"
-        clearable
-        style="width: 200px"
-      >
-        <el-option label="轻微损坏" value="轻微损坏" />
-        <el-option label="中度损坏" value="中度损坏" />
-        <el-option label="严重损坏" value="严重损坏" />
-        <el-option label="完全损坏" value="完全损坏" />
-      </el-select>
+      <el-input v-model="form.collectionDamageStatus" placeholder="请输入藏品损坏情况" clearable />
     </el-form-item>
     <el-form-item label="处理状态" prop="status">
       <el-select v-model="form.status" placeholder="请选择处理状态" clearable style="width: 200px">
@@ -54,22 +32,15 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
   import type { AccidentQueryParams } from '@/api/collection/accident/model'
   import { useFormData } from '@/utils/use-form-data'
+  import CollectionSelect from '@/components/CustomForm/CollectionSelect.vue'
 
   const emit = defineEmits<{
     (e: 'search', params: AccidentQueryParams): void
   }>()
 
   const [form, resetFields] = useFormData<AccidentQueryParams>({})
-
-  // 藏品选项（示例数据，实际应该从API获取）
-  const collectionOptions = ref([
-    { label: '藏品1', value: 1 },
-    { label: '藏品2', value: 2 },
-    { label: '藏品3', value: 3 }
-  ])
 
   /** 搜索 */
   const search = () => {
@@ -83,7 +54,4 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .el-form {
-  }
-</style>
+<style lang="scss" scoped></style>

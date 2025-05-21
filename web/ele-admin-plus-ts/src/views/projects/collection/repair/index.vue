@@ -42,19 +42,64 @@
             :disabled="selections.length !== 1"
             >单据打印</el-button
           >
+          <el-button
+            type="danger"
+            class="ele-btn-icon"
+            :icon="DeleteOutlined"
+            @click="handleDelete"
+            :disabled="selections.length === 0"
+            >删除</el-button
+          >
+        </template>
+
+        <!-- 单据图片列 -->
+        <template #documentImage="{ row }">
+          <img
+            v-if="row.documentImage"
+            :src="row.documentImage"
+            style="width: 60px; height: 60px; cursor: pointer"
+            @click="openPreview(row.documentImage)"
+          />
+          <span v-else>暂无数据</span>
+        </template>
+
+        <!-- 修复前图片列 -->
+        <template #beforeRepairImage="{ row }">
+          <img
+            v-if="row.beforeRepairImage"
+            :src="row.beforeRepairImage"
+            style="width: 60px; height: 60px; cursor: pointer"
+            @click="openPreview(row.beforeRepairImage)"
+          />
+          <span v-else>暂无数据</span>
+        </template>
+
+        <!-- 修复后图片列 -->
+        <template #afterRepairImage="{ row }">
+          <img
+            v-if="row.afterRepairImage"
+            :src="row.afterRepairImage"
+            style="width: 60px; height: 60px; cursor: pointer"
+            @click="openPreview(row.afterRepairImage)"
+          />
+          <span v-else>暂无数据</span>
         </template>
 
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="8" alignment="center" style="width: 100%">
-            <el-button type="success" size="small" @click="handleUploadImage(row)"
+            <el-button
+              type="success"
+              size="small"
+              :icon="UploadOutlined"
+              @click="handleUploadImage(row)"
               >上传图片</el-button
             >
             <el-button type="primary" size="small" @click="handleViewDetails(row)"
               >查看详情</el-button
             >
             <el-button
-              v-if="row.status === 1"
+              v-if="row.status === 0"
               type="warning"
               size="small"
               @click="handleRepairInbound(row)"
@@ -65,17 +110,14 @@
 
         <!-- 工单状态列 -->
         <template #status="{ row }">
-          <el-tag
-            :type="row.status === 0 ? 'warning' : row.status === 1 ? 'success' : 'info'"
-            effect="light"
-          >
-            {{ row.status === 0 ? '待修复' : row.status === 1 ? '修复中' : '已完成' }}
+          <el-tag :type="row.status === 0 ? 'warning' : 'success'" effect="light">
+            {{ row.status === 0 ? '修复中' : '已修复' }}
           </el-tag>
         </template>
       </ele-pro-table>
 
       <!-- 修复登记弹窗 -->
-      <form-edit v-model="showEdit" :data="current" @done="reload" />
+      <form-edit v-model="showEdit" :data="current" @done="handleEditDone" />
 
       <!-- 修复详情弹窗 -->
       <repair-details v-model="showDetails" :id="current?.id" />
@@ -85,6 +127,12 @@
 
       <!-- 修复入藏弹窗 -->
       <update-status v-if="current" v-model="showRepairInbound" :data="current" @done="reload" />
+
+      <!-- 上传图片弹窗 -->
+      <upload-image v-model="showUploadImage" :id="current?.id" @success="reload" />
+
+      <!-- 图片预览组件 -->
+      <ele-image-viewer v-model="showImageViewer" :images="viewerImages" :index="viewerIndex" />
     </ele-card>
     <!-- 参考按钮 -->
     <reference-button
@@ -101,16 +149,18 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import { EleMessage } from 'ele-admin-plus/es'
+  import { ElMessageBox } from 'element-plus'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import {
     PlusOutlined,
     UploadOutlined,
     DownloadOutlined,
-    PrinterOutlined
+    PrinterOutlined,
+    DeleteOutlined
   } from '@/components/icons'
   import type { Repair, RepairQueryParams } from '@/api/collection/repair/model'
-  import { getRepairList } from '@/api/collection/repair'
+  import { getRepairList, deleteRepair } from '@/api/collection/repair'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
   import SearchForm from './components/search-form.vue'
@@ -118,6 +168,7 @@
   import RepairDetails from './components/repair-details.vue'
   import PrintDocument from './components/print-document.vue'
   import UpdateStatus from './components/update-status.vue'
+  import UploadImage from './components/upload-image.vue'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -129,7 +180,11 @@
   const showDetails = ref(false) // 是否显示详情弹窗
   const showPrint = ref(false) // 是否显示打印弹窗
   const showRepairInbound = ref(false) // 是否显示修复入藏弹窗
+  const showUploadImage = ref(false) // 是否显示上传图片弹窗
   const selections = ref<Repair[]>([]) // 表格选中的行
+  const showImageViewer = ref(false) // 是否显示图片预览
+  const viewerImages = ref<string[]>([]) // 预览图片列表
+  const viewerIndex = ref(0) // 预览图片索引
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -159,7 +214,7 @@
       prop: 'repairCode',
       label: '修复单号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
@@ -174,27 +229,28 @@
       prop: 'collectionCode',
       label: '藏品编码',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
+      width: 220,
       showOverflowTooltip: true
     },
     {
       prop: 'collectionCategory',
       label: '藏品分类',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
       prop: 'sendRepairDepartment',
       label: '送修部门',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
@@ -208,14 +264,13 @@
       prop: 'repairReason',
       label: '修复原因',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
       prop: 'remarks',
       label: '备注',
       sortable: 'custom',
-      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -235,11 +290,12 @@
       showOverflowTooltip: true,
       slot: 'status'
     },
+
     {
       prop: 'undertakingOrganization',
       label: '承担机构',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
@@ -253,7 +309,7 @@
       prop: 'qualificationCertificate',
       label: '资质证书',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
@@ -264,13 +320,15 @@
       align: 'center',
       showOverflowTooltip: true
     },
+
     {
       prop: 'repairStatusAndResults',
       label: '修复情况及结果',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
+
     {
       prop: 'beforeRepairImage',
       label: '修复前图片',
@@ -288,7 +346,7 @@
     {
       columnKey: 'action',
       label: '操作',
-      width: 220,
+      width: 280,
       align: 'center',
       slot: 'action',
       fixed: 'right'
@@ -314,6 +372,14 @@
   }
 
   /**
+   * 处理编辑完成
+   */
+  const handleEditDone = () => {
+    reload()
+    selections.value = []
+  }
+
+  /**
    * 处理添加修复记录
    */
   const handleAdd = () => {
@@ -325,8 +391,12 @@
    * 处理上传图片
    */
   const handleUpload = () => {
-    // TODO: 实现上传图片功能
-    EleMessage.info('上传图片功能开发中...')
+    if (selections.value.length !== 1) {
+      EleMessage.warning('请选择一条记录')
+      return
+    }
+    current.value = selections.value[0]
+    showUploadImage.value = true
   }
 
   /**
@@ -340,17 +410,21 @@
   /**
    * 处理行上传图片
    */
-  const handleUploadImage = (_row: Repair) => {
-    // TODO: 实现行上传图片功能
-    EleMessage.info('上传图片功能开发中...')
+  const handleUploadImage = (row: Repair) => {
+    current.value = row
+    showUploadImage.value = true
   }
 
   /**
    * 处理查看详情
    */
-  const handleViewDetails = (row: Repair) => {
-    current.value = row
-    showDetails.value = true
+  const handleViewDetails = async (row: Repair) => {
+    try {
+      current.value = row
+      showDetails.value = true
+    } catch (e: any) {
+      EleMessage.error(e.message)
+    }
   }
 
   /**
@@ -382,6 +456,45 @@
     } else {
       selections.value = []
     }
+  }
+
+  /**
+   * 打开图片预览
+   */
+  const openPreview = (image: string) => {
+    if (!image) return
+    viewerImages.value = [image]
+    viewerIndex.value = 0
+    showImageViewer.value = true
+  }
+
+  /**
+   * 处理删除
+   */
+  const handleDelete = () => {
+    if (selections.value.length === 0) {
+      EleMessage.warning('请选择要删除的记录')
+      return
+    }
+    // 确认删除
+    ElMessageBox.confirm('确定要删除选中的记录吗？', '提示', {
+      type: 'warning'
+    })
+      .then(() => {
+        const ids = selections.value.map((item) => item.id)
+        deleteRepair(ids)
+          .then((msg) => {
+            EleMessage.success(msg)
+            reload()
+            selections.value = []
+          })
+          .catch((e) => {
+            EleMessage.error(e.message)
+          })
+      })
+      .catch(() => {
+        // 取消删除
+      })
   }
 
   /* ==================== 暴露方法 ==================== */

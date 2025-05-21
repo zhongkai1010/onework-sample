@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/api/collection/repair": {
+    "/api/CollectionRepair/add": {
       "post": {
         "summary": "修复登记",
         "deprecated": false,
@@ -18,10 +18,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
             }
           }
         ],
@@ -105,7 +105,9 @@
           }
         },
         "security": []
-      },
+      }
+    },
+    "/api/CollectionRepair/page": {
       "get": {
         "summary": "查询藏品修复记录分页列表",
         "deprecated": false,
@@ -196,10 +198,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
             }
           }
         ],
@@ -345,7 +347,7 @@
         "security": []
       }
     },
-    "/api/collection/repair/details": {
+    "/api/CollectionRepair/details": {
       "get": {
         "summary": "查询藏品修复记录详情",
         "deprecated": false,
@@ -366,10 +368,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
             }
           }
         ],
@@ -587,7 +589,7 @@
         "security": []
       }
     },
-    "/api/collection/repair/inbound": {
+    "/api/CollectionRepair/update": {
       "post": {
         "summary": "修复入藏",
         "deprecated": false,
@@ -598,10 +600,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
             }
           }
         ],
@@ -612,100 +614,7 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "integer",
-                        "description": "ID 编号"
-                      },
-                      "documentImage": {
-                        "type": "string",
-                        "description": "单据图片"
-                      },
-                      "repairCode": {
-                        "type": "string",
-                        "description": "修复单号"
-                      },
-                      "registrationDate": {
-                        "type": "string",
-                        "format": "date-time",
-                        "description": "登记日期"
-                      },
-                      "collectionCode": {
-                        "type": "string",
-                        "description": "藏品编码"
-                      },
-                      "collectionId": {
-                        "type": "integer",
-                        "description": "藏品ID"
-                      },
-                      "collectionName": {
-                        "type": "string",
-                        "description": "藏品名称"
-                      },
-                      "collectionCategory": {
-                        "type": "string",
-                        "description": "藏品分类"
-                      },
-                      "sendRepairDepartment": {
-                        "type": "string",
-                        "description": "送修部门"
-                      },
-                      "sentBy": {
-                        "type": "string",
-                        "description": "送修人"
-                      },
-                      "repairReason": {
-                        "type": "string",
-                        "description": "修复原因"
-                      },
-                      "remarks": {
-                        "type": "string",
-                        "description": "备注"
-                      },
-                      "sendRepairDate": {
-                        "type": "string",
-                        "format": "date-time",
-                        "description": "送修日期"
-                      },
-                      "status": {
-                        "type": "integer",
-                        "description": "工单状态，0：修改中、1：已修复"
-                      },
-                      "undertakingOrganization": {
-                        "type": "string",
-                        "description": "承担机构"
-                      },
-                      "repairPerson": {
-                        "type": "string",
-                        "description": "修复人"
-                      },
-                      "qualificationCertificate": {
-                        "type": "string",
-                        "description": "资质证书"
-                      },
-                      "repairCompletionDate": {
-                        "type": "string",
-                        "format": "date-time",
-                        "description": "修完日期"
-                      },
-                      "repairStatusAndResults": {
-                        "type": "string",
-                        "description": "修复情况及结果"
-                      },
-                      "beforeRepairImage": {
-                        "type": "string",
-                        "description": "修复前图片"
-                      },
-                      "afterRepairImage": {
-                        "type": "string",
-                        "description": "修复后图片"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "collectionId"
-                    ]
+                    "type": "number"
                   },
                   "repairPerson": {
                     "type": "string",
@@ -731,6 +640,157 @@
                 },
                 "required": [
                   "id"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/CollectionRepair/imgs": {
+      "post": {
+        "summary": "上传图片",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "documentImage": {
+                    "type": "string",
+                    "description": "修复人"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/CollectionRepair/delete": {
+      "post": {
+        "summary": "删除藏品修复",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "ids"
                 ]
               },
               "examples": {}

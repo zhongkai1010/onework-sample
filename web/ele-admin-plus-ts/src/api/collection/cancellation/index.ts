@@ -60,7 +60,10 @@ export async function recoverCancellation(data: RecoverCancellationParams) {
   if (!data.ids || data.ids.length === 0) {
     return Promise.reject(new Error('注销单ID集合不能为空'))
   }
-  const res = await request.post<ApiResult<unknown>>('/Collection/restoreCollection', data)
+  const res = await request.post<ApiResult<unknown>>(
+    '/CollectionCancellation/restoreCollection',
+    data
+  )
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -97,6 +100,22 @@ export async function getCancellationCatalog(params?: CancellationCatalogQueryPa
   )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+/**
+ * 上传图片
+ * @param id 注销单ID
+ * @param documentImage 单据图片
+ */
+export async function uploadCancellationImage(id: number, documentImage: string) {
+  const res = await request.post<ApiResult<unknown>>('/CollectionCancellation/imgs', {
+    id,
+    documentImage
+  })
+  if (res.data.code === 0) {
+    return res.data.message
   }
   return Promise.reject(new Error(res.data.message))
 }

@@ -51,6 +51,17 @@
           <div v-else>暂无数据</div>
         </template>
 
+        <!-- 图片信息列 -->
+        <template #imageInfo="{ row }">
+          <img
+            v-if="row.imageInfo"
+            :src="row.imageInfo"
+            style="width: 60px; height: 60px; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.imageInfo)"
+          />
+          <div v-else> 暂无数据 </div>
+        </template>
+
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
@@ -172,6 +183,13 @@
       width: 120,
       align: 'center',
       showOverflowTooltip: true
+    },
+    {
+      prop: 'imageInfo',
+      label: '图片信息',
+      width: 80,
+      align: 'center',
+      slot: 'imageInfo'
     },
     {
       columnKey: 'action',

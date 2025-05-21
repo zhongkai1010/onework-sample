@@ -93,7 +93,7 @@
 
   const props = defineProps<{
     /** 机构 id */
-    organizationId: number
+    organizationId: number | string | null
   }>()
 
   const { push } = useRouter()
@@ -223,7 +223,7 @@
       return
     }
     ElMessageBox.confirm(
-      '确定要删除“' + rows.map((d) => d.nickname).join(', ') + '”吗?',
+      '确定要删除"' + rows.map((d) => d.nickname).join(', ') + '"吗?',
       '系统提示',
       { type: 'warning', draggable: true }
     )

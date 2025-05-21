@@ -35,7 +35,7 @@
             type="danger"
             class="ele-btn-icon"
             :icon="DeleteOutlined"
-            @click="() => handleRemove()"
+            @click="handleBatchRemove"
             :disabled="!selections.length"
             >删除</el-button
           >
@@ -46,9 +46,7 @@
           <el-space :size="4">
             <el-button type="primary" @click="handleEdit(row)" size="small"> 编辑</el-button>
             <el-button type="info" @click="handleDetails(row)" size="small">查看详情</el-button>
-            <el-button type="danger" @click="() => handleRemove([row])" size="small"
-              >删除</el-button
-            >
+            <el-button type="danger" @click="handleSingleRemove(row)" size="small">删除</el-button>
           </el-space>
         </template>
 
@@ -57,10 +55,10 @@
           <img
             v-if="row.coverImage"
             :src="row.coverImage"
-            style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+            style="width: 60px; height: 60px; object-fit: cover; cursor: pointer"
             @click="openPreview(row.coverImage)"
           />
-          <div v-else>暂无数据</div>
+          <div v-else style="color: #909399; font-size: 14px">暂无图片</div>
         </template>
       </ele-pro-table>
 
@@ -131,37 +129,31 @@
       label: '编号'
     },
     {
-      prop: 'coverImage',
-      label: '出版物封面',
-      width: 100,
-      align: 'center',
-      slot: 'coverImage'
-    },
-    {
       prop: 'bookTitle',
       label: '出版物题名',
       sortable: 'custom',
       showOverflowTooltip: true
     },
     {
-      prop: 'artistName',
-      label: '艺术家名称',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
       prop: 'isbn',
       label: 'ISBN',
       sortable: 'custom',
-      width: 120,
+      showOverflowTooltip: true,
+      width: 180
+    },
+    {
+      prop: 'artistName',
+      label: '艺术家名称',
+      sortable: 'custom',
+      width: 220,
       showOverflowTooltip: true
     },
+
     {
       prop: 'publisher',
       label: '出版社',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
@@ -184,6 +176,20 @@
       sortable: 'custom',
       width: 120,
       showOverflowTooltip: true
+    },
+    {
+      prop: 'coverImage',
+      label: '出版物封面',
+      width: 100,
+      align: 'center',
+      slot: 'coverImage'
+    },
+    {
+      prop: 'price',
+      label: '定价',
+      width: 100,
+      align: 'center',
+      slot: 'price'
     },
     {
       columnKey: 'action',
@@ -262,12 +268,11 @@
   }
 
   /**
-   * 处理删除出版著作
-   * @param rows 要删除的出版著作数据，不传则删除选中的出版著作
+   * 处理批量删除出版著作
    */
-  const handleRemove = (rows?: Publication[]) => {
-    const data = rows || selections.value
-    if (!data.length) {
+  const handleBatchRemove = () => {
+    if (!selections.value.length) {
+      EleMessage.error('请选择要删除的著作')
       return
     }
     ElMessageBox.confirm('确定要删除选中的出版著作吗？', '系统提示', {
@@ -279,7 +284,35 @@
           message: '请求中..',
           plain: true
         })
-        deletePublication(data.map((d) => d.id))
+        deletePublication(selections.value.map((d) => d.id))
+          .then((msg) => {
+            loading.close()
+            EleMessage.success(msg)
+            reload()
+          })
+          .catch((e) => {
+            loading.close()
+            EleMessage.error(e.message)
+          })
+      })
+      .catch(() => {})
+  }
+
+  /**
+   * 处理单个删除出版著作
+   * @param row 要删除的出版著作数据
+   */
+  const handleSingleRemove = (row: Publication) => {
+    ElMessageBox.confirm('确定要删除该出版著作吗？', '系统提示', {
+      type: 'warning',
+      draggable: true
+    })
+      .then(() => {
+        const loading = EleMessage.loading({
+          message: '请求中..',
+          plain: true
+        })
+        deletePublication([row.id])
           .then((msg) => {
             loading.close()
             EleMessage.success(msg)
@@ -321,4 +354,32 @@
   })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .cover-image-cell {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+
+    .cover-image {
+      width: 80px;
+      height: 112px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    .no-image {
+      color: #909399;
+      font-size: 14px;
+    }
+  }
+</style>

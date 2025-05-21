@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true">
+  <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true" label-position="left">
     <el-form-item label="姓名" prop="name">
       <el-input v-model="form.name" placeholder="请输入艺术家姓名" clearable />
     </el-form-item>

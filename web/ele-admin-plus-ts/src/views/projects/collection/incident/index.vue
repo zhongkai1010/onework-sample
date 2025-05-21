@@ -77,6 +77,17 @@
           </el-space>
         </template>
 
+        <!-- 单据图片列 -->
+        <template #documentImage="{ row }">
+          <img
+            v-if="row.documentImage"
+            :src="row.documentImage"
+            style="width: 60px; height: 60px; cursor: pointer"
+            @click="openPreview(row.documentImage)"
+          />
+          <span v-else>暂无数据</span>
+        </template>
+
         <!-- 处理状态列 -->
         <template #status="{ row }">
           <el-tag :type="row.status === 0 ? 'warning' : 'success'" effect="light">
@@ -96,6 +107,17 @@
 
       <!-- 单据打印弹窗 -->
       <print-document v-model="showPrint" :id="current?.id" />
+
+      <!-- 图片预览组件 -->
+      <ele-image-viewer
+        v-model="showImageViewer"
+        :urlList="viewerImages"
+        :initialIndex="viewerIndex"
+        :infinite="false"
+      />
+
+      <!-- 上传图片弹窗 -->
+      <upload-image v-model="showUpload" :id="current?.id" @success="reload" />
     </ele-card>
     <!-- 参考按钮 -->
     <reference-button
@@ -132,6 +154,7 @@
   import AccidentDetails from './components/accident-details.vue'
   import HandleIncident from './components/handle-incident.vue'
   import PrintDocument from './components/print-document.vue'
+  import UploadImage from './components/upload-image.vue'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -143,7 +166,11 @@
   const showDetails = ref(false) // 是否显示详情弹窗
   const showHandle = ref(false) // 是否显示处理弹窗
   const showPrint = ref(false) // 是否显示打印弹窗
+  const showUpload = ref(false) // 是否显示上传图片弹窗
   const selections = ref<Accident[]>([]) // 表格选中的行
+  const showImageViewer = ref(false) // 是否显示图片预览
+  const viewerImages = ref<string[]>([]) // 预览图片列表
+  const viewerIndex = ref(0) // 预览图片索引
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -161,13 +188,6 @@
       align: 'center',
       fixed: 'left',
       label: '编号'
-    },
-    {
-      prop: 'code',
-      label: '编号',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
     },
     {
       prop: 'documentImage',
@@ -281,8 +301,12 @@
    * 处理上传图片
    */
   const handleUpload = () => {
-    // TODO: 实现上传图片功能
-    EleMessage.info('上传图片功能开发中...')
+    if (selections.value.length !== 1) {
+      EleMessage.warning('请选择一条记录')
+      return
+    }
+    current.value = selections.value[0]
+    showUpload.value = true
   }
 
   /**
@@ -320,9 +344,9 @@
   /**
    * 处理行上传图片
    */
-  const handleUploadImage = (_row: Accident) => {
-    // TODO: 实现行上传图片功能
-    EleMessage.info('上传图片功能开发中...')
+  const handleUploadImage = (row: Accident) => {
+    current.value = row
+    showUpload.value = true
   }
 
   /**
@@ -372,6 +396,16 @@
     } else {
       selections.value = []
     }
+  }
+
+  /**
+   * 打开图片预览
+   */
+  const openPreview = (image: string) => {
+    if (!image) return
+    viewerImages.value = [image]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 
   /* ==================== 暴露方法 ==================== */

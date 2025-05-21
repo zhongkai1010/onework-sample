@@ -11,7 +11,7 @@ export interface Accident {
   /** 藏品编码 */
   collectionCode?: string
   /** 藏品ID */
-  collectionId: string
+  collectionId: number
   /** 藏品名称 */
   collectionName?: string
   /** 事故时间 */

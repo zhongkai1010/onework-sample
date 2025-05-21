@@ -16,19 +16,11 @@
       </el-select>
     </el-form-item>
     <el-form-item label="调拨仓库" prop="warehouseId">
-      <el-select
+      <warehouse-select
         v-model="formData.warehouseId"
         placeholder="请选择调拨仓库"
-        clearable
         style="width: 200px"
-      >
-        <el-option
-          v-for="item in warehouseOptions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
+      />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSubmit">查询</el-button>
@@ -41,6 +33,7 @@
   import { ref } from 'vue'
   import { useFormData } from '@/utils/use-form-data'
   import type { TransferQueryParams } from '@/api/inventory/transfer/model'
+  import WarehouseSelect from '@/components/CustomForm/WarehouseSelect.vue'
 
   const emit = defineEmits<{
     (e: 'search', params: TransferQueryParams): void
@@ -57,12 +50,6 @@
     { value: 0, label: '待审核' },
     { value: 1, label: '已审核' },
     { value: 2, label: '已确认' }
-  ])
-
-  // 仓库选项
-  const warehouseOptions = ref([
-    { value: 1, label: '仓库1' },
-    { value: 2, label: '仓库2' }
   ])
 
   // 提交表单

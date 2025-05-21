@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/api/collection/cancellation": {
+    "/api/CollectionCancellation/add": {
       "post": {
         "summary": "确认注销藏品",
         "deprecated": false,
@@ -18,10 +18,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
             }
           }
         ],
@@ -94,7 +94,9 @@
           }
         },
         "security": []
-      },
+      }
+    },
+    "/api/CollectionCancellation/page": {
       "get": {
         "summary": "查询注销单分页列表",
         "deprecated": false,
@@ -181,10 +183,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
             }
           }
         ],
@@ -268,7 +270,7 @@
         "security": []
       }
     },
-    "/api/collection/cancellation/approve": {
+    "/api/CollectionCancellation/confirm": {
       "post": {
         "summary": "审核注销单",
         "deprecated": false,
@@ -279,10 +281,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
             }
           }
         ],
@@ -344,7 +346,7 @@
         "security": []
       }
     },
-    "/api/collection/cancellation/recover": {
+    "/api/CollectionCancellation/restoreCollection": {
       "post": {
         "summary": "恢复注销单",
         "deprecated": false,
@@ -355,10 +357,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
             }
           }
         ],
@@ -420,7 +422,7 @@
         "security": []
       }
     },
-    "/api/collection/cancellation/details": {
+    "/api/CollectionCancellation/details": {
       "get": {
         "summary": "查询注销单详情",
         "deprecated": false,
@@ -441,10 +443,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
             }
           }
         ],
@@ -549,7 +551,7 @@
         "security": []
       }
     },
-    "/api/collection/cancellation/catalog": {
+    "/api/CollectionCancellation/collection_cancellation_detail": {
       "get": {
         "summary": "查询注销单明细",
         "deprecated": false,
@@ -640,10 +642,10 @@
             "name": "token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
             }
           }
         ],
@@ -692,6 +694,78 @@
                       "required": [
                         "id"
                       ]
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/CollectionCancellation/imgs": {
+      "post": {
+        "summary": "上传图片",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "title": "分类ID集合"
+                  },
+                  "documentImage": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "documentImage"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
                     },
                     "error": {
                       "type": "string",

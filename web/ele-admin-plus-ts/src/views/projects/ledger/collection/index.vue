@@ -75,7 +75,7 @@
           <img
             v-if="row.imageInfo"
             :src="row.imageInfo"
-            style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+            style="width: 60px; height: 60px; object-fit: cover; cursor: pointer"
             @click="openPreview(row.imageInfo)"
           />
           <div v-else>暂无数据</div>
@@ -208,7 +208,7 @@
     {
       prop: 'imageInfo',
       label: '图片信息',
-      width: 220,
+      width: 80,
       align: 'center',
       slot: 'imageInfo'
     },

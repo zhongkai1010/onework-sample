@@ -29,6 +29,14 @@ export const routes = [
  */
 export function getMenuRoutes(menus?: MenuItem[], homePath?: string) {
   const childRoutes: RouteRecordRaw[] = [
+    {
+      name: 'UserProfile',
+      path: '/user/profile',
+      meta: { title: '我的资料', icon: 'IconProUserOutlined', hide: false },
+      redirect: undefined,
+      children: undefined,
+      component: () => import('@/views/user/profile/index.vue')
+    },
     // 用于刷新的路由
     {
       path: REDIRECT_PATH + '/:path(.*)',

@@ -183,10 +183,25 @@
       slot: 'documentImage'
     },
     {
+      prop: 'status',
+      label: '单据状态',
+      width: 120,
+      align: 'center',
+      slot: 'status',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'code',
       label: '出库单号',
       width: 220,
       align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'outboundDate',
+      label: '出库日期',
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
@@ -217,13 +232,7 @@
       align: 'center',
       showOverflowTooltip: true
     },
-    {
-      prop: 'outboundDate',
-      label: '出库日期',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
+
     {
       prop: 'proposedReturnDate',
       label: '拟归日期',
@@ -231,14 +240,7 @@
       align: 'center',
       showOverflowTooltip: true
     },
-    {
-      prop: 'status',
-      label: '单据状态',
-      width: 120,
-      align: 'center',
-      slot: 'status',
-      showOverflowTooltip: true
-    },
+
     {
       prop: 'remarks',
       label: '备注',

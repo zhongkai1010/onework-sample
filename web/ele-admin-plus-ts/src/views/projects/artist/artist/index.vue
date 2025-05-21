@@ -61,6 +61,17 @@
           />
           <div v-else>暂无数据</div>
         </template>
+
+        <!-- 图片信息列 -->
+        <template #imageInfo="{ row }">
+          <img
+            v-if="row.imageInfo"
+            :src="row.imageInfo"
+            style="width: 60px; height: 60px; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.imageInfo)"
+          />
+          <div v-else> 暂无数据 </div>
+        </template>
       </ele-pro-table>
       <!-- 艺术家编辑弹窗 -->
       <form-edit v-model="showEdit" :data="current" @done="reload" />
@@ -185,6 +196,13 @@
       label: '任职单位或机构',
       sortable: 'custom',
       showOverflowTooltip: true
+    },
+    {
+      prop: 'imageInfo',
+      label: '图片信息',
+      width: 80,
+      align: 'center',
+      slot: 'imageInfo'
     },
     {
       columnKey: 'action',

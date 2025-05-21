@@ -65,7 +65,7 @@
           <img
             v-if="row.imageInfo"
             :src="row.imageInfo"
-            style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+            style="width: 60px; height: 60px; object-fit: cover; cursor: pointer"
             @click="openPreview(row.imageInfo)"
           />
           <div v-else> 暂无数据 </div>
@@ -140,18 +140,15 @@
     {
       prop: 'imageInfo',
       label: '图片信息',
-      width: 220,
+      width: 80,
       align: 'center',
       slot: 'imageInfo'
     },
     {
-      prop: 'status',
-      label: '藏品状态',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true,
-      slot: 'status'
+      prop: 'numberCategory',
+      label: '编号类别',
+      width: 220,
+      align: 'center'
     },
     {
       prop: 'collectionCode',
@@ -170,8 +167,8 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'isbn',
-      label: 'ISBN',
+      prop: 'rfidCode',
+      label: 'RFID编号',
       sortable: 'custom',
       width: 220,
       align: 'left',
@@ -180,6 +177,14 @@
     {
       prop: 'categoryName',
       label: '藏品分类',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'isbn',
+      label: 'ISBN',
       sortable: 'custom',
       width: 220,
       align: 'left',
@@ -210,21 +215,6 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'addressCode',
-      label: '地址码',
-      sortable: 'custom',
-      width: 220,
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'notes',
-      label: '备注',
-      sortable: 'custom',
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
       prop: 'bookValue',
       label: '图书价值',
       sortable: 'custom',
@@ -240,7 +230,6 @@
       align: 'center',
       showOverflowTooltip: true
     },
-
     {
       prop: 'collectionDate',
       label: '征集日期',
@@ -255,6 +244,30 @@
       sortable: 'custom',
       width: 120,
       align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'notes',
+      label: '备注',
+      sortable: 'custom',
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'status',
+      label: '藏品状态',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'status'
+    },
+    {
+      prop: 'addressCode',
+      label: '地址码',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {

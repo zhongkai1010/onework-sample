@@ -1,24 +1,21 @@
 <template>
-  <el-form :model="formData" @keyup.enter="handleSubmit" @submit.prevent :inline="true">
+  <el-form
+    ref="formRef"
+    :model="formData"
+    @keyup.enter="handleSubmit"
+    @submit.prevent
+    :inline="true"
+  >
     <el-form-item label="藏品选择" prop="collectionId">
-      <el-select
+      <CollectionSelect
         v-model="formData.collectionId"
         placeholder="请选择藏品"
-        clearable
-        filterable
         style="width: 200px"
-      >
-        <el-option
-          v-for="item in collectionOptions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
+      />
     </el-form-item>
-    <el-form-item label="出库单号" prop="outboundCode">
+    <el-form-item label="出库单号" prop="code">
       <el-input
-        v-model="formData.outboundCode"
+        v-model="formData.code"
         placeholder="请输入出库单号"
         clearable
         style="width: 200px"
@@ -61,6 +58,7 @@
   import { ref } from 'vue'
   import type { FormInstance } from 'element-plus'
   import { useFormData } from '@/utils/use-form-data'
+  import CollectionSelect from '@/components/CustomForm/CollectionSelect.vue'
 
   const emit = defineEmits(['search'])
 
@@ -70,36 +68,27 @@
   // 表单数据
   const [formData, resetForm] = useFormData({
     collectionId: undefined,
-    outboundCode: '',
+    code: '',
     collectionCode: '',
     collectionName: '',
     status: undefined
   })
 
-  // 藏品选项
-  const collectionOptions = ref([
-    { value: 1, label: '藏品1' },
-    { value: 2, label: '藏品2' }
-  ])
-
   // 状态选项
   const statusOptions = ref([
-    { value: 0, label: '待出库' },
-    { value: 1, label: '已出库' },
-    { value: 2, label: '已取消' }
+    { value: 0, label: '未审核' },
+    { value: 1, label: '待出库' },
+    { value: 2, label: '已出库' },
+    { value: 3, label: '已归库' }
   ])
 
   // 提交表单
   const handleSubmit = () => {
-    formRef.value?.validate((valid) => {
-      if (valid) {
-        // 过滤掉 undefined 和空字符串的值
-        const params = Object.fromEntries(
-          Object.entries(formData).filter(([_, value]) => value !== undefined && value !== '')
-        )
-        emit('search', params)
-      }
-    })
+    // 过滤掉 undefined 和空字符串的值
+    const params = Object.fromEntries(
+      Object.entries(formData).filter(([_, value]) => value !== undefined && value !== '')
+    )
+    emit('search', params)
   }
 
   // 重置表单
@@ -109,7 +98,8 @@
   }
 
   defineExpose({
-    formData
+    formData,
+    resetForm
   })
 </script>
 

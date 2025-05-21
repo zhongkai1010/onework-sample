@@ -3,7 +3,7 @@
  */
 import { defineStore } from 'pinia'
 import type { BadgeProps } from 'element-plus'
-import { toTree, mapTree, isExternalLink } from 'ele-admin-plus/es'
+import { mapTree, isExternalLink } from 'ele-admin-plus/es'
 import type { MenuItem } from 'ele-admin-plus/es/ele-pro-layout/types'
 import type { User } from '@/api/system/user/model'
 import type { Menu } from '@/api/system/menu/model'
@@ -51,13 +51,16 @@ export const useUserStore = defineStore('user', {
       // 用户角色
       this.roles = result.roles?.map?.((d) => d.roleCode) ?? []
       // 用户菜单, 过滤掉按钮类型并转为children形式
+      // const { menus, homePath } = formatMenus(
+      //   USER_MENUS ??
+      //     toTree({
+      //       data: result.authorities?.filter?.((d) => d.menuType !== 1),
+      //       idField: 'menuId',
+      //       parentIdField: 'parentId'
+      //     })
+      // )
       const { menus, homePath } = formatMenus(
-        USER_MENUS ??
-          toTree({
-            data: result.authorities?.filter?.((d) => d.menuType !== 1),
-            idField: 'menuId',
-            parentIdField: 'parentId'
-          })
+        USER_MENUS ?? result.authorities?.filter?.((d) => d.menuType !== 1) ?? []
       )
       this.setMenus(menus)
       return { menus, homePath }
@@ -122,8 +125,11 @@ function formatMenus(data: Menu[], childField = 'children') {
   const menus = mapTree<Menu, MenuItem>(
     data,
     (item) => {
-      const meta: MenuItem['meta'] =
-        typeof item.meta === 'string' ? JSON.parse(item.meta || '{}') : item.meta
+      let meta: MenuItem['meta'] = {}
+      try {
+        meta = typeof item.meta === 'string' ? JSON.parse(item.meta || '{}') : item.meta
+      } catch (error) {}
+
       const menu: MenuItem = {
         path: item.path,
         component: item.component,

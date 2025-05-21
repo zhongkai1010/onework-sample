@@ -12,7 +12,15 @@
         <el-input v-model="form.repairPerson" placeholder="请输入修复人" clearable />
       </el-form-item>
       <el-form-item label="资质证书">
-        <el-input v-model="form.qualificationCertificate" placeholder="请输入资质证书" clearable />
+        <file-upload
+          v-model="form.qualificationCertificate"
+          :limit="1"
+          :fileLimit="10"
+          :preview="true"
+          :drag="true"
+          :tools="true"
+          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+        />
       </el-form-item>
       <el-form-item label="修完日期">
         <el-date-picker
@@ -31,18 +39,14 @@
         />
       </el-form-item>
       <el-form-item label="修复后图片">
-        <el-upload
-          class="upload-demo"
-          action="/api/upload"
-          :on-success="handleUploadSuccess"
-          :on-error="handleUploadError"
-          :before-upload="beforeUpload"
-        >
-          <el-button type="primary">点击上传</el-button>
-          <template #tip>
-            <div class="el-upload__tip">请上传修复后图片</div>
-          </template>
-        </el-upload>
+        <image-upload
+          v-model="form.afterRepairImage"
+          :limit="1"
+          :fileLimit="10"
+          :preview="true"
+          :drag="true"
+          :tools="true"
+        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -59,6 +63,8 @@
   import { useFormData } from '@/utils/use-form-data'
   import type { Repair } from '@/api/collection/repair/model'
   import { repairInbound } from '@/api/collection/repair'
+  import ImageUpload from '@/components/ImageUpload/index.vue'
+  import FileUpload from '@/components/FileUpload/index.vue'
 
   const props = defineProps<{
     /** 修复记录数据 */
@@ -124,44 +130,6 @@
   const reset = () => {
     resetFields()
   }
-
-  /** 上传成功回调 */
-  const handleUploadSuccess = (response: any) => {
-    if (response.code === 0) {
-      form.afterRepairImage = response.data.url
-      EleMessage.success('上传成功')
-    } else {
-      EleMessage.error(response.message || '上传失败')
-    }
-  }
-
-  /** 上传失败回调 */
-  const handleUploadError = () => {
-    EleMessage.error('上传失败')
-  }
-
-  /** 上传前校验 */
-  const beforeUpload = (file: File) => {
-    const isImage = file.type.startsWith('image/')
-    if (!isImage) {
-      EleMessage.error('只能上传图片文件!')
-      return false
-    }
-    const isLt10M = file.size / 1024 / 1024 < 10
-    if (!isLt10M) {
-      EleMessage.error('图片大小不能超过 10MB!')
-      return false
-    }
-    return true
-  }
 </script>
 
-<style lang="scss" scoped>
-  .upload-demo {
-    :deep(.el-upload__tip) {
-      color: #909399;
-      font-size: 12px;
-      margin-top: 7px;
-    }
-  }
-</style>
+<style lang="scss" scoped></style>

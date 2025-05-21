@@ -24,6 +24,12 @@
             {{ getStatusText(row.status) }}
           </el-tag>
         </template>
+        <template #outboundDate="{ row }">
+          {{ formatDate(row.outboundDate) }}
+        </template>
+        <template #storageDate="{ row }">
+          {{ formatDate(row.storageDate) }}
+        </template>
       </ele-pro-table>
       <!-- 参考按钮 -->
       <reference-button
@@ -77,6 +83,15 @@
       showOverflowTooltip: true
     },
     {
+      prop: 'outboundDate',
+      label: '出库日期',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'outboundDate'
+    },
+    {
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
@@ -88,25 +103,17 @@
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-
       align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'outboundDate',
-      label: '出库日期',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'inboundDate',
+      prop: 'storageDate',
       label: '入库日期',
       sortable: 'custom',
-      width: 120,
+      width: 180,
       align: 'center',
-      showOverflowTooltip: true
+      showOverflowTooltip: true,
+      slot: 'storageDate'
     },
     {
       prop: 'status',
@@ -128,10 +135,19 @@
     })
   }
 
-  /* ==================== 方法 ==================== */
-  // 重新加载表格数据
-  const reload = () => {
-    tableRef.value?.reload()
+  /* ==================== 表格操作 ==================== */
+  /**
+   * 重新加载表格数据
+   * @param where 查询条件
+   */
+  const reload = (where?: any) => {
+    tableRef.value?.reload?.({ page: 1, where })
+  }
+
+  // 格式化日期
+  const formatDate = (date: string | undefined) => {
+    if (!date) return '-'
+    return date.split('T')[0]
   }
 
   // 获取状态类型
@@ -152,11 +168,13 @@
   const getStatusText = (status: number) => {
     switch (status) {
       case 0:
-        return '待出库'
+        return '未审核'
       case 1:
-        return '已出库'
+        return '待出库'
       case 2:
-        return '已取消'
+        return '已出库'
+      case 3:
+        return '已归库'
       default:
         return '未知'
     }

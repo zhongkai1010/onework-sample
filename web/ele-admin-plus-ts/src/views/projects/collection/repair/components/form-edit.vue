@@ -7,15 +7,9 @@
     @open="handleOpen"
     @closed="reset"
   >
-    <el-form ref="formRef" :model="form" label-width="100px" @submit.prevent="">
-      <el-form-item label="藏品编码">
-        <el-input v-model="form.collectionCode" placeholder="请输入藏品编码" clearable />
-      </el-form-item>
-      <el-form-item label="藏品名称">
-        <el-input v-model="form.collectionName" placeholder="请输入藏品名称" clearable />
-      </el-form-item>
-      <el-form-item label="藏品分类">
-        <el-input v-model="form.collectionCategory" placeholder="请输入藏品分类" clearable />
+    <el-form ref="formRef" :model="form" label-width="100px" @submit.prevent="" :rules="rules">
+      <el-form-item label="藏品选择" prop="collectionId" required>
+        <collection-select v-model="form.collectionId" />
       </el-form-item>
       <el-form-item label="送修部门">
         <el-input v-model="form.sendRepairDepartment" placeholder="请输入送修部门" clearable />
@@ -37,20 +31,6 @@
           clearable
         />
       </el-form-item>
-      <el-form-item label="单据图片">
-        <el-upload
-          class="upload-demo"
-          action="/api/upload"
-          :on-success="handleUploadSuccess"
-          :on-error="handleUploadError"
-          :before-upload="beforeUpload"
-        >
-          <el-button type="primary">点击上传</el-button>
-          <template #tip>
-            <div class="el-upload__tip">请上传单据图片</div>
-          </template>
-        </el-upload>
-      </el-form-item>
     </el-form>
     <template #footer>
       <el-button @click="handleCancel">取消</el-button>
@@ -61,11 +41,13 @@
 
 <script setup lang="ts">
   import { ref, nextTick } from 'vue'
-  import type { FormInstance } from 'element-plus'
+  import type { FormInstance, FormRules } from 'element-plus'
   import { EleMessage } from 'ele-admin-plus/es'
   import { useFormData } from '@/utils/use-form-data'
   import type { AddRepairParams } from '@/api/collection/repair/model'
+
   import { addRepair } from '@/api/collection/repair'
+  import CollectionSelect from '@/components/CustomForm/CollectionSelect.vue'
 
   const emit = defineEmits<{
     (e: 'done'): void
@@ -80,19 +62,20 @@
   /** 表单实例 */
   const formRef = ref<FormInstance>()
 
+  /** 表单验证规则 */
+  const rules = ref<FormRules>({
+    collectionId: [{ required: true, message: '请选择藏品', trigger: ['change', 'blur'] }]
+  })
+
   /** 表单数据 */
   const [form, resetFields] = useFormData<AddRepairParams>({
-    collectionId: 0,
-    collectionCode: '',
-    collectionName: '',
-    collectionCategory: '',
+    collectionId: undefined,
+    registrationDate: new Date().toISOString().split('T')[0],
     sendRepairDepartment: '',
     sentBy: '',
     repairReason: '',
     remarks: '',
-    sendRepairDate: '',
-    documentImage: '',
-    registrationDate: new Date().toISOString().split('T')[0]
+    sendRepairDate: ''
   })
 
   /** 关闭弹窗 */
@@ -101,19 +84,26 @@
   }
 
   /** 保存编辑 */
-  const save = () => {
-    loading.value = true
-    addRepair(form)
-      .then((msg) => {
-        loading.value = false
-        EleMessage.success(msg)
-        handleCancel()
-        emit('done')
-      })
-      .catch((e) => {
-        loading.value = false
-        EleMessage.error(e.message)
-      })
+  const save = async () => {
+    if (!formRef.value) return
+    try {
+      await formRef.value.validate()
+      loading.value = true
+      addRepair(form)
+        .then((msg) => {
+          loading.value = false
+          EleMessage.success(msg)
+          handleCancel()
+          emit('done')
+        })
+        .catch((e) => {
+          loading.value = false
+          EleMessage.error(e.message)
+        })
+    } catch (error) {
+      // 验证失败
+      return
+    }
   }
 
   /** 弹窗打开事件 */
@@ -127,36 +117,7 @@
   /** 重置表单 */
   const reset = () => {
     resetFields()
-  }
-
-  /** 上传成功回调 */
-  const handleUploadSuccess = (response: any) => {
-    if (response.code === 0) {
-      form.documentImage = response.data.url
-      EleMessage.success('上传成功')
-    } else {
-      EleMessage.error(response.message || '上传失败')
-    }
-  }
-
-  /** 上传失败回调 */
-  const handleUploadError = () => {
-    EleMessage.error('上传失败')
-  }
-
-  /** 上传前校验 */
-  const beforeUpload = (file: File) => {
-    const isImage = file.type.startsWith('image/')
-    if (!isImage) {
-      EleMessage.error('只能上传图片文件!')
-      return false
-    }
-    const isLt10M = file.size / 1024 / 1024 < 10
-    if (!isLt10M) {
-      EleMessage.error('图片大小不能超过 10MB!')
-      return false
-    }
-    return true
+    formRef.value?.clearValidate?.()
   }
 </script>
 

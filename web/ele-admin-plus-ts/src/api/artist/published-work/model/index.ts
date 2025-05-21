@@ -22,17 +22,49 @@ export interface Publication {
   coverImage: string
   /** 定价 */
   price: number
+  /** ISBN */
+  isbn: string
+  /** 内容提要 */
+  summary: string
+  /** 所属类别 */
+  category: string
+  /** 目录文件 */
+  catalog: string
+  /** 相关文件 */
+  relatedFiles: string
+  /** 申请人 */
+  applicant: string
+  /** 申请人部门 */
+  applicantDepartment: string
 }
 
 /**
  * 创建出版著作参数
  */
-export type CreatePublicationParams = Pick<Publication, 'bookTitle' | 'artistName' | 'publisher' | 'format' | 'author' | 'edition' | 'coverImage' | 'price'>
+export type CreatePublicationParams = Pick<
+  Publication,
+  | 'bookTitle'
+  | 'artistName'
+  | 'publisher'
+  | 'format'
+  | 'author'
+  | 'edition'
+  | 'coverImage'
+  | 'price'
+  | 'isbn'
+  | 'summary'
+  | 'category'
+  | 'catalog'
+  | 'relatedFiles'
+  | 'applicant'
+  | 'applicantDepartment'
+>
 
 /**
  * 更新出版著作参数
  */
-export type UpdatePublicationParams = Required<Pick<Publication, 'id'>> & Partial<CreatePublicationParams>
+export type UpdatePublicationParams = Required<Pick<Publication, 'id'>> &
+  Partial<CreatePublicationParams>
 
 /**
  * 出版著作查询参数

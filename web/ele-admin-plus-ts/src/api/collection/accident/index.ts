@@ -72,3 +72,19 @@ export async function handleAccident(data: HandleAccidentParams) {
   }
   return Promise.reject(new Error(res.data.message))
 }
+
+/**
+ * 上传事故记录图片
+ * @param id 事故记录ID
+ * @param documentImage 单据图片
+ */
+export async function uploadAccidentImage(id: number, documentImage: string) {
+  const res = await request.post<ApiResult<unknown>>('/CollectionAccident/imgs', {
+    id,
+    documentImage
+  })
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}

@@ -53,3 +53,33 @@ export async function repairInbound(data: Repair) {
   }
   return Promise.reject(new Error(res.data.message))
 }
+
+/**
+ * 上传修复记录图片
+ * @param id 修复记录ID
+ * @param documentImage 单据图片
+ */
+export async function uploadRepairImage(id: number, documentImage: string) {
+  const res = await request.post<ApiResult<unknown>>('/CollectionRepair/imgs', {
+    id,
+    documentImage
+  })
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+/**
+ * 删除修复记录
+ * @param ids 修复记录ID数组
+ */
+export async function deleteRepair(ids: number[]) {
+  const res = await request.post<ApiResult<unknown>>('/CollectionRepair/delete', {
+    ids: ids.map((id) => id.toString())
+  })
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}

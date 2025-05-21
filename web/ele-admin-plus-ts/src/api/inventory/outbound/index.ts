@@ -37,6 +37,7 @@ export async function listOutbounds(params?: OutboundQueryParams) {
       params
     }
   )
+
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
@@ -115,6 +116,7 @@ export async function getOutboundCatalog(params?: OutboundCatalogQueryParams) {
 
 export async function WarehouseCollectionOutboundImgs(data: { id: number; imgs: string }) {
   const res = await request.post<ApiResult<unknown>>('/WarehouseCollectionOutbound/imgs', data)
+
   if (res.data.code === 0) {
     return res.data.message
   }

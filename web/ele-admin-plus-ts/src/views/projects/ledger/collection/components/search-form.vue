@@ -1,6 +1,6 @@
 <!-- 搜索表单 -->
 <template>
-  <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true">
+  <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true" label-position="left">
     <el-form-item label="藏品状态" prop="collectionStatus">
       <el-select
         clearable

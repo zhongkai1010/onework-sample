@@ -25,11 +25,8 @@
           <el-descriptions-item label="备注">{{ data.remarks }}</el-descriptions-item>
           <el-descriptions-item label="送修日期">{{ data.sendRepairDate }}</el-descriptions-item>
           <el-descriptions-item label="工单状态">
-            <el-tag
-              :type="data.status === 0 ? 'warning' : data.status === 1 ? 'success' : 'info'"
-              effect="light"
-            >
-              {{ data.status === 0 ? '待修复' : data.status === 1 ? '修复中' : '已完成' }}
+            <el-tag :type="data.status === 0 ? 'warning' : 'success'" effect="light">
+              {{ data.status === 0 ? '修复中' : '已修复' }}
             </el-tag>
           </el-descriptions-item>
           <el-descriptions-item label="承担机构">{{
@@ -50,37 +47,43 @@
         <div class="image-section">
           <div class="image-item">
             <h3>单据图片</h3>
-            <el-image
+            <div
               v-if="data.documentImage"
-              :src="data.documentImage"
-              :preview-src-list="[data.documentImage]"
-              fit="contain"
-            />
+              class="image-wrapper"
+              @click="openPreview(data.documentImage)"
+            >
+              <el-image :src="data.documentImage" fit="contain" />
+            </div>
             <el-empty v-else description="暂无图片" />
           </div>
           <div class="image-item">
             <h3>修复前图片</h3>
-            <el-image
+            <div
               v-if="data.beforeRepairImage"
-              :src="data.beforeRepairImage"
-              :preview-src-list="[data.beforeRepairImage]"
-              fit="contain"
-            />
+              class="image-wrapper"
+              @click="openPreview(data.beforeRepairImage)"
+            >
+              <el-image :src="data.beforeRepairImage" fit="contain" />
+            </div>
             <el-empty v-else description="暂无图片" />
           </div>
           <div class="image-item">
             <h3>修复后图片</h3>
-            <el-image
+            <div
               v-if="data.afterRepairImage"
-              :src="data.afterRepairImage"
-              :preview-src-list="[data.afterRepairImage]"
-              fit="contain"
-            />
+              class="image-wrapper"
+              @click="openPreview(data.afterRepairImage)"
+            >
+              <el-image :src="data.afterRepairImage" fit="contain" />
+            </div>
             <el-empty v-else description="暂无图片" />
           </div>
         </div>
       </template>
     </div>
+
+    <!-- 图片预览组件 -->
+    <ele-image-viewer v-model="showImageViewer" :images="viewerImages" :index="viewerIndex" />
   </ele-modal>
 </template>
 
@@ -99,6 +102,9 @@
   /* ==================== 数据管理 ==================== */
   const loading = ref(false)
   const data = ref<Repair>()
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
 
   /* ==================== 数据加载 ==================== */
   /**
@@ -123,11 +129,21 @@
     data.value = undefined
   }
 
+  /**
+   * 打开图片预览
+   */
+  const openPreview = (image: string) => {
+    if (!image) return
+    viewerImages.value = [image]
+    viewerIndex.value = 0
+    showImageViewer.value = true
+  }
+
   /* ==================== 监听数据变化 ==================== */
   watch(
-    () => props.id,
-    (id) => {
-      if (id) {
+    [() => visible.value, () => props.id],
+    ([visible, id]) => {
+      if (visible && id) {
         loadData(id)
       } else {
         reset()
@@ -155,11 +171,24 @@
         color: #606266;
       }
 
-      .el-image {
+      .image-wrapper {
         width: 100%;
         height: 200px;
         border: 1px solid #dcdfe6;
         border-radius: 4px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s;
+
+        &:hover {
+          border-color: #409eff;
+          box-shadow: 0 0 8px rgba(64, 158, 255, 0.2);
+        }
+
+        .el-image {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }

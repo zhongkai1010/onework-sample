@@ -20,7 +20,7 @@
         :code="DIC_KEY_BORROW_TYPE"
         placeholder="请选择提借类型"
         clearable
-        style="width: 100%"
+        style="width: 190px"
       />
     </el-form-item>
     <el-form-item>

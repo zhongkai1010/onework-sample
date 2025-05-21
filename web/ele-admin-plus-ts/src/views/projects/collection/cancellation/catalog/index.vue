@@ -43,6 +43,7 @@
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
   import SearchForm from './components/search-form.vue'
+  import dayjs from 'dayjs'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -62,14 +63,14 @@
       prop: 'code',
       label: '注销单号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
@@ -84,7 +85,10 @@
       sortable: 'custom',
       width: 120,
       align: 'center',
-      showOverflowTooltip: true
+      showOverflowTooltip: true,
+      formatter: (row) => {
+        return row.cancellationTime ? dayjs(row.cancellationTime).format('YYYY-MM-DD') : ''
+      }
     },
     {
       prop: 'status',

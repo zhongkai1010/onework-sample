@@ -84,7 +84,7 @@
   watch(
     () => props.modelValue,
     (val) => {
-      value.value = val
+      value.value = val === 0 ? undefined : val
     },
     { immediate: true }
   )

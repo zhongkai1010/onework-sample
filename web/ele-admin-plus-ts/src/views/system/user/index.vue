@@ -37,7 +37,7 @@
           />
         </ele-loading>
         <template #body>
-          <user-list v-if="current && current.id" :organization-id="current.id" />
+          <user-list :organization-id="current?.id ?? null" />
         </template>
       </ele-split-panel>
     </ele-card>
@@ -55,6 +55,11 @@
   import { listOrganizations } from '@/api/system/organization'
   import type { Organization } from '@/api/system/organization/model'
 
+  // 扩展Organization类型，添加自定义字段
+  interface ExtendedOrganization extends Omit<Organization, 'id'> {
+    id: string | number
+  }
+
   defineOptions({ name: 'SystemUser' })
 
   /** 是否是移动端 */
@@ -70,10 +75,10 @@
   const loading = ref(true)
 
   /** 树形数据 */
-  const data = ref<Organization[]>([])
+  const data = ref<ExtendedOrganization[]>([])
 
   /** 选中数据 */
-  const current = ref<Organization | null>(null)
+  const current = ref<ExtendedOrganization | null>(null)
 
   /** 机构搜索关键字 */
   const keywords = ref('')
@@ -84,11 +89,19 @@
     listOrganizations()
       .then((list) => {
         loading.value = false
-        data.value = toTree({
+        const treeData = toTree({
           data: list,
           idField: 'id',
           parentIdField: 'parentId'
         })
+        // 添加"全部"选项作为根节点
+        data.value = [
+          {
+            id: 0,
+            organizationName: '全部',
+            children: treeData
+          }
+        ]
         nextTick(() => {
           handleNodeClick(data.value[0])
         })
@@ -100,13 +113,14 @@
   }
 
   /** 选择数据 */
-  const handleNodeClick = (row?: Organization) => {
+  const handleNodeClick = (row?: ExtendedOrganization) => {
     // 移动端自动收起左侧
     if (current.value != null && mobile.value) {
       splitRef.value?.toggleCollapse?.(true)
     }
     if (row && row.id) {
-      current.value = row
+      // 如果是"全部"选项，则传递null
+      current.value = row.id === 0 ? null : row
       treeRef.value?.setCurrentKey?.(row.id)
     } else {
       current.value = null
@@ -114,7 +128,7 @@
   }
 
   /** 树过滤方法 */
-  const filterNode = (value: string, data: Organization) => {
+  const filterNode = (value: string, data: ExtendedOrganization) => {
     if (value) {
       return !!(data.organizationName && data.organizationName.includes(value))
     }

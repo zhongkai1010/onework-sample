@@ -1,11 +1,11 @@
 <template>
   <el-form :model="formData" @keyup.enter="handleSubmit" @submit.prevent :inline="true">
     <el-form-item label="注销藏品" prop="collectionId">
-      <el-input
+      <collection-select
         v-model="formData.collectionId"
-        placeholder="请输入藏品ID"
-        clearable
+        placeholder="请选择藏品"
         style="width: 200px"
+        @select="handleSelect"
       />
     </el-form-item>
     <el-form-item label="批准部门" prop="approvalDepartment">
@@ -45,6 +45,8 @@
   import { ref } from 'vue'
   import { useFormData } from '@/utils/use-form-data'
   import type { CancellationQueryParams } from '@/api/collection/cancellation/model'
+  import type { CollectionLedger } from '@/api/collection/ledger/model'
+  import CollectionSelect from '@/components/CustomForm/CollectionSelect.vue'
 
   const emit = defineEmits<{
     (e: 'search', params: CancellationQueryParams): void
@@ -61,7 +63,7 @@
   // 状态选项
   const statusOptions = ref([
     { value: 0, label: '待审核' },
-    { value: 1, label: '已审核' },
+    { value: 1, label: '已注销' },
     { value: 2, label: '已恢复' }
   ])
 
@@ -78,6 +80,11 @@
   const handleReset = () => {
     resetForm()
     handleSubmit()
+  }
+
+  // 选择藏品
+  const handleSelect = (item: CollectionLedger) => {
+    formData.collectionId = item.id
   }
 
   defineExpose({

@@ -18,7 +18,7 @@
   import { ref, watch } from 'vue'
   import { EleMessage } from 'ele-admin-plus/es'
   import ImageUpload from '@/components/ImageUpload/index.vue'
-  import { WarehouseCollectionOutboundImgs } from '@/api/inventory/outbound'
+  import { uploadRepairImage } from '@/api/collection/repair'
 
   const props = defineProps<{
     modelValue: boolean
@@ -34,13 +34,16 @@
   const uploadImage = ref('')
   const uploading = ref(false)
 
+  // 监听 modelValue 变化
   watch(
     () => props.modelValue,
     (val) => {
       visible.value = val
-    }
+    },
+    { immediate: true }
   )
 
+  // 监听 visible 变化
   watch(
     () => visible.value,
     (val) => {
@@ -71,16 +74,13 @@
       return
     }
     if (!props.id) {
-      EleMessage.warning('出库单ID不能为空')
+      EleMessage.warning('修复记录ID不能为空')
       return
     }
 
     uploading.value = true
     try {
-      await WarehouseCollectionOutboundImgs({
-        id: props.id,
-        imgs: uploadImage.value
-      })
+      await uploadRepairImage(props.id, uploadImage.value)
       EleMessage.success('上传成功')
       visible.value = false
       emit('success')

@@ -2,14 +2,26 @@
   <ele-modal
     v-model="visible"
     title="出版著作详情"
-    width="680px"
+    width="1200px"
     :destroy-on-close="true"
     @open="handleOpen"
   >
-    <el-descriptions v-if="details" :column="2" border class="publication-details">
+    <el-descriptions
+      v-if="details"
+      :column="2"
+      border
+      :label-width="120"
+      :label-align="'right'"
+      :cell-style="{ padding: '12px 16px' }"
+      :content-style="{ width: '50%' }"
+      class="publication-details"
+    >
       <!-- 基本信息 -->
       <el-descriptions-item label="出版物题名" :span="2">
         <span class="text-lg font-bold">{{ details.bookTitle }}</span>
+      </el-descriptions-item>
+      <el-descriptions-item label="ISBN">
+        {{ details.isbn }}
       </el-descriptions-item>
       <el-descriptions-item label="艺术家名称">
         {{ details.artistName }}
@@ -28,6 +40,25 @@
       </el-descriptions-item>
       <el-descriptions-item label="定价">
         {{ details.price ? `¥${Number(details.price).toFixed(2)}` : '暂无定价' }}
+      </el-descriptions-item>
+      <el-descriptions-item label="所属类别">
+        {{ details.category }}
+      </el-descriptions-item>
+      <el-descriptions-item label="申请人">
+        {{ details.applicant }}
+      </el-descriptions-item>
+      <el-descriptions-item label="申请人部门">
+        {{ details.applicantDepartment }}
+      </el-descriptions-item>
+
+      <!-- 内容提要 -->
+      <el-descriptions-item label="内容提要" :span="2">
+        <div class="summary-content">{{ details.summary }}</div>
+      </el-descriptions-item>
+
+      <!-- 目录 -->
+      <el-descriptions-item label="目录" :span="2">
+        <div class="catalog-content" v-html="details.catalog"></div>
       </el-descriptions-item>
 
       <!-- 封面图片 -->
@@ -48,6 +79,16 @@
           </el-image>
         </div>
         <span v-else>暂无封面</span>
+      </el-descriptions-item>
+
+      <!-- 相关文件 -->
+      <el-descriptions-item label="相关文件" :span="2">
+        <div v-if="details.relatedFiles" class="related-files">
+          <el-link :href="details.relatedFiles" target="_blank" type="primary" class="file-link">
+            查看文件
+          </el-link>
+        </div>
+        <span v-else>暂无相关文件</span>
       </el-descriptions-item>
     </el-descriptions>
     <template #footer>
@@ -90,17 +131,17 @@
 </script>
 
 <style lang="scss" scoped>
-  .publication-details {
-    :deep(.el-descriptions__label) {
-      width: 80px;
-      min-width: 80px;
-      text-align: left;
-    }
+  .summary-content {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    color: #606266;
+  }
 
-    :deep(.el-descriptions__content) {
-      width: 100px;
-      min-width: 100px;
-    }
+  .catalog-content {
+    padding: 12px;
+    background-color: #f5f7fa;
+    border-radius: 4px;
+    min-height: 100px;
   }
 
   .cover-image {
@@ -125,6 +166,12 @@
         font-size: 24px;
         margin-bottom: 8px;
       }
+    }
+  }
+
+  .related-files {
+    .file-link {
+      font-size: 14px;
     }
   }
 </style>

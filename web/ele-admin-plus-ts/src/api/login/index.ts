@@ -9,8 +9,7 @@ import type { LoginParam, LoginResult, CaptchaResult } from './model'
 export async function login(data: LoginParam) {
   const res = await request.post<ApiResult<LoginResult>>('/login/login', data)
   if (res.data.code === 0) {
-    const data = res.data as any
-    setToken(data.data[0].token, data.remember)
+    setToken(res.data.data?.access_token, data.remember)
     return res.data.message
   }
   return Promise.reject(new Error(res.data.message))

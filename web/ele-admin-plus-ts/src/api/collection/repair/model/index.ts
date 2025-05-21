@@ -51,7 +51,22 @@ export interface Repair {
 /**
  * 添加修复记录参数
  */
-export type AddRepairParams = Omit<Repair, 'id'>
+export interface AddRepairParams {
+  /** 登记日期 */
+  registrationDate: string
+  /** 藏品ID */
+  collectionId: number | undefined
+  /** 送修部门 */
+  sendRepairDepartment?: string
+  /** 送修人 */
+  sentBy?: string
+  /** 修复原因 */
+  repairReason?: string
+  /** 备注 */
+  remarks?: string
+  /** 送修日期 */
+  sendRepairDate?: string
+}
 
 /**
  * 修复记录查询参数

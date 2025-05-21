@@ -18,7 +18,7 @@
   import { ref, watch } from 'vue'
   import { EleMessage } from 'ele-admin-plus/es'
   import ImageUpload from '@/components/ImageUpload/index.vue'
-  import { WarehouseCollectionOutboundImgs } from '@/api/inventory/outbound'
+  import { WarehouseCollectionTransferImgs } from '@/api/inventory/transfer'
 
   const props = defineProps<{
     modelValue: boolean
@@ -71,15 +71,15 @@
       return
     }
     if (!props.id) {
-      EleMessage.warning('出库单ID不能为空')
+      EleMessage.warning('拨库单ID不能为空')
       return
     }
 
     uploading.value = true
     try {
-      await WarehouseCollectionOutboundImgs({
+      await WarehouseCollectionTransferImgs({
         id: props.id,
-        imgs: uploadImage.value
+        documentImage: uploadImage.value
       })
       EleMessage.success('上传成功')
       visible.value = false
@@ -92,3 +92,5 @@
     }
   }
 </script>
+
+<style lang="scss" scoped></style>

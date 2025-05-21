@@ -9,9 +9,8 @@
     </el-form-item>
     <el-form-item label="工单状态" prop="status">
       <el-select v-model="form.status" placeholder="请选择工单状态" clearable style="width: 200px">
-        <el-option label="待修复" :value="0" />
-        <el-option label="修复中" :value="1" />
-        <el-option label="已完成" :value="2" />
+        <el-option label="修复中" :value="0" />
+        <el-option label="已修复" :value="1" />
       </el-select>
     </el-form-item>
     <el-form-item>

@@ -45,7 +45,7 @@
       <el-form-item label="备注" prop="remarks">
         <el-input v-model="form.remarks" type="textarea" placeholder="请输入备注" clearable />
       </el-form-item>
-      <el-form-item label="单据图片" prop="documentImage">
+      <el-form-item label="单据图片" prop="imgs">
         <image-upload v-model="documentImage" :limit="1" />
       </el-form-item>
     </el-form>
@@ -173,7 +173,7 @@
         submitting.value = true
         const submitData = {
           ...form,
-          documentImage: documentImage.value
+          imgs: documentImage.value
         }
         createInbound(submitData)
           .then((msg) => {

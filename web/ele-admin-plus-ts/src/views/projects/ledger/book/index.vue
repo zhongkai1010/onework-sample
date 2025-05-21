@@ -28,8 +28,10 @@
           <el-button type="success" class="ele-btn-icon" @click="onExport">导出数据</el-button>
         </template>
         <!-- 状态列 -->
-        <template #collectionStatus="{ row }">
-          <el-tag :type="getStatusType(row.collectionStatus)">{{ row.collectionStatus }}</el-tag>
+        <template #status="{ row }">
+          <el-tag :type="getStatusType(getStatusText(row.status))">
+            {{ getStatusText(row.status) }}
+          </el-tag>
         </template>
         <!-- 操作列按钮 -->
         <template #action="{ row }">
@@ -100,12 +102,13 @@
       label: '编号'
     },
     {
-      prop: 'collectionStatus',
+      prop: 'status',
       label: '藏品状态',
       sortable: 'custom',
       width: 220,
       align: 'center',
-      showOverflowTooltip: true
+      showOverflowTooltip: true,
+      slot: 'status'
     },
     {
       prop: 'numberCategory',
@@ -275,6 +278,26 @@
       其他: 'primary'
     }
     return statusMap[status] || 'primary'
+  }
+
+  /**
+   * 获取状态文本
+   */
+  const getStatusText = (status: number): string => {
+    switch (status) {
+      case 0:
+        return '未审核'
+      case 1:
+        return '在藏'
+      case 2:
+        return '修复中'
+      case 3:
+        return '出库中'
+      case 4:
+        return '已注销'
+      default:
+        return '未知状态'
+    }
   }
 
   /**

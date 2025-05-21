@@ -79,7 +79,7 @@
       <img
         v-if="row.imageInfo"
         :src="row.imageInfo"
-        style="width: 100%; height: 100%; object-fit: cover; cursor: pointer"
+        style="width: 60px; height: 60px; object-fit: cover; cursor: pointer"
         @click="openPreview(row.imageInfo)"
       />
       <div v-else> 暂无数据 </div>
@@ -210,13 +210,6 @@
       label: '编号'
     },
     {
-      prop: 'imageInfo',
-      label: '图片信息',
-      width: 220,
-      align: 'center',
-      slot: 'imageInfo'
-    },
-    {
       prop: 'collectionStatus',
       label: '藏品状态',
       sortable: 'custom',
@@ -224,6 +217,21 @@
       align: 'center',
       showOverflowTooltip: true,
       slot: 'collectionStatus'
+    },
+    {
+      prop: 'imageInfo',
+      label: '图片信息',
+      width: 80,
+      align: 'center',
+      slot: 'imageInfo'
+    },
+    {
+      prop: 'codeType',
+      label: '编号类别',
+      sortable: 'custom',
+      width: 120,
+      align: 'left',
+      showOverflowTooltip: true
     },
     {
       prop: 'code',
@@ -246,6 +254,38 @@
       label: '藏品类别',
       sortable: 'custom',
       width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'rfidCode',
+      label: 'RFID编号',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'quantity',
+      label: '数量',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'unit',
+      label: '数量单位',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'eraType',
+      label: '年代类型',
+      sortable: 'custom',
+      width: 120,
       align: 'left',
       showOverflowTooltip: true
     },
@@ -298,37 +338,6 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'collectionSource',
-      label: '藏品来源',
-      sortable: 'custom',
-      width: 220,
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'notes',
-      label: '备注',
-      sortable: 'custom',
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'quantity',
-      label: '数量',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'unit',
-      label: '数量单位',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
       prop: 'overallLength',
       label: '通长(底径cm)',
       sortable: 'custom',
@@ -361,6 +370,22 @@
       showOverflowTooltip: true
     },
     {
+      prop: 'weightRange',
+      label: '质量范围',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'specificWeight',
+      label: '具体质量',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'weightUnit',
       label: '质量单位',
       sortable: 'custom',
@@ -374,6 +399,14 @@
       sortable: 'custom',
       width: 120,
       align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionSource',
+      label: '藏品来源',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
@@ -392,12 +425,19 @@
       align: 'center',
       showOverflowTooltip: true
     },
-
     {
-      prop: 'collectionDate',
-      label: '入藏日期',
+      prop: 'acquisitionDate',
+      label: '征集日期',
       sortable: 'custom',
       width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionDateRange',
+      label: '入藏日期范围',
+      sortable: 'custom',
+      width: 220,
       align: 'center',
       showOverflowTooltip: true
     },
@@ -412,6 +452,118 @@
     {
       prop: 'type',
       label: '类型',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'humanisticType',
+      label: '人文类型',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'introduction',
+      label: '藏品介绍',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'textType',
+      label: '文本类型',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'audioVisualType',
+      label: '声像载体类型',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'audioVisualLocation',
+      label: '声像载体存放位置',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'diskPath',
+      label: '计算机磁盘路径',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'colorCategory',
+      label: '颜色类别',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'colorDescription',
+      label: '颜色描述',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'storageLocation',
+      label: '存放位置',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'notes',
+      label: '备注',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'entryTime',
+      label: '入馆时间',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionTime',
+      label: '入藏时间',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'loginTime',
+      label: '登录时间',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'cabinetTime',
+      label: '入柜时间',
       sortable: 'custom',
       width: 120,
       align: 'center',

@@ -1,6 +1,12 @@
 <!-- 搜索表单 -->
 <template>
-  <el-form label-width="100px" @keyup.enter="search" @submit.prevent="" :inline="true">
+  <el-form
+    label-width="100px"
+    @keyup.enter="search"
+    @submit.prevent=""
+    :inline="true"
+    label-position="left"
+  >
     <el-form-item label="ISBN">
       <el-input clearable v-model.trim="form.ISBN" placeholder="请输入" maxlength="20" />
     </el-form-item>

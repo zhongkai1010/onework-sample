@@ -1,6 +1,6 @@
 <!-- 搜索表单 -->
 <template>
-  <el-form :model="form" :inline="true" class="search-form" @submit.prevent>
+  <el-form :model="form" :inline="true" class="search-form" @submit.prevent label-position="left">
     <el-form-item label="库房名称">
       <el-input
         v-model="form.name"

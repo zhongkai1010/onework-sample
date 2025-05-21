@@ -103,3 +103,12 @@ export async function getTransferCatalog(params?: TransferCatalogQueryParams) {
   }
   return Promise.reject(new Error(res.data.message))
 }
+
+export async function WarehouseCollectionTransferImgs(data: { id: number; documentImage: string }) {
+  const res = await request.post<ApiResult<unknown>>('/WarehouseCollectionTransfer/imgs', data)
+
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}

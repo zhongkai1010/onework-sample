@@ -56,6 +56,10 @@ export interface AddBookParams {
   collectionCode?: string
   /** RFID编号 */
   rfidCode?: string
+  /** 藏品分类 */
+  categoryId?: number
+  /** 类型 */
+  type?: string
   /** ISBN */
   isbn?: string
   /** 作者 */

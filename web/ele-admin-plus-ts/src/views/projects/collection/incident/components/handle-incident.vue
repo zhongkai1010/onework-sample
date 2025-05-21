@@ -43,7 +43,7 @@
   }>()
 
   /** 弹窗是否打开 */
-  const visible = defineModel<boolean>('visible')
+  const visible = defineModel({ type: Boolean })
 
   /** 事故ID */
   const accidentId = defineModel<number>('id')
@@ -90,7 +90,7 @@
         .then((msg) => {
           loading.value = false
           EleMessage.success(msg)
-          handleCancel()
+          visible.value = false
           emit('done')
         })
         .catch((e) => {

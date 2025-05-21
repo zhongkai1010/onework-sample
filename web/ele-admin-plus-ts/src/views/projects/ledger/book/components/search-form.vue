@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true">
+  <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true" label-position="left">
     <el-form-item label="图书价值" prop="bookValue">
       <el-input v-model="form.bookValue" placeholder="请输入图书价值" clearable />
     </el-form-item>

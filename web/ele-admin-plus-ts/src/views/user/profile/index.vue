@@ -1,7 +1,6 @@
 <template>
   <ele-page :multi-card="false">
     <div class="user-wrapper">
-      <user-card :data="loginUser" @done="updateLoginUser" class="user-side" />
       <ele-card
         :header-style="{ padding: '0 24px' }"
         :body-style="{ padding: 0, minHeight: '462px' }"
@@ -12,10 +11,7 @@
             type="plain"
             size="large"
             v-model="active"
-            :items="[
-              { name: 'info', label: '基本信息' },
-              { name: 'account', label: '账号绑定' }
-            ]"
+            :items="[{ name: 'info', label: '基本信息' }]"
           />
         </template>
         <user-form v-if="active === 'info'" :data="loginUser" @done="updateLoginUser" />
@@ -29,7 +25,7 @@
   import { ref, computed } from 'vue'
   import { useUserStore } from '@/store/modules/user'
   import type { User } from '@/api/system/user/model'
-  import UserCard from './components/user-card.vue'
+
   import UserForm from './components/user-form.vue'
   import UserAccount from './components/user-account.vue'
 

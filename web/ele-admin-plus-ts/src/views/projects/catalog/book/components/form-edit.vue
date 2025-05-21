@@ -35,6 +35,10 @@
       <el-form-item label="RFID编号" prop="rfidCode">
         <el-input v-model="form.rfidCode" placeholder="请输入RFID编号" clearable />
       </el-form-item>
+      <el-form-item v-if="isUpdate" label="藏品分类" prop="categoryId">
+        <CategorySelect v-model="form.categoryId" placeholder="请选择藏品分类" />
+      </el-form-item>
+
       <el-form-item label="ISBN" prop="isbn">
         <el-input v-model="form.isbn" placeholder="请输入ISBN" clearable />
       </el-form-item>
@@ -75,6 +79,9 @@
       <el-form-item label="入藏年度" prop="collectionYear">
         <el-input v-model="form.collectionYear" placeholder="请输入入藏年度" clearable />
       </el-form-item>
+      <el-form-item label="备注" prop="notes">
+        <el-input v-model="form.notes" type="textarea" placeholder="请输入备注" :rows="3" />
+      </el-form-item>
       <el-form-item v-if="isUpdate" label="藏品状态" prop="status">
         <el-select v-model="form.status" placeholder="请选择藏品状态" clearable>
           <el-option label="未审核" :value="0" />
@@ -84,8 +91,8 @@
           <el-option label="已注销" :value="4" />
         </el-select>
       </el-form-item>
-      <el-form-item label="备注" prop="notes">
-        <el-input v-model="form.notes" type="textarea" placeholder="请输入备注" :rows="3" />
+      <el-form-item v-if="isUpdate" label="类型" prop="type">
+        <dict-data :code="DIC_KEY_COLLECTION_TYPE" v-model="form.type" placeholder="请选择类型" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -106,10 +113,12 @@
   import {
     DIC_KEY_CODE_CATEGORY,
     DIC_KEY_COLLECTION_SOURCE,
-    DIC_KEY_PRESERVATION_STATUS
+    DIC_KEY_PRESERVATION_STATUS,
+    DIC_KEY_COLLECTION_TYPE
   } from '@/config/setting'
   import { WarehouseSelect } from '@/components/CustomForm'
   import CommonUpload from '@/components/CommonUpload/index.vue'
+  import { CategorySelect } from '@/components/CustomForm'
 
   const props = defineProps<{
     /** 修改回显的数据 */
@@ -139,6 +148,8 @@
     collectionName: '',
     collectionCode: '',
     rfidCode: '',
+    categoryId: void 0,
+    type: '',
     isbn: '',
     author: '',
     warehouseId: void 0,

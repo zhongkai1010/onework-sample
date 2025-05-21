@@ -25,6 +25,7 @@
             class="ele-btn-icon"
             :icon="UploadOutlined"
             @click="handleUpload"
+            :disabled="!selections.length"
             >上传图片</el-button
           >
           <el-button
@@ -50,14 +51,13 @@
 
         <!-- 单据图片列 -->
         <template #documentImage="{ row }">
-          <el-image
+          <img
             v-if="row.documentImage"
             :src="row.documentImage"
-            :preview-src-list="[row.documentImage]"
-            fit="cover"
-            style="width: 50px; height: 50px"
+            style="width: 60px; height: 60px; object-fit: cover; cursor: pointer"
+            @click="openPreview(row.documentImage)"
           />
-          <span v-else>无图片</span>
+          <div v-else>暂无数据</div>
         </template>
 
         <!-- 状态列 -->
@@ -95,6 +95,9 @@
     <!-- 详情弹窗 -->
     <order-details ref="detailsRef" />
 
+    <!-- 上传图片弹窗 -->
+    <upload-image v-model="uploadImageVisible" :id="currentId" @success="handleUploadSuccess" />
+
     <!-- 参考按钮 -->
     <reference-button
       title="拨库单管理"
@@ -103,6 +106,14 @@
       operationText="上传图片 删除 导出 单据打印"
       tableFieldsText="单据图片 调拨单号 单据状态 调拨日期 调拨仓库 接收人 调拨原因 备注"
       tableOperationsText="查看详情 上传图片 审核 删除 确认"
+    />
+
+    <!-- 图片预览组件 -->
+    <ele-image-viewer
+      v-model="showImageViewer"
+      :urlList="viewerImages"
+      :initialIndex="viewerIndex"
+      :infinite="false"
     />
   </ele-page>
 </template>
@@ -121,6 +132,7 @@
   import { listTransfers, approveTransfer, removeTransfers } from '@/api/inventory/transfer'
   import SearchForm from './components/search-form.vue'
   import OrderDetails from './components/order-details.vue'
+  import UploadImage from './components/upload-image.vue'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
 
@@ -131,6 +143,13 @@
 
   /* ==================== 状态管理 ==================== */
   const selections = ref<any[]>([]) // 表格选中的行
+  const uploadImageVisible = ref(false) // 上传图片弹窗显示状态
+  const currentId = ref<number>() // 当前操作的拨库单ID
+
+  // 图片预览相关状态
+  const showImageViewer = ref(false)
+  const viewerImages = ref<string[]>([])
+  const viewerIndex = ref(0)
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -268,16 +287,25 @@
     detailsRef.value?.open(row.id)
   }
 
-  // 上传图片
+  // 批量上传图片
   const handleUpload = () => {
-    // TODO: 实现批量上传图片功能
-    console.log('批量上传图片')
+    if (selections.value.length !== 1) {
+      ElMessage.warning('请选择一条记录进行上传')
+      return
+    }
+    currentId.value = selections.value[0].id
+    uploadImageVisible.value = true
   }
 
-  // 上传图片
+  // 单条记录上传图片
   const handleUploadImage = (row: any) => {
-    // TODO: 实现上传图片功能
-    console.log('上传图片', row)
+    currentId.value = row.id
+    uploadImageVisible.value = true
+  }
+
+  // 上传成功回调
+  const handleUploadSuccess = () => {
+    reload()
   }
 
   // 审核
@@ -295,9 +323,9 @@
   }
 
   // 删除
-  const handleDelete = async (row?: any) => {
+  const handleDelete = async () => {
     try {
-      const ids = row ? [row.id] : selections.value.map((item) => item.id)
+      const ids = selections.value.map((item) => item.id)
       await ElMessageBox.confirm('确定要删除选中的调拨单吗?', '提示', {
         type: 'warning'
       })
@@ -319,6 +347,13 @@
   const handlePrint = () => {
     // TODO: 实现打印功能
     console.log('打印')
+  }
+
+  // 处理图片预览
+  const openPreview = (url: string) => {
+    viewerImages.value = [url]
+    viewerIndex.value = 0
+    showImageViewer.value = true
   }
 </script>
 

@@ -64,9 +64,7 @@ export async function updatePublication(data: UpdatePublicationParams) {
  * @param ids 出版著作ID数组
  */
 export async function deletePublication(ids: number[]) {
-  const res = await request.delete<ApiResult<unknown>>('/ArtistPublishedWork/delete', {
-    data: ids
-  })
+  const res = await request.post<ApiResult<unknown>>('/ArtistPublishedWork/delete', { ids })
   if (res.data.code === 0) {
     return res.data.message
   }

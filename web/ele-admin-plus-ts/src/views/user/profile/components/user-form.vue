@@ -28,8 +28,8 @@
         placeholder="请输入个人简介"
       />
     </el-form-item>
-    <el-form-item label="街道地址">
-      <el-input clearable :maxlength="200" v-model="form.address" placeholder="请输入街道地址" />
+    <el-form-item label="地址">
+      <el-input clearable :maxlength="200" v-model="form.address" placeholder="请输入地址" />
     </el-form-item>
     <el-form-item label="联系电话:">
       <div class="form-tell">
@@ -134,7 +134,7 @@
   assignFields({
     ...props.data,
     email: props.data.email || 'eleadmin@eclouds.com',
-    tellPre: props.data.tellPre || '0752'
+    tellPre: props.data.tellPre || '0731'
   })
 </script>
 
