@@ -40,13 +40,7 @@
     </div>
 
     <!-- 搜索表单 -->
-    <el-form
-      :model="queryParams"
-      @keyup.enter="handleQuery"
-      @submit.prevent
-      :inline="true"
-      class="details-filter"
-    >
+    <el-form :model="queryParams" @keyup.enter="handleQuery" @submit.prevent :inline="true">
       <el-form-item label="藏品编号" prop="collectionCode">
         <el-input
           v-model="queryParams.collectionCode"
@@ -79,6 +73,7 @@
       :show-overflow-tooltip="true"
       :highlight-current-row="true"
       :style="{ paddingBottom: '16px' }"
+      :toolbar="false"
       :stripe="true"
       v-loading="loading"
     >
@@ -97,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed } from 'vue'
+  import { ref, computed, watch, nextTick } from 'vue'
   import type { EleProTable } from 'ele-admin-plus'
   import type { TransferDetailInfo } from '@/api/inventory/transfer/model'
   import { getTransferDetails } from '@/api/inventory/transfer'
@@ -121,6 +116,21 @@
     collectionName: ''
   })
 
+  /** 当前ID */
+  const props = defineProps<{
+    id?: number
+  }>()
+
+  // 监听visible变化，当弹窗打开时加载数据
+  watch(
+    () => visible.value,
+    (val) => {
+      if (val && props.id) {
+        open(props.id)
+      }
+    }
+  )
+
   /** 表格列配置 */
   const columns = ref([
     {
@@ -133,31 +143,31 @@
     {
       prop: 'collectionCode',
       label: '藏品编号',
-      width: 120,
+
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
-      minWidth: 200,
+
       showOverflowTooltip: true
     },
     {
-      prop: 'originalWarehouse',
+      prop: 'originalWarehouseName',
       label: '原仓库',
-      width: 120,
+
       showOverflowTooltip: true
     },
     {
-      prop: 'currentWarehouse',
+      prop: 'currentWarehouseName',
       label: '现仓库',
-      width: 120,
+
       showOverflowTooltip: true
     },
     {
       prop: 'status',
       label: '状态',
-      width: 100,
+
       showOverflowTooltip: true,
       slot: 'status'
     }
@@ -175,12 +185,16 @@
       // 根据查询条件过滤
       if (queryParams.value.collectionCode) {
         list = list.filter((item) =>
-          item.collectionCode?.includes(queryParams.value.collectionCode)
+          item.collectionCode
+            ?.toLowerCase()
+            .includes(queryParams.value.collectionCode.toLowerCase())
         )
       }
       if (queryParams.value.collectionName) {
         list = list.filter((item) =>
-          item.collectionName?.includes(queryParams.value.collectionName)
+          item.collectionName
+            ?.toLowerCase()
+            .includes(queryParams.value.collectionName.toLowerCase())
         )
       }
 
@@ -255,10 +269,21 @@
 
   /** 打开详情 */
   const open = async (id: number) => {
+    if (!id) {
+      ElMessage.warning('无效的调拨单ID')
+      return
+    }
+
     try {
       loading.value = true
       const res = await getTransferDetails({ id })
+      if (!res) {
+        ElMessage.warning('未找到调拨单数据')
+        return
+      }
       data.value = res
+      await nextTick()
+      tableRef.value?.reload()
     } catch (error) {
       console.error('获取详情失败:', error)
       ElMessage.error('获取详情失败')
@@ -296,9 +321,5 @@
         color: var(--el-text-color-primary);
       }
     }
-  }
-
-  .details-filter {
-    margin-bottom: 16px;
   }
 </style>

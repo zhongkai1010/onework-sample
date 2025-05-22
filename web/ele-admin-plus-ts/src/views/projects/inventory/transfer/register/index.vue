@@ -16,10 +16,7 @@
           <el-button @click="cancelSelection" :disabled="!selectedCollections.length"
             >取消选择</el-button
           >
-          <el-button
-            type="success"
-            @click="openConfirmDialog"
-            :disabled="!selectedCollections.length"
+          <el-button type="success" @click="openConfirmDialog" :disabled="!selectedRows.length"
             >确认选择</el-button
           >
           <el-button type="danger" @click="removeSelected" :disabled="!selectedRows.length"
@@ -254,6 +251,14 @@
 
 <style lang="scss" scoped>
   :deep(.el-table__row) {
+    cursor: pointer;
+  }
+
+  :deep(.el-table__body-wrapper) {
+    cursor: pointer;
+  }
+
+  :deep(.el-table__cell) {
     cursor: pointer;
   }
 </style>

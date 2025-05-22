@@ -13,6 +13,7 @@
     :tools="['reload', 'size', 'columns', 'maximized']"
     :stripe="true"
     :export-config="exportConfig"
+    @row-click="handleRowClick"
   >
     <template #toolbar>
       <!-- 工具栏按钮组 -->
@@ -67,12 +68,16 @@
     </template>
     <template #action="{ row }">
       <el-space :size="4">
-        <el-button type="primary" size="small" @click="openEdit(row)">编辑</el-button>
-        <el-button type="success" size="small" @click="() => handleSingleBind(row)">
+        <el-button type="primary" size="small" @click.stop="openEdit(row)">编辑</el-button>
+        <el-button type="success" size="small" @click.stop="() => handleSingleBind(row)">
           绑定
         </el-button>
-        <el-button type="info" size="small" @click="handleViewDetails(row)"> 查看详情 </el-button>
-        <el-button type="warning" size="small" @click="handlePrintLabel(row)"> 铭牌打印 </el-button>
+        <el-button type="info" size="small" @click.stop="handleViewDetails(row)">
+          查看详情
+        </el-button>
+        <el-button type="warning" size="small" @click.stop="handlePrintLabel(row)">
+          铭牌打印
+        </el-button>
       </el-space>
     </template>
     <template #imageInfo="{ row }">
@@ -80,7 +85,7 @@
         v-if="row.imageInfo"
         :src="row.imageInfo"
         style="width: 60px; height: 60px; object-fit: cover; cursor: pointer"
-        @click="openPreview(row.imageInfo)"
+        @click.stop="openPreview(row.imageInfo)"
       />
       <div v-else> 暂无数据 </div>
     </template>
@@ -111,7 +116,7 @@
   <print-label v-model="showPrintLabel" :data="selections" />
 
   <!-- 铭牌打印弹窗 -->
-  <collection-nameplate v-model="showNameplate" :id="currentNameplateId" />
+  <print-document v-model="showNameplate" :id="currentNameplateId" />
 
   <ele-image-viewer
     v-model="showImageViewer"
@@ -146,7 +151,7 @@
   import BindRfid from './bind-rfid.vue'
   import CollectionDetails from './collection-details.vue'
   import PrintLabel from './print-label.vue'
-  import CollectionNameplate from './collection-nameplate.vue'
+  import PrintDocument from './print-document.vue'
   import { getCatalogs, deleteCollections, approve } from '@/api/collection/catalog'
   import type { Collection, CollectionQueryParams } from '@/api/collection/catalog/model'
   import { getExportWorkbook } from '@/config/use-global-config'
@@ -212,7 +217,6 @@
     {
       prop: 'collectionStatus',
       label: '藏品状态',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true,
@@ -228,7 +232,6 @@
     {
       prop: 'codeType',
       label: '编号类别',
-      sortable: 'custom',
       width: 120,
       align: 'left',
       showOverflowTooltip: true
@@ -236,7 +239,6 @@
     {
       prop: 'code',
       label: '藏品编号',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -244,7 +246,6 @@
     {
       prop: 'collectionName',
       label: '藏品名称',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -252,7 +253,6 @@
     {
       prop: 'categoryName',
       label: '藏品类别',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -260,7 +260,6 @@
     {
       prop: 'rfidCode',
       label: 'RFID编号',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -268,7 +267,6 @@
     {
       prop: 'quantity',
       label: '数量',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -276,7 +274,6 @@
     {
       prop: 'unit',
       label: '数量单位',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -284,7 +281,6 @@
     {
       prop: 'eraType',
       label: '年代类型',
-      sortable: 'custom',
       width: 120,
       align: 'left',
       showOverflowTooltip: true
@@ -292,7 +288,6 @@
     {
       prop: 'era',
       label: '年代',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -300,7 +295,6 @@
     {
       prop: 'artist',
       label: '艺术家',
-      sortable: 'custom',
       width: 120,
       align: 'left',
       showOverflowTooltip: true
@@ -308,7 +302,6 @@
     {
       prop: 'regionType',
       label: '地域类型',
-      sortable: 'custom',
       width: 120,
       align: 'left',
       showOverflowTooltip: true
@@ -316,7 +309,6 @@
     {
       prop: 'region',
       label: '地域',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -324,7 +316,6 @@
     {
       prop: 'materialType',
       label: '质地类型',
-      sortable: 'custom',
       width: 120,
       align: 'left',
       showOverflowTooltip: true
@@ -332,7 +323,6 @@
     {
       prop: 'material',
       label: '质地',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -340,7 +330,6 @@
     {
       prop: 'overallLength',
       label: '通长(底径cm)',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -348,7 +337,6 @@
     {
       prop: 'overallWidth',
       label: '通宽(口径cm)',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -356,7 +344,6 @@
     {
       prop: 'totalHeight',
       label: '通高(cm)',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -364,7 +351,6 @@
     {
       prop: 'specificDimensions',
       label: '具体尺寸',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -372,7 +358,6 @@
     {
       prop: 'weightRange',
       label: '质量范围',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -380,7 +365,6 @@
     {
       prop: 'specificWeight',
       label: '具体质量',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -388,7 +372,6 @@
     {
       prop: 'weightUnit',
       label: '质量单位',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -396,7 +379,6 @@
     {
       prop: 'culturalLevel',
       label: '文物级别',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -404,7 +386,6 @@
     {
       prop: 'collectionSource',
       label: '藏品来源',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -412,7 +393,6 @@
     {
       prop: 'condition',
       label: '完残状况',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -420,15 +400,13 @@
     {
       prop: 'preservationStatus',
       label: '保存状态',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'acquisitionDate',
+      prop: 'collectionDate',
       label: '征集日期',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -436,7 +414,6 @@
     {
       prop: 'collectionDateRange',
       label: '入藏日期范围',
-      sortable: 'custom',
       width: 220,
       align: 'center',
       showOverflowTooltip: true
@@ -444,7 +421,6 @@
     {
       prop: 'collectionYear',
       label: '入藏年度',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -452,23 +428,20 @@
     {
       prop: 'type',
       label: '类型',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'humanisticType',
+      prop: 'culturalType',
       label: '人文类型',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'introduction',
+      prop: 'collectionIntroduction',
       label: '藏品介绍',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -476,23 +449,20 @@
     {
       prop: 'textType',
       label: '文本类型',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'audioVisualType',
+      prop: 'audioVisualCarrierType',
       label: '声像载体类型',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'audioVisualLocation',
+      prop: 'audioVisualStorageLocation',
       label: '声像载体存放位置',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -500,7 +470,6 @@
     {
       prop: 'diskPath',
       label: '计算机磁盘路径',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -508,7 +477,6 @@
     {
       prop: 'colorCategory',
       label: '颜色类别',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -516,15 +484,13 @@
     {
       prop: 'colorDescription',
       label: '颜色描述',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'storageLocation',
+      prop: 'warehouseName',
       label: '存放位置',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -532,15 +498,13 @@
     {
       prop: 'notes',
       label: '备注',
-      sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'entryTime',
+      prop: 'museumEntryTime',
       label: '入馆时间',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -548,7 +512,6 @@
     {
       prop: 'collectionTime',
       label: '入藏时间',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -556,15 +519,13 @@
     {
       prop: 'loginTime',
       label: '登录时间',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'cabinetTime',
+      prop: 'cabinetEntryTime',
       label: '入柜时间',
-      sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -822,6 +783,12 @@
     showImageViewer.value = true
   }
 
+  /** 处理行点击 */
+  const handleRowClick = (row: Collection) => {
+    // 触发表格的 selection-change 事件
+    tableRef.value?.toggleRowSelection(row)
+  }
+
   /* 监听器 */
   watch(
     () => props.categoryId,
@@ -832,4 +799,20 @@
   )
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  :deep(.el-table__row) {
+    cursor: pointer;
+  }
+
+  :deep(.el-table__body-wrapper) {
+    cursor: pointer;
+  }
+
+  :deep(.el-table__cell) {
+    cursor: pointer;
+  }
+
+  :deep(.el-table__row.selected) {
+    background-color: var(--el-color-primary-light-9) !important;
+  }
+</style>

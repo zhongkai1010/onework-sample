@@ -207,4 +207,16 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  :deep(.el-table__row) {
+    cursor: pointer;
+  }
+
+  :deep(.el-table__body-wrapper) {
+    cursor: pointer;
+  }
+
+  :deep(.el-table__cell) {
+    cursor: pointer;
+  }
+</style>

@@ -17,6 +17,8 @@
         :tools="['reload', 'size', 'columns', 'maximized']"
         :stripe="true"
         v-model:selections="selections"
+        @row-click="handleRowClick"
+        @selection-change="handleSelectionChange"
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
@@ -34,7 +36,7 @@
             :icon="CheckOutlined"
             @click="handleBatchApprove"
             :disabled="!selections.length || !selections.every((item) => item.status === 0)"
-            >审核</el-button
+            >批量审核</el-button
           >
           <el-button
             type="danger"
@@ -52,6 +54,14 @@
             :disabled="selections.length !== 1"
             >单据打印</el-button
           >
+          <el-button
+            type="success"
+            class="ele-btn-icon"
+            :icon="CheckOutlined"
+            @click="handleBatchRecover"
+            :disabled="!selections.length || !selections.every((item) => item.status === 1)"
+            >批量恢复</el-button
+          >
         </template>
 
         <!-- 单据图片列 -->
@@ -62,7 +72,7 @@
             style="width: 50px; height: 50px; cursor: pointer"
             @click="openPreview(row.documentImage)"
           />
-          <span v-else>无图片</span>
+          <span v-else>暂无图片</span>
         </template>
 
         <!-- 状态列 -->
@@ -161,6 +171,13 @@
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
+    {
+      type: 'selection',
+      columnKey: 'selection',
+      width: 50,
+      align: 'center',
+      fixed: 'left'
+    },
     {
       type: 'index',
       columnKey: 'index',
@@ -358,8 +375,30 @@
         await approveCancellation({ ids: selections.value.map((item) => item.id) })
         ElMessage.success('审核成功')
         reload()
+        selections.value = [] // 清空选中行
       } catch (error) {
         console.error('审核失败:', error)
+      }
+    })
+  }
+
+  // 批量恢复
+  const handleBatchRecover = () => {
+    if (!selections.value.length) {
+      ElMessage.warning('请选择要恢复的注销单')
+      return
+    }
+    ElMessageBox.confirm('确定要恢复选中的注销单吗？', '提示', {
+      type: 'warning'
+    }).then(async () => {
+      try {
+        await recoverCancellation({ ids: selections.value.map((item) => item.id) })
+        ElMessage.success('恢复成功')
+        reload()
+        selections.value = [] // 清空选中行
+      } catch (error: any) {
+        console.error('恢复失败:', error)
+        ElMessage.error(error?.message || '恢复失败')
       }
     })
   }
@@ -372,6 +411,22 @@
     viewerImages.value = [image]
     viewerIndex.value = 0
     showImageViewer.value = true
+  }
+
+  // 处理表格选中行变化
+  const handleSelectionChange = (rows: Cancellation[]) => {
+    selections.value = rows
+  }
+
+  // 处理行点击事件
+  const handleRowClick = (row: Cancellation) => {
+    const index = selections.value.findIndex((item) => item.id === row.id)
+    if (index === -1) {
+      selections.value.push(row)
+    } else {
+      selections.value.splice(index, 1)
+    }
+    tableRef.value?.toggleRowSelection?.(row, index === -1)
   }
 </script>
 

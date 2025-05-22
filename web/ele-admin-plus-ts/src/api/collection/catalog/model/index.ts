@@ -13,7 +13,7 @@ export interface Collection {
   /** 编号类别 */
   numberCategory: string
   /** 藏品编号 */
-  collectionCode: string
+  code: string
   /** 藏品名称 */
   collectionName: string
   /** 藏品类别 */

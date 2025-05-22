@@ -74,7 +74,7 @@
       <!-- 数据表格 -->
       <ele-pro-table
         ref="tableRef"
-        :tools="false"
+        :toolbar="false"
         row-key="id"
         :columns="columns"
         :datasource="datasource"

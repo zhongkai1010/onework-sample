@@ -14,12 +14,17 @@
         :style="{ paddingBottom: '16px' }"
         cache-key="barcodeTable"
         :tools="['reload', 'size', 'columns', 'maximized']"
+        @selection-change="handleSelectionChange"
+        @row-click="handleRowClick"
+        v-model:selections="selectedRows"
+        :stripe="true"
       >
         <template #toolbar>
           <el-button
             type="primary"
             class="ele-btn-icon"
             :icon="PrinterOutlined"
+            :disabled="!selectedRows.length"
             @click="handlePrint"
             >标签打印</el-button
           >
@@ -34,6 +39,8 @@
         tableFieldsText="地址信息 地址码"
       />
     </ele-card>
+    <!-- 打印标签弹窗 -->
+    <print-label v-model="printVisible" :selected-rows="selectedRows" />
   </ele-page>
 </template>
 
@@ -45,16 +52,32 @@
   import type { BarcodeQueryParams } from '@/api/inventory/warehouse/model'
   import { PrinterOutlined } from '@/components/icons'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import PrintLabel from './components/print-label.vue'
   import pageImage from './page.png'
   import SearchForm from './components/search-form.vue'
+  import { EleMessage } from 'ele-admin-plus'
 
   defineOptions({ name: 'Barcode' })
 
   /** 表格实例 */
   const tableRef = ref<InstanceType<typeof EleProTable> | null>(null)
 
+  /** 选中的行数据 */
+  const selectedRows = ref<any[]>([])
+
+  /** 是否显示打印弹窗 */
+  const printVisible = ref(false)
+
   /** 表格列配置 */
   const columns = ref<Columns>([
+    {
+      type: 'selection',
+      columnKey: 'selection',
+      width: 50,
+      align: 'center',
+      fixed: 'left',
+      selectable: () => true
+    },
     {
       prop: 'id',
       label: '编号',
@@ -81,12 +104,12 @@
 
   /** 表格数据源 */
   const datasource: DatasourceFunction = async ({ pages, where, orders }) => {
-    const data = await getBarcodePage({
+    return await getBarcodePage({
       ...where,
       ...orders,
-      ...pages
+      ...pages,
+      type: 1 //查询库房
     })
-    return data
   }
 
   /** 搜索 */
@@ -94,11 +117,28 @@
     tableRef.value?.reload?.({ where, page: 1 })
   }
 
+  /** 处理表格选择变化 */
+  const handleSelectionChange = (rows: any[]) => {
+    selectedRows.value = rows
+  }
+
+  /** 处理行点击 */
+  const handleRowClick = (row: any) => {
+    selectedRows.value = [row]
+  }
+
   /** 标签打印 */
   const handlePrint = () => {
-    // TODO: 实现标签打印功能
-    console.log('标签打印')
+    if (selectedRows.value.length > 0) {
+      printVisible.value = true
+    } else {
+      EleMessage.warning('请选择要打印的标签')
+    }
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  :deep(.selected-row) {
+    background-color: var(--el-color-primary-light-9);
+  }
+</style>

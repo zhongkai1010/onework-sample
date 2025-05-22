@@ -75,7 +75,8 @@
       loading.value = true
       const msg = await bindLocation({
         collectionCode: form.collectionCode,
-        code: form.code
+        code: form.code,
+        type: 1 //库房
       })
       EleMessage.success(msg)
       handleCancel()

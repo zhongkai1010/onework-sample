@@ -266,7 +266,13 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="入藏年度" prop="collectionYear">
-              <el-input v-model="form.collectionYear" placeholder="请输入入藏年度" clearable />
+              <el-date-picker
+                v-model="form.collectionYear"
+                type="year"
+                value-format="YYYY"
+                placeholder="请选择入藏年度"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
 
@@ -552,7 +558,7 @@
           // Ensure required fields are not undefined
           imageInfo: imageUrl,
           numberCategory: form.numberCategory ?? props.data.numberCategory,
-          collectionCode: form.code ?? props.data.collectionCode,
+          code: form.code ?? props.data.code,
           collectionName: form.collectionName ?? props.data.collectionName,
           categoryId: form.categoryId ?? props.data.categoryId,
           rfidCode: form.rfidCode ?? props.data.rfidCode,

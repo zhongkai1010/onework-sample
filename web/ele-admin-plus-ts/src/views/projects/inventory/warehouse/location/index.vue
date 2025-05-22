@@ -94,7 +94,8 @@
     const data = await getLocationPage({
       ...where,
       ...orders,
-      ...pages
+      ...pages,
+      type: 1 //查询库房
     })
     return data
   }

@@ -25,7 +25,7 @@
         placeholder="请选择类型"
         clearable
         @keyup.enter="handleSearch"
-        style="width: 100%"
+        style="width: 190px"
       >
         <el-option label="库房" :value="1" />
         <el-option label="展区" :value="2" />
@@ -38,7 +38,7 @@
         placeholder="请选择级别"
         clearable
         @keyup.enter="handleSearch"
-        style="width: 100%"
+        style="width: 190px"
       >
         <el-option label="库" :value="1" />
         <el-option label="区" :value="2" />

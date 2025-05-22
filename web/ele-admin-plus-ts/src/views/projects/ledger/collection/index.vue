@@ -206,13 +206,6 @@
       label: '编号'
     },
     {
-      prop: 'imageInfo',
-      label: '图片信息',
-      width: 80,
-      align: 'center',
-      slot: 'imageInfo'
-    },
-    {
       prop: 'status',
       label: '藏品状态',
       sortable: 'custom',
@@ -230,6 +223,14 @@
       showOverflowTooltip: true
     },
     {
+      prop: 'rfidCode',
+      label: 'RFID编号',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
@@ -239,7 +240,7 @@
     },
     {
       prop: 'categoryName',
-      label: '藏品类别',
+      label: '藏品分类',
       sortable: 'custom',
       width: 220,
       align: 'left',
@@ -270,21 +271,6 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'collectionSource',
-      label: '藏品来源',
-      sortable: 'custom',
-      width: 220,
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'notes',
-      label: '备注',
-      sortable: 'custom',
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
       prop: 'quantity',
       label: '数量',
       sortable: 'custom',
@@ -310,7 +296,7 @@
     },
     {
       prop: 'condition',
-      label: '完残状况',
+      label: '完残程度',
       sortable: 'custom',
       width: 120,
       align: 'center',
@@ -318,10 +304,26 @@
     },
     {
       prop: 'preservationStatus',
-      label: '保存状态',
+      label: '完残状况',
       sortable: 'custom',
       width: 120,
       align: 'center',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'location',
+      label: '存放位置',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'groupName',
+      label: '藏品组',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
@@ -332,12 +334,19 @@
       align: 'center',
       showOverflowTooltip: true
     },
-
     {
-      prop: 'collectionDate',
-      label: '入藏日期',
+      prop: 'collectionSource',
+      label: '藏品来源',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'collectionDateRange',
+      label: '入藏日期范围',
+      sortable: 'custom',
+      width: 220,
       align: 'center',
       showOverflowTooltip: true
     },
@@ -348,6 +357,21 @@
       width: 120,
       align: 'center',
       showOverflowTooltip: true
+    },
+    {
+      prop: 'notes',
+      label: '备注',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'imageInfo',
+      label: '图片信息',
+      width: 80,
+      align: 'center',
+      slot: 'imageInfo'
     },
     {
       columnKey: 'action',

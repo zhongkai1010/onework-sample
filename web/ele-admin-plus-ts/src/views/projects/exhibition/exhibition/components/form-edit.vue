@@ -1,8 +1,14 @@
 <template>
-  <ele-modal v-model="show" :title="data ? '修改库房' : '新增库房'" width="500px" :destroy-on-close="true" @closed="onClosed">
+  <ele-modal
+    v-model="show"
+    :title="data ? '修改库房' : '新增库房'"
+    width="500px"
+    :destroy-on-close="true"
+    @closed="onClosed"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="80px" @submit.prevent="">
       <el-form-item label="上级库房" prop="parentId">
-        <warehouse-select v-model="form.parentId" :disabled="!!parentId" />
+        <warehouse-select v-model="form.parentId" :disabled="!!parentId" :type="2" />
       </el-form-item>
       <el-form-item label="库房名称" prop="name">
         <el-input v-model.trim="form.name" placeholder="请输入库房名称" clearable />
@@ -22,7 +28,11 @@
   import { ref, watch } from 'vue'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { FormInstance } from 'element-plus'
-  import type { Warehouse, UpdateWarehouseParams, AddWarehouseParams } from '@/api/inventory/warehouse/model'
+  import type {
+    Warehouse,
+    UpdateWarehouseParams,
+    AddWarehouseParams
+  } from '@/api/inventory/warehouse/model'
   import { addWarehouse, updateWarehouse } from '@/api/inventory/warehouse'
   import { useFormData } from '@/utils/use-form-data'
   import WarehouseSelect from '@/components/CustomForm/WarehouseSelect.vue'
@@ -68,14 +78,6 @@
 
   /** 表单验证规则 */
   const rules = {
-    parentId: [
-      {
-        required: true,
-        message: '请选择上级库房',
-        type: 'number' as const,
-        trigger: 'change'
-      }
-    ],
     name: [
       {
         required: true,
@@ -114,49 +116,48 @@
 
   /** 提交表单 */
   const submit = () => {
-    if (!form.parentId || !form.name) {
-      EleMessage.error('请填写必填项')
-      return
-    }
+    formRef.value?.validate((valid) => {
+      if (!valid) return
 
-    loading.value = true
-    if (props.data) {
-      const updateParams: UpdateWarehouseParams = {
-        id: props.data.id,
-        name: form.name,
-        remark: form.remark
+      loading.value = true
+      if (props.data) {
+        const updateParams: UpdateWarehouseParams = {
+          id: props.data.id,
+          name: form.name,
+          remark: form.remark
+        }
+        updateWarehouse(updateParams)
+          .then((msg) => {
+            loading.value = false
+            EleMessage.success(msg)
+            show.value = false
+            emit('done')
+          })
+          .catch((e) => {
+            loading.value = false
+            EleMessage.error(e.message)
+          })
+      } else {
+        const addParams: AddWarehouseParams = {
+          name: form.name,
+          parentId: form.parentId,
+          remark: form.remark,
+          type: 1, //固定类型为库房
+          tier: 1 //固定级别为库
+        }
+        addWarehouse(addParams)
+          .then((msg) => {
+            loading.value = false
+            EleMessage.success(msg)
+            show.value = false
+            emit('done')
+          })
+          .catch((e) => {
+            loading.value = false
+            EleMessage.error(e.message)
+          })
       }
-      updateWarehouse(updateParams)
-        .then((msg) => {
-          loading.value = false
-          EleMessage.success(msg)
-          show.value = false
-          emit('done')
-        })
-        .catch((e) => {
-          loading.value = false
-          EleMessage.error(e.message)
-        })
-    } else {
-      const addParams: AddWarehouseParams = {
-        name: form.name,
-        parentId: form.parentId,
-        remark: form.remark,
-        type: 1, //固定类型为库房
-        tier: 1 //固定级别为库
-      }
-      addWarehouse(addParams)
-        .then((msg) => {
-          loading.value = false
-          EleMessage.success(msg)
-          show.value = false
-          emit('done')
-        })
-        .catch((e) => {
-          loading.value = false
-          EleMessage.error(e.message)
-        })
-    }
+    })
   }
 </script>
 

@@ -13,7 +13,7 @@
         <div class="nameplate-item">
           <div class="nameplate-header">
             <div class="museum-name">{{ museumName }}</div>
-            <div class="collection-code">编号：{{ nameplateData[0]?.collectionCode }}</div>
+            <div class="collection-code">编号：{{ nameplateData[0]?.code }}</div>
           </div>
           <div class="nameplate-body">
             <div class="collection-name">{{ nameplateData[0]?.collectionName }}</div>
@@ -31,11 +31,7 @@
           </div>
           <div class="nameplate-footer">
             <div class="barcode">
-              <ele-bar-code
-                :value="nameplateData[0]?.collectionCode"
-                :display-value="false"
-                :options="{ height: 40 }"
-              />
+              <ele-bar-code :value="nameplateData[0]?.code" :tag="tag" :options="options" />
             </div>
           </div>
         </div>
@@ -51,7 +47,7 @@
           <div class="nameplate-item">
             <div class="nameplate-header">
               <div class="museum-name">{{ museumName }}</div>
-              <div class="collection-code">编号：{{ nameplateData[0]?.collectionCode }}</div>
+              <div class="collection-code">编号：{{ nameplateData[0]?.code }}</div>
             </div>
             <div class="nameplate-body">
               <div class="collection-name">{{ nameplateData[0]?.collectionName }}</div>
@@ -69,11 +65,7 @@
             </div>
             <div class="nameplate-footer">
               <div class="barcode">
-                <ele-bar-code
-                  :value="nameplateData[0]?.collectionCode"
-                  :display-value="false"
-                  :options="{ height: 40 }"
-                />
+                <ele-bar-code :value="nameplateData[0]?.code" :tag="tag" :options="options" />
               </div>
             </div>
           </div>
@@ -84,39 +76,38 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue'
-  import { EleBarCode } from 'ele-admin-plus/es'
+  import { ref, watch, reactive } from 'vue'
   import type { Collection } from '@/api/collection/catalog/model'
   import { getDetails } from '@/api/collection/catalog'
+  import type { Options } from 'jsbarcode'
+  import type { BarCodeTag } from 'ele-admin-plus/es/ele-bar-code/types'
 
   const props = defineProps<{
     /** 藏品ID */
     id?: number
   }>()
 
-  /** 弹窗是否打开 */
   const visible = defineModel<boolean>({ type: Boolean })
-
-  /** 打印状态 */
   const printing = ref(false)
-
-  /** 博物馆名称 */
   const museumName = '博物馆名称'
-
-  /** 铭牌数据 */
   const nameplateData = ref<Collection[]>([])
 
-  /** 关闭弹窗 */
+  // 条码渲染方式和参数配置
+  const tag = ref<BarCodeTag>('img')
+  const options = reactive<Options>({
+    height: 40,
+    width: 2,
+    margin: 2,
+    displayValue: false,
+    format: 'CODE128'
+  })
+
   const handleClose = () => {
     visible.value = false
   }
-
-  /** 打印铭牌 */
   const handlePrint = () => {
     printing.value = true
   }
-
-  /** 获取藏品详情 */
   const getDetailsData = async () => {
     if (!props.id) return
     try {
@@ -126,8 +117,6 @@
       console.error('获取藏品详情失败:', e)
     }
   }
-
-  /** 监听ID变化 */
   watch(
     () => props.id,
     () => {
@@ -148,27 +137,23 @@
       padding: 0;
     }
   }
-
   .print-content {
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
   .print-page {
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
   .nameplate-grid {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
   .nameplate-item {
     border: 1px solid #dcdfe6;
     border-radius: 4px;
@@ -180,46 +165,38 @@
     display: flex;
     flex-direction: column;
   }
-
   .nameplate-header {
     text-align: center;
     margin-bottom: 15px;
   }
-
   .museum-name {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 8px;
   }
-
   .collection-code {
     font-size: 14px;
     color: #606266;
   }
-
   .nameplate-body {
     flex: 1;
     margin-bottom: 15px;
   }
-
   .collection-name {
     font-size: 18px;
     font-weight: 500;
     text-align: center;
     margin-bottom: 15px;
   }
-
   .collection-info {
     font-size: 14px;
     color: #606266;
     line-height: 1.8;
     text-align: center;
   }
-
   .nameplate-footer {
     text-align: center;
   }
-
   .barcode {
     display: inline-block;
     margin-top: 10px;

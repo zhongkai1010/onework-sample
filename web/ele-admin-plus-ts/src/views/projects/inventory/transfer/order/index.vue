@@ -17,6 +17,7 @@
         cache-key="transferOrderTable"
         :tools="['reload', 'size', 'columns', 'maximized']"
         :stripe="true"
+        :export-config="exportConfig"
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
@@ -93,7 +94,12 @@
     </ele-card>
 
     <!-- 详情弹窗 -->
-    <order-details ref="detailsRef" />
+    <order-details
+      ref="detailsRef"
+      v-model="detailsVisible"
+      :id="currentId"
+      @success="handleDetailsSuccess"
+    />
 
     <!-- 上传图片弹窗 -->
     <upload-image v-model="uploadImageVisible" :id="currentId" @success="handleUploadSuccess" />
@@ -119,10 +125,14 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, reactive } from 'vue'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import type { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    Columns,
+    ExportConfig
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import {
     UploadOutlined,
     DeleteOutlined,
@@ -135,6 +145,9 @@
   import UploadImage from './components/upload-image.vue'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
+  import { getExportWorkbook } from '@/config/use-global-config'
+  import { download } from '@/utils/common'
+  import request from '@/utils/request'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -145,6 +158,7 @@
   const selections = ref<any[]>([]) // 表格选中的行
   const uploadImageVisible = ref(false) // 上传图片弹窗显示状态
   const currentId = ref<number>() // 当前操作的拨库单ID
+  const detailsVisible = ref(false) // 详情弹窗显示状态
 
   // 图片预览相关状态
   const showImageViewer = ref(false)
@@ -248,6 +262,65 @@
     })
   }
 
+  /* 导出和打印全部数据的数据源 */
+  const exportSource: DatasourceFunction = ({ where, orders, filters }) => {
+    return listTransfers({
+      ...where,
+      ...orders,
+      ...filters
+    })
+  }
+
+  /* 导出配置 */
+  const exportConfig = reactive<ExportConfig>({
+    fileName: '调拨单数据',
+    datasource: exportSource,
+    beforeExport: (params) => {
+      const { fileName, closeModal, bodyCols, bodyData, headerData } = params
+      const workbook = getExportWorkbook(params)
+      const sheet = workbook.getWorksheet('Sheet1')
+
+      const getBuffer = async () => {
+        // 添加图片列图片
+        const imageColIndex = bodyCols.findIndex((c) => c.dataKey === 'documentImage')
+        if (sheet != null && imageColIndex !== -1) {
+          const imageBuffers = await Promise.all(
+            bodyData.map(async (row) => {
+              const url = row[imageColIndex].text as string | undefined
+              if (!url) {
+                return
+              }
+              const res = await request({ url, responseType: 'arraybuffer' })
+              return res.data
+            })
+          )
+          imageBuffers.forEach((buffer, index) => {
+            const rowIndex = index + headerData.length
+            if (buffer != null) {
+              const imgId = workbook.addImage({ buffer, extension: 'png' })
+              sheet.addImage(imgId, {
+                tl: { col: imageColIndex + 0.4, row: rowIndex + 0.2 },
+                ext: { width: 48, height: 48 }
+              })
+              sheet.getCell(rowIndex + 1, imageColIndex + 1).value = ''
+            }
+            sheet.getRow(rowIndex + 1).height = 42
+            sheet.getColumn(imageColIndex + 1).width = 8
+          })
+        }
+        // 输出workbook
+        const data = await workbook.xlsx.writeBuffer()
+        return data
+      }
+
+      getBuffer().then((data) => {
+        download(data, `${fileName}.xlsx`)
+        closeModal()
+      })
+      return false
+    }
+  })
+
   /* ==================== 方法 ==================== */
   // 重新加载表格数据
   const reload = () => {
@@ -284,7 +357,13 @@
 
   // 查看详情
   const handleViewDetails = (row: any) => {
-    detailsRef.value?.open(row.id)
+    currentId.value = row.id
+    detailsVisible.value = true
+  }
+
+  // 详情操作成功回调
+  const handleDetailsSuccess = () => {
+    reload()
   }
 
   // 批量上传图片
@@ -339,8 +418,7 @@
 
   // 导出
   const handleExport = () => {
-    // TODO: 实现导出功能
-    console.log('导出')
+    tableRef.value?.openExportModal?.()
   }
 
   // 打印

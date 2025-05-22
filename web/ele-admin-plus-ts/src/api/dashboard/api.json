@@ -1,0 +1,181 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "藏品管理系统",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/api/Index/artifactStatusStatistics": {
+      "get": {
+        "summary": "文物状态统计",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count1": {
+                      "type": "string",
+                      "description": "未审核"
+                    },
+                    "count2": {
+                      "type": "string",
+                      "description": "在藏"
+                    },
+                    "count3": {
+                      "type": "string",
+                      "description": "维修中"
+                    },
+                    "count4": {
+                      "type": "string",
+                      "description": "出库中"
+                    },
+                    "count5": {
+                      "type": "string",
+                      "description": "已注销"
+                    }
+                  },
+                  "required": [
+                    "count1",
+                    "count4",
+                    "count3",
+                    "count2",
+                    "count5"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/Index/gradeStatistics": {
+      "get": {
+        "summary": "藏品级别统计",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "级别名"
+                    },
+                    "number": {
+                      "type": "string",
+                      "description": "数量"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "number",
+                    "name"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/Index/annualStatistics": {
+      "get": {
+        "summary": "入藏年度统计",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "string",
+                      "description": "时间"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "数量"
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "name"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}

@@ -4,7 +4,7 @@
     :popper-width="360"
     filterable
     :tree-props="{
-      data: filteredTreeData,
+      data: treeData,
       props: {
         label: 'name',
         value: 'id',
@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, watch, useAttrs, computed } from 'vue'
+  import { ref, onMounted, watch, useAttrs } from 'vue'
   import { getWarehouseTree } from '@/api/inventory/warehouse'
   import { toTree } from 'ele-admin-plus/es'
   import type { Warehouse } from '@/api/inventory/warehouse/model'
@@ -39,31 +39,10 @@
     type?: number
   }>()
 
-  // 过滤后的树形数据
-  const filteredTreeData = computed(() => {
-    if (!props.type) {
-      return treeData.value
-    }
-    return filterByType(treeData.value, props.type)
-  })
-
-  // 根据类型过滤数据
-  const filterByType = (data: Warehouse[], type: number): Warehouse[] => {
-    return data.filter((item) => {
-      if (item.type === type) {
-        if (item.children) {
-          item.children = filterByType(item.children, type)
-        }
-        return true
-      }
-      return false
-    })
-  }
-
   // 加载仓库数据
   const loadWarehouses = async () => {
     try {
-      const data = await getWarehouseTree()
+      const data = await getWarehouseTree({ type: props.type })
       treeData.value = toTree({
         data,
         idField: 'id',
@@ -76,17 +55,26 @@
 
   // 处理选择变化
   const handleChange = (val: number | string | undefined) => {
-    emit('update:modelValue', val)
-    emit('change', val)
+    const newValue = val === 0 ? undefined : val
+    emit('update:modelValue', newValue)
+    emit('change', newValue)
   }
 
   // 监听外部值变化
   watch(
     () => props.modelValue,
     (val) => {
-      value.value = val
+      value.value = val === 0 ? undefined : val
     },
     { immediate: true }
+  )
+
+  // 监听type变化，重新加载数据
+  watch(
+    () => props.type,
+    () => {
+      loadWarehouses()
+    }
   )
 
   // 组件挂载时加载数据

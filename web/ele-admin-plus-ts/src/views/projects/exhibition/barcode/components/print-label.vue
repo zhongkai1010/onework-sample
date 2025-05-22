@@ -1,7 +1,6 @@
-<!-- 藏品标签打印 -->
 <template>
   <ele-modal
-    v-model="visible"
+    v-model="show"
     title="标签打印"
     width="1000px"
     :destroy-on-close="true"
@@ -9,22 +8,13 @@
   >
     <div class="print-content">
       <div class="print-preview">
-        <div v-for="(item, index) in printData" :key="index" class="label-item">
+        <div v-for="item in printData" :key="item.id" class="label-item">
           <div class="barcode-container">
             <div class="barcode-wrapper">
-              <ele-bar-code
-                :value="item.code"
-                :display-value="false"
-                :options="{
-                  height: 60,
-                  displayValue: false,
-                  fontSize: 14,
-                  textMargin: 2
-                }"
-              />
+              <ele-bar-code :value="item.code" :options="{ height: 60 }" />
             </div>
             <div class="label-info">
-              <div class="label-name">{{ item.collectionName }}</div>
+              <div class="label-name">{{ item.name }}</div>
               <div class="label-code">{{ item.code }}</div>
             </div>
           </div>
@@ -32,7 +22,7 @@
       </div>
     </div>
     <template #footer>
-      <el-button @click="handleClose">取消</el-button>
+      <el-button @click="show = false">取消</el-button>
       <el-button type="primary" :loading="printing" @click="handlePrint">打印</el-button>
     </template>
   </ele-modal>
@@ -45,22 +35,13 @@
     :body-style="{ overflow: 'hidden' }"
   >
     <div class="print-preview">
-      <div v-for="(item, index) in printData" :key="index" class="label-item">
+      <div v-for="item in printData" :key="item.id" class="label-item">
         <div class="barcode-container">
           <div class="barcode-wrapper">
-            <ele-bar-code
-              :value="item.code"
-              :display-value="false"
-              :options="{
-                height: 60,
-                displayValue: false,
-                fontSize: 14,
-                textMargin: 2
-              }"
-            />
+            <ele-bar-code :value="item.code" :options="{ height: 60 }" />
           </div>
           <div class="label-info">
-            <div class="label-name">{{ item.collectionName }}</div>
+            <div class="label-name">{{ item.name }}</div>
             <div class="label-code">{{ item.code }}</div>
           </div>
         </div>
@@ -72,47 +53,54 @@
 <script lang="ts" setup>
   import { ref, watch } from 'vue'
   import { EleMessage } from 'ele-admin-plus/es'
-  import type { Collection } from '@/api/collection/catalog/model'
+  import type { Warehouse } from '@/api/inventory/warehouse/model'
 
   const props = defineProps<{
-    /** 藏品数据 */
-    data: Collection[]
+    /** 是否显示 */
+    modelValue: boolean
+    /** 选中的行数据 */
+    selectedRows: Warehouse[]
   }>()
 
-  /** 弹窗是否打开 */
-  const visible = defineModel<boolean>({ type: Boolean })
+  const emit = defineEmits<{
+    (e: 'update:modelValue', value: boolean): void
+  }>()
+
+  /** 是否显示弹窗 */
+  const show = ref(false)
 
   /** 是否打印中 */
   const printing = ref(false)
 
   /** 打印数据 */
-  const printData = ref<Collection[]>([])
+  const printData = ref<Warehouse[]>([])
 
   /** 监听显示状态 */
   watch(
-    () => visible.value,
+    () => props.modelValue,
     (value) => {
+      show.value = value
       if (value) {
-        printData.value = [...props.data]
+        printData.value = [...props.selectedRows]
       }
     }
   )
 
-  /** 监听数据变化 */
+  /** 监听选中数据变化 */
   watch(
-    () => props.data,
+    () => props.selectedRows,
     (rows) => {
-      if (visible.value) {
+      if (show.value) {
         printData.value = [...rows]
       }
     },
     { deep: true }
   )
 
-  /** 关闭弹窗 */
-  const handleClose = () => {
-    visible.value = false
-  }
+  /** 监听弹窗显示状态 */
+  watch(show, (value) => {
+    emit('update:modelValue', value)
+  })
 
   /** 弹窗关闭后 */
   const onClosed = () => {
@@ -131,6 +119,7 @@
 
 <style lang="scss" scoped>
   .print-content {
+    padding: 20px;
     height: 600px;
     overflow: auto;
   }
@@ -148,7 +137,6 @@
     border-radius: 4px;
     width: calc(25% - 15px);
     min-width: 200px;
-    background-color: #fff;
   }
 
   .barcode-container {
@@ -160,12 +148,10 @@
 
   .barcode-wrapper {
     width: 100%;
-    height: 80px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
   }
 
   .label-info {
@@ -198,10 +184,6 @@
       page-break-inside: avoid;
       margin-bottom: 20px;
       width: 100%;
-    }
-    .barcode-wrapper {
-      height: 80px;
-      background-color: #fff;
     }
   }
 </style>

@@ -7,7 +7,7 @@
     :destroy-on-close="true"
     @close="reset"
   >
-    <div class="print-content" v-loading="loading">
+    <div class="print-content" v-loading="loading" style="max-height: 600px; overflow-y: auto">
       <div class="document-content">
         <template v-if="data">
           <div class="document-header">
@@ -20,7 +20,7 @@
             </div>
             <div class="info-item">
               <span class="label">登记日期：</span>
-              <span class="value">{{ data.registrationDate }}</span>
+              <span class="value">{{ formatDate(data.registrationDate) }}</span>
             </div>
             <div class="info-item">
               <span class="label">藏品编码：</span>
@@ -52,7 +52,7 @@
             </div>
             <div class="info-item">
               <span class="label">送修日期：</span>
-              <span class="value">{{ data.sendRepairDate }}</span>
+              <span class="value">{{ formatDate(data.sendRepairDate) }}</span>
             </div>
             <div class="info-item">
               <span class="label">工单状态：</span>
@@ -70,11 +70,16 @@
             </div>
             <div class="info-item">
               <span class="label">资质证书：</span>
-              <span class="value">{{ data.qualificationCertificate }}</span>
+              <span class="value">
+                <el-link v-if="parsedCertificate" :href="parsedCertificate.url" target="_blank">{{
+                  parsedCertificate.name
+                }}</el-link>
+                <span v-else>暂无证书</span>
+              </span>
             </div>
             <div class="info-item">
               <span class="label">修完日期：</span>
-              <span class="value">{{ data.repairCompletionDate }}</span>
+              <span class="value">{{ formatDate(data.repairCompletionDate) }}</span>
             </div>
             <div class="info-item">
               <span class="label">修复情况及结果：</span>
@@ -104,7 +109,7 @@
             </div>
             <div class="info-item">
               <span class="label">登记日期：</span>
-              <span class="value">{{ data?.registrationDate }}</span>
+              <span class="value">{{ formatDate(data?.registrationDate) }}</span>
             </div>
             <div class="info-item">
               <span class="label">藏品编码：</span>
@@ -136,7 +141,7 @@
             </div>
             <div class="info-item">
               <span class="label">送修日期：</span>
-              <span class="value">{{ data?.sendRepairDate }}</span>
+              <span class="value">{{ formatDate(data?.sendRepairDate) }}</span>
             </div>
             <div class="info-item">
               <span class="label">工单状态：</span>
@@ -154,11 +159,16 @@
             </div>
             <div class="info-item">
               <span class="label">资质证书：</span>
-              <span class="value">{{ data?.qualificationCertificate }}</span>
+              <span class="value">
+                <el-link v-if="parsedCertificate" :href="parsedCertificate.url" target="_blank">{{
+                  parsedCertificate.name
+                }}</el-link>
+                <span v-else>暂无证书</span>
+              </span>
             </div>
             <div class="info-item">
               <span class="label">修完日期：</span>
-              <span class="value">{{ data?.repairCompletionDate }}</span>
+              <span class="value">{{ formatDate(data?.repairCompletionDate) }}</span>
             </div>
             <div class="info-item">
               <span class="label">修复情况及结果：</span>
@@ -175,10 +185,11 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, watch } from 'vue'
+  import { ref, watch, computed } from 'vue'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { Repair } from '@/api/collection/repair/model'
   import { getRepairDetails } from '@/api/collection/repair'
+  import dayjs from 'dayjs'
 
   /* ==================== 状态管理 ==================== */
   const visible = defineModel<boolean>({ type: Boolean })
@@ -233,6 +244,21 @@
     },
     { immediate: true }
   )
+
+  /* ==================== 计算属性 ==================== */
+  const parsedCertificate = computed(() => {
+    if (!data.value?.qualificationCertificate) return null
+    try {
+      return JSON.parse(data.value.qualificationCertificate)
+    } catch (e) {
+      return null
+    }
+  })
+
+  /* ==================== 工具函数 ==================== */
+  const formatDate = (date: string | undefined) => {
+    return date ? dayjs(date).format('YYYY-MM-DD') : ''
+  }
 </script>
 
 <style lang="scss" scoped>

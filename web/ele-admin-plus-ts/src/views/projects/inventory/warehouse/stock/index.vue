@@ -102,7 +102,7 @@
     try {
       treeLoading.value = true
       const data = await getWarehouseTree({
-        type: 1
+        type: 1 //库房
       })
       treeData.value = [
         {

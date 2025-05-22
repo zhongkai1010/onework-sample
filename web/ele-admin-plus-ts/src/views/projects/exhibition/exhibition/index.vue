@@ -158,7 +158,8 @@
   const datasource: DatasourceFunction = async ({ where, orders }) => {
     const data = await getWarehouseTree({
       ...where,
-      ...orders
+      ...orders,
+      type: 2
     })
     treeData.value = toTree({
       data,
