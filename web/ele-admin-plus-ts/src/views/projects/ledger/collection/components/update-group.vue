@@ -9,20 +9,7 @@
   >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent>
       <el-form-item label="藏品组" prop="groupId">
-        <el-select
-          v-model="form.groupId"
-          placeholder="请选择藏品组"
-          clearable
-          filterable
-          style="width: 100%"
-        >
-          <el-option
-            v-for="item in groupOptions"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
+        <group-select v-model="form.groupId" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -39,6 +26,7 @@
   import { useFormData } from '@/utils/use-form-data'
   import { changeClassification } from '@/api/collection/ledger'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
+  import GroupSelect from '@/components/CustomForm/GroupSelect.vue'
 
   const props = defineProps<{
     rows: CollectionLedger[]
@@ -67,14 +55,6 @@
   const rules = {
     groupId: [{ required: true, message: '请选择藏品组', trigger: 'change' }]
   }
-
-  // 藏品组选项
-  const groupOptions = ref([
-    { id: '1', name: '书画组' },
-    { id: '2', name: '陶瓷组' },
-    { id: '3', name: '玉器组' },
-    { id: '4', name: '青铜器组' }
-  ])
 
   // 关闭弹窗
   const onClose = () => {

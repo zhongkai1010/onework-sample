@@ -119,3 +119,15 @@ export async function uploadCancellationImage(id: number, documentImage: string)
   }
   return Promise.reject(new Error(res.data.message))
 }
+
+/**
+ * 删除注销单
+ * @param ids 注销单ID集合
+ */
+export async function deleteCancellation(ids: number[]) {
+  const res = await request.post<ApiResult<unknown>>('/CollectionCancellation/delete', { ids })
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}

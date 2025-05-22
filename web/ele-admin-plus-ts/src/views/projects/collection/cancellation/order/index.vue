@@ -135,7 +135,8 @@
   import {
     getCancellationList,
     approveCancellation,
-    recoverCancellation
+    recoverCancellation,
+    deleteCancellation
   } from '@/api/collection/cancellation'
   import type { Cancellation, CancellationQueryParams } from '@/api/collection/cancellation/model'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
@@ -323,10 +324,17 @@
       await ElMessageBox.confirm('确定要删除选中的注销单吗？', '提示', {
         type: 'warning'
       })
-      // TODO: 实现删除功能
-      ElMessage.info('删除功能待实现')
-    } catch (error) {
+      await deleteCancellation(_ids)
+      ElMessage.success('删除成功')
+      reload()
+      selections.value = []
+    } catch (error: any) {
+      // 用户点击取消按钮时，error 会是 'cancel'
+      if (error === 'cancel') {
+        return
+      }
       console.error('删除失败:', error)
+      ElMessage.error(error?.message || '删除失败')
     }
   }
 

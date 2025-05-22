@@ -1,0 +1,631 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "藏品管理系统",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/api/BranchHall/list": {
+      "get": {
+        "summary": "查询全部",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "名称",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "分馆名称"
+                          },
+                          "status": {
+                            "type": "string",
+                            "description": "启用自动编号  0:不启动 1：启动"
+                          },
+                          "numberPrefix": {
+                            "type": "string",
+                            "description": "自动编号前缀"
+                          },
+                          "numberLength": {
+                            "type": "string",
+                            "description": "自动编号长度"
+                          },
+                          "numberPrice": {
+                            "type": "string",
+                            "description": "初始编号值"
+                          },
+                          "createTime": {
+                            "type": "string",
+                            "description": "创建时间"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "numberPrefix",
+                          "status",
+                          "name",
+                          "createTime",
+                          "numberPrice",
+                          "numberLength"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "error",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/BranchHall/page": {
+      "get": {
+        "summary": "分页查询",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "名称",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "10",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "list": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "分馆名称"
+                              },
+                              "status": {
+                                "type": "string",
+                                "description": "启用自动编号  0:不启动 1：启动"
+                              },
+                              "numberPrefix": {
+                                "type": "string",
+                                "description": "自动编号前缀"
+                              },
+                              "numberLength": {
+                                "type": "string",
+                                "description": "自动编号长度"
+                              },
+                              "numberPrice": {
+                                "type": "string",
+                                "description": "初始编号值"
+                              },
+                              "createTime": {
+                                "type": "string",
+                                "description": "创建时间"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "numberPrice",
+                              "numberLength",
+                              "numberPrefix",
+                              "status",
+                              "name",
+                              "createTime"
+                            ]
+                          }
+                        },
+                        "count": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "list",
+                        "count"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "error",
+                    "message",
+                    "data",
+                    "01JVS0BZQK7J2EXK40PWFWYZJV"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/BranchHall/add": {
+      "post": {
+        "summary": "添加",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "分馆名称"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "启用自动编号  0:不启动 1：启动"
+                  },
+                  "numberPrefix": {
+                    "type": "string",
+                    "description": "自动编号前缀"
+                  },
+                  "numberLength": {
+                    "type": "string",
+                    "description": "自动编号长度"
+                  },
+                  "numberPrice": {
+                    "type": "string",
+                    "description": "初始编号值"
+                  }
+                },
+                "required": [
+                  "name",
+                  "numberPrice",
+                  "numberLength",
+                  "numberPrefix",
+                  "status"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "error",
+                    "message",
+                    "data",
+                    "01JVS0BZQK7J2EXK40PWFWYZJV"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/BranchHall/update": {
+      "post": {
+        "summary": "修改",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "分馆名称"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "启用自动编号  0:不启动 1：启动"
+                  },
+                  "numberPrefix": {
+                    "type": "string",
+                    "description": "自动编号前缀"
+                  },
+                  "numberLength": {
+                    "type": "string",
+                    "description": "自动编号长度"
+                  },
+                  "numberPrice": {
+                    "type": "string",
+                    "description": "初始编号值"
+                  },
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "numberPrice",
+                  "numberLength",
+                  "numberPrefix",
+                  "status",
+                  "id"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "error",
+                    "message",
+                    "data",
+                    "01JVS0BZQK7J2EXK40PWFWYZJV"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/BranchHall/delete": {
+      "post": {
+        "summary": "删除",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "ids"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "error",
+                    "message",
+                    "data",
+                    "01JVS0BZQK7J2EXK40PWFWYZJV"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/BranchHall/get": {
+      "get": {
+        "summary": "根据id查询",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "分馆名称"
+                        },
+                        "status": {
+                          "type": "string",
+                          "description": "启用自动编号  0:不启动 1：启动"
+                        },
+                        "numberPrefix": {
+                          "type": "string",
+                          "description": "自动编号前缀"
+                        },
+                        "numberLength": {
+                          "type": "string",
+                          "description": "自动编号长度"
+                        },
+                        "numberPrice": {
+                          "type": "string",
+                          "description": "初始编号值"
+                        },
+                        "createTime": {
+                          "type": "string",
+                          "description": "创建时间"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "numberPrefix",
+                        "status",
+                        "name",
+                        "createTime",
+                        "numberPrice",
+                        "numberLength"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "error",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}

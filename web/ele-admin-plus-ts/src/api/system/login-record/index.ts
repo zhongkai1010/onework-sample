@@ -6,7 +6,7 @@ import type { LoginRecord, LoginRecordParam } from './model'
  * 分页查询登录日志
  */
 export async function pageLoginRecords(params: LoginRecordParam) {
-  const res = await request.get<ApiResult<PageResult<LoginRecord>>>('/system/login-record/page', {
+  const res = await request.get<ApiResult<PageResult<LoginRecord>>>('/system/loginLogPage', {
     params
   })
   if (res.data.code === 0) {

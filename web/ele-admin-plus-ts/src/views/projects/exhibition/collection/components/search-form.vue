@@ -1,6 +1,6 @@
 <!-- 搜索表单 -->
 <template>
-  <el-form label-width="100px" @keyup.enter="search" @submit.prevent="">
+  <el-form @keyup.enter="search" @submit.prevent="" :inline="true" label-position="left">
     <el-row :gutter="8">
       <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
         <el-form-item label="藏品编号">

@@ -1,6 +1,6 @@
 <!-- 搜索表单 -->
 <template>
-  <el-form label-width="100px" @keyup.enter="search" @submit.prevent="" :inline="true">
+  <el-form @keyup.enter="search" @submit.prevent="" :inline="true" label-position="left">
     <el-form-item label="藏品编号">
       <el-input clearable v-model.trim="form.collectionCode" placeholder="请输入藏品编号" />
     </el-form-item>

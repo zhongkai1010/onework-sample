@@ -6,10 +6,9 @@ import type { OperationRecord, OperationRecordParam } from './model'
  * 分页查询操作日志
  */
 export async function pageOperationRecords(params: OperationRecordParam) {
-  const res = await request.get<ApiResult<PageResult<OperationRecord>>>(
-    '/system/operation-record/page',
-    { params }
-  )
+  const res = await request.get<ApiResult<PageResult<OperationRecord>>>('/system/operateLogPage', {
+    params
+  })
   if (res.data.code === 0) {
     return res.data.data
   }

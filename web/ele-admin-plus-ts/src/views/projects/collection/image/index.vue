@@ -43,6 +43,14 @@
             >
           </el-space>
         </template>
+
+        <!-- 文件列 -->
+        <template #file="{ row }">
+          <el-link v-if="row.file" type="primary" @click.stop="handleFileClick(row.file)">
+            {{ getFileName(row.file) }}
+          </el-link>
+          <div v-else>暂无数据</div>
+        </template>
       </ele-pro-table>
 
       <!-- 影像编辑弹窗 -->
@@ -104,20 +112,21 @@
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 120,
+      width: 180,
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       showOverflowTooltip: true
     },
     {
       prop: 'title',
       label: '标题',
       sortable: 'custom',
+      width: 220,
       showOverflowTooltip: true
     },
     {
@@ -132,8 +141,8 @@
       prop: 'file',
       label: '文件',
       sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
+      showOverflowTooltip: true,
+      slot: 'file'
     },
     {
       prop: 'addedBy',
@@ -146,7 +155,7 @@
       prop: 'addTime',
       label: '添加时间',
       sortable: 'custom',
-      width: 120,
+      width: 220,
       align: 'center',
       showOverflowTooltip: true
     },
@@ -225,6 +234,33 @@
           })
       })
       .catch(() => {})
+  }
+
+  /**
+   * 获取文件名
+   */
+  const getFileName = (file: string) => {
+    try {
+      const fileInfo = JSON.parse(file)
+      return fileInfo.name || '未命名文件'
+    } catch (error) {
+      console.error('Invalid file info:', error)
+      return '无效文件'
+    }
+  }
+
+  /**
+   * 处理文件点击
+   */
+  const handleFileClick = (file: string) => {
+    try {
+      const fileInfo = JSON.parse(file)
+      if (fileInfo.url) {
+        window.open(fileInfo.url, '_blank')
+      }
+    } catch (error) {
+      console.error('Invalid file info:', error)
+    }
   }
 
   /* ==================== 暴露方法 ==================== */

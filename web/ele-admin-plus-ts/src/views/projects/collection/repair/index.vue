@@ -85,6 +85,20 @@
           <span v-else>暂无数据</span>
         </template>
 
+        <!-- 资质证书列 -->
+        <template #qualificationCertificate="{ row }">
+          <div v-if="row.qualificationCertificate">
+            <el-link
+              type="primary"
+              :href="getCertificateUrl(row.qualificationCertificate)"
+              target="_blank"
+            >
+              {{ getCertificateName(row.qualificationCertificate) }}
+            </el-link>
+          </div>
+          <span v-else>暂无数据</span>
+        </template>
+
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="8" alignment="center" style="width: 100%">
@@ -310,7 +324,8 @@
       label: '资质证书',
       sortable: 'custom',
       width: 220,
-      showOverflowTooltip: true
+      showOverflowTooltip: true,
+      slot: 'qualificationCertificate'
     },
     {
       prop: 'repairCompletionDate',
@@ -495,6 +510,32 @@
       .catch(() => {
         // 取消删除
       })
+  }
+
+  /**
+   * 获取资质证书URL
+   */
+  const getCertificateUrl = (certificate: string): string => {
+    try {
+      const data = JSON.parse(certificate)
+      return data?.url || ''
+    } catch (e) {
+      console.error('解析资质证书URL失败:', e)
+      return ''
+    }
+  }
+
+  /**
+   * 获取资质证书名称
+   */
+  const getCertificateName = (certificate: string): string => {
+    try {
+      const data = JSON.parse(certificate)
+      return data?.name || '未知文件'
+    } catch (e) {
+      console.error('解析资质证书名称失败:', e)
+      return '未知文件'
+    }
   }
 
   /* ==================== 暴露方法 ==================== */
