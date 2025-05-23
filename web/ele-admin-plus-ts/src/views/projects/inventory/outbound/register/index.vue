@@ -113,7 +113,6 @@
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      width: 220,
       align: 'left',
       showOverflowTooltip: true
     },

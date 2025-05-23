@@ -63,7 +63,6 @@
       prop: 'warehouseNumber',
       label: '入库单号',
       sortable: 'custom',
-      width: 220,
       align: 'left',
       showOverflowTooltip: true
     },
@@ -71,7 +70,6 @@
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 220,
       align: 'left',
       showOverflowTooltip: true
     },
@@ -79,7 +77,6 @@
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
-      width: 220,
       align: 'left',
       showOverflowTooltip: true
     },
@@ -87,7 +84,6 @@
       prop: 'warehouseName',
       label: '接收库房',
       sortable: 'custom',
-
       align: 'left',
       showOverflowTooltip: true
     },
@@ -95,7 +91,6 @@
       prop: 'storageDate',
       label: '入库日期',
       sortable: 'custom',
-      width: 120,
       align: 'center',
       showOverflowTooltip: true,
       formatter: (row) => dayjs(row.storageDate).format('YYYY-MM-DD')

@@ -32,7 +32,7 @@
         <el-input v-model="form.operator" placeholder="请输入经办人" clearable />
       </el-form-item>
       <el-form-item label="接收库房" prop="warehouseId">
-        <warehouse-select v-model="form.warehouseId" :type="1" />
+        <warehouse-select v-model="form.warehouseId" />
       </el-form-item>
       <el-form-item label="入库日期" prop="storageDate">
         <el-date-picker
@@ -42,8 +42,8 @@
           style="width: 100%"
         />
       </el-form-item>
-      <el-form-item label="备注" prop="remarks">
-        <el-input v-model="form.remarks" type="textarea" placeholder="请输入备注" clearable />
+      <el-form-item label="备注" prop="remark">
+        <el-input v-model="form.remark" type="textarea" placeholder="请输入备注" clearable />
       </el-form-item>
       <el-form-item label="单据图片" prop="imgs">
         <image-upload v-model="documentImage" :limit="1" />
@@ -132,7 +132,7 @@
     operator: '',
     warehouseId: undefined,
     storageDate: '',
-    remarks: ''
+    remark: ''
   })
 
   /** 单据图片 */

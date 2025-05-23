@@ -18,7 +18,7 @@
     </el-form>
     <ele-pro-table
       ref="tableRef"
-      :tools="false"
+      :toolbar="false"
       :columns="columns"
       :datasource="datasource"
       :loading="loading"

@@ -62,6 +62,7 @@
   import pageImage from './page.png'
   import SelectionCollection from './components/selection-collection.vue'
   import ConfirmSelection from './components/confirm-selection.vue'
+  import { ElMessage } from 'element-plus'
 
   // 表格实例
   const tableRef = ref<InstanceType<typeof EleProTable>>()
@@ -201,9 +202,13 @@
 
   // 打开确认选择弹框
   const openConfirmDialog = () => {
+    if (selectedRows.value.length === 0) {
+      ElMessage.warning('请至少选择一条数据')
+      return
+    }
     confirmDialogVisible.value = true
     // 设置选中的藏品ID列表
-    const collectionIds = selectedCollections.value.map((item) => Number(item.id))
+    const collectionIds = selectedRows.value.map((item) => Number(item.id))
     confirmRef.value?.setSelectedCollections(collectionIds)
   }
 

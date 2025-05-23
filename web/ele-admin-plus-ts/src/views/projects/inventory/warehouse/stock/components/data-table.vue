@@ -12,6 +12,7 @@
     :tools="['reload', 'size', 'columns', 'maximized']"
     :stripe="true"
     v-model:selections="selections"
+    @row-click="handleRowClick"
   >
     <template #toolbar>
       <el-button
@@ -25,8 +26,8 @@
       </el-button>
     </template>
     <template #status="{ row }">
-      <el-tag :type="row.collectionStatus === 1 ? 'success' : 'info'" effect="light">
-        {{ row.collectionStatus === 1 ? '正常' : '异常' }}
+      <el-tag :type="getStatusType(row.collectionStatus)" effect="light">
+        {{ getStatusText(row.collectionStatus) }}
       </el-tag>
     </template>
     <template #operation="{ row }">
@@ -88,6 +89,15 @@
       fixed: 'left'
     },
     {
+      prop: 'collectionStatus',
+      label: '藏品状态',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'status'
+    },
+    {
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
@@ -98,6 +108,7 @@
     {
       prop: 'collectionName',
       label: '藏品名称',
+      width: 220,
       sortable: 'custom',
       align: 'left',
       showOverflowTooltip: true
@@ -167,21 +178,20 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'rfidCode',
-      label: '地址码',
+      prop: 'location',
+      label: '存放位置',
       sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'collectionStatus',
-      label: '藏品状态',
+      prop: 'rfidCode',
+      label: '地址码',
       sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true,
-      slot: 'status'
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
     },
     {
       columnKey: 'operation',
@@ -207,6 +217,18 @@
   /** 重新加载数据 */
   const reload = (where?: Record<string, any>) => {
     tableRef.value?.reload?.({ page: 1, where })
+  }
+
+  /** 处理行点击 */
+  const handleRowClick = (row: WarehouseCollection) => {
+    const index = selections.value.findIndex((item) => item.id === row.id)
+    if (index === -1) {
+      selections.value = [row]
+    } else {
+      selections.value = []
+    }
+    // 同步表格选中状态
+    tableRef.value?.toggleRowSelection(row, index === -1)
   }
 
   /** 处理查看详情 */
@@ -239,9 +261,49 @@
     }
   )
 
+  /**
+   * 获取状态类型
+   */
+  const getStatusType = (status: number): 'success' | 'warning' | 'danger' | 'info' | 'primary' => {
+    const statusMap: Record<number, 'success' | 'warning' | 'danger' | 'info' | 'primary'> = {
+      0: 'danger', // 未审核
+      1: 'success', // 在藏
+      2: 'warning', // 待出库
+      3: 'danger', // 已出库
+      4: 'warning', // 待拨库
+      5: 'danger', // 修复中
+      6: 'warning', // 待注销
+      7: 'primary' // 已注销
+    }
+    return statusMap[status] || 'primary'
+  }
+
+  /**
+   * 获取状态文本
+   */
+  const getStatusText = (status: number): string => {
+    const statusMap: Record<number, string> = {
+      0: '未审核',
+      1: '在藏',
+      2: '待出库',
+      3: '已出库',
+      4: '待拨库',
+      5: '修复中',
+      6: '待注销',
+      7: '已注销'
+    }
+    return statusMap[status] || '其他'
+  }
+
   /* 暴露方法给父组件 */
   defineExpose({
     search: reload,
     reset
   })
 </script>
+
+<style lang="scss" scoped>
+  :deep(.el-table__row) {
+    cursor: pointer;
+  }
+</style>

@@ -118,6 +118,9 @@
   <!-- 铭牌打印弹窗 -->
   <print-document v-model="showNameplate" :id="currentNameplateId" />
 
+  <!-- 导入弹窗 -->
+  <import-modal v-model="showImport" @done="reload" />
+
   <ele-image-viewer
     v-model="showImageViewer"
     :urlList="viewerImages"
@@ -152,6 +155,7 @@
   import CollectionDetails from './collection-details.vue'
   import PrintLabel from './print-label.vue'
   import PrintDocument from './print-document.vue'
+  import ImportModal from './import-modal.vue'
   import { getCatalogs, deleteCollections, approve } from '@/api/collection/catalog'
   import type { Collection, CollectionQueryParams } from '@/api/collection/catalog/model'
   import { getExportWorkbook } from '@/config/use-global-config'
@@ -183,6 +187,7 @@
   const showImageViewer = ref(false)
   const viewerImages = ref<string[]>([])
   const viewerIndex = ref(0)
+  const showImport = ref(false)
 
   /* 计算属性 */
   const selectedCollectionIds = computed(() =>
@@ -733,8 +738,7 @@
    * 处理导入
    */
   const handleImport = () => {
-    // TODO: Implement import functionality
-    console.log('Import collections')
+    showImport.value = true
   }
 
   /**

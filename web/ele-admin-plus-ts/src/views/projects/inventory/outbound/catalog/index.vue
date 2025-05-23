@@ -78,7 +78,7 @@
       prop: 'code',
       label: '出库单号',
       sortable: 'custom',
-      width: 220,
+
       align: 'left',
       showOverflowTooltip: true
     },
@@ -86,7 +86,7 @@
       prop: 'outboundDate',
       label: '出库日期',
       sortable: 'custom',
-      width: 120,
+
       align: 'center',
       showOverflowTooltip: true,
       slot: 'outboundDate'
@@ -95,7 +95,7 @@
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 220,
+
       align: 'left',
       showOverflowTooltip: true
     },
@@ -110,7 +110,7 @@
       prop: 'storageDate',
       label: '入库日期',
       sortable: 'custom',
-      width: 180,
+
       align: 'center',
       showOverflowTooltip: true,
       slot: 'storageDate'
@@ -119,7 +119,7 @@
       prop: 'status',
       label: '状态',
       sortable: 'custom',
-      width: 120,
+
       align: 'center',
       showOverflowTooltip: true,
       slot: 'status'

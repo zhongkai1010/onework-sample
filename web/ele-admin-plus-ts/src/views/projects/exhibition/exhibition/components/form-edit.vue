@@ -13,6 +13,9 @@
       <el-form-item label="库房名称" prop="name">
         <el-input v-model.trim="form.name" placeholder="请输入库房名称" clearable />
       </el-form-item>
+      <el-form-item label="拼音" prop="pingying">
+        <el-input v-model.trim="form.pingying" placeholder="请输入拼音" clearable />
+      </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input v-model.trim="form.remark" type="textarea" :rows="3" placeholder="请输入备注" />
       </el-form-item>
@@ -67,13 +70,9 @@
     parentId: undefined as number | undefined,
     code: '',
     name: '',
-    type: 1, //固定类型为库房
-    tier: 1, //固定级别为库
+    type: 2, //固定类型为库房
     remark: '',
-    columnCount: undefined as number | undefined,
-    sectionCount: undefined as number | undefined,
-    layerCount: undefined as number | undefined,
-    fixedColumnType: ''
+    pingying: '' // 拼音字段
   })
 
   /** 表单验证规则 */
@@ -124,7 +123,9 @@
         const updateParams: UpdateWarehouseParams = {
           id: props.data.id,
           name: form.name,
-          remark: form.remark
+          remark: form.remark,
+          type: 2, //固定类型为库房
+          pingying: form.pingying
         }
         updateWarehouse(updateParams)
           .then((msg) => {
@@ -142,8 +143,8 @@
           name: form.name,
           parentId: form.parentId,
           remark: form.remark,
-          type: 1, //固定类型为库房
-          tier: 1 //固定级别为库
+          type: 2, //固定类型为库房
+          pingying: form.pingying
         }
         addWarehouse(addParams)
           .then((msg) => {

@@ -17,6 +17,7 @@
         cache-key="repairTable"
         :tools="['reload', 'size', 'columns', 'maximized']"
         :stripe="true"
+        :export-config="exportConfig"
         @row-click="handleRowClick"
       >
         <!-- 工具栏按钮 -->
@@ -146,7 +147,12 @@
       <upload-image v-model="showUploadImage" :id="current?.id" @success="reload" />
 
       <!-- 图片预览组件 -->
-      <ele-image-viewer v-model="showImageViewer" :images="viewerImages" :index="viewerIndex" />
+      <ele-image-viewer
+        v-model="showImageViewer"
+        :urlList="viewerImages"
+        :initialIndex="viewerIndex"
+        :infinite="false"
+      />
     </ele-card>
     <!-- 参考按钮 -->
     <reference-button
@@ -161,11 +167,15 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, reactive } from 'vue'
   import { EleMessage } from 'ele-admin-plus/es'
   import { ElMessageBox } from 'element-plus'
   import type { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    Columns,
+    ExportConfig
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import {
     PlusOutlined,
     UploadOutlined,
@@ -183,6 +193,9 @@
   import PrintDocument from './components/print-document.vue'
   import UpdateStatus from './components/update-status.vue'
   import UploadImage from './components/upload-image.vue'
+  import { getExportWorkbook } from '@/config/use-global-config'
+  import { download } from '@/utils/common'
+  import request from '@/utils/request'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -377,6 +390,127 @@
     })
   }
 
+  /* 导出和打印全部数据的数据源 */
+  const exportSource: DatasourceFunction = ({ where, orders, filters }) => {
+    return getRepairList({
+      ...where,
+      ...orders,
+      ...filters,
+      status: where.status,
+      collectionCode: where.collectionCode,
+      collectionName: where.collectionName
+    })
+  }
+
+  /* 导出配置 */
+  const exportConfig = reactive<ExportConfig>({
+    fileName: '修复记录数据',
+    datasource: exportSource,
+    beforeExport: (params) => {
+      const { fileName, closeModal, bodyCols, bodyData, headerData } = params
+      const workbook = getExportWorkbook(params)
+      const sheet = workbook.getWorksheet('Sheet1')
+
+      const getBuffer = async () => {
+        // 添加单据图片
+        const documentImageColIndex = bodyCols.findIndex((c) => c.dataKey === 'documentImage')
+        if (sheet != null && documentImageColIndex !== -1) {
+          const imageBuffers = await Promise.all(
+            bodyData.map(async (row) => {
+              const url = row[documentImageColIndex].text as string | undefined
+              if (!url) {
+                return
+              }
+              const res = await request({ url, responseType: 'arraybuffer' })
+              return res.data
+            })
+          )
+          imageBuffers.forEach((buffer, index) => {
+            const rowIndex = index + headerData.length
+            if (buffer != null) {
+              const imgId = workbook.addImage({ buffer, extension: 'png' })
+              sheet.addImage(imgId, {
+                tl: { col: documentImageColIndex + 0.4, row: rowIndex + 0.2 },
+                ext: { width: 48, height: 48 }
+              })
+              sheet.getCell(rowIndex + 1, documentImageColIndex + 1).value = ''
+            }
+            sheet.getRow(rowIndex + 1).height = 42
+            sheet.getColumn(documentImageColIndex + 1).width = 8
+          })
+        }
+
+        // 添加修复前图片
+        const beforeRepairImageColIndex = bodyCols.findIndex(
+          (c) => c.dataKey === 'beforeRepairImage'
+        )
+        if (sheet != null && beforeRepairImageColIndex !== -1) {
+          const imageBuffers = await Promise.all(
+            bodyData.map(async (row) => {
+              const url = row[beforeRepairImageColIndex].text as string | undefined
+              if (!url) {
+                return
+              }
+              const res = await request({ url, responseType: 'arraybuffer' })
+              return res.data
+            })
+          )
+          imageBuffers.forEach((buffer, index) => {
+            const rowIndex = index + headerData.length
+            if (buffer != null) {
+              const imgId = workbook.addImage({ buffer, extension: 'png' })
+              sheet.addImage(imgId, {
+                tl: { col: beforeRepairImageColIndex + 0.4, row: rowIndex + 0.2 },
+                ext: { width: 48, height: 48 }
+              })
+              sheet.getCell(rowIndex + 1, beforeRepairImageColIndex + 1).value = ''
+            }
+            sheet.getRow(rowIndex + 1).height = 42
+            sheet.getColumn(beforeRepairImageColIndex + 1).width = 8
+          })
+        }
+
+        // 添加修复后图片
+        const afterRepairImageColIndex = bodyCols.findIndex((c) => c.dataKey === 'afterRepairImage')
+        if (sheet != null && afterRepairImageColIndex !== -1) {
+          const imageBuffers = await Promise.all(
+            bodyData.map(async (row) => {
+              const url = row[afterRepairImageColIndex].text as string | undefined
+              if (!url) {
+                return
+              }
+              const res = await request({ url, responseType: 'arraybuffer' })
+              return res.data
+            })
+          )
+          imageBuffers.forEach((buffer, index) => {
+            const rowIndex = index + headerData.length
+            if (buffer != null) {
+              const imgId = workbook.addImage({ buffer, extension: 'png' })
+              sheet.addImage(imgId, {
+                tl: { col: afterRepairImageColIndex + 0.4, row: rowIndex + 0.2 },
+                ext: { width: 48, height: 48 }
+              })
+              sheet.getCell(rowIndex + 1, afterRepairImageColIndex + 1).value = ''
+            }
+            sheet.getRow(rowIndex + 1).height = 42
+            sheet.getColumn(afterRepairImageColIndex + 1).width = 8
+          })
+        }
+
+        // 输出workbook
+        const data = await workbook.xlsx.writeBuffer()
+        return data
+      }
+
+      getBuffer().then((data) => {
+        download(data, `${fileName}.xlsx`)
+        closeModal()
+      })
+      return false
+    }
+  })
+
   /* ==================== 表格操作 ==================== */
   /**
    * 重新加载表格数据
@@ -418,8 +552,7 @@
    * 处理导出
    */
   const handleExport = () => {
-    // TODO: 实现导出功能
-    EleMessage.info('导出功能开发中...')
+    tableRef.value?.openExportModal?.()
   }
 
   /**

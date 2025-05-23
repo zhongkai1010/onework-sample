@@ -58,18 +58,8 @@ export interface AddWarehouseParams {
   name: string
   /** 类型，1：展区，2：展区 */
   type: number
-  /** 级别，1：库，2：区，3：列，4：节，5：层 */
-  tier: number
   /** 备注 */
   remark?: string
-  /** 列数 */
-  columnCount?: number
-  /** 节数 */
-  sectionCount?: number
-  /** 层数 */
-  layerCount?: number
-  /** 固定列类型 */
-  fixedColumnType?: string
   /** 拼音 */
   pingying?: string
 }

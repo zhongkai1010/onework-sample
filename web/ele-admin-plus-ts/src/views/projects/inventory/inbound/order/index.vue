@@ -43,6 +43,13 @@
           <el-button type="info" class="ele-btn-icon" :icon="DownloadOutlined" @click="handleExport"
             >导出</el-button
           >
+          <el-button
+            type="primary"
+            class="ele-btn-icon"
+            :icon="PrinterOutlined"
+            @click="handlePrint"
+            >打印单据</el-button
+          >
         </template>
 
         <!-- 单据图片列 -->
@@ -119,6 +126,9 @@
 
       <!-- 上传图片弹窗 -->
       <upload-modal v-model="showUpload" :id="currentUploadId" @success="reload" />
+
+      <!-- 打印单据弹窗 -->
+      <print-document ref="printDocumentRef" v-model="showPrint" />
     </ele-card>
   </ele-page>
 </template>
@@ -137,7 +147,8 @@
     PlusOutlined,
     UploadOutlined,
     DeleteOutlined,
-    DownloadOutlined
+    DownloadOutlined,
+    PrinterOutlined
   } from '@/components/icons'
   import type { InboundOrder, InboundQueryParams } from '@/api/inventory/inbound/model'
   import {
@@ -155,12 +166,14 @@
   import OrderDetails from './components/order-details.vue'
   import UploadModal from './components/upload-modal.vue'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import PrintDocument from './components/print-document.vue'
   import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
   const tableRef = ref<InstanceType<typeof EleProTable> & { export: () => void }>()
   const orderDetailsRef = ref<InstanceType<typeof OrderDetails> | null>(null)
+  const printDocumentRef = ref<InstanceType<typeof PrintDocument> | null>(null)
 
   /* ==================== 状态管理 ==================== */
   const current = ref<InboundOrder | undefined>(undefined) // 当前编辑的入库单
@@ -172,6 +185,7 @@
   const viewerIndex = ref(0)
   const showUpload = ref(false)
   const currentUploadId = ref<number>()
+  const showPrint = ref(false) // 是否显示打印弹窗
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -198,12 +212,30 @@
       align: 'center'
     },
     {
+      prop: 'status',
+      label: '单据状态',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'status'
+    },
+    {
       prop: 'warehouseNumber',
       label: '入库单号',
       sortable: 'custom',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
+    },
+    {
+      prop: 'type',
+      label: '入库类型',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'type'
     },
     {
       prop: 'operator',
@@ -222,31 +254,6 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'remarks',
-      label: '备注',
-      sortable: 'custom',
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'type',
-      label: '入库类型',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true,
-      slot: 'type'
-    },
-    {
-      prop: 'status',
-      label: '单据状态',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true,
-      slot: 'status'
-    },
-    {
       prop: 'storageDate',
       label: '入库日期',
       sortable: 'custom',
@@ -257,6 +264,13 @@
         if (!row.storageDate) return '-'
         return dayjs(row.storageDate).format('YYYY-MM-DD')
       }
+    },
+    {
+      prop: 'remark',
+      label: '备注',
+      sortable: 'custom',
+      align: 'left',
+      showOverflowTooltip: true
     },
     {
       columnKey: 'action',
@@ -288,7 +302,7 @@
       collectionId: where.collectionId,
       operator: where.operator,
       warehouseId: where.warehouseId,
-      remarks: where.remarks
+      remark: where.remarks
     })
   }
 
@@ -539,6 +553,22 @@
       selections.value = []
     }
   }
+
+  /**
+   * 处理打印单据
+   */
+  const handlePrint = () => {
+    if (selections.value.length !== 1) {
+      EleMessage.warning('请选择一条记录')
+      return
+    }
+    showPrint.value = true
+    printDocumentRef.value?.open(selections.value[0].id)
+  }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  :deep(.el-table__row) {
+    cursor: pointer;
+  }
+</style>

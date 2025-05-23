@@ -11,11 +11,11 @@
         <div v-for="item in printData" :key="item.id" class="label-item">
           <div class="barcode-container">
             <div class="barcode-wrapper">
-              <ele-bar-code :value="item.code" :options="{ height: 60 }" />
+              <ele-bar-code :value="item.pingying" :options="{ height: 60 }" />
             </div>
             <div class="label-info">
               <div class="label-name">{{ item.name }}</div>
-              <div class="label-code">{{ item.code }}</div>
+              <div class="label-code">{{ item.pingying }}</div>
             </div>
           </div>
         </div>
@@ -38,11 +38,11 @@
       <div v-for="item in printData" :key="item.id" class="label-item">
         <div class="barcode-container">
           <div class="barcode-wrapper">
-            <ele-bar-code :value="item.code" :options="{ height: 60 }" />
+            <ele-bar-code :value="item.pingying" :options="{ height: 60 }" />
           </div>
           <div class="label-info">
             <div class="label-name">{{ item.name }}</div>
-            <div class="label-code">{{ item.code }}</div>
+            <div class="label-code">{{ item.pingying }}</div>
           </div>
         </div>
       </div>

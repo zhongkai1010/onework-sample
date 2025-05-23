@@ -2,10 +2,10 @@
   <ele-modal v-model="visible" title="打印单据" width="800px" :destroy-on-close="true">
     <div class="print-content">
       <div class="print-header">
-        <h2>藏品出库单</h2>
+        <h2>藏品调拨单</h2>
         <div class="print-info">
-          <p>出库单号：{{ details?.code }}</p>
-          <p>出库日期：{{ details?.outboundDate }}</p>
+          <p>调拨单号：{{ data?.code }}</p>
+          <p>调拨日期：{{ data?.transferDate }}</p>
         </div>
       </div>
       <div class="print-body">
@@ -13,26 +13,27 @@
           <tr>
             <th>藏品编号</th>
             <th>藏品名称</th>
-            <th>入库日期</th>
+            <th>原仓库</th>
+            <th>现仓库</th>
             <th>状态</th>
           </tr>
-          <tr v-for="item in details?.collections" :key="item.collectionCode">
+          <tr v-for="item in data?.collections" :key="item.id">
             <td>{{ item.collectionCode }}</td>
             <td>{{ item.collectionName }}</td>
-            <td>{{ item.storageDate }}</td>
-            <td>{{ getStatusText(item.status) }}</td>
+            <td>{{ item.originalWarehouse }}</td>
+            <td>{{ item.currentWarehouse }}</td>
+            <td>{{ getStatusText(Number(item.status)) }}</td>
           </tr>
         </table>
         <div class="print-footer">
           <div class="print-sign">
-            <p>经办人：{{ details?.operator }}</p>
-            <p>提借部门：{{ details?.borrowDepartment }}</p>
-            <p>提借人：{{ details?.borrower }}</p>
-            <p>提借类型：{{ details?.borrowType }}</p>
-            <p>拟归日期：{{ details?.proposedReturnDate }}</p>
+            <p>接收人：{{ data?.receiver }}</p>
+            <p>调拨仓库：{{ data?.warehouseName }}</p>
+            <p>调拨原因：{{ data?.transferReason }}</p>
+            <p>单据状态：{{ getStatusText(Number(data?.status)) }}</p>
           </div>
           <div class="print-remarks">
-            <p>备注：{{ details?.remarks }}</p>
+            <p>备注：{{ data?.remark }}</p>
           </div>
         </div>
       </div>
@@ -46,49 +47,48 @@
 
 <script setup lang="ts">
   import { ref } from 'vue'
+  import type { TransferDetailInfo } from '@/api/inventory/transfer/model'
+  import { getTransferDetails } from '@/api/inventory/transfer'
   import { ElMessage } from 'element-plus'
-  import type { OutboundDetailInfo } from '@/api/inventory/outbound/model'
-  import { getOutboundDetails } from '@/api/inventory/outbound'
 
   /** 弹窗是否打开 */
   const visible = defineModel({ type: Boolean })
 
-  // 出库单详情
-  const details = ref<OutboundDetailInfo>()
-
-  // 当前出库单ID
-  const currentId = ref<number>()
+  // 调拨单详情
+  const data = ref<TransferDetailInfo>()
 
   // 获取状态文本
   const getStatusText = (status?: number) => {
     const statusMap = {
-      0: '未审核',
-      1: '待出库',
-      2: '已出库',
-      3: '已归还'
+      0: '待审核',
+      1: '已审核',
+      2: '已确认'
     }
     return statusMap[status as keyof typeof statusMap] || '-'
   }
 
-  // 设置出库单ID
-  const setOutboundId = async (id: number) => {
-    currentId.value = id
+  /** 打开弹窗 */
+  const open = async (id: number) => {
+    if (!id) {
+      ElMessage.error('调拨单ID不能为空')
+      return
+    }
+    visible.value = true
     try {
-      const res = await getOutboundDetails({ id })
-      details.value = res
-      visible.value = true
-    } catch (error: any) {
-      ElMessage.error(error.message || '获取详情失败')
+      data.value = await getTransferDetails({ id })
+    } catch (e: any) {
+      ElMessage.error(e.message || '获取调拨单详情失败')
+      visible.value = false
     }
   }
 
-  // 处理打印
+  /** 打印 */
   const handlePrint = () => {
     window.print()
   }
 
   defineExpose({
-    setOutboundId
+    open
   })
 </script>
 

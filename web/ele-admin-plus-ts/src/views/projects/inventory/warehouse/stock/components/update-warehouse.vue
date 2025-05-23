@@ -1,5 +1,13 @@
 <template>
-  <ele-modal v-model="visible" title="位置变更" width="500px" :destroy-on-close="true" :close-on-click-modal="false" :close-on-press-escape="false" @open="handleOpen">
+  <ele-modal
+    v-model="visible"
+    title="位置变更"
+    width="500px"
+    :destroy-on-close="true"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+    @open="handleOpen"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
       <el-form-item label="仓库位置" prop="warehouseId">
         <warehouse-select v-model="form.warehouseId" />
@@ -18,6 +26,12 @@
   import type { FormInstance, FormRules } from 'element-plus'
   import { useFormData } from '@/utils/use-form-data'
   import WarehouseSelect from '@/components/CustomForm/WarehouseSelect.vue'
+  import { changeWarehouse } from '@/api/collection/ledger'
+  import type { WarehouseCollection } from '@/api/inventory/warehouse/model'
+
+  const props = defineProps<{
+    data: WarehouseCollection[]
+  }>()
 
   const emit = defineEmits<{
     (e: 'update:modelValue', value: boolean): void
@@ -61,7 +75,10 @@
     try {
       await formRef.value.validate()
       loading.value = true
-      // TODO: 实现位置变更逻辑
+      await changeWarehouse({
+        collectionIds: props.data.map((item) => item.id),
+        warehouseId: String(form.warehouseId)
+      })
       EleMessage.success('位置变更成功')
       handleCancel()
       emit('done')

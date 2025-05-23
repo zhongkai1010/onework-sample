@@ -84,6 +84,7 @@
         ref="tableRef"
         :tools="false"
         row-key="id"
+        :toolbar="false"
         :columns="columns"
         :datasource="datasource"
         :show-overflow-tooltip="true"

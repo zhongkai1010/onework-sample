@@ -8,59 +8,35 @@
   >
     <div v-if="details" class="print-content">
       <!-- 头部信息 -->
-      <div class="header">
+      <div class="print-header">
         <h2>注销单</h2>
-        <div class="info">
-          <div class="info-item">
-            <span class="label">注销单号：</span>
-            <span class="value">{{ details.code }}</span>
-          </div>
-          <div class="info-item">
-            <span class="label">注销时间：</span>
-            <span class="value">{{ details.cancellationTime }}</span>
-          </div>
-          <div class="info-item">
-            <span class="label">批准部门：</span>
-            <span class="value">{{ details.approvalDepartment }}</span>
-          </div>
-          <div class="info-item">
-            <span class="label">注销原因：</span>
-            <span class="value">{{ details.cancellationReason }}</span>
-          </div>
+        <div class="print-info">
+          <p>注销单号：{{ details.code }}</p>
+          <p>注销时间：{{ details.cancellationTime }}</p>
+          <p>批准部门：{{ details.approvalDepartment }}</p>
+          <p>注销原因：{{ details.cancellationReason }}</p>
         </div>
       </div>
 
       <!-- 藏品列表 -->
-      <div class="collections">
+      <div class="print-body">
         <h3>藏品列表</h3>
-        <el-table :data="details.collections" border style="width: 100%">
-          <el-table-column type="index" label="序号" width="60" align="center" />
-          <el-table-column
-            prop="collectionCode"
-            label="藏品编号"
-            width="120"
-            show-overflow-tooltip
-          />
-          <el-table-column
-            prop="collectionName"
-            label="藏品名称"
-            min-width="200"
-            show-overflow-tooltip
-          />
-          <el-table-column
-            prop="cancellationTime"
-            label="注销日期"
-            width="120"
-            show-overflow-tooltip
-          />
-          <el-table-column prop="status" label="状态" width="100" align="center">
-            <template #default="{ row }">
-              <el-tag :type="getStatusType(row.status)" effect="light">
-                {{ getStatusText(row.status) }}
-              </el-tag>
-            </template>
-          </el-table-column>
-        </el-table>
+        <table class="print-table">
+          <tr>
+            <th>序号</th>
+            <th>藏品编号</th>
+            <th>藏品名称</th>
+            <th>注销日期</th>
+            <th>状态</th>
+          </tr>
+          <tr v-for="(item, index) in details.details" :key="item.collectionCode">
+            <td>{{ index + 1 }}</td>
+            <td>{{ item.collectionCode }}</td>
+            <td>{{ item.collectionName }}</td>
+            <td>{{ item.cancellationTime }}</td>
+            <td>{{ getStatusText(item.status) }}</td>
+          </tr>
+        </table>
       </div>
     </div>
 
@@ -100,20 +76,6 @@
     window.print()
   }
 
-  // 获取状态类型
-  const getStatusType = (status: number) => {
-    switch (status) {
-      case 0:
-        return 'warning'
-      case 1:
-        return 'success'
-      case 2:
-        return 'info'
-      default:
-        return 'info'
-    }
-  }
-
   // 获取状态文本
   const getStatusText = (status: number) => {
     switch (status) {
@@ -136,43 +98,69 @@
 <style lang="scss" scoped>
   .print-content {
     padding: 20px;
+    background: #fff;
 
-    .header {
+    .print-header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
 
       h2 {
-        margin-bottom: 20px;
+        margin: 0 0 10px;
+        font-size: 24px;
       }
 
-      .info {
+      .print-info {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        margin: 0 50px;
+        margin-bottom: 20px;
 
-        .info-item {
+        p {
+          margin: 0;
           width: 45%;
-          margin-bottom: 10px;
-
-          .label {
-            font-weight: bold;
-            margin-right: 10px;
-          }
+          text-align: left;
         }
       }
     }
 
-    .collections {
+    .print-body {
       h3 {
         margin-bottom: 15px;
+      }
+
+      .print-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+
+        th,
+        td {
+          border: 1px solid #dcdfe6;
+          padding: 8px;
+          text-align: center;
+        }
+
+        th {
+          background-color: #f5f7fa;
+        }
       }
     }
   }
 
   @media print {
-    :deep(.el-button) {
+    :deep(.el-dialog) {
+      position: static;
+      margin: 0;
+      box-shadow: none;
+    }
+
+    :deep(.el-dialog__header),
+    :deep(.el-dialog__footer) {
       display: none;
+    }
+
+    :deep(.el-dialog__body) {
+      padding: 0;
     }
   }
 </style>

@@ -189,7 +189,6 @@
     {
       prop: 'documentImage',
       label: '单据图片',
-      width: 80,
       align: 'center',
       slot: 'documentImage'
     },
@@ -197,14 +196,12 @@
       prop: 'code',
       label: '注销单号',
       sortable: 'custom',
-
       showOverflowTooltip: true
     },
     {
       prop: 'cancellationTime',
       label: '注销时间',
       sortable: 'custom',
-      width: 160,
       align: 'center',
       showOverflowTooltip: true,
       formatter: (row) => {
@@ -215,21 +212,19 @@
       prop: 'approvalDepartment',
       label: '批准部门',
       sortable: 'custom',
-      width: 120,
       showOverflowTooltip: true
     },
     {
       prop: 'cancellationReason',
       label: '注销原因',
       sortable: 'custom',
-      width: 200,
       showOverflowTooltip: true
     },
     {
       prop: 'status',
       label: '状态',
       sortable: 'custom',
-      width: 100,
+
       align: 'center',
       showOverflowTooltip: true,
       slot: 'status'

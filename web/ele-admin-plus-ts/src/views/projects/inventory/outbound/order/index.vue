@@ -12,6 +12,8 @@
         @row-click="handleRowClick"
         v-model:selections="selectedRows"
         :highlight-current-row="true"
+        :export-config="exportConfig"
+        :tools="['reload', 'size', 'columns', 'maximized']"
       >
         <template #toolbar>
           <el-button type="primary" @click="handleUpload()" :disabled="!selectedRows.length"
@@ -21,6 +23,13 @@
             >删除</el-button
           >
           <el-button type="success" @click="handleExport">导出</el-button>
+          <el-button
+            type="primary"
+            class="ele-btn-icon"
+            :icon="PrinterOutlined"
+            @click="handlePrint"
+            >打印单据</el-button
+          >
         </template>
         <template #documentImage="{ row }">
           <img
@@ -80,13 +89,20 @@
       :initialIndex="viewerIndex"
       :infinite="false"
     />
+
+    <!-- 打印单据弹窗 -->
+    <print-document ref="printDocumentRef" v-model="showPrint" />
   </ele-page>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, reactive } from 'vue'
   import type { EleProTable } from 'ele-admin-plus/es'
-  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
+  import type {
+    DatasourceFunction,
+    Columns,
+    ExportConfig
+  } from 'ele-admin-plus/es/ele-pro-table/types'
   import type { OutboundOrder, OutboundQueryParams } from '@/api/inventory/outbound/model'
   import {
     listOutbounds,
@@ -95,14 +111,20 @@
     confirmOutbound
   } from '@/api/inventory/outbound'
   import { ElMessage, ElMessageBox } from 'element-plus'
+  import { PrinterOutlined } from '@/components/icons'
   import SearchForm from './components/search-form.vue'
   import OrderDetails from './components/order-details.vue'
   import UploadImage from './components/upload-image.vue'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
+  import PrintDocument from './components/print-document.vue'
   import pageImage from './page.png'
+  import { getExportWorkbook } from '@/config/use-global-config'
+  import { download } from '@/utils/common'
+  import request from '@/utils/request'
 
   // 表格实例
   const tableRef = ref<InstanceType<typeof EleProTable>>()
+  const printDocumentRef = ref<InstanceType<typeof PrintDocument>>()
 
   // 图片预览相关状态
   const showImageViewer = ref(false)
@@ -124,11 +146,66 @@
   // 上传图片弹框显示状态
   const uploadVisible = ref(false)
 
+  // 打印单据弹框显示状态
+  const showPrint = ref(false)
+
   // 当前选中的出库单ID
   const selectedId = ref<number>()
 
   // 搜索参数
   const searchParams = ref<OutboundQueryParams>({})
+
+  // 导出配置
+  const exportConfig = reactive<ExportConfig>({
+    fileName: '出库单数据',
+    datasource: ({ where, orders, filters }) => {
+      return listOutbounds({ ...where, ...orders, ...filters })
+    },
+    beforeExport: (params) => {
+      const { fileName, closeModal, bodyCols, bodyData, headerData } = params
+      const workbook = getExportWorkbook(params)
+      const sheet = workbook.getWorksheet('Sheet1')
+
+      const getBuffer = async () => {
+        // 添加图片列图片
+        const imageColIndex = bodyCols.findIndex((c) => c.dataKey === 'documentImage')
+        if (sheet != null && imageColIndex !== -1) {
+          const imageBuffers = await Promise.all(
+            bodyData.map(async (row) => {
+              const url = row[imageColIndex].text as string | undefined
+              if (!url) {
+                return
+              }
+              const res = await request({ url, responseType: 'arraybuffer' })
+              return res.data
+            })
+          )
+          imageBuffers.forEach((buffer, index) => {
+            const rowIndex = index + headerData.length
+            if (buffer != null) {
+              const imgId = workbook.addImage({ buffer, extension: 'png' })
+              sheet.addImage(imgId, {
+                tl: { col: imageColIndex + 0.4, row: rowIndex + 0.2 },
+                ext: { width: 48, height: 48 }
+              })
+              sheet.getCell(rowIndex + 1, imageColIndex + 1).value = ''
+            }
+            sheet.getRow(rowIndex + 1).height = 42
+            sheet.getColumn(imageColIndex + 1).width = 8
+          })
+        }
+        // 输出workbook
+        const data = await workbook.xlsx.writeBuffer()
+        return data
+      }
+
+      getBuffer().then((data) => {
+        download(data, `${fileName}.xlsx`)
+        closeModal()
+      })
+      return false
+    }
+  })
 
   // 获取状态文本
   const getStatusText = (status?: number) => {
@@ -242,7 +319,7 @@
     },
 
     {
-      prop: 'remarks',
+      prop: 'remark',
       label: '备注',
       minWidth: 200,
       align: 'left',
@@ -281,12 +358,13 @@
 
   // 处理行点击
   const handleRowClick = (row: OutboundOrder) => {
-    const index = selectedRows.value.findIndex((item) => item.code === row.code)
+    const index = selectedRows.value.findIndex((item) => item.id === row.id)
     if (index === -1) {
-      selectedRows.value.push(row)
+      selectedRows.value = [row]
     } else {
-      selectedRows.value.splice(index, 1)
+      selectedRows.value = []
     }
+    tableRef.value?.toggleRowSelection?.(row, index === -1)
   }
 
   // 处理上传图片
@@ -335,8 +413,7 @@
 
   // 处理导出
   const handleExport = () => {
-    // TODO: 实现导出功能
-    console.log('导出数据')
+    tableRef.value?.openExportModal?.()
   }
 
   // 处理审核
@@ -389,6 +466,21 @@
     viewerIndex.value = 0
     showImageViewer.value = true
   }
+
+  // 处理打印单据
+  const handlePrint = () => {
+    if (selectedRows.value.length !== 1) {
+      ElMessage.warning('请选择一条记录')
+      return
+    }
+    const id = selectedRows.value[0].id
+    showPrint.value = true
+    printDocumentRef.value?.setOutboundId(id)
+  }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  :deep(.el-table__row) {
+    cursor: pointer;
+  }
+</style>

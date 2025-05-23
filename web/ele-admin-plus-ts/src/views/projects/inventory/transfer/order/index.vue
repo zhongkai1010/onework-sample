@@ -18,6 +18,7 @@
         :tools="['reload', 'size', 'columns', 'maximized']"
         :stripe="true"
         :export-config="exportConfig"
+        @row-click="handleRowClick"
       >
         <!-- 工具栏按钮 -->
         <template #toolbar>
@@ -74,11 +75,7 @@
             <el-button type="primary" size="small" @click="handleViewDetails(row)"
               >查看详情</el-button
             >
-            <el-button
-              type="success"
-              size="small"
-              @click="handleUploadImage(row)"
-              v-if="Number(row.status) === 0"
+            <el-button type="success" size="small" @click="handleUploadImage(row)"
               >上传图片</el-button
             >
             <el-button
@@ -121,6 +118,9 @@
       :initialIndex="viewerIndex"
       :infinite="false"
     />
+
+    <!-- 打印组件 -->
+    <print-document ref="printDocumentRef" v-model="showPrint" />
   </ele-page>
 </template>
 
@@ -143,6 +143,7 @@
   import SearchForm from './components/search-form.vue'
   import OrderDetails from './components/order-details.vue'
   import UploadImage from './components/upload-image.vue'
+  import PrintDocument from './components/print-document.vue'
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
   import { getExportWorkbook } from '@/config/use-global-config'
@@ -153,12 +154,14 @@
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
   const tableRef = ref<InstanceType<typeof EleProTable>>()
   const detailsRef = ref<InstanceType<typeof OrderDetails>>()
+  const printDocumentRef = ref<InstanceType<typeof PrintDocument>>()
 
   /* ==================== 状态管理 ==================== */
   const selections = ref<any[]>([]) // 表格选中的行
   const uploadImageVisible = ref(false) // 上传图片弹窗显示状态
   const currentId = ref<number>() // 当前操作的拨库单ID
   const detailsVisible = ref(false) // 详情弹窗显示状态
+  const showPrint = ref(false) // 打印弹窗显示状态
 
   // 图片预览相关状态
   const showImageViewer = ref(false)
@@ -197,16 +200,25 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'warehouseName',
-      label: '调拨仓库',
+      prop: 'status',
+      label: '单据状态',
       sortable: 'custom',
-      width: 220,
-      align: 'left',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      slot: 'status'
+    },
+    {
+      prop: 'transferDate',
+      label: '调拨日期',
+      sortable: 'custom',
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'transferReason',
-      label: '调拨原因',
+      prop: 'warehouseName',
+      label: '调拨仓库',
       sortable: 'custom',
       width: 220,
       align: 'left',
@@ -221,24 +233,15 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'transferDate',
-      label: '调拨日期',
+      prop: 'transferReason',
+      label: '调拨原因',
       sortable: 'custom',
-      width: 120,
-      align: 'center',
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'status',
-      label: '单据状态',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true,
-      slot: 'status'
-    },
-    {
-      prop: 'remarks',
+      prop: 'remark',
       label: '备注',
       align: 'left',
       showOverflowTooltip: true
@@ -267,7 +270,9 @@
     return listTransfers({
       ...where,
       ...orders,
-      ...filters
+      ...filters,
+      status: where.status,
+      warehouseId: where.warehouseId
     })
   }
 
@@ -322,6 +327,18 @@
   })
 
   /* ==================== 方法 ==================== */
+  // 处理行点击
+  const handleRowClick = (row: any) => {
+    const index = selections.value.findIndex((item) => item.id === row.id)
+    if (index === -1) {
+      selections.value = [row]
+    } else {
+      selections.value = []
+    }
+    // 同步表格选中状态
+    tableRef.value?.toggleRowSelection(row, index === -1)
+  }
+
   // 重新加载表格数据
   const reload = () => {
     tableRef.value?.reload()
@@ -423,16 +440,25 @@
 
   // 打印
   const handlePrint = () => {
-    // TODO: 实现打印功能
-    console.log('打印')
+    if (selections.value.length !== 1) {
+      ElMessage.warning('请选择一条记录进行打印')
+      return
+    }
+    const id = selections.value[0].id
+    printDocumentRef.value?.open(id)
   }
 
   // 处理图片预览
   const openPreview = (url: string) => {
+    if (!url) return
     viewerImages.value = [url]
     viewerIndex.value = 0
     showImageViewer.value = true
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  :deep(.el-table__row) {
+    cursor: pointer;
+  }
+</style>

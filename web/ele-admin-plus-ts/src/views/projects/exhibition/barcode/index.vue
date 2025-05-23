@@ -72,6 +72,14 @@
   /** 表格列配置 */
   const columns = ref<Columns>([
     {
+      type: 'selection',
+      columnKey: 'selection',
+      width: 50,
+      align: 'center',
+      fixed: 'left',
+      selectable: () => true
+    },
+    {
       prop: 'id',
       label: '编号',
       width: 80,
@@ -82,14 +90,15 @@
       prop: 'name',
       label: '地址信息',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'code',
       label: '地址码',
       sortable: 'custom',
-      width: 120,
+      align: 'left',
       showOverflowTooltip: true
     }
   ])

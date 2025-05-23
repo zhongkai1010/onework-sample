@@ -35,7 +35,7 @@
       </div>
       <div class="details-header-item">
         <span class="details-header-label">备注：</span>
-        <span class="details-header-value">{{ data?.remarks }}</span>
+        <span class="details-header-value">{{ data?.remark }}</span>
       </div>
     </div>
 

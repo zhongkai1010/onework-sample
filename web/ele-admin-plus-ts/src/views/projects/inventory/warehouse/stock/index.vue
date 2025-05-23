@@ -18,6 +18,10 @@
             placeholder="请输入搜索关键字"
             :prefix-icon="SearchOutlined"
           />
+          <div style="margin-top: 8px; display: flex; gap: 8px">
+            <el-button type="primary" size="small" @click="handleExpandAll">全部展开</el-button>
+            <el-button type="info" size="small" @click="handleCollapseAll">全部折叠</el-button>
+          </div>
         </div>
         <ele-loading
           :loading="treeLoading"
@@ -133,6 +137,26 @@
   /** 处理节点点击 */
   const handleNodeClick = (data: Warehouse) => {
     currentWarehouseId.value = data.id
+  }
+
+  /** 处理全部展开 */
+  const handleExpandAll = () => {
+    const nodes = treeRef.value?.store?.nodesMap
+    if (nodes) {
+      Object.values(nodes).forEach((node: any) => {
+        node.expand()
+      })
+    }
+  }
+
+  /** 处理全部折叠 */
+  const handleCollapseAll = () => {
+    const nodes = treeRef.value?.store?.nodesMap
+    if (nodes) {
+      Object.values(nodes).forEach((node: any) => {
+        node.collapse()
+      })
+    }
   }
 
   // 监听搜索关键字变化

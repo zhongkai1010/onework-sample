@@ -85,7 +85,6 @@
       prop: 'warehouseName',
       label: '展区名称',
       sortable: 'custom',
-      width: 120,
       showOverflowTooltip: true
     },
     {
@@ -98,7 +97,7 @@
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 120,
+
       showOverflowTooltip: true
     }
   ])

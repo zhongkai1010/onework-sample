@@ -33,7 +33,7 @@ export interface InboundOrder {
   /** 入库日期 */
   storageDate?: string
   /** 备注 */
-  remarks?: string
+  remark?: string
 }
 
 /**
@@ -51,7 +51,7 @@ export interface InboundRegisterParams {
   /** 入库日期 */
   storageDate?: string
   /** 备注 */
-  remarks?: string
+  remark?: string
 }
 
 /**
@@ -85,7 +85,7 @@ export interface InboundQueryParams {
   /** 接收库房 */
   warehouseId?: number
   /** 备注 */
-  remarks?: string
+  remark?: string
   /** 分页查询每页数量 */
   limit?: number
   /** 分页查询页码 */
@@ -199,7 +199,7 @@ export interface InboundOrderDetail {
   /** 入库日期 */
   storageDate?: string
   /** 备注 */
-  remarks?: string
+  remark?: string
   /** 入库藏品明细 */
   collections: InboundOrderDetailCollection[]
 }

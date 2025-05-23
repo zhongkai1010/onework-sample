@@ -11,9 +11,9 @@
     :tools="['reload', 'size', 'columns', 'maximized']"
     :stripe="true"
   >
-    <template #collectionStatus="{ row }">
+    <template #status="{ row }">
       <el-tag :type="getStatusType(row.collectionStatus)" effect="light">
-        {{ row.collectionStatus }}
+        {{ getStatusText(row.collectionStatus) }}
       </el-tag>
     </template>
   </ele-pro-table>
@@ -37,6 +37,40 @@
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
   const tableRef = ref<InstanceType<typeof EleProTable>>()
 
+  /**
+   * 获取状态类型
+   */
+  const getStatusType = (status: number): 'success' | 'warning' | 'danger' | 'info' | 'primary' => {
+    const statusMap: Record<number, 'success' | 'warning' | 'danger' | 'info' | 'primary'> = {
+      0: 'danger', // 未审核
+      1: 'success', // 在藏
+      2: 'warning', // 待出库
+      3: 'danger', // 已出库
+      4: 'warning', // 待拨库
+      5: 'danger', // 修复中
+      6: 'warning', // 待注销
+      7: 'primary' // 已注销
+    }
+    return statusMap[status] || 'primary'
+  }
+
+  /**
+   * 获取状态文本
+   */
+  const getStatusText = (status: number): string => {
+    const statusMap: Record<number, string> = {
+      0: '未审核',
+      1: '在藏',
+      2: '待出库',
+      3: '已出库',
+      4: '待拨库',
+      5: '修复中',
+      6: '待注销',
+      7: '已注销'
+    }
+    return statusMap[status] || '其他'
+  }
+
   /* 表格列配置 */
   const columns = ref<Columns>([
     {
@@ -54,40 +88,46 @@
       width: 120,
       align: 'center',
       showOverflowTooltip: true,
-      slot: 'collectionStatus'
-    },
-    {
-      prop: 'numberCategory',
-      label: '编号类别',
-      sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
+      slot: 'status'
     },
     {
       prop: 'code',
       label: '藏品编号',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
       prop: 'categoryName',
-      label: '藏品类别',
+      label: '藏品分类',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'rfidCode',
-      label: 'RFID编号',
+      prop: 'warehouseName',
+      label: '仓库位置',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'era',
+      label: '年代',
+      sortable: 'custom',
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
@@ -100,45 +140,50 @@
     },
     {
       prop: 'unit',
-      label: '数量单位',
+      label: '单位',
       sortable: 'custom',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'era',
-      label: '年代',
+      prop: 'specificDimensions',
+      label: '具体尺寸',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'artist',
-      label: '艺术家',
+      prop: 'condition',
+      label: '完残程度',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'region',
-      label: '地域',
+      prop: 'preservationStatus',
+      label: '完残状况',
       sortable: 'custom',
       width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {
-      prop: 'material',
-      label: '质地',
+      prop: 'location',
+      label: '存放位置',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'culturalRelicLevel',
-      label: '文物级别',
+      prop: 'rfidCode',
+      label: '地址码',
       sortable: 'custom',
-      width: 120,
+      width: 220,
+      align: 'left',
       showOverflowTooltip: true
     }
   ])
@@ -151,20 +196,6 @@
       ...pages,
       groupId: props.groupId
     })
-  }
-
-  /* 工具函数 */
-  const getStatusType = (status: string) => {
-    switch (status) {
-      case '待审核':
-        return 'warning'
-      case '已审核':
-        return 'success'
-      case '已退回':
-        return 'danger'
-      default:
-        return 'info'
-    }
   }
 
   /* 表格操作 */

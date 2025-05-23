@@ -123,8 +123,7 @@
     organizationType: '',
     sortNumber: 999,
     comments: '',
-    organizationTypeName: '',
-    sortNumber: 999
+    organizationTypeName: ''
   })
 
   /** 表单验证规则 */

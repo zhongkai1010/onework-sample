@@ -21,7 +21,7 @@ export interface TransferOrder {
   /** 调拨原因 */
   transferReason?: string
   /** 备注 */
-  remarks?: string
+  remark?: string
 }
 
 /**
@@ -59,7 +59,7 @@ export interface AddTransferParams {
   /** 调拨原因 */
   transferReason?: string
   /** 备注 */
-  remarks?: string
+  remark?: string
   /** 藏品ID集合 */
   collectionIds: number[]
 }
@@ -129,7 +129,7 @@ export interface TransferDetailInfo {
   /** 调拨原因 */
   transferReason?: string
   /** 备注 */
-  remarks?: string
+  remark?: string
   /** 藏品列表 */
   collections: TransferCollection[]
 }

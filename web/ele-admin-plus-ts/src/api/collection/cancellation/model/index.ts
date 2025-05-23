@@ -83,7 +83,7 @@ export interface CancellationDetailInfo {
   /** 状态：0：待注销、1：已注销，2：已恢复 */
   status: number
   /** 藏品列表 */
-  collections: CancellationCollection[]
+  details: CancellationCollection[]
 }
 
 /**

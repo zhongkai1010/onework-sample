@@ -7,7 +7,7 @@
     :destroy-on-close="true"
     @close="onClose"
   >
-    <el-descriptions :column="2" border>
+    <el-descriptions :column="2" border :label-width="120">
       <el-descriptions-item label="藏品编号">{{ row?.collectionCode }}</el-descriptions-item>
       <el-descriptions-item label="藏品状态">
         <el-tag :type="getStatusType(row?.collectionStatus)">{{
@@ -28,11 +28,10 @@
       <el-descriptions-item label="入藏日期">{{ row?.collectionDate }}</el-descriptions-item>
       <el-descriptions-item label="入藏年度">{{ row?.collectionYear }}</el-descriptions-item>
       <el-descriptions-item label="备注" :span="2">{{ row?.notes }}</el-descriptions-item>
+      <el-descriptions-item label="图片信息" :span="2" v-if="row?.imageInfo">
+        <el-image :src="row.imageInfo" :preview-src-list="[row.imageInfo]" fit="contain" />
+      </el-descriptions-item>
     </el-descriptions>
-    <div class="image-preview" v-if="row?.imageInfo">
-      <h4>图片信息</h4>
-      <el-image :src="row.imageInfo" :preview-src-list="[row.imageInfo]" fit="contain" />
-    </div>
     <template #footer>
       <el-button @click="onClose">关闭</el-button>
     </template>
@@ -52,12 +51,14 @@
   // 获取状态类型
   const getStatusType = (status?: number) => {
     const statusMap: Record<number, 'success' | 'warning' | 'danger' | 'info' | 'primary'> = {
-      0: 'success', // 在库
-      1: 'warning', // 出库
-      2: 'danger', // 修复中
-      3: 'info', // 调拨中
-      4: 'primary', // 已注销
-      5: 'primary' // 其他
+      0: 'danger', // 未审核
+      1: 'success', // 在藏
+      2: 'warning', // 待出库
+      3: 'danger', // 已出库
+      4: 'warning', // 待拨库
+      5: 'danger', // 修复中
+      6: 'warning', // 待注销
+      7: 'primary' // 已注销
     }
     return statusMap[status || 0] || 'primary'
   }
@@ -65,14 +66,16 @@
   // 获取状态文本
   const getStatusText = (status?: number) => {
     const statusMap: Record<number, string> = {
-      0: '在库',
-      1: '出库',
-      2: '修复中',
-      3: '调拨中',
-      4: '已注销',
-      5: '其他'
+      0: '未审核',
+      1: '在藏',
+      2: '待出库',
+      3: '已出库',
+      4: '待拨库',
+      5: '修复中',
+      6: '待注销',
+      7: '已注销'
     }
-    return statusMap[status || 0] || '未知'
+    return statusMap[status || 0] || '其他'
   }
 
   // 关闭弹窗
@@ -81,17 +84,4 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .image-preview {
-    margin-top: 20px;
-
-    h4 {
-      margin-bottom: 10px;
-    }
-
-    .el-image {
-      width: 200px;
-      height: 200px;
-    }
-  }
-</style>
+<style lang="scss" scoped></style>

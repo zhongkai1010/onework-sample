@@ -63,14 +63,14 @@
       prop: 'code',
       label: '注销单号',
       sortable: 'custom',
-      width: 220,
+
       showOverflowTooltip: true
     },
     {
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 220,
+
       showOverflowTooltip: true
     },
     {
@@ -83,7 +83,7 @@
       prop: 'cancellationTime',
       label: '注销日期',
       sortable: 'custom',
-      width: 120,
+
       align: 'center',
       showOverflowTooltip: true,
       formatter: (row) => {
@@ -94,7 +94,7 @@
       prop: 'status',
       label: '状态',
       sortable: 'custom',
-      width: 120,
+
       align: 'center',
       showOverflowTooltip: true,
       slot: 'status'

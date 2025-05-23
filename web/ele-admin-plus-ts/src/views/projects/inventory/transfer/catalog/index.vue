@@ -72,7 +72,7 @@
       prop: 'code',
       label: '拨库单号',
       sortable: 'custom',
-      width: 220,
+
       align: 'left',
       showOverflowTooltip: true
     },
@@ -80,7 +80,7 @@
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-      width: 220,
+
       align: 'left',
       showOverflowTooltip: true
     },
@@ -95,7 +95,7 @@
       prop: 'originalWarehouse',
       label: '原仓库',
       sortable: 'custom',
-      width: 220,
+
       align: 'left',
       showOverflowTooltip: true
     },
@@ -103,7 +103,7 @@
       prop: 'currentWarehouse',
       label: '现仓库',
       sortable: 'custom',
-      width: 220,
+
       align: 'left',
       showOverflowTooltip: true
     },
@@ -111,7 +111,7 @@
       prop: 'transferDate',
       label: '拨库日期',
       sortable: 'custom',
-      width: 120,
+
       align: 'center',
       showOverflowTooltip: true
     },
@@ -119,7 +119,7 @@
       prop: 'status',
       label: '状态',
       sortable: 'custom',
-      width: 120,
+
       align: 'center',
       showOverflowTooltip: true,
       slot: 'status'
