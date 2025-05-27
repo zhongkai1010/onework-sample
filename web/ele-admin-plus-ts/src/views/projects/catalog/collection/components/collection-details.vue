@@ -16,7 +16,7 @@
         </el-descriptions-item>
 
         <el-descriptions-item label="藏品编号">
-          {{ data.collectionCode }}
+          {{ data.code }}
         </el-descriptions-item>
         <el-descriptions-item label="编号类别">
           {{ data.numberCategory }}
@@ -24,9 +24,7 @@
         <el-descriptions-item label="藏品类别">
           {{ data.categoryName }}
         </el-descriptions-item>
-        <el-descriptions-item label="RFID编号">
-          {{ data.rfidCode }}
-        </el-descriptions-item>
+
         <el-descriptions-item label="文物级别">
           {{ data.culturalLevel }}
         </el-descriptions-item>

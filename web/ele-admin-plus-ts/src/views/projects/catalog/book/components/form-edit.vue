@@ -32,9 +32,6 @@
       <el-form-item label="图书编号" prop="collectionCode">
         <el-input v-model="form.collectionCode" placeholder="请输入图书编号" clearable />
       </el-form-item>
-      <el-form-item label="RFID编号" prop="rfidCode">
-        <el-input v-model="form.rfidCode" placeholder="请输入RFID编号" clearable />
-      </el-form-item>
       <el-form-item v-if="isUpdate" label="藏品分类" prop="categoryId">
         <CategorySelect v-model="form.categoryId" placeholder="请选择藏品分类" />
       </el-form-item>

@@ -177,14 +177,6 @@
       width: 220,
       align: 'left',
       showOverflowTooltip: true
-    },
-    {
-      prop: 'rfidCode',
-      label: '地址码',
-      sortable: 'custom',
-      width: 220,
-      align: 'left',
-      showOverflowTooltip: true
     }
   ])
 

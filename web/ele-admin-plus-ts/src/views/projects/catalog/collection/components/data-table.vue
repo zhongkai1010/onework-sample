@@ -20,14 +20,6 @@
       <el-button type="primary" :icon="PlusOutlined" @click="handleRegister"> 藏品登记 </el-button>
       <el-button
         type="default"
-        :icon="PlusOutlined"
-        @click="handleBind"
-        :disabled="!selections.length"
-      >
-        绑定RFID
-      </el-button>
-      <el-button
-        type="default"
         :icon="EditOutlined"
         @click="handleBatchModify"
         :disabled="!selections.length"
@@ -69,9 +61,6 @@
     <template #action="{ row }">
       <el-space :size="4">
         <el-button type="primary" size="small" @click.stop="openEdit(row)">编辑</el-button>
-        <el-button type="success" size="small" @click.stop="() => handleSingleBind(row)">
-          绑定
-        </el-button>
         <el-button type="info" size="small" @click.stop="handleViewDetails(row)">
           查看详情
         </el-button>
@@ -98,14 +87,6 @@
   <update-category
     v-model="showUpdateCategory"
     :collection-ids="selectedCollectionIds"
-    @done="reload"
-  />
-
-  <!-- RFID绑定弹窗 -->
-  <bind-rfid
-    v-model="showBindRfid"
-    :collection-ids="selectedCollectionIds"
-    :is-batch="isBatchBind"
     @done="reload"
   />
 
@@ -151,7 +132,7 @@
   import SearchForm from './search-form.vue'
   import FormEdit from './form-edit.vue'
   import UpdateCategory from './update-category.vue'
-  import BindRfid from './bind-rfid.vue'
+
   import CollectionDetails from './collection-details.vue'
   import PrintLabel from './print-label.vue'
   import PrintDocument from './print-document.vue'
@@ -177,8 +158,7 @@
   const current = ref<Collection | undefined>(undefined)
   const showEdit = ref(false)
   const showUpdateCategory = ref(false)
-  const showBindRfid = ref(false)
-  const isBatchBind = ref(false)
+
   const showDetails = ref(false)
   const currentDetailsId = ref<number>()
   const showPrintLabel = ref(false)
@@ -258,13 +238,6 @@
     {
       prop: 'categoryName',
       label: '藏品类别',
-      width: 220,
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'rfidCode',
-      label: 'RFID编号',
       width: 220,
       align: 'left',
       showOverflowTooltip: true
@@ -668,28 +641,6 @@
   const handleRegister = () => {
     current.value = undefined
     showEdit.value = true
-  }
-
-  /**
-   * 处理批量绑定RFID
-   */
-  const handleBind = (_evt: MouseEvent) => {
-    if (!selections.value.length) {
-      EleMessage.error('请至少选择一条数据')
-      return
-    }
-    isBatchBind.value = true
-    showBindRfid.value = true
-  }
-
-  /**
-   * 处理单个藏品绑定RFID
-   * @param row 行数据
-   */
-  const handleSingleBind = (row: Collection) => {
-    isBatchBind.value = false
-    selections.value = [row]
-    showBindRfid.value = true
   }
 
   /**

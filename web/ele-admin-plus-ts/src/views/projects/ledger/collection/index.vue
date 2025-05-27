@@ -42,13 +42,6 @@
           <el-button
             type="primary"
             class="ele-btn-icon"
-            @click="onBindRfid"
-            :disabled="!selectedRows.length"
-            >绑定RFID</el-button
-          >
-          <el-button
-            type="primary"
-            class="ele-btn-icon"
             @click="onBatchImage"
             :disabled="!selectedRows.length"
             >批量导入图片</el-button
@@ -91,8 +84,7 @@
     </ele-card>
 
     <!-- 各弹框组件引用 -->
-    <!-- RFID绑定弹窗 -->
-    <bind-rfid v-model="showBindRfid" :rows="selectedRows" @close="showBindRfid = false" />
+
     <!-- 藏品详情弹窗 -->
     <collection-details v-model="showDetails" :row="currentRow" @close="showDetails = false" />
     <!-- 出库记录弹窗 -->
@@ -130,16 +122,6 @@
     <!-- 导入数据弹窗 -->
     <import-modal :visible="showImport" @update:visible="showImport = $event" @success="reload" />
 
-    <!-- 参考按钮 -->
-    <reference-button
-      title="藏品台账"
-      :imageUrl="pageImage"
-      searchText="藏品状态 图片信息 藏品编号 藏品名称 藏品类别 仓存位置 年代 实际质地 数量 单位 具体尺寸 完残状况 保存状态 文物级别 藏品来源 入藏日期 入藏年度 备注"
-      operationText="退回编目 位置变更 编入藏品组 绑定RFID 批量导入图片 导入数据 导出数据"
-      tableFieldsText="藏品状态 图片信息 藏品编号 藏品名称 藏品类别 仓存位置 年代 实际质地 数量 单位 具体尺寸 完残状况 保存状态 文物级别 藏品来源 入藏日期 入藏年度 备注 操作"
-      tableOperationsText="查看详情 修复记录 出库记录 调拨记录 上传图片"
-    />
-
     <!-- 图片预览组件 -->
     <ele-image-viewer
       v-model="showImageViewer"
@@ -152,7 +134,7 @@
 
 <script lang="ts" setup>
   import { ref, reactive } from 'vue'
-  import BindRfid from './components/bind-rfid.vue'
+
   import CollectionDetails from './components/collection-details.vue'
   import OutboundTable from './components/outbound-table.vue'
   import RepairTable from './components/repair-table.vue'
@@ -175,8 +157,7 @@
   import { getExportWorkbook } from '@/config/use-global-config'
   import { download } from '@/utils/common'
   import request from '@/utils/request'
-  import ReferenceButton from '@/components/ReferenceButton/index.vue'
-  import pageImage from './page.png'
+
   import { EleImageViewer } from 'ele-admin-plus'
 
   // 组件引用
@@ -190,7 +171,6 @@
   // 弹框显示状态
   const showUpdateWarehouse = ref(false) // 位置变更弹窗显示状态
   const showUpdateGroup = ref(false) // 编入藏品组弹窗显示状态
-  const showBindRfid = ref(false) // RFID绑定弹窗显示状态
   const showBatchImage = ref(false) // 批量导入图片弹窗显示状态
   const batchImageMode = ref<'batch' | 'single'>('batch') // 图片导入模式
   const showDetails = ref(false) // 藏品详情弹窗显示状态
@@ -234,14 +214,6 @@
     {
       prop: 'collectionCode',
       label: '藏品编号',
-      sortable: 'custom',
-      width: 220,
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'rfidCode',
-      label: 'RFID编号',
       sortable: 'custom',
       width: 220,
       align: 'left',
@@ -545,17 +517,6 @@
       return
     }
     showUpdateGroup.value = true
-  }
-
-  /**
-   * 绑定RFID
-   */
-  const onBindRfid = () => {
-    if (selectedRows.value.length === 0) {
-      ElMessage.warning('请选择要绑定RFID的藏品')
-      return
-    }
-    showBindRfid.value = true
   }
 
   /**

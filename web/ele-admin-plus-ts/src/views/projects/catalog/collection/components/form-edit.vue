@@ -59,12 +59,6 @@
               <el-input v-model="form.code" placeholder="请输入藏品编号" clearable />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="RFID编号" prop="rfidCode">
-              <el-input v-model="form.rfidCode" placeholder="请输入RFID编号" clearable />
-            </el-form-item>
-          </el-col>
-
           <!-- 数量信息 -->
           <el-col :span="8">
             <el-form-item label="数量" prop="quantity">

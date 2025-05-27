@@ -9,7 +9,6 @@
     <el-descriptions :column="2" border :label-width="120">
       <el-descriptions-item label="编号类别">{{ row?.numberCategory }}</el-descriptions-item>
       <el-descriptions-item label="藏品名称">{{ row?.collectionName }}</el-descriptions-item>
-      <el-descriptions-item label="RFID编号">{{ row?.rfidCode }}</el-descriptions-item>
       <el-descriptions-item label="藏品分类">{{ row?.categoryName }}</el-descriptions-item>
       <el-descriptions-item label="ISBN">{{ row?.isbn }}</el-descriptions-item>
       <el-descriptions-item label="作者">{{ row?.author }}</el-descriptions-item>

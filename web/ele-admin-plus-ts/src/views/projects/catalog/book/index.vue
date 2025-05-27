@@ -75,16 +75,6 @@
       <!-- 图书编辑弹窗 -->
       <form-edit v-model="showEdit" :data="current" @done="reload" />
 
-      <!-- 参考按钮 -->
-      <reference-button
-        title="图书管理"
-        :imageUrl="pageImage"
-        searchText="藏品编号 藏品名称 藏品分类 ISBN 作者 所属仓库 藏品来源 图书价值 保存状态 征集日期 入藏年度 备注 藏品状态 地址码 类型"
-        operationText="添加 审核通过 删除"
-        tableFieldsText="图片信息 编号类别 藏品编号 藏品名称 ISBN 藏品分类 作者 所属仓库 藏品来源 图书价值 保存状态 征集日期 入藏年度 备注 藏品状态 地址码 类型 操作"
-        tableOperationsText="修改 删除"
-      />
-
       <ele-image-viewer
         v-model="showImageViewer"
         :urlList="viewerImages"
@@ -106,8 +96,6 @@
   import { getBookList, deleteBooks, approveBooks } from '@/api/collection/book'
   import SearchForm from './components/search-form.vue'
   import FormEdit from './components/form-edit.vue'
-  import ReferenceButton from '@/components/ReferenceButton/index.vue'
-  import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -161,14 +149,6 @@
     {
       prop: 'collectionName',
       label: '藏品名称',
-      sortable: 'custom',
-      width: 220,
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'rfidCode',
-      label: 'RFID编号',
       sortable: 'custom',
       width: 220,
       align: 'left',
