@@ -60,7 +60,11 @@ export const useUserStore = defineStore('user', {
       //     })
       // )
       const { menus, homePath } = formatMenus(
-        USER_MENUS ?? result.authorities?.filter?.((d) => d.menuType !== 1) ?? []
+        USER_MENUS ??
+          result.authorities
+            ?.filter?.((d) => d.menuType !== 1)
+            .sort((a, b) => (a.sortNumber ?? 0) - (b.sortNumber ?? 0)) ??
+          []
       )
       this.setMenus(menus)
       return { menus, homePath }

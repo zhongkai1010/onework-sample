@@ -2,7 +2,7 @@
 <template>
   <el-form @keyup.enter="search" @submit.prevent="" :inline="true" label-position="left">
     <el-form-item label="藏品编号">
-      <el-input clearable v-model.trim="form.collectionCode" placeholder="请输入" />
+      <el-input clearable v-model.trim="form.code" placeholder="请输入" />
     </el-form-item>
 
     <el-form-item label="藏品名称">
@@ -32,12 +32,12 @@
         placeholder="请选择藏品来源"
       />
     </el-form-item>
-    <el-form-item label="入藏日期">
-      <el-date-picker
-        v-model="form.collectionTime"
-        type="date"
-        placeholder="请选择"
-        style="width: 192px"
+    <el-form-item label="入藏日期范围">
+      <dict-data
+        style="width: 190px"
+        :code="DIC_KEY_ACQUISITION_DATE_RANGE"
+        v-model="form.collectionDateRange"
+        placeholder="请选择入藏日期范围"
       />
     </el-form-item>
 
@@ -63,7 +63,8 @@
   import {
     DIC_KEY_REGION_TYPE,
     DIC_KEY_COLLECTION_SOURCE,
-    DIC_KEY_COLLECTION_TYPE
+    DIC_KEY_COLLECTION_TYPE,
+    DIC_KEY_ACQUISITION_DATE_RANGE
   } from '@/config/setting'
 
   const emit = defineEmits<{
@@ -71,7 +72,24 @@
   }>()
 
   /** 表单数据 */
-  const [form, resetFields] = useFormData<CollectionQueryParams>({})
+  const [form, resetFields] = useFormData<CollectionQueryParams>({
+    /** 藏品编号 */
+    code: undefined,
+    /** 藏品名称 */
+    collectionName: undefined,
+    /** 藏品类别ID */
+    categoryId: undefined,
+    /** 地域类型 */
+    regionType: undefined,
+    /** 地域 */
+    region: undefined,
+    /** 藏品来源 */
+    collectionSource: undefined,
+    /** 入藏日期范围 */
+    collectionDateRange: undefined,
+    /** 类型 */
+    type: undefined
+  })
 
   /** 搜索 */
   const search = () => {

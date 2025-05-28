@@ -1,8 +1,8 @@
 <template>
   <el-form :model="form" :inline="true" class="search-form" @submit.prevent>
-    <el-form-item label="藏品编号" prop="collectionCode">
+    <el-form-item label="藏品编号" prop="code">
       <el-input
-        v-model="form.collectionCode"
+        v-model="form.code"
         placeholder="请输入藏品编号"
         clearable
         @keyup.enter="handleSearch"
@@ -32,13 +32,17 @@
   }>()
 
   const [form, resetFields] = useFormData<CollectionQueryParams>({
-    collectionCode: '',
+    code: '',
     collectionName: ''
   })
 
   /** 搜索 */
   const handleSearch = () => {
-    emit('search', { ...form })
+    // 过滤掉空值
+    const params = Object.fromEntries(
+      Object.entries(form).filter(([_, value]) => value !== undefined && value !== '')
+    )
+    emit('search', params)
   }
 
   /** 重置 */

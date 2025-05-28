@@ -7,11 +7,22 @@
     value-key="id"
     label-key="collectionName"
     :table-props="tableProps"
-    :popper-width="680"
+    :popper-options="{
+      modifiers: [
+        {
+          name: 'matchWidth',
+          enabled: true,
+          fn: ({ state }) => {
+            state.styles.popper.width = `${state.rects.reference.width}px`
+          },
+          phase: 'beforeWrite',
+          requires: ['computeStyles']
+        }
+      ]
+    }"
     :disabled="disabled"
     :cache-data="cacheData"
     @select="handleSelect"
-    :popper-options="{ strategy: 'fixed' }"
     v-bind="attrs"
   >
     <template #topExtra>

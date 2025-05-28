@@ -4,11 +4,13 @@ import artistApi from './artist'
 import inventoryApi from './inventory'
 import collectionApi from './collection'
 import dataApi from './data'
+import inventoryCheckApi from './inventory-check'
 
 export default [
   ...layoutApi,
   ...artistApi,
   ...inventoryApi,
   ...collectionApi,
-  ...dataApi
+  ...dataApi,
+  ...inventoryCheckApi
 ] as MockMethod[]

@@ -46,7 +46,6 @@
             :disabled="!selectedRows.length"
             >批量导入图片</el-button
           >
-          <el-button type="success" class="ele-btn-icon" @click="onImport">导入数据</el-button>
           <el-button type="success" class="ele-btn-icon" @click="onExport">导出数据</el-button>
           <el-button
             type="primary"
@@ -119,9 +118,6 @@
     <!-- 标签打印弹窗 -->
     <print-label v-model="showPrintLabel" :rows="selectedRows" @close="showPrintLabel = false" />
 
-    <!-- 导入数据弹窗 -->
-    <import-modal :visible="showImport" @update:visible="showImport = $event" @success="reload" />
-
     <!-- 图片预览组件 -->
     <ele-image-viewer
       v-model="showImageViewer"
@@ -144,7 +140,6 @@
   import BatchImage from './components/batch-image.vue'
   import SearchForm from './components/search-form.vue'
   import PrintLabel from './components/print-label.vue'
-  import ImportModal from './components/import-modal.vue'
   import { getLedgerList, returnLedgers } from '@/api/collection/ledger'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
   import { ElMessage } from 'element-plus'
@@ -178,7 +173,6 @@
   const showOutbound = ref(false) // 出库记录弹窗显示状态
   const showTransfer = ref(false) // 调拨记录弹窗显示状态
   const showPrintLabel = ref(false) // 标签打印弹窗显示状态
-  const showImport = ref(false) // 导入数据弹窗显示状态
 
   // 图片预览相关状态
   const showImageViewer = ref(false)
@@ -533,20 +527,6 @@
   }
 
   /**
-   * 导入数据
-   */
-  const onImport = () => {
-    showImport.value = true
-  }
-
-  /**
-   * 导出数据
-   */
-  const onExport = () => {
-    tableRef.value?.openExportModal?.()
-  }
-
-  /**
    * 查看详情
    */
   const onViewDetails = (row: CollectionLedger) => {
@@ -607,6 +587,13 @@
       return
     }
     showPrintLabel.value = true
+  }
+
+  /**
+   * 导出数据
+   */
+  const onExport = () => {
+    tableRef.value?.openExportModal?.()
   }
 
   /**

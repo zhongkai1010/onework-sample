@@ -9,6 +9,19 @@
         children: 'children'
       }
     }"
+    :popper-options="{
+      modifiers: [
+        {
+          name: 'matchWidth',
+          enabled: true,
+          fn: ({ state }) => {
+            state.styles.popper.width = `${state.rects.reference.width}px`
+          },
+          phase: 'beforeWrite',
+          requires: ['computeStyles']
+        }
+      ]
+    }"
     clearable
     placeholder="请选择所属藏品组"
     @change="handleChange"

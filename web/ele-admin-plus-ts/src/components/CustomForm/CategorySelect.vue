@@ -9,6 +9,20 @@
         children: 'children'
       }
     }"
+    :popper-options="{
+      modifiers: [
+        {
+          name: 'matchWidth',
+          enabled: true,
+          fn: ({ state }) => {
+            state.styles.popper.width = `${state.rects.reference.width}px`
+          },
+          phase: 'beforeWrite',
+          requires: ['computeStyles']
+        }
+      ]
+    }"
+    :multiple="multiple"
     clearable
     placeholder="请选择上级分类"
     @change="handleChange"
@@ -23,16 +37,17 @@
   import type { Category } from '@/api/data/category/model'
 
   const attrs = useAttrs()
-  const value = ref<number | string>()
+  const value = ref<number | string | (number | string)[]>()
   const treeData = ref<Category[]>([])
 
   const emit = defineEmits<{
-    (e: 'update:modelValue', value: number | string | undefined): void
-    (e: 'change', value: number | string | undefined): void
+    (e: 'update:modelValue', value: number | string | (number | string)[] | undefined): void
+    (e: 'change', value: number | string | (number | string)[] | undefined): void
   }>()
 
   const props = defineProps<{
-    modelValue?: number | string
+    modelValue?: number | string | (number | string)[]
+    multiple?: boolean
   }>()
 
   // 加载分类数据
@@ -50,7 +65,7 @@
   }
 
   // 处理选择变化
-  const handleChange = (val: number | string | undefined) => {
+  const handleChange = (val: number | string | (number | string)[] | undefined) => {
     emit('update:modelValue', val)
     emit('change', val)
   }
@@ -59,7 +74,7 @@
   watch(
     () => props.modelValue,
     (val) => {
-      value.value = val
+      value.value = val === 0 ? undefined : val
     },
     { immediate: true }
   )

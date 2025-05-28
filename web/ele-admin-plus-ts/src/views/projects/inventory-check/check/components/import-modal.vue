@@ -1,10 +1,11 @@
+<!-- 导入盘点情况弹窗 -->
 <template>
-  <ele-modal v-model="visible" title="导入藏品" width="500px" :destroy-on-close="true">
+  <ele-modal v-model="visible" title="导入盘点情况" width="500px" :destroy-on-close="true">
     <div class="import-container">
       <!-- 下载模板 -->
       <div class="template-section">
         <h4>第一步：下载模板</h4>
-        <p>请先下载藏品导入模板，按照模板格式填写数据</p>
+        <p>请先下载盘点情况导入模板，按照模板格式填写数据</p>
         <el-button type="primary" @click="handleDownloadTemplate">
           <el-icon><Download /></el-icon>
           下载模板
@@ -38,7 +39,7 @@
     </div>
 
     <template #footer>
-      <el-button @click="visible = false">取消</el-button>
+      <el-button @click="handleCancel">取消</el-button>
       <el-button
         type="primary"
         :loading="loading"
@@ -58,7 +59,7 @@
   import { ElMessage } from 'element-plus'
 
   const emit = defineEmits<{
-    (e: 'done'): void
+    (e: 'success'): void
   }>()
 
   /** 弹窗是否打开 */
@@ -101,14 +102,20 @@
       // TODO: 实现导入功能
       await new Promise((resolve) => setTimeout(resolve, 1000)) // 模拟导入
       ElMessage.success('导入成功')
-      emit('done')
-      visible.value = false
+      emit('success')
+      handleCancel()
     } catch (error) {
       console.error('导入失败:', error)
       ElMessage.error('导入失败')
     } finally {
       loading.value = false
     }
+  }
+
+  // 关闭
+  const handleCancel = () => {
+    fileList.value = []
+    visible.value = false
   }
 </script>
 

@@ -1,0 +1,1025 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "藏品管理系统",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/api/inventory-check/plan": {
+      "post": {
+        "summary": "添加盘点计划",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "inventoryTitle": {
+                    "type": "string",
+                    "description": "盘点标题"
+                  },
+                  "startTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "盘点开始时间"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "盘点结束时间"
+                  },
+                  "inventoryPurpose": {
+                    "type": "string",
+                    "description": "盘点目的"
+                  },
+                  "planner": {
+                    "type": "string",
+                    "description": "盘点计划人"
+                  },
+                  "executor": {
+                    "type": "string",
+                    "description": "盘点执行人"
+                  },
+                  "storageLocation": {
+                    "type": "string",
+                    "description": "存放地点"
+                  },
+                  "categoryIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "类别[多选]"
+                  },
+                  "acceptanceDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "验收日期"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "get": {
+        "summary": "查询盘点计划列表分页",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "分页查询每页数量",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "排序方式",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页查询页码",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "inventoryTitle",
+            "in": "query",
+            "description": "盘点标题",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "title": "PageResult«Role»",
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "总数量",
+                          "format": "int64"
+                        },
+                        "list": {
+                          "type": "array",
+                          "description": "当前页数据",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "ID 编号"
+                              },
+                              "inventoryTitle": {
+                                "type": "string",
+                                "description": "盘点标题"
+                              },
+                              "startTime": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "盘点开始时间"
+                              },
+                              "endTime": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "盘点结束时间"
+                              },
+                              "inventoryPurpose": {
+                                "type": "string",
+                                "description": "盘点目的"
+                              },
+                              "planner": {
+                                "type": "string",
+                                "description": "盘点计划人"
+                              },
+                              "executor": {
+                                "type": "string",
+                                "description": "盘点执行人"
+                              },
+                              "storageLocation": {
+                                "type": "string",
+                                "description": "存放地点"
+                              },
+                              "categories": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "categoryId": {
+                                        "type": "integer",
+                                        "description": "分类ID"
+                                      },
+                                      "categoryName": {
+                                        "type": "string",
+                                        "description": "分类名称"
+                                      }
+                                    },
+                                    "required": [
+                                      "categoryId",
+                                      "categoryName"
+                                    ]
+                                  }
+                                },
+                                "description": "类别集合"
+                              },
+                              "acceptanceDate": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "验收日期"
+                              },
+                              "status": {
+                                "type": "integer",
+                                "description": "状态：0:待启动，1：已开始，2：已结束"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "put": {
+        "summary": "编辑盘点计划",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "ID 编号"
+                  },
+                  "inventoryTitle": {
+                    "type": "string",
+                    "description": "盘点标题"
+                  },
+                  "startTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "盘点开始时间"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "盘点结束时间"
+                  },
+                  "inventoryPurpose": {
+                    "type": "string",
+                    "description": "盘点目的"
+                  },
+                  "planner": {
+                    "type": "string",
+                    "description": "盘点计划人"
+                  },
+                  "executor": {
+                    "type": "string",
+                    "description": "盘点执行人"
+                  },
+                  "storageLocation": {
+                    "type": "string",
+                    "description": "存放地点"
+                  },
+                  "categoryIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "类别[多选]"
+                  },
+                  "acceptanceDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "验收日期"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "删除盘点计划",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
+                  }
+                },
+                "required": [
+                  "ids"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/inventory-check/plan/all": {
+      "get": {
+        "summary": "查询全部盘点计划列表",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "ID 编号"
+                          },
+                          "inventoryTitle": {
+                            "type": "string",
+                            "description": "盘点标题"
+                          },
+                          "startTime": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "盘点开始时间"
+                          },
+                          "endTime": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "盘点结束时间"
+                          },
+                          "inventoryPurpose": {
+                            "type": "string",
+                            "description": "盘点目的"
+                          },
+                          "planner": {
+                            "type": "string",
+                            "description": "盘点计划人"
+                          },
+                          "executor": {
+                            "type": "string",
+                            "description": "盘点执行人"
+                          },
+                          "storageLocation": {
+                            "type": "string",
+                            "description": "存放地点"
+                          },
+                          "categories": {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "categoryId": {
+                                    "type": "integer",
+                                    "description": "分类ID"
+                                  },
+                                  "categoryName": {
+                                    "type": "string",
+                                    "description": "分类名称"
+                                  }
+                                },
+                                "required": [
+                                  "categoryId",
+                                  "categoryName"
+                                ]
+                              }
+                            },
+                            "description": "类别集合"
+                          },
+                          "acceptanceDate": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "验收日期"
+                          },
+                          "status": {
+                            "type": "integer",
+                            "description": "状态：0:待启动，1：已开始，2：已结束"
+                          }
+                        }
+                      },
+                      "title": "PageResult«Role»"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/inventory-check/plan/list": {
+      "get": {
+        "summary": "查看盘点计划藏品清单",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "盘点计划ID",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "ID"
+                          },
+                          "collectionId": {
+                            "type": "string",
+                            "description": "藏品ID"
+                          },
+                          "satus": {
+                            "type": "integer",
+                            "description": "藏品状态， 0：未盘,1：已盘到、2：已盘亏、3：已盘盈"
+                          },
+                          "rfidCode": {
+                            "type": "string",
+                            "description": "RFID编号"
+                          },
+                          "collectionName": {
+                            "type": "string",
+                            "description": "藏品名称"
+                          },
+                          "categoryId": {
+                            "type": "integer",
+                            "description": "藏品类别ID"
+                          },
+                          "categoryName": {
+                            "type": "string",
+                            "description": "藏品类别"
+                          },
+                          "warehouseId": {
+                            "type": "integer",
+                            "description": "存放位置"
+                          },
+                          "warehouseName": {
+                            "type": "string",
+                            "description": "存放位置ID"
+                          },
+                          "era": {
+                            "type": "string",
+                            "description": "年代"
+                          },
+                          "material": {
+                            "type": "string",
+                            "description": "质地"
+                          },
+                          "quantity": {
+                            "type": "integer",
+                            "description": "数量"
+                          },
+                          "unit": {
+                            "type": "string",
+                            "description": "数量单位"
+                          },
+                          "specificDimensions": {
+                            "type": "string",
+                            "description": "具体尺寸"
+                          },
+                          "condition": {
+                            "type": "string",
+                            "description": "完残状况"
+                          },
+                          "eraType": {
+                            "type": "string",
+                            "description": "年代类型"
+                          },
+                          "imageInfo": {
+                            "type": "string",
+                            "description": "图片信息"
+                          },
+                          "numberCategory": {
+                            "type": "string",
+                            "description": "编号类别"
+                          },
+                          "collectionCode": {
+                            "type": "string",
+                            "description": "藏品编号"
+                          },
+                          "artist": {
+                            "type": "string",
+                            "description": "艺术家"
+                          },
+                          "regionType": {
+                            "type": "string",
+                            "description": "地域类型"
+                          },
+                          "region": {
+                            "type": "string",
+                            "description": "地域"
+                          },
+                          "materialType": {
+                            "type": "string",
+                            "description": "质地类型"
+                          },
+                          "overallLength": {
+                            "type": "number",
+                            "description": "通长(底径cm)"
+                          },
+                          "overallWidth": {
+                            "type": "number",
+                            "description": "通宽(口径cm)"
+                          },
+                          "totalHeight": {
+                            "type": "number",
+                            "description": "通高(cm)"
+                          },
+                          "weightRange": {
+                            "type": "string",
+                            "description": "质量范围"
+                          },
+                          "specificWeight": {
+                            "type": "number",
+                            "description": "具体质量"
+                          },
+                          "weightUnit": {
+                            "type": "string",
+                            "description": "质量单位"
+                          },
+                          "culturalLevel": {
+                            "type": "string",
+                            "description": "文物级别"
+                          },
+                          "collectionSource": {
+                            "type": "string",
+                            "description": "藏品来源"
+                          },
+                          "preservationStatus": {
+                            "type": "string",
+                            "description": "保存状态"
+                          },
+                          "collectionDate": {
+                            "type": "string",
+                            "description": "征集日期"
+                          },
+                          "collectionDateRange": {
+                            "type": "string",
+                            "description": "入藏日期范围"
+                          },
+                          "collectionYear": {
+                            "type": "string",
+                            "description": "入藏年度"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "类型"
+                          },
+                          "culturalType": {
+                            "type": "string",
+                            "description": "人文类型"
+                          },
+                          "collectionIntroduction": {
+                            "type": "string",
+                            "description": "藏品介绍"
+                          },
+                          "textType": {
+                            "type": "string",
+                            "description": "文本类型"
+                          },
+                          "audioVisualCarrierType": {
+                            "type": "string",
+                            "description": "声像载体类型"
+                          },
+                          "audioVisualStorageLocation": {
+                            "type": "string",
+                            "description": "声像载体存放位置"
+                          },
+                          "diskPath": {
+                            "type": "string",
+                            "description": "计算机磁盘路径"
+                          },
+                          "colorCategory": {
+                            "type": "string",
+                            "description": "颜色类别"
+                          },
+                          "colorDescription": {
+                            "type": "string",
+                            "description": "颜色描述"
+                          },
+                          "notes": {
+                            "type": "string",
+                            "description": "备注"
+                          },
+                          "museumEntryTime": {
+                            "type": "string",
+                            "description": "入馆时间"
+                          },
+                          "collectionTime": {
+                            "type": "string",
+                            "description": "入藏时间"
+                          },
+                          "loginTime": {
+                            "type": "string",
+                            "description": "登录时间"
+                          },
+                          "cabinetEntryTime": {
+                            "type": "string",
+                            "description": "入柜时间"
+                          }
+                        }
+                      },
+                      "title": "PageResult«Role»"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/inventory-check/plan/start": {
+      "post": {
+        "summary": "开始盘点",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "ID 编号"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/inventory-check/plan/finish": {
+      "post": {
+        "summary": "结束盘点",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}

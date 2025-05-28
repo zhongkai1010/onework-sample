@@ -215,7 +215,7 @@
       slot: 'imageInfo'
     },
     {
-      prop: 'codeType',
+      prop: 'numberCategory',
       label: '编号类别',
       width: 120,
       align: 'left',

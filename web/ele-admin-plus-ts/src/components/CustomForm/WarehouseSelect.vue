@@ -1,7 +1,6 @@
 <template>
   <ele-tree-select
     v-model="value"
-    :popper-width="360"
     filterable
     :tree-props="{
       data: treeData,
@@ -10,6 +9,19 @@
         value: 'id',
         children: 'children'
       }
+    }"
+    :popper-options="{
+      modifiers: [
+        {
+          name: 'matchWidth',
+          enabled: true,
+          fn: ({ state }) => {
+            state.styles.popper.width = `${state.rects.reference.width}px`
+          },
+          phase: 'beforeWrite',
+          requires: ['computeStyles']
+        }
+      ]
     }"
     clearable
     placeholder="请选择仓库位置"

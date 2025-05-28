@@ -14,7 +14,12 @@
     </el-form-item>
 
     <el-form-item label="类型">
-      <el-input clearable v-model.trim="form.type" placeholder="请输入" maxlength="20" />
+      <dict-data
+        :code="DIC_KEY_COLLECTION_TYPE"
+        v-model="form.type"
+        placeholder="请选择类型"
+        style="width: 190px"
+      />
     </el-form-item>
 
     <el-form-item label-width="16px">
@@ -27,6 +32,7 @@
 <script lang="ts" setup>
   import { useFormData } from '@/utils/use-form-data'
   import type { BookQueryParams } from '@/api/collection/book/model'
+  import { DIC_KEY_COLLECTION_TYPE } from '@/config/setting'
 
   const emit = defineEmits<{
     (e: 'search', params: BookQueryParams): void
