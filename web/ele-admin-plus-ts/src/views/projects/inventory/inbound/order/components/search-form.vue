@@ -22,8 +22,8 @@
     <el-form-item label="接收库房" prop="warehouseId">
       <warehouse-select v-model="form.warehouseId" />
     </el-form-item>
-    <el-form-item label="备注" prop="remarks">
-      <el-input v-model="form.remarks" placeholder="请输入备注" clearable style="width: 200px" />
+    <el-form-item label="备注" prop="remark">
+      <el-input v-model="form.remark" placeholder="请输入备注" clearable style="width: 200px" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="search">查询</el-button>
@@ -49,7 +49,7 @@
     collectionId: undefined,
     operator: '',
     warehouseId: undefined,
-    remarks: ''
+    remark: ''
   })
 
   /** 搜索 */

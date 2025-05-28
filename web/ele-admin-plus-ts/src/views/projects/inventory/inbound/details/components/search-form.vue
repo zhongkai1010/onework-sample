@@ -1,7 +1,12 @@
 <template>
   <el-form :model="form" @keyup.enter="search" @submit.prevent :inline="true">
-    <el-form-item label="入库单号" prop="code">
-      <el-input v-model="form.code" placeholder="请输入入库单号" clearable style="width: 200px" />
+    <el-form-item label="入库单号" prop="warehouseNumber">
+      <el-input
+        v-model="form.warehouseNumber"
+        placeholder="请输入入库单号"
+        clearable
+        style="width: 200px"
+      />
     </el-form-item>
     <el-form-item label="藏品编号" prop="collectionCode">
       <el-input
@@ -50,7 +55,7 @@
 
   /** 表单数据 */
   const [form, resetFields] = useFormData({
-    code: '',
+    warehouseNumber: '',
     collectionCode: '',
     collectionName: '',
     warehouseId: undefined as number | undefined,

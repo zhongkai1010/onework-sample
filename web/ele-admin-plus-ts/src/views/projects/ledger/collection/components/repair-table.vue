@@ -3,7 +3,7 @@
   <ele-modal
     v-model="modelValue"
     title="修复记录"
-    width="1000px"
+    width="1200px"
     :destroy-on-close="true"
     @close="onClose"
   >
@@ -27,6 +27,7 @@
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
   import { EleImageViewer } from 'ele-admin-plus'
+  import dayjs from 'dayjs'
 
   const props = defineProps<{
     row: CollectionLedger | null
@@ -54,9 +55,14 @@
     }
   })
 
+  // 格式化日期
+  const formatDate = (date: string | number | Date | null | undefined) => {
+    if (!date) return '-'
+    return dayjs(date).format('YYYY-MM-DD')
+  }
+
   const columns: Columns = [
-    { type: 'index', label: '编号', width: 80, align: 'center' },
-    { prop: 'id', label: 'ID', width: 80, align: 'center' },
+    { prop: 'id', label: '编号', width: 80, align: 'center' },
     {
       prop: 'beforeRepairImage',
       label: '修复前图片',
@@ -98,7 +104,7 @@
     { prop: 'repairCode', label: '修复单号', width: 220 },
     { prop: 'collectionCode', label: '藏品编号', width: 220 },
     { prop: 'collectionName', label: '藏品名称', width: 220 },
-    { prop: 'collectionCategory', label: '藏品分类', width: 220 },
+    { prop: 'categoryName', label: '藏品分类', width: 220 },
     { prop: 'repairReason', label: '修复原因', width: 220 },
     { prop: 'repairStatusAndResults', label: '修复情况及结果', width: 220 },
     { prop: 'sendRepairDepartment', label: '送修部门', width: 220 },
@@ -106,9 +112,27 @@
     { prop: 'qualificationCertificate', label: '资质证书', width: 220 },
     { prop: 'sentBy', label: '送修人', width: 120 },
     { prop: 'repairPerson', label: '修复人', width: 120 },
-    { prop: 'registrationDate', label: '登记日期', width: 120, align: 'center' },
-    { prop: 'sendRepairDate', label: '送修日期', width: 120, align: 'center' },
-    { prop: 'repairCompletionDate', label: '修完日期', width: 120, align: 'center' },
+    {
+      prop: 'registrationDate',
+      label: '登记日期',
+      width: 120,
+      align: 'center',
+      formatter: (row) => formatDate(row.registrationDate)
+    },
+    {
+      prop: 'sendRepairDate',
+      label: '送修日期',
+      width: 120,
+      align: 'center',
+      formatter: (row) => formatDate(row.sendRepairDate)
+    },
+    {
+      prop: 'repairCompletionDate',
+      label: '修完日期',
+      width: 120,
+      align: 'center',
+      formatter: (row) => formatDate(row.repairCompletionDate)
+    },
     {
       prop: 'status',
       label: '工单状态',

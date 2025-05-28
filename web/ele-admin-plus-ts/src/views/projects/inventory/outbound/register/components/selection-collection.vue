@@ -1,5 +1,5 @@
 <template>
-  <ele-modal v-model="visible" title="选择出库藏品" width="1200px" :destroy-on-close="true">
+  <ele-modal v-model="visible" title="选择藏品" width="1200px" :destroy-on-close="true">
     <el-form :inline="true" :model="form" @keyup.enter="search">
       <el-form-item label="藏品编号">
         <el-input v-model.number="form.collectionCode" placeholder="请输入藏品编号" clearable />

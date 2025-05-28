@@ -24,7 +24,7 @@
         <el-input v-model="form.transferReason" placeholder="请输入调拨原因" clearable />
       </el-form-item>
       <el-form-item label="备注" prop="remarks">
-        <el-input v-model="form.remarks" type="textarea" placeholder="请输入备注" :rows="3" />
+        <el-input v-model="form.remark" type="textarea" placeholder="请输入备注" :rows="3" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -63,7 +63,7 @@
     warehouseId: 0,
     receiver: '',
     transferReason: '',
-    remarks: '',
+    remark: '',
     collectionIds: []
   })
 

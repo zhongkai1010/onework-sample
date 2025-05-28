@@ -7,19 +7,7 @@
     value-key="id"
     label-key="collectionName"
     :table-props="tableProps"
-    :popper-options="{
-      modifiers: [
-        {
-          name: 'matchWidth',
-          enabled: true,
-          fn: ({ state }) => {
-            state.styles.popper.width = `${state.rects.reference.width}px`
-          },
-          phase: 'beforeWrite',
-          requires: ['computeStyles']
-        }
-      ]
-    }"
+    :popper-width="660"
     :disabled="disabled"
     :cache-data="cacheData"
     @select="handleSelect"
@@ -100,7 +88,7 @@
         prop: 'code',
         label: '藏品编号',
         sortable: 'custom',
-        width: 120
+        width: 220
       },
       {
         prop: 'collectionName',

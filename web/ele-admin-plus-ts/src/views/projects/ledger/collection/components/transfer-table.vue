@@ -2,15 +2,13 @@
   <ele-modal
     v-model="modelValue"
     title="调拨记录"
-    width="800px"
+    width="1200px"
     :destroy-on-close="true"
     @close="onClose"
   >
-    <ele-pro-table :columns="columns" :datasource="datasource">
-      <template #transferStatus="{ row }">
-        <el-tag :type="getStatusType(row.transferStatus)">{{
-          getStatusText(row.transferStatus)
-        }}</el-tag>
+    <ele-pro-table :columns="columns" :datasource="datasource" class="transfer-table">
+      <template #status="{ row }">
+        <el-tag :type="getStatusType(row.status)">{{ getStatusText(row.status) }}</el-tag>
       </template>
     </ele-pro-table>
     <template #footer>
@@ -22,9 +20,8 @@
 <script lang="ts" setup>
   import { watch } from 'vue'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
-  // 假设你有 getTransferList API
   import { getCollectionTransferList } from '@/api/collection/ledger'
-  import { CollectionLedger } from '@/api/collection/ledger/model/index'
+  import type { CollectionLedger } from '@/api/collection/ledger/model'
 
   const props = defineProps<{
     row: CollectionLedger | null
@@ -41,21 +38,19 @@
   })
 
   const columns: Columns = [
-    { type: 'index', label: '序号', width: 60, align: 'center' },
-    { prop: 'collectionCode', label: '藏品编号', minWidth: 120, showOverflowTooltip: true },
-    { prop: 'collectionName', label: '藏品名称', minWidth: 120, showOverflowTooltip: true },
-    { prop: 'transferDate', label: '调拨日期', minWidth: 120, showOverflowTooltip: true },
-    { prop: 'transferType', label: '调拨类型', minWidth: 120, showOverflowTooltip: true },
-    { prop: 'transferReason', label: '调拨原因', minWidth: 120, showOverflowTooltip: true },
+    { prop: 'id', label: '编号', width: 80, align: 'center' },
+    { prop: 'code', label: '调拨单号', width: 180 },
+    { prop: 'collectionCode', label: '藏品编号', width: 180 },
+    { prop: 'collectionName', label: '藏品名称', width: 180 },
+    { prop: 'originalWarehouse', label: '原仓库', width: 180 },
+    { prop: 'currentWarehouse', label: '现仓库', width: 180 },
     {
-      prop: 'transferStatus',
-      label: '调拨状态',
-      minWidth: 120,
-      showOverflowTooltip: true,
-      slot: 'transferStatus'
-    },
-    { prop: 'transferPerson', label: '调拨人', minWidth: 120, showOverflowTooltip: true },
-    { prop: 'transferNotes', label: '备注', minWidth: 120, showOverflowTooltip: true }
+      prop: 'status',
+      label: '状态',
+      width: 120,
+      align: 'center',
+      slot: 'status'
+    }
   ]
 
   const datasource: DatasourceFunction = ({ pages }) => {
@@ -69,24 +64,18 @@
 
   // 获取状态类型
   const getStatusType = (status?: number) => {
-    const statusMap: Record<number, 'success' | 'warning' | 'danger' | 'info' | 'primary'> = {
-      0: 'success', // 调拨中
-      1: 'warning', // 已完成
-      2: 'danger', // 已取消
-      3: 'info', // 待审核
-      4: 'primary' // 其他
+    const statusMap: Record<number, 'success' | 'warning' | 'danger' | 'info'> = {
+      0: 'info', // 待审核
+      1: 'success' // 已拨库
     }
-    return statusMap[status || 0] || 'primary'
+    return statusMap[status || 0] || 'info'
   }
 
   // 获取状态文本
   const getStatusText = (status?: number) => {
     const statusMap: Record<number, string> = {
-      0: '调拨中',
-      1: '已完成',
-      2: '已取消',
-      3: '待审核',
-      4: '其他'
+      0: '待审核',
+      1: '已拨库'
     }
     return statusMap[status || 0] || '未知'
   }
@@ -96,4 +85,10 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .transfer-table {
+    :deep(.el-table) {
+      min-height: 600px;
+    }
+  }
+</style>

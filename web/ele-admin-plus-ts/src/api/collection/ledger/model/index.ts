@@ -153,7 +153,7 @@ export interface CollectionLedger {
   /** ID */
   id: number
   /** 藏品状态，1：在藏，2：修复中、3、待出库、4、待注销、5、已注销、6、yi */
-  collectionStatus?: number
+  status?: number
   /** RFID编号 */
   rfidCode?: string
   /** 藏品名称 */

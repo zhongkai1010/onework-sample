@@ -64,6 +64,13 @@
   import ConfirmSelection from './components/confirm-selection.vue'
   import { ElMessage } from 'element-plus'
 
+  defineOptions({
+    name: 'CancellationRegister',
+    title: '注销登记',
+    icon: 'el-icon-box',
+    order: 3
+  })
+
   // 表格实例
   const tableRef = ref<InstanceType<typeof EleProTable>>()
 

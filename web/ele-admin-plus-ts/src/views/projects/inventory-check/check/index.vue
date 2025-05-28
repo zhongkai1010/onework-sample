@@ -77,6 +77,13 @@
   import type { InventoryCheckPlan } from '@/api/inventory-check/plan/model'
   import type { ElTree } from 'element-plus'
 
+  defineOptions({
+    name: 'InventoryCheck',
+    title: '盘点管理',
+    icon: 'el-icon-box',
+    order: 4
+  })
+
   /** 树实例 */
   const treeRef = ref<InstanceType<typeof ElTree> | null>(null)
 

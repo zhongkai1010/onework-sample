@@ -61,6 +61,13 @@
   import ReferenceButton from '@/components/ReferenceButton/index.vue'
   import pageImage from './page.png'
 
+  defineOptions({
+    name: 'OutboundRegister',
+    title: '出库登记',
+    icon: 'el-icon-box',
+    order: 1
+  })
+
   // 表格实例
   const tableRef = ref<InstanceType<typeof EleProTable>>()
 

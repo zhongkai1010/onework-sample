@@ -3,11 +3,11 @@
   <ele-modal
     v-model="show"
     title="出库记录"
-    width="1000px"
+    width="1200px"
     :destroy-on-close="true"
     @close="onClose"
   >
-    <ele-pro-table :columns="columns" :datasource="datasource" />
+    <ele-pro-table :columns="columns" :datasource="datasource" class="outbound-table" />
     <template #footer>
       <el-button @click="onClose">关闭</el-button>
     </template>
@@ -19,6 +19,7 @@
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
   import { getCollectionOutboundList } from '@/api/collection/ledger'
+  import dayjs from 'dayjs'
 
   const props = defineProps<{
     modelValue: boolean
@@ -49,15 +50,46 @@
     }
   })
 
+  // 格式化日期
+  const formatDate = (date: string | number | Date | null | undefined) => {
+    if (!date) return '-'
+    return dayjs(date).format('YYYY-MM-DD')
+  }
+
   const columns: Columns = [
-    { prop: 'outboundDate', label: '出库日期', width: 120 },
-    { prop: 'outboundType', label: '出库类型', width: 120 },
-    { prop: 'outboundPerson', label: '出库人员', width: 120 },
-    { prop: 'outboundStatus', label: '出库状态', width: 120 },
-    { prop: 'outboundPurpose', label: '出库用途' },
-    { prop: 'outboundLocation', label: '出库位置', width: 150 },
-    { prop: 'returnDate', label: '预计归还日期', width: 120 },
-    { prop: 'remark', label: '备注', width: 150 }
+    { prop: 'id', label: '编号', width: 80, align: 'center' },
+    { prop: 'code', label: '出库单号', width: 180 },
+    { prop: 'collectionCode', label: '藏品编号', width: 180 },
+    { prop: 'collectionName', label: '藏品名称', width: 180 },
+    {
+      prop: 'outboundDate',
+      label: '出库日期',
+      width: 120,
+      align: 'center',
+      formatter: (row) => formatDate(row.outboundDate)
+    },
+    {
+      prop: 'storageDate',
+      label: '入库日期',
+      width: 120,
+      align: 'center',
+      formatter: (row) => formatDate(row.storageDate)
+    },
+    {
+      prop: 'status',
+      label: '状态',
+      width: 120,
+      align: 'center',
+      formatter: (row) => {
+        const statusMap: Record<number, string> = {
+          0: '未审核',
+          1: '待出库',
+          2: '已出库',
+          3: '已归还'
+        }
+        return statusMap[row.status] || '其他'
+      }
+    }
   ]
 
   const datasource: DatasourceFunction = ({ pages }) => {
@@ -75,6 +107,12 @@
 </script>
 
 <style lang="scss" scoped>
+  .outbound-table {
+    :deep(.el-table) {
+      min-height: 600px;
+    }
+  }
+
   .pagination {
     margin-top: 20px;
     display: flex;
