@@ -33,9 +33,6 @@
       >
         登记盘盈
       </el-button>
-      <el-button type="info" class="ele-btn-icon" :icon="UploadOutlined" @click="handleImport">
-        导入盘点情况
-      </el-button>
     </template>
     <template #status="{ row }">
       <el-tag :type="getStatusType(row.status)" effect="light">
@@ -53,7 +50,7 @@
     </template>
     <template #operation="{ row }">
       <el-space :size="4">
-        <el-button type="warning" @click="() => handleConfirmStatus(row)" size="small"
+        <el-button type="warning" @click.stop="handleConfirmStatus(row)" size="small"
           >确认盘点</el-button
         >
       </el-space>
@@ -72,22 +69,18 @@
 
   <!-- 登记盘盈弹窗 -->
   <form-edit v-model="showFormEdit" :plan-id="planId" @done="reload" />
-
-  <!-- 导入盘点情况弹窗 -->
-  <import-modal v-model="showImportModal" @success="reload" />
 </template>
 
 <script lang="ts" setup>
   import { ref, watch } from 'vue'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { getInventoryCheckCollectionList } from '@/api/inventory-check/check'
+  import { getInventoryCheckCollectionPage } from '@/api/inventory-check/check'
   import type { InventoryCheckCollection } from '@/api/inventory-check/check/model'
-  import { PlusOutlined, UploadOutlined } from '@/components/icons'
+  import { PlusOutlined } from '@/components/icons'
   import SearchForm from './search-form.vue'
   import ConfirmModal from './confirm-modal.vue'
   import FormEdit from './form-edit.vue'
-  import ImportModal from './import-modal.vue'
   import { EleMessage } from 'ele-admin-plus/es'
 
   /* Props 定义 */
@@ -107,7 +100,6 @@
   const viewerIndex = ref(0)
   const showConfirmModal = ref(false)
   const showFormEdit = ref(false)
-  const showImportModal = ref(false)
 
   /* 表格列配置 */
   const columns: Columns = [
@@ -276,7 +268,7 @@
 
   /* 数据源 */
   const datasource: DatasourceFunction = ({ where, orders }) => {
-    return getInventoryCheckCollectionList({
+    return getInventoryCheckCollectionPage({
       ...where,
       ...orders,
       planId: props.planId === '0' ? undefined : Number(props.planId)
@@ -324,11 +316,6 @@
       return
     }
     showConfirmModal.value = true
-  }
-
-  /** 处理导入盘点情况 */
-  const handleImport = () => {
-    showImportModal.value = true
   }
 
   /** 重置 */

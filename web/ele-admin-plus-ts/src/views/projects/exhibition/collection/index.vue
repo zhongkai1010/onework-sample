@@ -1,32 +1,37 @@
 <template>
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
-    <ele-card flex-table>
+    <ele-card flex-table :body-style="{ padding: '0px' }">
       <ele-split-panel
         ref="splitRef"
         flex-table
-        size="256px"
-        allow-collapse
-        :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }"
-        :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }"
-        :style="{ height: '100%', overflow: 'visible' }"
+        space="0px"
+        size="320px"
+        :min-size="240"
+        :max-size="600"
+        :resizable="true"
+        :body-style="{ overflow: 'hidden', padding: '16px' }"
+        :custom-style="{ padding: '16px' }"
+        :responsive="false"
+        :allow-collapse="true"
       >
-        <div style="padding: 0 16px 12px 0">
-          <el-input
-            clearable
-            :maxlength="20"
-            v-model="keywords"
-            placeholder="请输入搜索关键字"
-            :prefix-icon="SearchOutlined"
-          />
+        <el-input
+          clearable
+          :maxlength="20"
+          v-model="keywords"
+          placeholder="请输入搜索关键字"
+          :prefix-icon="SearchOutlined"
+        />
+        <div style="margin: 8px 0px; display: flex; gap: 8px">
+          <el-button type="primary" size="small" @click="handleExpandAll">全部展开</el-button>
+          <el-button type="info" size="small" @click="handleCollapseAll">全部折叠</el-button>
         </div>
-        <ele-loading
-          :loading="treeLoading"
-          :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }"
-        >
+
+        <ele-loading :loading="treeLoading" :style="{ flex: 1, overflow: 'auto' }">
           <el-tree
             ref="treeRef"
             :data="treeData"
             highlight-current
+            v-loading="treeLoading"
             node-key="id"
             :props="{ label: 'name', children: 'children' }"
             :expand-on-click-node="false"
@@ -132,6 +137,26 @@
   /** 处理节点点击 */
   const handleNodeClick = (data: Warehouse) => {
     currentWarehouseId.value = data.id === 0 ? undefined : data.id
+  }
+
+  /** 处理全部展开 */
+  const handleExpandAll = () => {
+    const nodes = treeRef.value?.store?.nodesMap
+    if (nodes) {
+      Object.values(nodes).forEach((node: any) => {
+        node.expand()
+      })
+    }
+  }
+
+  /** 处理全部折叠 */
+  const handleCollapseAll = () => {
+    const nodes = treeRef.value?.store?.nodesMap
+    if (nodes) {
+      Object.values(nodes).forEach((node: any) => {
+        node.collapse()
+      })
+    }
   }
 
   // 监听搜索关键字变化

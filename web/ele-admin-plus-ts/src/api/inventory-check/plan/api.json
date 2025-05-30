@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/api/inventory-check/plan": {
+    "/api/Inventory/add": {
       "post": {
         "summary": "添加盘点计划",
         "deprecated": false,
@@ -18,10 +18,10 @@
             "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -113,7 +113,9 @@
           }
         },
         "security": []
-      },
+      }
+    },
+    "/api/Inventory/page": {
       "get": {
         "summary": "查询盘点计划列表分页",
         "deprecated": false,
@@ -173,10 +175,10 @@
             "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -296,193 +298,9 @@
           }
         },
         "security": []
-      },
-      "put": {
-        "summary": "编辑盘点计划",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "Token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "ID 编号"
-                  },
-                  "inventoryTitle": {
-                    "type": "string",
-                    "description": "盘点标题"
-                  },
-                  "startTime": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "盘点开始时间"
-                  },
-                  "endTime": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "盘点结束时间"
-                  },
-                  "inventoryPurpose": {
-                    "type": "string",
-                    "description": "盘点目的"
-                  },
-                  "planner": {
-                    "type": "string",
-                    "description": "盘点计划人"
-                  },
-                  "executor": {
-                    "type": "string",
-                    "description": "盘点执行人"
-                  },
-                  "storageLocation": {
-                    "type": "string",
-                    "description": "存放地点"
-                  },
-                  "categoryIds": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "description": "类别[多选]"
-                  },
-                  "acceptanceDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "验收日期"
-                  }
-                }
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
-      },
-      "delete": {
-        "summary": "删除盘点计划",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "Token",
-            "in": "header",
-            "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
-            "schema": {
-              "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "description": "ID集合"
-                  }
-                },
-                "required": [
-                  "ids"
-                ]
-              },
-              "examples": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer",
-                      "description": "状态码",
-                      "format": "int32"
-                    },
-                    "data": {
-                      "description": "返回数据",
-                      "type": "object",
-                      "properties": {}
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "错误信息"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "状态信息"
-                    }
-                  }
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": []
       }
     },
-    "/api/inventory-check/plan/all": {
+    "/api/Inventory/list": {
       "get": {
         "summary": "查询全部盘点计划列表",
         "deprecated": false,
@@ -493,10 +311,10 @@
             "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -607,7 +425,7 @@
         "security": []
       }
     },
-    "/api/inventory-check/plan/list": {
+    "/api/Inventory/detailsList": {
       "get": {
         "summary": "查看盘点计划藏品清单",
         "deprecated": false,
@@ -627,10 +445,10 @@
             "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -870,9 +688,9 @@
         "security": []
       }
     },
-    "/api/inventory-check/plan/start": {
-      "post": {
-        "summary": "开始盘点",
+    "/api/Inventory/update": {
+      "put": {
+        "summary": "编辑盘点计划",
         "deprecated": false,
         "description": "",
         "tags": [],
@@ -881,10 +699,10 @@
             "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -895,12 +713,127 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "integer",
+                    "type": "string",
                     "description": "ID 编号"
+                  },
+                  "inventoryTitle": {
+                    "type": "string",
+                    "description": "盘点标题"
+                  },
+                  "startTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "盘点开始时间"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "盘点结束时间"
+                  },
+                  "inventoryPurpose": {
+                    "type": "string",
+                    "description": "盘点目的"
+                  },
+                  "planner": {
+                    "type": "string",
+                    "description": "盘点计划人"
+                  },
+                  "executor": {
+                    "type": "string",
+                    "description": "盘点执行人"
+                  },
+                  "storageLocation": {
+                    "type": "string",
+                    "description": "存放地点"
+                  },
+                  "categoryIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "类别[多选]"
+                  },
+                  "acceptanceDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "验收日期"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/Inventory/delete": {
+      "post": {
+        "summary": "删除盘点计划",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "ID集合"
                   }
                 },
                 "required": [
-                  "id"
+                  "ids"
                 ]
               },
               "examples": {}
@@ -943,9 +876,9 @@
         "security": []
       }
     },
-    "/api/inventory-check/plan/finish": {
+    "/api/Inventory/start": {
       "post": {
-        "summary": "结束盘点",
+        "summary": "开始盘点",
         "deprecated": false,
         "description": "",
         "tags": [],
@@ -954,26 +887,31 @@
             "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "ID ",
+                    "example": 0
+                  },
+                  "file": {
+                    "format": "binary",
+                    "type": "string",
+                    "description": "文件（file格式）",
+                    "example": ""
                   }
-                },
-                "required": [
-                  "id"
-                ]
+                }
               },
               "examples": {}
             }

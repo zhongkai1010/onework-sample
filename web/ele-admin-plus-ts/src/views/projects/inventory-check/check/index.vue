@@ -1,40 +1,47 @@
 <template>
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
-    <ele-card flex-table>
+    <ele-card flex-table :body-style="{ padding: '0px' }">
       <ele-split-panel
         ref="splitRef"
         flex-table
-        size="256px"
-        allow-collapse
+        space="0px"
+        size="320px"
+        :min-size="240"
+        :max-size="600"
         :resizable="true"
-        :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }"
-        :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }"
-        :style="{ height: '100%', overflow: 'visible' }"
+        :body-style="{ overflow: 'hidden', padding: '16px' }"
+        :custom-style="{ padding: '16px' }"
+        :responsive="false"
+        :allow-collapse="true"
       >
-        <div class="flex flex-col h-full">
-          <div class="px-4 pb-4">
-            <el-input
-              clearable
-              :maxlength="20"
-              v-model.trim="keywords"
-              placeholder="请输入搜索关键字"
-              :prefix-icon="SearchOutlined"
-            />
-          </div>
-          <div :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }" v-loading="treeLoading">
-            <el-tree
-              ref="treeRef"
-              :data="treeData"
-              highlight-current
-              node-key="id"
-              :props="{ label: 'inventoryTitle', children: 'children' }"
-              :expand-on-click-node="false"
-              :default-expand-all="true"
-              :filter-node-method="filterNode"
-              :style="{ '--ele-tree-item-height': '34px' }"
-              @node-click="handleNodeClick"
-            >
-              <template #default="{ data }">
+        <el-input
+          clearable
+          :maxlength="20"
+          v-model.trim="keywords"
+          placeholder="请输入搜索关键字"
+          :prefix-icon="SearchOutlined"
+        />
+        <div style="margin: 8px 0px; display: flex; gap: 8px">
+          <el-button type="primary" size="small" @click="handleExpandAll">全部展开</el-button>
+          <el-button type="info" size="small" @click="handleCollapseAll">全部折叠</el-button>
+        </div>
+
+        <ele-loading :loading="treeLoading" :style="{ flex: 1, overflow: 'auto' }">
+          <el-tree
+            ref="treeRef"
+            :data="treeData"
+            highlight-current
+            v-loading="treeLoading"
+            node-key="id"
+            :props="{ label: 'inventoryTitle', children: 'children' }"
+            :expand-on-click-node="false"
+            :default-expand-all="true"
+            :filter-node-method="filterNode"
+            :style="{ '--ele-tree-item-height': '34px' }"
+            @node-click="handleNodeClick"
+          >
+            <template #default="{ data }">
+              <div class="flex items-center">
                 <el-icon
                   style="margin-right: 6px; font-size: 16px"
                   :style="{
@@ -47,10 +54,18 @@
                 <span class="el-tree-node__label" style="margin-top: 2px">
                   {{ data.inventoryTitle }}
                 </span>
-              </template>
-            </el-tree>
-          </div>
-        </div>
+                <el-tag
+                  v-if="!data.children?.length"
+                  size="small"
+                  :type="data.status === 1 ? 'success' : data.status === 2 ? 'warning' : 'info'"
+                  style="margin-left: 8px"
+                >
+                  {{ data.status === 1 ? '已完成' : data.status === 2 ? '进行中' : '未开始' }}
+                </el-tag>
+              </div>
+            </template>
+          </el-tree>
+        </ele-loading>
         <template #body>
           <div class="flex flex-col h-full">
             <template v-if="!treeLoading && currentPlanId !== '0'">
@@ -73,8 +88,8 @@
   import { toTree } from 'ele-admin-plus/es'
   import { SearchOutlined, FolderOutlined, TagOutlined } from '@/components/icons'
   import DataTable from './components/data-table.vue'
-  import { getAllInventoryCheckPlans } from '@/api/inventory-check/plan'
-  import type { InventoryCheckPlan } from '@/api/inventory-check/plan/model'
+  import { getInventoryPlanList } from '@/api/inventory-check/plan'
+  import type { InventoryPlan } from '@/api/inventory-check/plan/model'
   import type { ElTree } from 'element-plus'
 
   defineOptions({
@@ -92,12 +107,12 @@
   /** 搜索关键字 */
   const keywords = ref('')
   /** 树形数据 */
-  const treeData = ref<(InventoryCheckPlan & { children?: InventoryCheckPlan[] })[]>([])
+  const treeData = ref<(InventoryPlan & { children?: InventoryPlan[] })[]>([])
   /** 当前选中的计划ID */
   const currentPlanId = ref<string>('0')
 
   /** 树过滤方法 */
-  const filterNode = (value: string, data: InventoryCheckPlan) => {
+  const filterNode = (value: string, data: InventoryPlan) => {
     if (value) {
       return !!(data.inventoryTitle && data.inventoryTitle.includes(value))
     }
@@ -108,7 +123,7 @@
   const loadPlans = async () => {
     try {
       treeLoading.value = true
-      const data = await getAllInventoryCheckPlans()
+      const data = await getInventoryPlanList()
       treeData.value = [
         {
           id: 0,
@@ -143,8 +158,28 @@
   }
 
   /** 处理节点点击 */
-  const handleNodeClick = (data: InventoryCheckPlan) => {
+  const handleNodeClick = (data: InventoryPlan) => {
     currentPlanId.value = data.id.toString()
+  }
+
+  /** 处理全部展开 */
+  const handleExpandAll = () => {
+    const nodes = treeRef.value?.store?.nodesMap
+    if (nodes) {
+      Object.values(nodes).forEach((node: any) => {
+        node.expand()
+      })
+    }
+  }
+
+  /** 处理全部折叠 */
+  const handleCollapseAll = () => {
+    const nodes = treeRef.value?.store?.nodesMap
+    if (nodes) {
+      Object.values(nodes).forEach((node: any) => {
+        node.collapse()
+      })
+    }
   }
 
   // 监听搜索关键字变化

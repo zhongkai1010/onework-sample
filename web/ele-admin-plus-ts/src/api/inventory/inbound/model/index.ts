@@ -117,7 +117,7 @@ export interface InboundOrderDetailsQueryParams {
  */
 export interface InboundCollectionQueryParams {
   /** 入库单号 */
-  collectionStatus?: string
+  warehouseNumber?: string
   /** 藏品选择 */
   collectionCode?: number
   /** 接收库房 */

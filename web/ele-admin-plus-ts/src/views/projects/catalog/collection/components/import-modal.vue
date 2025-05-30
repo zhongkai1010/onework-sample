@@ -56,6 +56,7 @@
   import { Download, UploadFilled } from '@element-plus/icons-vue'
   import type { UploadInstance, UploadProps, UploadUserFile } from 'element-plus'
   import { ElMessage } from 'element-plus'
+  import { importCollections } from '@/api/collection'
 
   const emit = defineEmits<{
     (e: 'done'): void
@@ -71,7 +72,13 @@
   // 下载模板
   const handleDownloadTemplate = () => {
     try {
-      // TODO: 实现下载模板功能
+      // 创建一个a标签用于下载
+      const link = document.createElement('a')
+      link.href = '/file/藏品登记模板.xls'
+      link.download = '藏品登记模板.xls'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
       ElMessage.success('模板下载成功')
     } catch (error) {
       console.error('下载模板失败:', error)
@@ -98,14 +105,27 @@
 
     try {
       loading.value = true
-      // TODO: 实现导入功能
-      await new Promise((resolve) => setTimeout(resolve, 1000)) // 模拟导入
-      ElMessage.success('导入成功')
+      const file = fileList.value[0].raw
+      if (!file) {
+        throw new Error('文件不存在')
+      }
+      const res = await importCollections(file)
+      // 显示导入结果
+      ElMessage.success(res.message)
+      // 如果有错误信息，显示详细错误
+      if (res.data?.errorMessages?.length) {
+        ElMessage({
+          type: 'warning',
+          message: res.data.errorMessages.join('\n'),
+          duration: 5000,
+          showClose: true
+        })
+      }
       emit('done')
       visible.value = false
-    } catch (error) {
+    } catch (error: any) {
       console.error('导入失败:', error)
-      ElMessage.error('导入失败')
+      ElMessage.error(error.message || '导入失败')
     } finally {
       loading.value = false
     }

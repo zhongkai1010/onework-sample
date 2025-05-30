@@ -7,7 +7,20 @@
     :destroy-on-close="true"
     @close="onClose"
   >
-    <ele-pro-table :columns="columns" :datasource="datasource" />
+    <ele-pro-table :columns="columns" :datasource="datasource">
+      <template #qualificationCertificate="{ row }">
+        <div v-if="row.qualificationCertificate">
+          <el-link
+            type="primary"
+            :href="getCertificateUrl(row.qualificationCertificate)"
+            target="_blank"
+          >
+            {{ getCertificateName(row.qualificationCertificate) }}
+          </el-link>
+        </div>
+        <span v-else>暂无数据</span>
+      </template>
+    </ele-pro-table>
     <!-- 图片预览组件 -->
     <ele-image-viewer
       v-model="showImageViewer"
@@ -61,6 +74,32 @@
     return dayjs(date).format('YYYY-MM-DD')
   }
 
+  /**
+   * 获取资质证书URL
+   */
+  const getCertificateUrl = (certificate: string): string => {
+    try {
+      const data = JSON.parse(certificate)
+      return data?.url || ''
+    } catch (e) {
+      console.error('解析资质证书URL失败:', e)
+      return ''
+    }
+  }
+
+  /**
+   * 获取资质证书名称
+   */
+  const getCertificateName = (certificate: string): string => {
+    try {
+      const data = JSON.parse(certificate)
+      return data?.name || '未知文件'
+    } catch (e) {
+      console.error('解析资质证书名称失败:', e)
+      return '未知文件'
+    }
+  }
+
   const columns: Columns = [
     { prop: 'id', label: '编号', width: 80, align: 'center' },
     {
@@ -109,7 +148,12 @@
     { prop: 'repairStatusAndResults', label: '修复情况及结果', width: 220 },
     { prop: 'sendRepairDepartment', label: '送修部门', width: 220 },
     { prop: 'undertakingOrganization', label: '承担机构', width: 220 },
-    { prop: 'qualificationCertificate', label: '资质证书', width: 220 },
+    {
+      prop: 'qualificationCertificate',
+      label: '资质证书',
+      width: 220,
+      slot: 'qualificationCertificate'
+    },
     { prop: 'sentBy', label: '送修人', width: 120 },
     { prop: 'repairPerson', label: '修复人', width: 120 },
     {

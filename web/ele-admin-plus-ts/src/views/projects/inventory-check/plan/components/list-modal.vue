@@ -49,7 +49,7 @@
   import { ref } from 'vue'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { getInventoryCheckPlanCollections } from '@/api/inventory-check/plan'
+  import { getInventoryPlanDetails } from '@/api/inventory-check/plan'
 
   const props = defineProps<{
     /** 盘点计划ID */
@@ -75,6 +75,7 @@
       prop: 'collectionName',
       label: '藏品名称',
       sortable: 'custom',
+      minWidth: 220,
       showOverflowTooltip: true
     },
     {
@@ -95,6 +96,7 @@
       prop: 'era',
       label: '年代',
       sortable: 'custom',
+
       width: 120,
       showOverflowTooltip: true
     },
@@ -136,7 +138,7 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'status',
+      prop: 'satus',
       label: '状态',
       width: 100,
       align: 'center',
@@ -152,10 +154,18 @@
         total: 0
       }
     }
-    const data = await getInventoryCheckPlanCollections(props.planId)
-    return {
-      list: data,
-      total: data.length
+    try {
+      const data = await getInventoryPlanDetails(props.planId)
+      return {
+        list: data || [],
+        total: data?.length || 0
+      }
+    } catch (error) {
+      console.error('获取盘点清单失败:', error)
+      return {
+        list: [],
+        total: 0
+      }
     }
   }
 

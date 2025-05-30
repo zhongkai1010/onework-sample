@@ -41,8 +41,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="藏品编号" prop="code">
-              <el-input v-model="form.code" placeholder="请输入藏品编号" clearable />
+            <el-form-item label="藏品编号" prop="collectionCode">
+              <el-input v-model="form.collectionCode" placeholder="请输入藏品编号" clearable />
             </el-form-item>
           </el-col>
           <!-- 数量信息 -->
@@ -454,7 +454,7 @@
     categoryId: 0,
     culturalLevel: '',
     numberCategory: '',
-    code: '',
+    collectionCode: '',
     quantity: 0,
     unit: '',
     era: '',

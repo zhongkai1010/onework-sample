@@ -183,20 +183,6 @@
         <el-descriptions-item label="差异说明" :span="2">
           <div class="text-content">{{ data.explanation || '暂无差异说明' }}</div>
         </el-descriptions-item>
-
-        <!-- 状态信息 -->
-        <el-descriptions-item label="状态">
-          <el-tag :type="getStatusType(data.satus)" effect="light">
-            {{ getStatusText(data.satus) }}
-          </el-tag>
-        </el-descriptions-item>
-
-        <!-- 补充说明按钮 -->
-        <el-descriptions-item label="操作" :span="2">
-          <el-button type="primary" @click="handleUpdateDiscrepancy" :disabled="data.satus === 1">
-            补充差异说明
-          </el-button>
-        </el-descriptions-item>
       </el-descriptions>
     </div>
     <template #footer>
@@ -214,11 +200,6 @@
     data?: InventoryCheckDiscrepancy
   }>()
 
-  const emit = defineEmits<{
-    /** 补充差异说明 */
-    (e: 'update-discrepancy', data: InventoryCheckDiscrepancy): void
-  }>()
-
   /** 弹窗是否打开 */
   const visible = defineModel({ type: Boolean })
 
@@ -234,39 +215,6 @@
   /** 关闭弹窗 */
   const handleClose = () => {
     visible.value = false
-  }
-
-  /** 处理补充差异说明 */
-  const handleUpdateDiscrepancy = () => {
-    if (!props.data) return
-    emit('update-discrepancy', props.data)
-    handleClose()
-  }
-
-  /**
-   * 获取状态类型
-   */
-  const getStatusType = (status: number): 'success' | 'warning' | 'danger' | 'info' | 'primary' => {
-    const statusMap: Record<number, 'success' | 'warning' | 'danger' | 'info' | 'primary'> = {
-      0: 'info', // 未盘
-      1: 'success', // 已盘到
-      2: 'danger', // 已盘亏
-      3: 'warning' // 已盘盈
-    }
-    return statusMap[status] || 'primary'
-  }
-
-  /**
-   * 获取状态文本
-   */
-  const getStatusText = (status: number): string => {
-    const statusMap: Record<number, string> = {
-      0: '未盘',
-      1: '已盘到',
-      2: '已盘亏',
-      3: '已盘盈'
-    }
-    return statusMap[status] || '其他'
   }
 </script>
 

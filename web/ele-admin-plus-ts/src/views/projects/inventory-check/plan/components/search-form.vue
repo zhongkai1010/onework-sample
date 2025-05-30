@@ -11,14 +11,14 @@
 </template>
 
 <script setup lang="ts">
-  import type { GetInventoryCheckPlanListParams } from '@/api/inventory-check/plan/model'
+  import type { InventoryPlanQueryParams } from '@/api/inventory-check/plan/model'
   import { useFormData } from '@/utils/use-form-data'
 
   const emit = defineEmits<{
-    (e: 'search', params: GetInventoryCheckPlanListParams): void
+    (e: 'search', params: InventoryPlanQueryParams): void
   }>()
 
-  const [form, resetFields] = useFormData<GetInventoryCheckPlanListParams>({
+  const [form, resetFields] = useFormData<InventoryPlanQueryParams>({
     inventoryTitle: ''
   })
 

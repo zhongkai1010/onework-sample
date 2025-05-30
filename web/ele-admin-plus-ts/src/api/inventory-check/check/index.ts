@@ -1,22 +1,21 @@
-import type { ApiResult, PageResult } from '@/api'
 import request from '@/utils/request'
+import type { ApiResult, PageResult } from '@/api'
 import type {
   InventoryCheckCollection,
-  GetInventoryCheckCollectionListParams,
-  ConfirmInventoryCheckCollectionParams,
-  AddInventoryCheckCollectionParams
+  InventoryCheckCollectionQueryParams,
+  AddInventoryCheckCollectionParams,
+  UpdateInventoryCheckCollectionStatusParams
 } from './model'
 
 /**
  * 查询盘点藏品分页列表
- * @param params 查询参数
  */
-export async function getInventoryCheckCollectionList(
-  params: GetInventoryCheckCollectionListParams
-) {
+export async function getInventoryCheckCollectionPage(params: InventoryCheckCollectionQueryParams) {
   const res = await request.get<ApiResult<PageResult<InventoryCheckCollection>>>(
-    '/mock/api/inventory-check/check/getCollection',
-    { params, baseURL: '' }
+    '/Inventory/getCollection',
+    {
+      params
+    }
   )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
@@ -25,13 +24,10 @@ export async function getInventoryCheckCollectionList(
 }
 
 /**
- * 确认藏品状态
- * @param data 确认参数
+ * 新增盘点藏品
  */
-export async function confirmInventoryCheckCollection(data: ConfirmInventoryCheckCollectionParams) {
-  const res = await request.post<ApiResult<unknown>>('/mock/api/inventory-check/check/ok', data, {
-    baseURL: ''
-  })
+export async function addInventoryCheckCollection(data: AddInventoryCheckCollectionParams) {
+  const res = await request.put<ApiResult<unknown>>('/Inventory/checkAdd', data)
   if (res.data.code === 0) {
     return res.data.message
   }
@@ -39,13 +35,12 @@ export async function confirmInventoryCheckCollection(data: ConfirmInventoryChec
 }
 
 /**
- * 登记盘盈藏品
- * @param data 登记参数
+ * 更新盘点藏品状态
  */
-export async function addInventoryCheckCollection(data: AddInventoryCheckCollectionParams) {
-  const res = await request.put<ApiResult<unknown>>('/mock/api/inventory-check/check/add', data, {
-    baseURL: ''
-  })
+export async function updateInventoryCheckCollectionStatus(
+  data: UpdateInventoryCheckCollectionStatusParams
+) {
+  const res = await request.post<ApiResult<unknown>>('/Inventory/checkUpdate', data)
   if (res.data.code === 0) {
     return res.data.message
   }

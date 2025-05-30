@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/api/inventory-check/check/getCollection": {
+    "/api/Inventory/getCollection": {
       "get": {
         "summary": "查询盘点藏品分页列表",
         "deprecated": false,
@@ -72,10 +72,10 @@
             "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -315,7 +315,7 @@
         "security": []
       }
     },
-    "/api/inventory-check/check/ok": {
+    "/api/Inventory/checkUpdate": {
       "post": {
         "summary": "确认藏品状态",
         "deprecated": false,
@@ -326,10 +326,10 @@
             "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -349,11 +349,16 @@
                   "status": {
                     "type": "integer",
                     "description": "藏品状态， 0：未盘,1：已盘到、2：已盘亏、3：已盘盈"
+                  },
+                  "explanation": {
+                    "type": "string",
+                    "description": "盘点情况"
                   }
                 },
                 "required": [
                   "ids",
-                  "status"
+                  "status",
+                  "explanation"
                 ]
               },
               "examples": {}
@@ -396,7 +401,7 @@
         "security": []
       }
     },
-    "/api/inventory-check/check/add": {
+    "/api/Inventory/checkAdd": {
       "put": {
         "summary": "登记盘盈藏品",
         "deprecated": false,
@@ -407,10 +412,10 @@
             "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDc1MzY5ODQsImV4cCI6MTc0ODE0MTc4NCwibmJmIjoxNzQ3NTM2OTg3LCJzdWIiOjEsImp0aSI6IjE3NDc1MzY5ODQxIn0.2qs20N0C4egjqBft50HQDNRtEnIpofe1rSFE9zFnQbw"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],

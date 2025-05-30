@@ -8,7 +8,7 @@
         <el-input v-model.number="form.collectionName" placeholder="请输入藏品名称" clearable />
       </el-form-item>
       <el-form-item label="入库单号">
-        <el-input v-model="form.collectionStatus" placeholder="请输入入库单号" clearable />
+        <el-input v-model="form.warehouseNumber" placeholder="请输入入库单号" clearable />
       </el-form-item>
 
       <el-form-item>
@@ -65,7 +65,7 @@
 
   // 表单数据
   const [form, resetFields] = useFormData<InboundCollectionQueryParams>({
-    collectionStatus: undefined,
+    warehouseNumber: undefined,
     collectionCode: undefined,
     collectionName: undefined
   })

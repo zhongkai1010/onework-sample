@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/api/collection/ledger": {
+    "/api/CollectionLedger/list": {
       "get": {
         "summary": "查询藏品台账分页列表",
         "deprecated": false,
@@ -103,13 +103,13 @@
             }
           },
           {
-            "name": "token",
+            "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -361,7 +361,7 @@
         "security": []
       }
     },
-    "/api/collection/ledger/return": {
+    "/api/CollectionLedger/return": {
       "post": {
         "summary": "藏品退回编目",
         "deprecated": false,
@@ -369,13 +369,13 @@
         "tags": [],
         "parameters": [
           {
-            "name": "token",
+            "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -437,7 +437,7 @@
         "security": []
       }
     },
-    "/api/collection/changeWarehouse": {
+    "/api/CollectionLedger/changeWarehouse": {
       "put": {
         "summary": "藏品位置变更",
         "deprecated": false,
@@ -445,13 +445,13 @@
         "tags": [],
         "parameters": [
           {
-            "name": "token",
+            "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -518,7 +518,7 @@
         "security": []
       }
     },
-    "/api/collection/changeClassification": {
+    "/api/CollectionLedger/changeClassification": {
       "put": {
         "summary": "编入藏品组",
         "deprecated": false,
@@ -526,13 +526,13 @@
         "tags": [],
         "parameters": [
           {
-            "name": "token",
+            "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -599,7 +599,7 @@
         "security": []
       }
     },
-    "/api/collection/ledger/import": {
+    "/api/CollectionLedger/import": {
       "post": {
         "summary": "导入藏品台账",
         "deprecated": false,
@@ -607,13 +607,13 @@
         "tags": [],
         "parameters": [
           {
-            "name": "token",
+            "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -670,7 +670,7 @@
         "security": []
       }
     },
-    "/api/collection/ledger/repair": {
+    "/api/CollectionLedger/ledgerRepair": {
       "get": {
         "summary": "查询藏品修复记录分页列表",
         "deprecated": false,
@@ -728,13 +728,13 @@
             }
           },
           {
-            "name": "token",
+            "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -880,7 +880,7 @@
         "security": []
       }
     },
-    "/api/collection/ledger/outbound": {
+    "/api/CollectionLedger/ledgerOutbound": {
       "get": {
         "summary": "查询藏品出库记录分页列表",
         "deprecated": false,
@@ -938,13 +938,13 @@
             }
           },
           {
-            "name": "token",
+            "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -1032,7 +1032,7 @@
         "security": []
       }
     },
-    "/api/collection/ledger/transfer": {
+    "/api/CollectionLedger/ledgerTransfer": {
       "get": {
         "summary": "查询藏品调拨记录分页列表",
         "deprecated": false,
@@ -1090,13 +1090,13 @@
             }
           },
           {
-            "name": "token",
+            "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -1194,7 +1194,7 @@
         "security": []
       }
     },
-    "/api/collection/books/ledger": {
+    "/api/CollectionLedger/booksLedger": {
       "get": {
         "summary": "查询图书总账分页列表",
         "deprecated": false,
@@ -1252,13 +1252,13 @@
             }
           },
           {
-            "name": "token",
+            "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -1391,7 +1391,7 @@
         "security": []
       }
     },
-    "/api/collection/books/return": {
+    "/api/CollectionLedger/books/return": {
       "post": {
         "summary": "图书退回编目",
         "deprecated": false,
@@ -1399,13 +1399,13 @@
         "tags": [],
         "parameters": [
           {
-            "name": "token",
+            "name": "Token",
             "in": "header",
             "description": "",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
             "schema": {
               "type": "string",
-              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDU3MzQwODksImV4cCI6MTc0NjMzODg4OSwibmJmIjoxNzQ1NzM0MDkyLCJzdWIiOjEsImp0aSI6IjE3NDU3MzQwODkxIn0.Llhud8qPnFXWVOlhhiILMvQtdhyAiY4D33Jw65_T7y0"
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
             }
           }
         ],
@@ -1425,6 +1425,163 @@
                 },
                 "required": [
                   "collectionIds"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/CollectionLedger/imgs": {
+      "post": {
+        "summary": "上传图片",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "documentImage": {
+                    "type": "string",
+                    "description": "图片"
+                  }
+                },
+                "required": [
+                  "id",
+                  "documentImage"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "description": "返回数据",
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/CollectionLedger/imgsbatch": {
+      "post": {
+        "summary": "批量上传图片",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDg0OTg0NTMsImV4cCI6MTc0OTEwMzI1MywibmJmIjoxNzQ4NDk4NDUzLCJzdWIiOjEsImp0aSI6IjE3NDg0OTg0NTMxIn0.dmH1WaDVd1I77JVulXiKkJ45nXKwtCIpi1-ha7hD_ng"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "documentImage": {
+                    "type": "string",
+                    "description": "图片"
+                  }
+                },
+                "required": [
+                  "id",
+                  "documentImage"
                 ]
               },
               "examples": {}

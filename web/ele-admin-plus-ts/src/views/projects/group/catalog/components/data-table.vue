@@ -1,12 +1,11 @@
 <template>
-  <search-form ref="searchRef" style="margin-bottom: -14px" @search="reload" />
+  <search-form ref="searchRef" @search="reload" />
   <ele-pro-table
     ref="tableRef"
     row-key="id"
     :columns="columns"
     :datasource="datasource"
     :show-overflow-tooltip="true"
-    :style="{ paddingBottom: '16px' }"
     cache-key="groupCollectionTable"
     :tools="['reload', 'size', 'columns', 'maximized']"
     :stripe="true"

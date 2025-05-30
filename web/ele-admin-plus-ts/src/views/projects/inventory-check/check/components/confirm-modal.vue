@@ -43,7 +43,7 @@
   import type { FormInstance } from 'element-plus'
   import { EleMessage } from 'ele-admin-plus/es'
   import type { InventoryCheckCollection } from '@/api/inventory-check/check/model'
-  import { confirmInventoryCheckCollection } from '@/api/inventory-check/check'
+  import { updateInventoryCheckCollectionStatus } from '@/api/inventory-check/check'
   import { useFormData } from '@/utils/use-form-data'
 
   /* Props 定义 */
@@ -102,7 +102,7 @@
       if (valid) {
         try {
           loading.value = true
-          await confirmInventoryCheckCollection({
+          await updateInventoryCheckCollectionStatus({
             ids: props.selections.map((item) => item.id),
             status: Number(form.status),
             explanation: form.explanation

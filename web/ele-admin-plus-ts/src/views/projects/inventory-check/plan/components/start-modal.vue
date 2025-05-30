@@ -1,11 +1,10 @@
-<!-- 导入盘点情况弹窗 -->
 <template>
-  <ele-modal v-model="visible" title="导入盘点情况" width="500px" :destroy-on-close="true">
+  <ele-modal v-model="visible" title="开始盘点" width="500px" :destroy-on-close="true">
     <div class="import-container">
       <!-- 下载模板 -->
       <div class="template-section">
         <h4>第一步：下载模板</h4>
-        <p>请先下载盘点情况导入模板，按照模板格式填写数据</p>
+        <p>请先下载盘点清单模板，按照模板格式填写数据</p>
         <el-button type="primary" @click="handleDownloadTemplate">
           <el-icon><Download /></el-icon>
           下载模板
@@ -39,14 +38,14 @@
     </div>
 
     <template #footer>
-      <el-button @click="handleCancel">取消</el-button>
+      <el-button @click="visible = false">取消</el-button>
       <el-button
         type="primary"
         :loading="loading"
-        @click="handleImport"
+        @click="handleStart"
         :disabled="!fileList.length"
       >
-        开始导入
+        开始盘点
       </el-button>
     </template>
   </ele-modal>
@@ -57,9 +56,15 @@
   import { Download, UploadFilled } from '@element-plus/icons-vue'
   import type { UploadInstance, UploadProps, UploadUserFile } from 'element-plus'
   import { ElMessage } from 'element-plus'
+  import { startInventoryPlan } from '@/api/inventory-check/plan'
+
+  const props = defineProps<{
+    /** 盘点计划ID */
+    planId?: number
+  }>()
 
   const emit = defineEmits<{
-    (e: 'success'): void
+    (e: 'done'): void
   }>()
 
   /** 弹窗是否打开 */
@@ -72,7 +77,13 @@
   // 下载模板
   const handleDownloadTemplate = () => {
     try {
-      // TODO: 实现下载模板功能
+      // 创建一个a标签用于下载
+      const link = document.createElement('a')
+      link.href = '/file/盘点计划模板.xls'
+      link.download = '盘点计划模板.xls'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
       ElMessage.success('模板下载成功')
     } catch (error) {
       console.error('下载模板失败:', error)
@@ -90,32 +101,34 @@
     ElMessage.warning('只能上传一个文件')
   }
 
-  // 导入
-  const handleImport = async () => {
+  // 开始盘点
+  const handleStart = async () => {
+    if (!props.planId) {
+      ElMessage.warning('盘点计划ID不存在')
+      return
+    }
+
     if (fileList.value.length === 0) {
-      ElMessage.warning('请先选择要导入的文件')
+      ElMessage.warning('请先选择要上传的文件')
       return
     }
 
     try {
       loading.value = true
-      // TODO: 实现导入功能
-      await new Promise((resolve) => setTimeout(resolve, 1000)) // 模拟导入
-      ElMessage.success('导入成功')
-      emit('success')
-      handleCancel()
-    } catch (error) {
-      console.error('导入失败:', error)
-      ElMessage.error('导入失败')
+      const file = fileList.value[0].raw
+      if (!file) {
+        throw new Error('文件不存在')
+      }
+      const res = await startInventoryPlan(props.planId, file)
+      ElMessage.success(res)
+      emit('done')
+      visible.value = false
+    } catch (error: any) {
+      console.error('开始盘点失败:', error)
+      ElMessage.error(error.message || '开始盘点失败')
     } finally {
       loading.value = false
     }
-  }
-
-  // 关闭
-  const handleCancel = () => {
-    fileList.value = []
-    visible.value = false
   }
 </script>
 

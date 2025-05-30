@@ -14,8 +14,8 @@ export async function getInventoryCheckDiscrepancyList(
   params: GetInventoryCheckDiscrepancyListParams
 ) {
   const res = await request.get<ApiResult<PageResult<InventoryCheckDiscrepancy>>>(
-    '/mock/api/inventory-check/check/discrepancy',
-    { params, baseURL: '' }
+    '/Inventory/getDiscrepancy',
+    { params }
   )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
@@ -28,13 +28,7 @@ export async function getInventoryCheckDiscrepancyList(
  * @param data 更新参数
  */
 export async function updateInventoryCheckDiscrepancy(data: UpdateInventoryCheckDiscrepancyParams) {
-  const res = await request.put<ApiResult<unknown>>(
-    '/mock/api/inventory-check/check/discrepancy',
-    data,
-    {
-      baseURL: ''
-    }
-  )
+  const res = await request.put<ApiResult<unknown>>('/Inventory/discrepancyUpdate', data)
   if (res.data.code === 0) {
     return res.data.message
   }

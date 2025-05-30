@@ -69,13 +69,13 @@
   import type { FormInstance, FormRules } from 'element-plus'
   import { EleMessage } from 'ele-admin-plus/es'
   import { useFormData } from '@/utils/use-form-data'
-  import type { InventoryCheckPlan } from '@/api/inventory-check/plan/model'
-  import { createInventoryCheckPlan, updateInventoryCheckPlan } from '@/api/inventory-check/plan'
+  import type { InventoryPlan } from '@/api/inventory-check/plan/model'
+  import { addInventoryPlan, updateInventoryPlan } from '@/api/inventory-check/plan'
   import CategorySelect from '@/components/CustomForm/CategorySelect.vue'
 
   const props = defineProps<{
     /** 修改回显的数据 */
-    data?: InventoryCheckPlan
+    data?: InventoryPlan
   }>()
 
   const emit = defineEmits<{
@@ -134,10 +134,10 @@
       loading.value = true
       if (isUpdate.value && props.data) {
         const updateData = {
-          id: String(props.data.id),
+          id: props.data.id,
           ...form
         }
-        updateInventoryCheckPlan(updateData)
+        updateInventoryPlan(updateData)
           .then(() => {
             loading.value = false
             EleMessage.success('更新成功')
@@ -149,7 +149,7 @@
             EleMessage.error(e.message)
           })
       } else {
-        createInventoryCheckPlan(form)
+        addInventoryPlan(form)
           .then(() => {
             loading.value = false
             EleMessage.success('添加成功')
@@ -167,7 +167,12 @@
   /** 弹窗打开事件 */
   const handleOpen = () => {
     if (props.data) {
-      assignFields(props.data)
+      // 将categories转换为categoryIds
+      const data = {
+        ...props.data,
+        categoryIds: props.data.categories?.map((item) => Number(item.categoryId)) || []
+      }
+      assignFields(data)
       isUpdate.value = true
     } else {
       resetFields()

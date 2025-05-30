@@ -1,28 +1,26 @@
 <template>
   <ele-page flex-table :multi-card="false" hide-footer style="min-height: 420px">
-    <ele-card flex-table>
+    <ele-card flex-table :body-style="{ padding: '0px' }">
       <ele-split-panel
         ref="splitRef"
         flex-table
         size="256px"
-        allow-collapse
-        :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }"
-        :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }"
-        :style="{ height: '100%', overflow: 'visible' }"
+        :min-size="256"
+        :max-size="600"
+        :resizable="true"
+        :body-style="{ overflow: 'hidden', padding: '16px 0px' }"
+        :custom-style="{ padding: '16px' }"
+        :responsive="false"
+        :allow-collapse="true"
       >
-        <div style="padding: 0 16px 12px 0">
-          <el-input
-            clearable
-            :maxlength="20"
-            v-model="keywords"
-            placeholder="请输入搜索关键字"
-            :prefix-icon="SearchOutlined"
-          />
-        </div>
-        <ele-loading
-          :loading="treeLoading"
-          :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }"
-        >
+        <el-input
+          clearable
+          :maxlength="20"
+          v-model="keywords"
+          placeholder="请输入搜索关键字"
+          :prefix-icon="SearchOutlined"
+        />
+        <ele-loading :loading="treeLoading" :style="{ flex: 1, overflow: 'auto' }">
           <el-tree
             ref="treeRef"
             :data="treeData"
@@ -56,21 +54,12 @@
         </template>
       </ele-split-panel>
     </ele-card>
-    <!-- 参考按钮 -->
-    <reference-button
-      title="藏品组编目"
-      :imageUrl="pageImage"
-      searchText="藏品编号 藏品名称 库房名称 年代 质地类型 质地 数量 单位 具体尺寸 完残程度"
-      tableFieldsText="藏品编号 藏品名称 库房名称 年代 质地类型 质地 数量 单位 具体尺寸 完残程度"
-    />
   </ele-page>
 </template>
 
 <script lang="ts" setup>
   import { ref, onMounted, watch } from 'vue'
   import { toTree } from 'ele-admin-plus/es'
-  import ReferenceButton from '@/components/ReferenceButton/index.vue'
-  import pageImage from './page.png'
   import { SearchOutlined, FolderOutlined, TagOutlined } from '@/components/icons'
   import DataTable from './components/data-table.vue'
   import { getAllGroups } from '@/api/data/group'

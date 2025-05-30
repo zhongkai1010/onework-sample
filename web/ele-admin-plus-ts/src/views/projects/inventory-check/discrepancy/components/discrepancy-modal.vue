@@ -64,6 +64,11 @@
   const handleSubmit = () => {
     formRef.value?.validate?.((valid) => {
       if (!valid) return
+      // 确保有选中的藏品
+      if (!props.ids || props.ids.length === 0) {
+        EleMessage.error('请选择要补充差异说明的藏品')
+        return
+      }
       loading.value = true
       updateInventoryCheckDiscrepancy({
         ids: props.ids,

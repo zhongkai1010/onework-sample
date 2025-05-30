@@ -192,3 +192,78 @@ export async function imgsbatch(data: { id: number[]; documentImage: string }) {
   }
   return Promise.reject(new Error(res.data.message))
 }
+
+/**
+ * 查询藏品总账分页列表
+ */
+export async function getLedgers(params: LedgerQueryParams) {
+  const res = await request.get<ApiResult<PageResult<CollectionLedger>>>('/CollectionLedger/page', {
+    params
+  })
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+/**
+ * 查询藏品总账详情
+ */
+export async function getDetails(id: number) {
+  const res = await request.get<ApiResult<CollectionLedger>>('/CollectionLedger/details', {
+    params: { id }
+  })
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+/**
+ * 查询藏品总账预备帐分页列表
+ */
+export async function getPreparation(params: LedgerQueryParams) {
+  const res = await request.get<ApiResult<PageResult<CollectionLedger>>>(
+    '/CollectionLedger/preparation',
+    {
+      params
+    }
+  )
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+/**
+ * 藏品退回总账
+ */
+export async function returnCollections(ids: number[]) {
+  const res = await request.post<ApiResult<unknown>>('/CollectionLedger/return', { ids })
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+/**
+ * 绑定RFID
+ */
+export async function bindRfid(data: { ids: number[]; rfidCode: string }) {
+  const res = await request.post<ApiResult<unknown>>('/CollectionLedger/bindRfid', data)
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+/**
+ * 批量修改分类
+ */
+export async function updateCategory(data: { ids: number[]; categoryId: number }) {
+  const res = await request.post<ApiResult<unknown>>('/CollectionLedger/updateCategory', data)
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}

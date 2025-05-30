@@ -1,7 +1,7 @@
 <template>
   <ele-modal
-    :model-value="visible"
-    @update:model-value="(val) => emit('update:visible', val)"
+    :model-value="modelValue"
+    @update:model-value="(val) => emit('update:modelValue', val)"
     title="导入藏品"
     width="500px"
     :destroy-on-close="true"
@@ -52,27 +52,33 @@
 
 <script setup lang="ts">
   import { ref } from 'vue'
-  import { ElMessage } from 'element-plus'
   import { Download, UploadFilled } from '@element-plus/icons-vue'
   import type { UploadInstance, UploadProps, UploadUserFile } from 'element-plus'
-
-  defineProps<{
-    visible: boolean
-  }>()
+  import { ElMessage } from 'element-plus'
+  import { importLedgers } from '@/api/collection/ledger'
 
   const emit = defineEmits<{
-    (e: 'update:visible', visible: boolean): void
-    (e: 'success'): void
+    (e: 'update:modelValue', value: boolean): void
+    (e: 'done'): void
   }>()
+
+  /** 弹窗是否打开 */
+  const modelValue = defineModel<boolean>('modelValue')
 
   const loading = ref(false)
   const uploadRef = ref<UploadInstance>()
   const fileList = ref<UploadUserFile[]>([])
 
   // 下载模板
-  const handleDownloadTemplate = async () => {
+  const handleDownloadTemplate = () => {
     try {
-      // TODO: 实现模板下载逻辑
+      // 创建一个a标签用于下载
+      const link = document.createElement('a')
+      link.href = '/file/藏品登记模板.xls'
+      link.download = '藏品登记模板.xls'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
       ElMessage.success('模板下载成功')
     } catch (error) {
       console.error('下载模板失败:', error)
@@ -99,14 +105,18 @@
 
     try {
       loading.value = true
-      // TODO: 实现文件上传和导入逻辑
-      await new Promise((resolve) => setTimeout(resolve, 1000)) // 模拟上传
-      ElMessage.success('导入成功')
-      emit('success')
-      handleClose()
-    } catch (error) {
+      const file = fileList.value[0].raw
+      if (!file) {
+        throw new Error('文件不存在')
+      }
+      const res = await importLedgers(file)
+      // 显示导入结果
+      ElMessage.success(res)
+      emit('done')
+      modelValue.value = false
+    } catch (error: any) {
       console.error('导入失败:', error)
-      ElMessage.error('导入失败')
+      ElMessage.error(error.message || '导入失败')
     } finally {
       loading.value = false
     }
@@ -115,7 +125,7 @@
   // 关闭
   const handleClose = () => {
     fileList.value = []
-    emit('update:visible', false)
+    emit('update:modelValue', false)
   }
 </script>
 

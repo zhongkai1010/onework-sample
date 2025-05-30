@@ -1,7 +1,7 @@
-import type { PageParam } from '@/api'
-
-/** 盘点计划 */
-export interface InventoryCheckPlan {
+/**
+ * 盘点计划
+ */
+export interface InventoryPlan {
   /** ID 编号 */
   id: number
   /** 盘点标题 */
@@ -20,9 +20,7 @@ export interface InventoryCheckPlan {
   storageLocation: string
   /** 类别集合 */
   categories: Array<{
-    /** 分类ID */
     categoryId: number
-    /** 分类名称 */
     categoryName: string
   }>
   /** 验收日期 */
@@ -31,8 +29,26 @@ export interface InventoryCheckPlan {
   status: number
 }
 
-/** 盘点计划藏品清单 */
-export interface InventoryCheckPlanCollection {
+/**
+ * 盘点计划查询参数
+ */
+export interface InventoryPlanQueryParams {
+  /** 分页查询页码 */
+  page?: number
+  /** 分页查询每页数量 */
+  limit?: number
+  /** 排序字段 */
+  sort?: string
+  /** 排序方式 */
+  order?: string
+  /** 盘点标题 */
+  inventoryTitle?: string
+}
+
+/**
+ * 盘点计划藏品清单
+ */
+export interface InventoryPlanDetails {
   /** ID */
   id: number
   /** 藏品ID */
@@ -131,56 +147,4 @@ export interface InventoryCheckPlanCollection {
   loginTime: string
   /** 入柜时间 */
   cabinetEntryTime: string
-}
-
-/** 创建盘点计划参数 */
-export interface CreateInventoryCheckPlanParams {
-  /** 盘点标题 */
-  inventoryTitle: string
-  /** 盘点开始时间 */
-  startTime: string
-  /** 盘点结束时间 */
-  endTime: string
-  /** 盘点目的 */
-  inventoryPurpose: string
-  /** 盘点计划人 */
-  planner: string
-  /** 盘点执行人 */
-  executor: string
-  /** 存放地点 */
-  storageLocation: string
-  /** 类别[多选] */
-  categoryIds: number[]
-  /** 验收日期 */
-  acceptanceDate: string
-}
-
-/** 更新盘点计划参数 */
-export interface UpdateInventoryCheckPlanParams extends CreateInventoryCheckPlanParams {
-  /** ID 编号 */
-  id: string
-}
-
-/** 获取盘点计划列表参数 */
-export interface GetInventoryCheckPlanListParams extends PageParam {
-  /** 盘点标题 */
-  inventoryTitle?: string
-}
-
-/** 删除盘点计划参数 */
-export interface DeleteInventoryCheckPlanParams {
-  /** ID集合 */
-  ids: number[]
-}
-
-/** 开始盘点参数 */
-export interface StartInventoryCheckParams {
-  /** ID 编号 */
-  id: number
-}
-
-/** 结束盘点参数 */
-export interface FinishInventoryCheckParams {
-  /** ID 编号 */
-  id: number
 }

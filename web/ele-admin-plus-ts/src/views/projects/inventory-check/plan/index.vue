@@ -44,6 +44,19 @@
           </el-tag>
         </template>
 
+        <!-- 类别列 -->
+        <template #categories="{ row }">
+          <el-tag
+            v-for="category in row.categories"
+            :key="category.categoryId"
+            class="mr-1"
+            size="small"
+            effect="plain"
+          >
+            {{ category.categoryName }}
+          </el-tag>
+        </template>
+
         <!-- 操作列 -->
         <template #action="{ row }">
           <el-space :size="4">
@@ -54,9 +67,6 @@
                 >删除</el-button
               >
             </template>
-            <template v-if="row.status === 1">
-              <el-button type="warning" size="small" @click="handleFinish(row)">结束盘点</el-button>
-            </template>
             <el-button type="info" size="small" @click="handleCollections(row)">盘点清单</el-button>
           </el-space>
         </template>
@@ -65,6 +75,8 @@
       <form-edit v-model="showEdit" :data="current" @done="reload" />
       <!-- 盘点清单弹窗 -->
       <list-modal v-model="showList" :plan-id="current?.id?.toString()" />
+      <!-- 开始盘点弹窗 -->
+      <start-modal v-model="showStart" :plan-id="current?.id" @done="reload" />
     </ele-card>
   </ele-page>
 </template>
@@ -76,29 +88,23 @@
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import { PlusOutlined, DeleteOutlined } from '@/components/icons'
-  import type {
-    InventoryCheckPlan,
-    GetInventoryCheckPlanListParams
-  } from '@/api/inventory-check/plan/model/index'
-  import {
-    getInventoryCheckPlanList,
-    deleteInventoryCheckPlan,
-    startInventoryCheck,
-    finishInventoryCheck
-  } from '@/api/inventory-check/plan'
+  import type { InventoryPlan, InventoryPlanQueryParams } from '@/api/inventory-check/plan/model'
+  import { getInventoryPlanPage, deleteInventoryPlan } from '@/api/inventory-check/plan'
   import SearchForm from './components/search-form.vue'
   import FormEdit from './components/form-edit.vue'
   import ListModal from './components/list-modal.vue'
+  import StartModal from './components/start-modal.vue'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
   const tableRef = ref<InstanceType<typeof EleProTable>>()
 
   /* ==================== 状态管理 ==================== */
-  const current = ref<InventoryCheckPlan | undefined>(undefined) // 当前编辑的盘点计划
+  const current = ref<InventoryPlan | undefined>(undefined) // 当前编辑的盘点计划
   const showEdit = ref(false) // 是否显示编辑弹窗
   const showList = ref(false) // 是否显示盘点清单弹窗
-  const selections = ref<InventoryCheckPlan[]>([]) // 表格选中的行
+  const showStart = ref(false) // 是否显示开始盘点弹窗
+  const selections = ref<InventoryPlan[]>([]) // 表格选中的行
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -167,8 +173,9 @@
       prop: 'categories',
       label: '类别',
       sortable: 'custom',
-      width: 120,
-      showOverflowTooltip: true
+      width: 220,
+      showOverflowTooltip: true,
+      slot: 'categories'
     },
     {
       prop: 'acceptanceDate',
@@ -187,7 +194,7 @@
     {
       columnKey: 'action',
       label: '操作',
-      width: 320,
+      width: 280,
       align: 'left',
       slot: 'action',
       fixed: 'right'
@@ -196,7 +203,7 @@
 
   /* ==================== 数据源 ==================== */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
-    return getInventoryCheckPlanList({
+    return getInventoryPlanPage({
       ...where,
       ...orders,
       ...pages
@@ -208,7 +215,7 @@
    * 重新加载表格数据
    * @param where 查询条件
    */
-  const reload = (where?: GetInventoryCheckPlanListParams) => {
+  const reload = (where?: InventoryPlanQueryParams) => {
     tableRef.value?.reload?.({ page: 1, where })
   }
 
@@ -224,7 +231,7 @@
    * 处理编辑盘点计划
    * @param row 盘点计划数据
    */
-  const handleEdit = (row: InventoryCheckPlan) => {
+  const handleEdit = (row: InventoryPlan) => {
     current.value = row
     showEdit.value = true
   }
@@ -233,63 +240,16 @@
    * 处理开始盘点
    * @param row 盘点计划数据
    */
-  const handleStart = (row: InventoryCheckPlan) => {
-    ElMessageBox.confirm('确定要开始盘点吗？', '系统提示', {
-      type: 'warning',
-      draggable: true
-    })
-      .then(() => {
-        const loading = EleMessage.loading({
-          message: '请求中..',
-          plain: true
-        })
-        startInventoryCheck({ id: row.id })
-          .then(() => {
-            loading.close()
-            EleMessage.success('开始盘点成功')
-            reload()
-          })
-          .catch((e) => {
-            loading.close()
-            EleMessage.error(e.message)
-          })
-      })
-      .catch(() => {})
-  }
-
-  /**
-   * 处理结束盘点
-   * @param row 盘点计划数据
-   */
-  const handleFinish = (row: InventoryCheckPlan) => {
-    ElMessageBox.confirm('确定要结束盘点吗？', '系统提示', {
-      type: 'warning',
-      draggable: true
-    })
-      .then(() => {
-        const loading = EleMessage.loading({
-          message: '请求中..',
-          plain: true
-        })
-        finishInventoryCheck({ id: row.id })
-          .then(() => {
-            loading.close()
-            EleMessage.success('结束盘点成功')
-            reload()
-          })
-          .catch((e) => {
-            loading.close()
-            EleMessage.error(e.message)
-          })
-      })
-      .catch(() => {})
+  const handleStart = (row: InventoryPlan) => {
+    current.value = row
+    showStart.value = true
   }
 
   /**
    * 处理查看盘点清单
    * @param row 盘点计划数据
    */
-  const handleCollections = (row: InventoryCheckPlan) => {
+  const handleCollections = (row: InventoryPlan) => {
     current.value = row
     showList.value = true
   }
@@ -298,7 +258,7 @@
    * 处理删除盘点计划
    * @param rows 要删除的盘点计划数据，不传则删除选中的盘点计划
    */
-  const handleRemove = (rows?: InventoryCheckPlan[]) => {
+  const handleRemove = (rows?: InventoryPlan[]) => {
     const data = rows || selections.value
     if (!data.length) {
       return
@@ -312,7 +272,7 @@
           message: '请求中..',
           plain: true
         })
-        deleteInventoryCheckPlan({ ids: data.map((d) => d.id) })
+        deleteInventoryPlan(data.map((d) => d.id))
           .then(() => {
             loading.close()
             EleMessage.success('删除成功')
@@ -330,14 +290,14 @@
    * 处理行点击
    * @param row 行数据
    */
-  const handleRowClick = (row: InventoryCheckPlan) => {
+  const handleRowClick = (row: InventoryPlan) => {
     // 触发表格的 selection-change 事件
     tableRef.value?.toggleRowSelection(row)
   }
 
   /* ==================== 暴露方法 ==================== */
   defineExpose({
-    reload: (where?: GetInventoryCheckPlanListParams) => {
+    reload: (where?: InventoryPlanQueryParams) => {
       tableRef.value?.reload?.({ page: 1, where })
     },
     selections

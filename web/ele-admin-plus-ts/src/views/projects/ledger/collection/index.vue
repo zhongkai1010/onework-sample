@@ -18,6 +18,9 @@
         @row-click="onRowClick"
       >
         <template #toolbar>
+          <!-- <el-button type="primary" class="ele-btn-icon" :icon="UploadOutlined" @click="onImport"
+            >导入藏品</el-button
+          > -->
           <el-button
             type="danger"
             class="ele-btn-icon"
@@ -118,6 +121,9 @@
     <!-- 标签打印弹窗 -->
     <print-label v-model="showPrintLabel" :rows="selectedRows" @close="showPrintLabel = false" />
 
+    <!-- 导入藏品弹窗 -->
+    <import-modal v-model="showImport" @done="reload" />
+
     <!-- 图片预览组件 -->
     <ele-image-viewer
       v-model="showImageViewer"
@@ -140,6 +146,7 @@
   import BatchImage from './components/batch-image.vue'
   import SearchForm from './components/search-form.vue'
   import PrintLabel from './components/print-label.vue'
+  import ImportModal from './components/import-modal.vue'
   import { getLedgerList, returnLedgers } from '@/api/collection/ledger'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
   import { ElMessage } from 'element-plus'
@@ -164,6 +171,7 @@
   const currentRow = ref<CollectionLedger | null>(null)
 
   // 弹框显示状态
+  const showImport = ref(false) // 导入藏品弹窗显示状态
   const showUpdateWarehouse = ref(false) // 位置变更弹窗显示状态
   const showUpdateGroup = ref(false) // 编入藏品组弹窗显示状态
   const showBatchImage = ref(false) // 批量导入图片弹窗显示状态

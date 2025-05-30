@@ -60,7 +60,7 @@
     { prop: 'id', label: '编号', width: 80, align: 'center' },
     { prop: 'code', label: '出库单号', width: 180 },
     { prop: 'collectionCode', label: '藏品编号', width: 180 },
-    { prop: 'collectionName', label: '藏品名称', width: 180 },
+    { prop: 'collectionName', label: '藏品名称' },
     {
       prop: 'outboundDate',
       label: '出库日期',

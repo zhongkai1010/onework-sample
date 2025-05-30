@@ -2,11 +2,31 @@ import request from '@/utils/request'
 import type { ApiResult, PageResult } from '@/api'
 import { Collection, AddCollectionParams, CollectionQueryParams } from './model'
 
+// 导入结果接口
+export interface ImportResult {
+  success: number
+  error: number
+  errorMessages: string[]
+}
+
 /**
  * 查询藏品编目分页列表
  */
 export async function getCatalogs(params: CollectionQueryParams) {
   const res = await request.get<ApiResult<PageResult<Collection>>>('/CollectionCatalog/page', {
+    params
+  })
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
+/**
+ * 查询所有藏品【忽悠状态】
+ */
+export async function getAllCatalogs(params: CollectionQueryParams) {
+  const res = await request.get<ApiResult<PageResult<Collection>>>('/CollectionCatalog/page_all', {
     params
   })
   if (res.data.code === 0 && res.data.data) {
@@ -67,13 +87,16 @@ export async function approve(ids: number[]) {
 export async function importCollections(file: File) {
   const formData = new FormData()
   formData.append('file', file)
-  const res = await request.post<ApiResult<unknown>>('/CollectionCatalog/import', formData, {
+  const res = await request.post<ApiResult<ImportResult>>('/CollectionCatalog/import', formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
   })
   if (res.data.code === 0) {
-    return res.data.message
+    return {
+      message: res.data.message,
+      data: res.data.data
+    }
   }
   return Promise.reject(new Error(res.data.message))
 }

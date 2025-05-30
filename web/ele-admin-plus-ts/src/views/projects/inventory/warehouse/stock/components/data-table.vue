@@ -1,5 +1,5 @@
 <template>
-  <search-form @search="reload" ref="searchFormRef" style="margin-bottom: -14px" />
+  <search-form @search="reload" ref="searchFormRef" />
   <ele-pro-table
     ref="tableRef"
     row-key="id"
@@ -7,7 +7,6 @@
     :datasource="datasource"
     :show-overflow-tooltip="true"
     :highlight-current-row="true"
-    :style="{ paddingBottom: '16px' }"
     cache-key="warehouseCollectionTable"
     :tools="['reload', 'size', 'columns', 'maximized']"
     :stripe="true"

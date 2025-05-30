@@ -1,27 +1,17 @@
 <template>
   <el-form @keyup.enter="search" @submit.prevent="" :inline="true" label-position="left">
-    <el-row :gutter="8">
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="藏品类别">
-          <category-select
-            v-model="form.categoryId"
-            placeholder="请选择藏品类别"
-            style="width: 100%"
-          />
-        </el-form-item>
-      </el-col>
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="所属藏品组">
-          <group-select v-model="form.groupId" placeholder="请选择所属藏品组" style="width: 100%" />
-        </el-form-item>
-      </el-col>
-      <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label-width="16px">
-          <el-button type="primary" @click="search">查询</el-button>
-          <el-button @click="reset">重置</el-button>
-        </el-form-item>
-      </el-col>
-    </el-row>
+    <el-form-item label="藏品类别">
+      <category-select v-model="form.categoryId" placeholder="请选择藏品类别" style="width: 100%" />
+    </el-form-item>
+
+    <el-form-item label="所属藏品组">
+      <group-select v-model="form.groupId" placeholder="请选择所属藏品组" style="width: 100%" />
+    </el-form-item>
+
+    <el-form-item label-width="16px">
+      <el-button type="primary" @click="search">查询</el-button>
+      <el-button @click="reset">重置</el-button>
+    </el-form-item>
   </el-form>
 </template>
 

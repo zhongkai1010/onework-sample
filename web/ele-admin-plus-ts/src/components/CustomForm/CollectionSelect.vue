@@ -47,9 +47,9 @@
 <script setup lang="ts">
   import { ref, reactive, useAttrs, watch } from 'vue'
   import { useFormData } from '@/utils/use-form-data'
-  import { getLedgerList } from '@/api/collection/ledger'
   import type { TableSelectProps } from 'ele-admin-plus/es/ele-table-select/props'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
+  import { getAllCatalogs } from '@/api/collection/catalog'
   type SelectTableProps = Exclude<TableSelectProps['tableProps'], undefined>
 
   const attrs = useAttrs()
@@ -75,7 +75,7 @@
 
   const tableProps = reactive<SelectTableProps>({
     datasource: ({ pages, where, orders }) => {
-      return getLedgerList({ ...where, ...orders, ...pages })
+      return getAllCatalogs({ ...where, ...orders, ...pages })
     },
     columns: [
       {

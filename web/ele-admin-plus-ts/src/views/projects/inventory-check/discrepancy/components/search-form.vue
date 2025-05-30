@@ -13,9 +13,17 @@
       <warehouse-select v-model="form.warehouseId" placeholder="请选择存放位置" clearable />
     </el-form-item>
     <el-form-item label="状态">
-      <el-select v-model="form.status" placeholder="请选择状态" clearable style="width: 150px">
-        <el-option label="未补充" value="0" />
-        <el-option label="已补充" value="1" />
+      <el-select
+        v-model="form.status"
+        placeholder="请选择状态"
+        clearable
+        :fit-input-width="true"
+        style="width: 190px"
+      >
+        <el-option label="未盘点" value="0" />
+        <el-option label="已盘点" value="1" />
+        <el-option label="已盘亏" value="2" />
+        <el-option label="已盘盈" value="3" />
       </el-select>
     </el-form-item>
     <el-form-item>

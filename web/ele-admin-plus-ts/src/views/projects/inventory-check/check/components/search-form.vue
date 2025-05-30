@@ -40,15 +40,15 @@
 
 <script lang="ts" setup>
   import { useFormData } from '@/utils/use-form-data'
-  import type { GetInventoryCheckCollectionListParams } from '@/api/inventory-check/check/model'
+  import type { InventoryCheckCollectionQueryParams } from '@/api/inventory-check/check/model'
   import { WarehouseSelect, CategorySelect } from '@/components/CustomForm'
 
   const emit = defineEmits<{
-    (e: 'search', where?: GetInventoryCheckCollectionListParams): void
+    (e: 'search', where?: InventoryCheckCollectionQueryParams): void
   }>()
 
   /** 表单数据 */
-  const [form, resetFields] = useFormData<GetInventoryCheckCollectionListParams>({
+  const [form, resetFields] = useFormData<InventoryCheckCollectionQueryParams>({
     code: '',
     collectionName: '',
     status: '',

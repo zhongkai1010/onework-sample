@@ -277,9 +277,22 @@
 
   /** 处理填写情况 */
   const handleUpdateDiscrepancy = (row: InventoryCheckDiscrepancy) => {
+    // 设置选中行
     selections.value = [row]
+    // 显示差异说明弹窗
     showDiscrepancyModal.value = true
   }
+
+  // 监听selections变化，确保selectedIds更新
+  watch(
+    selections,
+    (val) => {
+      if (val.length === 0) {
+        tableRef.value?.clearSelection()
+      }
+    },
+    { deep: true }
+  )
 
   /* 暴露方法给父组件 */
   defineExpose({
