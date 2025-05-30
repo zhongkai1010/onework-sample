@@ -4,10 +4,6 @@
       <category-select v-model="form.categoryId" placeholder="请选择藏品类别" style="width: 100%" />
     </el-form-item>
 
-    <el-form-item label="所属藏品组">
-      <group-select v-model="form.groupId" placeholder="请选择所属藏品组" style="width: 100%" />
-    </el-form-item>
-
     <el-form-item label-width="16px">
       <el-button type="primary" @click="search">查询</el-button>
       <el-button @click="reset">重置</el-button>
@@ -20,7 +16,7 @@
   import { useFormData } from '@/utils/use-form-data'
   import { getAllGroups } from '@/api/data/group'
   import type { Group } from '@/api/data/group/model'
-  import { CategorySelect, GroupSelect } from '@/components/CustomForm'
+  import { CategorySelect } from '@/components/CustomForm'
 
   const emit = defineEmits<{
     (e: 'search', params: Record<string, any>): void

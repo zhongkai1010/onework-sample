@@ -194,7 +194,15 @@
       const updateParams: UpdateWarehouseParams = {
         id: props.data.id,
         code: form.code,
-        name: form.name
+        name: form.name,
+        type: props.data.type,
+        tier: props.data.tier,
+        parentId: props.data.parentId,
+        remark: props.data.remark,
+        columnCount: props.data.columnCount,
+        sectionCount: props.data.sectionCount,
+        layerCount: props.data.layerCount,
+        fixedColumnType: props.data.fixedColumnType
       }
       updateWarehouse(updateParams)
         .then((msg) => {
@@ -212,7 +220,7 @@
         code: form.code,
         name: form.name,
         type: 1, //固定类型为库房
-        tier: form.tier!,
+        tier: form.tier,
         parentId: form.parentId,
         remark: form.remark,
         columnCount: form.tier === 2 ? form.columnCount : undefined,

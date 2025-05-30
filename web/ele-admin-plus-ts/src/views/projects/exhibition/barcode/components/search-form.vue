@@ -19,32 +19,6 @@
       />
     </el-form-item>
 
-    <el-form-item label="类型">
-      <el-select
-        v-model="form.type"
-        placeholder="请选择类型"
-        clearable
-        @keyup.enter="handleSearch"
-        style="width: 100%"
-      >
-        <el-option label="库房" :value="1" />
-        <el-option label="展区" :value="2" />
-      </el-select>
-    </el-form-item>
-
-    <el-form-item label="级别">
-      <el-select
-        v-model="form.tier"
-        placeholder="请选择级别"
-        clearable
-        @keyup.enter="handleSearch"
-        style="width: 100%"
-      >
-        <el-option label="库" :value="1" />
-        <el-option label="区" :value="2" />
-      </el-select>
-    </el-form-item>
-
     <el-form-item label-width="16px">
       <el-button type="primary" @click="handleSearch">查询</el-button>
       <el-button @click="handleReset">重置</el-button>

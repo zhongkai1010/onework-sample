@@ -1,8 +1,16 @@
 <template>
-  <ele-modal v-model="visible" title="位置变更" width="500px" :destroy-on-close="true" :close-on-click-modal="false" :close-on-press-escape="false" @open="handleOpen">
+  <ele-modal
+    v-model="visible"
+    title="位置变更"
+    width="500px"
+    :destroy-on-close="true"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+    @open="handleOpen"
+  >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
-      <el-form-item label="仓库位置" prop="warehouseId">
-        <warehouse-select v-model="form.warehouseId" />
+      <el-form-item label="展区位置" prop="warehouseId">
+        <warehouse-select v-model="form.warehouseId" :type="2" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -45,7 +53,7 @@
         required: true,
         message: '请选择仓库位置',
         type: 'number',
-        trigger: 'change'
+        trigger: 'submit'
       }
     ]
   })

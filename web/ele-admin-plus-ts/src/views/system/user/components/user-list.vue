@@ -20,7 +20,6 @@
       <el-button type="danger" class="ele-btn-icon" :icon="DeleteOutlined" @click="remove()">
         删除
       </el-button>
-      <el-button class="ele-btn-icon" :icon="UploadOutlined" @click="openImport"> 导入 </el-button>
     </template>
     <template #nickname="{ row }">
       <el-link type="primary" :underline="false" @click="openDetail(row)">
@@ -67,7 +66,6 @@
     </template>
   </ele-pro-table>
   <user-edit :data="current" v-model="showEdit" :organization-id="organizationId" @done="reload" />
-  <user-import v-model="showImport" @done="reload" />
 </template>
 
 <script lang="ts" setup>
@@ -77,11 +75,10 @@
   import { EleMessage } from 'ele-admin-plus/es'
   import type { EleProTable } from 'ele-admin-plus'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
-  import { PlusOutlined, DeleteOutlined, ArrowDown, UploadOutlined } from '@/components/icons'
+  import { PlusOutlined, DeleteOutlined, ArrowDown } from '@/components/icons'
   import { usePageTab } from '@/utils/use-page-tab'
   import UserSearch from './user-search.vue'
   import UserEdit from './user-edit.vue'
-  import UserImport from './user-import.vue'
   import {
     pageUsers,
     removeUsers,
@@ -93,7 +90,7 @@
 
   const props = defineProps<{
     /** 机构 id */
-    organizationId: number | string | null
+    organizationId: number | undefined
   }>()
 
   const { push } = useRouter()
@@ -185,16 +182,13 @@
   /** 是否显示编辑弹窗 */
   const showEdit = ref(false)
 
-  /** 是否显示用户导入弹窗 */
-  const showImport = ref(false)
-
   /** 表格数据源 */
   const datasource: DatasourceFunction = ({ pages, where, orders }) => {
     return pageUsers({
       ...where,
       ...orders,
       ...pages,
-      organizationId: props.organizationId
+      organizationId: props.organizationId ?? undefined
     })
   }
 
@@ -208,11 +202,6 @@
   const openEdit = (row?: User) => {
     current.value = row ?? null
     showEdit.value = true
-  }
-
-  /** 打开编辑弹窗 */
-  const openImport = () => {
-    showImport.value = true
   }
 
   /** 删除 */
@@ -302,7 +291,7 @@
     return listUsers({
       ...where,
       ...orders,
-      organizationId: props.organizationId
+      organizationId: props.organizationId ?? undefined
     })
   }
 

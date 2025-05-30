@@ -149,7 +149,7 @@
   import ImportModal from './components/import-modal.vue'
   import { getLedgerList, returnLedgers } from '@/api/collection/ledger'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
-  import { ElMessage } from 'element-plus'
+  import { ElMessage, ElMessageBox } from 'element-plus'
   import { EleProTable } from 'ele-admin-plus'
   import type {
     DatasourceFunction,
@@ -489,13 +489,20 @@
       return
     }
     try {
+      await ElMessageBox.confirm('确定要退回选中的藏品到编目吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
       await returnLedgers({
         collectionIds: selectedRows.value.map((row) => Number(row.id))
       })
       ElMessage.success('退回成功')
       tableRef.value?.reload()
     } catch (error) {
-      console.error('退回编目失败:', error)
+      if (error !== 'cancel') {
+        console.error('退回编目失败:', error)
+      }
     }
   }
 

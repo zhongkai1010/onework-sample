@@ -1,17 +1,17 @@
 <template>
   <ele-modal
     v-model="show"
-    :title="data ? '修改库房' : '新增库房'"
+    :title="data ? '修改展区' : '新增展区'"
     width="500px"
     :destroy-on-close="true"
     @closed="onClosed"
   >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="80px" @submit.prevent="">
-      <el-form-item label="上级库房" prop="parentId">
+      <el-form-item label="上级展区" prop="parentId">
         <warehouse-select v-model="form.parentId" :disabled="!!parentId" :type="2" />
       </el-form-item>
-      <el-form-item label="库房名称" prop="name">
-        <el-input v-model.trim="form.name" placeholder="请输入库房名称" clearable />
+      <el-form-item label="展区名称" prop="name">
+        <el-input v-model.trim="form.name" placeholder="请输入展区名称" clearable />
       </el-form-item>
       <el-form-item label="拼音" prop="pingying">
         <el-input v-model.trim="form.pingying" placeholder="请输入拼音" clearable />
@@ -45,7 +45,7 @@
     modelValue: boolean
     /** 修改回显的数据 */
     data?: Warehouse
-    /** 上级库房id */
+    /** 上级展区id */
     parentId?: number
     /** 选择数据 */
     selectData: Warehouse[]
@@ -70,7 +70,7 @@
     parentId: undefined as number | undefined,
     code: '',
     name: '',
-    type: 2, //固定类型为库房
+    type: 2, //固定类型为展区
     remark: '',
     pingying: '' // 拼音字段
   })
@@ -80,7 +80,7 @@
     name: [
       {
         required: true,
-        message: '请输入库房名称',
+        message: '请输入展区名称',
         trigger: 'blur'
       }
     ]
@@ -124,7 +124,7 @@
           id: props.data.id,
           name: form.name,
           remark: form.remark,
-          type: 2, //固定类型为库房
+          type: 2, //固定类型为展区
           pingying: form.pingying
         }
         updateWarehouse(updateParams)
@@ -143,7 +143,7 @@
           name: form.name,
           parentId: form.parentId,
           remark: form.remark,
-          type: 2, //固定类型为库房
+          type: 2, //固定类型为展区
           pingying: form.pingying
         }
         addWarehouse(addParams)

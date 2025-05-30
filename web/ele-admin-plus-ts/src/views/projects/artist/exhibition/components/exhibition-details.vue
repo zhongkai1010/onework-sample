@@ -13,7 +13,7 @@
         <span class="text-lg font-bold">{{ data.exhibitionTitle }}</span>
       </el-descriptions-item>
       <el-descriptions-item label="展览时间">
-        {{ data.exhibitionStartDate }} 至 {{ data.exhibitionEndDate }}
+        {{ formatDate(data.exhibitionStartDate) }} 至 {{ formatDate(data.exhibitionEndDate) }}
       </el-descriptions-item>
       <el-descriptions-item label="展览机构">
         {{ data.exhibitionInstitution }}
@@ -52,6 +52,7 @@
   import { EleMessage } from 'ele-admin-plus/es'
   import type { Exhibition } from '@/api/artist/exhibition/model'
   import { getExhibitionDetail } from '@/api/artist/exhibition'
+  import dayjs from 'dayjs'
 
   const props = defineProps<{
     /** 展览ID */
@@ -63,6 +64,12 @@
 
   /** 展览详情数据 */
   const data = ref<Exhibition>()
+
+  /** 格式化日期 */
+  const formatDate = (date: string | undefined) => {
+    if (!date) return ''
+    return dayjs(date).format('YYYY-MM-DD')
+  }
 
   /** 弹窗打开事件 */
   const handleOpen = async () => {

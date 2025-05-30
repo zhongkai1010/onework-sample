@@ -401,7 +401,7 @@
     })
       .then(async () => {
         try {
-          await Promise.all(selectedRows.value.map((row) => deleteOutbound(Number(row.code))))
+          await Promise.all(selectedRows.value.map((row) => deleteOutbound(Number(row.id))))
           ElMessage.success('删除成功')
           tableRef.value?.reload()
         } catch (error: any) {

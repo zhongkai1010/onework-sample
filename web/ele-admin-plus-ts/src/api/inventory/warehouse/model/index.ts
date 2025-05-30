@@ -62,6 +62,16 @@ export interface AddWarehouseParams {
   remark?: string
   /** 拼音 */
   pingying?: string
+  /** 级别，1：库，2：区、3：列、4：节、5：层 */
+  tier?: number
+  /** 列数 */
+  columnCount?: number
+  /** 节数 */
+  sectionCount?: number
+  /** 层数 */
+  layerCount?: number
+  /** 固定列类型 */
+  fixedColumnType?: string
 }
 
 /**

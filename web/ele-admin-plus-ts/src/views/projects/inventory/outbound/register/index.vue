@@ -214,8 +214,8 @@
   // 打开确认选择弹框
   const openConfirmDialog = () => {
     confirmDialogVisible.value = true
-    // 设置选中的藏品
-    confirmRef.value?.setSelectedCollections(selectedCollections.value)
+    // 只设置选中的藏品
+    confirmRef.value?.setSelectedCollections(selectedRows.value)
   }
 
   // 删除选中的藏品

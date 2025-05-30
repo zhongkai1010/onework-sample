@@ -9,7 +9,7 @@
     @open="handleOpen"
   >
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" @submit.prevent="">
-      <el-form-item label="仓库位置" prop="warehouseId">
+      <el-form-item label="库房位置" prop="warehouseId">
         <warehouse-select v-model="form.warehouseId" />
       </el-form-item>
     </el-form>
@@ -57,9 +57,9 @@
     warehouseId: [
       {
         required: true,
-        message: '请选择仓库位置',
+        message: '请选择库房位置',
         type: 'number',
-        trigger: 'change'
+        trigger: 'submut'
       }
     ]
   })

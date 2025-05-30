@@ -58,7 +58,7 @@
         required: true,
         message: '请选择藏品分类',
         type: 'number',
-        trigger: 'change'
+        trigger: 'submut'
       }
     ]
   })

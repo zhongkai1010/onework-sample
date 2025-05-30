@@ -12,6 +12,7 @@
     :tools="['reload', 'size', 'columns', 'maximized']"
     :stripe="true"
     v-model:selections="selections"
+    @row-click="handleRowClick"
   >
     <template #toolbar>
       <el-button
@@ -74,6 +75,13 @@
   /* 表格列配置 */
   const columns = ref<Columns>([
     {
+      type: 'selection',
+      columnKey: 'selection',
+      width: 50,
+      align: 'center',
+      fixed: 'left'
+    },
+    {
       type: 'index',
       columnKey: 'index',
       width: 80,
@@ -97,7 +105,6 @@
       prop: 'collectionCode',
       label: '藏品编号',
       sortable: 'custom',
-
       showOverflowTooltip: true
     }
   ])
@@ -116,6 +123,18 @@
   /** 重新加载数据 */
   const reload = (where?: Record<string, any>) => {
     tableRef.value?.reload?.({ page: 1, where })
+  }
+
+  /** 处理行点击 */
+  const handleRowClick = (row: WarehouseCollection) => {
+    const index = selections.value.findIndex((item) => item.id === row.id)
+    if (index === -1) {
+      selections.value = [row]
+    } else {
+      selections.value = []
+    }
+    // 同步表格选中状态
+    tableRef.value?.toggleRowSelection(row, index === -1)
   }
 
   /** 处理查看详情 */
@@ -154,3 +173,9 @@
     reset
   })
 </script>
+
+<style lang="scss" scoped>
+  :deep(.el-table__row) {
+    cursor: pointer;
+  }
+</style>

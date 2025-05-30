@@ -214,7 +214,7 @@
       return
     }
     confirmDialogVisible.value = true
-    // 设置选中的藏品ID列表
+    // 只设置选中的藏品ID列表
     const collectionIds = selectedRows.value.map((item) => Number(item.id))
     confirmRef.value?.setSelectedCollections(collectionIds)
   }

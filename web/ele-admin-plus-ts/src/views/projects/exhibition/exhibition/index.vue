@@ -103,7 +103,7 @@
   /** 表格数据 */
   const treeData = ref<Warehouse[]>([])
 
-  /** 上级库房id */
+  /** 上级展区id */
   const parentId = ref<number>()
 
   /** 表格列配置 */
@@ -115,14 +115,7 @@
       align: 'center',
       fixed: 'left'
     },
-    {
-      type: 'index',
-      columnKey: 'index',
-      width: 80,
-      align: 'center',
-      fixed: 'left',
-      label: '编号'
-    },
+
     {
       prop: 'name',
       label: '展区名称',
