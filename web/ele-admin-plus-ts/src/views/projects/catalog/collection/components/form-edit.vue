@@ -233,7 +233,12 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="艺术家" prop="artist">
-              <el-input v-model="form.artist" placeholder="请输入艺术家" clearable />
+              <artist-select
+                v-model="form.artist"
+                placeholder="请选择艺术家"
+                clearable
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
 
@@ -418,6 +423,7 @@
   import type { Collection, AddCollectionParams } from '@/api/collection/catalog/model'
   import { register, update } from '@/api/collection/catalog'
   import { CategorySelect } from '@/components/CustomForm'
+  import { ArtistSelect } from '@/components/CustomForm'
   import CommonUpload from '@/components/CommonUpload/index.vue'
   import DictData from '@/components/DictData/index.vue'
   import type { FormInstance, FormRules } from 'element-plus'

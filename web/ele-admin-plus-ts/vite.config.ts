@@ -5,7 +5,7 @@ import Compression from 'vite-plugin-compression'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { EleAdminResolver } from 'ele-admin-plus/es/utils/resolvers'
-import { viteMockServe } from 'vite-plugin-mock'
+// import { viteMockServe } from 'vite-plugin-mock'
 
 export default defineConfig(({ command }) => {
   const isBuild = command === 'build'
@@ -14,16 +14,16 @@ export default defineConfig(({ command }) => {
     'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
   }
   const plugins = [
-    vue(),
-    viteMockServe({
-      mockPath: 'mock',
-      localEnabled: command === 'serve',
-      prodEnabled: command !== 'serve',
-      injectCode: `
-        import { setupProdMockServer } from './mockProdServer';
-        setupProdMockServer();
-      `
-    })
+    vue()
+    // viteMockServe({
+    //   mockPath: 'mock',
+    //   localEnabled: command === 'serve',
+    //   prodEnabled: command !== 'serve',
+    //   injectCode: `
+    //     import { setupProdMockServer } from './mockProdServer';
+    //     setupProdMockServer();
+    //   `
+    // })
   ]
   if (isBuild) {
     // 组件按需引入
