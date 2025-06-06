@@ -5,7 +5,7 @@ export interface BranchInfo {
   /** 分馆名称 */
   name: string
   /** 启用自动编号 0:不启动 1：启动 */
-  status: string
+  status: number
   /** 自动编号前缀 */
   numberPrefix: string
   /** 自动编号长度 */

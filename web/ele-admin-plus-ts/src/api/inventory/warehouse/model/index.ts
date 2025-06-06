@@ -275,7 +275,7 @@ export interface Location {
  */
 export interface LocationQueryParams extends PageParam {
   /** 藏品ID */
-  collectionId?: number
+  collectionCode?: string
   /** 地址条码 */
   code?: string
   /** 绑定时间 */

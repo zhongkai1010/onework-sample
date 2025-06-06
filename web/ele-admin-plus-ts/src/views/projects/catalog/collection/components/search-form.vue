@@ -9,10 +9,6 @@
       <el-input clearable v-model.trim="form.collectionName" placeholder="请输入" />
     </el-form-item>
 
-    <el-form-item label="藏品分类">
-      <category-select v-model="form.categoryId" placeholder="请选择" style="width: 192px" />
-    </el-form-item>
-
     <el-form-item label="地域类型">
       <dict-data
         :code="DIC_KEY_REGION_TYPE"
@@ -59,7 +55,6 @@
 <script lang="ts" setup>
   import { useFormData } from '@/utils/use-form-data'
   import type { CollectionQueryParams } from '@/api/collection/catalog/model'
-  import { CategorySelect } from '@/components/CustomForm'
   import {
     DIC_KEY_REGION_TYPE,
     DIC_KEY_COLLECTION_SOURCE,

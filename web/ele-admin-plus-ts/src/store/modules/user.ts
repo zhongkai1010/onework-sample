@@ -9,6 +9,8 @@ import type { User } from '@/api/system/user/model'
 import type { Menu } from '@/api/system/menu/model'
 import type { DictionaryData } from '@/api/system/dictionary-data/model'
 import { getUserInfo } from '@/api/layout'
+import { useRouter } from 'vue-router'
+import { removeToken } from '@/utils/token-util'
 /** 直接指定菜单数据 */
 const USER_MENUS: Menu[] | null = null
 
@@ -38,36 +40,45 @@ export const useUserStore = defineStore('user', {
      * 请求登录用户的个人信息/权限/角色/菜单
      */
     async fetchUserInfo() {
-      const result = await getUserInfo().catch((e) => console.error(e))
-      if (!result) {
+      const router = useRouter()
+      const result = await getUserInfo()
+
+      if (result.code === 2) {
+        // 清除 token
+        removeToken()
+        // 清除用户信息
+        this.info = null
+        this.menus = null
+        this.authorities = []
+        this.roles = []
+        // 跳转登录页
+        router.push('/login')
         return {}
       }
-      // 用户信息
-      this.setInfo(result)
-      // 用户权限
-      if (result.authorities) {
-        this.authorities = result.authorities.map((d) => d.authority).filter((a) => !!a) ?? []
+
+      if (result.code === 0 && result.data) {
+        // 用户信息
+        this.setInfo(result.data)
+        // 用户权限
+        if (result.data.authorities) {
+          this.authorities =
+            result.data.authorities.map((d) => d.authority).filter((a) => !!a) ?? []
+        }
+        // 用户角色
+        this.roles = result.data.roles?.map?.((d) => d.roleCode) ?? []
+        // 用户菜单, 过滤掉按钮类型并转为children形式
+        const { menus, homePath } = formatMenus(
+          USER_MENUS ??
+            result.data.authorities
+              ?.filter?.((d) => d.menuType !== 1)
+              .sort((a, b) => (a.sortNumber ?? 0) - (b.sortNumber ?? 0)) ??
+            []
+        )
+        this.setMenus(menus)
+        return { menus, homePath }
       }
-      // 用户角色
-      this.roles = result.roles?.map?.((d) => d.roleCode) ?? []
-      // 用户菜单, 过滤掉按钮类型并转为children形式
-      // const { menus, homePath } = formatMenus(
-      //   USER_MENUS ??
-      //     toTree({
-      //       data: result.authorities?.filter?.((d) => d.menuType !== 1),
-      //       idField: 'menuId',
-      //       parentIdField: 'parentId'
-      //     })
-      // )
-      const { menus, homePath } = formatMenus(
-        USER_MENUS ??
-          result.authorities
-            ?.filter?.((d) => d.menuType !== 1)
-            .sort((a, b) => (a.sortNumber ?? 0) - (b.sortNumber ?? 0)) ??
-          []
-      )
-      this.setMenus(menus)
-      return { menus, homePath }
+
+      return {}
     },
     /**
      * 更新用户信息

@@ -112,7 +112,7 @@
       label: '启动自动编号',
       width: 120,
       align: 'center',
-      formatter: (row: BranchInfo) => (row.status === '1' ? '是' : '否')
+      formatter: (row: BranchInfo) => (row.status === 1 ? '是' : '否')
     },
     {
       prop: 'numberPrefix',

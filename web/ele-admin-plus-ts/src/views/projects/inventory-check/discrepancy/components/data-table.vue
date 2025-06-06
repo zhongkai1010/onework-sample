@@ -151,7 +151,7 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'discrepancyDescription',
+      prop: 'explanation',
       label: '差异说明',
       sortable: 'custom',
       align: 'left',
@@ -258,7 +258,7 @@
   const getStatusText = (status: string): string => {
     const statusMap: Record<string, string> = {
       '0': '未盘',
-      '1': '已盘到',
+      '1': '已盘点',
       '2': '已盘亏',
       '3': '已盘盈'
     }

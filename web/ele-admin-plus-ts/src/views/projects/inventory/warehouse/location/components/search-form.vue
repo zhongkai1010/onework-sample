@@ -3,7 +3,7 @@
   <el-form :model="form" :inline="true" class="search-form" @submit.prevent label-position="left">
     <el-form-item label="藏品编号">
       <el-input
-        v-model="form.collectionId"
+        v-model="form.collectionCode"
         placeholder="请输入藏品编号"
         clearable
         @keyup.enter="handleSearch"

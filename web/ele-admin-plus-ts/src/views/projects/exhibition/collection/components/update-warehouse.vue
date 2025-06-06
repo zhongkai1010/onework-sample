@@ -26,10 +26,17 @@
   import type { FormInstance, FormRules } from 'element-plus'
   import { useFormData } from '@/utils/use-form-data'
   import WarehouseSelect from '@/components/CustomForm/WarehouseSelect.vue'
+  import { changeWarehouse } from '@/api/collection/ledger'
+  import type { WarehouseCollection } from '@/api/inventory/warehouse/model'
 
   const emit = defineEmits<{
     (e: 'update:modelValue', value: boolean): void
     (e: 'done'): void
+  }>()
+
+  const props = defineProps<{
+    /** 选中的藏品数据 */
+    data: WarehouseCollection[]
   }>()
 
   /** 弹窗是否打开 */
@@ -69,7 +76,14 @@
     try {
       await formRef.value.validate()
       loading.value = true
-      // TODO: 实现位置变更逻辑
+      const collectionIds = props.data.map((item) => item.id).filter((id) => id != null)
+      if (!collectionIds.length) {
+        throw new Error('藏品ID不能为空')
+      }
+      await changeWarehouse({
+        collectionIds,
+        warehouseId: form.warehouseId?.toString() || ''
+      })
       EleMessage.success('位置变更成功')
       handleCancel()
       emit('done')

@@ -60,7 +60,7 @@
                   :type="data.status === 1 ? 'success' : data.status === 2 ? 'warning' : 'info'"
                   style="margin-left: 8px"
                 >
-                  {{ data.status === 1 ? '已完成' : data.status === 2 ? '进行中' : '未开始' }}
+                  {{ data.status === 0 ? '待启动' : data.status === 1 ? '已开始' : '已结束' }}
                 </el-tag>
               </div>
             </template>

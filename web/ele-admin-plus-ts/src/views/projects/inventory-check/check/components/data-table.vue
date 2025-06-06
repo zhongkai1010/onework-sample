@@ -298,9 +298,9 @@
     showFormEdit.value = true
   }
 
-  /** 处理确认状态 */
+  /** 处理确认状态 - 单个确认 */
   const handleConfirmStatus = (row: InventoryCheckCollection) => {
-    // 设置选中行
+    // 单个确认时，只选中当前行
     selections.value = [row]
     // 同步表格选中状态
     tableRef.value?.clearSelection()
@@ -309,8 +309,9 @@
     showConfirmModal.value = true
   }
 
-  /** 处理确认盘点 */
+  /** 处理确认盘点 - 批量确认 */
   const handleConfirm = () => {
+    // 批量确认时，使用已选中的多行
     if (!selections.value.length) {
       EleMessage.error('请至少选择一条数据')
       return

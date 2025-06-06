@@ -18,27 +18,8 @@
     >
       <!-- 状态列 -->
       <template #status="{ row }">
-        <el-tag
-          :type="
-            row.satus === 0
-              ? 'info'
-              : row.satus === 1
-                ? 'success'
-                : row.satus === 2
-                  ? 'danger'
-                  : 'warning'
-          "
-          effect="light"
-        >
-          {{
-            row.satus === 0
-              ? '未盘'
-              : row.satus === 1
-                ? '已盘到'
-                : row.satus === 2
-                  ? '已盘亏'
-                  : '已盘盈'
-          }}
+        <el-tag :type="getStatusType(row.status)" effect="light">
+          {{ getStatusText(row.status) }}
         </el-tag>
       </template>
     </ele-pro-table>
@@ -61,6 +42,32 @@
 
   /** 表格实例 */
   const tableRef = ref<InstanceType<typeof EleProTable>>()
+
+  /**
+   * 获取状态类型
+   */
+  const getStatusType = (status: number): 'success' | 'warning' | 'danger' | 'info' => {
+    const statusMap: Record<number, 'success' | 'warning' | 'danger' | 'info'> = {
+      0: 'info', // 未盘点
+      1: 'success', // 已盘点
+      2: 'danger', // 已盘亏
+      3: 'warning' // 已盘盈
+    }
+    return statusMap[status] || 'info'
+  }
+
+  /**
+   * 获取状态文本
+   */
+  const getStatusText = (status: number): string => {
+    const statusMap: Record<number, string> = {
+      0: '未盘点',
+      1: '已盘点',
+      2: '已盘亏',
+      3: '已盘盈'
+    }
+    return statusMap[status] || '未知'
+  }
 
   /* ==================== 表格配置 ==================== */
   const columns = ref<Columns>([
@@ -138,7 +145,7 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'satus',
+      prop: 'status',
       label: '状态',
       width: 100,
       align: 'center',

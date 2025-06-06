@@ -166,7 +166,7 @@ export async function importLedgers(file: File) {
  * @param data 退回数据
  */
 export async function returnBooks(data: { collectionIds: number[] }) {
-  const res = await request.post<ApiResult<unknown>>('/CollectionLedger/books/return', data)
+  const res = await request.post<ApiResult<unknown>>('/CollectionLedger/booksReturn', data)
   if (res.data.code === 0) {
     return res.data.message
   }
