@@ -1,0 +1,398 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "藏品管理系统",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/api/Index/operateLogStatistics": {
+      "post": {
+        "summary": "操作日志统计",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startTime": {
+                    "type": "string",
+                    "description": "开始时间（默认本月）"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "description": "结束时间（默认本月）"
+                  }
+                },
+                "required": [
+                  "startTime",
+                  "endTime"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "number": {
+                          "type": "integer",
+                          "description": "本月操作总次数"
+                        },
+                        "people": {
+                          "type": "integer",
+                          "description": "操作人数量"
+                        },
+                        "avg_number": {
+                          "type": "integer",
+                          "description": "平均每日次数"
+                        }
+                      },
+                      "required": [
+                        "number",
+                        "avg_number",
+                        "people"
+                      ]
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/Index/operateLogStatisticsStatus": {
+      "post": {
+        "summary": "操作类型统计",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startTime": {
+                    "type": "string",
+                    "description": "开始时间（默认本月）"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "description": "结束时间（默认本月）"
+                  }
+                },
+                "required": [
+                  "startTime",
+                  "endTime"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "统计项"
+                          },
+                          "number": {
+                            "type": "integer",
+                            "description": "统计值"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "number"
+                        ]
+                      },
+                      "title": "PageResult«Role»"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/Index/operateLogStatisticsTime": {
+      "post": {
+        "summary": "操作频率时间趋势",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startTime": {
+                    "type": "string",
+                    "description": "开始时间（默认本月）"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "description": "结束时间（默认本月）"
+                  }
+                },
+                "required": [
+                  "startTime",
+                  "endTime"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string",
+                            "description": "统计项"
+                          },
+                          "number": {
+                            "type": "integer",
+                            "description": "统计值"
+                          }
+                        },
+                        "required": [
+                          "date",
+                          "number"
+                        ]
+                      },
+                      "title": "PageResult«Role»"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/Index/operateLogStatisticsLiveness": {
+      "post": {
+        "summary": "操作人活跃度排行",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startTime": {
+                    "type": "string",
+                    "description": "开始时间（默认本月）"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "description": "结束时间（默认本月）"
+                  }
+                },
+                "required": [
+                  "startTime",
+                  "endTime"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "userId": {
+                            "type": "string",
+                            "description": "用户id"
+                          },
+                          "username": {
+                            "type": "string",
+                            "description": "用户昵称"
+                          },
+                          "count": {
+                            "type": "integer",
+                            "description": "数量"
+                          }
+                        },
+                        "required": [
+                          "userId",
+                          "username",
+                          "count"
+                        ]
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}

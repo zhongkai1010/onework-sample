@@ -4,7 +4,7 @@
       <!-- 搜索表单 -->
       <el-form :inline="true" :model="searchForm" class="search-form">
         <el-form-item label="时间类型">
-          <el-radio-group v-model="searchForm.timeType" @change="handleSearch">
+          <el-radio-group v-model="searchForm.timeType">
             <el-radio-button label="year">年度</el-radio-button>
             <el-radio-button label="quarter">季度</el-radio-button>
             <el-radio-button label="month">月度</el-radio-button>
@@ -17,7 +17,6 @@
             type="year"
             placeholder="选择年份"
             value-format="YYYY"
-            @change="handleSearch"
           />
           <el-date-picker
             v-else-if="searchForm.timeType === 'quarter'"
@@ -26,7 +25,6 @@
             placeholder="选择季度"
             value-format="YYYY-MM"
             :multiple="true"
-            @change="handleSearch"
           />
           <el-date-picker
             v-else-if="searchForm.timeType === 'month'"
@@ -34,7 +32,6 @@
             type="month"
             placeholder="选择月份"
             value-format="YYYY-MM"
-            @change="handleSearch"
           />
         </el-form-item>
         <el-form-item>
@@ -92,7 +89,7 @@
       <!-- 图表展示 -->
       <div class="charts-container">
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :span="24">
             <el-card shadow="hover">
               <template #header>
                 <div class="card-header">
@@ -102,7 +99,9 @@
               <div class="chart-wrapper" ref="categoryChartRef"></div>
             </el-card>
           </el-col>
-          <el-col :span="12">
+        </el-row>
+        <el-row :gutter="20" class="mt-4">
+          <el-col :span="24">
             <el-card shadow="hover">
               <template #header>
                 <div class="card-header">
@@ -114,253 +113,42 @@
           </el-col>
         </el-row>
       </div>
-
-      <!-- 数据表格 -->
-      <ele-pro-table
-        ref="tableRef"
-        :toolbar="false"
-        :columns="columns"
-        :datasource="datasource"
-        :tools="['reload', 'size', 'columns']"
-        :stripe="true"
-      />
-
-      <!-- 注销表格 -->
-      <div class="cancellation-table">
-        <h3>注销记录</h3>
-        <ele-pro-table
-          :toolbar="false"
-          ref="cancellationTableRef"
-          :columns="cancellationColumns"
-          :datasource="cancellationDatasource"
-          :tools="['reload', 'size', 'columns']"
-          :stripe="true"
-        />
-      </div>
     </ele-card>
   </ele-page>
 </template>
 
 <script setup lang="ts">
   import { ref, reactive, onMounted } from 'vue'
-  import type { EleProTable } from 'ele-admin-plus'
-  import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import * as echarts from 'echarts'
-  import type { CollectionReport, CollectionStatistics } from '@/api/collection/report/model'
+  import {
+    getCollectionStatistics,
+    getCollectionStatisticsCategory,
+    getCollectionStatus
+  } from '@/api/report/inventory'
+  import type { CollectionStatisticsParams } from '@/api/report/inventory/model'
+
+  // 获取当前年份
+  const currentYear = new Date().getFullYear().toString()
 
   // 搜索表单
   const searchForm = reactive({
     timeType: 'year', // year-年, quarter-季度, month-月
-    timeValue: undefined
+    timeValue: currentYear
   })
 
   // 统计数据
   const statistics = reactive({
-    totalCount: 0,
-    outboundCount: 0,
-    repairCount: 0,
-    cancellationCount: 0
+    totalCount: '0',
+    outboundCount: '0',
+    repairCount: '0',
+    cancellationCount: '0'
   })
-
-  // 表格实例
-  const tableRef = ref<InstanceType<typeof EleProTable>>()
 
   // 图表实例
   const categoryChartRef = ref<HTMLElement>()
   const statusChartRef = ref<HTMLElement>()
   let categoryChart: echarts.ECharts | null = null
   let statusChart: echarts.ECharts | null = null
-
-  // 表格列配置
-  const columns = ref<Columns>([
-    {
-      type: 'index',
-      label: '序号',
-      width: 60,
-      align: 'center'
-    },
-    {
-      prop: 'collectionCode',
-      label: '藏品编号',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionName',
-      label: '藏品名称',
-      minWidth: 200,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'categoryName',
-      label: '藏品分类',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'outboundCount',
-      label: '出库次数',
-      width: 100,
-      align: 'center'
-    },
-    {
-      prop: 'repairCount',
-      label: '修复次数',
-      width: 100,
-      align: 'center'
-    },
-    {
-      prop: 'inboundCount',
-      label: '入库次数',
-      width: 100,
-      align: 'center'
-    },
-    {
-      prop: 'transferCount',
-      label: '拨库次数',
-      width: 100,
-      align: 'center'
-    },
-    {
-      prop: 'status',
-      label: '状态',
-      width: 100,
-      align: 'center',
-      slot: 'status'
-    },
-    {
-      prop: 'createTime',
-      label: '创建时间',
-      width: 160,
-      showOverflowTooltip: true
-    }
-  ])
-
-  // 模拟数据
-  const mockData: CollectionReport[] = [
-    {
-      collectionCode: 'TCQ001',
-      collectionName: '青花瓷瓶',
-      categoryName: '陶瓷器',
-      outboundCount: 2,
-      repairCount: 1,
-      inboundCount: 3,
-      transferCount: 1,
-      status: 1,
-      createTime: '2024-01-01 10:00:00'
-    },
-    {
-      collectionCode: 'QTQ001',
-      collectionName: '青铜鼎',
-      categoryName: '青铜器',
-      outboundCount: 1,
-      repairCount: 2,
-      inboundCount: 2,
-      transferCount: 0,
-      status: 0,
-      createTime: '2024-01-02 11:00:00'
-    },
-    {
-      collectionCode: 'SH001',
-      collectionName: '山水画',
-      categoryName: '书画',
-      outboundCount: 3,
-      repairCount: 0,
-      inboundCount: 1,
-      transferCount: 2,
-      status: 1,
-      createTime: '2024-01-03 12:00:00'
-    }
-  ]
-
-  // 注销表格列配置
-  const cancellationColumns = ref<Columns>([
-    {
-      type: 'index',
-      label: '序号',
-      width: 60,
-      align: 'center'
-    },
-    {
-      prop: 'collectionCode',
-      label: '藏品编号',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionName',
-      label: '藏品名称',
-      minWidth: 200,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'categoryName',
-      label: '藏品分类',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'cancellationTime',
-      label: '注销时间',
-      width: 160,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'cancellationReason',
-      label: '注销原因',
-      minWidth: 200,
-      showOverflowTooltip: true
-    }
-  ])
-
-  // 模拟注销数据
-  const mockCancellationData = [
-    {
-      collectionCode: 'TCQ002',
-      collectionName: '青花瓷碗',
-      categoryName: '陶瓷器',
-      cancellationTime: '2024-01-15 10:00:00',
-      cancellationReason: '破损严重，无法修复'
-    },
-    {
-      collectionCode: 'QTQ002',
-      collectionName: '青铜剑',
-      categoryName: '青铜器',
-      cancellationTime: '2024-01-16 11:00:00',
-      cancellationReason: '遗失'
-    }
-  ]
-
-  // 数据源
-  const datasource: DatasourceFunction = ({ pages }) => {
-    // 模拟分页
-    const { page, size } = pages
-    const start = (page - 1) * size
-    const end = start + size
-    const list = mockData.slice(start, end)
-
-    return Promise.resolve({
-      list,
-      total: mockData.length,
-      page,
-      size
-    })
-  }
-
-  // 注销表格数据源
-  const cancellationDatasource: DatasourceFunction = ({ pages }) => {
-    const { page, size } = pages
-    const start = (page - 1) * size
-    const end = start + size
-    const list = mockCancellationData.slice(start, end)
-
-    return Promise.resolve({
-      list,
-      total: mockCancellationData.length,
-      page,
-      size
-    })
-  }
 
   // 初始化图表
   const initCharts = () => {
@@ -375,31 +163,27 @@
   // 更新图表数据
   const updateCharts = async () => {
     try {
-      // 模拟统计数据
-      const data: CollectionStatistics = {
-        statistics: {
-          totalCount: 100,
-          outboundCount: 50,
-          repairCount: 30,
-          cancellationCount: 20
-        },
-        categoryStats: [
-          { name: '陶瓷器', value: 40 },
-          { name: '青铜器', value: 30 },
-          { name: '书画', value: 20 },
-          { name: '玉器', value: 10 }
-        ],
-        statusStats: [
-          { name: '已审核', value: 80 },
-          { name: '未审核', value: 20 }
-        ]
+      // 构建查询参数
+      const params: CollectionStatisticsParams = {
+        type: searchForm.timeType === 'year' ? '1' : searchForm.timeType === 'quarter' ? '2' : '3',
+        typeValue: Array.isArray(searchForm.timeValue)
+          ? searchForm.timeValue
+          : searchForm.timeValue
+            ? [searchForm.timeValue]
+            : []
       }
+
+      // 获取分类统计数据
+      const categoryData = await getCollectionStatisticsCategory(params)
+      // 获取状态分布数据
+      const statusData = await getCollectionStatus(params)
 
       // 更新分类统计图表
       if (categoryChart) {
         categoryChart.setOption({
           tooltip: {
-            trigger: 'item'
+            trigger: 'item',
+            formatter: '{b}: {c} ({d}%)'
           },
           legend: {
             orient: 'vertical',
@@ -409,7 +193,10 @@
             {
               type: 'pie',
               radius: '50%',
-              data: data.categoryStats,
+              data: categoryData.map((item) => ({
+                name: item.name,
+                value: item.number
+              })),
               emphasis: {
                 itemStyle: {
                   shadowBlur: 10,
@@ -426,7 +213,8 @@
       if (statusChart) {
         statusChart.setOption({
           tooltip: {
-            trigger: 'item'
+            trigger: 'item',
+            formatter: '{b}: {c} ({d}%)'
           },
           legend: {
             orient: 'vertical',
@@ -436,7 +224,10 @@
             {
               type: 'pie',
               radius: '50%',
-              data: data.statusStats,
+              data: statusData.map((item) => ({
+                name: item.name,
+                value: item.number
+              })),
               emphasis: {
                 itemStyle: {
                   shadowBlur: 10,
@@ -448,9 +239,35 @@
           ]
         })
       }
+    } catch (error) {
+      console.error('更新图表失败:', error)
+    }
+  }
+
+  // 更新统计数据
+  const updateStatistics = async () => {
+    try {
+      // 构建查询参数
+      const params: CollectionStatisticsParams = {
+        type: searchForm.timeType === 'year' ? '1' : searchForm.timeType === 'quarter' ? '2' : '3',
+        typeValue: Array.isArray(searchForm.timeValue)
+          ? searchForm.timeValue
+          : searchForm.timeValue
+            ? [searchForm.timeValue]
+            : []
+      }
+
+      // 调用API获取统计数据
+      const data = await getCollectionStatistics(params)
 
       // 更新统计数据
-      Object.assign(statistics, data.statistics)
+      statistics.totalCount = data.collection
+      statistics.outboundCount = data.outbound
+      statistics.repairCount = data.repair
+      statistics.cancellationCount = data.cancellation
+
+      // 更新图表
+      await updateCharts()
     } catch (error) {
       console.error('获取统计数据失败:', error)
     }
@@ -458,21 +275,21 @@
 
   // 查询
   const handleSearch = () => {
-    tableRef.value?.reload({ page: 1 })
+    updateStatistics()
   }
 
   // 重置
   const handleReset = () => {
-    Object.keys(searchForm).forEach((key) => {
-      searchForm[key] = undefined
-    })
+    searchForm.timeType = 'year'
+    searchForm.timeValue = currentYear
     handleSearch()
   }
 
   // 组件挂载时初始化
   onMounted(() => {
     initCharts()
-    updateCharts()
+    // 初始化时加载当前年度数据
+    handleSearch()
   })
 </script>
 
@@ -504,17 +321,11 @@
     margin-bottom: 0;
 
     .chart-wrapper {
-      height: 300px;
+      height: 400px;
     }
-  }
 
-  .cancellation-table {
-    margin-top: 16px;
-
-    h3 {
-      margin-bottom: 16px;
-      font-size: 16px;
-      font-weight: bold;
+    .mt-4 {
+      margin-top: 16px;
     }
   }
 </style>

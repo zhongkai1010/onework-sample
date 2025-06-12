@@ -1,0 +1,210 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "藏品管理系统",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/api/Index/collectionStatisticsSource": {
+      "post": {
+        "summary": "藏品来源统计",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "1:年度  2：季度  3：月度"
+                  },
+                  "typeValue": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "description": "年度的是格式：[2025]   季度和月度：['2025-01','2025-02']"
+                    }
+                  }
+                },
+                "required": [
+                  "type",
+                  "typeValue"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "collectionSource": {
+                            "type": "string",
+                            "description": "来源"
+                          },
+                          "count": {
+                            "type": "integer",
+                            "description": "数量"
+                          }
+                        },
+                        "required": [
+                          "collectionSource",
+                          "count"
+                        ]
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/Index/collectionStatisticsStatus": {
+      "post": {
+        "summary": "藏品状态分布统计",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "header",
+            "description": "",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8",
+            "schema": {
+              "type": "string",
+              "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcF9hcGkiLCJpYXQiOjE3NDkxMTI5OTQsImV4cCI6MTc0OTcxNzc5NCwibmJmIjoxNzQ5MTEyOTk0LCJzdWIiOjEsImp0aSI6IjE3NDkxMTI5OTQxIn0.eIuoqLNoA3aqNHMCe26x805jpu9P1SBVI6ygqhKU1k8"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "1:年度  2：季度  3：月度"
+                  },
+                  "typeValue": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "description": "年度的是格式：[2025]   季度和月度：['2025-01','2025-02']"
+                    }
+                  }
+                },
+                "required": [
+                  "type",
+                  "typeValue"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "状态码",
+                      "format": "int32"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "统计项"
+                          },
+                          "number": {
+                            "type": "integer",
+                            "description": "统计值"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "number"
+                        ]
+                      },
+                      "title": "PageResult«Role»"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "错误信息"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "状态信息"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}
