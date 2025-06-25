@@ -334,14 +334,6 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'collectionDateRange',
-      label: '入藏日期范围',
-      sortable: 'custom',
-      width: 220,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
       prop: 'collectionYear',
       label: '入藏年度',
       sortable: 'custom',
@@ -350,10 +342,24 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'notes',
-      label: '备注',
-      sortable: 'custom',
-      width: 220,
+      prop: 'price',
+      label: '价格',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      formatter: (row) => (typeof row.price === 'number' ? row.price.toFixed(2) : '')
+    },
+    {
+      prop: 'productSource',
+      label: '产品来源',
+      width: 180,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'create',
+      label: '创作',
+      width: 180,
       align: 'left',
       showOverflowTooltip: true
     },

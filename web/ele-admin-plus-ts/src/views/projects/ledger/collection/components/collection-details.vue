@@ -48,13 +48,18 @@
         <el-descriptions-item label="藏品来源" class-name="equal-width">{{
           row?.collectionSource
         }}</el-descriptions-item>
-        <el-descriptions-item label="入藏日期" class-name="equal-width">{{
-          row?.collectionDate
-        }}</el-descriptions-item>
+        <el-descriptions-item label="价格" class-name="equal-width">
+          {{ typeof row?.price === 'number' ? row.price.toFixed(2) : '' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="产品来源" class-name="equal-width">
+          {{ row?.productSource }}
+        </el-descriptions-item>
+        <el-descriptions-item label="创作" class-name="equal-width">
+          {{ row?.create }}
+        </el-descriptions-item>
         <el-descriptions-item label="入藏年度" class-name="equal-width">{{
           row?.collectionYear
         }}</el-descriptions-item>
-        <el-descriptions-item label="备注" :span="2">{{ row?.notes }}</el-descriptions-item>
         <el-descriptions-item label="图片信息" :span="2" v-if="row?.imageInfo">
           <el-image
             :src="row.imageInfo"

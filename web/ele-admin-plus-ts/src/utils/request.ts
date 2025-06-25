@@ -11,6 +11,7 @@ import type { ApiResult } from '@/api'
 import router from '@/router'
 import { getToken, setToken } from './token-util'
 import { logout, toURLSearch } from './common'
+import { useUserStore } from '@/store/modules/user'
 
 /** 创建axios实例 */
 const service = axios.create({
@@ -57,6 +58,15 @@ export function requestInterceptor(config: InternalAxiosRequestConfig<any>) {
   if (token && config.headers) {
     config.headers['Authorization'] = token
     config.headers['token'] = token
+  }
+  // 添加 currentUnit 到 header
+  try {
+    const userStore = useUserStore()
+    if (userStore && typeof userStore.currentUnit !== 'undefined' && config.headers) {
+      config.headers['displayType'] = userStore.currentUnit
+    }
+  } catch (e) {
+    // ignore if store is not available
   }
   // get请求处理数组和对象类型参数
   if (config.method === 'get' && config.params) {

@@ -50,7 +50,7 @@
                   },
                   "borrowType": {
                     "type": "string",
-                    "description": "提借类型"
+                    "description": "出库类型"
                   },
                   "proposedReturnDate": {
                     "type": "string",
@@ -155,7 +155,7 @@
           {
             "name": "borrowType",
             "in": "query",
-            "description": "提借类型",
+            "description": "出库类型",
             "required": false,
             "schema": {
               "type": "string"
@@ -275,7 +275,7 @@
                               },
                               "borrowType": {
                                 "type": "string",
-                                "description": "提借类型"
+                                "description": "出库类型"
                               },
                               "proposedReturnDate": {
                                 "type": "string",
@@ -287,9 +287,7 @@
                                 "description": "备注"
                               }
                             },
-                            "required": [
-                              "id"
-                            ]
+                            "required": ["id"]
                           }
                         }
                       }
@@ -450,9 +448,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -613,7 +609,7 @@
                         },
                         "borrowType": {
                           "type": "string",
-                          "description": "提借类型"
+                          "description": "出库类型"
                         },
                         "proposedReturnDate": {
                           "type": "string",
@@ -655,16 +651,11 @@
                                 "description": "状态，0：未审核、1：待出库、2：已出库、3：已归还"
                               }
                             },
-                            "required": [
-                              "id"
-                            ]
+                            "required": ["id"]
                           }
                         }
                       },
-                      "required": [
-                        "id",
-                        "collections"
-                      ]
+                      "required": ["id", "collections"]
                     },
                     "error": {
                       "type": "string",
@@ -847,9 +838,7 @@
                                 "description": "状态，0：未审核、1：待出库、2：已出库、3：已归还"
                               }
                             },
-                            "required": [
-                              "id"
-                            ]
+                            "required": ["id"]
                           }
                         }
                       }

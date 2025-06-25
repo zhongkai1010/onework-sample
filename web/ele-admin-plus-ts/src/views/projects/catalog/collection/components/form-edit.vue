@@ -244,26 +244,6 @@
 
           <!-- 日期信息 -->
           <el-col :span="8">
-            <el-form-item label="征集日期" prop="collectionDate">
-              <el-date-picker
-                v-model="form.collectionDate"
-                type="date"
-                value-format="YYYY-MM-DD"
-                placeholder="请选择征集日期"
-                style="width: 100%"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="入藏日期范围" prop="collectionDateRange">
-              <dict-data
-                :code="DIC_KEY_ACQUISITION_DATE_RANGE"
-                v-model="form.collectionDateRange"
-                placeholder="请输入入藏日期范围"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
             <el-form-item label="入藏年度" prop="collectionYear">
               <el-date-picker
                 v-model="form.collectionYear"
@@ -277,17 +257,6 @@
 
           <!-- 时间信息 -->
           <el-col :span="8">
-            <el-form-item label="入馆时间" prop="museumEntryTime">
-              <el-date-picker
-                v-model="form.museumEntryTime"
-                type="date"
-                value-format="YYYY-MM-DD"
-                placeholder="请选择入馆时间"
-                style="width: 100%"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
             <el-form-item label="入藏时间" prop="collectionTime">
               <el-date-picker
                 v-model="form.collectionTime"
@@ -298,100 +267,29 @@
               />
             </el-form-item>
           </el-col>
+          <!-- 价格信息 -->
           <el-col :span="8">
-            <el-form-item label="登录时间" prop="loginTime">
-              <el-date-picker
-                v-model="form.loginTime"
-                type="date"
-                value-format="YYYY-MM-DD"
-                placeholder="请选择登录时间"
+            <el-form-item label="价格" prop="price">
+              <el-input-number
+                v-model="form.price"
+                :min="0"
+                :precision="2"
+                :step="1"
+                placeholder="请输入价格"
                 style="width: 100%"
               />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="入柜时间" prop="cabinetEntryTime">
-              <el-date-picker
-                v-model="form.cabinetEntryTime"
-                type="date"
-                value-format="YYYY-MM-DD"
-                placeholder="请选择入柜时间"
-                style="width: 100%"
-              />
-            </el-form-item>
-          </el-col>
-
-          <!-- 类型信息 -->
-          <el-col :span="8">
-            <el-form-item label="类型" prop="type">
-              <dict-data
-                :code="DIC_KEY_COLLECTION_TYPE"
-                v-model="form.type"
-                placeholder="请输入类型"
-              />
+            <el-form-item label="产品来源" prop="productSource">
+              <el-input v-model="form.productSource" placeholder="请输入产品来源" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="人文类型" prop="culturalType">
-              <dict-data
-                :code="DIC_KEY_HUMANITIES_TYPE"
-                v-model="form.culturalType"
-                placeholder="请输入人文类型"
-              />
+            <el-form-item label="创作" prop="create">
+              <el-input v-model="form.create" placeholder="请输入创作" clearable />
             </el-form-item>
           </el-col>
-
-          <!-- 多媒体信息 -->
-          <el-col :span="8">
-            <el-form-item label="文本类型" prop="textType">
-              <dict-data
-                :code="DIC_KEY_TEXT_TYPE"
-                v-model="form.textType"
-                placeholder="请输入文本类型"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="声像载体类型" prop="audioVisualCarrierType">
-              <dict-data
-                :code="DIC_KEY_AUDIOVISUAL_CARRIER_TYPE"
-                v-model="form.audioVisualCarrierType"
-                placeholder="请输入声像载体类型"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="声像载体存放位置" prop="audioVisualStorageLocation">
-              <el-input
-                v-model="form.audioVisualStorageLocation"
-                placeholder="请输入声像载体存放位置"
-                clearable
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="计算机磁盘路径" prop="diskPath">
-              <el-input v-model="form.diskPath" placeholder="请输入计算机磁盘路径" clearable />
-            </el-form-item>
-          </el-col>
-
-          <!-- 文本信息 -->
-          <el-col :span="24">
-            <el-form-item label="藏品介绍" prop="collectionIntroduction">
-              <el-input
-                v-model="form.collectionIntroduction"
-                type="textarea"
-                placeholder="请输入藏品介绍"
-                :rows="3"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="备注" prop="notes">
-              <el-input v-model="form.notes" type="textarea" placeholder="请输入备注" :rows="3" />
-            </el-form-item>
-          </el-col>
-
           <!-- 图片信息 -->
           <el-col :span="24">
             <el-form-item label="图片信息" prop="imageInfo">
@@ -433,17 +331,12 @@
     DIC_KEY_CODE_CATEGORY,
     DIC_KEY_PRESERVATION_STATUS,
     DIC_KEY_QUANTITY_UNIT,
-    DIC_KEY_HUMANITIES_TYPE,
-    DIC_KEY_TEXT_TYPE,
-    DIC_KEY_AUDIOVISUAL_CARRIER_TYPE,
-    DIC_KEY_COLLECTION_TYPE,
-    DIC_KEY_COLLECTION_SOURCE,
     DIC_KEY_COMPLETENESS,
     DIC_KEY_COLOR_CATEGORY,
     DIC_KEY_QUALITY_RANGE,
     DIC_KEY_REGION_TYPE,
     DIC_KEY_TEXTURE_TYPE,
-    DIC_KEY_ACQUISITION_DATE_RANGE
+    DIC_KEY_COLLECTION_SOURCE
   } from '@/config/setting'
 
   /** 图片上传的值 */
@@ -498,22 +391,12 @@
     preservationStatus: '',
     collectionSource: '',
     artist: '',
-    collectionDate: '',
-    collectionDateRange: [] as any,
     collectionYear: '',
-    museumEntryTime: '',
     collectionTime: '',
-    loginTime: '',
-    cabinetEntryTime: '',
-    type: '',
-    culturalType: '',
-    collectionIntroduction: '',
-    textType: '',
-    audioVisualCarrierType: '',
-    audioVisualStorageLocation: '',
-    diskPath: '',
-    notes: '',
-    imageInfo: ''
+    imageInfo: '',
+    price: 0,
+    productSource: '',
+    create: ''
   })
 
   /** 表单验证规则 */
@@ -550,6 +433,10 @@
       loading.value = true
       // 取图片url
       const imageUrl = imageUploadValue.value.length > 0 ? imageUploadValue.value[0].url : ''
+      // 保证价格保留2位小数
+      if (typeof form.price === 'number') {
+        form.price = Number(form.price.toFixed(2))
+      }
       if (isUpdate.value && props.data) {
         // For update operation, we need to include all required fields from props.data
         const updateData: Collection = {
@@ -582,24 +469,11 @@
           collectionSource: form.collectionSource ?? props.data.collectionSource,
           condition: form.condition ?? props.data.condition,
           preservationStatus: form.preservationStatus ?? props.data.preservationStatus,
-          collectionDate: form.collectionDate ?? props.data.collectionDate,
-          collectionDateRange: form.collectionDateRange ?? props.data.collectionDateRange,
           collectionYear: form.collectionYear ?? props.data.collectionYear,
-          type: form.type ?? props.data.type,
-          culturalType: form.culturalType ?? props.data.culturalType,
-          collectionIntroduction: form.collectionIntroduction ?? props.data.collectionIntroduction,
-          textType: form.textType ?? props.data.textType,
-          audioVisualCarrierType: form.audioVisualCarrierType ?? props.data.audioVisualCarrierType,
-          audioVisualStorageLocation:
-            form.audioVisualStorageLocation ?? props.data.audioVisualStorageLocation,
-          diskPath: form.diskPath ?? props.data.diskPath,
-          colorCategory: form.colorCategory ?? props.data.colorCategory,
-          colorDescription: form.colorDescription ?? props.data.colorDescription,
-          notes: form.notes ?? props.data.notes,
-          museumEntryTime: form.museumEntryTime ?? props.data.museumEntryTime,
           collectionTime: form.collectionTime ?? props.data.collectionTime,
-          loginTime: form.loginTime ?? props.data.loginTime,
-          cabinetEntryTime: form.cabinetEntryTime ?? props.data.cabinetEntryTime
+          price: form.price ?? props.data.price,
+          productSource: form.productSource ?? props.data.productSource,
+          create: form.create ?? props.data.create
         }
         update(updateData)
           .then((msg) => {

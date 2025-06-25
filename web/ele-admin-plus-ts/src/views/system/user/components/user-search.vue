@@ -18,6 +18,15 @@
         </el-form-item>
       </el-col>
       <el-col :lg="6" :md="12" :sm="12" :xs="24">
+        <el-form-item label="分账单位">
+          <el-select v-model="form.displayType" placeholder="请选择分账单位">
+            <el-option :value="0" label="全部" />
+            <el-option :value="1" label="湖南省工艺美术馆" />
+            <el-option :value="2" label="湖南省工艺美术研究所" />
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :lg="6" :md="12" :sm="12" :xs="24">
         <el-form-item label-width="16px">
           <el-button type="primary" @click="search">查询</el-button>
           <el-button @click="reset">重置</el-button>
@@ -40,7 +49,8 @@
   const [form, resetFields] = useFormData<UserParam>({
     username: '',
     nickname: '',
-    sex: void 0
+    sex: void 0,
+    displayType: void 0
   })
 
   /** 搜索 */

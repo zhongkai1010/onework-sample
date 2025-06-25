@@ -17,7 +17,7 @@ export interface OutboundOrder {
   borrowDepartment?: string
   /** 提借人 */
   borrower?: string
-  /** 提借类型 */
+  /** 出库类型 */
   borrowType?: string
   /** 拟归日期 */
   proposedReturnDate?: string
@@ -75,7 +75,7 @@ export interface AddOutboundParams {
   borrowDepartment?: string
   /** 提借人 */
   borrower: string
-  /** 提借类型 */
+  /** 出库类型 */
   borrowType: string
   /** 拟归日期 */
   proposedReturnDate: string
@@ -83,6 +83,10 @@ export interface AddOutboundParams {
   remarks?: string
   /** 藏品ID集合 */
   collectionIds: number[]
+  /** 销售单价 */
+  price: number
+  /** 出库数量 */
+  outboundNumber: number
 }
 
 /**
@@ -111,7 +115,7 @@ export interface OutboundQueryParams {
   code?: string
   /** 经办人 */
   operator?: string
-  /** 提借类型 */
+  /** 出库类型 */
   borrowType?: string
   /** 分页查询每页数量 */
   limit?: number
@@ -193,7 +197,7 @@ export interface OutboundDetailInfo {
   borrowDepartment?: string
   /** 提借人 */
   borrower?: string
-  /** 提借类型 */
+  /** 出库类型 */
   borrowType?: string
   /** 拟归日期 */
   proposedReturnDate?: string

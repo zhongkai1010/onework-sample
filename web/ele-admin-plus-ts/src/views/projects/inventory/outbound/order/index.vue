@@ -76,9 +76,9 @@
     <reference-button
       title="出库单管理"
       :imageUrl="pageImage"
-      searchText="单据图片 单据状态 出库单号 出库日期 经办人 提借部门 提借人 提借类型 拟归日期 备注"
+      searchText="单据图片 单据状态 出库单号 出库日期 经办人 提借部门 提借人 出库类型 拟归日期 备注"
       operationText="上传图片 删除 导出"
-      tableFieldsText="单据图片 单据状态 出库单号 出库日期 经办人 提借部门 提借人 提借类型 拟归日期 备注 操作"
+      tableFieldsText="单据图片 单据状态 出库单号 出库日期 经办人 提借部门 提借人 出库类型 拟归日期 备注 操作"
       tableOperationsText="上传图片 查看详情 审核"
     />
 
@@ -304,7 +304,7 @@
     },
     {
       prop: 'borrowType',
-      label: '提借类型',
+      label: '出库类型',
       width: 120,
       align: 'center',
       showOverflowTooltip: true
@@ -323,6 +323,21 @@
       label: '备注',
       minWidth: 200,
       align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'price',
+      label: '销售单价',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      formatter: (row) => (typeof row.price === 'number' ? row.price.toFixed(2) : '')
+    },
+    {
+      prop: 'outboundNumber',
+      label: '出库数量',
+      width: 120,
+      align: 'center',
       showOverflowTooltip: true
     },
     {

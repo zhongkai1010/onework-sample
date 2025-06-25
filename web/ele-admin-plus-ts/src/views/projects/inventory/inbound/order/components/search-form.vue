@@ -25,6 +25,17 @@
     <el-form-item label="备注" prop="remark">
       <el-input v-model="form.remark" placeholder="请输入备注" clearable style="width: 200px" />
     </el-form-item>
+    <el-form-item label="入库日期">
+      <el-date-picker
+        v-model="form.dateRange"
+        type="datetimerange"
+        range-separator="至"
+        start-placeholder="开始时间"
+        end-placeholder="结束时间"
+        value-format="YYYY-MM-DD HH:mm:ss"
+        style="width: 340px"
+      />
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="search">查询</el-button>
       <el-button @click="reset">重置</el-button>
@@ -43,21 +54,27 @@
   }>()
 
   /** 表单数据 */
-  const [form, resetFields] = useFormData<InboundQueryParams>({
+  const [form, resetFields] = useFormData<InboundQueryParams & { dateRange?: [string, string] }>({
     status: undefined,
     type: undefined,
     collectionId: undefined,
     operator: '',
     warehouseId: undefined,
-    remark: ''
+    remark: '',
+    dateRange: undefined
   })
 
   /** 搜索 */
   const search = () => {
     // 过滤掉 undefined 和空字符串的值
-    const params = Object.fromEntries(
+    let params: any = Object.fromEntries(
       Object.entries(form).filter(([_, value]) => value !== undefined && value !== '')
-    ) as InboundQueryParams
+    )
+    if (form.dateRange && form.dateRange.length === 2) {
+      params.startTime = form.dateRange[0]
+      params.endTime = form.dateRange[1]
+    }
+    delete params.dateRange
     emit('search', params)
   }
 

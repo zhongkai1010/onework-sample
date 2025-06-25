@@ -63,16 +63,6 @@
         :infinite="false"
       />
     </ele-card>
-
-    <!-- 参考按钮 -->
-    <reference-button
-      title="藏品入库"
-      :imageUrl="pageImage"
-      searchText="藏品编号 藏品名称 藏品分类 地域类型 地域 请输入地域 藏品来源 入藏日期范围 类型"
-      operationText="退回编目"
-      tableFieldsText="藏品状态 图片信息 编号类别 藏品编号 藏品名称 藏品类别 编号 数量 数量单位 年代类型 年代 艺术家 地域类型 地域 质地类型 质地 通长 底径 通宽 口径 通高 具体尺寸 质量范围 具体质量 质量单位 文物级别 藏品来源 完残状况 保存状态 征集日期 入藏日期范围 入藏年度 类型 人文类型 藏品介绍 文本类型 声像载体类型 声像载体存放位置 计算机磁盘路径 颜色类别 颜色描述 存放位置 备注 入馆时间 入藏时间 登录时间 入柜时间 操作"
-      tableOperationsText="查看详情"
-    />
   </ele-page>
 </template>
 
@@ -87,8 +77,6 @@
   import { getPreparation, returnCollections } from '@/api/collection/catalog'
   import SearchForm from './components/search-form.vue'
   import CollectionDetails from '../collection/components/collection-details.vue'
-  import ReferenceButton from '@/components/ReferenceButton/index.vue'
-  import pageImage from './page.png'
 
   /* ==================== 组件引用 ==================== */
   const searchRef = ref<InstanceType<typeof SearchForm> | null>(null)
@@ -294,14 +282,6 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'type',
-      label: '类型',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
       prop: 'culturalLevel',
       label: '文物级别',
       sortable: 'custom',
@@ -334,22 +314,6 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'collectionDate',
-      label: '征集日期',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionDateRange',
-      label: '入藏日期范围',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
       prop: 'collectionYear',
       label: '入藏年度',
       sortable: 'custom',
@@ -371,13 +335,6 @@
       sortable: 'custom',
       width: 120,
       align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'notes',
-      label: '备注',
-      sortable: 'custom',
-      align: 'left',
       showOverflowTooltip: true
     },
     {

@@ -10,7 +10,7 @@ export const zh_CN = {
       website: '官网',
       document: '文档',
       authorization: '授权',
-      copyright: 'Copyright © 2025 藏品管理软件'
+      copyright: 'Copyright © 2025 云工美库管平台'
     },
     logout: {
       title: '系统提示',

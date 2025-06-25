@@ -28,7 +28,7 @@
             <p>经办人：{{ details?.operator }}</p>
             <p>提借部门：{{ details?.borrowDepartment }}</p>
             <p>提借人：{{ details?.borrower }}</p>
-            <p>提借类型：{{ details?.borrowType }}</p>
+            <p>出库类型：{{ details?.borrowType }}</p>
             <p>拟归日期：{{ details?.proposedReturnDate }}</p>
           </div>
           <div class="print-remarks">

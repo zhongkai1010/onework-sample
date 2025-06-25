@@ -14,12 +14,15 @@ import { removeToken } from '@/utils/token-util'
 /** 直接指定菜单数据 */
 const USER_MENUS: Menu[] | null = null
 
+export const USER_UNIT_CACHE_KEY = 'USER_CURRENT_UNIT'
+
 export interface UserState {
   info: User | null
   menus: MenuItem[] | null
   authorities: (string | undefined)[]
   roles: (string | undefined)[]
   dicts: Record<string, DictionaryData[]>
+  currentUnit: number
 }
 
 export const useUserStore = defineStore('user', {
@@ -33,7 +36,15 @@ export const useUserStore = defineStore('user', {
     /** 当前登录用户的角色 */
     roles: [],
     /** 字典数据缓存 */
-    dicts: {}
+    dicts: {},
+    /** 当前单位 */
+    currentUnit: (() => {
+      const cache = localStorage.getItem(USER_UNIT_CACHE_KEY)
+      if (cache === '0' || cache === '1' || cache === '2') {
+        return Number(cache) as 0 | 1 | 2
+      }
+      return 0
+    })()
   }),
   actions: {
     /**
@@ -59,6 +70,11 @@ export const useUserStore = defineStore('user', {
       if (result.code === 0 && result.data) {
         // 用户信息
         this.setInfo(result.data)
+
+        const displayType = Number(result.data?.displayType ?? '0')
+        if (displayType != 0) {
+          this.setCurrentUnit(displayType)
+        }
         // 用户权限
         if (result.data.authorities) {
           this.authorities =
@@ -85,6 +101,10 @@ export const useUserStore = defineStore('user', {
      */
     setInfo(value: User) {
       this.info = value
+    },
+    setCurrentUnit(value: number) {
+      this.currentUnit = value
+      localStorage.setItem(USER_UNIT_CACHE_KEY, String(value))
     },
     /**
      * 更新菜单数据

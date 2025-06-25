@@ -14,13 +14,24 @@
     <el-form-item label="经办人">
       <el-input v-model="form.operator" placeholder="请输入经办人" clearable />
     </el-form-item>
-    <el-form-item label="提借类型">
+    <el-form-item label="出库类型">
       <dict-data
         v-model="form.borrowType"
         :code="DIC_KEY_BORROW_TYPE"
-        placeholder="请选择提借类型"
+        placeholder="请选择出库类型"
         clearable
         style="width: 190px"
+      />
+    </el-form-item>
+    <el-form-item label="出库日期">
+      <el-date-picker
+        v-model="form.dateRange"
+        type="datetimerange"
+        range-separator="至"
+        start-placeholder="开始时间"
+        end-placeholder="结束时间"
+        value-format="YYYY-MM-DD HH:mm:ss"
+        style="width: 340px"
       />
     </el-form-item>
     <el-form-item>
@@ -40,16 +51,23 @@
   }>()
 
   // 表单数据
-  const [form, resetFields] = useFormData<OutboundQueryParams>({
+  const [form, resetFields] = useFormData<OutboundQueryParams & { dateRange?: [string, string] }>({
     status: undefined,
     code: undefined,
     operator: undefined,
-    borrowType: undefined
+    borrowType: undefined,
+    dateRange: undefined
   })
 
   // 搜索
   const search = () => {
-    emit('search', form)
+    let params: any = { ...form }
+    if (form.dateRange && form.dateRange.length === 2) {
+      params.startTime = form.dateRange[0]
+      params.endTime = form.dateRange[1]
+    }
+    delete params.dateRange
+    emit('search', params)
   }
 
   // 重置

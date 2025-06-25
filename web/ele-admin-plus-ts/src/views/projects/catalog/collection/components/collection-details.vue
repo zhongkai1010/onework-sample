@@ -94,6 +94,15 @@
         <el-descriptions-item label="质量单位" class-name="equal-width">
           {{ data.weightUnit }}
         </el-descriptions-item>
+        <el-descriptions-item label="价格" class-name="equal-width">
+          {{ typeof data.price === 'number' ? data.price.toFixed(2) : '' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="产品来源" class-name="equal-width">
+          {{ data.productSource }}
+        </el-descriptions-item>
+        <el-descriptions-item label="创作" class-name="equal-width">
+          {{ data.create }}
+        </el-descriptions-item>
 
         <!-- 颜色信息 -->
         <el-descriptions-item label="颜色类别" class-name="equal-width">
@@ -120,58 +129,13 @@
         </el-descriptions-item>
 
         <!-- 日期信息 -->
-        <el-descriptions-item label="征集日期" class-name="equal-width">
-          {{ data.collectionDate }}
-        </el-descriptions-item>
-        <el-descriptions-item label="入藏日期范围" class-name="equal-width">
-          {{ data.collectionDateRange }}
-        </el-descriptions-item>
         <el-descriptions-item label="入藏年度" class-name="equal-width">
           {{ data.collectionYear }}
         </el-descriptions-item>
 
         <!-- 时间信息 -->
-        <el-descriptions-item label="入馆时间" class-name="equal-width">
-          {{ data.museumEntryTime }}
-        </el-descriptions-item>
         <el-descriptions-item label="入藏时间" class-name="equal-width">
           {{ data.collectionTime }}
-        </el-descriptions-item>
-        <el-descriptions-item label="登录时间" class-name="equal-width">
-          {{ data.loginTime }}
-        </el-descriptions-item>
-        <el-descriptions-item label="入柜时间" class-name="equal-width">
-          {{ data.cabinetEntryTime }}
-        </el-descriptions-item>
-
-        <!-- 类型信息 -->
-        <el-descriptions-item label="类型" class-name="equal-width">
-          {{ data.type }}
-        </el-descriptions-item>
-        <el-descriptions-item label="人文类型" class-name="equal-width">
-          {{ data.culturalType }}
-        </el-descriptions-item>
-
-        <!-- 多媒体信息 -->
-        <el-descriptions-item label="文本类型" class-name="equal-width">
-          {{ data.textType }}
-        </el-descriptions-item>
-        <el-descriptions-item label="声像载体类型" class-name="equal-width">
-          {{ data.audioVisualCarrierType }}
-        </el-descriptions-item>
-        <el-descriptions-item label="声像载体存放位置" class-name="equal-width">
-          {{ data.audioVisualStorageLocation }}
-        </el-descriptions-item>
-        <el-descriptions-item label="计算机磁盘路径" class-name="equal-width">
-          {{ data.diskPath }}
-        </el-descriptions-item>
-
-        <!-- 文本信息 -->
-        <el-descriptions-item label="藏品介绍" :span="2">
-          <div class="text-content">{{ data.collectionIntroduction }}</div>
-        </el-descriptions-item>
-        <el-descriptions-item label="备注" :span="2">
-          <div class="text-content">{{ data.notes }}</div>
         </el-descriptions-item>
       </el-descriptions>
     </div>

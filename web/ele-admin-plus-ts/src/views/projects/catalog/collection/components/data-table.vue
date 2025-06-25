@@ -383,73 +383,10 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'collectionDate',
-      label: '征集日期',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionDateRange',
-      label: '入藏日期范围',
-      width: 220,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
       prop: 'collectionYear',
       label: '入藏年度',
       width: 120,
       align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'type',
-      label: '类型',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'culturalType',
-      label: '人文类型',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionIntroduction',
-      label: '藏品介绍',
-      width: 220,
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'textType',
-      label: '文本类型',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'audioVisualCarrierType',
-      label: '声像载体类型',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'audioVisualStorageLocation',
-      label: '声像载体存放位置',
-      width: 220,
-      align: 'left',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'diskPath',
-      label: '计算机磁盘路径',
-      width: 220,
-      align: 'left',
       showOverflowTooltip: true
     },
     {
@@ -474,38 +411,25 @@
       showOverflowTooltip: true
     },
     {
-      prop: 'notes',
-      label: '备注',
-      width: 220,
+      prop: 'price',
+      label: '价格',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      formatter: (row) => (typeof row.price === 'number' ? row.price.toFixed(2) : '')
+    },
+    {
+      prop: 'productSource',
+      label: '产品来源',
+      width: 180,
       align: 'left',
       showOverflowTooltip: true
     },
     {
-      prop: 'museumEntryTime',
-      label: '入馆时间',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'collectionTime',
-      label: '入藏时间',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'loginTime',
-      label: '登录时间',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'cabinetEntryTime',
-      label: '入柜时间',
-      width: 120,
-      align: 'center',
+      prop: 'create',
+      label: '创作',
+      width: 180,
+      align: 'left',
       showOverflowTooltip: true
     },
     {

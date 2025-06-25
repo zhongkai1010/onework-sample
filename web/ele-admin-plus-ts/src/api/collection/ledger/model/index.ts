@@ -246,4 +246,10 @@ export interface CollectionLedger {
   loginTime?: string
   /** 入柜时间 */
   cabinetEntryTime?: string
+  /** 价格 */
+  price?: number
+  /** 产品来源 */
+  productSource?: string
+  /** 创作 */
+  create?: string
 }

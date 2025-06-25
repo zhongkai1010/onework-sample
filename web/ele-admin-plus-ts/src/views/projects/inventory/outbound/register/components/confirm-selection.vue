@@ -19,11 +19,11 @@
       <el-form-item label="提借人" prop="borrower">
         <el-input v-model="form.borrower" placeholder="请输入提借人" clearable />
       </el-form-item>
-      <el-form-item label="提借类型" prop="borrowType">
+      <el-form-item label="出库类型" prop="borrowType">
         <dict-data
           v-model="form.borrowType"
           :code="DIC_KEY_BORROW_TYPE"
-          placeholder="请选择提借类型"
+          placeholder="请选择出库类型"
           clearable
           style="width: 100%"
         />
@@ -34,6 +34,25 @@
           type="date"
           placeholder="请选择拟归日期"
           value-format="YYYY-MM-DD"
+          style="width: 100%"
+        />
+      </el-form-item>
+      <el-form-item label="销售单价" prop="price">
+        <el-input-number
+          v-model="form.price"
+          :min="0"
+          :precision="2"
+          :step="1"
+          placeholder="请输入销售单价"
+          style="width: 100%"
+        />
+      </el-form-item>
+      <el-form-item label="出库数量" prop="outboundNumber">
+        <el-input-number
+          v-model="form.outboundNumber"
+          :min="1"
+          :step="1"
+          placeholder="请输入出库数量"
           style="width: 100%"
         />
       </el-form-item>
@@ -81,7 +100,9 @@
     borrowType: '',
     proposedReturnDate: '',
     remarks: '',
-    collectionIds: []
+    collectionIds: [],
+    price: 0,
+    outboundNumber: 1
   })
 
   // 表单校验规则
@@ -89,7 +110,7 @@
     outboundDate: [{ required: true, message: '请选择出库日期', trigger: 'change' }],
     operator: [{ required: true, message: '请输入经办人', trigger: 'blur' }],
     borrower: [{ required: true, message: '请输入提借人', trigger: 'blur' }],
-    borrowType: [{ required: true, message: '请输入提借类型', trigger: 'blur' }],
+    borrowType: [{ required: true, message: '请输入出库类型', trigger: 'blur' }],
     proposedReturnDate: [{ required: true, message: '请选择拟归日期', trigger: 'change' }]
   }
 
@@ -109,6 +130,9 @@
   const handleSubmit = () => {
     formRef.value?.validate(async (valid) => {
       if (valid) {
+        if (typeof form.price === 'number') {
+          form.price = Number(form.price.toFixed(2))
+        }
         try {
           await addOutbound(form)
           ElMessage.success('出库成功')

@@ -77,6 +77,22 @@
     </template>
     <!-- 顶栏右侧按钮 -->
     <template #right>
+      <layout-tool>
+        <el-select
+          v-if="info?.displayType == '0'"
+          v-model="currentUnit"
+          placeholder="请选择分账管理单位"
+          style="width: 198px"
+          @change="handleUnitChange"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </layout-tool>
       <!-- 全屏切换 -->
       <layout-tool class="hidden-sm-and-down" @click="toggleFullscreen">
         <el-icon style="transform: scale(1.18)">
@@ -218,8 +234,23 @@
   const userStore = useUserStore()
   const themeStore = useThemeStore()
 
+  const options = [
+    {
+      value: 0,
+      label: '全部'
+    },
+    {
+      value: 1,
+      label: '湖南省工艺美术馆'
+    },
+    {
+      value: 2,
+      label: '湖南省工艺美术研究所'
+    }
+  ]
+
   /** 菜单数据 */
-  const { menus } = storeToRefs(userStore)
+  const { menus, currentUnit, info } = storeToRefs(userStore)
 
   /** 布局风格 */
   const {
@@ -392,6 +423,12 @@
       }
     }
     return menu?.meta?.title
+  }
+
+  /** 单位切换事件 */
+  const handleUnitChange = () => {
+    userStore.setCurrentUnit(currentUnit.value)
+    window.location.reload()
   }
 </script>
 

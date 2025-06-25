@@ -14,7 +14,7 @@
           <span class="details-header-value">{{ data?.code }}</span>
         </div>
         <div class="details-header-item">
-          <span class="details-header-label">提借类型：</span>
+          <span class="details-header-label">出库类型：</span>
           <span class="details-header-value">{{ data?.borrowType }}</span>
         </div>
         <div class="details-header-item">
@@ -192,6 +192,21 @@
       align: 'center',
       showOverflowTooltip: true,
       slot: 'status'
+    },
+    {
+      prop: 'price',
+      label: '销售单价',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true,
+      formatter: (row) => (typeof row.price === 'number' ? row.price.toFixed(2) : '')
+    },
+    {
+      prop: 'outboundNumber',
+      label: '出库数量',
+      width: 120,
+      align: 'center',
+      showOverflowTooltip: true
     }
   ])
 

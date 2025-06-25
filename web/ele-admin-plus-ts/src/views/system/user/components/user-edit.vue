@@ -13,6 +13,13 @@
           <el-form-item label="所属机构">
             <organization-select v-model="form.organizationId" />
           </el-form-item>
+          <el-form-item label="分账单位" prop="displayType">
+            <el-select v-model="form.displayType" placeholder="分账单位">
+              <el-option :value="0" label="全部" />
+              <el-option :value="1" label="湖南省工艺美术馆" />
+              <el-option :value="2" label="湖南省工艺美术研究所" />
+            </el-select>
+          </el-form-item>
           <el-form-item label="用户账号" prop="username">
             <el-input
               clearable
@@ -133,7 +140,8 @@
     introduction: '',
     birthday: '',
     organizationId: void 0,
-    status: 0
+    status: 0,
+    displayType: 0
   })
 
   /** 表单验证规则 */

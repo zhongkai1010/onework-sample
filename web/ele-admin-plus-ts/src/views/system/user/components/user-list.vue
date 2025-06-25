@@ -132,6 +132,17 @@
       slot: 'nickname'
     },
     {
+      prop: 'displayType',
+      label: '分账单位',
+      width: 120,
+      align: 'center',
+      formatter: (row) => {
+        if (row.displayType === 1) return '湖南省工艺美术馆'
+        if (row.displayType === 2) return '湖南省工艺美术研究所'
+        return '全部'
+      }
+    },
+    {
       prop: 'sex',
       label: '性别',
       sortable: 'custom',

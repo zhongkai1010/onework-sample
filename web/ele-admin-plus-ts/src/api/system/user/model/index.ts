@@ -46,6 +46,8 @@ export interface User {
   tellPre?: string
   /** 联系电话 */
   tell?: string
+  /** 展示单位 0:全部, 1:湖南省工艺美术馆, 2:湖南省工艺美术研究所 */
+  displayType?: string
 }
 
 /**
@@ -74,4 +76,6 @@ export interface UserParam extends PageParam {
   createTimeStart?: string
   /** 创建时间截止时间 */
   createTimeEnd?: string
+  /** 展示单位 0:全部, 1:湖南省工艺美术馆, 2:湖南省工艺美术研究所 */
+  displayType?: 0 | 1 | 2
 }

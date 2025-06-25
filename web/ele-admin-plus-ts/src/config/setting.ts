@@ -95,5 +95,5 @@ export const DIC_KEY_TEXT_TYPE = 'text_type'
 /** 字典-声像载体类型 */
 export const DIC_KEY_AUDIOVISUAL_CARRIER_TYPE = 'carrier_type'
 
-/** 字典-提借类型 */
+/** 字典-出库类型 */
 export const DIC_KEY_BORROW_TYPE = 'borrow_type'

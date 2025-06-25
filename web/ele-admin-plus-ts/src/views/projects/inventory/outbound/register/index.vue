@@ -39,15 +39,6 @@
       v-model="confirmDialogVisible"
       @success="handleConfirmSuccess"
     />
-
-    <!-- 参考按钮 -->
-    <reference-button
-      title="出库登记"
-      :imageUrl="pageImage"
-      searchText="藏品编号 藏品名称 库房名称 年代 质地类型 质地 数量 单位 具体尺寸 完残程度"
-      operationText="选择出库藏品 取消选择 确认选择 删除选中"
-      tableFieldsText="藏品编号 藏品名称 库房名称 年代 质地类型 质地 数量 单位 具体尺寸 完残程度"
-    />
   </ele-page>
 </template>
 
@@ -58,8 +49,6 @@
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import SelectionCollection from './components/selection-collection.vue'
   import ConfirmSelection from './components/confirm-selection.vue'
-  import ReferenceButton from '@/components/ReferenceButton/index.vue'
-  import pageImage from './page.png'
 
   defineOptions({
     name: 'OutboundRegister',
@@ -241,7 +230,6 @@
     selectionDialogVisible.value = false
     // 手动刷新表格数据
     tableRef.value?.reload()
-    console.log('111111', selectedCollections.value)
   }
 
   // 处理行点击事件
