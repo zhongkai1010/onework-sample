@@ -107,8 +107,10 @@ export async function getBooksLedgerList(params: {
   return Promise.reject(new Error(res.data.message))
 }
 
-export async function groupIdStatistics() {
-  const res = await request.get<ApiResult<PageResult<BooksLedger>>>('/Personal/groupIdStatistics')
+export async function groupIdStatistics(params: { startTime: string; endTime: string }) {
+  const res = await request.get<ApiResult<PageResult<any>>>('/Personal/groupIdStatistics', {
+    params
+  })
   if (res.data.code === 0 && res.data.data) {
     return res.data.data
   }
