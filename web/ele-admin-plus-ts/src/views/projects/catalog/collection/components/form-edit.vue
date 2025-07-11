@@ -59,8 +59,13 @@
               <el-input v-model="form.code" placeholder="请输入藏品编号" clearable />
             </el-form-item>
           </el-col>
-          <!-- 数量信息 -->
           <el-col :span="8">
+            <el-form-item label="藏品分组" prop="groupId">
+              <GroupSelect v-model="form.groupId" />
+            </el-form-item>
+          </el-col>
+          <!-- 数量信息 -->
+          <!-- <el-col :span="8">
             <el-form-item label="数量" prop="quantity">
               <el-input-number
                 v-model="form.quantity"
@@ -69,7 +74,7 @@
                 style="width: 100%"
               />
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col :span="8">
             <el-form-item label="数量单位" prop="unit">
               <dict-data
@@ -322,6 +327,7 @@
   import { register, update } from '@/api/collection/catalog'
   import { CategorySelect } from '@/components/CustomForm'
   import { ArtistSelect } from '@/components/CustomForm'
+  import { GroupSelect } from '@/components/CustomForm'
   import CommonUpload from '@/components/CommonUpload/index.vue'
   import DictData from '@/components/DictData/index.vue'
   import type { FormInstance, FormRules } from 'element-plus'
@@ -396,7 +402,8 @@
     imageInfo: '',
     price: 0,
     productSource: '',
-    create: ''
+    create: '',
+    groupId: 0
   })
 
   /** 表单验证规则 */
@@ -414,6 +421,14 @@
         required: true,
         message: '请输入藏品编号',
         type: 'string',
+        trigger: 'blur'
+      }
+    ],
+    groupId: [
+      {
+        required: true,
+        message: '请选择藏品分组',
+        type: 'number',
         trigger: 'blur'
       }
     ]
@@ -473,7 +488,8 @@
           collectionTime: form.collectionTime ?? props.data.collectionTime,
           price: form.price ?? props.data.price,
           productSource: form.productSource ?? props.data.productSource,
-          create: form.create ?? props.data.create
+          create: form.create ?? props.data.create,
+          groupId: form.groupId ?? props.data.groupId
         }
         update(updateData)
           .then((msg) => {

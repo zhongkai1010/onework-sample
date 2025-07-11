@@ -106,6 +106,8 @@ export interface Collection {
   productSource: string
   /** 创作 */
   create: string
+  /** 藏品分组 */
+  groupId: number
 }
 
 /**
@@ -204,6 +206,8 @@ export interface AddCollectionParams {
   productSource?: string
   /** 创作 */
   create?: string
+  // 分组
+  groupId: number
 }
 
 /**
