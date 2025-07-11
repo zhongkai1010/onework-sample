@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import type { PageResult } from '@/utils/request'
+import type { PageResult } from '@/api'
 import type { CollectionReport, CollectionStatistics } from './model'
 
 /**

@@ -26,7 +26,23 @@
           :popper-width="580"
           :max-tag-text-length="3"
           :max-tag-count="5"
-        />
+        >
+          <!-- @ts-ignore -->
+          <template #topExtra>
+            <div style="margin-bottom: 12px; max-width: 100%">
+              <el-form :inline="true" :model="searchForm" @keyup.enter="handleSearch">
+                <el-form-item label="分组">
+                  <GroupSelect :teleported="false" @change="handleGroupChange" />
+                </el-form-item>
+
+                <el-form-item>
+                  <el-button type="primary" @click="handleSearch">搜索</el-button>
+                  <el-button @click="handleReset">重置</el-button>
+                </el-form-item>
+              </el-form>
+            </div>
+          </template>
+        </ele-table-select>
       </el-form-item>
       <el-form-item label="经办人" prop="operator">
         <el-input v-model="form.operator" placeholder="请输入经办人" clearable />
@@ -65,6 +81,7 @@
   import { createInbound, getCollectionsByType } from '@/api/inventory/inbound'
   import WarehouseSelect from '@/components/CustomForm/WarehouseSelect.vue'
   import ImageUpload from '@/components/ImageUpload/index.vue'
+  import { GroupSelect } from '@/components/CustomForm'
 
   const emit = defineEmits<{
     (e: 'done'): void
@@ -147,6 +164,15 @@
     storageDate: [{ required: true, message: '请选择入库日期', trigger: 'change' }]
   }
 
+  /** 当前选中的分组 */
+  const selectedGroup = ref()
+
+  /** 分组选择变化 */
+  const handleGroupChange = (groupValue: any) => {
+    selectedGroup.value = groupValue
+    handleCollectionSearch(groupValue)
+  }
+
   /** 监听入库类型变化 */
   watch(
     () => form.type,
@@ -207,13 +233,43 @@
     resetFields()
   }
 
+  // 搜索表单数据
+  const searchForm = reactive({
+    collectionCode: '',
+    collectionName: ''
+  })
+
+  // 搜索
+  const handleSearch = () => {
+    tableProps.datasource = [] // 可选：清空数据源以触发刷新
+    handleCollectionSearch(selectedGroup.value)
+  }
+
+  // 重置
+  const handleReset = () => {
+    searchForm.collectionCode = ''
+    searchForm.collectionName = ''
+    handleSearch()
+  }
+
   /** 藏品搜索 */
-  const handleCollectionSearch = () => {
+  const handleCollectionSearch = (groupValue?: any) => {
     loading.value = true
     const type = form.type || 1 // 确保 type 不为 undefined
-    getCollectionsByType(type)
+    const params: any = { type }
+    if (groupValue !== undefined) {
+      params.group = groupValue
+    } else if (selectedGroup.value !== undefined) {
+      params.group = selectedGroup.value
+    }
+    if (searchForm.collectionCode) {
+      params.collectionCode = searchForm.collectionCode
+    }
+    if (searchForm.collectionName) {
+      params.collectionName = searchForm.collectionName
+    }
+    getCollectionsByType(params)
       .then((res) => {
-        console.log('11111111', res)
         tableProps.datasource = res as any
       })
       .catch((e) => {

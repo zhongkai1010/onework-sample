@@ -122,6 +122,8 @@ export interface InboundCollectionQueryParams {
   collectionCode?: number
   /** 接收库房 */
   collectionName?: number
+  /** 分组 */
+  groupId?: number
   /** 分页查询每页数量 */
   limit?: number
   /** 排序方式 */

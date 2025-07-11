@@ -19,6 +19,14 @@
       <!-- 工具栏按钮组 -->
       <el-button type="primary" :icon="PlusOutlined" @click="handleRegister"> 藏品登记 </el-button>
       <el-button
+        type="primary"
+        :icon="CopyOutlined"
+        @click="handleCopyCollection"
+        :disabled="selections.length !== 1"
+      >
+        复制藏品
+      </el-button>
+      <el-button
         type="default"
         :icon="EditOutlined"
         @click="handleBatchModify"
@@ -108,6 +116,8 @@
     :initialIndex="viewerIndex"
     :infinite="false"
   />
+
+  <CopyCollectionModal v-model="showCopyModal" :collection-id="selections[0]?.id" @done="reload" />
 </template>
 
 <script lang="ts" setup>
@@ -127,7 +137,8 @@
     CheckOutlined,
     UploadOutlined,
     DownloadOutlined,
-    PrinterOutlined
+    PrinterOutlined,
+    CopyOutlined
   } from '@/components/icons'
   import SearchForm from './search-form.vue'
   import FormEdit from './form-edit.vue'
@@ -137,6 +148,7 @@
   import PrintLabel from './print-label.vue'
   import PrintDocument from './print-document.vue'
   import ImportModal from './import-modal.vue'
+  import CopyCollectionModal from './copy-collection-modal.vue'
   import { getCatalogs, deleteCollections, approve } from '@/api/collection/catalog'
   import type { Collection, CollectionQueryParams } from '@/api/collection/catalog/model'
   import { getExportWorkbook } from '@/config/use-global-config'
@@ -168,6 +180,7 @@
   const viewerImages = ref<string[]>([])
   const viewerIndex = ref(0)
   const showImport = ref(false)
+  const showCopyModal = ref(false)
 
   /* 计算属性 */
   const selectedCollectionIds = computed(() =>
@@ -217,6 +230,13 @@
     {
       prop: 'numberCategory',
       label: '编号类别',
+      width: 120,
+      align: 'left',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'groupName',
+      label: '分组名称',
       width: 120,
       align: 'left',
       showOverflowTooltip: true
@@ -666,6 +686,13 @@
   const handleRowClick = (row: Collection) => {
     // 触发表格的 selection-change 事件
     tableRef.value?.toggleRowSelection(row)
+  }
+
+  /**
+   * 复制藏品（待实现）
+   */
+  const handleCopyCollection = () => {
+    showCopyModal.value = true
   }
 
   /* 监听器 */

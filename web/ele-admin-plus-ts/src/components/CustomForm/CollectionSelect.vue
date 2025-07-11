@@ -15,6 +15,9 @@
   >
     <template #topExtra>
       <el-form :model="form" inline>
+        <el-form-item label="分组">
+          <GroupSelect v-model="form.groupId" :teleported="false" />
+        </el-form-item>
         <el-form-item label="编号" name="collectionCode">
           <el-input
             v-model="form.collectionCode"
@@ -50,6 +53,7 @@
   import type { TableSelectProps } from 'ele-admin-plus/es/ele-table-select/props'
   import type { CollectionLedger } from '@/api/collection/ledger/model'
   import { getAllCatalogs } from '@/api/collection/catalog'
+  import { GroupSelect } from '@/components/CustomForm'
   type SelectTableProps = Exclude<TableSelectProps['tableProps'], undefined>
 
   const attrs = useAttrs()
@@ -70,7 +74,8 @@
 
   const [form, resetFields] = useFormData({
     collectionCode: '',
-    collectionName: ''
+    collectionName: '',
+    groupId: undefined
   })
 
   const tableProps = reactive<SelectTableProps>({

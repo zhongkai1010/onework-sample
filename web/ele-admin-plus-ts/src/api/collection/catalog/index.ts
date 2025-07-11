@@ -162,3 +162,14 @@ export async function updateCategory(data: { ids: number[]; categoryId: number }
   }
   return Promise.reject(new Error(res.data.message))
 }
+
+/**
+ * 复制藏品
+ */
+export async function collectionCopy(data: { collectionId: number; num: number }) {
+  const res = await request.post<ApiResult<unknown>>('/CollectionCatalog/collectionCopy', data)
+  if (res.data.code === 0) {
+    return res.data.message
+  }
+  return Promise.reject(new Error(res.data.message))
+}

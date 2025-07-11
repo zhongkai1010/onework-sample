@@ -107,6 +107,14 @@ export async function getBooksLedgerList(params: {
   return Promise.reject(new Error(res.data.message))
 }
 
+export async function groupIdStatistics() {
+  const res = await request.get<ApiResult<PageResult<BooksLedger>>>('/Personal/groupIdStatistics')
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data
+  }
+  return Promise.reject(new Error(res.data.message))
+}
+
 /**
  * 藏品位置变更
  * @param data 变更数据

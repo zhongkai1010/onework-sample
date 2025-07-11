@@ -17,10 +17,10 @@ import type {
  * 用于入库的时候选择藏品
  * @param type 入库类型,1:初次入库，2：归还入库
  */
-export async function getCollectionsByType(type: number) {
+export async function getCollectionsByType(data: { type: number; groupId?: number }) {
   const res = await request.get<ApiResult<InboundCollection[]>>(
     '/WarehouseCollection/warehouseCollectionList',
-    { params: { type } }
+    { params: data }
   )
   if (res.data.code === 0 && res.data.data) {
     return res.data.data

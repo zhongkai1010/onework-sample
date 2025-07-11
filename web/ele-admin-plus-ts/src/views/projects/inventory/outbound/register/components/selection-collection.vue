@@ -10,6 +10,9 @@
       <el-form-item label="入库单号">
         <el-input v-model="form.warehouseNumber" placeholder="请输入入库单号" clearable />
       </el-form-item>
+      <el-form-item label="分组">
+        <GroupSelect v-model="form.groupId" :teleported="false" />
+      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="search">搜索</el-button>
@@ -45,6 +48,7 @@
   } from '@/api/inventory/inbound/model'
   import type { DatasourceFunction, Columns } from 'ele-admin-plus/es/ele-pro-table/types'
   import { getInboundCollectionList } from '@/api/inventory/inbound'
+  import { GroupSelect } from '@/components/CustomForm'
   import { useFormData } from '@/utils/use-form-data'
 
   const emit = defineEmits<{
@@ -67,7 +71,8 @@
   const [form, resetFields] = useFormData<InboundCollectionQueryParams>({
     warehouseNumber: undefined,
     collectionCode: undefined,
-    collectionName: undefined
+    collectionName: undefined,
+    groupId: undefined
   })
 
   // 表格列配置

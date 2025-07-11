@@ -1,5 +1,6 @@
 <template>
   <ele-tree-select
+    :teleported="props.teleported ?? true"
     v-model="value"
     :tree-props="{
       data: treeData,
@@ -46,6 +47,7 @@
 
   const props = defineProps<{
     modelValue?: number | string
+    teleported?: boolean
   }>()
 
   // 加载分组数据
