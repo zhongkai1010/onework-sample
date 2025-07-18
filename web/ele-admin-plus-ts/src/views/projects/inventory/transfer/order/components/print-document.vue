@@ -10,20 +10,24 @@
       </div>
       <div class="print-body">
         <table class="print-table">
-          <tr>
-            <th>藏品编号</th>
-            <th>藏品名称</th>
-            <th>原仓库</th>
-            <th>现仓库</th>
-            <th>状态</th>
-          </tr>
-          <tr v-for="item in data?.collections" :key="item.id">
-            <td>{{ item.collectionCode }}</td>
-            <td>{{ item.collectionName }}</td>
-            <td>{{ item.originalWarehouse }}</td>
-            <td>{{ item.currentWarehouse }}</td>
-            <td>{{ getStatusText(Number(item.status)) }}</td>
-          </tr>
+          <thead>
+            <tr>
+              <th>藏品编号</th>
+              <th>藏品名称</th>
+              <th>原仓库</th>
+              <th>现仓库</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in data?.collections" :key="item.id">
+              <td>{{ item.collectionCode }}</td>
+              <td>{{ item.collectionName }}</td>
+              <td>{{ item.originalWarehouse }}</td>
+              <td>{{ item.currentWarehouse }}</td>
+              <td>{{ getStatusText(Number(item.status)) }}</td>
+            </tr>
+          </tbody>
         </table>
         <div class="print-footer">
           <div class="print-sign">

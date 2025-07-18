@@ -22,20 +22,24 @@
       <div class="print-body">
         <h3>藏品列表</h3>
         <table class="print-table">
-          <tr>
-            <th>序号</th>
-            <th>藏品编号</th>
-            <th>藏品名称</th>
-            <th>注销日期</th>
-            <th>状态</th>
-          </tr>
-          <tr v-for="(item, index) in details.details" :key="item.collectionCode">
-            <td>{{ index + 1 }}</td>
-            <td>{{ item.collectionCode }}</td>
-            <td>{{ item.collectionName }}</td>
-            <td>{{ item.cancellationTime }}</td>
-            <td>{{ getStatusText(item.status) }}</td>
-          </tr>
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>藏品编号</th>
+              <th>藏品名称</th>
+              <th>注销日期</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in details.details" :key="item.collectionCode">
+              <td>{{ index + 1 }}</td>
+              <td>{{ item.collectionCode }}</td>
+              <td>{{ item.collectionName }}</td>
+              <td>{{ item.cancellationTime }}</td>
+              <td>{{ getStatusText(item.status) }}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>

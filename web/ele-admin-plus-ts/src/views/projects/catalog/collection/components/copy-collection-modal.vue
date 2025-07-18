@@ -18,7 +18,7 @@
   import { EleMessage } from 'ele-admin-plus/es'
   import type { FormInstance, FormRules } from 'element-plus'
 
-  const props = defineProps<{ modelValue: boolean; collectionId: number }>()
+  const props = defineProps<{ modelValue: boolean; collectionId?: number }>()
   const emit = defineEmits(['update:modelValue', 'done'])
 
   const visible = ref(props.modelValue)
