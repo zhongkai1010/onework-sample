@@ -60,9 +60,9 @@
     <reference-button
       title="影像管理"
       :imageUrl="pageImage"
-      searchText="藏品编号 藏品名称 标题 容量大小 文件 添加人 添加时间"
+      searchText="藏品编号 藏品规格 标题 容量大小 文件 添加人 添加时间"
       operationText="添加 删除"
-      tableFieldsText="藏品编号 藏品名称 标题 容量大小 文件 添加人 添加时间"
+      tableFieldsText="藏品编号 藏品规格 标题 容量大小 文件 添加人 添加时间"
       tableOperationsText="编辑 删除"
     />
   </ele-page>
@@ -117,7 +117,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       width: 220,
       showOverflowTooltip: true

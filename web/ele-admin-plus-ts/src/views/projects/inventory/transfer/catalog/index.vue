@@ -29,8 +29,8 @@
       <reference-button
         title="拨库编目"
         :imageUrl="pageImage"
-        searchText="拨库单号 拨库日期 藏品编号 藏品名称 原仓库 现仓库 状态"
-        tableFieldsText="拨库单号 拨库日期 藏品编号 藏品名称 原仓库 现仓库 状态"
+        searchText="拨库单号 拨库日期 藏品编号 藏品规格 原仓库 现仓库 状态"
+        tableFieldsText="拨库单号 拨库日期 藏品编号 藏品规格 原仓库 现仓库 状态"
       />
     </ele-card>
   </ele-page>
@@ -86,7 +86,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       align: 'left',
       showOverflowTooltip: true

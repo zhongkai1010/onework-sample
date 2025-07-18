@@ -25,8 +25,8 @@ export async function getGroupPage(params: GroupQueryParams) {
 }
 
 /**
- * 查询全部藏品分组
- * @param groupName 分组名称
+ * 查询全部藏品名称
+ * @param groupName 藏品名称
  * @returns 藏品组列表
  */
 export async function getAllGroups(groupName?: string) {

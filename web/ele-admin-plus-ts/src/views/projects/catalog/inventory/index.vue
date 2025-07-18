@@ -123,7 +123,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       width: 220,
       align: 'left',

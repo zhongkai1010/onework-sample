@@ -14,7 +14,7 @@ interface Repair {
   collectionCode?: string
   /** 藏品ID */
   collectionId: number
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品分类 */
   collectionCategory?: string
@@ -99,7 +99,13 @@ export default [
     url: '/api/collection/repair',
     method: 'get',
     response: (options: any): ApiResult<PageResult<Repair>> => {
-      const { page = 1, limit = 10, collectionCode, collectionName, status } = options.query as RepairQueryParams
+      const {
+        page = 1,
+        limit = 10,
+        collectionCode,
+        collectionName,
+        status
+      } = options.query as RepairQueryParams
 
       let list = [...repairs]
 

@@ -35,12 +35,12 @@
         </ElTreeSelect>
       </ElFormItem>
       <ElFormItem
-        label="分组名称"
+        label="藏品名称"
         prop="name"
         :rules="[
           {
             required: true,
-            message: '请输入分组名称',
+            message: '请输入藏品名称',
             type: 'string',
             trigger: 'blur'
           }
@@ -50,7 +50,7 @@
           :maxlength="20"
           :clearable="true"
           v-model="form.name"
-          placeholder="请输入分组名称"
+          placeholder="请输入藏品名称"
         />
       </ElFormItem>
     </ElForm>

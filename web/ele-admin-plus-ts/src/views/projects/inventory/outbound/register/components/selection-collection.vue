@@ -4,8 +4,8 @@
       <el-form-item label="藏品编号">
         <el-input v-model.number="form.collectionCode" placeholder="请输入藏品编号" clearable />
       </el-form-item>
-      <el-form-item label="藏品名称">
-        <el-input v-model.number="form.collectionName" placeholder="请输入藏品名称" clearable />
+      <el-form-item label="藏品规格">
+        <el-input v-model.number="form.collectionName" placeholder="请输入藏品规格" clearable />
       </el-form-item>
       <el-form-item label="入库单号">
         <el-input v-model="form.warehouseNumber" placeholder="请输入入库单号" clearable />
@@ -100,7 +100,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       showOverflowTooltip: true
     },

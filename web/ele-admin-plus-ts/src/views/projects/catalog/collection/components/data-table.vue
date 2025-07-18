@@ -236,7 +236,7 @@
     },
     {
       prop: 'groupName',
-      label: '分组名称',
+      label: '藏品名称',
       width: 120,
       align: 'left',
       showOverflowTooltip: true
@@ -250,7 +250,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       width: 220,
       align: 'left',
       showOverflowTooltip: true

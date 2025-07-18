@@ -133,7 +133,7 @@
                           },
                           "collectionName": {
                             "type": "string",
-                            "description": "藏品名称"
+                            "description": "藏品规格"
                           },
                           "categoryId": {
                             "type": "integer",
@@ -312,10 +312,7 @@
                             "description": "入柜时间"
                           }
                         },
-                        "required": [
-                          "collectionId",
-                          "explanation"
-                        ]
+                        "required": ["collectionId", "explanation"]
                       },
                       "title": "PageResult«Role»"
                     },
@@ -371,10 +368,7 @@
                     "description": "盘点查说明"
                   }
                 },
-                "required": [
-                  "ids",
-                  "explanation"
-                ]
+                "required": ["ids", "explanation"]
               },
               "examples": {}
             }

@@ -123,9 +123,9 @@
     <reference-button
       title="事故记录"
       :imageUrl="pageImage"
-      searchText="编号 藏品编码 藏品名称 事故时间 事故地点 事故原因 事故责任人 藏品损坏情况"
+      searchText="编号 藏品编码 藏品规格 事故时间 事故地点 事故原因 事故责任人 藏品损坏情况"
       operationText="添加 上传图片 删除 查看详情 处理 单据打印"
-      tableFieldsText="编号 单据图片 藏品编码 藏品名称 事故时间 事故地点 事故原因 事故责任人 藏品损坏情况 处理状态 处理结果"
+      tableFieldsText="编号 单据图片 藏品编码 藏品规格 事故时间 事故地点 事故原因 事故责任人 藏品损坏情况 处理状态 处理结果"
       tableOperationsText="上传图片 删除"
     />
   </ele-page>
@@ -205,7 +205,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       showOverflowTooltip: true
     },

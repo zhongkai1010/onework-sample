@@ -27,7 +27,7 @@
               <span class="value">{{ data.collectionCode }}</span>
             </div>
             <div class="info-item">
-              <span class="label">藏品名称：</span>
+              <span class="label">藏品规格：</span>
               <span class="value">{{ data.collectionName }}</span>
             </div>
             <div class="info-item">
@@ -116,7 +116,7 @@
               <span class="value">{{ data?.collectionCode }}</span>
             </div>
             <div class="info-item">
-              <span class="label">藏品名称：</span>
+              <span class="label">藏品规格：</span>
               <span class="value">{{ data?.collectionName }}</span>
             </div>
             <div class="info-item">

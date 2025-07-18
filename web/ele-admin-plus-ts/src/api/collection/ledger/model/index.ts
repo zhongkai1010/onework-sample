@@ -14,7 +14,7 @@ export interface RepairRecord {
   collectionCode?: string
   /** 藏品ID */
   collectionId: number
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品分类 */
   collectionCategory?: string
@@ -56,7 +56,7 @@ export interface OutboundRecord {
   outboundDate?: string
   /** 藏品编号 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 入库日期 */
   storageDate?: string
@@ -72,7 +72,7 @@ export interface TransferRecord {
   code?: string
   /** 藏品编号 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 原仓库 */
   originalWarehouse?: string
@@ -94,7 +94,7 @@ export interface BooksLedger {
   imageInfo?: string
   /** 编号类别 */
   numberCategory?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** RFID编号 */
   rfidCode?: string
@@ -132,7 +132,7 @@ export interface LedgerQueryParams extends PageParam {
   collectionStatus?: number
   /** 藏品编号 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 分页大小 */
   limit?: number
@@ -156,7 +156,7 @@ export interface CollectionLedger {
   status?: number
   /** RFID编号 */
   rfidCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品类别ID */
   categoryId?: number

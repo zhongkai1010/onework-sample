@@ -9,7 +9,7 @@
   >
     <el-descriptions :column="2" border>
       <el-descriptions-item label="藏品编号">{{ data?.collectionCode }}</el-descriptions-item>
-      <el-descriptions-item label="藏品名称">{{ data?.collectionName }}</el-descriptions-item>
+      <el-descriptions-item label="藏品规格">{{ data?.collectionName }}</el-descriptions-item>
       <el-descriptions-item label="藏品分类">{{ data?.categoryName }}</el-descriptions-item>
       <el-descriptions-item label="藏品状态">
         <el-tag :type="data?.collectionStatus === 1 ? 'success' : 'info'" effect="light">

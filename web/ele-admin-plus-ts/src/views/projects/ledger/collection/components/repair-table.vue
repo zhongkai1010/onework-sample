@@ -142,7 +142,7 @@
     },
     { prop: 'repairCode', label: '修复单号', width: 220 },
     { prop: 'collectionCode', label: '藏品编号', width: 220 },
-    { prop: 'collectionName', label: '藏品名称', width: 220 },
+    { prop: 'collectionName', label: '藏品规格', width: 220 },
     { prop: 'categoryName', label: '藏品分类', width: 220 },
     { prop: 'repairReason', label: '修复原因', width: 220 },
     { prop: 'repairStatusAndResults', label: '修复情况及结果', width: 220 },

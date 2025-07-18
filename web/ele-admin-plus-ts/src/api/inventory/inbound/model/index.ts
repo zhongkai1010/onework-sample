@@ -4,7 +4,7 @@
 export interface InboundCollection {
   /** 藏品ID */
   id: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 藏品编码 */
   collectionCode: string
@@ -144,7 +144,7 @@ export interface InboundCollection {
   code: string
   /** 藏品编号 */
   collectionCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 接收库房 */
   warehouseId: number
@@ -166,7 +166,7 @@ export interface InboundOrderDetailCollection {
   code: string
   /** 藏品编号 */
   collectionCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 接收库房 */
   warehouseId: number

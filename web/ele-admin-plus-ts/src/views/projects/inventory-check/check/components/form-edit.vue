@@ -6,8 +6,8 @@
         <el-row :gutter="16">
           <!-- 基本信息 -->
           <el-col :span="8">
-            <el-form-item label="藏品名称" prop="collectionName">
-              <el-input v-model="form.collectionName" placeholder="请输入藏品名称" clearable />
+            <el-form-item label="藏品规格" prop="collectionName">
+              <el-input v-model="form.collectionName" placeholder="请输入藏品规格" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -496,7 +496,7 @@
 
   /** 表单验证规则 */
   const rules = {
-    collectionName: [{ required: true, message: '请输入藏品名称', trigger: 'blur' }],
+    collectionName: [{ required: true, message: '请输入藏品规格', trigger: 'blur' }],
     code: [{ required: true, message: '请输入藏品编号', trigger: 'blur' }]
   }
 

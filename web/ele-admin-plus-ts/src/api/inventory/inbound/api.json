@@ -59,18 +59,14 @@
                           },
                           "collectionName": {
                             "type": "string",
-                            "description": "藏品名称"
+                            "description": "藏品规格"
                           },
                           "collectionCode": {
                             "type": "string",
                             "description": "藏品编码"
                           }
                         },
-                        "required": [
-                          "id",
-                          "collectionName",
-                          "collectionCode"
-                        ]
+                        "required": ["id", "collectionName", "collectionCode"]
                       },
                       "title": "PageResult«Role»"
                     },
@@ -145,9 +141,7 @@
                     "description": "备注"
                   }
                 },
-                "required": [
-                  "collectionIds"
-                ]
+                "required": ["collectionIds"]
               },
               "examples": {}
             }
@@ -377,10 +371,7 @@
                                 "description": "备注"
                               }
                             },
-                            "required": [
-                              "id",
-                              "warehouseName"
-                            ]
+                            "required": ["id", "warehouseName"]
                           }
                         }
                       }
@@ -435,9 +426,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -508,9 +497,7 @@
                     "description": "入库单ID"
                   }
                 },
-                "required": [
-                  "id"
-                ]
+                "required": ["id"]
               },
               "examples": {}
             }
@@ -656,7 +643,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "warehouseId": {
                                 "type": "integer",
@@ -676,19 +663,12 @@
                                 "description": "单据状态  ，0：待审核，1：已审核、2：已入库"
                               }
                             },
-                            "required": [
-                              "id",
-                              "warehouseName"
-                            ]
+                            "required": ["id", "warehouseName"]
                           },
                           "description": "入库藏品明细"
                         }
                       },
-                      "required": [
-                        "id",
-                        "warehouseName",
-                        "collections"
-                      ]
+                      "required": ["id", "warehouseName", "collections"]
                     },
                     "error": {
                       "type": "string",
@@ -847,7 +827,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "warehouseId": {
                                 "type": "integer",
@@ -867,10 +847,7 @@
                                 "description": "单据状态  ，0：待审核，1：已审核、2：已入库"
                               }
                             },
-                            "required": [
-                              "id",
-                              "warehouseName"
-                            ]
+                            "required": ["id", "warehouseName"]
                           }
                         }
                       }
@@ -999,7 +976,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "warehouseName": {
                                 "type": "string",

@@ -4,8 +4,8 @@
     <el-form-item label="藏品编码" prop="collectionCode">
       <el-input v-model="form.collectionCode" placeholder="请输入藏品编码" clearable />
     </el-form-item>
-    <el-form-item label="藏品名称" prop="collectionName">
-      <el-input v-model="form.collectionName" placeholder="请输入藏品名称" clearable />
+    <el-form-item label="藏品规格" prop="collectionName">
+      <el-input v-model="form.collectionName" placeholder="请输入藏品规格" clearable />
     </el-form-item>
     <el-form-item label="工单状态" prop="status">
       <el-select v-model="form.status" placeholder="请选择工单状态" clearable style="width: 200px">

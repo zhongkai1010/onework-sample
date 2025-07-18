@@ -6,7 +6,7 @@ interface Image {
   id: number
   /** 藏品编号 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 标题 */
   title?: string
@@ -59,7 +59,13 @@ export default [
     url: '/api/collection/image',
     method: 'get',
     response: (options: any): ApiResult<PageResult<Image>> => {
-      const { page = 1, limit = 10, collectionCode, collectionName, title } = options.query as ImageQueryParams
+      const {
+        page = 1,
+        limit = 10,
+        collectionCode,
+        collectionName,
+        title
+      } = options.query as ImageQueryParams
 
       let list = [...images]
 

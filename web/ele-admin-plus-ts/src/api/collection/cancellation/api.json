@@ -52,9 +52,7 @@
                     "description": "藏品ID集合"
                   }
                 },
-                "required": [
-                  "collectionIds"
-                ]
+                "required": ["collectionIds"]
               },
               "examples": {}
             }
@@ -302,9 +300,7 @@
                     "title": "分类ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -378,9 +374,7 @@
                     "title": "分类ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -512,7 +506,7 @@
                             },
                             "collectionName": {
                               "type": "string",
-                              "description": "藏品名称"
+                              "description": "藏品规格"
                             },
                             "cancellationTime": {
                               "type": "string",
@@ -524,14 +518,10 @@
                               "description": "单据状态  ，0：待审核，1：已审核、2：已入库"
                             }
                           },
-                          "required": [
-                            "id"
-                          ]
+                          "required": ["id"]
                         }
                       },
-                      "required": [
-                        "collections"
-                      ]
+                      "required": ["collections"]
                     },
                     "error": {
                       "type": "string",
@@ -581,7 +571,7 @@
           {
             "name": "collectionName",
             "in": "query",
-            "description": "藏品名称",
+            "description": "藏品规格",
             "required": false,
             "example": 0,
             "schema": {
@@ -679,7 +669,7 @@
                         },
                         "collectionName": {
                           "type": "string",
-                          "description": "藏品名称"
+                          "description": "藏品规格"
                         },
                         "cancellationTime": {
                           "type": "string",
@@ -691,9 +681,7 @@
                           "description": "状态：0：待注销、1：已注销，2：已恢复"
                         }
                       },
-                      "required": [
-                        "id"
-                      ]
+                      "required": ["id"]
                     },
                     "error": {
                       "type": "string",
@@ -745,10 +733,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "id",
-                  "documentImage"
-                ]
+                "required": ["id", "documentImage"]
               },
               "examples": {}
             }
@@ -817,9 +802,7 @@
                     "title": "分类ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }

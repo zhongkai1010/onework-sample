@@ -35,7 +35,7 @@
           {
             "name": "collectionName",
             "in": "query",
-            "description": "藏品名称",
+            "description": "藏品规格",
             "required": false,
             "schema": {
               "type": "string"
@@ -115,7 +115,7 @@
                           },
                           "collectionName": {
                             "type": "string",
-                            "description": "藏品名称"
+                            "description": "藏品规格"
                           },
                           "categoryId": {
                             "type": "integer",
@@ -355,11 +355,7 @@
                     "description": "盘点情况"
                   }
                 },
-                "required": [
-                  "ids",
-                  "status",
-                  "explanation"
-                ]
+                "required": ["ids", "status", "explanation"]
               },
               "examples": {}
             }
@@ -435,7 +431,7 @@
                   },
                   "collectionName": {
                     "type": "string",
-                    "description": "藏品名称"
+                    "description": "藏品规格"
                   },
                   "categoryId": {
                     "type": "integer",
@@ -614,12 +610,7 @@
                     "description": "入柜时间"
                   }
                 },
-                "required": [
-                  "categoryId",
-                  "material",
-                  "warehouseId",
-                  "planId"
-                ]
+                "required": ["categoryId", "material", "warehouseId", "planId"]
               },
               "examples": {}
             }

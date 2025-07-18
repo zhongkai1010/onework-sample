@@ -49,10 +49,10 @@
           style="width: 200px"
         />
       </el-form-item>
-      <el-form-item label="藏品名称" prop="collectionName">
+      <el-form-item label="藏品规格" prop="collectionName">
         <el-input
           v-model="queryParams.collectionName"
-          placeholder="请输入藏品名称"
+          placeholder="请输入藏品规格"
           clearable
           style="width: 200px"
         />
@@ -148,7 +148,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
 
       showOverflowTooltip: true
     },

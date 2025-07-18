@@ -18,7 +18,7 @@
     <el-form-item label="藏品编号" prop="collectionCode">
       <el-input clearable v-model.trim="form.collectionCode" placeholder="请输入" />
     </el-form-item>
-    <el-form-item label="藏品名称" prop="collectionName">
+    <el-form-item label="藏品规格" prop="collectionName">
       <el-input clearable v-model.trim="form.collectionName" placeholder="请输入" />
     </el-form-item>
     <el-form-item label="仓存位置" prop="warehouseId">

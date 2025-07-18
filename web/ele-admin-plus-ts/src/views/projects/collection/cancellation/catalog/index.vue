@@ -29,8 +29,8 @@
     <reference-button
       title="注销编目"
       :imageUrl="pageImage"
-      searchText="注销单号 藏品编号 藏品名称 注销日期"
-      tableFieldsText="注销单号 藏品编号 藏品名称 注销日期 状态"
+      searchText="注销单号 藏品编号 藏品规格 注销日期"
+      tableFieldsText="注销单号 藏品编号 藏品规格 注销日期 状态"
     />
   </ele-page>
 </template>
@@ -75,7 +75,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       showOverflowTooltip: true
     },

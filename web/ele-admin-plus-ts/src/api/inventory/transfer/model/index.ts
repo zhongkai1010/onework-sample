@@ -38,7 +38,7 @@ export interface TransferDetail {
   numberCategory?: string
   /** 藏品编号 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品类别 */
   categoryName?: string
@@ -144,7 +144,7 @@ export interface TransferCollection {
   code: string
   /** 藏品编号 */
   collectionCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 原出库 */
   originalWarehouse: string
@@ -190,7 +190,7 @@ export interface TransferCatalogItem {
   code: string
   /** 藏品编号 */
   collectionCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 原出库 */
   originalWarehouse: string

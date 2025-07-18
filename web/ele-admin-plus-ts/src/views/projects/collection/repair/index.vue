@@ -158,9 +158,9 @@
     <reference-button
       title="修复记录"
       :imageUrl="pageImage"
-      searchText="修复单号 登记日期 藏品编码 藏品名称 藏品分类 送修部门 送修人 修复原因 备注 送修日期 工单状态 承担机构 修复人 资质证书 修完日期"
+      searchText="修复单号 登记日期 藏品编码 藏品规格 藏品分类 送修部门 送修人 修复原因 备注 送修日期 工单状态 承担机构 修复人 资质证书 修完日期"
       operationText="修复登记 上传图片 导出 单据打印"
-      tableFieldsText="单据图片 修复单号 登记日期 藏品编码 藏品名称 藏品分类 送修部门 送修人 修复原因 备注 送修日期 工单状态 承担机构 修复人 资质证书 修完日期"
+      tableFieldsText="单据图片 修复单号 登记日期 藏品编码 藏品规格 藏品分类 送修部门 送修人 修复原因 备注 送修日期 工单状态 承担机构 修复人 资质证书 修完日期"
       tableOperationsText="上传图片 查看详情 修复入藏"
     />
   </ele-page>
@@ -261,7 +261,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       width: 220,
       showOverflowTooltip: true

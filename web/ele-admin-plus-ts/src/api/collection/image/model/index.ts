@@ -8,7 +8,7 @@ export interface Image {
   id: number
   /** 藏品编号 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 标题 */
   title?: string

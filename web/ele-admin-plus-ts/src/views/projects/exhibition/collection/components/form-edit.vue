@@ -1,8 +1,14 @@
 <template>
-  <ele-dialog v-model="visible" :title="data ? '修改藏品' : '新增藏品'" width="500px" :destroy-on-close="true" @submit="handleSubmit">
+  <ele-dialog
+    v-model="visible"
+    :title="data ? '修改藏品' : '新增藏品'"
+    width="500px"
+    :destroy-on-close="true"
+    @submit="handleSubmit"
+  >
     <ele-form ref="formRef" :model="form" :rules="rules" label-width="100px">
-      <el-form-item label="藏品名称" prop="name">
-        <el-input v-model="form.name" placeholder="请输入藏品名称" />
+      <el-form-item label="藏品规格" prop="name">
+        <el-input v-model="form.name" placeholder="请输入藏品规格" />
       </el-form-item>
       <el-form-item label="藏品编号" prop="code">
         <el-input v-model="form.code" placeholder="请输入藏品编号" />
@@ -57,7 +63,7 @@
   })
 
   const rules = {
-    name: [{ required: true, message: '请输入藏品名称', trigger: 'blur' }],
+    name: [{ required: true, message: '请输入藏品规格', trigger: 'blur' }],
     code: [{ required: true, message: '请输入藏品编号', trigger: 'blur' }],
     type: [{ required: true, message: '请选择藏品类型', trigger: 'change' }],
     level: [{ required: true, message: '请选择藏品级别', trigger: 'change' }]

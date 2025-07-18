@@ -80,7 +80,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       minWidth: 220,
       showOverflowTooltip: true

@@ -60,12 +60,7 @@
                     "description": "藏品ID集合"
                   }
                 },
-                "required": [
-                  "collectionIds",
-                  "transferDate",
-                  "warehouseId",
-                  "receiver"
-                ]
+                "required": ["collectionIds", "transferDate", "warehouseId", "receiver"]
               },
               "examples": {}
             }
@@ -251,10 +246,7 @@
                                 "description": "备注"
                               }
                             },
-                            "required": [
-                              "warehouseName",
-                              "id"
-                            ]
+                            "required": ["warehouseName", "id"]
                           }
                         }
                       }
@@ -307,9 +299,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -383,9 +373,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -530,7 +518,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "originalWarehouse": {
                                 "type": "string",
@@ -563,10 +551,7 @@
                           }
                         }
                       },
-                      "required": [
-                        "id",
-                        "collections"
-                      ]
+                      "required": ["id", "collections"]
                     },
                     "error": {
                       "type": "string",
@@ -726,7 +711,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "originalWarehouse": {
                                 "type": "string",

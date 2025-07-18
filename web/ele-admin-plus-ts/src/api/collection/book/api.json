@@ -147,7 +147,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "rfidCode": {
                                 "type": "string",
@@ -206,12 +206,7 @@
                                 "description": "类型"
                               }
                             },
-                            "required": [
-                              "isbn",
-                              "id",
-                              "categoryName",
-                              "warehouseName"
-                            ]
+                            "required": ["isbn", "id", "categoryName", "warehouseName"]
                           }
                         }
                       }
@@ -278,7 +273,7 @@
                   },
                   "collectionName": {
                     "type": "string",
-                    "description": "藏品名称"
+                    "description": "藏品规格"
                   },
                   "rfidCode": {
                     "type": "string",
@@ -329,9 +324,7 @@
                     "description": "类型"
                   }
                 },
-                "required": [
-                  "isbn"
-                ]
+                "required": ["isbn"]
               },
               "examples": {}
             }
@@ -411,7 +404,7 @@
                   },
                   "collectionName": {
                     "type": "string",
-                    "description": "藏品名称"
+                    "description": "藏品规格"
                   },
                   "rfidCode": {
                     "type": "string",
@@ -462,10 +455,7 @@
                     "description": "类型"
                   }
                 },
-                "required": [
-                  "isbn",
-                  "id"
-                ]
+                "required": ["isbn", "id"]
               },
               "examples": {}
             }
@@ -539,9 +529,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -615,9 +603,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -708,7 +694,7 @@
                     },
                     "collectionName": {
                       "type": "string",
-                      "description": "藏品名称"
+                      "description": "藏品规格"
                     },
                     "rfidCode": {
                       "type": "string",
@@ -767,12 +753,7 @@
                       "description": "类型"
                     }
                   },
-                  "required": [
-                    "isbn",
-                    "id",
-                    "categoryName",
-                    "warehouseName"
-                  ]
+                  "required": ["isbn", "id", "categoryName", "warehouseName"]
                 }
               }
             },

@@ -260,10 +260,7 @@
                                         "description": "分类名称"
                                       }
                                     },
-                                    "required": [
-                                      "categoryId",
-                                      "categoryName"
-                                    ]
+                                    "required": ["categoryId", "categoryName"]
                                   }
                                 },
                                 "description": "类别集合"
@@ -386,10 +383,7 @@
                                     "description": "分类名称"
                                   }
                                 },
-                                "required": [
-                                  "categoryId",
-                                  "categoryName"
-                                ]
+                                "required": ["categoryId", "categoryName"]
                               }
                             },
                             "description": "类别集合"
@@ -488,7 +482,7 @@
                           },
                           "collectionName": {
                             "type": "string",
-                            "description": "藏品名称"
+                            "description": "藏品规格"
                           },
                           "categoryId": {
                             "type": "integer",
@@ -832,9 +826,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }

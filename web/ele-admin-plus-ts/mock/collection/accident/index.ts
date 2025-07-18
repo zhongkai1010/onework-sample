@@ -12,7 +12,7 @@ interface Accident {
   collectionCode: string
   /** 藏品ID */
   collectionId: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 事故时间 */
   incidentTime: string
@@ -78,7 +78,17 @@ export default [
     url: '/api/collection/accident',
     method: 'get',
     response: (options: any): ApiResult<PageResult<Accident>> => {
-      const { page = 1, limit = 10, collectionId, accidentLocation, accidentCause, responsiblePerson, collectionDamageStatus, status, processingResult } = options.query as AccidentQueryParams
+      const {
+        page = 1,
+        limit = 10,
+        collectionId,
+        accidentLocation,
+        accidentCause,
+        responsiblePerson,
+        collectionDamageStatus,
+        status,
+        processingResult
+      } = options.query as AccidentQueryParams
 
       let list = [...accidents]
 

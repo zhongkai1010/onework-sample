@@ -96,7 +96,7 @@ export interface CancellationCollection {
   code: string
   /** 藏品编号 */
   collectionCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 注销日期 */
   cancellationTime: string
@@ -112,7 +112,7 @@ export interface CancellationCatalogQueryParams extends PageParam {
   code?: string
   /** 藏品编号 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 状态：0：待注销、1：已注销，2：已恢复 */
   status?: number
@@ -128,7 +128,7 @@ export interface CancellationCatalogItem {
   code: string
   /** 藏品编号 */
   collectionCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 注销日期 */
   cancellationTime: string

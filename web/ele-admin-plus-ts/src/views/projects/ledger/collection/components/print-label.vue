@@ -21,7 +21,7 @@
             <div class="label-body">
               <div class="label-section">
                 <div class="label-row">
-                  <span class="label-field">藏品名称：</span>
+                  <span class="label-field">藏品规格：</span>
                   <span class="label-value">{{ item.collectionName }}</span>
                 </div>
                 <div class="label-row">
@@ -119,7 +119,7 @@
           <div class="label-body">
             <div class="label-section">
               <div class="label-row">
-                <span class="label-field">藏品名称：</span>
+                <span class="label-field">藏品规格：</span>
                 <span class="label-value">{{ item.collectionName }}</span>
               </div>
               <div class="label-row">

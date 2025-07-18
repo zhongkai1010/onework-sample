@@ -122,12 +122,7 @@
                             "description": "固定列类型"
                           }
                         },
-                        "required": [
-                          "id",
-                          "type",
-                          "tier",
-                          "name"
-                        ]
+                        "required": ["id", "type", "tier", "name"]
                       },
                       "description": "返回数据"
                     },
@@ -218,11 +213,7 @@
                     "description": "固定列类型"
                   }
                 },
-                "required": [
-                  "type",
-                  "tier",
-                  "name"
-                ]
+                "required": ["type", "tier", "name"]
               },
               "examples": {}
             }
@@ -335,12 +326,7 @@
                     "description": "固定列类型"
                   }
                 },
-                "required": [
-                  "id",
-                  "type",
-                  "tier",
-                  "name"
-                ]
+                "required": ["id", "type", "tier", "name"]
               },
               "examples": {}
             }
@@ -409,9 +395,7 @@
                     "description": "ID 编号"
                   }
                 },
-                "required": [
-                  "id"
-                ]
+                "required": ["id"]
               },
               "examples": {}
             }
@@ -597,12 +581,7 @@
                                 "description": "级别，1：库，2：区、3：列、4：节、5：层"
                               }
                             },
-                            "required": [
-                              "tier",
-                              "id",
-                              "name",
-                              "code"
-                            ]
+                            "required": ["tier", "id", "name", "code"]
                           }
                         }
                       }
@@ -779,9 +758,7 @@
                                 "description": "绑定时间"
                               }
                             },
-                            "required": [
-                              "bindingTime"
-                            ]
+                            "required": ["bindingTime"]
                           }
                         }
                       }
@@ -835,10 +812,7 @@
                     "description": "地址条码"
                   }
                 },
-                "required": [
-                  "collectionCode",
-                  "code"
-                ]
+                "required": ["collectionCode", "code"]
               },
               "examples": {}
             }
@@ -948,7 +922,7 @@
           {
             "name": "collectionName",
             "in": "query",
-            "description": "藏品名称",
+            "description": "藏品规格",
             "required": false,
             "schema": {
               "type": "string"
@@ -1024,7 +998,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "categoryName": {
                                 "type": "string",
@@ -1195,11 +1169,7 @@
                                 "description": "入柜时间"
                               }
                             },
-                            "required": [
-                              "warehouseId",
-                              "id",
-                              "collectionName"
-                            ]
+                            "required": ["warehouseId", "id", "collectionName"]
                           }
                         }
                       }

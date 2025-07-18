@@ -3,8 +3,8 @@
     <el-form-item label="藏品编号">
       <el-input clearable v-model.trim="form.collectionCode" placeholder="请输入藏品编号" />
     </el-form-item>
-    <el-form-item label="藏品名称">
-      <el-input clearable v-model.trim="form.collectionName" placeholder="请输入藏品名称" />
+    <el-form-item label="藏品规格">
+      <el-input clearable v-model.trim="form.collectionName" placeholder="请输入藏品规格" />
     </el-form-item>
     <el-form-item label="藏品类别">
       <category-select v-model="form.categoryId" placeholder="请选择藏品类别" clearable />

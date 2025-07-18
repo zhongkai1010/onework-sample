@@ -9,8 +9,8 @@
     <el-form-item label="ISBN" prop="isbn">
       <el-input v-model="form.isbn" placeholder="请输入ISBN" clearable />
     </el-form-item>
-    <el-form-item label="藏品名称" prop="collectionName">
-      <el-input v-model="form.collectionName" placeholder="请输入藏品名称" clearable />
+    <el-form-item label="藏品规格" prop="collectionName">
+      <el-input v-model="form.collectionName" placeholder="请输入藏品规格" clearable />
     </el-form-item>
     <el-form-item label="藏品分类" prop="categoryName">
       <el-input v-model="form.categoryName" placeholder="请输入藏品分类" clearable />

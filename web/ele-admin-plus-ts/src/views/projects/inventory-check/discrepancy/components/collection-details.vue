@@ -11,7 +11,7 @@
     <div class="details-content">
       <el-descriptions v-if="data" :column="2" border>
         <!-- 基本信息 -->
-        <el-descriptions-item label="藏品名称" :span="2">
+        <el-descriptions-item label="藏品规格" :span="2">
           <span class="text-lg font-bold">{{ data.collectionName }}</span>
         </el-descriptions-item>
 

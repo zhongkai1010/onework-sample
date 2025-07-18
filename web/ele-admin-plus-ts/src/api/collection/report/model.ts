@@ -4,7 +4,7 @@
 export interface CollectionReport {
   /** 藏品编号 */
   collectionCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 藏品分类 */
   categoryName: string

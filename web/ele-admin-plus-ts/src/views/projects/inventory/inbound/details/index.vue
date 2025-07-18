@@ -28,8 +28,8 @@
       <reference-button
         title="入库单详情"
         :imageUrl="pageImage"
-        searchText="入库单号 藏品编号 藏品名称 接收库房 入库日期 状态"
-        tableFieldsText="入库单号 藏品编号 藏品名称 接收库房 入库日期 状态"
+        searchText="入库单号 藏品编号 藏品规格 接收库房 入库日期 状态"
+        tableFieldsText="入库单号 藏品编号 藏品规格 接收库房 入库日期 状态"
       />
     </ele-card>
   </ele-page>
@@ -75,7 +75,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       align: 'left',
       showOverflowTooltip: true

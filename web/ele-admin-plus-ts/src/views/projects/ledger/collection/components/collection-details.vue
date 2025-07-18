@@ -15,7 +15,7 @@
         <el-descriptions-item label="藏品状态" class-name="equal-width">
           <el-tag :type="getStatusType(row?.status)">{{ getStatusText(row?.status) }}</el-tag>
         </el-descriptions-item>
-        <el-descriptions-item label="藏品名称" class-name="equal-width">{{
+        <el-descriptions-item label="藏品规格" class-name="equal-width">{{
           row?.collectionName
         }}</el-descriptions-item>
         <el-descriptions-item label="藏品类别" class-name="equal-width">{{

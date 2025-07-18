@@ -57,7 +57,7 @@ export interface InventoryPlanDetails {
   satus: number
   /** RFID编号 */
   rfidCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 藏品类别ID */
   categoryId: number

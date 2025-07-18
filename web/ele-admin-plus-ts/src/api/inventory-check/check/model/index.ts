@@ -14,7 +14,7 @@ export interface InventoryCheckCollectionQueryParams {
   id?: string
   /** 藏品状态， 0：未盘,1：已盘到、2：已盘亏、3：已盘盈 */
   status?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品编号 */
   code?: string
@@ -38,7 +38,7 @@ export interface InventoryCheckCollection {
   satus: number
   /** RFID编号 */
   rfidCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 藏品类别ID */
   categoryId: number
@@ -148,7 +148,7 @@ export interface UpdateInventoryCheckCollectionStatusParams {
 export interface AddInventoryCheckCollectionParams {
   /** 盘点计划ID */
   planId: number
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品类别ID */
   categoryId: number

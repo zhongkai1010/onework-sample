@@ -15,7 +15,7 @@
       <el-descriptions-item label="藏品编码">
         {{ data.collectionCode }}
       </el-descriptions-item>
-      <el-descriptions-item label="藏品名称">
+      <el-descriptions-item label="藏品规格">
         {{ data.collectionName }}
       </el-descriptions-item>
       <el-descriptions-item label="事故时间">

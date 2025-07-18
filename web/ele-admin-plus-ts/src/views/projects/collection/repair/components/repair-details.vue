@@ -19,7 +19,7 @@
           <el-descriptions-item label="藏品编码" class-name="repair-details-item">{{
             data.collectionCode
           }}</el-descriptions-item>
-          <el-descriptions-item label="藏品名称" class-name="repair-details-item">{{
+          <el-descriptions-item label="藏品规格" class-name="repair-details-item">{{
             data.collectionName
           }}</el-descriptions-item>
           <el-descriptions-item label="藏品分类" class-name="repair-details-item">{{

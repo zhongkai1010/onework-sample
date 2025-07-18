@@ -639,7 +639,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "storageDate": {
                                 "type": "string",
@@ -713,7 +713,7 @@
           {
             "name": "collectionName",
             "in": "query",
-            "description": "藏品名称",
+            "description": "藏品规格",
             "required": false,
             "schema": {
               "type": "string"
@@ -826,7 +826,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "storageDate": {
                                 "type": "string",

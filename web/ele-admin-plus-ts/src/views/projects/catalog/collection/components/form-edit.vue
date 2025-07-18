@@ -20,8 +20,13 @@
         <el-row :gutter="16">
           <!-- 基本信息 -->
           <el-col :span="8">
-            <el-form-item label="藏品名称" prop="collectionName">
-              <el-input v-model="form.collectionName" placeholder="请输入藏品名称" clearable />
+            <el-form-item label="藏品名称" prop="groupId">
+              <GroupSelect v-model="form.groupId" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="藏品规格" prop="collectionName">
+              <el-input v-model="form.collectionName" placeholder="请输入藏品规格" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -59,11 +64,7 @@
               <el-input v-model="form.code" placeholder="请输入藏品编号" clearable />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="藏品分组" prop="groupId">
-              <GroupSelect v-model="form.groupId" />
-            </el-form-item>
-          </el-col>
+
           <!-- 数量信息 -->
           <!-- <el-col :span="8">
             <el-form-item label="数量" prop="quantity">
@@ -411,7 +412,7 @@
     collectionName: [
       {
         required: true,
-        message: '请输入藏品名称',
+        message: '请输入藏品规格',
         type: 'string',
         trigger: 'blur'
       }
@@ -427,7 +428,7 @@
     groupId: [
       {
         required: true,
-        message: '请选择藏品分组',
+        message: '请选择藏品名称',
         type: 'number',
         trigger: 'blur'
       }

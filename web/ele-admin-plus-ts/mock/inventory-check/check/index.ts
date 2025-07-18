@@ -112,7 +112,7 @@ export default [
       if (!body.collectionName) {
         return {
           code: 1,
-          message: '藏品名称不能为空',
+          message: '藏品规格不能为空',
           data: null
         }
       }

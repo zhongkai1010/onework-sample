@@ -62,10 +62,7 @@
                     "description": "送修日期"
                   }
                 },
-                "required": [
-                  "registrationDate",
-                  "collectionId"
-                ]
+                "required": ["registrationDate", "collectionId"]
               },
               "examples": {}
             }
@@ -137,7 +134,7 @@
           {
             "name": "collectionName",
             "in": "query",
-            "description": "藏品名称   ",
+            "description": "藏品规格   ",
             "required": false,
             "example": "",
             "schema": {
@@ -260,7 +257,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "collectionCategory": {
                                 "type": "string",
@@ -321,10 +318,7 @@
                                 "description": "修复后图片"
                               }
                             },
-                            "required": [
-                              "id",
-                              "collectionId"
-                            ]
+                            "required": ["id", "collectionId"]
                           }
                         }
                       }
@@ -421,7 +415,7 @@
                             },
                             "collectionName": {
                               "type": "string",
-                              "description": "藏品名称"
+                              "description": "藏品规格"
                             },
                             "collectionCategory": {
                               "type": "string",
@@ -482,10 +476,7 @@
                               "description": "修复后图片"
                             }
                           },
-                          "required": [
-                            "id",
-                            "collectionId"
-                          ]
+                          "required": ["id", "collectionId"]
                         },
                         "documentImage": {
                           "type": "string",
@@ -506,7 +497,7 @@
                         },
                         "collectionName": {
                           "type": "string",
-                          "description": "藏品名称"
+                          "description": "藏品规格"
                         },
                         "collectionCategory": {
                           "type": "string",
@@ -567,9 +558,7 @@
                           "description": "修复后图片"
                         }
                       },
-                      "required": [
-                        "id"
-                      ]
+                      "required": ["id"]
                     },
                     "error": {
                       "type": "string",
@@ -638,9 +627,7 @@
                     "description": "修复后图片"
                   }
                 },
-                "required": [
-                  "id"
-                ]
+                "required": ["id"]
               },
               "examples": {}
             }
@@ -714,9 +701,7 @@
                     "description": "修复人"
                   }
                 },
-                "required": [
-                  "id"
-                ]
+                "required": ["id"]
               },
               "examples": {}
             }
@@ -789,9 +774,7 @@
                     }
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }

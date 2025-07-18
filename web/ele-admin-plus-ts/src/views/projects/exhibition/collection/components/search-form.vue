@@ -8,8 +8,8 @@
         </el-form-item>
       </el-col>
       <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
-        <el-form-item label="藏品名称">
-          <el-input clearable v-model.trim="form.collectionName" placeholder="请输入藏品名称" />
+        <el-form-item label="藏品规格">
+          <el-input clearable v-model.trim="form.collectionName" placeholder="请输入藏品规格" />
         </el-form-item>
       </el-col>
       <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">

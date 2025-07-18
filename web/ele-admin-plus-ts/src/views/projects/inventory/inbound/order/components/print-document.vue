@@ -13,7 +13,7 @@
           <thead>
             <tr>
               <th>藏品编号</th>
-              <th>藏品名称</th>
+              <th>藏品规格</th>
               <th>入库日期</th>
               <th>状态</th>
             </tr>

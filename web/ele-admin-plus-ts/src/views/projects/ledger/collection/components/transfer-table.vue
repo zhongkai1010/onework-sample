@@ -41,7 +41,7 @@
     { prop: 'id', label: '编号', width: 80, align: 'center' },
     { prop: 'code', label: '调拨单号', width: 180 },
     { prop: 'collectionCode', label: '藏品编号', width: 180 },
-    { prop: 'collectionName', label: '藏品名称', width: 180 },
+    { prop: 'collectionName', label: '藏品规格', width: 180 },
     { prop: 'originalWarehouse', label: '原仓库', width: 180 },
     { prop: 'currentWarehouse', label: '现仓库', width: 180 },
     {

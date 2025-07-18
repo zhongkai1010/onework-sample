@@ -127,9 +127,7 @@
                                 "description": "状态，0：未审核，1：已审核"
                               }
                             },
-                            "required": [
-                              "id"
-                            ]
+                            "required": ["id"]
                           }
                         }
                       }
@@ -191,9 +189,7 @@
                     "description": "排序"
                   }
                 },
-                "required": [
-                  "groupName"
-                ]
+                "required": ["groupName"]
               },
               "examples": {}
             }
@@ -282,10 +278,7 @@
                     "description": "状态，0：未审核，1：已审核"
                   }
                 },
-                "required": [
-                  "id",
-                  "groupName"
-                ]
+                "required": ["id", "groupName"]
               },
               "examples": {}
             }
@@ -357,9 +350,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -403,7 +394,7 @@
     },
     "/api/data/group/all": {
       "get": {
-        "summary": "查询全部藏品分组",
+        "summary": "查询全部藏品名称",
         "deprecated": false,
         "description": "",
         "tags": [],
@@ -411,7 +402,7 @@
           {
             "name": "groupName",
             "in": "query",
-            "description": "分组名称",
+            "description": "藏品名称",
             "required": false,
             "schema": {
               "type": "string"
@@ -471,9 +462,7 @@
                             "description": "状态，0：未审核，1：已审核"
                           }
                         },
-                        "required": [
-                          "id"
-                        ]
+                        "required": ["id"]
                       },
                       "title": "PageResult«Role»"
                     },
@@ -564,9 +553,7 @@
                           "description": "状态，0：未审核，1：已审核"
                         }
                       },
-                      "required": [
-                        "id"
-                      ]
+                      "required": ["id"]
                     },
                     "error": {
                       "type": "string",
@@ -618,9 +605,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -712,7 +697,7 @@
           {
             "name": "groupId",
             "in": "query",
-            "description": "藏品分组ID",
+            "description": "藏品名称ID",
             "required": false,
             "schema": {
               "type": "integer"
@@ -775,7 +760,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "rfidCode": {
                                 "type": "string",
@@ -795,7 +780,7 @@
                               },
                               "groupName": {
                                 "type": "string",
-                                "description": "分组名称"
+                                "description": "藏品名称"
                               },
                               "quantity": {
                                 "type": "integer",

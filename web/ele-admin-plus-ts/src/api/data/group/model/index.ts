@@ -56,7 +56,7 @@ export interface DeleteGroupParams {
  * 藏品组藏品查询参数
  */
 export interface GroupCollectionQueryParams extends PageParam {
-  /** 藏品分组ID */
+  /** 藏品名称ID */
   groupId?: number
 }
 
@@ -72,7 +72,7 @@ export interface GroupCollection {
   numberCategory?: string
   /** 藏品编号 */
   code?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** RFID编号 */
   rfidCode?: string
@@ -82,7 +82,7 @@ export interface GroupCollection {
   categoryName?: string
   /** 分组ID */
   groupId?: number
-  /** 分组名称 */
+  /** 藏品名称 */
   groupName?: string
   /** 数量 */
   quantity?: number

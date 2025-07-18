@@ -5,7 +5,7 @@
       <el-input clearable v-model.trim="form.code" placeholder="请输入" />
     </el-form-item>
 
-    <el-form-item label="藏品名称">
+    <el-form-item label="藏品规格">
       <el-input clearable v-model.trim="form.collectionName" placeholder="请输入" />
     </el-form-item>
 
@@ -48,7 +48,7 @@
   const [form, resetFields] = useFormData<CollectionQueryParams>({
     /** 藏品编号 */
     code: undefined,
-    /** 藏品名称 */
+    /** 藏品规格 */
     collectionName: undefined,
     /** 藏品类别ID */
     categoryId: undefined,

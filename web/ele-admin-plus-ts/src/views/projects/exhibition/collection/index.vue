@@ -64,8 +64,8 @@
     <reference-button
       title="展区藏品"
       :imageUrl="pageImage"
-      searchText="展区名称 藏品名称 藏品编号"
-      tableFieldsText="展区名称 藏品名称 藏品编号"
+      searchText="展区名称 藏品规格 藏品编号"
+      tableFieldsText="展区名称 藏品规格 藏品编号"
     />
   </ele-page>
 </template>

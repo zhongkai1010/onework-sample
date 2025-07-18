@@ -4,8 +4,8 @@
       <el-input clearable v-model.trim="form.code" placeholder="请输入藏品编号" />
     </el-form-item>
 
-    <el-form-item label="藏品名称">
-      <el-input clearable v-model.trim="form.collectionName" placeholder="请输入藏品名称" />
+    <el-form-item label="藏品规格">
+      <el-input clearable v-model.trim="form.collectionName" placeholder="请输入藏品规格" />
     </el-form-item>
 
     <el-form-item label="藏品类别">

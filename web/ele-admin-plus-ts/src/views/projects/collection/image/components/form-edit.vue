@@ -11,8 +11,8 @@
       <el-form-item label="藏品编号" prop="collectionCode">
         <el-input v-model="form.collectionCode" placeholder="请输入藏品编号" clearable />
       </el-form-item>
-      <el-form-item label="藏品名称" prop="collectionName">
-        <el-input v-model="form.collectionName" placeholder="请输入藏品名称" clearable />
+      <el-form-item label="藏品规格" prop="collectionName">
+        <el-input v-model="form.collectionName" placeholder="请输入藏品规格" clearable />
       </el-form-item>
       <el-form-item label="标题" prop="title">
         <el-input v-model="form.title" placeholder="请输入标题" clearable />
@@ -72,7 +72,7 @@
 
   /** 表单验证规则 */
   const rules = reactive<FormRules>({
-    collectionName: [{ required: true, message: '请输入藏品名称', trigger: 'blur' }]
+    collectionName: [{ required: true, message: '请输入藏品规格', trigger: 'blur' }]
   })
 
   /** 关闭弹窗 */

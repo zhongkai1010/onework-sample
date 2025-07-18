@@ -27,7 +27,7 @@
           {
             "name": "collectionName",
             "in": "query",
-            "description": "藏品名称   ",
+            "description": "藏品规格   ",
             "required": false,
             "example": "",
             "schema": {
@@ -204,7 +204,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "categoryName": {
                                 "type": "string",
@@ -439,7 +439,7 @@
                   },
                   "collectionName": {
                     "type": "string",
-                    "description": "藏品名称"
+                    "description": "藏品规格"
                   },
                   "categoryId": {
                     "type": "integer",
@@ -594,10 +594,7 @@
                     "description": "入柜时间"
                   }
                 },
-                "required": [
-                  "collectionName",
-                  "code"
-                ]
+                "required": ["collectionName", "code"]
               },
               "examples": {}
             }
@@ -685,7 +682,7 @@
                   },
                   "collectionName": {
                     "type": "string",
-                    "description": "藏品名称"
+                    "description": "藏品规格"
                   },
                   "categoryName": {
                     "type": "string",
@@ -852,11 +849,7 @@
                     "description": "入柜时间"
                   }
                 },
-                "required": [
-                  "categoryId",
-                  "material",
-                  "warehouseId"
-                ]
+                "required": ["categoryId", "material", "warehouseId"]
               },
               "examples": {}
             }
@@ -930,9 +923,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -1006,9 +997,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -1086,10 +1075,7 @@
                     "description": "RFID编号"
                   }
                 },
-                "required": [
-                  "ids",
-                  "rfidCode"
-                ]
+                "required": ["ids", "rfidCode"]
               },
               "examples": {}
             }
@@ -1167,10 +1153,7 @@
                     "description": "分类ID"
                   }
                 },
-                "required": [
-                  "ids",
-                  "categoryId"
-                ]
+                "required": ["ids", "categoryId"]
               },
               "examples": {}
             }
@@ -1348,7 +1331,7 @@
                         },
                         "collectionName": {
                           "type": "string",
-                          "description": "藏品名称"
+                          "description": "藏品规格"
                         },
                         "categoryName": {
                           "type": "string",
@@ -1515,11 +1498,7 @@
                           "description": "入柜时间"
                         }
                       },
-                      "required": [
-                        "id",
-                        "collectionCode",
-                        "collectionName"
-                      ]
+                      "required": ["id", "collectionCode", "collectionName"]
                     },
                     "error": {
                       "type": "string",
@@ -1559,7 +1538,7 @@
           {
             "name": "collectionName",
             "in": "query",
-            "description": "藏品名称",
+            "description": "藏品规格",
             "required": false,
             "example": "",
             "schema": {
@@ -1667,7 +1646,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "categoryName": {
                                 "type": "string",
@@ -1906,9 +1885,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "ids"
-                ]
+                "required": ["ids"]
               },
               "examples": {}
             }
@@ -1970,7 +1947,7 @@
           {
             "name": "collectionName",
             "in": "query",
-            "description": "藏品名称   ",
+            "description": "藏品规格   ",
             "required": false,
             "example": "",
             "schema": {
@@ -2147,7 +2124,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "categoryName": {
                                 "type": "string",

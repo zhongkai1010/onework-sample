@@ -12,7 +12,7 @@ export interface Accident {
   collectionCode?: string
   /** 藏品ID */
   collectionId: number
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 事故时间 */
   incidentTime?: string

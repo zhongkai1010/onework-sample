@@ -14,7 +14,7 @@ export interface Collection {
   numberCategory: string
   /** 藏品编号 */
   code: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 藏品类别 */
   categoryName: string
@@ -106,7 +106,7 @@ export interface Collection {
   productSource: string
   /** 创作 */
   create: string
-  /** 藏品分组 */
+  /** 藏品名称 */
   groupId: number
 }
 
@@ -120,7 +120,7 @@ export interface AddCollectionParams {
   numberCategory?: string
   /** 藏品编号 */
   code?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品类别ID */
   categoryId?: number
@@ -216,7 +216,7 @@ export interface AddCollectionParams {
 export interface CollectionQueryParams extends PageParam {
   /** 藏品编号 */
   code?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品类别ID */
   categoryId?: number

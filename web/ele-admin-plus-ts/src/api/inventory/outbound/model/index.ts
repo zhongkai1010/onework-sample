@@ -39,7 +39,7 @@ export interface OutboundDetail {
   numberCategory?: string
   /** 藏品编号 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品类别 */
   categoryName?: string
@@ -153,7 +153,7 @@ export interface OutboundCatalogQueryParams {
   code?: string
   /** 藏品编号 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 状态，0：未审核、1：待出库、2：已出库、3：已归还 */
   status?: number
@@ -211,7 +211,7 @@ export interface OutboundDetailInfo {
     code: string
     /** 藏品编号 */
     collectionCode: string
-    /** 藏品名称 */
+    /** 藏品规格 */
     collectionName: string
     /** 入库日期 */
     storageDate: string
@@ -232,7 +232,7 @@ export interface OutboundCatalogItem {
   outboundDate: string
   /** 藏品编号 */
   collectionCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 入库日期 */
   storageDate: string

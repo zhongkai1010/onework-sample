@@ -10,7 +10,7 @@ export interface BookCollection {
   imageInfo?: string
   /** 编号类别 */
   numberCategory?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品编号 */
   collectionCode?: string
@@ -50,7 +50,7 @@ export interface AddBookParams {
   imageInfo?: string
   /** 编号类别 */
   numberCategory?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品编号 */
   collectionCode?: string

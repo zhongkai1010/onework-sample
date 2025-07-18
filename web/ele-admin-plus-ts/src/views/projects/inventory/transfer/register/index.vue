@@ -44,9 +44,9 @@
     <reference-button
       title="拨库登记"
       :imageUrl="pageImage"
-      searchText="藏品编号 藏品名称 库房名称 年代 质地类型 质地 数量 单位 具体尺寸 完残程度"
+      searchText="藏品编号 藏品规格 库房名称 年代 质地类型 质地 数量 单位 具体尺寸 完残程度"
       operationText="选择调拨藏品 取消选择 确认选择 删除选中"
-      tableFieldsText="藏品编号 藏品名称 库房名称 年代 质地类型 质地 数量 单位 具体尺寸 完残程度"
+      tableFieldsText="藏品编号 藏品规格 库房名称 年代 质地类型 质地 数量 单位 具体尺寸 完残程度"
     />
   </ele-page>
 </template>
@@ -118,7 +118,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       minWidth: 200,
       showOverflowTooltip: true

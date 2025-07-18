@@ -37,7 +37,7 @@
           {
             "name": "collectionName",
             "in": "query",
-            "description": "藏品名称   ",
+            "description": "藏品规格   ",
             "required": false,
             "example": "",
             "schema": {
@@ -155,7 +155,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "categoryId": {
                                 "type": "integer",
@@ -334,11 +334,7 @@
                                 "description": "入柜时间"
                               }
                             },
-                            "required": [
-                              "categoryId",
-                              "material",
-                              "warehouseId"
-                            ]
+                            "required": ["categoryId", "material", "warehouseId"]
                           }
                         }
                       }
@@ -393,9 +389,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "collectionIds"
-                ]
+                "required": ["collectionIds"]
               },
               "examples": {}
             }
@@ -473,10 +467,7 @@
                     "description": "库存位置ID"
                   }
                 },
-                "required": [
-                  "collectionIds",
-                  "warehouseId"
-                ]
+                "required": ["collectionIds", "warehouseId"]
               },
               "examples": {}
             }
@@ -551,13 +542,10 @@
                   },
                   "groupId": {
                     "type": "string",
-                    "description": "藏品分组ID"
+                    "description": "藏品名称ID"
                   }
                 },
-                "required": [
-                  "collectionIds",
-                  "groupId"
-                ]
+                "required": ["collectionIds", "groupId"]
               },
               "examples": {}
             }
@@ -793,7 +781,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "collectionCategory": {
                                 "type": "string",
@@ -854,10 +842,7 @@
                                 "description": "修复后图片"
                               }
                             },
-                            "required": [
-                              "id",
-                              "collectionId"
-                            ]
+                            "required": ["id", "collectionId"]
                           }
                         }
                       }
@@ -995,7 +980,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "storageDate": {
                                 "type": "string",
@@ -1007,9 +992,7 @@
                                 "description": "状态，0：未审核、1：待出库、2：已出库、3：已归还"
                               }
                             },
-                            "required": [
-                              "id"
-                            ]
+                            "required": ["id"]
                           }
                         }
                       }
@@ -1142,7 +1125,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "originalWarehouse": {
                                 "type": "string",
@@ -1304,7 +1287,7 @@
                               },
                               "collectionName": {
                                 "type": "string",
-                                "description": "藏品名称"
+                                "description": "藏品规格"
                               },
                               "rfidCode": {
                                 "type": "string",
@@ -1363,12 +1346,7 @@
                                 "description": "类型"
                               }
                             },
-                            "required": [
-                              "isbn",
-                              "id",
-                              "categoryName",
-                              "warehouseName"
-                            ]
+                            "required": ["isbn", "id", "categoryName", "warehouseName"]
                           }
                         }
                       }
@@ -1423,9 +1401,7 @@
                     "description": "ID集合"
                   }
                 },
-                "required": [
-                  "collectionIds"
-                ]
+                "required": ["collectionIds"]
               },
               "examples": {}
             }
@@ -1499,10 +1475,7 @@
                     "description": "图片"
                   }
                 },
-                "required": [
-                  "id",
-                  "documentImage"
-                ]
+                "required": ["id", "documentImage"]
               },
               "examples": {}
             }
@@ -1579,10 +1552,7 @@
                     "description": "图片"
                   }
                 },
-                "required": [
-                  "id",
-                  "documentImage"
-                ]
+                "required": ["id", "documentImage"]
               },
               "examples": {}
             }

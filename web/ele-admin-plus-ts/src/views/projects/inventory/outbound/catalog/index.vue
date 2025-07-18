@@ -35,8 +35,8 @@
       <reference-button
         title="出库编目"
         :imageUrl="pageImage"
-        searchText="出库单号 出库日期 藏品编号 藏品名称 入库日期 状态"
-        tableFieldsText="出库单号 出库日期 藏品编号 藏品名称 入库日期 状态"
+        searchText="出库单号 出库日期 藏品编号 藏品规格 入库日期 状态"
+        tableFieldsText="出库单号 出库日期 藏品编号 藏品规格 入库日期 状态"
       />
     </ele-card>
   </ele-page>
@@ -101,7 +101,7 @@
     },
     {
       prop: 'collectionName',
-      label: '藏品名称',
+      label: '藏品规格',
       sortable: 'custom',
       align: 'left',
       showOverflowTooltip: true

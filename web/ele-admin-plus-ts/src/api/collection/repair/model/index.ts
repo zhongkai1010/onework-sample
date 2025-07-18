@@ -16,7 +16,7 @@ export interface Repair {
   collectionCode?: string
   /** 藏品ID */
   collectionId: number
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品分类 */
   collectionCategory?: string
@@ -76,7 +76,7 @@ export interface RepairQueryParams extends PageParam {
   collectionSelection?: string
   /** 藏品编码 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 工单状态 */
   status?: number

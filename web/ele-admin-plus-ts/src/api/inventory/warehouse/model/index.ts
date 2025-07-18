@@ -126,7 +126,7 @@ export interface WarehouseCollection {
   numberCategory?: string
   /** 藏品编号 */
   collectionCode: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName: string
   /** 藏品类别 */
   categoryName?: string
@@ -222,7 +222,7 @@ export interface WarehouseCollectionQueryParams extends PageParam {
   warehouseId?: number
   /** 藏品编号 */
   collectionCode?: string
-  /** 藏品名称 */
+  /** 藏品规格 */
   collectionName?: string
   /** 藏品分类ID */
   categoryId?: number
