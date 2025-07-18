@@ -45,7 +45,7 @@
 
   // 表格列配置
   const columns: Columns = [
-    { prop: 'groupName', label: '藏品分类', align: 'center' },
+    { prop: 'groupName', label: '藏品名称', align: 'center' },
     { prop: 'status0', label: '总库存', align: 'center' },
     { prop: 'status1', label: '入库中', align: 'center' },
     { prop: 'status2', label: '已入库', align: 'center' },

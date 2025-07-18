@@ -30,14 +30,9 @@
           <!-- @ts-ignore -->
           <template #topExtra>
             <div style="margin-bottom: 12px; max-width: 100%">
-              <el-form :inline="true" :model="searchForm" @keyup.enter="handleSearch">
-                <el-form-item label="分组">
-                  <GroupSelect :teleported="false" @change="handleGroupChange" />
-                </el-form-item>
-
-                <el-form-item>
-                  <el-button type="primary" @click="handleSearch">搜索</el-button>
-                  <el-button @click="handleReset">重置</el-button>
+              <el-form :inline="true">
+                <el-form-item label="藏品">
+                  <GroupSelect :teleported="false" @change="handleSearch" />
                 </el-form-item>
               </el-form>
             </div>
@@ -97,8 +92,6 @@
   const formRef = ref<FormInstance>()
 
   /** 藏品选项 */
-
-  const loading = ref(false)
 
   // 表格配置
   const tableProps = reactive({
@@ -164,23 +157,18 @@
     storageDate: [{ required: true, message: '请选择入库日期', trigger: 'change' }]
   }
 
-  /** 当前选中的分组 */
-  const selectedGroup = ref()
-
-  /** 分组选择变化 */
-  const handleGroupChange = (groupValue: any) => {
-    selectedGroup.value = groupValue
-    handleCollectionSearch(groupValue)
-  }
-
   /** 监听入库类型变化 */
   watch(
     () => form.type,
     (newType) => {
       // 清空已选择的藏品
       form.collectionIds = []
+      // 清空表格数据
+      tableProps.datasource = []
+      // 入库类型变化后刷新表格数据
+      handleSearch()
       if (newType) {
-        handleCollectionSearch()
+        // 加载藏品选项数据
       } else {
         tableProps.datasource = []
       }
@@ -223,7 +211,7 @@
       formRef.value?.clearValidate?.()
       // 加载藏品选项数据
       if (form.type) {
-        handleCollectionSearch()
+        // 移除 handleCollectionSearch 相关调用和未使用变量 loading、getCollectionsByType
       }
     })
   }
@@ -233,40 +221,11 @@
     resetFields()
   }
 
-  // 搜索表单数据
-  const searchForm = reactive({
-    collectionCode: '',
-    collectionName: ''
-  })
-
   // 搜索
-  const handleSearch = () => {
-    tableProps.datasource = [] // 可选：清空数据源以触发刷新
-    handleCollectionSearch(selectedGroup.value)
-  }
-
-  // 重置
-  const handleReset = () => {
-    searchForm.collectionCode = ''
-    searchForm.collectionName = ''
-    handleSearch()
-  }
-
-  /** 藏品搜索 */
-  const handleCollectionSearch = (groupValue?: any) => {
-    loading.value = true
-    const type = form.type || 1 // 确保 type 不为 undefined
-    const params: any = { type }
+  const handleSearch = (groupValue?: any) => {
+    const params: any = { type: form.type }
     if (groupValue !== undefined) {
       params.group = groupValue
-    } else if (selectedGroup.value !== undefined) {
-      params.group = selectedGroup.value
-    }
-    if (searchForm.collectionCode) {
-      params.collectionCode = searchForm.collectionCode
-    }
-    if (searchForm.collectionName) {
-      params.collectionName = searchForm.collectionName
     }
     getCollectionsByType(params)
       .then((res) => {
@@ -274,9 +233,6 @@
       })
       .catch((e) => {
         EleMessage.error(e.message)
-      })
-      .finally(() => {
-        loading.value = false
       })
   }
 </script>
