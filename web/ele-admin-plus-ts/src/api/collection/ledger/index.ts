@@ -148,7 +148,7 @@ export async function changeClassification(data: { collectionIds: number[]; grou
     return Promise.reject(new Error('藏品ID集合不能为空'))
   }
   if (!data.groupId) {
-    return Promise.reject(new Error('分组ID不能为空'))
+    return Promise.reject(new Error('藏品名称不能为空'))
   }
   const res = await request.put<ApiResult<unknown>>('/CollectionLedger/changeClassification', data)
   if (res.data.code === 0) {
