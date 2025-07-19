@@ -47,7 +47,7 @@
           style="width: 100%"
         />
       </el-form-item>
-      <el-form-item label="出库数量" prop="outboundNumber">
+      <!-- <el-form-item label="出库数量" prop="outboundNumber">
         <el-input-number
           v-model="form.outboundNumber"
           :min="1"
@@ -55,7 +55,7 @@
           placeholder="请输入出库数量"
           style="width: 100%"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="备注" prop="remarks">
         <el-input v-model="form.remarks" type="textarea" placeholder="请输入备注" :rows="3" />
       </el-form-item>

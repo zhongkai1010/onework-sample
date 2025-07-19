@@ -218,6 +218,10 @@ export interface CollectionQueryParams extends PageParam {
   code?: string
   /** 藏品规格 */
   collectionName?: string
+  /**
+   *  藏品名称
+   */
+  groupId?: number
   /** 藏品类别ID */
   categoryId?: number
   /** 地域类型 */

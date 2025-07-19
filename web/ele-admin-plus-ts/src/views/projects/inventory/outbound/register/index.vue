@@ -109,6 +109,7 @@
       prop: 'collectionName',
       label: '藏品规格',
       sortable: 'custom',
+      width: 220,
       align: 'left',
       showOverflowTooltip: true
     },
@@ -144,14 +145,14 @@
       align: 'center',
       showOverflowTooltip: true
     },
-    {
-      prop: 'quantity',
-      label: '数量',
-      sortable: 'custom',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
-    },
+    // {
+    //   prop: 'quantity',
+    //   label: '数量',
+    //   sortable: 'custom',
+    //   width: 120,
+    //   align: 'center',
+    //   showOverflowTooltip: true
+    // },
     {
       prop: 'unit',
       label: '单位',

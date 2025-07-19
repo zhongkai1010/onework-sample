@@ -5,8 +5,11 @@
       <el-input clearable v-model.trim="form.code" placeholder="请输入" />
     </el-form-item>
 
-    <el-form-item label="藏品规格">
+    <!-- <el-form-item label="藏品规格">
       <el-input clearable v-model.trim="form.collectionName" placeholder="请输入" />
+    </el-form-item> -->
+    <el-form-item label="藏品名称">
+      <GroupSelect v-model.trim="form.groupId" />
     </el-form-item>
 
     <el-form-item label="地域类型">
@@ -39,6 +42,7 @@
   import { useFormData } from '@/utils/use-form-data'
   import type { CollectionQueryParams } from '@/api/collection/catalog/model'
   import { DIC_KEY_REGION_TYPE, DIC_KEY_COLLECTION_SOURCE } from '@/config/setting'
+  import { GroupSelect } from '@/components/CustomForm'
 
   const emit = defineEmits<{
     (e: 'search', where?: CollectionQueryParams): void
@@ -49,7 +53,7 @@
     /** 藏品编号 */
     code: undefined,
     /** 藏品规格 */
-    collectionName: undefined,
+    groupId: void 0,
     /** 藏品类别ID */
     categoryId: undefined,
     /** 地域类型 */

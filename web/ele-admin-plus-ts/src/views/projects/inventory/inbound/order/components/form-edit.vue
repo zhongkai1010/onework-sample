@@ -31,7 +31,7 @@
           <template #topExtra>
             <div style="margin-bottom: 12px; max-width: 100%">
               <el-form :inline="true">
-                <el-form-item label="藏品">
+                <el-form-item label="藏品名称">
                   <GroupSelect :teleported="false" @change="handleSearch" />
                 </el-form-item>
               </el-form>
@@ -225,7 +225,7 @@
   const handleSearch = (groupValue?: any) => {
     const params: any = { type: form.type }
     if (groupValue !== undefined) {
-      params.group = groupValue
+      params.groupId = groupValue
     }
     getCollectionsByType(params)
       .then((res) => {

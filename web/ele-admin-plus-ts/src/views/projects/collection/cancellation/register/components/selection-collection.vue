@@ -10,7 +10,7 @@
       <el-form-item label="入库单号">
         <el-input v-model="form.warehouseNumber" placeholder="请输入入库单号" clearable />
       </el-form-item>
-      <el-form-item label="分组">
+      <el-form-item label="藏品名称">
         <GroupSelect v-model="form.groupId" :teleported="false" />
       </el-form-item>
 

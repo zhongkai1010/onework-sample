@@ -200,14 +200,14 @@
       align: 'center',
       showOverflowTooltip: true,
       formatter: (row) => (typeof row.price === 'number' ? row.price.toFixed(2) : '')
-    },
-    {
-      prop: 'outboundNumber',
-      label: '出库数量',
-      width: 120,
-      align: 'center',
-      showOverflowTooltip: true
     }
+    // {
+    //   prop: 'outboundNumber',
+    //   label: '出库数量',
+    //   width: 120,
+    //   align: 'center',
+    //   showOverflowTooltip: true
+    // }
   ])
 
   /* ==================== 数据源 ==================== */

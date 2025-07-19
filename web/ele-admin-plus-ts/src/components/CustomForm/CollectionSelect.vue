@@ -15,7 +15,7 @@
   >
     <template #topExtra>
       <el-form :model="form" inline>
-        <el-form-item label="分组">
+        <el-form-item label="藏品名称">
           <GroupSelect v-model="form.groupId" :teleported="false" />
         </el-form-item>
         <el-form-item label="编号" name="collectionCode">
@@ -28,7 +28,7 @@
             @keyup.enter="handleSearch"
           />
         </el-form-item>
-        <el-form-item label="名称" name="collectionName">
+        <el-form-item label="藏品规格" name="collectionName">
           <el-input
             v-model="form.collectionName"
             placeholder="请输入名称"
@@ -75,7 +75,7 @@
   const [form, resetFields] = useFormData({
     collectionCode: '',
     collectionName: '',
-    groupId: undefined
+    groupId: void 0
   })
 
   const tableProps = reactive<SelectTableProps>({

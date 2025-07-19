@@ -5,7 +5,7 @@
       <!-- 筛选条件表单 -->
       <div style="margin-bottom: 16px; display: flex; gap: 16px; align-items: center">
         <el-form :inline="true" :model="searchForm" @submit.prevent>
-          <el-form-item label="日期范围">
+          <!-- <el-form-item label="日期范围">
             <el-date-picker
               v-model="searchForm.dateRange"
               type="daterange"
@@ -15,6 +15,9 @@
               style="width: 320px"
               value-format="YYYY-MM-DD"
             />
+          </el-form-item> -->
+          <el-form-item label="藏品分组">
+            <GroupSelect v-model="searchForm.groupId" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSearch">筛选</el-button>
@@ -41,12 +44,13 @@
   import { reactive, ref } from 'vue'
   import { groupIdStatistics } from '@/api/collection/ledger'
   import type { Columns, DatasourceFunction } from 'ele-admin-plus/es/ele-pro-table/types'
-  import dayjs from 'dayjs'
+  // import dayjs from 'dayjs'
+  import { GroupSelect } from '@/components/CustomForm'
 
   // 表格列配置
   const columns: Columns = [
-    { prop: 'groupName', label: '藏品名称', align: 'center' },
-    { prop: 'status0', label: '总库存', align: 'center' },
+    { prop: 'groupName', label: '藏品分组', align: 'center' },
+    { prop: 'status0', label: '藏品规格数量', align: 'center' },
     { prop: 'status1', label: '入库中', align: 'center' },
     { prop: 'status2', label: '已入库', align: 'center' },
     { prop: 'status3', label: '出库中', align: 'center' },
@@ -58,10 +62,11 @@
 
   // 筛选表单数据
   const searchForm = reactive({
-    dateRange: [
-      dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
-      dayjs().format('YYYY-MM-DD')
-    ] as string[]
+    groupId: void 0
+    // dateRange: [
+    //   dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+    //   dayjs().format('YYYY-MM-DD')
+    // ] as string[]
   })
 
   // 表格ref
@@ -69,31 +74,30 @@
 
   // 点击筛选按钮，刷新表格数据
   const handleSearch = () => {
-    let startTime = '',
-      endTime = ''
-    if (Array.isArray(searchForm.dateRange) && searchForm.dateRange.length === 2) {
-      startTime = searchForm.dateRange[0] || ''
-      endTime = searchForm.dateRange[1] || ''
-    }
-    console.log('筛选条件:', { startTime, endTime })
+    // let startTime = '',
+    //   endTime = ''
+    // if (Array.isArray(searchForm.dateRange) && searchForm.dateRange.length === 2) {
+    //   startTime = searchForm.dateRange[0] || ''
+    //   endTime = searchForm.dateRange[1] || ''
+    // }
+    // console.log('筛选条件:', { startTime, endTime })
     tableRef.value?.reload({
-      where: { startTime, endTime }
+      where: { groupId: searchForm.groupId }
     })
   }
 
   // 点击重置按钮，清空筛选条件并刷新表格
   const handleReset = () => {
-    searchForm.dateRange = []
+    searchForm.groupId = undefined
     tableRef.value?.reload({
-      where: { startTime: '', endTime: '' }
+      where: { groupId: undefined }
     })
   }
 
   // 数据源方法，调用后端接口获取数据
   const datasource: DatasourceFunction = async ({ where }) => {
     return groupIdStatistics({
-      startTime: where?.startTime,
-      endTime: where?.endTime
+      groupId: where?.groupId
     })
   }
 </script>
