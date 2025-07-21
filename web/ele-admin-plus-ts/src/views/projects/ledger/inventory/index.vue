@@ -50,14 +50,14 @@
   // 表格列配置
   const columns: Columns = [
     { prop: 'groupName', label: '藏品分组', align: 'center' },
-    { prop: 'status0', label: '藏品规格数量', align: 'center' },
-    { prop: 'status1', label: '入库中', align: 'center' },
-    { prop: 'status2', label: '已入库', align: 'center' },
-    { prop: 'status3', label: '出库中', align: 'center' },
-    { prop: 'status4', label: '已出库', align: 'center' },
-    { prop: 'status5', label: '销毁中', align: 'center' },
-    { prop: 'status6', label: '已销毁', align: 'center' },
-    { prop: 'status7', label: '剩余库存', align: 'center' }
+    { prop: 'status0', label: '预备帐', align: 'center' },
+    { prop: 'status1', label: '在藏', align: 'center' },
+    { prop: 'status2', label: '待出库', align: 'center' },
+    { prop: 'status3', label: '已出库', align: 'center' },
+    { prop: 'status4', label: '待拨库', align: 'center' },
+    { prop: 'status5', label: '修复中', align: 'center' },
+    { prop: 'status6', label: '待注销', align: 'center' },
+    { prop: 'status7', label: '已注销', align: 'center' }
   ]
 
   // 筛选表单数据
