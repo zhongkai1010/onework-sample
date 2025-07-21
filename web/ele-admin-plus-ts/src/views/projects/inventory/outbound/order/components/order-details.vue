@@ -198,8 +198,7 @@
       label: '销售单价',
       width: 120,
       align: 'center',
-      showOverflowTooltip: true,
-      formatter: (row) => (typeof row.price === 'number' ? row.price.toFixed(2) : '')
+      showOverflowTooltip: true
     }
     // {
     //   prop: 'outboundNumber',
