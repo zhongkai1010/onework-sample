@@ -49,7 +49,7 @@
           row?.collectionSource
         }}</el-descriptions-item>
         <el-descriptions-item label="价格" class-name="equal-width">
-          {{ typeof row?.price === 'number' ? row.price.toFixed(2) : '' }}
+          {{ row?.price }}
         </el-descriptions-item>
         <el-descriptions-item label="产品来源" class-name="equal-width">
           {{ row?.productSource }}
