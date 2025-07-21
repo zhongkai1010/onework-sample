@@ -50,6 +50,8 @@
   // 表格列配置
   const columns: Columns = [
     { prop: 'groupName', label: '藏品分组', align: 'center' },
+
+    { prop: 'status8', label: '藏品规格总数', align: 'center' },
     { prop: 'status0', label: '预备帐', align: 'center' },
     { prop: 'status1', label: '在藏', align: 'center' },
     { prop: 'status2', label: '待出库', align: 'center' },
