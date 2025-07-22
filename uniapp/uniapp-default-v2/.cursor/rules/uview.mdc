@@ -1,0 +1,34 @@
+# uView 2.x Component Library Rules
+
+This document outlines the usage rules, referencing conventions, and naming conventions for the uView 2.x component library to align with the @uview.mdc team standards.
+
+## Usage Rules
+
+- Components should be used within the scope of a page or template.
+- Components should be properly closed.
+- Avoid using deprecated components.
+- Follow the documentation and examples provided for each component.
+
+## Referencing Conventions
+
+- Import components using the `u-` prefix, e.g., `<u-button>`.
+- Use kebab-case for component names in templates, e.g., `<u-button>`.
+- Use PascalCase for component names in JavaScript, e.g., `uButton`.
+
+## Naming Conventions
+
+- Component names should be descriptive and follow a logical naming structure.
+- Use kebab-case for component filenames, e.g., `u-button.vue`.
+- Use PascalCase for component names in the exported object, e.g., `UButton`.
+
+## Additional Rules
+
+- Follow the project's coding style and formatting guidelines.
+- Write clear and concise comments for complex code sections.
+- Test components thoroughly before using them in production.
+
+description:
+globs:
+alwaysApply: false
+
+---

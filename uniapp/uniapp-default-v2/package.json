@@ -1,0 +1,24 @@
+{
+  "name": "uniapp-default-v2",
+  "version": "1.0.0",
+  "description": "基于uni-app和uView的多端项目模板",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "dev:h5": "uniapp-cli dev:h5",
+    "dev:mp-weixin": "uniapp-cli dev:mp-weixin",
+    "build:h5": "uniapp-cli build:h5",
+    "build:mp-weixin": "uniapp-cli build:mp-weixin",
+    "lint": "eslint --ext .js,.vue ./"
+  },
+  "dependencies": {
+    "@dcloudio/uni-app-plus": "*",
+    "@dcloudio/uni-h5": "*",
+    "@dcloudio/uni-mp-weixin": "*",
+    "uview-ui": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "jsonc-eslint-parser": "^2.0.0"
+  }
+}

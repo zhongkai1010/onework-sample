@@ -1,0 +1,6 @@
+{
+    "json.validate.enable": false,
+    "css.styleSheets": [
+        "page/**/*.vue"
+    ]
+}
